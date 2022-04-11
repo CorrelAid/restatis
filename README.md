@@ -19,3 +19,6 @@ You can install the development version of restatis from
 # install.packages("devtools")
 devtools::install_github("CorrelAid/restatis")
 ```
+
+## Disclaimer
+This package is not in any way affiliated to Destatis (i.e., the German National Office of Statistics). It is a simple wrapper providing R functions to the Office's API. The package creators are not in any way responsible for the data that can be fetched using its functions. The license of this package solely applies to its source code. 
