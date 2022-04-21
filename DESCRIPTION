@@ -9,6 +9,7 @@ License: MIT + file LICENSE
 Depends: 
     R (>= 4.1)
 Imports: 
+    askpass,
     httr2,
     memoise
 Encoding: UTF-8
