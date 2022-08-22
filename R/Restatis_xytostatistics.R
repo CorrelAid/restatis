@@ -10,13 +10,26 @@ xy_to_statistic <- function(name = NULL,
                             area = NULL,
                             searchcriterion = NULL,
                             sortcriterion = NULL,
-                            type = c("klassifizierend", "insgesamt", "räumlich", "sachlich", "wert", "zeitlich", "zeitidentifizierend", "alle"),
+                            type = NULL,
                             pagelength = NULL,
                             language = NULL,
                              ...) {
 
   if(is.null(language)){
-    language <- Sys.getenv("LANG") # Hilfsfunktion "languagecheck"
+    language = Sys.getenv("LANG") # Hilfsfunktion "languagecheck"
+  }
+
+  if(!(language %in% c("de","eng"))){
+    stop("Available languages are German (de) or English (eng).")
+  }
+
+  if(is.null(type)){
+    type = "alle"
+    message("No type was specified so all types will be included.")
+  }
+
+  if(!(type %in% c("klassifizierend", "insgesamt", "räumlich", "sachlich", "wert", "zeitlich", "zeitidentifizierend", "alle"))){
+    stop("One of the following types must be specified: klassifizierend, insgesamt, räumlich, sachlich, wert, zeitlich, zeitidentifizierend, alle.")
   }
 
   if("tables" %in% category){
