@@ -8,7 +8,7 @@ source("./R/api.R")
 search_for <- function(term = NULL,
                               category = c("tables", "statistics", "variables", "cubes", "time-series"),
                               pagelength = NULL,
-                              language = NULL,
+                              language = "de",
                               ...) {
 
   if(!(is.character(term)) && length(term) < 1L && is.null(term)){
@@ -234,3 +234,4 @@ search_for <- function(term = NULL,
 
   }
 }
+
