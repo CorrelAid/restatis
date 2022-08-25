@@ -141,9 +141,8 @@ xy_to_variable <- function(name = NULL,
     if(details==TRUE){
     lapply(results_json$List, function(x){
       zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "State" = x$State, "LatestUpdate" = x$LatestUpdate, "Information" = x$Information))
-      df_timeseries <<- rbind(df_timeseries, zwisch)})
-      }
-    } else {
+      df_timeseries <<- rbind(df_timeseries, zwisch)})}
+    else {
       lapply(results_json$List, function(x){
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time))
         df_timeseries <<- rbind(df_timeseries, zwisch)})
@@ -155,6 +154,4 @@ xy_to_variable <- function(name = NULL,
   list_resp <- list("Tables" = df_tables, "Statistics" = df_statistics, "Cubes" = df_cubes, "Timeseries" = df_timeseries)
   return(list_resp)
 }
-
-test <- xy_to_variable("ADSAW2")
 

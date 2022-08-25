@@ -153,7 +153,5 @@ list_resp <- list("Tables" = df_tables, "Variables" = df_variables, "Cubes" = df
 return(list_resp)
 }
 
-test <- xy_to_statistic(name="12411", category = c("tables", "variables","cubes","timeseries"))
-
 
 
