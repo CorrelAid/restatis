@@ -88,11 +88,28 @@ read_cube_data_lines <- function(lines, col_names) {
 rename_cube_data_columns <- function(cube) {
   data_cols <- names(cube$QEI)
 
+  # Datenquader-Achsen
   data_cols[startsWith(data_cols, "FACH-SCHL")] <- cube$DQA[order(cube$DQA$`RHF-ACHSE`), ]$NAME
 
+  # Zeitachse
   data_cols[data_cols == "ZI-WERT"] <- cube$DQZ$NAME
 
-  data_cols[data_cols == "WERT"] <- cube$DQI$NAME
+  # Datenquaderinhalte
+  dqi_cols <- data_cols[which(data_cols == "WERT"):length(data_cols)]
+
+  dqi_default_names <- dqi_cols[!startsWith(dqi_cols, "X")]
+
+  # Recycle default column names for each feature
+  dqi_cols_new <- unlist(.mapply(
+    paste,
+    expand.grid(
+      suffix = dqi_default_names,
+      feature_name = cube$DQI$NAME
+    )[, c("feature_name", "suffix")],
+    MoreArgs = list(sep = "_")
+  ))
+
+  data_cols[data_cols %in% dqi_cols] <- dqi_cols_new
 
   names(cube$QEI) <- data_cols
 
