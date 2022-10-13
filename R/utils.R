@@ -15,20 +15,31 @@ str_collapse <- function(x) {
 }
 
 lang_check <- function(x) {
-  if(is.null(x)){
-    language = Sys.getenv("LANG")
-  }
-  if(!(x %in% c("de","eng"))){
-    stop("Available languages are German (de) or English (eng).")
+  x <- x %||% Sys.getenv("GENESIS_LANG")
+
+  if (!(x %in% c("de", "en"))) {
+    stop("Available languages are German (de) or English (en).")
   }
 }
 
 type_check <- function(x) {
-  if(is.null(x)){
-    type = "alle"
-    message("No type was specified so all types will be included.")
-  }
-  if(!(x %in% c("klassifizierend", "insgesamt", "räumlich", "sachlich", "wert", "zeitlich", "zeitidentifizierend", "alle"))){
-    stop("One of the following types must be specified: klassifizierend, insgesamt, räumlich, sachlich, wert, zeitlich, zeitidentifizierend, alle.")
+  x <- x %||% "alle"
+
+  valid_types <- c(
+    "klassifizierend",
+    "insgesamt",
+    "räumlich",
+    "sachlich",
+    "wert",
+    "zeitlich",
+    "zeitidentifizierend",
+    "alle"
+  )
+
+  if (!(x %in% valid_types)) {
+    stop(
+      "One of the following types must be specified:\n",
+      paste(valid_types, collapse = ", "),
+    )
   }
 }
