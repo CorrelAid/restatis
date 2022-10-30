@@ -1,16 +1,8 @@
-library(httr2)
-library(rlang)
-source("./R/auth.R")
-source("./R/api.R")
-
 xy_to_statistic <- function(name = NULL,
                             selection = NULL,
                             category =  c("tables", "variables", "cubes", "timeseries"),
                             area = NULL,
-                            searchcriterion = NULL,
-                            sortcriterion = NULL,
                             type = NULL,
-                            pagelength = NULL,
                             language = "de",
                             details = FALSE,
                              ...) {
@@ -39,7 +31,6 @@ xy_to_statistic <- function(name = NULL,
                            password = gen_auth_get()$password,
                            name = name,
                            selection = selection,
-                           pagelength = pagelength,
                            language = language,
                            ...)
 
@@ -60,11 +51,7 @@ xy_to_statistic <- function(name = NULL,
                            password = gen_auth_get()$password,
                            name = name,
                            selection = selection,
-                           area = area,
-                           searchcriterion = searchcriterion,
-                           sortcriterion = sortcriterion,
                            type = type,
-                           pagelength = pagelength,
                            language = language,
                            ...)
 
@@ -76,11 +63,11 @@ xy_to_statistic <- function(name = NULL,
 
     if(details == TRUE){
     lapply(results_json$List, function(x){
-      zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "Type" =x$Type, "Values" = x$Values, "Information" = x$Information))
+      zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Type" =x$Type, "Values" = x$Values, "Information" = x$Information))
       df_variables <<- rbind(df_variables, zwisch)})}
     else {
       lapply(results_json$List, function(x){
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time))
+        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Type" =x$Type))
         df_variables <<- rbind(df_variables, zwisch)})
     }
   } else {
@@ -93,8 +80,6 @@ xy_to_statistic <- function(name = NULL,
                            password = gen_auth_get()$password,
                            name = name,
                            selection = selection,
-                           area = area,
-                           pagelength = pagelength,
                            language = language,
                            ...)
 
@@ -124,8 +109,6 @@ xy_to_statistic <- function(name = NULL,
                            password = gen_auth_get()$password,
                            name = name,
                            selection = selection,
-                           area = area,
-                           pagelength = pagelength,
                            language = language,
                            ...)
 

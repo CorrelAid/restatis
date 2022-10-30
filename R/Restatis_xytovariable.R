@@ -1,18 +1,9 @@
 # Restatis - xytovariable function
 #install.packages("httr2")
-library(httr2)
-library(rlang)
-source("C:/Users/Dorian/Documents/restatis/restatis/R/auth.R")
-source("C:/Users/Dorian/Documents/restatis/restatis/R/api.R")
-
 xy_to_variable <- function(name = NULL,
                             selection = NULL,
                             category =  c("tables", "statistics", "cubes", "timeseries"),
-                            area = NULL, # Gibt es eine Auflistung der gültigen Parameter hier?
-                            searchcriterion = NULL,
-                            sortcriterion = NULL,
                             type = NULL,
-                            pagelength = NULL,
                             language = "de",
                             details = FALSE,
                             ...) {
@@ -41,9 +32,6 @@ xy_to_variable <- function(name = NULL,
                            username = gen_auth_get()$username,
                            password = gen_auth_get()$password,
                            name = name,
-                           selection = selection,
-                           area = area,
-                           pagelength = pagelength,
                            language = language,
                            ...) # Sollen weiter Parameter erlaubt sein?
 
@@ -64,11 +52,7 @@ xy_to_variable <- function(name = NULL,
                            password = gen_auth_get()$password,
                            name = name,
                            selection = selection,
-                           area = area,
-                           searchcriterion = searchcriterion,
-                           sortcriterion = sortcriterion,
                            type = type,
-                           pagelength = pagelength,
                            language = language,
                            ...) # Sollen weiter Parameter erlaubt sein?
 
@@ -97,8 +81,6 @@ xy_to_variable <- function(name = NULL,
                            password = gen_auth_get()$password,
                            name = name,
                            selection = selection,
-                           area = area,
-                           pagelength = pagelength,
                            language = language,
                            ...) # Sollen weiter Parameter erlaubt sein?
 
@@ -127,8 +109,6 @@ xy_to_variable <- function(name = NULL,
                            password = gen_auth_get()$password,
                            name = name,
                            selection = selection,
-                           area = area,
-                           pagelength = pagelength,
                            language = language,
                            ...) # Sollen weiter Parameter erlaubt sein?
 
