@@ -133,6 +133,10 @@ xy_to_statistic <- function(name = NULL,
   }
 
 list_resp <- list("Tables" = df_tables, "Variables" = df_variables, "Cubes" = df_cubes, "Timeseries" = df_timeseries)
+attr(list_resp, "Term") <-  results_json$Parameter$term
+attr(list_resp, "Language") <-  results_json$Parameter$language
+attr(list_resp, "Pagelength") <-  results_json$Parameter$pagelength
+attr(list_resp, "Copyrigtht") <-  results_json$Copyright
 return(list_resp)
 }
 
