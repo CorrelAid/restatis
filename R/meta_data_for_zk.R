@@ -284,7 +284,7 @@ meta_data_for_cubes <- function(code = NULL,
 
 # Overall ####
 meta_data_for <- function(code = NULL,
-                          type = c("cube", "timeserie", "statistic", "table", "variable", "value"),
+                          type = c("Cube", "Time-serie", "Statistic", "Table", "Variable", "Value"),
                                   ...) {
 
   if(!(is.character(code)) && length(code) < 1L){
@@ -293,27 +293,27 @@ meta_data_for <- function(code = NULL,
 
   type <- match.arg(type)
 
-  if(type == "cube"){
+  if(type == "Cube"){
     meta_data_for_cubes(code = code, ...)
   }
 
-  else if(type == "value"){
+  else if(type == "Value"){
     meta_data_for_values(code = code, ...)
   }
 
-  else if(type == "variable"){
+  else if(type == "Variable"){
     meta_data_for_variables(code = code, ...)
   }
 
-  else if(type == "table"){
+  else if(type == "Table"){
     meta_data_for_tables(code = code, ...)
   }
 
-  else if(type == "statistic"){
+  else if(type == "Statistic"){
     meta_data_for_statistics(code = code, ...)
   }
 
-  else if(type == "timeserie"){
+  else if(type == "Time-serie"){
     meta_data_for_timeseries(code = code, ...)
   }
 

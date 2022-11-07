@@ -53,6 +53,8 @@ search_for <- function(term = NULL,
                                                                           "Titel", "Time",
                                                                           "Variablen", "Spezifisch")]
       }
+
+      df_table$Object_Type <- "Table"
     }
 
     df_stats <- data.frame()
@@ -69,6 +71,8 @@ search_for <- function(term = NULL,
       } else {
         df_stats <- df_stats[, c("Code", "Content", "Title", "Titel", "Information", "Cubes", "Variablen", "Spezifisch")]
       }
+
+      df_stats$Object_Type <- "Statistic"
     }
 
     df_variables <- data.frame()
@@ -85,6 +89,8 @@ search_for <- function(term = NULL,
       } else {
         df_variables <- df_variables[, c("Code", "Content", "Title", "Titel", "Values", "Information", "Variablen", "Spezifisch")]
       }
+
+      df_variables$Object_Type <- "Variable"
     }
 
     df_cubes <- data.frame()
@@ -101,6 +107,8 @@ search_for <- function(term = NULL,
       } else {
         df_cubes <- df_cubes[, c("Code", "Content", "Title" , "Titel", "Time", "LatestUpdate", "State", "Information", "Variablen", "Spezifisch")]
       }
+
+      df_cubes$Object_Type <- "Cube"
     }
 
     df_time.series <- data.frame()
@@ -117,6 +125,8 @@ search_for <- function(term = NULL,
       } else {
         df_time.series <- df_time.series[, c("Code", "Content", "Title", "Titel", "Cubes", "Information", "Variablen", "Spezifisch")]
       }
+
+      df_time.series$Object_Type <- "Time-serie"
     }
 
     list_resp <- list("Tables" = df_table, "Statistics" = df_stats, "Variables" = df_variables, "Cubes" = df_cubes, "Time-series" = df_time.series)
@@ -144,6 +154,8 @@ search_for <- function(term = NULL,
       } else {
         df_table <- df_table[, c("Code", "Content", "Title", "Titel", "Time", "Variablen", "Spezifisch")]
       }
+
+      df_table$Object_Type <- "Table"
     }
 
 
@@ -175,6 +187,8 @@ search_for <- function(term = NULL,
                                                                           "Titel", "Information",
                                                                           "Cubes", "Variablen", "Spezifisch")]
       }
+
+      df_stats$Object_Type <- "Statistic"
     }
 
     list_resp <- list("Statistics" = df_stats)
@@ -209,7 +223,10 @@ search_for <- function(term = NULL,
                                                                                       "Information",
                                                                                       "Variablen", "Spezifisch")]
       }
+
+      df_variables$Object_Type <- "Variable"
     }
+
     list_resp <- list("Variables" = df_variables)
     attr(list_resp, "Term") <-  results_json$Parameter$term
     attr(list_resp, "Language") <-  results_json$Parameter$language
@@ -241,7 +258,10 @@ search_for <- function(term = NULL,
                                                                           "Information",
                                                                           "Variablen", "Spezifisch")]
       }
+
+      df_cubes$Object_Type <- "Cube"
     }
+
     list_resp <- list("Cubes" = df_cubes)
     attr(list_resp, "Term") <-  results_json$Parameter$term
     attr(list_resp, "Language") <-  results_json$Parameter$language
@@ -265,7 +285,9 @@ search_for <- function(term = NULL,
       df_time.series <- df_time.series[with(df_time.series, order(-Titel, -Variablen)), c("Code", "Content", "Title", "Titel", "Time", "Information", "State", "LatestUpdate", "Variablen", "Spezifisch")]
       } else {
         df_time.series <- df_time.series[, c("Code", "Content", "Title", "Titel", "Time", "Information", "State", "LatestUpdate", "Variablen", "Spezifisch")]
-    }
+      }
+
+      df_time.series$Object_Type <- "Time-serie"
     }
 
 
@@ -301,6 +323,8 @@ search_for <- function(term = NULL,
                                    #"Title","Titel", "Time","Variablen", "Spezifisch"
           )]
         }
+
+        df_table$Object_Type <- "Table"
       }
 
       df_stats <- data.frame()
@@ -321,6 +345,8 @@ search_for <- function(term = NULL,
                                    #"Title", "Titel", "Information", "Cubes", "Variablen", "Spezifisch"
                                    )]
         }
+
+        df_stats$Object_Type <- "Statistic"
       }
 
       df_variables <- data.frame()
@@ -341,6 +367,8 @@ search_for <- function(term = NULL,
                                            #"Title", "Titel", "Values", "Information", "Variablen", "Spezifisch"
                                            )]
         }
+
+        df_variables$Object_Type <- "Variable"
       }
 
       df_cubes <- data.frame()
@@ -361,6 +389,8 @@ search_for <- function(term = NULL,
                                    #"Title" , "Titel", "Time", "LatestUpdate", "State", "Information", "Variablen", "Spezifisch"
                                    )]
         }
+
+        df_cubes$Object_Type <- "Cube"
       }
 
       df_time.series <- data.frame()
@@ -381,6 +411,8 @@ search_for <- function(term = NULL,
                                                #"Title", "Titel", "Cubes", "Information", "Variablen", "Spezifisch"
           )]
         }
+
+        df_time.series$Object_Type <- "Time-serie"
       }
 
       list_resp <- list("Tables" = df_table, "Statistics" = df_stats, "Variables" = df_variables, "Cubes" = df_cubes, "Time-series" = df_time.series)
@@ -412,6 +444,8 @@ search_for <- function(term = NULL,
                                    #"Title", "Titel", "Time", "Variablen", "Spezifisch"
                                    )]
         }
+
+        df_table$Object_Type <- "Table"
       }
 
 
@@ -443,6 +477,8 @@ search_for <- function(term = NULL,
                                    #"Title","Titel", "Information", "Cubes", "Variablen", "Spezifisch"
                                    )]
         }
+
+        df_stats$Object_Type <- "Statistic"
       }
 
       list_resp <- list("Statistics" = df_stats)
@@ -473,7 +509,10 @@ search_for <- function(term = NULL,
                                            #"Title","Titel","Values","Information","Variablen", "Spezifisch"
                                            )]
         }
+
+        df_variables$Object_Type <- "Variable"
       }
+
       list_resp <- list("Variables" = df_variables)
       attr(list_resp, "Term") <-  results_json$Parameter$term
       attr(list_resp, "Language") <-  results_json$Parameter$language
@@ -501,7 +540,10 @@ search_for <- function(term = NULL,
                                    #"Title",    "Titel",    "Time", "LatestUpdate", "State",      "Information",            "Variablen", "Spezifisch"
           )]
         }
+
+        df_cubes$Object_Type <- "Cube"
       }
+
       list_resp <- list("Cubes" = df_cubes)
       attr(list_resp, "Term") <-  results_json$Parameter$term
       attr(list_resp, "Language") <-  results_json$Parameter$language
@@ -530,6 +572,8 @@ search_for <- function(term = NULL,
                                                #"Title", "Titel", "Cubes", "Information", "Variablen", "Spezifisch"
                                                )]
         }
+
+        df_time.series$Object_Type <- "Time-serie"
       }
 
 
