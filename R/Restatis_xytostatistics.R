@@ -1,8 +1,5 @@
 xy_to_statistic <- function(name = NULL,
-                            selection = NULL,
                             category =  c("tables", "variables", "cubes", "timeseries"),
-                            area = NULL,
-                            type = NULL,
                             language = "de",
                             details = FALSE,
                              ...) {
@@ -12,25 +9,24 @@ xy_to_statistic <- function(name = NULL,
     stop("Available languages are German (de) or English (eng).")
   }
 
-  if(is.null(type)){
-    type = "alle"
-    message("No type was specified so all types will be included.")
-  }
+  # if(is.null(type)){
+  #   type = "alle"
+  #   message("No type was specified so all types will be included.")
+  # }
 
   if(details == FALSE){
     message("Use details = TRUE to obtain the complete output.")
   }
 
-  if(!(type %in% c("klassifizierend", "insgesamt", "räumlich", "sachlich", "wert", "zeitlich", "zeitidentifizierend", "alle"))){
-    stop("One of the following types must be specified: klassifizierend, insgesamt, räumlich, sachlich, wert, zeitlich, zeitidentifizierend, alle.")
-  }
+  # if(!(type %in% c("klassifizierend", "insgesamt", "räumlich", "sachlich", "wert", "zeitlich", "zeitidentifizierend", "alle"))){
+  #   stop("One of the following types must be specified: klassifizierend, insgesamt, räumlich, sachlich, wert, zeitlich, zeitidentifizierend, alle.")
+  # }
 
   if("tables" %in% category){
     results_raw <- gen_api("catalogue/tables2statistic",
                            username = gen_auth_get()$username,
                            password = gen_auth_get()$password,
                            name = name,
-                           selection = selection,
                            language = language,
                            ...)
 
@@ -45,13 +41,13 @@ xy_to_statistic <- function(name = NULL,
     df_tables <- data.frame()
   }
 
+  df_tables$Object_Type <- "Table"
+
   if("variables" %in% category){
     results_raw <- gen_api("catalogue/variables2statistic",
                            username = gen_auth_get()$username,
                            password = gen_auth_get()$password,
                            name = name,
-                           selection = selection,
-                           type = type,
                            language = language,
                            ...)
 
@@ -74,12 +70,13 @@ xy_to_statistic <- function(name = NULL,
     df_variables <- data.frame()
   }
 
+  df_variables$Object_Type <- "Variable"
+
   if("cubes" %in% category){
     results_raw <- gen_api("catalogue/cubes2statistic",
                            username = gen_auth_get()$username,
                            password = gen_auth_get()$password,
                            name = name,
-                           selection = selection,
                            language = language,
                            ...)
 
@@ -103,12 +100,14 @@ xy_to_statistic <- function(name = NULL,
     df_cubes <- data.frame()
   }
 
+  df_cubes$Object_Type <- "Cube"
+
+
   if("timeseries" %in% category){
     results_raw <- gen_api("catalogue/timeseries2statistic",
                            username = gen_auth_get()$username,
                            password = gen_auth_get()$password,
                            name = name,
-                           selection = selection,
                            language = language,
                            ...)
 
@@ -131,6 +130,8 @@ xy_to_statistic <- function(name = NULL,
   } else {
     df_timeseries <- data.frame()
   }
+
+  df_timeseries$Object_Type <- "Time-serie"
 
 list_resp <- list("Tables" = df_tables, "Variables" = df_variables, "Cubes" = df_cubes, "Timeseries" = df_timeseries)
 attr(list_resp, "Term") <-  results_json$Parameter$term

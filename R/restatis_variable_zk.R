@@ -26,6 +26,8 @@ get_variables_from_statistic <- function(code = NULL,
     })
   }
 
+  list_of_variables$Object_Type <- "Variable"
+
   list_resp <- list("Variables" = list_of_variables)
   attr(list_resp, "Code") <-  results_json$Parameter$name
   attr(list_resp, "Language") <-  results_json$Parameter$language
@@ -55,6 +57,10 @@ get_values_from_variables <- function(name = NULL,
     zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Variables" = x$Variables, "Information" = x$Information))
     list_of_variables <<- rbind(list_of_variables, zwisch)
   })
+
+  if(nrow(list_of_variables) > 0){
+    list_of_variables$Object_Type <- "Value"
+  }
 
   list_resp <- list("Values" = list_of_variables)
   attr(list_resp, "Name") <-  results_json$Parameter$name
@@ -88,6 +94,7 @@ get_values_from_variables_from_statistic <- function(code = NULL,
   return(list_resp)
 }
 
+# search variable ####
 search_variables <- function(code = NULL, ...){
   if(!(is.character(code)) && length(code) < 1L && is.null(code)){
     stop("code must be a single string or NULL", call. = FALSE)

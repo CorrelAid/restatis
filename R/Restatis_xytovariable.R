@@ -1,9 +1,7 @@
 # Restatis - xytovariable function
 #install.packages("httr2")
 xy_to_variable <- function(name = NULL,
-                            selection = NULL,
                             category =  c("tables", "statistics", "cubes", "timeseries"),
-                            type = NULL,
                             language = "de",
                             details = FALSE,
                             ...) {
@@ -13,18 +11,18 @@ xy_to_variable <- function(name = NULL,
     stop("Available languages are German (de) or English (eng).")
   }
 
-  if(is.null(type)){
-    type = "alle"
-    message("No type was specified so all types will be included.")
-  }
+  # if(is.null(type)){
+  #   type = "alle"
+  #   message("No type was specified so all types will be included.")
+  # }
 
   if(details == FALSE){
     message("Use details = TRUE to obtain the complete output.")
   }
 
-  if(!(type %in% c("klassifizierend", "insgesamt", "räumlich", "sachlich", "wert", "zeitlich", "zeitidentifizierend", "alle"))){
-    stop("One of the following types must be specified: klassifizierend, insgesamt, räumlich, sachlich, wert, zeitlich, zeitidentifizierend, alle.")
-  }
+  # if(!(type %in% c("klassifizierend", "insgesamt", "räumlich", "sachlich", "wert", "zeitlich", "zeitidentifizierend", "alle"))){
+  #   stop("One of the following types must be specified: klassifizierend, insgesamt, räumlich, sachlich, wert, zeitlich, zeitidentifizierend, alle.")
+  # }
 
 
   if("tables" %in% category){
@@ -38,6 +36,7 @@ xy_to_variable <- function(name = NULL,
     if(resp_content_type(results_raw) == "application/json"){
       results_json <<- resp_body_json(results_raw)
     }
+
     df_tables <- data.frame()
     lapply(results_json$List, function(x){
       zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time))
@@ -46,13 +45,13 @@ xy_to_variable <- function(name = NULL,
     df_tables <- data.frame()
   }
 
+  df_tables$Object_Type <- "Table"
+
   if("statistics" %in% category){
     results_raw <- gen_api("catalogue/statistics2variable",
                            username = gen_auth_get()$username,
                            password = gen_auth_get()$password,
                            name = name,
-                           selection = selection,
-                           type = type,
                            language = language,
                            ...) # Sollen weiter Parameter erlaubt sein?
 
@@ -75,12 +74,13 @@ xy_to_variable <- function(name = NULL,
     df_statistics <- data.frame()
   }
 
+  df_statistics$Object_Type <- "Statistic"
+
   if("cubes" %in% category){
     results_raw <- gen_api("catalogue/cubes2variable",
                            username = gen_auth_get()$username,
                            password = gen_auth_get()$password,
                            name = name,
-                           selection = selection,
                            language = language,
                            ...) # Sollen weiter Parameter erlaubt sein?
 
@@ -103,12 +103,13 @@ xy_to_variable <- function(name = NULL,
     df_cubes <- data.frame()
   }
 
+  df_cubes$Object_Type <- "Cube"
+
   if("timeseries" %in% category){
     results_raw <- gen_api("catalogue/timeseries2variable",
                            username = gen_auth_get()$username,
                            password = gen_auth_get()$password,
                            name = name,
-                           selection = selection,
                            language = language,
                            ...) # Sollen weiter Parameter erlaubt sein?
 
@@ -130,6 +131,8 @@ xy_to_variable <- function(name = NULL,
   } else {
     df_timeseries <- data.frame()
   }
+
+  df_timeseries$Object_Type <- "Time-serie"
 
   list_resp <- list("Tables" = df_tables, "Statistics" = df_statistics, "Cubes" = df_cubes, "Timeseries" = df_timeseries)
   attr(list_resp, "Term") <-  results_json$Parameter$term
