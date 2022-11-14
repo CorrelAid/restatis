@@ -1,7 +1,7 @@
 # Restatis - xytovariable function
 #install.packages("httr2")
 xy_to_variable <- function(name = NULL,
-                            category =  c("tables", "statistics", "cubes", "timeseries"),
+                            category =  c("tables", "statistics", "cubes"),
                             language = "de",
                             detailed = FALSE,
                             ...) {
