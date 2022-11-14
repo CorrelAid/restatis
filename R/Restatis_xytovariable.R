@@ -3,7 +3,7 @@
 xy_to_variable <- function(name = NULL,
                             category =  c("tables", "statistics", "cubes", "timeseries"),
                             language = "de",
-                            details = FALSE,
+                            detailed = FALSE,
                             ...) {
 
 
@@ -16,8 +16,8 @@ xy_to_variable <- function(name = NULL,
   #   message("No type was specified so all types will be included.")
   # }
 
-  if(details == FALSE){
-    message("Use details = TRUE to obtain the complete output.")
+  if(detailed == FALSE){
+    message("Use detailed = TRUE to obtain the complete output.")
   }
 
   # if(!(type %in% c("klassifizierend", "insgesamt", "räumlich", "sachlich", "wert", "zeitlich", "zeitidentifizierend", "alle"))){
@@ -33,8 +33,8 @@ xy_to_variable <- function(name = NULL,
                            language = language,
                            ...) # Sollen weiter Parameter erlaubt sein?
 
-    if(resp_content_type(results_raw) == "application/json"){
-      results_json <<- resp_body_json(results_raw)
+    if(httr2::resp_content_type(results_raw) == "application/json"){
+      results_json <<- httr2::resp_body_json(results_raw)
     }
 
     df_tables <- data.frame()
@@ -55,13 +55,13 @@ xy_to_variable <- function(name = NULL,
                            language = language,
                            ...) # Sollen weiter Parameter erlaubt sein?
 
-    if(resp_content_type(results_raw) == "application/json"){
-      results_json <<- resp_body_json(results_raw)
+    if(httr2::resp_content_type(results_raw) == "application/json"){
+      results_json <<- httr2::resp_body_json(results_raw)
     }
 
     df_statistics <- data.frame()
 
-    if(details==TRUE){
+    if(detailed==TRUE){
     lapply(results_json$List, function(x){
       zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content,"Cubes" = x$Cubes, "Information" = x$Information))
       df_statistics <<- rbind(df_statistics, zwisch)})}
@@ -77,20 +77,20 @@ xy_to_variable <- function(name = NULL,
   df_statistics$Object_Type <- "Statistic"
 
   if("cubes" %in% category){
-    results_raw <- gen_api("catalogue/cubes2variable",
+    results_raw <- gen_api("catalogue/timeseries2variable",
                            username = gen_auth_get()$username,
                            password = gen_auth_get()$password,
                            name = name,
                            language = language,
                            ...) # Sollen weiter Parameter erlaubt sein?
 
-    if(resp_content_type(results_raw) == "application/json"){
-      results_json <<- resp_body_json(results_raw)
+    if(httr2::resp_content_type(results_raw) == "application/json"){
+      results_json <<- httr2::resp_body_json(results_raw)
     }
 
     df_cubes <- data.frame()
 
-    if(details==TRUE){
+    if(detailed==TRUE){
     lapply(results_json$List, function(x){
       zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "State" = x$State, "LatestUpdate" = x$LatestUpdate, "Information" = x$Information))
       df_cubes <<- rbind(df_cubes, zwisch)})}
@@ -105,36 +105,8 @@ xy_to_variable <- function(name = NULL,
 
   df_cubes$Object_Type <- "Cube"
 
-  if("timeseries" %in% category){
-    results_raw <- gen_api("catalogue/timeseries2variable",
-                           username = gen_auth_get()$username,
-                           password = gen_auth_get()$password,
-                           name = name,
-                           language = language,
-                           ...) # Sollen weiter Parameter erlaubt sein?
 
-    if(resp_content_type(results_raw) == "application/json"){
-      results_json <<- resp_body_json(results_raw)
-    }
-
-    df_timeseries <- data.frame()
-
-    if(details==TRUE){
-    lapply(results_json$List, function(x){
-      zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "State" = x$State, "LatestUpdate" = x$LatestUpdate, "Information" = x$Information))
-      df_timeseries <<- rbind(df_timeseries, zwisch)})}
-    else {
-      lapply(results_json$List, function(x){
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time))
-        df_timeseries <<- rbind(df_timeseries, zwisch)})
-    }
-  } else {
-    df_timeseries <- data.frame()
-  }
-
-  df_timeseries$Object_Type <- "Time-serie"
-
-  list_resp <- list("Tables" = df_tables, "Statistics" = df_statistics, "Cubes" = df_cubes, "Timeseries" = df_timeseries)
+  list_resp <- list("Tables" = df_tables, "Statistics" = df_statistics, "Cubes" = df_cubes)
   attr(list_resp, "Term") <-  results_json$Parameter$term
   attr(list_resp, "Language") <-  results_json$Parameter$language
   attr(list_resp, "Pagelength") <-  results_json$Parameter$pagelength

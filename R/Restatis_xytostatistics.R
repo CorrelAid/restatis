@@ -1,7 +1,7 @@
 xy_to_statistic <- function(name = NULL,
                             category =  c("tables", "variables", "cubes", "timeseries"),
                             language = "de",
-                            details = FALSE,
+                            detailed = FALSE,
                              ...) {
 
 
@@ -14,8 +14,8 @@ xy_to_statistic <- function(name = NULL,
   #   message("No type was specified so all types will be included.")
   # }
 
-  if(details == FALSE){
-    message("Use details = TRUE to obtain the complete output.")
+  if(detailed == FALSE){
+    message("Use detailed = TRUE to obtain the complete output.")
   }
 
   # if(!(type %in% c("klassifizierend", "insgesamt", "räumlich", "sachlich", "wert", "zeitlich", "zeitidentifizierend", "alle"))){
@@ -30,8 +30,8 @@ xy_to_statistic <- function(name = NULL,
                            language = language,
                            ...)
 
-    if(resp_content_type(results_raw) == "application/json"){
-      results_json <<- resp_body_json(results_raw)
+    if(httr2::resp_content_type(results_raw) == "application/json"){
+      results_json <<- httr2::resp_body_json(results_raw)
     }
     df_tables <- data.frame()
     lapply(results_json$List, function(x){
@@ -51,13 +51,13 @@ xy_to_statistic <- function(name = NULL,
                            language = language,
                            ...)
 
-    if(resp_content_type(results_raw) == "application/json"){
-      results_json <<- resp_body_json(results_raw)
+    if(httr2::resp_content_type(results_raw) == "application/json"){
+      results_json <<- httr2::resp_body_json(results_raw)
     }
 
     df_variables <- data.frame()
 
-    if(details == TRUE){
+    if(detailed == TRUE){
     lapply(results_json$List, function(x){
       zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Type" =x$Type, "Values" = x$Values, "Information" = x$Information))
       df_variables <<- rbind(df_variables, zwisch)})}
@@ -80,13 +80,13 @@ xy_to_statistic <- function(name = NULL,
                            language = language,
                            ...)
 
-    if(resp_content_type(results_raw) == "application/json"){
-      results_json <<- resp_body_json(results_raw)
+    if(httr2::resp_content_type(results_raw) == "application/json"){
+      results_json <<- httr2::resp_body_json(results_raw)
     }
 
     df_cubes <- data.frame()
 
-    if(details==TRUE){
+    if(detailed==TRUE){
     lapply(results_json$List, function(x){
       zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "State" = x$State, "LatestUpdate" = x$LatestUpdate, "Information" = x$Information))
       df_cubes <<- rbind(df_cubes, zwisch)})}
@@ -111,13 +111,13 @@ xy_to_statistic <- function(name = NULL,
                            language = language,
                            ...)
 
-    if(resp_content_type(results_raw) == "application/json"){
-      results_json <<- resp_body_json(results_raw)
+    if(httr2::resp_content_type(results_raw) == "application/json"){
+      results_json <<- httr2::resp_body_json(results_raw)
     }
 
     df_timeseries <- data.frame()
 
-    if(details==TRUE){
+    if(detailed==TRUE){
     lapply(results_json$List, function(x){
       zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "State" = x$State, "LatestUpdate" = x$LatestUpdate, "Information" = x$Information))
       df_timeseries <<- rbind(df_timeseries, zwisch)})}
