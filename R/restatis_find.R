@@ -1,7 +1,7 @@
 # Restatis - find function
 search_for <- function(term = NULL,
                        category = c("tables", "statistics", "variables", "cubes", "time-series"),
-                       details = F,
+                       detailed = F,
                        ordering = T,
                        ...) {
 
@@ -17,7 +17,7 @@ search_for <- function(term = NULL,
     stop("category must be one of the offered options", call. = T)
   }
 
-  if(!(is.logical(details))){
+  if(!(is.logical(detailed))){
     stop("parameter has to be logical", call. = T)
   }
 
@@ -32,7 +32,7 @@ search_for <- function(term = NULL,
     results_json <<- resp_body_json(results_raw)
   }
 
-  if(details == T){
+  if(detailed == T){
   if( category == "all"){
 
     df_table <- data.frame()
@@ -302,7 +302,7 @@ search_for <- function(term = NULL,
 }
 
 
-  if(details == F){
+  if(detailed == F){
     if( category == "all"){
 
       df_table <- data.frame()
