@@ -1,7 +1,7 @@
 xy_to_statistic <- function(name = NULL,
                             category =  c("tables", "variables", "cubes", "timeseries"),
                             language = "de",
-                            detailed = FALSE,
+                            detailed = F,
                              ...) {
 
 
@@ -35,7 +35,7 @@ xy_to_statistic <- function(name = NULL,
     }
     df_tables <- data.frame()
     lapply(results_json$List, function(x){
-      zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time))
+      zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
       df_tables <<- rbind(df_tables, zwisch)})
   } else {
     df_tables <- data.frame()
@@ -63,7 +63,7 @@ xy_to_statistic <- function(name = NULL,
       df_variables <<- rbind(df_variables, zwisch)})}
     else {
       lapply(results_json$List, function(x){
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Type" =x$Type))
+        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
         df_variables <<- rbind(df_variables, zwisch)})
     }
   } else {
@@ -92,7 +92,7 @@ xy_to_statistic <- function(name = NULL,
       df_cubes <<- rbind(df_cubes, zwisch)})}
     else {
       lapply(results_json$List, function(x){
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time))
+        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
         df_cubes <<- rbind(df_cubes, zwisch)})
     }
 
@@ -123,7 +123,7 @@ xy_to_statistic <- function(name = NULL,
       df_timeseries <<- rbind(df_timeseries, zwisch)})}
     else{
       lapply(results_json$List, function(x){
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time))
+        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
         df_timeseries <<- rbind(df_timeseries, zwisch)})
     }
 
@@ -140,6 +140,4 @@ attr(list_resp, "Pagelength") <-  results_json$Parameter$pagelength
 attr(list_resp, "Copyrigtht") <-  results_json$Copyright
 return(list_resp)
 }
-
-
 

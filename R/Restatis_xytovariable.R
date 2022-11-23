@@ -3,7 +3,7 @@
 xy_to_variable <- function(name = NULL,
                             category =  c("tables", "statistics", "cubes"),
                             language = "de",
-                            detailed = FALSE,
+                            detailed = F,
                             ...) {
 
 
@@ -38,9 +38,15 @@ xy_to_variable <- function(name = NULL,
     }
 
     df_tables <- data.frame()
+    if(detailed == TRUE){
     lapply(results_json$List, function(x){
       zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time))
-      df_tables <<- rbind(df_tables, zwisch)})
+      df_tables <<- rbind(df_tables, zwisch)})}
+    else {
+      lapply(results_json$List, function(x){
+        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
+        df_tables <<- rbind(df_tables, zwisch)})
+      }
   } else {
     df_tables <- data.frame()
   }
@@ -67,7 +73,7 @@ xy_to_variable <- function(name = NULL,
       df_statistics <<- rbind(df_statistics, zwisch)})}
     else {
       lapply(results_json$List, function(x){
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content,"Cubes" = x$Cubes))
+        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
         df_statistics <<- rbind(df_statistics, zwisch)})
     }
   } else {
@@ -96,7 +102,7 @@ xy_to_variable <- function(name = NULL,
       df_cubes <<- rbind(df_cubes, zwisch)})}
     else {
       lapply(results_json$List, function(x){
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time))
+        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
         df_cubes <<- rbind(df_cubes, zwisch)})
     }
   } else {
