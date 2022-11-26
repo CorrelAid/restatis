@@ -1,143 +1,156 @@
-xy_to_statistic <- function(name = NULL,
-                            category =  c("tables", "variables", "cubes", "timeseries"),
-                            language = "de",
+#' Get Objects related to Statistics
+#'
+#' @param code
+#' @param category
+#' @param detailed
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+xy_to_statistic <- function(code = NULL,
+                            category = c("tables", "variables", "cubes"),
                             detailed = F,
-                             ...) {
-
-
-  if(!(language %in% c("de","eng"))){
-    stop("Available languages are German (de) or English (eng).")
+                            ...) {
+  # Checks ####
+  if (!(is.character(code)) && length(code) < 1L && is.null(code)) {
+    stop("code must be a single string or NULL", call. = FALSE)
   }
 
-  # if(is.null(type)){
-  #   type = "alle"
-  #   message("No type was specified so all types will be included.")
-  # }
-
-  if(detailed == FALSE){
+  if (detailed == FALSE) {
     message("Use detailed = TRUE to obtain the complete output.")
   }
 
-  # if(!(type %in% c("klassifizierend", "insgesamt", "räumlich", "sachlich", "wert", "zeitlich", "zeitidentifizierend", "alle"))){
-  #   stop("One of the following types must be specified: klassifizierend, insgesamt, räumlich, sachlich, wert, zeitlich, zeitidentifizierend, alle.")
-  # }
+  if (!all(category %in% c("tables", "variables", "cubes"))) {
+    stop("Available categories are tables, variables, and cubes.")
+  }
 
-  if("tables" %in% category){
+  if (!(isTRUE(detailed) | isFALSE(detailed))) {
+    stop("detailed-parameter must be a TRUE or FALSE", call. = FALSE)
+  }
+
+  # Processing  ####
+  if (category == "tables") {
     results_raw <- gen_api("catalogue/tables2statistic",
-                           username = gen_auth_get()$username,
-                           password = gen_auth_get()$password,
-                           name = name,
-                           language = language,
-                           ...)
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      name = code,
+      ...
+    )
 
-    if(httr2::resp_content_type(results_raw) == "application/json"){
+    if (httr2::resp_content_type(results_raw) == "application/json") {
       results_json <<- httr2::resp_body_json(results_raw)
     }
+
+    if (results_json$Status$Code != 0) {
+      message(results_json$Status$Content)
+    }
+
     df_tables <- data.frame()
-    lapply(results_json$List, function(x){
-      zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-      df_tables <<- rbind(df_tables, zwisch)})
-  } else {
-    df_tables <- data.frame()
+
+    if (detailed == TRUE) {
+      lapply(results_json$List, function(x) {
+        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
+        df_tables <<- rbind(df_tables, zwisch)
+      })
+      df_tables$Object_Type <- "Table"
+    } else {
+      lapply(results_json$List, function(x) {
+        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
+        df_tables <<- rbind(df_tables, zwisch)
+      })
+      df_tables$Object_Type <- "Table"
+    }
   }
 
-  df_tables$Object_Type <- "Table"
-
-  if("variables" %in% category){
+  if (category == "variables") {
     results_raw <- gen_api("catalogue/variables2statistic",
-                           username = gen_auth_get()$username,
-                           password = gen_auth_get()$password,
-                           name = name,
-                           language = language,
-                           ...)
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      name = code,
+      ...
+    )
 
-    if(httr2::resp_content_type(results_raw) == "application/json"){
+    if (httr2::resp_content_type(results_raw) == "application/json") {
       results_json <<- httr2::resp_body_json(results_raw)
     }
 
+    if (results_json$Status$Code != 0) {
+      message(results_json$Status$Content)
+    }
+
     df_variables <- data.frame()
 
-    if(detailed == TRUE){
-    lapply(results_json$List, function(x){
-      zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Type" =x$Type, "Values" = x$Values, "Information" = x$Information))
-      df_variables <<- rbind(df_variables, zwisch)})}
-    else {
-      lapply(results_json$List, function(x){
+    if (detailed == TRUE) {
+      lapply(results_json$List, function(x) {
+        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Type" = x$Type, "Values" = x$Values, "Information" = x$Information))
+        df_variables <<- rbind(df_variables, zwisch)
+      })
+      df_variables$Object_Type <- "Variable"
+    } else {
+      lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        df_variables <<- rbind(df_variables, zwisch)})
+        df_variables <<- rbind(df_variables, zwisch)
+      })
+      df_variables$Object_Type <- "Variable"
     }
-  } else {
-    df_variables <- data.frame()
   }
 
-  df_variables$Object_Type <- "Variable"
-
-  if("cubes" %in% category){
+  if (category == "cubes") {
     results_raw <- gen_api("catalogue/cubes2statistic",
-                           username = gen_auth_get()$username,
-                           password = gen_auth_get()$password,
-                           name = name,
-                           language = language,
-                           ...)
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      name = code,
+      ...
+    )
 
-    if(httr2::resp_content_type(results_raw) == "application/json"){
+    if (httr2::resp_content_type(results_raw) == "application/json") {
       results_json <<- httr2::resp_body_json(results_raw)
+    }
+
+    if (results_json$Status$Code != 0) {
+      message(results_json$Status$Content)
     }
 
     df_cubes <- data.frame()
 
-    if(detailed==TRUE){
-    lapply(results_json$List, function(x){
-      zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "State" = x$State, "LatestUpdate" = x$LatestUpdate, "Information" = x$Information))
-      df_cubes <<- rbind(df_cubes, zwisch)})}
-    else {
-      lapply(results_json$List, function(x){
+    if (detailed == TRUE) {
+      lapply(results_json$List, function(x) {
+        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "State" = x$State, "LatestUpdate" = x$LatestUpdate, "Information" = x$Information))
+        df_cubes <<- rbind(df_cubes, zwisch)
+      })
+      df_cubes$Object_Type <- "Cube"
+    } else {
+      lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        df_cubes <<- rbind(df_cubes, zwisch)})
+        df_cubes <<- rbind(df_cubes, zwisch)
+      })
+      df_cubes$Object_Type <- "Cube"
     }
-
-  } else {
-    df_cubes <- data.frame()
   }
 
-  df_cubes$Object_Type <- "Cube"
 
-
-  if("timeseries" %in% category){
-    results_raw <- gen_api("catalogue/timeseries2statistic",
-                           username = gen_auth_get()$username,
-                           password = gen_auth_get()$password,
-                           name = name,
-                           language = language,
-                           ...)
-
-    if(httr2::resp_content_type(results_raw) == "application/json"){
-      results_json <<- httr2::resp_body_json(results_raw)
-    }
-
-    df_timeseries <- data.frame()
-
-    if(detailed==TRUE){
-    lapply(results_json$List, function(x){
-      zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "State" = x$State, "LatestUpdate" = x$LatestUpdate, "Information" = x$Information))
-      df_timeseries <<- rbind(df_timeseries, zwisch)})}
-    else{
-      lapply(results_json$List, function(x){
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        df_timeseries <<- rbind(df_timeseries, zwisch)})
-    }
-
-  } else {
-    df_timeseries <- data.frame()
+  # Summary ####
+  if (all(c("tables", "variables", "cubes") %in% category)) {
+    list_resp <- list(
+      "Tables" = tibble::as_tibble(df_tables),
+      "Variables" = tibble::as_tibble(df_variables),
+      "Cubes" = tibble::as_tibble(df_cubes)
+    )
+  } else if (category == "tables") {
+    list_resp <- tibble::as_tibble(df_tables)
+  } else if (category == "variables") {
+    list_resp <- tibble::as_tibble(df_variables)
+  } else if (category == "cubes") {
+    list_resp <- tibble::as_tibble(df_cubes)
   }
 
-  df_timeseries$Object_Type <- "Time-serie"
+  attr(list_resp, "Code") <- results_json$Parameter$term
+  attr(list_resp, "Category") <-  category
+  attr(list_resp, "Language") <- results_json$Parameter$language
+  attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+  attr(list_resp, "Copyrigtht") <- results_json$Copyright
 
-list_resp <- list("Tables" = df_tables, "Variables" = df_variables, "Cubes" = df_cubes, "Timeseries" = df_timeseries)
-attr(list_resp, "Term") <-  results_json$Parameter$term
-attr(list_resp, "Language") <-  results_json$Parameter$language
-attr(list_resp, "Pagelength") <-  results_json$Parameter$pagelength
-attr(list_resp, "Copyrigtht") <-  results_json$Copyright
-return(list_resp)
+  return(list_resp)
 }
-
