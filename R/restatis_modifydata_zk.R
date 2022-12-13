@@ -146,7 +146,7 @@ modified_data <- function(code = "",
         "Date" = x$Date, "Added" = x$Added,
         "Type" = x$Type
       ))
-      table <- rbind(table, zwisch)
+      table <<- rbind(table, zwisch)
     })
     table$Date <- as.Date.character(table$Date, format = "%d.%m.%Y")
 

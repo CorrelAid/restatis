@@ -70,13 +70,13 @@ catalogue <- function(code = NULL,
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content,
                           "Time" = x$Time, "Latest_Update" = x$LatestUpdate,
                           "State" = x$State, "Information" = x$Information))
-        list_of.cubes <- rbind(list_of.cubes, zwisch)
+        list_of.cubes <<- rbind(list_of.cubes, zwisch)
       })
       list_of.cubes$Object_Type <- "Cube"
     } else {
       lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        list_of.cubes <- rbind(list_of.cubes, zwisch)
+        list_of.cubes <<- rbind(list_of.cubes, zwisch)
       })
       list_of.cubes$Object_Type <- "Cube"
     }
@@ -104,13 +104,13 @@ catalogue <- function(code = NULL,
       lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content,
                           "Cubes" = x$Cubes, "Information" = x$Information))
-        list_of.stats <- rbind(list_of.stats, zwisch)
+        list_of.stats <<- rbind(list_of.stats, zwisch)
       })
       list_of.stats$Object_Type <- "Statistic"
     } else {
       lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        list_of.stats <- rbind(list_of.stats, zwisch)
+        list_of.stats <<- rbind(list_of.stats, zwisch)
       })
       list_of.stats$Object_Type <- "Statistic"
     }
@@ -138,13 +138,13 @@ catalogue <- function(code = NULL,
       lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content,
                           "Time" = x$Time))
-        list_of.tabs <- rbind(list_of.tabs, zwisch)
+        list_of.tabs <<- rbind(list_of.tabs, zwisch)
       })
       list_of.tabs$Object_Type <- "Table"
     } else {
       lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        list_of.tabs <- rbind(list_of.tabs, zwisch)
+        list_of.tabs <<- rbind(list_of.tabs, zwisch)
       })
       list_of.tabs$Object_Type <- "Table"
     }

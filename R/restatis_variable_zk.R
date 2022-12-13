@@ -60,12 +60,12 @@ get_variables_from_statistic <- function(code = NULL,
         "Code" = x$Code, "Content" = x$Content, "Type" = x$Type,
         "Values" = x$Values, "Information" = x$Information
       ))
-      list_of_variables <- rbind(list_of_variables, zwisch)
+      list_of_variables <<- rbind(list_of_variables, zwisch)
     })
   } else {
     lapply(results_json$List, function(x) {
       zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Type" = x$Type))
-      list_of_variables <- rbind(list_of_variables, zwisch)
+      list_of_variables <<- rbind(list_of_variables, zwisch)
     })
   }
 
@@ -113,7 +113,7 @@ get_values_from_variables <- function(code = NULL,
     username = gen_auth_get()$username,
     password = gen_auth_get()$password,
     name = code,
-    sortcriterion = sortcriteiron,
+    sortcriterion = sortcriterion,
     ...
   )
 
@@ -132,7 +132,7 @@ get_values_from_variables <- function(code = NULL,
       "Code" = x$Code, "Content" = x$Content,
       "Variables" = x$Variables, "Information" = x$Information
     ))
-    list_of_variables <- rbind(list_of_variables, zwisch)
+    list_of_variables <<- rbind(list_of_variables, zwisch)
   })
 
   if (nrow(list_of_variables) > 0) {
@@ -194,7 +194,7 @@ get_values_from_variables_from_statistic <- function(code = NULL,
 
   lapply(variables$Variables$Code, function(x) {
     zwisch <- get_values_from_variables(code = x, sortcriterion = sortcriterion)
-    list_values <- append(list_values, zwisch)
+    list_values <<- append(list_values, zwisch)
   })
 
   list_resp <- list(variables, list_values)
@@ -252,7 +252,7 @@ search_variables <- function(code = NULL,
       "Code" = x$Code, "Content" = x$Content,
       "Type" = x$Type, "Information" = x$Information
     ))
-    list_of_variables <- rbind(list_of_variables, zwisch)
+    list_of_variables <<- rbind(list_of_variables, zwisch)
   })
 
   list_resp <- list("Variables" = tibble::as_tibble(list_of_variables))

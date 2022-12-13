@@ -45,7 +45,7 @@ xy_to_statistic <- function(code = NULL,
   sortcriterion <- match.arg(sortcriterion)
 
   # Processing  ####
-  if (category == "tables") {
+  if ("tables" %in% category) {
       results_raw <- gen_api("catalogue/tables2statistic",
       username = gen_auth_get()$username,
       password = gen_auth_get()$password,
@@ -68,19 +68,19 @@ xy_to_statistic <- function(code = NULL,
       lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content,
                           "Time" = x$Time))
-        df_tables <- rbind(df_tables, zwisch)
+        df_tables <<- rbind(df_tables, zwisch)
       })
       df_tables$Object_Type <- "Table"
     } else {
       lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        df_tables <- rbind(df_tables, zwisch)
+        df_tables <<- rbind(df_tables, zwisch)
       })
       df_tables$Object_Type <- "Table"
     }
   }
 
-  if (category == "variables") {
+  if ("variables" %in% category) {
     results_raw <- gen_api("catalogue/variables2statistic",
       username = gen_auth_get()$username,
       password = gen_auth_get()$password,
@@ -106,19 +106,19 @@ xy_to_statistic <- function(code = NULL,
           "Type" = x$Type, "Values" = x$Values,
           "Information" = x$Information
         ))
-        df_variables <- rbind(df_variables, zwisch)
+        df_variables <<- rbind(df_variables, zwisch)
       })
       df_variables$Object_Type <- "Variable"
     } else {
       lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        df_variables <- rbind(df_variables, zwisch)
+        df_variables <<- rbind(df_variables, zwisch)
       })
       df_variables$Object_Type <- "Variable"
     }
   }
 
-  if (category == "cubes") {
+  if ("cubes" %in% category) {
     results_raw <- gen_api("catalogue/cubes2statistic",
       username = gen_auth_get()$username,
       password = gen_auth_get()$password,
@@ -144,13 +144,13 @@ xy_to_statistic <- function(code = NULL,
           "LatestUpdate" = x$LatestUpdate,
           "Information" = x$Information
         ))
-        df_cubes <- rbind(df_cubes, zwisch)
+        df_cubes <<- rbind(df_cubes, zwisch)
       })
       df_cubes$Object_Type <- "Cube"
     } else {
       lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        df_cubes <- rbind(df_cubes, zwisch)
+        df_cubes <<- rbind(df_cubes, zwisch)
       })
       df_cubes$Object_Type <- "Cube"
     }

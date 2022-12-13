@@ -34,8 +34,8 @@ running_out_of_terms <- function(term = NULL,
     results_term <- httr2::resp_body_json(results_raw)
   }
 
-  if (results_json$Status$Code != 0) {
-    message(results_json$Status$Content)
+  if (results_term$Status$Code != 0) {
+    message(results_term$Status$Content)
   }
 
   if (length(results_term$List) == 0) {
@@ -63,9 +63,9 @@ running_out_of_terms <- function(term = NULL,
 
     list_resp <- list("Output" = termslist)
     attr(list_resp, "Term") <- term
-    attr(list_resp, "Language") <- results_json$Parameter$language
-    attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-    attr(list_resp, "Copyrigtht") <- results_json$Copyright
+    attr(list_resp, "Language") <- results_term$Parameter$language
+    attr(list_resp, "Pagelength") <- results_term$Parameter$pagelength
+    attr(list_resp, "Copyrigtht") <- results_term$Copyright
 
     return(list_resp)
   }

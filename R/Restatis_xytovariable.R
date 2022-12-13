@@ -69,13 +69,13 @@ xy_to_variable <- function(code = NULL,
           "Code" = x$Code, "Content" = x$Content,
           "Time" = x$Time
         ))
-        df_tables <- rbind(df_tables, zwisch)
+        df_tables <<- rbind(df_tables, zwisch)
       })
       df_tables$Object_Type <- "Table"
     } else {
       lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        df_tables <- rbind(df_tables, zwisch)
+        df_tables <<- rbind(df_tables, zwisch)
       })
       df_tables$Object_Type <- "Table"
     }
@@ -106,13 +106,13 @@ xy_to_variable <- function(code = NULL,
           "Code" = x$Code, "Content" = x$Content,
           "Cubes" = x$Cubes, "Information" = x$Information
         ))
-        df_statistics <- rbind(df_statistics, zwisch)
+        df_statistics <<- rbind(df_statistics, zwisch)
       })
       df_statistics$Object_Type <- "Statistic"
     } else {
       lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        df_statistics <- rbind(df_statistics, zwisch)
+        df_statistics <<- rbind(df_statistics, zwisch)
       })
       df_statistics$Object_Type <- "Statistic"
     }
@@ -144,13 +144,13 @@ xy_to_variable <- function(code = NULL,
           "LatestUpdate" = x$LatestUpdate,
           "Information" = x$Information
         ))
-        df_cubes <- rbind(df_cubes, zwisch)
+        df_cubes <<- rbind(df_cubes, zwisch)
       })
       df_cubes$Object_Type <- "Cube"
     } else {
       lapply(results_json$List, function(x) {
         zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        df_cubes <- rbind(df_cubes, zwisch)
+        df_cubes <<- rbind(df_cubes, zwisch)
       })
       df_cubes$Object_Type <- "Cube"
     }
@@ -159,7 +159,7 @@ xy_to_variable <- function(code = NULL,
 
 
   # Summary ####
-  if (all(c("tables", "variables", "cubes") %in% category)) {
+  if (all(c("tables", "statistics", "cubes") %in% category)) {
     list_resp <- list(
       "Tables" = tibble::as_tibble(df_tables),
       "Statistics" = tibble::as_tibble(df_statistics),
