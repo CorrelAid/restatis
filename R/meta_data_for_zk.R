@@ -10,9 +10,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find meta-information of the statistic with the code "12411"
 #' object <- meta_data_for_statistics(code = "12411")
-#'
+#' }
 meta_data_for_statistics <- function(code = NULL,
                                      ...) {
   # Check of parameter ####
@@ -62,9 +63,10 @@ meta_data_for_statistics <- function(code = NULL,
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find meta-information of the variable with the code "FAMSTD"
 #' object <- meta_data_for_variables(code = "FAMSTD")
-#'
+#' }
 meta_data_for_variables <- function(code = NULL,
                                     ...) {
   # Check of parameter ####
@@ -112,9 +114,10 @@ meta_data_for_variables <- function(code = NULL,
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find meta-information of the value with the code "LEDIG"
 #' object <- meta_data_for_values(code = "LEDIG")
-#'
+#' }
 meta_data_for_values <- function(code = NULL,
                                  ...) {
   # Check of parameter ####
@@ -162,9 +165,10 @@ meta_data_for_values <- function(code = NULL,
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find meta-information of the table with the code "11111"
 #' object <- meta_data_for_tables(code = "11111")
-#'
+#' }
 meta_data_for_tables <- function(code = NULL,
                                  ...) {
   # Check of parameter ####
@@ -263,9 +267,10 @@ meta_data_for_tables <- function(code = NULL,
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find meta-information of the cube with the code "11111KE001"
 #' object <- meta_data_for_tables(code = "11111KE001")
-#'
+#' }
 meta_data_for_cubes <- function(code = NULL,
                                 ...) {
   # Check of parameter ####
@@ -349,9 +354,10 @@ meta_data_for_cubes <- function(code = NULL,
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find meta-information of the table with the code "11111"
 #' object <- meta_data_for_tables(code = "11111", category = "Table")
-#'
+#' }
 meta_data_for <- function(code = NULL,
                           category = c("Cube", "Statistic", "Table", "Variable", "Value"),
                           ...) {

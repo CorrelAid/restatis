@@ -13,12 +13,13 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find objects related to "bus" in Destatis
 #' object <- search_for(term = "bus")
 #'
 #' # Find tables related to "bus" in Destatis and return a unordered detailed output
 #' object <- search_for(term = "bus", detailed = T, ordering = F)
-#'
+#' }
 search_for <- function(term = NULL,
                        category = c("all", "tables", "statistics", "variables", "cubes"),
                        detailed = F,
