@@ -1,14 +1,25 @@
-#' Call for Modified data
+#' Call For Modified Data
 #'
-#' @param code
-#' @param type
-#' @param date
-#' @param ...
+#' Function to check for updates or new objects in Destatis based on a specific date.
 #'
-#' @return
+#' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration. "*"-Notations are possible.
+#' @param type a string. Specific Destatis-Object-type: 'tables', 'statistics', and 'statisticsUpdates'. All three can be accessed through "all" which is the default.
+#' @param date a string. Specific date which is used as the last update or upload time point in Destatis to include a Destatis-Object in the return. Default option is 'now' which uses the current date of your R-Studio System. Alternative options are 'week_before' using the current date of your R-Studio System minus 7 days, 'month_before' using the current date of your R-Studio System minus 4 weeks, and "year_before" using the current date of your R-Studio System minus 52 weeks. Additionally, it is possible to fill in a self-chosen specific date which needs to have the form 'DD.MM.YYYY'.
+#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#'
+#' @return A list with all recalled elements from Destatis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
+#' # Find Destatis-Objects which were modified last_week
+#' object <- modified_data(date = "week_before")
+#'
+#' # Find tables that were new from 31.03.2020
+#' object <- modified_data(type = "tables", date = "31.03.2020")
+#'
+#' # Find Destatis-Objects related to the topic "Bevölkerung" (Code: '12*') which were new today
+#' object <- modified_data(code = "12*)
+#'
 modified_data <- function(code = "",
                           type = c("all", "tables", "statistics", "statisticsUpdates"),
                           date = c("now", "week_before", "month_before", "year_before"),
@@ -23,7 +34,9 @@ modified_data <- function(code = "",
   }
 
   if (all(date %in% c("now", "week_before", "month_before", "year_before"))) {
-    message("Please note that this date is calculated automatically and may differ from manually entered data. Manually entered data must have the format DD.MM.YYYY.")
+    message("Please note that this date is calculated automatically and may differ
+            from manually entered data. Manually entered data must have
+            the format DD.MM.YYYY.")
   }
 
   if ("now" %in% date) {
@@ -46,10 +59,17 @@ modified_data <- function(code = "",
 
   # Processing ####
   if (type == "tables") {
-    results_raw <- gen_api("catalogue/modifieddata", username = gen_auth_get()$username, password = gen_auth_get()$password, selection = code, type = "Neue Tabellen", date = date, ...)
+    results_raw <- gen_api("catalogue/modifieddata",
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      selection = code,
+      type = "Neue Tabellen",
+      date = date,
+      ...
+    )
 
     if (httr2::resp_content_type(results_raw) == "application/json") {
-      results_json <<- httr2::resp_body_json(results_raw)
+      results_json <- httr2::resp_body_json(results_raw)
     }
 
     if (results_json$Status$Code != 0) {
@@ -58,10 +78,17 @@ modified_data <- function(code = "",
   }
 
   if (type == "statistics") {
-    results_raw <- gen_api("catalogue/modifieddata", username = gen_auth_get()$username, password = gen_auth_get()$password, selection = code, type = "Neue Statistiken", date = date, ...)
+    results_raw <- gen_api("catalogue/modifieddata",
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      selection = code,
+      type = "Neue Statistiken",
+      date = date,
+      ...
+    )
 
     if (httr2::resp_content_type(results_raw) == "application/json") {
-      results_json <<- httr2::resp_body_json(results_raw)
+      results_json <- httr2::resp_body_json(results_raw)
     }
 
     if (results_json$Status$Code != 0) {
@@ -70,10 +97,17 @@ modified_data <- function(code = "",
   }
 
   if (type == "statisticsUpdates") {
-    results_raw <- gen_api("catalogue/modifieddata", username = gen_auth_get()$username, password = gen_auth_get()$password, selection = code, type = "Aktualisierte Statistiken", date = date, ...)
+    results_raw <- gen_api("catalogue/modifieddata",
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      selection = code,
+      type = "Aktualisierte Statistiken",
+      date = date,
+      ...
+    )
 
     if (httr2::resp_content_type(results_raw) == "application/json") {
-      results_json <<- httr2::resp_body_json(results_raw)
+      results_json <- httr2::resp_body_json(results_raw)
     }
 
     if (results_json$Status$Code != 0) {
@@ -82,10 +116,17 @@ modified_data <- function(code = "",
   }
 
   if (type == "all") {
-    results_raw <- gen_api("catalogue/modifieddata", username = gen_auth_get()$username, password = gen_auth_get()$password, selection = code, type = "all", date = date, ...)
+    results_raw <- gen_api("catalogue/modifieddata",
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      selection = code,
+      type = "all",
+      date = date,
+      ...
+    )
 
     if (httr2::resp_content_type(results_raw) == "application/json") {
-      results_json <<- httr2::resp_body_json(results_raw)
+      results_json <- httr2::resp_body_json(results_raw)
     }
 
     if (results_json$Status$Code != 0) {
@@ -99,8 +140,12 @@ modified_data <- function(code = "",
     table <- data.frame()
 
     lapply(results_json$List, function(x) {
-      zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Date" = x$Date, "Added" = x$Added, "Type" = x$Type))
-      table <<- rbind(table, zwisch)
+      zwisch <- rbind(c(
+        "Code" = x$Code, "Content" = x$Content,
+        "Date" = x$Date, "Added" = x$Added,
+        "Type" = x$Type
+      ))
+      table <- rbind(table, zwisch)
     })
     table$Date <- as.Date.character(table$Date, format = "%d.%m.%Y")
 
