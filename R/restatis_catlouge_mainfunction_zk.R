@@ -15,12 +15,13 @@ load("evas_list_long_20220724.RData")
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Scroll through Destatis-Objects under the topic "12*" which is "Bevölkerung" in Destatis from all categories and with a detailed output
 #' object <- catalouge(code = "12*", detailed = T)
 #'
 #' # Search tables under the topic "12*" which is "Bevölkerung" in Destatis without a detailed output
 #' object <- catalouge(code = "12*", category = "tables")
-#'
+#' }
 #'
 catalogue <- function(code = NULL,
                       category = c("tables", "statistics", "cubes"),

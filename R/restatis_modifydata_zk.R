@@ -11,6 +11,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find Destatis-Objects which were modified last_week
 #' object <- modified_data(date = "week_before")
 #'
@@ -19,7 +20,7 @@
 #'
 #' # Find Destatis-Objects related to the topic "Bevölkerung" (Code: '12*') which were new today
 #' object <- modified_data(code = "12*)
-#'
+#' }
 modified_data <- function(code = "",
                           type = c("all", "tables", "statistics", "statisticsUpdates"),
                           date = c("now", "week_before", "month_before", "year_before"),

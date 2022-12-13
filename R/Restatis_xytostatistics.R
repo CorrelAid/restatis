@@ -12,13 +12,14 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find cubes from the statistic with the code "21111" with a detailed return
 #'  object <- xy_to_statistic(code = "21111", category = "cubes", detailed = T)
 #'
 #' # Find all object types from the statistic with the code "12411"
 #' object <- xy_to_statistic(code = "12411")
 #' # Default of detailed-parameter is FALSE, and default of the category-parameter is to include all object types.
-#'
+#' }
 xy_to_statistic <- function(code = NULL,
                             category = c("tables", "variables", "cubes"),
                             detailed = F,

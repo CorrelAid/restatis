@@ -12,9 +12,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find the variables of the statistic with the code "12411" with a detailed output
 #' object <- get_variables_from_statistic(code = "12411", detailed = T)
-#'
+#' }
 get_variables_from_statistic <- function(code = NULL,
                                          detailed = F,
                                          sortcriterion = c("code", "content"),
@@ -94,9 +95,10 @@ get_variables_from_statistic <- function(code = NULL,
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find the values of the variable "DLAND"
 #' object <- get_values_from_variables(code = "DLAND")
-#'
+#' }
 get_values_from_variables <- function(code = NULL,
                                       sortcriterion = c("code", "content"),
                                       ...) {
@@ -159,9 +161,10 @@ get_values_from_variables <- function(code = NULL,
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find the values of variables in a specific statistic with the code "21111" and a detailed description of the variables
 #' object <- get_values_from_variables_from_statistic(code = "21111", detailed.variables = T)
-#'
+#' }
 get_values_from_variables_from_statistic <- function(code = NULL,
                                                      detailed.variables = F,
                                                      sortcriterion = c("code", "content"),
@@ -212,9 +215,10 @@ get_values_from_variables_from_statistic <- function(code = NULL,
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Find a specific variable "GES" in Destatis
 #' object <- search_variables("GES")
-#'
+#' }
 search_variables <- function(code = NULL,
                              sortcriterion = c("code", "content"),
                              ...) {
