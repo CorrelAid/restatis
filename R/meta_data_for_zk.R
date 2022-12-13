@@ -365,7 +365,7 @@ meta_data_for <- function(code = NULL,
     stop("code must be a single string", call. = T)
   }
 
-  if (all(category %in% c("Cube", "Statistic", "Table", "Variable", "Value"))) {
+  if (!(length(category) == 1)) {
     stop("Available categories are Cube, Statistic, Table, Variable, or Value. Please choose one of them.")
   }
 
@@ -380,6 +380,8 @@ meta_data_for <- function(code = NULL,
   } else if (category == "Statistic") {
     meta_data_for_statistics(code = code, ...)
   } else {
-    stop("Category is not found, please select a correct category.", call. = T)
+    stop("Category is not found, please select a correct category.
+         Available categories are Cube, Statistic, Table, Variable, or Value.
+         Please choose one of them.", call. = T)
   }
 }
