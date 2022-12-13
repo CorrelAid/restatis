@@ -80,7 +80,7 @@ search_for <- function(term = NULL,
           "Time" = x$Time,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_table <- rbind(df_table, zwisch)
+        df_table <<- rbind(df_table, zwisch)
       })
       if (nrow(df_table) != 0) {
         df_table$Titel <- grepl(
@@ -117,7 +117,7 @@ search_for <- function(term = NULL,
           "Cubes" = x$Cubes,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_stats <- rbind(df_stats, zwisch)
+        df_stats <<- rbind(df_stats, zwisch)
       })
       if (nrow(df_stats) != 0) {
         df_stats$Titel <- grepl(
@@ -156,7 +156,7 @@ search_for <- function(term = NULL,
           "Values" = x$Values, "Information" = x$Information,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_variables <- rbind(df_variables, zwisch)
+        df_variables <<- rbind(df_variables, zwisch)
       })
       if (nrow(df_variables) != 0) {
         df_variables$Titel <- grepl(
@@ -196,7 +196,7 @@ search_for <- function(term = NULL,
           "State" = x$State, "Information" = x$Information,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_cubes <- rbind(df_cubes, zwisch)
+        df_cubes <<- rbind(df_cubes, zwisch)
       })
       if (nrow(df_cubes) != 0) {
         df_cubes$Titel <- grepl(
@@ -249,7 +249,7 @@ search_for <- function(term = NULL,
           "Time" = x$Time,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_table <- rbind(df_table, zwisch)
+        df_table <<- rbind(df_table, zwisch)
       })
       if (nrow(df_table) != 0) {
         df_table$Titel <- grepl(
@@ -296,7 +296,7 @@ search_for <- function(term = NULL,
           "Cubes" = x$Cubes,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_stats <- rbind(df_stats, zwisch)
+        df_stats <<- rbind(df_stats, zwisch)
       })
       if (nrow(df_stats) != 0) {
         df_stats$Titel <- grepl(
@@ -340,7 +340,7 @@ search_for <- function(term = NULL,
           "Information" = x$Information,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_variables <- rbind(df_variables, zwisch)
+        df_variables <<- rbind(df_variables, zwisch)
       })
       if (nrow(df_variables) != 0) {
         df_variables$Titel <- grepl(
@@ -388,7 +388,7 @@ search_for <- function(term = NULL,
           "State" = x$State, "Information" = x$Information,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_cubes <- rbind(df_cubes, zwisch)
+        df_cubes <<- rbind(df_cubes, zwisch)
       })
       if (nrow(df_cubes) != 0) {
         df_cubes$Titel <- grepl(
@@ -438,7 +438,7 @@ search_for <- function(term = NULL,
           "Code" = x$Code, "Content" = x$Content,
           "Time" = x$Time, "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_table <- rbind(df_table, zwisch)
+        df_table <<- rbind(df_table, zwisch)
       })
       if (nrow(df_table) != 0) {
         df_table$Titel <- grepl(
@@ -466,7 +466,7 @@ search_for <- function(term = NULL,
           "Information" = x$Information, "Cubes" = x$Cubes,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_stats <- rbind(df_stats, zwisch)
+        df_stats <<- rbind(df_stats, zwisch)
       })
       if (nrow(df_stats) != 0) {
         df_stats$Titel <- grepl(
@@ -494,7 +494,7 @@ search_for <- function(term = NULL,
           "Type" = x$Type, "Values" = x$Values,
           "Information" = x$Information, "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_variables <- rbind(df_variables, zwisch)
+        df_variables <<- rbind(df_variables, zwisch)
       })
       if (nrow(df_variables) != 0) {
         df_variables$Titel <- grepl(
@@ -523,7 +523,7 @@ search_for <- function(term = NULL,
           "State" = x$State, "Information" = x$Information,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_cubes <- rbind(df_cubes, zwisch)
+        df_cubes <<- rbind(df_cubes, zwisch)
       })
       if (nrow(df_cubes) != 0) {
         df_cubes$Titel <- grepl(
@@ -562,7 +562,7 @@ search_for <- function(term = NULL,
           "Time" = x$Time,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_table <- rbind(df_table, zwisch)
+        df_table <<- rbind(df_table, zwisch)
       })
       if (nrow(df_table) != 0) {
         df_table$Titel <- grepl(
@@ -597,7 +597,7 @@ search_for <- function(term = NULL,
           "Code" = x$Code, "Content" = x$Content, "Information" = x$Information,
           "Cubes" = x$Cubes, "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_stats <- rbind(df_stats, zwisch)
+        df_stats <<- rbind(df_stats, zwisch)
       })
       if (nrow(df_stats) != 0) {
         df_stats$Titel <- grepl(
@@ -633,7 +633,7 @@ search_for <- function(term = NULL,
           "Information" = x$Information,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_variables <- rbind(df_variables, zwisch)
+        df_variables <<- rbind(df_variables, zwisch)
       })
       if (nrow(df_variables) != 0) {
         df_variables$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_variables$Content, ignore.case = T)
@@ -662,7 +662,7 @@ search_for <- function(term = NULL,
           "State" = x$State, "Information" = x$Information,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_cubes <- rbind(df_cubes, zwisch)
+        df_cubes <<- rbind(df_cubes, zwisch)
       })
       if (nrow(df_cubes) != 0) {
         df_cubes$Titel <- grepl(
