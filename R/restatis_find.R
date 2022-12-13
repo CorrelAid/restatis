@@ -1,17 +1,24 @@
-#' Search for Object in Restatis
+#' Search Function For Objects In Destatis
 #'
-#' Additional information that time-series are treated as cubes.
+#' Function to search through the Destatis databank. It is similar in usage as the search function on the Destatis mainpage.
+#' In the search query "AND" and "OR" can be included. An additional information here is that time-series are treated as cubes - they are not longer distinguished. If you want to find a specific object with a clear code with this find-function you need to specify the object type or search for all object types.
 #'
-#' @param term
-#' @param category
-#' @param detailed
-#' @param ordering
-#' @param ...
+#' @param term a string with no maximum character length.
+#' @param category a string. Specific Destatis-Object-types: 'tables', 'statistics', "variables", and 'cubes'. Using all together is possible. Default option are "all" objects.
+#' @param detailed a logical. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default Option is detailed = FALSE.
+#' @param ordering a logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and in second on an estimator of the number of variables in this object. Default option is ordering = TRUE.
+#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
 #'
-#' @return
+#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
+#' # Find objects related to "bus" in Destatis
+#' object <- search_for(term = "bus")
+#'
+#' # Find tables related to "bus" in Destatis and return a unordered detailed output
+#' object <- search_for(term = "bus", detailed = T, ordering = F)
+#'
 search_for <- function(term = NULL,
                        category = c("all", "tables", "statistics", "variables", "cubes"),
                        detailed = F,
@@ -41,10 +48,16 @@ search_for <- function(term = NULL,
   }
 
   # Data ####
-  results_raw <- gen_api("find/find", username = gen_auth_get()$username, password = gen_auth_get()$password, term = term, category = category, ...)
+  results_raw <- gen_api("find/find",
+    username = gen_auth_get()$username,
+    password = gen_auth_get()$password,
+    term = term,
+    category = category,
+    ...
+  )
 
   if (httr2::resp_content_type(results_raw) == "application/json") {
-    results_json <<- httr2::resp_body_json(results_raw)
+    results_json <- httr2::resp_body_json(results_raw)
   }
 
   if (results_json$Status$Code != 0) {
@@ -61,11 +74,21 @@ search_for <- function(term = NULL,
     if (category == "all") {
       df_table <- data.frame()
       lapply(results_json$Tables, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "Spezifisch" = gsub(".*:", "", x$Content)))
-        df_table <<- rbind(df_table, zwisch)
+        zwisch <- rbind(c(
+          "Code" = x$Code, "Content" = x$Content,
+          "Time" = x$Time,
+          "Spezifisch" = gsub(".*:", "", x$Content)
+        ))
+        df_table <- rbind(df_table, zwisch)
       })
       if (nrow(df_table) != 0) {
-        df_table$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_table$Content, ignore.case = T)
+        df_table$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_table$Content,
+          ignore.case = T
+        )
         df_table$Variablen <- unlist(lapply(strsplit(df_table$Spezifisch, ","), length))
 
         if (ordering) {
@@ -87,17 +110,39 @@ search_for <- function(term = NULL,
 
       df_stats <- data.frame()
       lapply(results_json$Statistics, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Information" = x$Information, "Cubes" = x$Cubes, "Spezifisch" = gsub(".*:", "", x$Content)))
-        df_stats <<- rbind(df_stats, zwisch)
+        zwisch <- rbind(c(
+          "Code" = x$Code, "Content" = x$Content,
+          "Information" = x$Information,
+          "Cubes" = x$Cubes,
+          "Spezifisch" = gsub(".*:", "", x$Content)
+        ))
+        df_stats <- rbind(df_stats, zwisch)
       })
       if (nrow(df_stats) != 0) {
-        df_stats$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_stats$Content, ignore.case = T)
+        df_stats$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_stats$Content,
+          ignore.case = T
+        )
         df_stats$Variablen <- unlist(lapply(strsplit(df_stats$Spezifisch, ","), length))
 
         if (ordering) {
-          df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c("Code", "Content", "Titel", "Information", "Cubes", "Variablen", "Spezifisch")]
+          df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c(
+            "Code",
+            "Content",
+            "Titel",
+            "Information",
+            "Cubes",
+            "Variablen",
+            "Spezifisch"
+          )]
         } else {
-          df_stats <- df_stats[, c("Code", "Content", "Titel", "Information", "Cubes", "Variablen", "Spezifisch")]
+          df_stats <- df_stats[, c(
+            "Code", "Content", "Titel", "Information",
+            "Cubes", "Variablen", "Spezifisch"
+          )]
         }
 
         df_stats$Object_Type <- "Statistic"
@@ -105,17 +150,38 @@ search_for <- function(term = NULL,
 
       df_variables <- data.frame()
       lapply(results_json$Variables, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Type" = x$Type, "Values" = x$Values, "Information" = x$Information, "Spezifisch" = gsub(".*:", "", x$Content)))
-        df_variables <<- rbind(df_variables, zwisch)
+        zwisch <- rbind(c(
+          "Code" = x$Code, "Content" = x$Content, "Type" = x$Type,
+          "Values" = x$Values, "Information" = x$Information,
+          "Spezifisch" = gsub(".*:", "", x$Content)
+        ))
+        df_variables <- rbind(df_variables, zwisch)
       })
       if (nrow(df_variables) != 0) {
-        df_variables$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_variables$Content, ignore.case = T)
+        df_variables$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_variables$Content,
+          ignore.case = T
+        )
         df_variables$Variablen <- unlist(lapply(strsplit(df_variables$Spezifisch, ","), length))
 
         if (ordering) {
-          df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c("Code", "Content", "Titel", "Values", "Information", "Variablen", "Spezifisch")]
+          df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c(
+            "Code",
+            "Content",
+            "Titel",
+            "Values",
+            "Information",
+            "Variablen",
+            "Spezifisch"
+          )]
         } else {
-          df_variables <- df_variables[, c("Code", "Content", "Titel", "Values", "Information", "Variablen", "Spezifisch")]
+          df_variables <- df_variables[, c(
+            "Code", "Content", "Titel", "Values",
+            "Information", "Variablen", "Spezifisch"
+          )]
         }
 
         df_variables$Object_Type <- "Variable"
@@ -123,17 +189,42 @@ search_for <- function(term = NULL,
 
       df_cubes <- data.frame()
       lapply(results_json$Cubes, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "LatestUpdate" = x$LatestUpdate, "State" = x$State, "Information" = x$Information, "Spezifisch" = gsub(".*:", "", x$Content)))
-        df_cubes <<- rbind(df_cubes, zwisch)
+        zwisch <- rbind(c(
+          "Code" = x$Code, "Content" = x$Content,
+          "Time" = x$Time, "LatestUpdate" = x$LatestUpdate,
+          "State" = x$State, "Information" = x$Information,
+          "Spezifisch" = gsub(".*:", "", x$Content)
+        ))
+        df_cubes <- rbind(df_cubes, zwisch)
       })
       if (nrow(df_cubes) != 0) {
-        df_cubes$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_cubes$Content, ignore.case = T)
+        df_cubes$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_cubes$Content,
+          ignore.case = T
+        )
         df_cubes$Variablen <- unlist(lapply(strsplit(df_cubes$Spezifisch, ","), length))
 
         if (ordering) {
-          df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c("Code", "Content", "Titel", "Time", "LatestUpdate", "State", "Information", "Variablen", "Spezifisch")]
+          df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c(
+            "Code",
+            "Content",
+            "Titel",
+            "Time",
+            "LatestUpdate",
+            "State",
+            "Information",
+            "Variablen",
+            "Spezifisch"
+          )]
         } else {
-          df_cubes <- df_cubes[, c("Code", "Content", "Titel", "Time", "LatestUpdate", "State", "Information", "Variablen", "Spezifisch")]
+          df_cubes <- df_cubes[, c(
+            "Code", "Content", "Titel", "Time",
+            "LatestUpdate", "State", "Information",
+            "Variablen", "Spezifisch"
+          )]
         }
 
         df_cubes$Object_Type <- "Cube"
@@ -152,17 +243,37 @@ search_for <- function(term = NULL,
     } else if (category == "tables") {
       df_table <- data.frame()
       lapply(results_json$Tables, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "Spezifisch" = gsub(".*:", "", x$Content)))
-        df_table <<- rbind(df_table, zwisch)
+        zwisch <- rbind(c(
+          "Code" = x$Code, "Content" = x$Content,
+          "Time" = x$Time,
+          "Spezifisch" = gsub(".*:", "", x$Content)
+        ))
+        df_table <- rbind(df_table, zwisch)
       })
       if (nrow(df_table) != 0) {
-        df_table$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_table$Content, ignore.case = T)
+        df_table$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_table$Content,
+          ignore.case = T
+        )
         df_table$Variablen <- unlist(lapply(strsplit(df_table$Spezifisch, ","), length))
 
         if (ordering) {
-          df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code", "Content", "Titel", "Time", "Variablen", "Spezifisch")]
+          df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c(
+            "Code",
+            "Content",
+            "Titel",
+            "Time",
+            "Variablen",
+            "Spezifisch"
+          )]
         } else {
-          df_table <- df_table[, c("Code", "Content", "Titel", "Time", "Variablen", "Spezifisch")]
+          df_table <- df_table[, c(
+            "Code", "Content", "Titel",
+            "Time", "Variablen", "Spezifisch"
+          )]
         }
 
         df_table$Object_Type <- "Table"
@@ -178,11 +289,22 @@ search_for <- function(term = NULL,
     } else if (category == "statistics") {
       df_stats <- data.frame()
       lapply(results_json$Statistics, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Information" = x$Information, "Cubes" = x$Cubes, "Spezifisch" = gsub(".*:", "", x$Content)))
-        df_stats <<- rbind(df_stats, zwisch)
+        zwisch <- rbind(c(
+          "Code" = x$Code, "Content" = x$Content,
+          "Information" = x$Information,
+          "Cubes" = x$Cubes,
+          "Spezifisch" = gsub(".*:", "", x$Content)
+        ))
+        df_stats <- rbind(df_stats, zwisch)
       })
       if (nrow(df_stats) != 0) {
-        df_stats$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_stats$Content, ignore.case = T)
+        df_stats$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_stats$Content,
+          ignore.case = T
+        )
         df_stats$Variablen <- unlist(lapply(strsplit(df_stats$Spezifisch, ","), length))
 
         if (ordering) {
@@ -211,11 +333,22 @@ search_for <- function(term = NULL,
     } else if (category == "variables") {
       df_variables <- data.frame()
       lapply(results_json$Variables, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Type" = x$Type, "Values" = x$Values, "Information" = x$Information, "Spezifisch" = gsub(".*:", "", x$Content)))
-        df_variables <<- rbind(df_variables, zwisch)
+        zwisch <- rbind(c(
+          "Code" = x$Code, "Content" = x$Content,
+          "Type" = x$Type, "Values" = x$Values,
+          "Information" = x$Information,
+          "Spezifisch" = gsub(".*:", "", x$Content)
+        ))
+        df_variables <- rbind(df_variables, zwisch)
       })
       if (nrow(df_variables) != 0) {
-        df_variables$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_variables$Content, ignore.case = T)
+        df_variables$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_variables$Content,
+          ignore.case = T
+        )
         df_variables$Variablen <- unlist(lapply(strsplit(df_variables$Spezifisch, ","), length))
 
         if (ordering) {
@@ -248,11 +381,21 @@ search_for <- function(term = NULL,
     } else if (category == "cubes") {
       df_cubes <- data.frame()
       lapply(results_json$Cubes, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "LatestUpdate" = x$LatestUpdate, "State" = x$State, "Information" = x$Information, "Spezifisch" = gsub(".*:", "", x$Content)))
-        df_cubes <<- rbind(df_cubes, zwisch)
+        zwisch <- rbind(c(
+          "Code" = x$Code, "Content" = x$Content,
+          "Time" = x$Time, "LatestUpdate" = x$LatestUpdate,
+          "State" = x$State, "Information" = x$Information,
+          "Spezifisch" = gsub(".*:", "", x$Content)
+        ))
+        df_cubes <- rbind(df_cubes, zwisch)
       })
       if (nrow(df_cubes) != 0) {
-        df_cubes$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_cubes$Content, ignore.case = T)
+        df_cubes$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"), df_cubes$Content,
+          ignore.case = T
+        )
         df_cubes$Variablen <- unlist(lapply(strsplit(df_cubes$Spezifisch, ","), length))
 
         if (ordering) {
@@ -294,10 +437,16 @@ search_for <- function(term = NULL,
           "Code" = x$Code, "Content" = x$Content,
           "Time" = x$Time, "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_table <<- rbind(df_table, zwisch)
+        df_table <- rbind(df_table, zwisch)
       })
       if (nrow(df_table) != 0) {
-        df_table$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_table$Content, ignore.case = T)
+        df_table$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_table$Content,
+          ignore.case = T
+        )
         df_table$Variablen <- unlist(lapply(strsplit(df_table$Spezifisch, ","), length))
 
         if (ordering) {
@@ -316,10 +465,16 @@ search_for <- function(term = NULL,
           "Information" = x$Information, "Cubes" = x$Cubes,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_stats <<- rbind(df_stats, zwisch)
+        df_stats <- rbind(df_stats, zwisch)
       })
       if (nrow(df_stats) != 0) {
-        df_stats$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_stats$Content, ignore.case = T)
+        df_stats$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_stats$Content,
+          ignore.case = T
+        )
         df_stats$Variablen <- unlist(lapply(strsplit(df_stats$Spezifisch, ","), length))
 
         if (ordering) {
@@ -338,10 +493,16 @@ search_for <- function(term = NULL,
           "Type" = x$Type, "Values" = x$Values,
           "Information" = x$Information, "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_variables <<- rbind(df_variables, zwisch)
+        df_variables <- rbind(df_variables, zwisch)
       })
       if (nrow(df_variables) != 0) {
-        df_variables$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_variables$Content, ignore.case = T)
+        df_variables$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_variables$Content,
+          ignore.case = T
+        )
         df_variables$Variablen <- unlist(lapply(strsplit(df_variables$Spezifisch, ","), length))
 
         if (ordering) {
@@ -355,11 +516,22 @@ search_for <- function(term = NULL,
 
       df_cubes <- data.frame()
       lapply(results_json$Cubes, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "LatestUpdate" = x$LatestUpdate, "State" = x$State, "Information" = x$Information, "Spezifisch" = gsub(".*:", "", x$Content)))
-        df_cubes <<- rbind(df_cubes, zwisch)
+        zwisch <- rbind(c(
+          "Code" = x$Code, "Content" = x$Content,
+          "Time" = x$Time, "LatestUpdate" = x$LatestUpdate,
+          "State" = x$State, "Information" = x$Information,
+          "Spezifisch" = gsub(".*:", "", x$Content)
+        ))
+        df_cubes <- rbind(df_cubes, zwisch)
       })
       if (nrow(df_cubes) != 0) {
-        df_cubes$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_cubes$Content, ignore.case = T)
+        df_cubes$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_cubes$Content,
+          ignore.case = T
+        )
         df_cubes$Variablen <- unlist(lapply(strsplit(df_cubes$Spezifisch, ","), length))
 
         if (ordering) {
@@ -384,11 +556,21 @@ search_for <- function(term = NULL,
     } else if (category == "tables") {
       df_table <- data.frame()
       lapply(results_json$Tables, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "Spezifisch" = gsub(".*:", "", x$Content)))
-        df_table <<- rbind(df_table, zwisch)
+        zwisch <- rbind(c(
+          "Code" = x$Code, "Content" = x$Content,
+          "Time" = x$Time,
+          "Spezifisch" = gsub(".*:", "", x$Content)
+        ))
+        df_table <- rbind(df_table, zwisch)
       })
       if (nrow(df_table) != 0) {
-        df_table$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_table$Content, ignore.case = T)
+        df_table$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_table$Content,
+          ignore.case = T
+        )
         df_table$Variablen <- unlist(lapply(strsplit(df_table$Spezifisch, ","), length))
 
         if (ordering) {
@@ -414,10 +596,16 @@ search_for <- function(term = NULL,
           "Code" = x$Code, "Content" = x$Content, "Information" = x$Information,
           "Cubes" = x$Cubes, "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_stats <<- rbind(df_stats, zwisch)
+        df_stats <- rbind(df_stats, zwisch)
       })
       if (nrow(df_stats) != 0) {
-        df_stats$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_stats$Content, ignore.case = T)
+        df_stats$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_stats$Content,
+          ignore.case = T
+        )
         df_stats$Variablen <- unlist(lapply(strsplit(df_stats$Spezifisch, ","), length))
 
         if (ordering) {
@@ -438,8 +626,13 @@ search_for <- function(term = NULL,
     } else if (category == "variables") {
       df_variables <- data.frame()
       lapply(results_json$Variables, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Type" = x$Type, "Values" = x$Values, "Information" = x$Information, "Spezifisch" = gsub(".*:", "", x$Content), "Title" = x$Content))
-        df_variables <<- rbind(df_variables, zwisch)
+        zwisch <- rbind(c(
+          "Code" = x$Code, "Content" = x$Content,
+          "Type" = x$Type, "Values" = x$Values,
+          "Information" = x$Information,
+          "Spezifisch" = gsub(".*:", "", x$Content)
+        ))
+        df_variables <- rbind(df_variables, zwisch)
       })
       if (nrow(df_variables) != 0) {
         df_variables$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_variables$Content, ignore.case = T)
@@ -468,10 +661,16 @@ search_for <- function(term = NULL,
           "State" = x$State, "Information" = x$Information,
           "Spezifisch" = gsub(".*:", "", x$Content)
         ))
-        df_cubes <<- rbind(df_cubes, zwisch)
+        df_cubes <- rbind(df_cubes, zwisch)
       })
       if (nrow(df_cubes) != 0) {
-        df_cubes$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_cubes$Content, ignore.case = T)
+        df_cubes$Titel <- grepl(
+          paste(unlist(strsplit(
+            term, c(" & | und ")
+          )), collapse = "|"),
+          df_cubes$Content,
+          ignore.case = T
+        )
         df_cubes$Variablen <- unlist(lapply(strsplit(df_cubes$Spezifisch, ","), length))
 
         if (ordering) {

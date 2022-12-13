@@ -1,13 +1,18 @@
 # Statistic ####
-#' Meta-Information for Statistics
+#' Meta-Information For Statistics
 #'
-#' @param code
-#' @param ...
+#' Function to search for meta-information for a specific statistic.
 #'
-#' @return
+#' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
+#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#'
+#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
+#' # Find meta-information of the statistic with the code "12411"
+#' object <- meta_data_for_statistics(code = "12411")
+#'
 meta_data_for_statistics <- function(code = NULL,
                                      ...) {
   # Check of parameter ####
@@ -22,7 +27,7 @@ meta_data_for_statistics <- function(code = NULL,
   )
 
   if (httr2::resp_content_type(results_raw) == "application/json") {
-    results_json <<- httr2::resp_body_json(results_raw)
+    results_json <- httr2::resp_body_json(results_raw)
   }
 
   if (results_json$Status$Code != 0) {
@@ -46,15 +51,20 @@ meta_data_for_statistics <- function(code = NULL,
 }
 
 # Variable ####
-#' Meta-Information for Variable
+#' Meta-Information For Variables
 #'
-#' @param code
-#' @param ...
+#' Function to search for meta-information for a specific variable.
 #'
-#' @return
+#' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration. "*"-Notation is possible.
+#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#'
+#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
+#' # Find meta-information of the variable with the code "FAMSTD"
+#' object <- meta_data_for_variables(code = "FAMSTD")
+#'
 meta_data_for_variables <- function(code = NULL,
                                     ...) {
   # Check of parameter ####
@@ -67,7 +77,7 @@ meta_data_for_variables <- function(code = NULL,
   results_raw <- gen_api("metadata/variable", username = gen_auth_get()$username, password = gen_auth_get()$password, name = code, ...)
 
   if (httr2::resp_content_type(results_raw) == "application/json") {
-    results_json <<- httr2::resp_body_json(results_raw)
+    results_json <- httr2::resp_body_json(results_raw)
   }
 
   if (results_json$Status$Code != 0) {
@@ -91,15 +101,20 @@ meta_data_for_variables <- function(code = NULL,
 }
 
 # Values ####
-#' Meta-Information for Values
+#' Meta-Information For Values
 #'
-#' @param code
-#' @param ...
+#' Function to search for meta-information for a specific value.
 #'
-#' @return
+#' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
+#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#'
+#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
+#' # Find meta-information of the value with the code "LEDIG"
+#' object <- meta_data_for_values(code = "LEDIG")
+#'
 meta_data_for_values <- function(code = NULL,
                                  ...) {
   # Check of parameter ####
@@ -112,7 +127,7 @@ meta_data_for_values <- function(code = NULL,
   results_raw <- gen_api("metadata/value", username = gen_auth_get()$username, password = gen_auth_get()$password, name = code, ...)
 
   if (httr2::resp_content_type(results_raw) == "application/json") {
-    results_json <<- httr2::resp_body_json(results_raw)
+    results_json <- httr2::resp_body_json(results_raw)
   }
 
   if (results_json$Status$Code != 0) {
@@ -136,15 +151,20 @@ meta_data_for_values <- function(code = NULL,
 
 
 # Tables ####
-#' Meta-Information for Tables
+#' Meta-Information For Tables
 #'
-#' @param code
-#' @param ...
+#' Function to search for meta-information for a specific table.
 #'
-#' @return
+#' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
+#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#'
+#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
+#' # Find meta-information of the table with the code "11111"
+#' object <- meta_data_for_tables(code = "11111")
+#'
 meta_data_for_tables <- function(code = NULL,
                                  ...) {
   # Check of parameter ####
@@ -157,7 +177,7 @@ meta_data_for_tables <- function(code = NULL,
   results_raw <- gen_api("metadata/table", username = gen_auth_get()$username, password = gen_auth_get()$password, name = code, ...)
 
   if (httr2::resp_content_type(results_raw) == "application/json") {
-    results_json <<- httr2::resp_body_json(results_raw)
+    results_json <- httr2::resp_body_json(results_raw)
   }
 
   if (results_json$Status$Code != 0) {
@@ -232,15 +252,20 @@ meta_data_for_tables <- function(code = NULL,
 }
 
 # Cubes ####
-#' Meta-Information for Cubes
+#' Meta-Information For Cubes
 #'
-#' @param code
-#' @param ...
+#' Function to search for meta-information for a specific cube.
 #'
-#' @return
+#' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
+#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#'
+#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
+#' # Find meta-information of the cube with the code "11111KE001"
+#' object <- meta_data_for_tables(code = "11111KE001")
+#'
 meta_data_for_cubes <- function(code = NULL,
                                 ...) {
   # Check of parameter ####
@@ -253,7 +278,7 @@ meta_data_for_cubes <- function(code = NULL,
   results_raw <- gen_api("metadata/cube", username = gen_auth_get()$username, password = gen_auth_get()$password, name = code, ...)
 
   if (httr2::resp_content_type(results_raw) == "application/json") {
-    results_json <<- httr2::resp_body_json(results_raw)
+    results_json <- httr2::resp_body_json(results_raw)
   }
 
   if (results_json$Status$Code != 0) {
@@ -314,16 +339,19 @@ meta_data_for_cubes <- function(code = NULL,
 }
 
 # Overall ####
-#' Search for Meta-Information for all Types of Objects
+#' Search For Meta-Information For All Types Of Objects
 #'
-#' @param code
-#' @param category
-#' @param ...
+#' @param codea string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
+#' @param category a string. Specific Destatis-Object-types: 'Cube', 'Statistic', "Table", "Variable" and 'Value'. The function needs a specified object type.
+#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
 #'
-#' @return
+#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
+#' # Find meta-information of the table with the code "11111"
+#' object <- meta_data_for_tables(code = "11111", category = "Table")
+#'
 meta_data_for <- function(code = NULL,
                           category = c("Cube", "Statistic", "Table", "Variable", "Value"),
                           ...) {
