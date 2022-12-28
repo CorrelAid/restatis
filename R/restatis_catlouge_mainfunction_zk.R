@@ -1,5 +1,5 @@
 # EVAS codes loaded - Used as the structure for the
-load("evas_list_long_20220724.RData")
+load("data/evas_list_long_20220724.RData")
 
 #' Search Destatis Catalogue With According Structural Representation
 #'

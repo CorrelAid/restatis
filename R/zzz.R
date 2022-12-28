@@ -2,6 +2,11 @@
   gen_api <<- memoise::memoise(gen_api)
 }
 
+# (YAB): The list extraction that happens in the following function
+# might be eligible for refactoring into a smaller function to avoid
+# repetition
+# Also, why is "Main4" missing?
+
 forming_evas <- function(list_of){
   list_of$Main <- apply(list_of, 1, function(x){
     evas_list_long_20220724$Titel[evas_list_long_20220724$EVAS == substr(x["Code"], 1, 1)]
@@ -19,9 +24,9 @@ forming_evas <- function(list_of){
     evas_list_long_20220724$Titel[evas_list_long_20220724$EVAS == substr(x["Code"], 1, 5)]
   })
 
-  nestedlist <- split(list_of, list_of$Main, drop = T)
+  nestedlist <- split(list_of, list_of$Main, drop = TRUE)
   nestedlist <- lapply(nestedlist, function(x){
-    split(x, x["Main2"], drop = T)
+    split(x, x["Main2"], drop = TRUE)
   })
   nestedlist <- lapply(nestedlist, function(x){
     lapply(x, function(y){
