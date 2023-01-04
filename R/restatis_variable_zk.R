@@ -16,6 +16,7 @@
 #' # Find the variables of the statistic with the code "12411" with a detailed output
 #' object <- get_variables_from_statistic(code = "12411", detailed = T)
 #' }
+#'
 get_variables_from_statistic <- function(code = NULL,
                                          detailed = F,
                                          sortcriterion = c("code", "content"),

@@ -25,153 +25,255 @@ load("data/evas_list_long_20220724.RData")
 #'
 catalogue <- function(code = NULL,
                       category = c("tables", "statistics", "cubes"),
-                      detailed = F,
+                      detailed = FALSE,
                       sortcriterion = c("code", "content"),
                       ...) {
+
+  # (YAB): Die Parameterchecks könnte man in ein utils-File auslagern
   # Checks ####
   if (!(is.character(code)) && length(code) < 1L && is.null(code)) {
     stop("code must be a single string or NULL", call. = FALSE)
   }
 
-  if (detailed == FALSE) {
+  # (YAB) Das Default ist detailed = FALSE, das heißt jedes Mal gibt es eine Message...
+  # ... das würde ich ändern, oder weglassen, es steht ja in der man-page
+  if (isFALSE(detailed)) {
     message("Use detailed = TRUE to obtain the complete output.")
   }
 
   if (!all(category %in% c("tables", "statistics", "cubes"))) {
-    stop("Available categories are tables, statistics, or cubes.")
+    stop("Available categories are tables, statistics, or cubes.",
+         call. = FALSE)
   }
 
-  if (!(isTRUE(detailed) | isFALSE(detailed))) {
+  if (!is.logical(detailed)) {
     stop("detailed-parameter must be a TRUE or FALSE", call. = FALSE)
   }
 
   sortcriterion <- match.arg(sortcriterion)
 
+  #-----------------------------------------------------------------------------
 
   # Processing ####
   if ("cubes" %in% category) {
+
     results_raw <- gen_api("catalogue/cubes",
-      username = gen_auth_get()$username, password = gen_auth_get()$password,
-      selection = code, ...
-    )
+                    username = gen_auth_get()$username,
+                    password = gen_auth_get()$password,
+                    selection = code,
+                    ...)
 
     if (httr2::resp_content_type(results_raw) == "application/json") {
+
       results_json <- httr2::resp_body_json(results_raw)
+
     }
 
     if (results_json$Status$Code != 0) {
+
       message(results_json$Status$Content)
+
     }
 
-    list_of.cubes <- data.frame()
+    list_of_cubes <- data.frame()
 
-    if (detailed) {
+    if (isTRUE(detailed)) {
+
       lapply(results_json$List, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content,
-                          "Time" = x$Time, "Latest_Update" = x$LatestUpdate,
-                          "State" = x$State, "Information" = x$Information))
-        list_of.cubes <<- rbind(list_of.cubes, zwisch)
+
+        zwisch <- rbind(c("Code" = x$Code,
+                          "Content" = x$Content,
+                          "Time" = x$Time,
+                          "Latest_Update" = x$LatestUpdate,
+                          "State" = x$State,
+                          "Information" = x$Information))
+
+        list_of_cubes <<- rbind(list_of_cubes,
+                                zwisch)
+
       })
-      list_of.cubes$Object_Type <- "Cube"
+
+      list_of_cubes$Object_Type <- "Cube"
+
     } else {
+
       lapply(results_json$List, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        list_of.cubes <<- rbind(list_of.cubes, zwisch)
+
+        zwisch <- rbind(c("Code" = x$Code,
+                          "Content" = x$Content))
+
+        list_of_cubes <<- rbind(list_of_cubes,
+                                zwisch)
+
       })
-      list_of.cubes$Object_Type <- "Cube"
+
+      list_of_cubes$Object_Type <- "Cube"
+
     }
 
-    list_of.cubes <- tibble::as_tibble(list_of.cubes)
+    list_of_cubes <- tibble::as_tibble(list_of_cubes)
+
   }
 
+  #-----------------------------------------------------------------------------
+
   if ("statistics" %in% category) {
+
     results_raw <- gen_api("catalogue/statistics",
-      username = gen_auth_get()$username, password = gen_auth_get()$password,
-      selection = code, sortcriterion = sortcriterion, ...
-    )
+                    username = gen_auth_get()$username,
+                    password = gen_auth_get()$password,
+                    selection = code,
+                    sortcriterion = sortcriterion,
+                    ...)
 
     if (httr2::resp_content_type(results_raw) == "application/json") {
+
       results_json <- httr2::resp_body_json(results_raw)
+
     }
 
     if (results_json$Status$Code != 0) {
+
       message(results_json$Status$Content)
+
     }
 
     list_of.stats <- data.frame()
 
-    if (detailed) {
+    if (isTRUE(detailed)) {
+
       lapply(results_json$List, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content,
-                          "Cubes" = x$Cubes, "Information" = x$Information))
-        list_of.stats <<- rbind(list_of.stats, zwisch)
+
+        zwisch <- rbind(c("Code" = x$Code,
+                          "Content" = x$Content,
+                          "Cubes" = x$Cubes,
+                          "Information" = x$Information))
+
+        list_of.stats <<- rbind(list_of.stats,
+                                zwisch)
+
       })
+
       list_of.stats$Object_Type <- "Statistic"
+
     } else {
+
       lapply(results_json$List, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        list_of.stats <<- rbind(list_of.stats, zwisch)
+
+        zwisch <- rbind(c("Code" = x$Code,
+                          "Content" = x$Content))
+
+        list_of.stats <<- rbind(list_of.stats,
+                                zwisch)
+
       })
+
       list_of.stats$Object_Type <- "Statistic"
+
     }
 
     list_of.stats <- tibble::as_tibble(list_of.stats)
+
   }
 
+  #-----------------------------------------------------------------------------
+
   if ("tables" %in% category) {
+
     results_raw <- gen_api("catalogue/tables",
-      username = gen_auth_get()$username, password = gen_auth_get()$password,
-      selection = code, sortcriterion = sortcriterion, ...
-    )
+                    username = gen_auth_get()$username,
+                    password = gen_auth_get()$password,
+                    selection = code,
+                    sortcriterion = sortcriterion,
+                    ...)
 
     if (httr2::resp_content_type(results_raw) == "application/json") {
+
       results_json <- httr2::resp_body_json(results_raw)
+
     }
 
     if (results_json$Status$Code != 0) {
+
       message(results_json$Status$Content)
+
     }
 
     list_of.tabs <- data.frame()
 
-    if (detailed) {
+    if (isTRUE(detailed)) {
+
       lapply(results_json$List, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content,
+
+        zwisch <- rbind(c("Code" = x$Code,
+                          "Content" = x$Content,
                           "Time" = x$Time))
+
         list_of.tabs <<- rbind(list_of.tabs, zwisch)
+
       })
+
       list_of.tabs$Object_Type <- "Table"
+
     } else {
+
       lapply(results_json$List, function(x) {
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content))
-        list_of.tabs <<- rbind(list_of.tabs, zwisch)
+
+        zwisch <- rbind(c("Code" = x$Code,
+                          "Content" = x$Content))
+
+        list_of.tabs <<- rbind(list_of.tabs,
+                               zwisch)
+
       })
+
       list_of.tabs$Object_Type <- "Table"
+
     }
 
     list_of.tabs <- tibble::as_tibble(list_of.tabs)
+
   }
+
+  #-----------------------------------------------------------------------------
 
   # Summary ####
   if (all(c("tables", "statistics", "cubes") %in% category)) {
+
     list_resp <- list(
-      "Cubes" = list("A" = forming_evas(list_of.cubes)),
-      "Statistics" = list("B" = forming_evas(list_of.stats)),
-      "Tables" = list("Output" = forming_evas(list_of.tabs))
-    )
+                  "Cubes" = list("A" = forming_evas(list_of_cubes)),
+                  "Statistics" = list("B" = forming_evas(list_of.stats)),
+                  "Tables" = list("Output" = forming_evas(list_of.tabs))
+                  )
+
   } else if (category == "cubes") {
-    list_resp <- list("Output" = forming_evas(list_of.cubes))
+
+    list_resp <- list("Output" = forming_evas(list_of_cubes))
+
   } else if (category == "statistics") {
+
     list_resp <- list("Output" = forming_evas(list_of.stats))
+
   } else if (category == "tables") {
+
     list_resp <- list("Output" = forming_evas(list_of.tabs))
+
   }
 
   attr(list_resp, "Code") <- results_json$Parameter$selection
   attr(list_resp, "Category") <- category
   attr(list_resp, "Language") <- results_json$Parameter$language
   attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-  attr(list_resp, "Copyrigtht") <- results_json$Copyright
+  attr(list_resp, "Copyright") <- results_json$Copyright
 
   return(list_resp)
+
 }
+
+# (YAB): Allgemeine Anmerkungen:
+# Sortcriterion fehlt bei "cubes" (wahrscheinlich muss das so)
+# Wir brauchen noch einen anständigen Funktionsnamen
+# Man könnte überlegen, ob man die Prozessschritte für die drei Typen ...
+# ... auslagern kann, denn sie scheinen fast genau dasselbe zu tun ...
+# ... nur der Input ist ein anderer, oder?
+
