@@ -18,7 +18,7 @@
 #' }
 #'
 get_variables_from_statistic <- function(code = NULL,
-                                         detailed = F,
+                                         detailed = FALSE,
                                          sortcriterion = c("code", "content"),
                                          ...) {
   # Check ####
