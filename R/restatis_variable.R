@@ -1,7 +1,6 @@
-#####
-#' Get Variables From Statistics
+#' get_variables_from_statistic
 #'
-#' Function to generate variables from statistics.
+#' @description Function to generate variables from statistics.
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
 #' @param detailed a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. The default is detailed = FALSE.
@@ -21,20 +20,29 @@ get_variables_from_statistic <- function(code = NULL,
                                          detailed = FALSE,
                                          sortcriterion = c("code", "content"),
                                          ...) {
-  # Check ####
-  if (!(is.character(code)) && length(code) < 1L && is.null(code)) {
-    stop("code must be a single string or NULL", call. = FALSE)
+
+  # Checks ---------------------------------------------------------------------
+  if (length(code) != 1L) {
+
+    stop("Parameter 'code' must be a single string.", call. = FALSE)
+
   }
 
-  if (detailed == FALSE) {
+  if (isFALSE(detailed)) {
+
     message("Use detailed = TRUE to obtain the complete output.")
+
   }
 
-  if (!(isTRUE(detailed) | isFALSE(detailed))) {
-    stop("detailed-parameter must be a TRUE or FALSE", call. = FALSE)
+  if (!is.logical(detailed)) {
+
+    stop("Parameter 'detailed' has be of type 'logical'.", call. = FALSE)
+
   }
 
   sortcriterion <- match.arg(sortcriterion)
+
+  #-----------------------------------------------------------------------------
 
   # Processing ####
   results_raw <- gen_api("catalogue/variables2statistic",
@@ -42,31 +50,45 @@ get_variables_from_statistic <- function(code = NULL,
     password = gen_auth_get()$password,
     name = code,
     sortcriterion = sortcriterion,
-    ...
-  )
+    ...)
 
   if (httr2::resp_content_type(results_raw) == "application/json") {
+
     results_json <- httr2::resp_body_json(results_raw)
+
   }
 
   if (results_json$Status$Code != 0) {
+
     message(results_json$Status$Content)
+
   }
 
-
   list_of_variables <- data.frame()
-  if (detailed) {
+
+  if (isTRUE(detailed)) {
+
     lapply(results_json$List, function(x) {
+
       zwisch <- rbind(c(
-        "Code" = x$Code, "Content" = x$Content, "Type" = x$Type,
-        "Values" = x$Values, "Information" = x$Information
+        "Code" = x$Code,
+        "Content" = x$Content,
+        "Type" = x$Type,
+        "Values" = x$Values,
+        "Information" = x$Information
       ))
+
       list_of_variables <<- rbind(list_of_variables, zwisch)
+
     })
+
   } else {
+
     lapply(results_json$List, function(x) {
+
       zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Type" = x$Type))
       list_of_variables <<- rbind(list_of_variables, zwisch)
+
     })
   }
 
@@ -74,12 +96,14 @@ get_variables_from_statistic <- function(code = NULL,
 
   # Summary ####
   list_resp <- list("Variables" = tibble::as_tibble(list_of_variables))
+
   attr(list_resp, "Code") <- results_json$Parameter$name
   attr(list_resp, "Language") <- results_json$Parameter$language
   attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
   attr(list_resp, "Copyrigtht") <- results_json$Copyright
 
   return(list_resp)
+
 }
 
 
@@ -103,6 +127,7 @@ get_variables_from_statistic <- function(code = NULL,
 get_values_from_variables <- function(code = NULL,
                                       sortcriterion = c("code", "content"),
                                       ...) {
+
   if (!(is.character(code)) && length(code) < 1L && is.null(code)) {
     stop("code must be a single string or NULL", call. = FALSE)
   }
@@ -167,18 +192,18 @@ get_values_from_variables <- function(code = NULL,
 #' object <- get_values_from_variables_from_statistic(code = "21111", detailed.variables = T)
 #' }
 get_values_from_variables_from_statistic <- function(code = NULL,
-                                                     detailed.variables = F,
+                                                     detailed = FALSE,
                                                      sortcriterion = c("code", "content"),
                                                      ...) {
   if (!(is.character(code)) && length(code) < 1L && is.null(code)) {
     stop("code must be a single string or NULL", call. = FALSE)
   }
 
-  if (detailed.variables == FALSE) {
+  if (detailed == FALSE) {
     message("Use detailed = TRUE to obtain the complete output.")
   }
 
-  if (!(isTRUE(detailed.variables) | isFALSE(detailed.variables))) {
+  if (!(isTRUE(detailed) | isFALSE(detailed))) {
     stop("detailed-parameter must be a TRUE or FALSE", call. = FALSE)
   }
 

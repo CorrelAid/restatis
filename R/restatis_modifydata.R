@@ -28,16 +28,15 @@ modified_data <- function(code = "",
                           ...) {
 
   # Checks ####
-  if (!(is.character(code)) && length(code) < 1L && is.null(code)) {
+  if (length(code) != 1L) {
 
-    stop("code must be a single string or NULL",
-         call. = FALSE)
+    stop("Parameter 'code' must be a single string.", call. = FALSE)
 
   }
 
   if (!all(type %in% c("all", "tables", "statistics", "statisticsUpdates"))) {
 
-    stop("Available categories are tables, statistics, statistic updates, and all.",
+    stop("Available categories for parameter 'type' are 'tables', 'statistics', 'statistic updates', and 'all'.",
          call. = FALSE)
 
   }
@@ -50,15 +49,15 @@ modified_data <- function(code = "",
 
   }
 
-  if ("now" %in% date) {
+  #-----------------------------------------------------------------------------
 
-    date <- format(Sys.Date(),
-                   format = "%d.%m.%Y")
+  if (date == "now") {
+
+    date <- format(Sys.Date(), format = "%d.%m.%Y")
 
   } else if (date == "week_before") {
 
-    date <- format(Sys.Date() - 7,
-                   format = "%d.%m.%Y")
+    date <- format(Sys.Date() - 7, format = "%d.%m.%Y")
 
   } else if (date == "month_before") {
 
@@ -67,8 +66,7 @@ modified_data <- function(code = "",
 
   } else if (date == "year_before") {
 
-    date <- format(as.difftime(52, units = "weeks"),
-                   format = "%d.%m.%Y")
+    date <- format(as.difftime(52, units = "weeks"), format = "%d.%m.%Y")
 
   }
 
@@ -211,7 +209,7 @@ modified_data <- function(code = "",
     attr(list_resp, "Date") <- results_json$Parameter$date
     attr(list_resp, "Language") <- results_json$Parameter$language
     attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-    attr(list_resp, "Copyrigtht") <- results_json$Copyright
+    attr(list_resp, "Copyright") <- results_json$Copyright
 
     return(list_resp)
 

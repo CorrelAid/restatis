@@ -1,7 +1,7 @@
 # EVAS codes loaded - Used as the structure for the
 load("data/evas_list_long_20220724.RData")
 
-#' Search Destatis Catalogue With According Structural Representation
+#' catalogue
 #'
 #' Function to enable searching for tables, statistics, and cubes from Destatis. Additionally, it structures the output based on the internal tree structure of Destatis itself based on the EVAS-numbers.
 #'
@@ -30,24 +30,36 @@ catalogue <- function(code = NULL,
                       ...) {
 
   # (YAB): Die Parameterchecks könnte man in ein utils-File auslagern
+  # Die Bedingungen für den code-Parameter haben immer einen Fehler ...
+  # ... geworfen, wenn man keinen Parameter spezifiziert (= NULL)
+  # Das <> war in die falsche Richtung gewählt
+
   # Checks ####
-  if (!(is.character(code)) && length(code) < 1L && is.null(code)) {
-    stop("code must be a single string or NULL", call. = FALSE)
+  if (length(code) != 1L) {
+
+    stop("Parameter 'code' must be a single string.", call. = FALSE)
+
   }
 
   # (YAB) Das Default ist detailed = FALSE, das heißt jedes Mal gibt es eine Message...
   # ... das würde ich ändern, oder weglassen, es steht ja in der man-page
   if (isFALSE(detailed)) {
+
     message("Use detailed = TRUE to obtain the complete output.")
+
   }
 
   if (!all(category %in% c("tables", "statistics", "cubes"))) {
+
     stop("Available categories are tables, statistics, or cubes.",
          call. = FALSE)
+
   }
 
   if (!is.logical(detailed)) {
+
     stop("detailed-parameter must be a TRUE or FALSE", call. = FALSE)
+
   }
 
   sortcriterion <- match.arg(sortcriterion)
@@ -71,7 +83,7 @@ catalogue <- function(code = NULL,
 
     if (results_json$Status$Code != 0) {
 
-      message(results_json$Status$Content)
+      stop(results_json$Status$Content, call. = FALSE)
 
     }
 

@@ -54,3 +54,85 @@ forming_evas <- function(list_of){
   return(aba)
 }
 
+#-------------------------------------------------------------------------------
+
+check_function_input <- function(code = NULL,
+                                 term = NULL,
+                                 sortcriterion = NULL,
+                                 category = NULL,
+                                 detailed = NULL,
+                                 type = NULL,
+                                 date = NULL,
+                                 similarity = NULL)
+
+  #-----------------------------------------------------------------------------
+
+  if (!is.null(code)) {
+
+    if (length(code) != 1L) {
+
+      stop("Parameter 'code' must be a single string.", call. = FALSE)
+
+    }
+
+    if (!is.null(code) & !is.character(code)) {
+
+      stop("Parameter 'code' has to be of type 'character' or NULL.", call. = FALSE)
+
+    }
+
+  }
+
+  #-----------------------------------------------------------------------------
+
+  if(!is.null(term)) {
+
+    if (length(term) != 1L) {
+
+      stop("Parameter 'term' must be a single string.", call. = FALSE)
+
+    }
+
+    if (!is.null(term) & !is.character(term)) {
+
+      stop("Parameter 'term' has to be of type 'character' or NULL.", call. = FALSE)
+
+    }
+
+  }
+
+  #-----------------------------------------------------------------------------
+
+  if(!is.null(sortcriterion)) {
+
+    if(!is.character(sortcriterion)) {
+
+      stop("Parameter 'sortcriterion' has to be of type 'character'.")
+
+    }
+
+  }
+
+  #-----------------------------------------------------------------------------
+
+  if(!is.null(similarity)) {
+
+    if(!is.logical(similarity)) {
+
+      stop("Parameter 'similarity' has to be of type 'logical'.")
+
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
