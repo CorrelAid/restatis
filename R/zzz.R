@@ -63,7 +63,8 @@ check_function_input <- function(code = NULL,
                                  detailed = NULL,
                                  type = NULL,
                                  date = NULL,
-                                 similarity = NULL)
+                                 similarity = NULL,
+                                 caller = NULL) {
 
   #-----------------------------------------------------------------------------
 
@@ -71,13 +72,15 @@ check_function_input <- function(code = NULL,
 
     if (length(code) != 1L) {
 
-      stop("Parameter 'code' must be a single string.", call. = FALSE)
+      stop("Parameter 'code' must be a single string.",
+           call. = FALSE)
 
     }
 
     if (!is.null(code) & !is.character(code)) {
 
-      stop("Parameter 'code' has to be of type 'character' or NULL.", call. = FALSE)
+      stop("Parameter 'code' has to be of type 'character' or NULL.",
+           call. = FALSE)
 
     }
 
@@ -89,13 +92,15 @@ check_function_input <- function(code = NULL,
 
     if (length(term) != 1L) {
 
-      stop("Parameter 'term' must be a single string.", call. = FALSE)
+      stop("Parameter 'term' must be a single string.",
+           call. = FALSE)
 
     }
 
     if (!is.null(term) & !is.character(term)) {
 
-      stop("Parameter 'term' has to be of type 'character' or NULL.", call. = FALSE)
+      stop("Parameter 'term' has to be of type 'character' or NULL.",
+           call. = FALSE)
 
     }
 
@@ -107,7 +112,8 @@ check_function_input <- function(code = NULL,
 
     if(!is.character(sortcriterion)) {
 
-      stop("Parameter 'sortcriterion' has to be of type 'character'.")
+      stop("Parameter 'sortcriterion' has to be of type 'character'.",
+           call. = FALSE)
 
     }
 
@@ -119,12 +125,105 @@ check_function_input <- function(code = NULL,
 
     if(!is.logical(similarity)) {
 
-      stop("Parameter 'similarity' has to be of type 'logical'.")
+      stop("Parameter 'similarity' has to be of type 'logical'.",
+           call. = FALSE)
 
     }
 
   }
 
+  #---------------------------------------------------------------------------
+
+  if(!is.null(detailed)) {
+
+    if(!is.logical(detailed) | length(detailed) != 1) {
+
+      stop("Paramter 'detailed' has to be of type 'logical' and of length 1.",
+           call. = FALSE)
+
+    }
+
+    if(isFALSE(detailed)) {
+
+      message("Use 'detailed = TRUE' to obtain the complete output.")
+
+    }
+
+  }
+
+  #-----------------------------------------------------------------------------
+
+  if(!is.null(category) && (caller %in% c("restatis::catalogue", "restatis::xy_to_variable"))) {
+
+    if(!all(category %in% c("tables", "cubes", "statistics"))) {
+
+      stop("Available categories are tables, statistics, and cubes.",
+           call. = FALSE)
+
+    }
+
+  }
+
+  #----------------------------------------
+
+  if(!is.null(category) && (caller == "restatis::xy_to_statistics")) {
+
+    if(!all(category %in% c("tables", "cubes", "statistics"))) {
+
+      stop("Available categories are tables, statistics, and cubes.",
+           call. = FALSE)
+
+    }
+
+  }
+
+  #-----------------------------------------------------------------------------
+
+  if(!is.null(type)) {
+
+    if(!all(type %in% c("all", "tables", "statistics", "statisticsUpdates"))) {
+
+      stop("Available categories for parameter 'type' are 'tables', 'statistics', 'statistic updates', and 'all'.",
+           call. = FALSE)
+
+    }
+
+  }
+
+  #-----------------------------------------------------------------------------
+
+  if(!is.null(date)) {
+
+    if (date %in% c("now", "week_before", "month_before", "year_before")) {
+
+      message("Please note that this date is calculated automatically and may differ
+              from manually entered data. Manually entered data must have
+              the format DD.MM.YYYY.")
+
+    }
+
+    if(!(date %in% c("now", "week_before", "month_before", "year_before"))) {
+
+      if(!is.character(date)) {
+
+        stop("If using a specific date for parameter 'date', it has to be of type 'character'.",
+             call. =  FALSE)
+
+      }
+
+      if(length(date) != 1 | nchar(date) != 10) {
+
+        stop("If specifying a specific date for parameter 'date', it has to be of length 1 and format DD.MM.YYYY.",
+             call. = FALSE)
+
+      }
+
+
+    }
+
+  }
+
+}
 
 
 

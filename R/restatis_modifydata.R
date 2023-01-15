@@ -1,6 +1,6 @@
-#' Call For Modified Data
+#' modified_data
 #'
-#' Function to check for updates or new objects in Genesis based on a specific date.
+#' @description Function to check for updates or new objects in Genesis based on a specific date.
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis object. Only one code per iteration. "*" notations are possible.
 #' @param type a string. Specific Genesis object type: 'tables', 'statistics', and 'statisticsUpdates'. All three can be accessed through "all", which is the default.
@@ -27,27 +27,9 @@ modified_data <- function(code = "",
                           date = c("now", "week_before", "month_before", "year_before"),
                           ...) {
 
-  # Checks ####
-  if (length(code) != 1L) {
-
-    stop("Parameter 'code' must be a single string.", call. = FALSE)
-
-  }
-
-  if (!all(type %in% c("all", "tables", "statistics", "statisticsUpdates"))) {
-
-    stop("Available categories for parameter 'type' are 'tables', 'statistics', 'statistic updates', and 'all'.",
-         call. = FALSE)
-
-  }
-
-  if (all(date %in% c("now", "week_before", "month_before", "year_before"))) {
-
-    message("Please note that this date is calculated automatically and may differ
-            from manually entered data. Manually entered data must have
-            the format DD.MM.YYYY.")
-
-  }
+check_function_input(code = code,
+                     type = type,
+                     date = date)
 
   #-----------------------------------------------------------------------------
 

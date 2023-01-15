@@ -1,6 +1,6 @@
 # Test for expected output & API calls------------------------------------------
 
-with_mock_dir("catalogue 1", {
+with_mock_dir("catalogue1", {
   test_that("catalogue function returns lists for tables using * notation", {
     expect_type(
       restatis::catalogue(code = "611*", detailed = TRUE, category = "tables"),
@@ -8,7 +8,7 @@ with_mock_dir("catalogue 1", {
   })
 })
 
-with_mock_dir("catalogue 2", {
+with_mock_dir("catalogue2", {
   test_that("catalogue function returns lists for statistics", {
     expect_type(
       restatis::catalogue(code = "41141", detailed = FALSE, category = "statistics"),
@@ -16,7 +16,7 @@ with_mock_dir("catalogue 2", {
   })
 })
 
-with_mock_dir("catalogue 3", {
+with_mock_dir("catalogue3", {
   test_that("catalogue function returns error if there are no results", {
     expect_error(
       restatis::catalogue(code = "41141", detailed = FALSE, category = "cubes"),

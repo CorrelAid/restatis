@@ -22,23 +22,8 @@ running_out_of_terms <- function(term = NULL,
                                  similarity = TRUE,
                                  ...) {
 
-  if (length(term) != 1L) {
-
-    stop("Parameter 'term' must be a single string.", call. = FALSE)
-
-  }
-
-  if (!is.logical(similarity)) {
-
-    stop("Parameter 'similarity' has to be of type logical.", call. = FALSE)
-
-  }
-
-  if (!is.null(term) & !is.character(term)) {
-
-    stop("Parameter 'term' has to be of type character or NULL.", call. = FALSE)
-
-  }
+  check_function_input(term = term,
+                       similarity = similarity)
 
 #-------------------------------------------------------------------------------
 

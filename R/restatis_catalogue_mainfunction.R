@@ -29,38 +29,13 @@ catalogue <- function(code = NULL,
                       sortcriterion = c("code", "content"),
                       ...) {
 
-  # (YAB): Die Parameterchecks könnte man in ein utils-File auslagern
-  # Die Bedingungen für den code-Parameter haben immer einen Fehler ...
-  # ... geworfen, wenn man keinen Parameter spezifiziert (= NULL)
-  # Das <> war in die falsche Richtung gewählt
+  caller <- as.character(match.call())
 
-  # Checks ####
-  if (length(code) != 1L) {
-
-    stop("Parameter 'code' must be a single string.", call. = FALSE)
-
-  }
-
-  # (YAB) Das Default ist detailed = FALSE, das heißt jedes Mal gibt es eine Message...
-  # ... das würde ich ändern, oder weglassen, es steht ja in der man-page
-  if (isFALSE(detailed)) {
-
-    message("Use detailed = TRUE to obtain the complete output.")
-
-  }
-
-  if (!all(category %in% c("tables", "statistics", "cubes"))) {
-
-    stop("Available categories are tables, statistics, or cubes.",
-         call. = FALSE)
-
-  }
-
-  if (!is.logical(detailed)) {
-
-    stop("detailed-parameter must be a TRUE or FALSE", call. = FALSE)
-
-  }
+  check_function_input(code = code,
+                       category = category,
+                       detailed = detailed,
+                       sortcriterion = sortcriterion,
+                       caller = caller)
 
   sortcriterion <- match.arg(sortcriterion)
 
