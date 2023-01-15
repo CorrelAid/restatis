@@ -45,7 +45,7 @@ get_variables_from_statistic <- function(code = NULL,
 
   if (results_json$Status$Code != 0) {
 
-    message(results_json$Status$Content)
+    stop(results_json$Status$Content, call. = FALSE)
 
   }
 
@@ -109,6 +109,7 @@ get_variables_from_statistic <- function(code = NULL,
 #' # Find the values of the variable "DLAND"
 #' object <- get_values_from_variables(code = "DLAND")
 #' }
+#'
 get_values_from_variables <- function(code = NULL,
                                       sortcriterion = c("code", "content"),
                                       ...) {
@@ -179,7 +180,7 @@ get_values_from_variables <- function(code = NULL,
 #' @description Get values from variables from statistic
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
-#' @param detailed.variables a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. This parameter only affects the details of the variables-related output. The default is FALSE.
+#' @param detailed a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. This parameter only affects the details of the variables-related output. The default is FALSE.
 #' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is an parameter of the Genesis call itself. The default is "code".
 #' @param ... Additional parameter of the Genesis call. These parameters are only affecting the Genesis call itself for the variables, no further processing or the values-related objects.
 #'
@@ -189,7 +190,7 @@ get_values_from_variables <- function(code = NULL,
 #' @examples
 #' \dontrun{
 #' # Find the values of variables in a specific statistic with the code "21111" and a detailed description of the variables
-#' object <- get_values_from_variables_from_statistic(code = "21111", detailed.variables = T)
+#' object <- get_values_from_variables_from_statistic(code = "21111", detailed = TRUE)
 #' }
 #'
 get_values_from_variables_from_statistic <- function(code = NULL,
@@ -206,7 +207,7 @@ get_values_from_variables_from_statistic <- function(code = NULL,
   #-----------------------------------------------------------------------------
 
   variables <- get_variables_from_statistic(code = code,
-                                            detailed = detailed.variables,
+                                            detailed = detailed,
                                             sortcriterion = sortcriterion,
                                             ...)
 

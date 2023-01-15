@@ -224,14 +224,3 @@ check_function_input <- function(code = NULL,
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
