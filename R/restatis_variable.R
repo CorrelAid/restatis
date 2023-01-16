@@ -136,7 +136,7 @@ get_values_from_variables <- function(code = NULL,
 
   if (results_json$Status$Code != 0) {
 
-    stop(results_json$Status$Content, call. = FALSE)
+    warning(results_json$Status$Content, call. = FALSE)
 
   }
 

@@ -55,7 +55,7 @@ xy_to_variable <- function(code = NULL,
 
     if (results_json$Status$Code != 0) {
 
-      stop(results_json$Status$Content, call. = FALSE)
+      warning(results_json$Status$Content, call. = FALSE)
 
     }
 
@@ -112,7 +112,7 @@ xy_to_variable <- function(code = NULL,
 
     if (results_json$Status$Code != 0) {
 
-      stop(results_json$Status$Content, call. = FALSE)
+      warning(results_json$Status$Content, call. = FALSE)
 
     }
 
@@ -168,7 +168,7 @@ xy_to_variable <- function(code = NULL,
 
     if (results_json$Status$Code != 0) {
 
-      stop(results_json$Status$Content, call. = FALSE)
+      warning(results_json$Status$Content, call. = FALSE)
 
     }
 

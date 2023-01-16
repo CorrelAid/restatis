@@ -55,7 +55,7 @@ xy_to_statistic <- function(code = NULL,
 
     if (results_json$Status$Code != 0) {
 
-      stop(results_json$Status$Content, call. = FALSE)
+      warning(results_json$Status$Content, call. = FALSE)
 
     }
 
@@ -65,8 +65,10 @@ xy_to_statistic <- function(code = NULL,
 
       lapply(results_json$List, function(x) {
 
-        zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content,
+        zwisch <- rbind(c("Code" = x$Code,
+                          "Content" = x$Content,
                           "Time" = x$Time))
+
         df_tables <<- rbind(df_tables, zwisch)
 
       })
@@ -105,7 +107,7 @@ xy_to_statistic <- function(code = NULL,
 
     if (results_json$Status$Code != 0) {
 
-      stop(results_json$Status$Content, call. = FALSE)
+      warning(results_json$Status$Content, call. = FALSE)
 
     }
 
@@ -162,7 +164,7 @@ xy_to_statistic <- function(code = NULL,
 
     if (results_json$Status$Code != 0) {
 
-      stop(results_json$Status$Content, call. = FALSE)
+      warning(results_json$Status$Content, call. = FALSE)
 
     }
 

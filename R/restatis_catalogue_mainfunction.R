@@ -45,10 +45,10 @@ catalogue <- function(code = NULL,
   if ("cubes" %in% category) {
 
     results_raw <- gen_api("catalogue/cubes",
-                    username = gen_auth_get()$username,
-                    password = gen_auth_get()$password,
-                    selection = code,
-                    ...)
+                            username = gen_auth_get()$username,
+                            password = gen_auth_get()$password,
+                            selection = code,
+                            ...)
 
     if (httr2::resp_content_type(results_raw) == "application/json") {
 
@@ -58,7 +58,7 @@ catalogue <- function(code = NULL,
 
     if (results_json$Status$Code != 0) {
 
-      stop(results_json$Status$Content, call. = FALSE)
+      warning(results_json$Status$Content, call. = FALSE)
 
     }
 
@@ -121,7 +121,7 @@ catalogue <- function(code = NULL,
 
     if (results_json$Status$Code != 0) {
 
-      message(results_json$Status$Content)
+      warning(results_json$Status$Content)
 
     }
 
@@ -182,7 +182,7 @@ catalogue <- function(code = NULL,
 
     if (results_json$Status$Code != 0) {
 
-      message(results_json$Status$Content)
+      warning(results_json$Status$Content)
 
     }
 
@@ -230,8 +230,7 @@ catalogue <- function(code = NULL,
     list_resp <- list(
                   "Cubes" = list("A" = forming_evas(list_of_cubes)),
                   "Statistics" = list("B" = forming_evas(list_of.stats)),
-                  "Tables" = list("Output" = forming_evas(list_of.tabs))
-                  )
+                  "Tables" = list("Output" = forming_evas(list_of.tabs)))
 
   } else if (category == "cubes") {
 
@@ -256,11 +255,3 @@ catalogue <- function(code = NULL,
   return(list_resp)
 
 }
-
-# (YAB): Allgemeine Anmerkungen:
-# Sortcriterion fehlt bei "cubes" (wahrscheinlich muss das so)
-# Wir brauchen noch einen anständigen Funktionsnamen
-# Man könnte überlegen, ob man die Prozessschritte für die drei Typen ...
-# ... auslagern kann, denn sie scheinen fast genau dasselbe zu tun ...
-# ... nur der Input ist ein anderer, oder?
-

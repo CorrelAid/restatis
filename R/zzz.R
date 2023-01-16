@@ -168,9 +168,9 @@ check_function_input <- function(code = NULL,
 
   if(!is.null(category) && (caller == "restatis::xy_to_statistics")) {
 
-    if(!all(category %in% c("tables", "cubes", "statistics"))) {
+    if(!all(category %in% c("tables", "cubes", "variables"))) {
 
-      stop("Available categories are tables, statistics, and cubes.",
+      stop("Available categories are tables, variables, and cubes.",
            call. = FALSE)
 
     }
