@@ -18,7 +18,7 @@ with_mock_dir("catalogue2", {
 
 with_mock_dir("catalogue3", {
   test_that("catalogue function returns error if there are no results", {
-    expect_error(
+    expect_warning(
       restatis::catalogue(code = "41141", detailed = FALSE, category = "cubes"),
       regexp = "Es gibt keine Objekte")
   })
