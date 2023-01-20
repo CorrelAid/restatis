@@ -95,7 +95,7 @@ get_variables_from_statistic <- function(code = NULL,
 
 #' get_values_from_variables
 #'
-#' @description Function to extract the possible values from a variable from Genesis.
+#' @description Function to extract the possible values from a variable from Genesis. Values for continuous variables are not extractable, so the function returns a warning message.
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
 #' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis call itself. The default is "code".
@@ -177,7 +177,7 @@ get_values_from_variables <- function(code = NULL,
 
 #' get_values_from_variables_from_statistic
 #'
-#' @description Get values from variables from statistic
+#' @description Get values from variables from statistic. Values for continuous variables cannot be extracted, so the function returns a warning message for each continuous variable whose values are attempted to be extracted.
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
 #' @param detailed a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. This parameter only affects the details of the variables-related output. The default is FALSE.
