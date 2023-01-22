@@ -242,9 +242,9 @@ test_if_json <- function(input){
 
 # error response ####
 test_if_error <- function(input){
-  if (results_json$Status$Code != 0) {
+  if (input$Status$Code != 0) {
 
-    warning(results_json$Status$Content, call. = FALSE)
+    warning(input$Status$Content, call. = FALSE)
 
   }
 }
