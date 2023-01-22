@@ -67,17 +67,9 @@ check_function_input(code = code,
                     date = date,
                     ...)
 
-    if (httr2::resp_content_type(results_raw) == "application/json") {
+    results_json <- test_if_json(results_raw)
 
-      results_json <- httr2::resp_body_json(results_raw)
-
-    }
-
-    if (results_json$Status$Code != 0) {
-
-      message(results_json$Status$Content)
-
-    }
+    test_if_error(results_json)
   }
 
   #-----------------------------------------------------------------------------
@@ -92,17 +84,9 @@ check_function_input(code = code,
                     date = date,
                     ...)
 
-    if (httr2::resp_content_type(results_raw) == "application/json") {
+    results_json <- test_if_json(results_raw)
 
-      results_json <- httr2::resp_body_json(results_raw)
-
-    }
-
-    if (results_json$Status$Code != 0) {
-
-      message(results_json$Status$Content)
-
-    }
+    test_if_error(results_json)
   }
 
   #-----------------------------------------------------------------------------
@@ -117,17 +101,9 @@ check_function_input(code = code,
                     date = date,
                     ...)
 
-    if (httr2::resp_content_type(results_raw) == "application/json") {
+    results_json <- test_if_json(results_raw)
 
-      results_json <- httr2::resp_body_json(results_raw)
-
-    }
-
-    if (results_json$Status$Code != 0) {
-
-      message(results_json$Status$Content)
-
-    }
+    test_if_error(results_json)
   }
 
   #-----------------------------------------------------------------------------
@@ -142,42 +118,26 @@ check_function_input(code = code,
                     date = date,
                     ...)
 
-    if (httr2::resp_content_type(results_raw) == "application/json") {
+    results_json <- test_if_json(results_raw)
 
-      results_json <- httr2::resp_body_json(results_raw)
-
-    }
-
-    if (results_json$Status$Code != 0) {
-
-      message(results_json$Status$Content)
-
-    }
+    test_if_error(results_json)
   }
 
   #-----------------------------------------------------------------------------
 
-  if (length(results_json$List) == 0 | is.null(unlist(results_json$List))) {
+  if (is.null(unlist(results_json$List))) {
 
     message("No modified objects found for your code or date.")
 
   } else {
 
-    table <- data.frame()
+    table <- binding_lapply(results_json$List,
+                                    characteristics = c("Code",
+                                                        "Content",
+                                                        "Date",
+                                                        "Added",
+                                                        "Type"))
 
-    lapply(results_json$List, function(x) {
-
-      zwisch <- rbind(c(
-                      "Code" = x$Code,
-                      "Content" = x$Content,
-                      "Date" = x$Date,
-                      "Added" = x$Added,
-                      "Type" = x$Type
-                    ))
-
-      table <<- rbind(table, zwisch)
-
-    })
 
     table$Date <- as.Date.character(table$Date, format = "%d.%m.%Y")
 

@@ -37,44 +37,26 @@ get_variables_from_statistic <- function(code = NULL,
                           sortcriterion = sortcriterion,
                           ...)
 
-  if (httr2::resp_content_type(results_raw) == "application/json") {
+  results_json <- test_if_json(results_raw)
 
-    results_json <- httr2::resp_body_json(results_raw)
-
-  }
-
-  if (results_json$Status$Code != 0) {
-
-    stop(results_json$Status$Content, call. = FALSE)
-
-  }
-
-  list_of_variables <- data.frame()
+  test_if_error(results_json)
 
   if (isTRUE(detailed)) {
 
-    lapply(results_json$List, function(x) {
-
-      zwisch <- rbind(c(
-        "Code" = x$Code,
-        "Content" = x$Content,
-        "Type" = x$Type,
-        "Values" = x$Values,
-        "Information" = x$Information
-      ))
-
-      list_of_variables <<- rbind(list_of_variables, zwisch)
-
-    })
+    list_of_variables <- binding_lapply(results_json$List,
+                            characteristics = c("Code",
+                                                "Content",
+                                                "Type",
+                                                "Values",
+                                                "Information"))
 
   } else {
 
-    lapply(results_json$List, function(x) {
+    list_of_variables <- binding_lapply(results_json$List,
+                                        characteristics = c("Code",
+                                                            "Content"
+                                                            ))
 
-      zwisch <- rbind(c("Code" = x$Code, "Content" = x$Content, "Type" = x$Type))
-      list_of_variables <<- rbind(list_of_variables, zwisch)
-
-    })
   }
 
   list_of_variables$Object_Type <- "Variable"
@@ -128,31 +110,16 @@ get_values_from_variables <- function(code = NULL,
                           sortcriterion = sortcriterion,
                           ...)
 
-  if (httr2::resp_content_type(results_raw) == "application/json") {
+  results_json <- test_if_json(results_raw)
 
-    results_json <- httr2::resp_body_json(results_raw)
+  test_if_error(results_json)
 
-  }
+  list_of_variables <- binding_lapply(results_json$List,
+                                      characteristics = c("Code",
+                                                          "Content",
+                                                          "Variables",
+                                                          "Information"))
 
-  if (results_json$Status$Code != 0) {
-
-    warning(results_json$Status$Content, call. = FALSE)
-
-  }
-
-
-  list_of_variables <- data.frame()
-
-  lapply(results_json$List, function(x) {
-
-    zwisch <- rbind(c("Code" = x$Code,
-                      "Content" = x$Content,
-                      "Variables" = x$Variables,
-                      "Information" = x$Information))
-
-    list_of_variables <<- rbind(list_of_variables, zwisch)
-
-  })
 
   if (nrow(list_of_variables) > 0) {
 
@@ -263,31 +230,17 @@ search_variables <- function(code = NULL,
                           sortcriterion = sortcriterion,
                           ...)
 
-  if (httr2::resp_content_type(results_raw) == "application/json") {
+  results_json <- test_if_json(results_raw)
 
-    results_json <- httr2::resp_body_json(results_raw)
+  test_if_error(results_json)
 
-  }
+  list_of_variables <- binding_lapply(results_json$List,
+                                      characteristics = c("Code",
+                                                          "Content",
+                                                          "Type",
+                                                          "Information"))
 
-  if (results_json$Status$Code != 0) {
-
-    stop(results_json$Status$Content, call. = FALSE)
-
-  }
-
-  list_of_variables <- data.frame()
-
-  lapply(results_json$List, function(x) {
-      zwisch <- rbind(c(
-        "Code" = x$Code,
-        "Content" = x$Content,
-        "Type" = x$Type,
-        "Information" = x$Information
-      ))
-
-    list_of_variables <<- rbind(list_of_variables, zwisch)
-
-  })
+  list_of_variables$Object_Type <- "Variable"
 
   list_resp <- list("Variables" = tibble::as_tibble(list_of_variables))
 

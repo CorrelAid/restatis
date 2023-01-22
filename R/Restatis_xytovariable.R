@@ -47,50 +47,27 @@ xy_to_variable <- function(code = NULL,
                             sortcriterion = sortcriterion,
                             ...)
 
-    if (httr2::resp_content_type(results_raw) == "application/json") {
+    results_json <- test_if_json(results_raw)
 
-      results_json <- httr2::resp_body_json(results_raw)
-
-    }
-
-    if (results_json$Status$Code != 0) {
-
-      warning(results_json$Status$Content, call. = FALSE)
-
-    }
-
-    df_tables <- data.frame()
+    test_if_error(results_json)
 
     if (isTRUE(detailed)) {
 
-      lapply(results_json$List, function(x) {
+      df_tables <- binding_lapply(results_json$List,
+                                      characteristics = c("Code",
+                                                          "Content",
+                                                          "Time"))
 
-        zwisch <- rbind(c(
-          "Code" = x$Code,
-          "Content" = x$Content,
-          "Time" = x$Time
-        ))
-
-        df_tables <<- rbind(df_tables, zwisch)
-
-      })
-
-      df_tables$Object_Type <- "Table"
 
     } else {
 
-      lapply(results_json$List, function(x) {
-
-        zwisch <- rbind(c("Code" = x$Code,
-                          "Content" = x$Content))
-
-        df_tables <<- rbind(df_tables, zwisch)
-
-      })
-
-      df_tables$Object_Type <- "Table"
+      df_tables <- binding_lapply(results_json$List,
+                                  characteristics = c("Code",
+                                                      "Content"))
 
     }
+
+    df_tables$Object_Type <- "Table"
   }
 
   #-----------------------------------------------------------------------------
@@ -104,50 +81,26 @@ xy_to_variable <- function(code = NULL,
                             sortcriterion = sortcriterion,
                             ...)
 
-    if (httr2::resp_content_type(results_raw) == "application/json") {
+    results_json <- test_if_json(results_raw)
 
-      results_json <- httr2::resp_body_json(results_raw)
-
-    }
-
-    if (results_json$Status$Code != 0) {
-
-      warning(results_json$Status$Content, call. = FALSE)
-
-    }
-
-    df_statistics <- data.frame()
+    test_if_error(results_json)
 
     if (isTRUE(detailed)) {
 
-      lapply(results_json$List, function(x) {
-
-        zwisch <- rbind(c(
-          "Code" = x$Code,
-          "Content" = x$Content,
-          "Cubes" = x$Cubes,
-          "Information" = x$Information
-        ))
-
-        df_statistics <<- rbind(df_statistics, zwisch)
-
-      })
-
-      df_statistics$Object_Type <- "Statistic"
+      df_statistics <- binding_lapply(results_json$List,
+                                  characteristics = c("Code",
+                                                      "Content",
+                                                      "Cubes",
+                                                      "Information"))
 
     } else {
 
-      lapply(results_json$List, function(x) {
-
-        zwisch <- rbind(c("Code" = x$Code,
-                          "Content" = x$Content))
-
-        df_statistics <<- rbind(df_statistics, zwisch)
-
-      })
-
-      df_statistics$Object_Type <- "Statistic"
+      df_statistics <- binding_lapply(results_json$List,
+                                  characteristics = c("Code",
+                                                      "Content"))
     }
+
+    df_statistics$Object_Type <- "Statistic"
   }
 
   #-----------------------------------------------------------------------------
@@ -160,52 +113,28 @@ xy_to_variable <- function(code = NULL,
                             name = code,
                             ...)
 
-    if (httr2::resp_content_type(results_raw) == "application/json") {
+    results_json <- test_if_json(results_raw)
 
-      results_json <- httr2::resp_body_json(results_raw)
-
-    }
-
-    if (results_json$Status$Code != 0) {
-
-      warning(results_json$Status$Content, call. = FALSE)
-
-    }
-
-    df_cubes <- data.frame()
+    test_if_error(results_json)
 
     if (isTRUE(detailed)) {
 
-      lapply(results_json$List, function(x) {
-
-        zwisch <- rbind(c(
-          "Code" = x$Code,
-          "Content" = x$Content,
-          "Time" = x$Time,
-          "State" = x$State,
-          "LatestUpdate" = x$LatestUpdate,
-          "Information" = x$Information
-        ))
-
-        df_cubes <<- rbind(df_cubes, zwisch)
-
-      })
-
-      df_cubes$Object_Type <- "Cube"
+      df_cubes <- binding_lapply(results_json$List,
+                                      characteristics = c("Code",
+                                                          "Content",
+                                                          "Time",
+                                                          "State",
+                                                          "LatestUpdate",
+                                                          "Information"))
 
     } else {
 
-      lapply(results_json$List, function(x) {
-
-        zwisch <- rbind(c("Code" = x$Code,
-                          "Content" = x$Content))
-
-        df_cubes <<- rbind(df_cubes, zwisch)
-
-      })
-
-      df_cubes$Object_Type <- "Cube"
+      df_cubes <- binding_lapply(results_json$List,
+                                 characteristics = c("Code",
+                                                     "Content"))
     }
+
+    df_cubes$Object_Type <- "Cube"
   }
 
   #-----------------------------------------------------------------------------

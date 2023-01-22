@@ -50,57 +50,37 @@ catalogue <- function(code = NULL,
                             selection = code,
                             ...)
 
-    if (httr2::resp_content_type(results_raw) == "application/json") {
+    results_json <- test_if_json(results_raw)
 
-      results_json <- httr2::resp_body_json(results_raw)
-
-    }
-
-    if (results_json$Status$Code != 0) {
-
-      warning(results_json$Status$Content, call. = FALSE)
-
-    }
-
-    list_of_cubes <- data.frame()
+    test_if_error(results_json)
 
     if (isTRUE(detailed)) {
 
-      lapply(results_json$List, function(x) {
+      list_of_cubes <- binding_lapply(results_json$List,
+                                      characteristics = c("Code",
+                                                          "Content",
+                                                          "Time",
+                                                          "LatestUpdate",
+                                                          "State",
+                                                          "Information"))
 
-        zwisch <- rbind(c("Code" = x$Code,
-                          "Content" = x$Content,
-                          "Time" = x$Time,
-                          "Latest_Update" = x$LatestUpdate,
-                          "State" = x$State,
-                          "Information" = x$Information))
-
-        list_of_cubes <<- rbind(list_of_cubes,
-                                zwisch)
-
-      })
-
-      list_of_cubes$Object_Type <- "Cube"
 
     } else {
 
-      lapply(results_json$List, function(x) {
+      list_of_cubes <- binding_lapply(results_json$List,
+                                      characteristics = c("Code",
+                                                          "Content"))
 
-        zwisch <- rbind(c("Code" = x$Code,
-                          "Content" = x$Content))
 
-        list_of_cubes <<- rbind(list_of_cubes,
-                                zwisch)
-
-      })
-
-      list_of_cubes$Object_Type <- "Cube"
 
     }
 
+    list_of_cubes$Object_Type <- "Cube"
+
     list_of_cubes <- tibble::as_tibble(list_of_cubes)
 
-  }
+    }
+
 
   #-----------------------------------------------------------------------------
 
@@ -113,55 +93,36 @@ catalogue <- function(code = NULL,
                     sortcriterion = sortcriterion,
                     ...)
 
-    if (httr2::resp_content_type(results_raw) == "application/json") {
+    results_json <- test_if_json(results_raw)
 
-      results_json <- httr2::resp_body_json(results_raw)
-
-    }
-
-    if (results_json$Status$Code != 0) {
-
-      warning(results_json$Status$Content)
-
-    }
-
-    list_of.stats <- data.frame()
+    test_if_error(results_json)
 
     if (isTRUE(detailed)) {
 
-      lapply(results_json$List, function(x) {
+      list_of.stats <- binding_lapply(results_json$List,
+                                      characteristics = c("Code",
+                                                          "Content",
+                                                          "Cubes",
+                                                          "Information"))
 
-        zwisch <- rbind(c("Code" = x$Code,
-                          "Content" = x$Content,
-                          "Cubes" = x$Cubes,
-                          "Information" = x$Information))
-
-        list_of.stats <<- rbind(list_of.stats,
-                                zwisch)
-
-      })
-
-      list_of.stats$Object_Type <- "Statistic"
 
     } else {
 
-      lapply(results_json$List, function(x) {
+      list_of.stats <- binding_lapply(results_json$List,
+                                      characteristics = c("Code",
+                                                          "Content"))
 
-        zwisch <- rbind(c("Code" = x$Code,
-                          "Content" = x$Content))
 
-        list_of.stats <<- rbind(list_of.stats,
-                                zwisch)
-
-      })
-
-      list_of.stats$Object_Type <- "Statistic"
 
     }
+
+    list_of.stats$Object_Type <- "Statistic"
 
     list_of.stats <- tibble::as_tibble(list_of.stats)
 
   }
+
+
 
   #-----------------------------------------------------------------------------
 
@@ -174,53 +135,34 @@ catalogue <- function(code = NULL,
                     sortcriterion = sortcriterion,
                     ...)
 
-    if (httr2::resp_content_type(results_raw) == "application/json") {
+    results_json <- test_if_json(results_raw)
 
-      results_json <- httr2::resp_body_json(results_raw)
-
-    }
-
-    if (results_json$Status$Code != 0) {
-
-      warning(results_json$Status$Content)
-
-    }
-
-    list_of.tabs <- data.frame()
+    test_if_error(results_json)
 
     if (isTRUE(detailed)) {
 
-      lapply(results_json$List, function(x) {
+      list_of.tabs <- binding_lapply(results_json$List,
+                                      characteristics = c("Code",
+                                                          "Content",
+                                                          "Time"))
 
-        zwisch <- rbind(c("Code" = x$Code,
-                          "Content" = x$Content,
-                          "Time" = x$Time))
 
-        list_of.tabs <<- rbind(list_of.tabs, zwisch)
-
-      })
-
-      list_of.tabs$Object_Type <- "Table"
 
     } else {
 
-      lapply(results_json$List, function(x) {
+      list_of.tabs <- binding_lapply(results_json$List,
+                                      characteristics = c("Code",
+                                                          "Content"))
 
-        zwisch <- rbind(c("Code" = x$Code,
-                          "Content" = x$Content))
-
-        list_of.tabs <<- rbind(list_of.tabs,
-                               zwisch)
-
-      })
-
-      list_of.tabs$Object_Type <- "Table"
 
     }
+
+    list_of.tabs$Object_Type <- "Table"
 
     list_of.tabs <- tibble::as_tibble(list_of.tabs)
 
   }
+
 
   #-----------------------------------------------------------------------------
 

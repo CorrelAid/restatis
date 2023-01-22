@@ -34,17 +34,9 @@ running_out_of_terms <- function(term = NULL,
     selection = term,
     ...)
 
-  if (httr2::resp_content_type(results_raw) == "application/json") {
+  results_json <- test_if_json(results_raw)
 
-    results_term <- httr2::resp_body_json(results_raw)
-
-  }
-
-  if (results_term$Status$Code != 0) {
-
-    stop(results_term$Status$Content, call. = FALSE)
-
-  }
+  test_if_error(results_json)
 
   if (length(results_term$List) == 0) {
 
