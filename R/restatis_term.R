@@ -38,7 +38,7 @@ running_out_of_terms <- function(term = NULL,
 
   test_if_error(results_json)
 
-  if (length(results_term$List) == 0) {
+  if (length(results_json$List) == 0) {
 
     stop("No related terms found for your code.", call. = FALSE)
 
@@ -47,7 +47,7 @@ running_out_of_terms <- function(term = NULL,
     # similarity von Woertern berechnen und nach diesen Ordnen?
     termslist <- c()
 
-    termslist <- lapply(results_term$List, function(x) {
+    termslist <- lapply(results_json$List, function(x) {
 
       append(termslist, x$Content)
 
@@ -77,9 +77,9 @@ running_out_of_terms <- function(term = NULL,
     list_resp <- list("Output" = termslist)
 
     attr(list_resp, "Term") <- term
-    attr(list_resp, "Language") <- results_term$Parameter$language
-    attr(list_resp, "Pagelength") <- results_term$Parameter$pagelength
-    attr(list_resp, "Copyright") <- results_term$Copyright
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+    attr(list_resp, "Copyright") <- results_json$Copyright
 
     return(list_resp)
 
