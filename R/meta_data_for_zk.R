@@ -27,9 +27,7 @@ meta_data_for_statistics <- function(code = NULL,
     username = gen_auth_get()$username, password = gen_auth_get()$password, name = code, ...
   )
 
-  if (httr2::resp_content_type(results_raw) == "application/json") {
-    results_json <- httr2::resp_body_json(results_raw)
-  }
+  results_json <- test_if_json(results_raw)
 
   if (results_json$Status$Code != 0) {
     message(results_json$Status$Content)
@@ -78,9 +76,7 @@ meta_data_for_variables <- function(code = NULL,
 
   results_raw <- gen_api("metadata/variable", username = gen_auth_get()$username, password = gen_auth_get()$password, name = code, ...)
 
-  if (httr2::resp_content_type(results_raw) == "application/json") {
-    results_json <- httr2::resp_body_json(results_raw)
-  }
+  results_json <- test_if_json(results_raw)
 
   if (results_json$Status$Code != 0) {
     message(results_json$Status$Content)
@@ -129,9 +125,7 @@ meta_data_for_values <- function(code = NULL,
 
   results_raw <- gen_api("metadata/value", username = gen_auth_get()$username, password = gen_auth_get()$password, name = code, ...)
 
-  if (httr2::resp_content_type(results_raw) == "application/json") {
-    results_json <- httr2::resp_body_json(results_raw)
-  }
+  results_json <- test_if_json(results_raw)
 
   if (results_json$Status$Code != 0) {
     message(results_json$Status$Content)
@@ -180,9 +174,7 @@ meta_data_for_tables <- function(code = NULL,
 
   results_raw <- gen_api("metadata/table", username = gen_auth_get()$username, password = gen_auth_get()$password, name = code, ...)
 
-  if (httr2::resp_content_type(results_raw) == "application/json") {
-    results_json <- httr2::resp_body_json(results_raw)
-  }
+  results_json <- test_if_json(results_raw)
 
   if (results_json$Status$Code != 0) {
     message(results_json$Status$Content)
@@ -282,9 +274,7 @@ meta_data_for_cubes <- function(code = NULL,
 
   results_raw <- gen_api("metadata/cube", username = gen_auth_get()$username, password = gen_auth_get()$password, name = code, ...)
 
-  if (httr2::resp_content_type(results_raw) == "application/json") {
-    results_json <- httr2::resp_body_json(results_raw)
-  }
+  results_json <- test_if_json(results_raw)
 
   if (results_json$Status$Code != 0) {
     message(results_json$Status$Content)

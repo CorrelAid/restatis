@@ -50,500 +50,501 @@ search_for <- function(term = NULL,
 
   # Data ####
   results_raw <- gen_api("find/find",
-    username = gen_auth_get()$username,
-    password = gen_auth_get()$password,
-    term = term,
-    category = category,
-    ...
-  )
+                         username = gen_auth_get()$username,
+                         password = gen_auth_get()$password,
+                         term = term,
+                         category = category,
+                         ...)
 
-  if (httr2::resp_content_type(results_raw) == "application/json") {
-    results_json <- httr2::resp_body_json(results_raw)
-  }
+  results_json <- test_if_json(results_raw)
 
-  if (results_json$Status$Code != 0) {
-    message(results_json$Status$Content)
-  }
+  test_if_error(results_json)
 
-  if (sum(unlist(lapply(results_json[4:8], function(x) {
-    is.null(x)
-  }))) == 5) {
-    message("No related terms found for your code.")
-  }
+  test_if_process_further(results_json)
 
   if (detailed == T) {
     if (category == "all") {
-      df_table <- data.frame()
-      lapply(results_json$Tables, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content,
-          "Time" = x$Time,
-          "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_table <<- rbind(df_table, zwisch)
-      })
+      # Table ####
+      df_table <- binding_lapply(results_json$Tables,
+                                 characteristics = c("Code",
+                                                     "Content",
+                                                     "Time"))
+
+      df_table$Spezifisch <- ggsub(df_table)
+
+      df_table$Variablen <- spezifisch_create(df_table)
+
+      df_table$Object_Type <- "Table"
+
+      # Statistic ####
+      df_stats <- binding_lapply(results_json$Statistics,
+                                 characteristics = c("Code",
+                                                     "Content",
+                                                     "Information",
+                                                     "Cubes"))
+
+      df_stats$Spezifisch <- ggsub(df_stats)
+
+      df_stats$Variablen <- spezifisch_create(df_stats)
+
+      df_stats$Object_Type <- "Statistic"
+
+      # Variables ####
+      df_variables <- binding_lapply(results_json$Variables,
+                                     characteristics = c("Code",
+                                                         "Content",
+                                                         "Type",
+                                                         "Values",
+                                                         "Information"))
+
+      df_variables$Spezifisch <- ggsub(df_variables)
+
+      df_variables$Variablen <- spezifisch_create(df_variables)
+
+      df_variables$Object_Type <- "Variable"
+
+      # Cubes ####
+      df_cubes <- binding_lapply(results_json$Cubes,
+                                 characteristics = c("Code",
+                                                     "Content",
+                                                     "Time",
+                                                     "LatestUpdate",
+                                                     "State",
+                                                     "Information"))
+
+      df_cubes$Spezifisch <- ggsub(df_cubes)
+
+      df_cubes$Variablen <- spezifisch_create(df_cubes)
+
+      df_cubes$Object_Type <- "Cube"
+
+      # Search for title-term match ####
       if (nrow(df_table) != 0) {
-        df_table$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_table$Content,
-          ignore.case = T
-        )
-        df_table$Variablen <- unlist(lapply(strsplit(df_table$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c(
-            "Code", "Content",
-            "Titel", "Time",
-            "Variablen", "Spezifisch"
-          )]
-        } else {
-          df_table <- df_table[, c(
-            "Code", "Content",
-            "Titel", "Time",
-            "Variablen", "Spezifisch"
-          )]
-        }
-
-        df_table$Object_Type <- "Table"
+        df_table$Titel <- titel_search(df_table, term)
       }
-
-      df_stats <- data.frame()
-      lapply(results_json$Statistics, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content,
-          "Information" = x$Information,
-          "Cubes" = x$Cubes,
-          "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_stats <<- rbind(df_stats, zwisch)
-      })
       if (nrow(df_stats) != 0) {
-        df_stats$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_stats$Content,
-          ignore.case = T
-        )
-        df_stats$Variablen <- unlist(lapply(strsplit(df_stats$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c(
-            "Code",
-            "Content",
-            "Titel",
-            "Information",
-            "Cubes",
-            "Variablen",
-            "Spezifisch"
-          )]
-        } else {
-          df_stats <- df_stats[, c(
-            "Code", "Content", "Titel", "Information",
-            "Cubes", "Variablen", "Spezifisch"
-          )]
-        }
-
-        df_stats$Object_Type <- "Statistic"
+        df_stats$Titel <- titel_search(df_stats, term)
       }
-
-      df_variables <- data.frame()
-      lapply(results_json$Variables, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content, "Type" = x$Type,
-          "Values" = x$Values, "Information" = x$Information,
-          "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_variables <<- rbind(df_variables, zwisch)
-      })
       if (nrow(df_variables) != 0) {
-        df_variables$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_variables$Content,
-          ignore.case = T
-        )
-        df_variables$Variablen <- unlist(lapply(strsplit(df_variables$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c(
-            "Code",
-            "Content",
-            "Titel",
-            "Values",
-            "Information",
-            "Variablen",
-            "Spezifisch"
-          )]
-        } else {
-          df_variables <- df_variables[, c(
-            "Code", "Content", "Titel", "Values",
-            "Information", "Variablen", "Spezifisch"
-          )]
-        }
-
-        df_variables$Object_Type <- "Variable"
+        df_variables$Titel <- titel_search(df_variables, term)
       }
-
-      df_cubes <- data.frame()
-      lapply(results_json$Cubes, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content,
-          "Time" = x$Time, "LatestUpdate" = x$LatestUpdate,
-          "State" = x$State, "Information" = x$Information,
-          "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_cubes <<- rbind(df_cubes, zwisch)
-      })
       if (nrow(df_cubes) != 0) {
-        df_cubes$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_cubes$Content,
-          ignore.case = T
-        )
-        df_cubes$Variablen <- unlist(lapply(strsplit(df_cubes$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c(
-            "Code",
-            "Content",
-            "Titel",
-            "Time",
-            "LatestUpdate",
-            "State",
-            "Information",
-            "Variablen",
-            "Spezifisch"
-          )]
-        } else {
-          df_cubes <- df_cubes[, c(
-            "Code", "Content", "Titel", "Time",
-            "LatestUpdate", "State", "Information",
-            "Variablen", "Spezifisch"
-          )]
-        }
-
-        df_cubes$Object_Type <- "Cube"
+        df_cubes$Titel <- titel_search(df_cubes, term)
       }
 
+      # Ordering ####
+      if(ordering){
+        df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
+                                                                          "Content",
+                                                                          "Titel",
+                                                                          "Time",
+                                                                          "Variablen",
+                                                                          "Spezifisch",
+                                                                          "Object_Type")]
+
+        df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
+                                                                           "Content",
+                                                                           "Titel",
+                                                                           "Information",
+                                                                           "Cubes",
+                                                                           "Variablen",
+                                                                           "Spezifisch",
+                                                                           "Object_Type")]
+
+        df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
+                                                                                       "Content",
+                                                                                       "Titel",
+                                                                                       "Values",
+                                                                                       "Information",
+                                                                                       "Variablen",
+                                                                                       "Spezifisch",
+                                                                                       "Object_Type")]
+
+        df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
+                                                                           "Content",
+                                                                           "Titel",
+                                                                           "Time",
+                                                                           "LatestUpdate",
+                                                                           "State",
+                                                                           "Information",
+                                                                           "Variablen",
+                                                                           "Spezifisch",
+                                                                           "Object_Type")]
+      } else {
+
+        df_table <- df_table[, c("Code",
+                                 "Content",
+                                 "Titel",
+                                 "Time",
+                                 "Variablen",
+                                 "Spezifisch",
+                                 "Object_Type")]
+
+        df_stats <- df_stats[, c("Code",
+                                 "Content",
+                                 "Titel",
+                                 "Information",
+                                 "Cubes",
+                                 "Variablen",
+                                 "Spezifisch",
+                                 "Object_Type")]
+
+        df_variables <- df_variables[, c("Code",
+                                         "Content",
+                                         "Titel",
+                                         "Values",
+                                         "Information",
+                                         "Variablen",
+                                         "Spezifisch",
+                                         "Object_Type")]
+
+        df_cubes <- df_cubes[, c("Code",
+                                 "Content",
+                                 "Titel",
+                                 "Time",
+                                 "LatestUpdate",
+                                 "State",
+                                 "Information",
+                                 "Variablen",
+                                 "Spezifisch",
+                                 "Object_Type")]
+
+      }
+
+      # Combine ####
       list_resp <- list(
         "Tables" = tibble::as_tibble(df_table), "Statistics" = tibble::as_tibble(df_stats),
-        "Variables" = tibble::as_tibble(df_variables), "Cubes" = tibble::as_tibble(df_cubes)
-      )
+        "Variables" = tibble::as_tibble(df_variables), "Cubes" = tibble::as_tibble(df_cubes))
+
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
 
       return(list_resp)
-    } else if (category == "tables") {
-      df_table <- data.frame()
-      lapply(results_json$Tables, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content,
-          "Time" = x$Time,
-          "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_table <<- rbind(df_table, zwisch)
-      })
+    }
+    if (category == "tables") {
+      # Table ####
+      df_table <- binding_lapply(results_json$Tables,
+                                 characteristics = c("Code",
+                                                     "Content",
+                                                     "Time"))
+
+      df_table$Spezifisch <- ggsub(df_table)
+
+      df_table$Variablen <- spezifisch_create(df_table)
+
+      df_table$Object_Type <- "Table"
+
+      # Search for title-term match ####
       if (nrow(df_table) != 0) {
-        df_table$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_table$Content,
-          ignore.case = T
-        )
-        df_table$Variablen <- unlist(lapply(strsplit(df_table$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c(
-            "Code",
-            "Content",
-            "Titel",
-            "Time",
-            "Variablen",
-            "Spezifisch"
-          )]
-        } else {
-          df_table <- df_table[, c(
-            "Code", "Content", "Titel",
-            "Time", "Variablen", "Spezifisch"
-          )]
-        }
-
-        df_table$Object_Type <- "Table"
+        df_table$Titel <- titel_search(df_table, term)
       }
 
+      # Ordering ####
+      if(ordering){
+        df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
+                                                                          "Content",
+                                                                          "Titel",
+                                                                          "Time",
+                                                                          "Variablen",
+                                                                          "Spezifisch",
+                                                                          "Object_Type")]
+      } else {
 
+        df_table <- df_table[, c("Code",
+                                 "Content",
+                                 "Titel",
+                                 "Time",
+                                 "Variablen",
+                                 "Spezifisch",
+                                 "Object_Type")]
+      }
+
+      # Combine ####
       list_resp <- list("Tables" = tibble::as_tibble(df_table))
+
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
+
       return(list_resp)
-    } else if (category == "statistics") {
-      df_stats <- data.frame()
-      lapply(results_json$Statistics, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content,
-          "Information" = x$Information,
-          "Cubes" = x$Cubes,
-          "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_stats <<- rbind(df_stats, zwisch)
-      })
+
+    }
+    if (category == "statistics") {
+      # Statistic ####
+      df_stats <- binding_lapply(results_json$Statistics,
+                                 characteristics = c("Code",
+                                                     "Content",
+                                                     "Information",
+                                                     "Cubes"))
+
+      df_stats$Spezifisch <- ggsub(df_stats)
+
+      df_stats$Variablen <- spezifisch_create(df_stats)
+
+      df_stats$Object_Type <- "Statistic"
+
+      # Search for title-term match ####
       if (nrow(df_stats) != 0) {
-        df_stats$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_stats$Content,
-          ignore.case = T
-        )
-        df_stats$Variablen <- unlist(lapply(strsplit(df_stats$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c(
-            "Code", "Content",
-            "Titel", "Information",
-            "Cubes", "Variablen", "Spezifisch"
-          )]
-        } else {
-          df_stats <- df_stats[, c(
-            "Code", "Content",
-            "Titel", "Information",
-            "Cubes", "Variablen", "Spezifisch"
-          )]
-        }
-
-        df_stats$Object_Type <- "Statistic"
+        df_stats$Titel <- titel_search(df_stats, term)
       }
 
+      # Ordering ####
+      if(ordering){
+        df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
+                                                                           "Content",
+                                                                           "Titel",
+                                                                           "Information",
+                                                                           "Cubes",
+                                                                           "Variablen",
+                                                                           "Spezifisch",
+                                                                           "Object_Type")]
+
+      } else {
+        df_stats <- df_stats[, c("Code",
+                                 "Content",
+                                 "Titel",
+                                 "Information",
+                                 "Cubes",
+                                 "Variablen",
+                                 "Spezifisch",
+                                 "Object_Type")]
+
+      }
+
+      # Combine ####
       list_resp <- list("Statistics" = tibble::as_tibble(df_stats))
+
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
+
       return(list_resp)
-    } else if (category == "variables") {
-      df_variables <- data.frame()
-      lapply(results_json$Variables, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content,
-          "Type" = x$Type, "Values" = x$Values,
-          "Information" = x$Information,
-          "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_variables <<- rbind(df_variables, zwisch)
-      })
+
+
+
+
+    }
+    if (category == "variables") {
+      # Variables ####
+      df_variables <- binding_lapply(results_json$Variables,
+                                     characteristics = c("Code",
+                                                         "Content",
+                                                         "Type",
+                                                         "Values",
+                                                         "Information"))
+
+      df_variables$Spezifisch <- ggsub(df_variables)
+
+      df_variables$Variablen <- spezifisch_create(df_variables)
+
+      df_variables$Object_Type <- "Variable"
+
+      # Search for title-term match ####
       if (nrow(df_variables) != 0) {
-        df_variables$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_variables$Content,
-          ignore.case = T
-        )
-        df_variables$Variablen <- unlist(lapply(strsplit(df_variables$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c(
-            "Code", "Content",
-            "Titel",
-            "Values", "Type",
-            "Information",
-            "Variablen", "Spezifisch"
-          )]
-        } else {
-          df_variables <- df_variables[, c(
-            "Code", "Content",
-            "Titel",
-            "Values", "Type",
-            "Information",
-            "Variablen", "Spezifisch"
-          )]
-        }
-
-        df_variables$Object_Type <- "Variable"
+        df_variables$Titel <- titel_search(df_variables, term)
       }
 
+      # Ordering ####
+      if(ordering){
+        df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
+                                                                                       "Content",
+                                                                                       "Titel",
+                                                                                       "Values",
+                                                                                       "Information",
+                                                                                       "Variablen",
+                                                                                       "Spezifisch",
+                                                                                       "Object_Type")]
+
+      } else {
+
+        df_variables <- df_variables[, c("Code",
+                                         "Content",
+                                         "Titel",
+                                         "Values",
+                                         "Information",
+                                         "Variablen",
+                                         "Spezifisch",
+                                         "Object_Type")]
+
+      }
+
+      # Combine ####
       list_resp <- list("Variables" = tibble::as_tibble(df_variables))
+
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
+
       return(list_resp)
-    } else if (category == "cubes") {
-      df_cubes <- data.frame()
-      lapply(results_json$Cubes, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content,
-          "Time" = x$Time, "LatestUpdate" = x$LatestUpdate,
-          "State" = x$State, "Information" = x$Information,
-          "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_cubes <<- rbind(df_cubes, zwisch)
-      })
+
+
+
+
+    }
+    if (category == "cubes") {
+      # Cubes ####
+      df_cubes <- binding_lapply(results_json$Cubes,
+                                 characteristics = c("Code",
+                                                     "Content",
+                                                     "Time",
+                                                     "LatestUpdate",
+                                                     "State",
+                                                     "Information"))
+
+      df_cubes$Spezifisch <- ggsub(df_cubes)
+
+      df_cubes$Variablen <- spezifisch_create(df_cubes)
+
+      df_cubes$Object_Type <- "Cube"
+
+      # Search for title-term match ####
       if (nrow(df_cubes) != 0) {
-        df_cubes$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"), df_cubes$Content,
-          ignore.case = T
-        )
-        df_cubes$Variablen <- unlist(lapply(strsplit(df_cubes$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c(
-            "Code", "Content",
-            "Titel",
-            "Time", "LatestUpdate", "State",
-            "Information",
-            "Variablen", "Spezifisch"
-          )]
-        } else {
-          df_cubes <- df_cubes[, c(
-            "Code", "Content",
-            "Titel",
-            "Time", "LatestUpdate", "State",
-            "Information",
-            "Variablen", "Spezifisch"
-          )]
-        }
-
-        df_cubes$Object_Type <- "Cube"
+        df_cubes$Titel <- titel_search(df_cubes, term)
       }
 
+      # Ordering ####
+      if(ordering){
+        df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
+                                                                           "Content",
+                                                                           "Titel",
+                                                                           "Time",
+                                                                           "LatestUpdate",
+                                                                           "State",
+                                                                           "Information",
+                                                                           "Variablen",
+                                                                           "Spezifisch",
+                                                                           "Object_Type")]
+      } else {
+
+        df_cubes <- df_cubes[, c("Code",
+                                 "Content",
+                                 "Titel",
+                                 "Time",
+                                 "LatestUpdate",
+                                 "State",
+                                 "Information",
+                                 "Variablen",
+                                 "Spezifisch",
+                                 "Object_Type")]
+
+      }
+
+      # Combine ####
       list_resp <- list("Cubes" = tibble::as_tibble(df_cubes))
+
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
+
       return(list_resp)
     }
   }
 
-
   if (detailed == F) {
     if (category == "all") {
-      df_table <- data.frame()
-      lapply(results_json$Tables, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content,
-          "Time" = x$Time, "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_table <<- rbind(df_table, zwisch)
-      })
+
+      # Table ####
+      df_table <- binding_lapply(results_json$Tables,
+                                 characteristics = c("Code",
+                                                     "Content"))
+
+      df_table$Spezifisch <- ggsub(df_table)
+
+      df_table$Variablen <- spezifisch_create(df_table)
+
+      df_table$Object_Type <- "Table"
+
+      # Statistic ####
+      df_stats <- binding_lapply(results_json$Statistics,
+                                 characteristics = c("Code",
+                                                     "Content"))
+
+      df_stats$Spezifisch <- ggsub(df_stats)
+
+      df_stats$Variablen <- spezifisch_create(df_stats)
+
+      df_stats$Object_Type <- "Statistic"
+
+      # Variables ####
+      df_variables <- binding_lapply(results_json$Variables,
+                                     characteristics = c("Code",
+                                                         "Content"))
+
+      df_variables$Spezifisch <- ggsub(df_variables)
+
+      df_variables$Variablen <- spezifisch_create(df_variables)
+
+      df_variables$Object_Type <- "Variable"
+
+      # Cubes ####
+      df_cubes <- binding_lapply(results_json$Cubes,
+                                 characteristics = c("Code",
+                                                     "Content"))
+
+      df_cubes$Spezifisch <- ggsub(df_cubes)
+
+      df_cubes$Variablen <- spezifisch_create(df_cubes)
+
+      df_cubes$Object_Type <- "Cube"
+
+      # Search for title-term match ####
       if (nrow(df_table) != 0) {
-        df_table$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_table$Content,
-          ignore.case = T
-        )
-        df_table$Variablen <- unlist(lapply(strsplit(df_table$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code", "Content")]
-        } else {
-          df_table <- df_table[, c("Code", "Content")]
-        }
-
-        df_table$Object_Type <- "Table"
+        df_table$Titel <- titel_search(df_table, term)
       }
-
-      df_stats <- data.frame()
-      lapply(results_json$Statistics, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content,
-          "Information" = x$Information, "Cubes" = x$Cubes,
-          "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_stats <<- rbind(df_stats, zwisch)
-      })
       if (nrow(df_stats) != 0) {
-        df_stats$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_stats$Content,
-          ignore.case = T
-        )
-        df_stats$Variablen <- unlist(lapply(strsplit(df_stats$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c("Code", "Content")]
-        } else {
-          df_stats <- df_stats[, c("Code", "Content")]
-        }
-
-        df_stats$Object_Type <- "Statistic"
+        df_stats$Titel <- titel_search(df_stats, term)
       }
-
-      df_variables <- data.frame()
-      lapply(results_json$Variables, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content,
-          "Type" = x$Type, "Values" = x$Values,
-          "Information" = x$Information, "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_variables <<- rbind(df_variables, zwisch)
-      })
       if (nrow(df_variables) != 0) {
-        df_variables$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_variables$Content,
-          ignore.case = T
-        )
-        df_variables$Variablen <- unlist(lapply(strsplit(df_variables$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c("Code", "Content")]
-        } else {
-          df_variables <- df_variables[, c("Code", "Content")]
-        }
-
-        df_variables$Object_Type <- "Variable"
+        df_variables$Titel <- titel_search(df_variables, term)
       }
-
-      df_cubes <- data.frame()
-      lapply(results_json$Cubes, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content,
-          "Time" = x$Time, "LatestUpdate" = x$LatestUpdate,
-          "State" = x$State, "Information" = x$Information,
-          "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_cubes <<- rbind(df_cubes, zwisch)
-      })
       if (nrow(df_cubes) != 0) {
-        df_cubes$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_cubes$Content,
-          ignore.case = T
-        )
-        df_cubes$Variablen <- unlist(lapply(strsplit(df_cubes$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c("Code", "Content")]
-        } else {
-          df_cubes <- df_cubes[, c("Code", "Content")]
-        }
-
-        df_cubes$Object_Type <- "Cube"
+        df_cubes$Titel <- titel_search(df_cubes, term)
       }
 
+      # Ordering ####
+      if(ordering){
+        df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
+                                                                          "Content",
+                                                                          "Object_Type")]
+
+        df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
+                                                                           "Content",
+                                                                           "Object_Type")]
+
+        df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
+                                                                                       "Content",
+                                                                                       "Object_Type")]
+
+        df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
+                                                                           "Content",
+                                                                           "Object_Type")]
+      } else {
+
+        df_table <- df_table[, c("Code",
+                                 "Content",
+                                 "Object_Type")]
+
+        df_stats <- df_stats[, c("Code",
+                                 "Content",
+                                 "Object_Type")]
+
+        df_variables <- df_variables[, c("Code",
+                                         "Content",
+                                         "Object_Type")]
+
+        df_cubes <- df_cubes[, c("Code",
+                                 "Content",
+                                 "Object_Type")]
+
+      }
+
+      # Combine ####
       list_resp <- list(
         "Tables" = tibble::as_tibble(df_table), "Statistics" = tibble::as_tibble(df_stats),
         "Variables" = tibble::as_tibble(df_variables), "Cubes" = tibble::as_tibble(df_cubes)
@@ -554,140 +555,183 @@ search_for <- function(term = NULL,
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
 
       return(list_resp)
-    } else if (category == "tables") {
-      df_table <- data.frame()
-      lapply(results_json$Tables, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content,
-          "Time" = x$Time,
-          "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_table <<- rbind(df_table, zwisch)
-      })
+
+    }
+    if (category == "tables") {
+
+      # Table ####
+      df_table <- binding_lapply(results_json$Tables,
+                                 characteristics = c("Code",
+                                                     "Content"))
+
+      df_table$Spezifisch <- ggsub(df_table)
+
+      df_table$Variablen <- spezifisch_create(df_table)
+
+      df_table$Object_Type <- "Table"
+
+      # Search for title-term match ####
       if (nrow(df_table) != 0) {
-        df_table$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_table$Content,
-          ignore.case = T
-        )
-        df_table$Variablen <- unlist(lapply(strsplit(df_table$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code", "Content")]
-        } else {
-          df_table <- df_table[, c("Code", "Content")]
-        }
-
-        df_table$Object_Type <- "Table"
+        df_table$Titel <- titel_search(df_table, term)
       }
 
+      # Ordering ####
+      if(ordering){
+        df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
+                                                                          "Content",
+                                                                          "Object_Type")]
+      } else {
 
+        df_table <- df_table[, c("Code",
+                                 "Content",
+                                 "Object_Type")]
+      }
+
+      # Combine ####
       list_resp <- list("Tables" = tibble::as_tibble(df_table))
+
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
+
       return(list_resp)
-    } else if (category == "statistics") {
-      df_stats <- data.frame()
-      lapply(results_json$Statistics, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content, "Information" = x$Information,
-          "Cubes" = x$Cubes, "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_stats <<- rbind(df_stats, zwisch)
-      })
+
+
+
+
+
+
+
+    }
+    if (category == "statistics") {
+      # Statistic ####
+      df_stats <- binding_lapply(results_json$Statistics,
+                                 characteristics = c("Code",
+                                                     "Content"))
+
+      df_stats$Spezifisch <- ggsub(df_stats)
+
+      df_stats$Variablen <- spezifisch_create(df_stats)
+
+      df_stats$Object_Type <- "Statistic"
+
+      # Search for title-term match ####
       if (nrow(df_stats) != 0) {
-        df_stats$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_stats$Content,
-          ignore.case = T
-        )
-        df_stats$Variablen <- unlist(lapply(strsplit(df_stats$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c("Code", "Content")]
-        } else {
-          df_stats <- df_stats[, c("Code", "Content")]
-        }
-
-        df_stats$Object_Type <- "Statistic"
+        df_stats$Titel <- titel_search(df_stats, term)
       }
 
+      # Ordering ####
+      if(ordering){
+        df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
+                                                                           "Content",
+                                                                           "Object_Type")]
+
+      } else {
+        df_stats <- df_stats[, c("Code",
+                                 "Content",
+                                 "Object_Type")]
+
+      }
+
+      # Combine ####
       list_resp <- list("Statistics" = tibble::as_tibble(df_stats))
+
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
+
       return(list_resp)
-    } else if (category == "variables") {
-      df_variables <- data.frame()
-      lapply(results_json$Variables, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content,
-          "Type" = x$Type, "Values" = x$Values,
-          "Information" = x$Information,
-          "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_variables <<- rbind(df_variables, zwisch)
-      })
+
+
+
+
+    }
+    if (category == "variables") {
+
+      # Variables ####
+      df_variables <- binding_lapply(results_json$Variables,
+                                     characteristics = c("Code",
+                                                         "Content"))
+
+      df_variables$Spezifisch <- ggsub(df_variables)
+
+      df_variables$Variablen <- spezifisch_create(df_variables)
+
+      df_variables$Object_Type <- "Variable"
+
+      # Search for title-term match ####
       if (nrow(df_variables) != 0) {
-        df_variables$Titel <- grepl(paste(unlist(strsplit(term, c(" & | und "))), collapse = "|"), df_variables$Content, ignore.case = T)
-        df_variables$Variablen <- unlist(lapply(strsplit(df_variables$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c("Code", "Content")]
-        } else {
-          df_variables <- df_variables[, c("Code", "Content")]
-        }
-
-        df_variables$Object_Type <- "Variable"
+        df_variables$Titel <- titel_search(df_variables, term)
       }
 
+      # Ordering ####
+      if(ordering){
+        df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
+                                                                                       "Content",
+                                                                                       "Object_Type")]
+
+      } else {
+
+        df_variables <- df_variables[, c("Code",
+                                         "Content",
+                                         "Object_Type")]
+
+      }
+
+      # Combine ####
       list_resp <- list("Variables" = tibble::as_tibble(df_variables))
+
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
+
       return(list_resp)
-    } else if (category == "cubes") {
-      df_cubes <- data.frame()
-      lapply(results_json$Cubes, function(x) {
-        zwisch <- rbind(c(
-          "Code" = x$Code, "Content" = x$Content, "Time" = x$Time, "LatestUpdate" = x$LatestUpdate,
-          "State" = x$State, "Information" = x$Information,
-          "Spezifisch" = gsub(".*:", "", x$Content)
-        ))
-        df_cubes <<- rbind(df_cubes, zwisch)
-      })
+
+
+
+
+    }
+    if (category == "cubes") {
+      # Cubes ####
+      df_cubes <- binding_lapply(results_json$Cubes,
+                                 characteristics = c("Code",
+                                                     "Content"))
+
+      df_cubes$Spezifisch <- ggsub(df_cubes)
+
+      df_cubes$Variablen <- spezifisch_create(df_cubes)
+
+      df_cubes$Object_Type <- "Cube"
+
+      # Search for title-term match ####
       if (nrow(df_cubes) != 0) {
-        df_cubes$Titel <- grepl(
-          paste(unlist(strsplit(
-            term, c(" & | und ")
-          )), collapse = "|"),
-          df_cubes$Content,
-          ignore.case = T
-        )
-        df_cubes$Variablen <- unlist(lapply(strsplit(df_cubes$Spezifisch, ","), length))
-
-        if (ordering) {
-          df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c("Code", "Content")]
-        } else {
-          df_cubes <- df_cubes[, c("Code", "Content")]
-        }
-
-        df_cubes$Object_Type <- "Cube"
+        df_cubes$Titel <- titel_search(df_cubes, term)
       }
 
+      # Ordering ####
+      if(ordering){
+        df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
+                                                                           "Content",
+                                                                           "Object_Type")]
+      } else {
+
+        df_cubes <- df_cubes[, c("Code",
+                                 "Content",
+                                 "Object_Type")]
+
+      }
+
+      # Combine ####
       list_resp <- list("Cubes" = tibble::as_tibble(df_cubes))
+
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
+
       return(list_resp)
     }
   }
