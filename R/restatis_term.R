@@ -36,8 +36,6 @@ running_out_of_terms <- function(term = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  test_if_error(results_json)
-
   if (length(results_json$List) == 0) {
 
     stop("No related terms found for your code.", call. = FALSE)
