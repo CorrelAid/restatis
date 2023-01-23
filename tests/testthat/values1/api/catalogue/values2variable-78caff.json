@@ -13,12 +13,12 @@
         "password": "********************",
         "name": "61111",
         "selection": "",
-        "area": "Ã–ffentlich",
+        "area": "Öffentlich",
         "searchcriterion": "Code",
         "sortcriterion": "Code",
         "pagelength": "100",
         "language": "de"
     },
     "List": null,
-    "Copyright": "Â© Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2023"
 }

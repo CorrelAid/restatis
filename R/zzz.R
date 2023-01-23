@@ -229,24 +229,30 @@ check_function_input <- function(code = NULL,
 # (ZK): Ideas for refactoring functions ####
 # json response ####
 test_if_json <- function(input){
+
   if (httr2::resp_content_type(input) == "application/json") {
 
     results_json <- httr2::resp_body_json(input)
 
   } else {
-    stop("No json-csv file detected")
+
+    stop("No json-csv file detected.", call. = FALSE)
+
   }
 
   return(results_json)
+
 }
 
 # error response ####
 test_if_error <- function(input){
+
   if (input$Status$Code != 0) {
 
     warning(input$Status$Content, call. = FALSE)
 
   }
+
 }
 
 # binding_function ####

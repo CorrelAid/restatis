@@ -21,10 +21,10 @@
     "List": [
         {
             "Code": "41141",
-            "Content": "LandwirtschaftszÃ¤hlung: Haupterhebung",
+            "Content": "Landwirtschaftszählung: Haupterhebung",
             "Cubes": "176",
             "Information": "true"
         }
     ],
-    "Copyright": "Â© Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2023"
 }

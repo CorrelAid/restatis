@@ -64,7 +64,6 @@ catalogue <- function(code = NULL,
                                                           "State",
                                                           "Information"))
 
-
     } else {
 
       list_of_cubes <- binding_lapply(results_json$List,

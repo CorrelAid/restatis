@@ -12,7 +12,7 @@
         "username": "********************",
         "password": "********************",
         "selection": "611*",
-        "area": "√ñffentlich",
+        "area": "÷ffentlich",
         "searchcriterion": "Code",
         "sortcriterion": "Code",
         "pagelength": "100",
@@ -22,88 +22,88 @@
         {
             "Code": "61111-0001",
             "Content": "Verbraucherpreisindex: Deutschland, Jahre",
-            "Time": "1991 - 2021"
+            "Time": "1991 - 2022"
         },
         {
             "Code": "61111-0002",
             "Content": "Verbraucherpreisindex: Deutschland, Monate",
-            "Time": "Januar 1991 - November 2022"
+            "Time": "Januar 1991 - Dezember 2022"
         },
         {
             "Code": "61111-0003",
             "Content": "Verbraucherpreisindex: Deutschland, Jahre,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP 2-5-Steller Hierarchie)",
-            "Time": "1991 - 2021"
+            "Time": "1991 - 2022"
         },
         {
             "Code": "61111-0004",
             "Content": "Verbraucherpreisindex: Deutschland, Monate,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP 2-5-Steller Hierarchie)",
-            "Time": "Januar 1991 - November 2022"
+            "Time": "Januar 1991 - Dezember 2022"
         },
         {
             "Code": "61111-0005",
             "Content": "Verbraucherpreisindex: Deutschland, Jahre,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP 2-/3-/4-/5-/10-Steller/Sonderpositionen)",
-            "Time": "1991 - 2021"
+            "Time": "1991 - 2022"
         },
         {
             "Code": "61111-0006",
             "Content": "Verbraucherpreisindex: Deutschland, Monate,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP 2-/3-/4-/5-/10-Steller/Sonderpositionen)",
-            "Time": "Januar 1991 - November 2022"
+            "Time": "Januar 1991 - Dezember 2022"
         },
         {
             "Code": "61111-0007",
-            "Content": "W√§gungsschema des Verbraucherpreisindex: Deutschland, Jahre,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP 2-5-Steller Hierarchie)",
+            "Content": "W‰gungsschema des Verbraucherpreisindex: Deutschland, Jahre,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP 2-5-Steller Hierarchie)",
             "Time": "1995 - 2015"
         },
         {
             "Code": "61111-0010",
-            "Content": "Verbraucherpreisindex: Bundesl√§nder, Jahre",
-            "Time": "1995 - 2021"
+            "Content": "Verbraucherpreisindex: Bundesl‰nder, Jahre",
+            "Time": "1995 - 2022"
         },
         {
             "Code": "61111-0011",
-            "Content": "Verbraucherpreisindex: Bundesl√§nder, Monate",
-            "Time": "Januar 1995 - November 2022"
+            "Content": "Verbraucherpreisindex: Bundesl‰nder, Monate",
+            "Time": "Januar 1995 - Dezember 2022"
         },
         {
             "Code": "61111-0020",
-            "Content": "Index der Nettokaltmieten: Bundesl√§nder, Jahre",
-            "Time": "2005 - 2021"
+            "Content": "Index der Nettokaltmieten: Bundesl‰nder, Jahre",
+            "Time": "2005 - 2022"
         },
         {
             "Code": "61111-0021",
-            "Content": "Index der Nettokaltmieten: Bundesl√§nder, Monate",
-            "Time": "Januar 2005 - November 2022"
+            "Content": "Index der Nettokaltmieten: Bundesl‰nder, Monate",
+            "Time": "Januar 2005 - Dezember 2022"
         },
         {
             "Code": "61121-0001",
             "Content": "Harmonisierter Verbraucherpreisindex: Deutschland, Jahre",
-            "Time": "1996 - 2021"
+            "Time": "1996 - 2022"
         },
         {
             "Code": "61121-0002",
             "Content": "Harmonisierter Verbraucherpreisindex: Deutschland, Monate",
-            "Time": "Januar 1996 - November 2022"
+            "Time": "Januar 1996 - Dezember 2022"
         },
         {
             "Code": "61121-0003",
             "Content": "Harmonisierter Verbraucherpreisindex: Deutschland, Jahre,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP)",
-            "Time": "1996 - 2021"
+            "Time": "1996 - 2022"
         },
         {
             "Code": "61121-0004",
             "Content": "Harmonisierter Verbraucherpreisindex: Deutschland, Monate,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP)",
-            "Time": "Januar 1996 - November 2022"
+            "Time": "Januar 1996 - Dezember 2022"
         },
         {
             "Code": "61131-0001",
             "Content": "Index der Einzelhandelspreise: Deutschland, Jahre,\nMehrwertsteuer, Wirtschaftszweige",
-            "Time": "1991 - 2021"
+            "Time": "1991 - 2022"
         },
         {
             "Code": "61131-0002",
             "Content": "Index der Einzelhandelspreise: Deutschland, Monate,\nMehrwertsteuer, Wirtschaftszweige",
-            "Time": "Januar 1991 - November 2022"
+            "Time": "Januar 1991 - Dezember 2022"
         }
     ],
-    "Copyright": "¬© Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2023"
 }
