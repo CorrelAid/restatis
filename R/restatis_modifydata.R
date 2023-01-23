@@ -27,9 +27,9 @@ modified_data <- function(code = "",
                           date = c("now", "week_before", "month_before", "year_before"),
                           ...) {
 
-check_function_input(code = code,
-                     type = type,
-                     date = date)
+  date <- check_function_input(code = code,
+                               type = type,
+                               date = date)
 
   #-----------------------------------------------------------------------------
 
