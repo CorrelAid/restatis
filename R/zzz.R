@@ -153,25 +153,37 @@ check_function_input <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  if(!is.null(category) && (caller %in% c("restatis::catalogue", "restatis::xy_to_variable"))) {
+  if (!is.null(category)) {
 
-    if(!all(category %in% c("tables", "cubes", "statistics"))) {
+    if (!(length(category) %in% c(1:3))) {
 
-      stop("Available categories are tables, statistics, and cubes.",
-           call. = FALSE)
+      stop("Parameter 'category' has to have a length of 1 to 3.")
 
     }
 
-  }
+    #---------------------------------------------------------------------------
 
-  #----------------------------------------
+      if(caller %in% c("restatis::catalogue", "restatis::xy_to_variable")) {
 
-  if(!is.null(category) && (caller == "restatis::xy_to_statistics")) {
+        if(!all(category %in% c("tables", "cubes", "statistics"))) {
 
-    if(!all(category %in% c("tables", "cubes", "variables"))) {
+          stop("Available categories are tables, statistics, and cubes.",
+               call. = FALSE)
 
-      stop("Available categories are tables, variables, and cubes.",
-           call. = FALSE)
+        }
+
+      }
+
+      #----------------------------------------
+
+      if(caller == "restatis::xy_to_statistics") {
+
+        if(!all(category %in% c("tables", "cubes", "variables"))) {
+
+          stop("Available categories are tables, variables, and cubes.",
+               call. = FALSE)
+
+      }
 
     }
 

@@ -29,7 +29,7 @@ catalogue <- function(code = NULL,
                       sortcriterion = c("code", "content"),
                       ...) {
 
-  caller <- as.character(match.call())
+  caller <- as.character(match.call()[[1]])
 
   check_function_input(code = code,
                        category = category,
