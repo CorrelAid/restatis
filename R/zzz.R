@@ -51,6 +51,7 @@ forming_evas <- function(list_of){
         })
       })
     })
+
   return(aba)
 }
 
@@ -64,6 +65,7 @@ check_function_input <- function(code = NULL,
                                  type = NULL,
                                  date = NULL,
                                  similarity = NULL,
+                                 error.ignore = NULL,
                                  caller = NULL) {
 
   #-----------------------------------------------------------------------------
@@ -146,6 +148,25 @@ check_function_input <- function(code = NULL,
     if(isFALSE(detailed)) {
 
       message("Use 'detailed = TRUE' to obtain the complete output.")
+
+    }
+
+  }
+
+  #---------------------------------------------------------------------------
+
+  if(!is.null(error.ignore)) {
+
+    if(!is.logical(error.ignore) | length(error.ignore) != 1) {
+
+      stop("Paramter 'error.ignore' has to be of type 'logical' and of length 1.",
+           call. = FALSE)
+
+    }
+
+    if(isTRUE(error.ignore)) {
+
+      message("Use 'error.ignore = FALSE' to stop the function at the point where no object could be found.")
 
     }
 
@@ -281,7 +302,29 @@ test_if_json <- function(input){
 }
 
 # error response ####
-test_if_error <- function(input){
+test_if_error <- function(input, para){
+
+  if (input$Status$Code == 104 & isFALSE(para)){
+    stop("No object found for your request. Check your parameters if you expected an object for this request.")
+  } else if (input$Status$Code != 0 & isFALSE(para)){
+    stop(input$Status$Content)
+  } else if (input$Status$Code == 104 & isTRUE(para)){
+    message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
+    empty_object <- TRUE
+  } else if (input$Status$Code != 0 & isTRUE(para)){
+    message(input$Status$Content)
+    message("Artificial token is used.")
+    empty_object <- FALSE
+  } else {
+    empty_object <- "DONE"
+  }
+
+  return(empty_object)
+}
+
+
+# error response light ####
+test_if_error_light <- function(input){
 
   if (input$Status$Code != 0) {
 
@@ -290,6 +333,7 @@ test_if_error <- function(input){
   }
 
 }
+
 
 # binding_function ####
 binding_lapply <- function(x,
@@ -311,4 +355,31 @@ binding_lapply <- function(x,
 # bind_rows ####
 # map_dfr ####
 # It seems that the current version and the older version are not significantly different in execution time (seconds focused)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

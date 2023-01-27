@@ -5,6 +5,7 @@
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
 #' @param detailed a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. The default is detailed = FALSE.
 #' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis call itself. The default is "code".
+#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
 #' @param ... Additional parameter of the Genesis call. These parameters are only affecting the Genesis call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Genesis. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -19,10 +20,12 @@
 get_variables_from_statistic <- function(code = NULL,
                                          detailed = FALSE,
                                          sortcriterion = c("code", "content"),
+                                         error.ignore = FALSE,
                                          ...) {
 
   check_function_input(code = code,
                        detailed = detailed,
+                       error.ignore = error.ignore,
                        sortcriterion = sortcriterion)
 
   sortcriterion <- match.arg(sortcriterion)
@@ -39,8 +42,13 @@ get_variables_from_statistic <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  test_if_error(results_json)
+  empty_object <- test_if_error(results_json, para = error.ignore)
 
+  if(isTRUE(empty_object)){
+    list_of_variables <- "No `variables`- object found for your request."
+  } else if(isFALSE(empty_object)){
+    list_of_variables <- results_json$Status$Content
+  } else if(empty_object == "DONE"){
   if (isTRUE(detailed)) {
 
     list_of_variables <- binding_lapply(results_json$List,
@@ -61,8 +69,11 @@ get_variables_from_statistic <- function(code = NULL,
 
   list_of_variables$Object_Type <- "Variable"
 
+  list_of_variables <- tibble::as_tibble(list_of_variables)
+  }
+
   # Summary ####
-  list_resp <- list("Variables" = tibble::as_tibble(list_of_variables))
+  list_resp <- list("Variables" = list_of_variables)
 
   attr(list_resp, "Code") <- results_json$Parameter$name
   attr(list_resp, "Language") <- results_json$Parameter$language
@@ -81,6 +92,7 @@ get_variables_from_statistic <- function(code = NULL,
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
 #' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis call itself. The default is "code".
+#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
 #' @param ... Additional parameter of the Genesis call. These parameters are only affecting the Genesis call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Genesis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -94,9 +106,11 @@ get_variables_from_statistic <- function(code = NULL,
 #'
 get_values_from_variables <- function(code = NULL,
                                       sortcriterion = c("code", "content"),
+                                      error.ignore = FALSE,
                                       ...) {
 
   check_function_input(code = code,
+                       error.ignore = error.ignore,
                        sortcriterion = sortcriterion)
 
   sortcriterion <- match.arg(sortcriterion)
@@ -112,22 +126,26 @@ get_values_from_variables <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  test_if_error(results_json)
+  empty_object <- test_if_error(results_json, para = error.ignore)
 
+  if(isTRUE(empty_object)){
+    list_of_variables <- "No `values`- object found for your request."
+  } else if(isFALSE(empty_object)){
+    list_of_variables <- results_json$Status$Content
+  } else if(empty_object == "DONE"){
   list_of_variables <- binding_lapply(results_json$List,
                                       characteristics = c("Code",
                                                           "Content",
                                                           "Variables",
                                                           "Information"))
 
-
-  if (nrow(list_of_variables) > 0) {
-
     list_of_variables$Object_Type <- "Value"
+
+    list_of_variables <- tibble::as_tibble(list_of_variables)
 
   }
 
-  list_resp <- list("Values" = tibble::as_tibble(list_of_variables))
+  list_resp <- list("Values" = list_of_variables)
 
   attr(list_resp, "Name") <- results_json$Parameter$name
   attr(list_resp, "Language") <- results_json$Parameter$language
@@ -148,6 +166,7 @@ get_values_from_variables <- function(code = NULL,
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
 #' @param detailed a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. This parameter only affects the details of the variables-related output. The default is FALSE.
+#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
 #' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is an parameter of the Genesis call itself. The default is "code".
 #' @param ... Additional parameter of the Genesis call. These parameters are only affecting the Genesis call itself for the variables, no further processing or the values-related objects.
 #'
@@ -163,26 +182,31 @@ get_values_from_variables <- function(code = NULL,
 get_values_from_variables_from_statistic <- function(code = NULL,
                                                      detailed = FALSE,
                                                      sortcriterion = c("code", "content"),
+                                                     error.ignore = FALSE,
                                                      ...) {
 
   check_function_input(code = code,
                        detailed = detailed,
+                       error.ignore = error.ignore,
                        sortcriterion = sortcriterion)
 
   sortcriterion <- match.arg(sortcriterion)
 
   #-----------------------------------------------------------------------------
 
-  variables <- get_variables_from_statistic(code = code,
+  variables <- suppressMessages(suppressWarnings(get_variables_from_statistic(code = code,
                                             detailed = detailed,
                                             sortcriterion = sortcriterion,
-                                            ...)
+                                            error.ignore = error.ignore,
+                                            ...)))
 
   list_values <- list()
 
   lapply(variables$Variables$Code, function(x) {
 
-    zwisch <- get_values_from_variables(code = x, sortcriterion = sortcriterion)
+    zwisch <- suppressMessages(suppressWarnings(get_values_from_variables(code = x,
+                                        sortcriterion = sortcriterion,
+                                        error.ignore = error.ignore)))
     list_values <<- append(list_values, zwisch)
 
   })
@@ -201,6 +225,7 @@ get_values_from_variables_from_statistic <- function(code = NULL,
 #'
 #' @param code a string with a maximum length of 6. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
 #' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis call itself. The default is "code".
+#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
 #' @param ... Additional parameter of the Genesis call. These parameters are only affecting the Genesis call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Genesis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -214,9 +239,11 @@ get_values_from_variables_from_statistic <- function(code = NULL,
 #'
 search_variables <- function(code = NULL,
                              sortcriterion = c("code", "content"),
+                             error.ignore = FALSE,
                              ...) {
 
   check_function_input(code = code,
+                       error.ignore = error.ignore,
                        sortcriterion = sortcriterion)
 
   sortcriterion <- match.arg(sortcriterion)
@@ -232,8 +259,13 @@ search_variables <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  test_if_error(results_json)
+  empty_object <- test_if_error(results_json, para = error.ignore)
 
+  if(isTRUE(empty_object)){
+    list_of_variables <- "No `variables`- object found for your request."
+  } else if(isFALSE(empty_object)){
+    list_of_variables <- results_json$Status$Content
+  } else if(empty_object == "DONE"){
   list_of_variables <- binding_lapply(results_json$List,
                                       characteristics = c("Code",
                                                           "Content",
@@ -242,7 +274,10 @@ search_variables <- function(code = NULL,
 
   list_of_variables$Object_Type <- "Variable"
 
-  list_resp <- list("Variables" = tibble::as_tibble(list_of_variables))
+  list_of_variables <- tibble::as_tibble(list_of_variables)
+  }
+
+  list_resp <- list("Variables" = list_of_variables)
 
   attr(list_resp, "Code") <- results_json$Parameter$selection
   attr(list_resp, "Language") <- results_json$Parameter$language

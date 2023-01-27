@@ -69,7 +69,7 @@ modified_data <- function(code = "",
 
     results_json <- test_if_json(results_raw)
 
-    test_if_error(results_json)
+    test_if_error_light(results_json)
   }
 
   #-----------------------------------------------------------------------------
@@ -86,7 +86,7 @@ modified_data <- function(code = "",
 
     results_json <- test_if_json(results_raw)
 
-    test_if_error(results_json)
+    test_if_error_light(results_json)
   }
 
   #-----------------------------------------------------------------------------
@@ -103,7 +103,7 @@ modified_data <- function(code = "",
 
     results_json <- test_if_json(results_raw)
 
-    test_if_error(results_json)
+    test_if_error_light(results_json)
   }
 
   #-----------------------------------------------------------------------------
@@ -120,14 +120,14 @@ modified_data <- function(code = "",
 
     results_json <- test_if_json(results_raw)
 
-    test_if_error(results_json)
+    test_if_error_light(results_json)
   }
 
   #-----------------------------------------------------------------------------
 
   if (is.null(unlist(results_json$List))) {
 
-    message("No modified objects found for your code or date.")
+    message("No modified objects found for your code and date.")
 
   } else {
 

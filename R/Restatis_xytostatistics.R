@@ -6,6 +6,7 @@
 #' @param category a string. Specific Destatis-Object-types: 'tables', 'variables', and 'cubes'. All three together are possible and the default option.
 #' @param detailed a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. The default is detailed = FALSE.
 #' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Destatis call itself. The default is "code".
+#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
 #' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Destatis. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -24,6 +25,7 @@ xy_to_statistic <- function(code = NULL,
                             category = c("tables", "variables", "cubes"),
                             detailed = FALSE,
                             sortcriterion = c("code", "content"),
+                            error.ignore = FALSE,
                             ...) {
 
   caller <- as.character(match.call()[[1]])
@@ -32,6 +34,7 @@ xy_to_statistic <- function(code = NULL,
                        category = category,
                        detailed = detailed,
                        sortcriterion = sortcriterion,
+                       error.ignore = error.ignore,
                        caller = caller)
 
   sortcriterion <- match.arg(sortcriterion)
@@ -49,9 +52,14 @@ xy_to_statistic <- function(code = NULL,
 
       results_json <- test_if_json(results_raw)
 
-      test_if_error(results_json)
+      empty_object <- test_if_error(results_json, para = error.ignore)
 
-    if (isTRUE(detailed)) {
+      if(isTRUE(empty_object)){
+        df_tables <- "No `tables`- object found for your request."
+      } else if(isFALSE(empty_object)){
+        df_tables <- results_json$Status$Content
+      } else if(empty_object == "DONE"){
+        if (isTRUE(detailed)) {
 
       df_tables <- binding_lapply(results_json$List,
                                   characteristics = c("Code",
@@ -66,6 +74,9 @@ xy_to_statistic <- function(code = NULL,
     }
 
       df_tables$Object_Type <- "Table"
+
+      df_tables <- tibble::as_tibble(df_tables)
+      }
   }
 
   #-----------------------------------------------------------------------------
@@ -81,11 +92,16 @@ xy_to_statistic <- function(code = NULL,
 
     results_json <- test_if_json(results_raw)
 
-    test_if_error(results_json)
+    empty_object <- test_if_error(results_json, para = error.ignore)
 
+    if(isTRUE(empty_object)){
+      df_variables <- "No `variables`- object found for your request."
+    } else if(isFALSE(empty_object)){
+      df_variables <- results_json$Status$Content
+    } else if(empty_object == "DONE"){
     if (detailed == TRUE) {
 
-      df_cubes <- binding_lapply(results_json$List,
+      df_variables <- binding_lapply(results_json$List,
                                  characteristics = c("Code",
                                                      "Content",
                                                      "Type",
@@ -101,6 +117,9 @@ xy_to_statistic <- function(code = NULL,
     }
 
     df_variables$Object_Type <- "Variable"
+
+    df_variables <- tibble::as_tibble(df_variables)
+    }
   }
 
   #-----------------------------------------------------------------------------
@@ -115,8 +134,13 @@ xy_to_statistic <- function(code = NULL,
 
     results_json <- test_if_json(results_raw)
 
-    test_if_error(results_json)
+    empty_object <- test_if_error(results_json, para = error.ignore)
 
+    if(isTRUE(empty_object)){
+      df_cubes <- "No `cubes`- object found for your request."
+    } else if(isFALSE(empty_object)){
+      df_cubes <- results_json$Status$Content
+    } else if(empty_object == "DONE"){
     if (isTRUE(detailed)) {
 
       df_cubes <- binding_lapply(results_json$List,
@@ -136,6 +160,9 @@ xy_to_statistic <- function(code = NULL,
      }
 
     df_cubes$Object_Type <- "Cube"
+
+    df_cubes <- tibble::as_tibble(df_cubes)
+    }
   }
 
   #-----------------------------------------------------------------------------
@@ -144,21 +171,21 @@ xy_to_statistic <- function(code = NULL,
   if (all(c("tables", "variables", "cubes") %in% category)) {
 
     list_resp <- list(
-      "Tables" = tibble::as_tibble(df_tables),
-      "Variables" = tibble::as_tibble(df_variables),
-      "Cubes" = tibble::as_tibble(df_cubes))
+      "Tables" = df_tables,
+      "Variables" = df_variables,
+      "Cubes" = df_cubes)
 
   } else if (category == "tables") {
 
-    list_resp <- tibble::as_tibble(df_tables)
+    list_resp <- df_tables
 
   } else if (category == "variables") {
 
-    list_resp <- tibble::as_tibble(df_variables)
+    list_resp <- df_variables
 
   } else if (category == "cubes") {
 
-    list_resp <- tibble::as_tibble(df_cubes)
+    list_resp <- df_cubes
   }
 
   attr(list_resp, "Code") <- results_json$Parameter$term
