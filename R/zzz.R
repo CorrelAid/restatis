@@ -17,21 +17,33 @@ test_if_json <- function(input){
 }
 
 # error response ####
-test_if_error <- function(input){
-  if (input$Status$Code != 0) {
-
-    warning(input$Status$Content, call. = FALSE)
-
+test_if_error <- function(input, para){
+  if (input$Status$Code != 0 & isTRUE(para)) {
+    stop(input$Status$Content)
+  } else if (input$Status$Code != 0 & isFALSE(para)){
+    message(input$Status$Content)
+    message("Artificial token is used.")
+    empty_object <- FALSE
+  } else {
+    empty_object <- "DONE"
   }
+  return(empty_object)
 }
 
+
 # process further ####
-test_if_process_further <- function(input){
+test_if_process_further <- function(input, para){
   if (sum(unlist(lapply(input[4:8], function(x) {
     is.null(x)
-  }))) == 5) {
-    stop("No related terms found for your code.")
+  }))) == 5 & isFALSE(para)) {
+    stop("No object found for your request. Check your parameters if you expected an object for this request.")
+  } else if (sum(unlist(lapply(input[4:8], function(x) {
+    is.null(x)
+  }))) == 5 & isTRUE(para)){
+    message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
+    empty_object <- TRUE
   }
+  return(empty_object)
 }
 
 # binding_function ####
@@ -80,4 +92,26 @@ titel_search <- function(x, term){
   )
 
   return(a)
+}
+
+
+# test if error meta ___ identical to test_if_error from cataloge
+test_if_error_meta <- function(input, para){
+
+  if (input$Status$Code == 104 & isFALSE(para)){
+    stop("No object found for your request. Check your parameters if you expected an object for this request.")
+  } else if (input$Status$Code != 0 & isFALSE(para)){
+    stop(input$Status$Content)
+  } else if (input$Status$Code == 104 & isTRUE(para)){
+    message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
+    empty_object <- TRUE
+  } else if (input$Status$Code != 0 & isTRUE(para)){
+    message(input$Status$Content)
+    message("Artificial token is used.")
+    empty_object <- FALSE
+  } else {
+    empty_object <- "DONE"
+  }
+
+  return(empty_object)
 }

@@ -7,6 +7,7 @@
 #' @param category a string. Specific Destatis-Object-types: 'tables', 'statistics', "variables", and 'cubes'. Using all together is possible. Default option are "all" objects.
 #' @param detailed a logical. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default Option is detailed = FALSE.
 #' @param ordering a logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and in second on an estimator of the number of variables in this object. Default option is ordering = TRUE.
+#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
 #' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -22,8 +23,9 @@
 #' }
 search_for <- function(term = NULL,
                        category = c("all", "tables", "statistics", "variables", "cubes"),
-                       detailed = F,
-                       ordering = T,
+                       detailed = FALSE,
+                       ordering = TRUE,
+                       error.ignore = FALSE,
                        ...) {
   # Check of parameter ####
   if (!(is.character(term)) && length(term) < 1L && is.null(term)) {
@@ -48,6 +50,10 @@ search_for <- function(term = NULL,
     stop("parameter has to be logical", call. = F)
   }
 
+  if (!(is.logical(error.ignore))) {
+    stop("parameter has to be logical", call. = F)
+  }
+
   # Data ####
   results_raw <- gen_api("find/find",
                          username = gen_auth_get()$username,
@@ -58,10 +64,32 @@ search_for <- function(term = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  test_if_error(results_json)
+  empty_object <- test_if_error(results_json, para = error.ignore)
 
-  test_if_process_further(results_json)
+  empty_object <- test_if_process_further(results_json, para = error.ignore)
 
+  if(isTRUE(empty_object)){
+    list_resp <- list(
+      "Output" = "No object found for your request.")
+
+    attr(list_resp, "Term") <- results_json$Parameter$term
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+    attr(list_resp, "Copyrigtht") <- results_json$Copyright
+
+    return(list_resp)
+
+  } else if(isFALSE(empty_object)){
+    list_resp <- list(
+      "Output" = results_json$Status$Content)
+
+    attr(list_resp, "Term") <- results_json$Parameter$term
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+    attr(list_resp, "Copyrigtht") <- results_json$Copyright
+
+    return(list_resp)
+  } else if(empty_object == "DONE"){
   if (detailed == T) {
     if (category == "all") {
       # Table ####
@@ -734,5 +762,8 @@ search_for <- function(term = NULL,
 
       return(list_resp)
     }
+  }
+
+  return(list_resp)
   }
 }

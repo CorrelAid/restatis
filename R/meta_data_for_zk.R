@@ -4,6 +4,7 @@
 #' Function to search for meta-information for a specific statistic.
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
+#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
 #' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -15,29 +16,42 @@
 #' object <- meta_data_for_statistics(code = "12411")
 #' }
 meta_data_for_statistics <- function(code = NULL,
+                                     error.ignore = FALSE,
                                      ...) {
   # Check of parameter ####
   if (!(is.character(code)) && length(code) < 1L) {
     stop("code must be a single string", call. = T)
   }
 
+  if (!(is.logical(error.ignore))) {
+    stop("parameter has to be logical", call. = F)
+  }
+
   # Data ####
 
   results_raw <- gen_api("metadata/statistic",
-    username = gen_auth_get()$username, password = gen_auth_get()$password, name = code, ...
+    username = gen_auth_get()$username,
+    password = gen_auth_get()$password,
+    name = code,
+    ...
   )
 
   results_json <- test_if_json(results_raw)
 
-  if (results_json$Status$Code != 0) {
-    message(results_json$Status$Content)
-  } else {
+  empty_object <- test_if_error_meta(results_json, para = error.ignore)
+
+  if(isTRUE(empty_object)){
+    df_stats <- "No `meta_information`- object found for your request."
+  } else if(isFALSE(empty_object)){
+    df_stats <- results_json$Status$Content
+  } else if(empty_object == "DONE"){
     df_stats <- c(
       "Code" = results_json$Object$Code, "Content" = results_json$Object$Content, "Cubes" = results_json$Object$Cubes,
       "Variables" = results_json$Object$Variables, "Information" = results_json$Object$Information,
       "Time_from" = results_json$Object$Frequency[[1]]$From,
       "Time_to" = results_json$Object$Frequency[[1]]$To, "Time_type" = results_json$Object$Frequency[[1]]$Type
     )
+  }
 
     attr(df_stats, "Code") <- results_json$Parameter$name
     attr(df_stats, "Method") <- results_json$Ident$Method
@@ -46,7 +60,6 @@ meta_data_for_statistics <- function(code = NULL,
     attr(df_stats, "Copyrigtht") <- results_json$Copyright
 
     return(df_stats)
-  }
 }
 
 # Variable ####
@@ -55,6 +68,7 @@ meta_data_for_statistics <- function(code = NULL,
 #' Function to search for meta-information for a specific variable.
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration. "*"-Notation is possible.
+#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
 #' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -66,10 +80,15 @@ meta_data_for_statistics <- function(code = NULL,
 #' object <- meta_data_for_variables(code = "FAMSTD")
 #' }
 meta_data_for_variables <- function(code = NULL,
+                                    error.ignore = FALSE,
                                     ...) {
   # Check of parameter ####
   if (!(is.character(code)) && length(code) < 1L) {
     stop("code must be a single string", call. = T)
+  }
+
+  if (!(is.logical(error.ignore))) {
+    stop("parameter has to be logical", call. = F)
   }
 
   # Data ####
@@ -78,9 +97,13 @@ meta_data_for_variables <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  if (results_json$Status$Code != 0) {
-    message(results_json$Status$Content)
-  } else {
+  empty_object <- test_if_error_meta(results_json, para = error.ignore)
+
+  if(isTRUE(empty_object)){
+    df_var <- "No `meta_information`- object found for your request."
+  } else if(isFALSE(empty_object)){
+    df_var <- results_json$Status$Content
+  } else if(empty_object == "DONE"){
     df_var <- c(
       "Code" = results_json$Object$Code, "Content" = results_json$Object$Content, "Values" = results_json$Object$Values,
       "Type" = results_json$Object$Type,
@@ -89,6 +112,7 @@ meta_data_for_variables <- function(code = NULL,
   }
 
   list_resp <- list("General" = df_var, "Information" = results_json$Object$Information)
+
   attr(list_resp, "Code") <- results_json$Parameter$name
   attr(list_resp, "Method") <- results_json$Ident$Method
   attr(list_resp, "Updated") <- results_json$Object$Updated
@@ -104,6 +128,7 @@ meta_data_for_variables <- function(code = NULL,
 #' Function to search for meta-information for a specific value.
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
+#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
 #' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -115,10 +140,15 @@ meta_data_for_variables <- function(code = NULL,
 #' object <- meta_data_for_values(code = "LEDIG")
 #' }
 meta_data_for_values <- function(code = NULL,
+                                 error.ignore = FALSE,
                                  ...) {
   # Check of parameter ####
   if (!(is.character(code)) && length(code) < 1L) {
     stop("code must be a single string", call. = T)
+  }
+
+  if (!(is.logical(error.ignore))) {
+    stop("parameter has to be logical", call. = F)
   }
 
   # Data ####
@@ -127,9 +157,13 @@ meta_data_for_values <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  if (results_json$Status$Code != 0) {
-    message(results_json$Status$Content)
-  } else {
+  empty_object <- test_if_error_meta(results_json, para = error.ignore)
+
+  if(isTRUE(empty_object)){
+    df_value <- "No `meta_information`- object found for your request."
+  } else if(isFALSE(empty_object)){
+    df_value <- results_json$Status$Content
+  } else if(empty_object == "DONE"){
     df_value <- c(
       "Code" = results_json$Object$Code, "Content" = results_json$Object$Content,
       "Variables" = results_json$Object$Variables
@@ -153,6 +187,7 @@ meta_data_for_values <- function(code = NULL,
 #' Function to search for meta-information for a specific table.
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
+#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
 #' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -164,10 +199,15 @@ meta_data_for_values <- function(code = NULL,
 #' object <- meta_data_for_tables(code = "11111")
 #' }
 meta_data_for_tables <- function(code = NULL,
+                                 error.ignore = FALSE,
                                  ...) {
   # Check of parameter ####
   if (!(is.character(code)) && length(code) < 1L) {
     stop("code must be a single string", call. = T)
+  }
+
+  if (!(is.logical(error.ignore))) {
+    stop("parameter has to be logical", call. = F)
   }
 
   # Data ####
@@ -176,9 +216,17 @@ meta_data_for_tables <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  if (results_json$Status$Code != 0) {
-    message(results_json$Status$Content)
-  } else {
+  empty_object <- test_if_error_meta(results_json, para = error.ignore)
+
+  if(isTRUE(empty_object)){
+    char <- "No `meta_information`- object found for your request."
+    structure <- NULL
+    embedded <- NULL
+  } else if(isFALSE(empty_object)){
+    char <- results_json$Status$Content
+    structure <- NULL
+    embedded <- NULL
+  } else if(empty_object == "DONE"){
     char <- c(
       "Code" = results_json$Object$Code, "Content" = results_json$Object$Content,
       "Time_From" = results_json$Object$Time$From, "Time_To" = results_json$Object$Time$To,
@@ -253,6 +301,7 @@ meta_data_for_tables <- function(code = NULL,
 #' Function to search for meta-information for a specific cube.
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
+#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
 #' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -264,10 +313,15 @@ meta_data_for_tables <- function(code = NULL,
 #' object <- meta_data_for_tables(code = "11111KE001")
 #' }
 meta_data_for_cubes <- function(code = NULL,
+                                error.ignore = FALSE,
                                 ...) {
   # Check of parameter ####
   if (!(is.character(code)) && length(code) < 1L) {
     stop("code must be a single string", call. = T)
+  }
+
+  if (!(is.logical(error.ignore))) {
+    stop("parameter has to be logical", call. = F)
   }
 
   # Data ####
@@ -276,9 +330,19 @@ meta_data_for_cubes <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  if (results_json$Status$Code != 0) {
-    message(results_json$Status$Content)
-  } else {
+  empty_object <- test_if_error_meta(results_json, para = error.ignore)
+
+  if(isTRUE(empty_object)){
+    char <- "No `meta_information`- object found for your request."
+    time <- NULL
+    stat <- NULL
+    structure <- NULL
+  } else if(isFALSE(empty_object)){
+    char <- results_json$Status$Content
+    time <- NULL
+    stat <- NULL
+    structure <- NULL
+  } else if(empty_object == "DONE"){
     char <- c(
       "Code" = results_json$Object$Code, "Content" = results_json$Object$Content,
       "State" = results_json$Object$State, "Values" = results_json$Object$Values
@@ -321,8 +385,6 @@ meta_data_for_cubes <- function(code = NULL,
     }
   }
 
-
-
   list_resp <- list("General" = char, "Timespan" = time, "Statistic_used" = stat, "Structure" = structure)
   attr(list_resp, "Code") <- results_json$Parameter$name
   attr(list_resp, "Method") <- results_json$Ident$Method
@@ -338,6 +400,7 @@ meta_data_for_cubes <- function(code = NULL,
 #'
 #' @param codea string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
 #' @param category a string. Specific Destatis-Object-types: 'Cube', 'Statistic', "Table", "Variable" and 'Value'. The function needs a specified object type.
+#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
 #' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -350,6 +413,7 @@ meta_data_for_cubes <- function(code = NULL,
 #' }
 meta_data_for <- function(code = NULL,
                           category = c("Cube", "Statistic", "Table", "Variable", "Value"),
+                          error.ignore = FALSE,
                           ...) {
   if (!(is.character(code)) && length(code) < 1L) {
     stop("code must be a single string", call. = T)
@@ -359,16 +423,20 @@ meta_data_for <- function(code = NULL,
     stop("Available categories are Cube, Statistic, Table, Variable, or Value. Please choose one of them.")
   }
 
+  if (!(is.logical(error.ignore))) {
+    stop("parameter has to be logical", call. = F)
+  }
+
   if (category == "Cube") {
-    meta_data_for_cubes(code = code, ...)
+    meta_data_for_cubes(code = code, error.ignore = error.ignore, ...)
   } else if (category == "Value") {
-    meta_data_for_values(code = code, ...)
+    meta_data_for_values(code = code, error.ignore = error.ignore, ...)
   } else if (category == "Variable") {
-    meta_data_for_variables(code = code, ...)
+    meta_data_for_variables(code = code, error.ignore = error.ignore, ...)
   } else if (category == "Table") {
-    meta_data_for_tables(code = code, ...)
+    meta_data_for_tables(code = code, error.ignore = error.ignore, ...)
   } else if (category == "Statistic") {
-    meta_data_for_statistics(code = code, ...)
+    meta_data_for_statistics(code = code, error.ignore = error.ignore, ...)
   } else {
     stop("Category is not found, please select a correct category.
          Available categories are Cube, Statistic, Table, Variable, or Value.
