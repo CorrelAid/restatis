@@ -1,31 +1,33 @@
 #' Get active jobs
 #'
-#' Function to list all active jobs.
+#' @description Function to list all current jobs connected to the given user.
 #'
-#' @param
+#' @param selection Filter the list of jobs for matching codes.
+#' @param sortcriterion Allows to sort the resulting list of jobs by their Code ("content"), the time of completion ("time") or status ("status")
 #'
-#' @return
+#' @return A list of all current jobs connected to the given user.
 #' @export
 #'
 #' @examples
 #'
 
+
 list_jobs <- function(selection = NULL,
-                      #type = c("all"),
+                      sortcriterion = c("content", "time", "status"),
                       ...
                       ) {
 
   results_raw <- gen_api("catalogue/jobs",
                          username = gen_auth_get()$username,
                          password = gen_auth_get()$password,
-                         #selection = selection
+                         selection = selection,
+                         sortcriterion = sortcriterion,
+                         ...
                          )
 
-  if (httr2::resp_content_type(results_raw) == "application/json") {
+  results_json <- test_if_json(results_raw)
 
-    results_json <- httr2::resp_body_json(results_raw)
-
-  } # else {}
+  # else {}
 
   # (YAB): There is an error message missing in the 'else' case
   # depending on the stability of the API, use tryCatch
