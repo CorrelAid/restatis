@@ -11,9 +11,9 @@ with_mock_dir("terms1", {
 with_mock_dir("terms1", {
   test_that("search terms function returns list", {
 
-      return <- restatis::running_out_of_terms("forst*", TRUE)
+      result <- restatis::running_out_of_terms("forst*", TRUE)
 
-      attrs <- attributes(return)
+      attrs <- attributes(result)
 
       expect_true("names" %in% names(attrs))
       expect_true("Term" %in% names(attrs))

@@ -29,7 +29,7 @@ xy_to_variable <- function(code = NULL,
                            error.ignore = FALSE,
                            ...) {
 
-  caller <- as.character(match.call()[[1]])
+  caller <- as.character(match.call()[1])
 
   check_function_input(code = code,
                        category = category,
@@ -56,10 +56,15 @@ xy_to_variable <- function(code = NULL,
     empty_object <- test_if_error(results_json, para = error.ignore)
 
     if(isTRUE(empty_object)){
-      df_tables <- "No `tables`- object found for your request."
+
+      df_tables <- "No 'tables' object found for your request."
+
     } else if(isFALSE(empty_object)){
+
       df_tables <- results_json$Status$Content
+
     } else if(empty_object == "DONE"){
+
     if (isTRUE(detailed)) {
 
       df_tables <- binding_lapply(results_json$List,
@@ -98,10 +103,15 @@ xy_to_variable <- function(code = NULL,
     empty_object <- test_if_error(results_json, para = error.ignore)
 
     if(isTRUE(empty_object)){
-      df_statistics <- "No `statistics`- object found for your request."
+
+      df_statistics <- "No 'statistics' object found for your request."
+
     } else if(isFALSE(empty_object)){
+
       df_statistics <- results_json$Status$Content
+
     } else if(empty_object == "DONE"){
+
     if (isTRUE(detailed)) {
 
       df_statistics <- binding_lapply(results_json$List,
@@ -138,10 +148,15 @@ xy_to_variable <- function(code = NULL,
     empty_object <- test_if_error(results_json, para = error.ignore)
 
     if(isTRUE(empty_object)){
-      df_cubes <- "No `cubes`- object found for your request."
+
+      df_cubes <- "No 'cubes' object found for your request."
+
     } else if(isFALSE(empty_object)){
+
       df_cubes <- results_json$Status$Content
+
     } else if(empty_object == "DONE"){
+
     if (isTRUE(detailed)) {
 
       df_cubes <- binding_lapply(results_json$List,

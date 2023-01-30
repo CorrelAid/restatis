@@ -1,11 +1,6 @@
-.onLoad <- function(libname, pkgname) {
-  gen_api <<- memoise::memoise(gen_api)
-}
-
-# (YAB): The list extraction that happens in the following function
-# might be eligible for refactoring into a smaller function to avoid
-# repetition
-# Also, why is "Main4" missing?
+# .onLoad <- function(libname, pkgname) {
+#   gen_api <<- memoise::memoise(gen_api)
+# }
 
 forming_evas <- function(list_of){
   list_of$Main <- apply(list_of, 1, function(x){
@@ -159,7 +154,7 @@ check_function_input <- function(code = NULL,
 
     if(!is.logical(error.ignore) | length(error.ignore) != 1) {
 
-      stop("Paramter 'error.ignore' has to be of type 'logical' and of length 1.",
+      stop("Parameter 'error.ignore' has to be of type 'logical' and of length 1.",
            call. = FALSE)
 
     }
@@ -305,23 +300,36 @@ test_if_json <- function(input){
 test_if_error <- function(input, para){
 
   if (input$Status$Code == 104 & isFALSE(para)){
+
     stop("No object found for your request. Check your parameters if you expected an object for this request.")
+
   } else if (input$Status$Code != 0 & isFALSE(para)){
+
     stop(input$Status$Content)
+
   } else if (input$Status$Code == 104 & isTRUE(para)){
+
     message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
+
     empty_object <- TRUE
+
   } else if (input$Status$Code != 0 & isTRUE(para)){
+
     message(input$Status$Content)
+
     message("Artificial token is used.")
+
     empty_object <- FALSE
+
   } else {
+
     empty_object <- "DONE"
+
   }
 
   return(empty_object)
-}
 
+}
 
 # error response light ####
 test_if_error_light <- function(input){
@@ -334,13 +342,13 @@ test_if_error_light <- function(input){
 
 }
 
-
 # binding_function ####
 binding_lapply <- function(x,
                            characteristics){
   list_of <- setNames(data.frame(matrix(ncol = length(characteristics), nrow = 0)), characteristics)
 
   lapply(x, function(x){
+
     zwisch <- unlist(x[characteristics])
 
     list_of <<- rbind(list_of, zwisch[characteristics])
@@ -355,31 +363,3 @@ binding_lapply <- function(x,
 # bind_rows ####
 # map_dfr ####
 # It seems that the current version and the older version are not significantly different in execution time (seconds focused)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -31,7 +31,7 @@ catalogue <- function(code = NULL,
                       error.ignore = FALSE,
                       ...) {
 
-  caller <- as.character(match.call()[[1]])
+  caller <- as.character(match.call()[1])
 
   check_function_input(code = code,
                        category = category,
@@ -58,10 +58,15 @@ catalogue <- function(code = NULL,
     empty_object <- test_if_error(results_json, para = error.ignore)
 
     if(isTRUE(empty_object)){
-      list_of_cubes <- "No `cubes`- object found for your request."
+
+      list_of_cubes <- "No 'cubes' object found for your request."
+
     } else if(isFALSE(empty_object)){
+
       list_of_cubes <- results_json$Status$Content
+
     } else if(empty_object == "DONE"){
+
     if (isTRUE(detailed)) {
 
       list_of_cubes <- binding_lapply(results_json$List,
@@ -106,10 +111,15 @@ catalogue <- function(code = NULL,
     empty_object <- test_if_error(results_json, para = error.ignore)
 
     if(isTRUE(empty_object)){
-      list_of.stats <- "No `statistics`- object found for your request."
+
+      list_of.stats <- "No 'statistics' object found for your request."
+
     } else if(isFALSE(empty_object)){
+
       list_of.stats <- results_json$Status$Content
+
     } else if(empty_object == "DONE"){
+
     if (isTRUE(detailed)) {
 
       list_of.stats <- binding_lapply(results_json$List,
@@ -154,10 +164,15 @@ catalogue <- function(code = NULL,
     empty_object <- test_if_error(results_json, para = error.ignore)
 
     if(isTRUE(empty_object)){
-      list_of.tabs <- "No `tables`- object found for your request."
+
+      list_of.tabs <- "No 'tables' object found for your request."
+
     } else if(isFALSE(empty_object)){
+
       list_of.tabs <- results_json$Status$Content
+
     } else if(empty_object == "DONE"){
+
     if (isTRUE(detailed)) {
 
       list_of.tabs <- binding_lapply(results_json$List,
@@ -198,25 +213,37 @@ catalogue <- function(code = NULL,
   } else if (category == "cubes") {
 
     if(length(list_of_cubes) == 1){
+
       list_resp <- list("Output" = list_of_cubes)
+
     } else {
+
       list_resp <- list("Output" = forming_evas(list_of_cubes))
+
     }
 
   } else if (category == "statistics") {
 
     if(length(list_of.stats) == 1){
+
       list_resp <- list("Output" = list_of.stats)
+
     } else {
+
       list_resp <- list("Output" = forming_evas(list_of.stats))
+
     }
 
   } else if (category == "tables") {
 
     if(length(list_of.tabs) == 1){
+
       list_resp <- list("Output" = list_of.tabs)
+
     } else {
+
       list_resp <- list("Output" = forming_evas(list_of.tabs))
+
     }
 
   }
