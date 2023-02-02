@@ -101,6 +101,13 @@ check_function_input <- function(code = NULL,
 
     }
 
+    if (nchar(term) > 15) {
+
+      stop("Parameter 'term' cannot consist of more than 15 characters.",
+           call. = FALSE)
+
+    }
+
   }
 
   #-----------------------------------------------------------------------------
