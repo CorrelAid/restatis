@@ -39,17 +39,6 @@ with_mock_dir("catalogue3", {
 
 #-------------------------------------------------------------------------------
 
-with_mock_dir("catalogue3", {
-  test_that("catalogue function returns error if there are no results", {
-    expect_message(
-      restatis::catalogue(code = "41141",
-                          detailed = FALSE,
-                          category = "cubes",
-                          error.ignore = TRUE),
-      regexp = "Use 'error.ignore = FALSE' to stop the function")
-  })
-})
-
 with_mock_dir("catalogue4", {
   test_that("catalogue function returns list of length 3 if all categories are selected", {
 
@@ -59,6 +48,14 @@ with_mock_dir("catalogue4", {
 
     expect_equal(length(res), 3)
 
+  })
+})
+
+with_mock_dir("catalogue5", {
+  test_that("catalogue function messages on TRUE error.ignore param", {
+    expect_message(
+      restatis::catalogue(code = "711*", detailed = TRUE, category = "tables", error.ignore = TRUE),
+      regexp = "Use 'error.ignore = FALSE' to stop the function at the point where no object could be found.")
   })
 })
 
@@ -122,10 +119,3 @@ test_that("catalogue function errors on wrong error.ignore param", {
     restatis::catalogue(code = "711*", detailed = TRUE, category = "tables", error.ignore = 1),
     regexp = "Parameter 'error.ignore' has to be of type 'logical' and of length 1.")
 })
-
-without_internet(
-test_that("catalogue function messages on TRUE error.ignore param", {
-  expect_message(
-    restatis::catalogue(code = "711*", detailed = FALSE, category = "tables", error.ignore = TRUE),
-    regexp = "Use 'error.ignore = FALSE' to stop the function at the point where no object could be found.")
-}))

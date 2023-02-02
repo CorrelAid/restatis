@@ -20,7 +20,7 @@ with_mock_dir("modified2", {
 
 #-------------------------------------------------------------------------------
 
-with_mock_dir("modified1", {
+with_mock_dir("modified3", {
   test_that("modified_data function returns list with attributes", {
 
       result <- restatis::modified_data(code = "61111", date = "01.01.2022")
@@ -36,8 +36,8 @@ with_mock_dir("modified1", {
   })
 })
 
-with_mock_api({
-  test_that("modified_data function warngs if there is a non-zero status code", {
+with_mock_dir("modified4", {
+  test_that("modified_data function warns if there is a non-zero status code", {
     expect_warning(
       restatis::modified_data(code = "61234", date = "01.01.2022"),
     regexp = "test warning message")

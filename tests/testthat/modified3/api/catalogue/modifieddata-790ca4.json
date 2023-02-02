@@ -4,8 +4,8 @@
         "Method": "modifieddata"
     },
     "Status": {
-        "Code": 102,
-        "Content": "test warning message",
+        "Code": 0,
+        "Content": "erfolgreich",
         "Type": "Information"
     },
     "Parameter": {
@@ -13,13 +13,19 @@
         "password": "********************",
         "selection": "61111",
         "type": "Alle",
-        "date": "30.01.2023",
+        "date": "01.01.2022",
         "pagelength": "100",
         "language": "de",
         "area": "Alle"
     },
     "List": [
-        "error"
+        {
+            "Code": "61111",
+            "Content": "Verbraucherpreisindex für Deutschland",
+            "Type": "Aktualisierte Statistiken",
+            "Date": "17.01.2023",
+            "Added": "Dez 2022"
+        }
     ],
-    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2023"
 }
