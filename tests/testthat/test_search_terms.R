@@ -52,3 +52,4 @@ test_that("search term errors on wrong parameter type", {
     restatis::running_out_of_terms(term = 1992, similarity = TRUE),
     regexp = "Parameter 'term' has to be of type 'character' or NULL.")
 })
+

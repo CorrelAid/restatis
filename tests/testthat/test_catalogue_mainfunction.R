@@ -4,14 +4,17 @@
 
 with_mock_dir("catalogue1", {
   test_that("catalogue function returns list for tables", {
-    expect_type(
-      restatis::catalogue(code = "611*",
-                          detailed = TRUE,
-                          category = "tables",
-                          error.ignore = FALSE),
-      type = "list")
+
+      result <- restatis::catalogue(code = "611*",
+                                    detailed = TRUE,
+                                    category = "tables",
+                                    error.ignore = FALSE)
+
+      expect_type(result, type = "list")
   })
 })
+
+#-------------------------------------------------------------------------------
 
 with_mock_dir("catalogue2", {
   test_that("catalogue function returns lists for statistics", {
@@ -119,3 +122,4 @@ test_that("catalogue function errors on wrong error.ignore param", {
     restatis::catalogue(code = "711*", detailed = TRUE, category = "tables", error.ignore = 1),
     regexp = "Parameter 'error.ignore' has to be of type 'logical' and of length 1.")
 })
+

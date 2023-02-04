@@ -81,3 +81,4 @@ test_that("modified_data function errors on wrong type value", {
     restatis::modified_data(code = "12345", type = "diesdasananas"),
   regexp = "Available categories for parameter 'type' are 'tables', 'statistics', 'statistic updates', and 'all'.")
 })
+
