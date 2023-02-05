@@ -209,7 +209,7 @@ xy_to_variable <- function(code = NULL,
   attr(list_resp, "Category") <- category
   attr(list_resp, "Language") <- results_json$Parameter$language
   attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-  attr(list_resp, "Copyrigtht") <- results_json$Copyright
+  attr(list_resp, "Copyright") <- results_json$Copyright
 
   return(list_resp)
 

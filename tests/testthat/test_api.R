@@ -8,4 +8,3 @@ without_internet({
     )
   })
 })
-

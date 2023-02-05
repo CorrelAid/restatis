@@ -121,6 +121,17 @@ check_function_input <- function(code = NULL,
 
     }
 
+    if(length(sortcriterion) == 1) {
+
+      if(!(sortcriterion %in% c("code", "content"))) {
+
+        stop("Parameter 'sortcriterion' has to be 'code' or 'content'.",
+             call. = FALSE)
+
+      }
+
+    }
+
   }
 
   #-----------------------------------------------------------------------------
@@ -142,7 +153,7 @@ check_function_input <- function(code = NULL,
 
     if(!is.logical(detailed) | length(detailed) != 1) {
 
-      stop("Paramter 'detailed' has to be of type 'logical' and of length 1.",
+      stop("Parameter 'detailed' has to be of type 'logical' and of length 1.",
            call. = FALSE)
 
     }
@@ -159,10 +170,14 @@ check_function_input <- function(code = NULL,
 
   if(!is.null(error.ignore)) {
 
-    if(!is.logical(error.ignore) | length(error.ignore) != 1) {
+    if(length(error.ignore == 1)) {
 
-      stop("Parameter 'error.ignore' has to be of type 'logical' and of length 1.",
-           call. = FALSE)
+      if(!is.logical(error.ignore) | length(error.ignore) != 1) {
+
+        stop("Parameter 'error.ignore' has to be of type 'logical' and of length 1.",
+             call. = FALSE)
+
+      }
 
     }
 
@@ -199,7 +214,7 @@ check_function_input <- function(code = NULL,
 
       #----------------------------------------
 
-      if(caller == "restatis::xy_to_statistics") {
+      if(caller == "restatis::xy_to_statistic") {
 
         if(!all(category %in% c("tables", "cubes", "variables"))) {
 

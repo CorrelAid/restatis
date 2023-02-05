@@ -98,7 +98,7 @@ test_that("catalogue function errors on too many categories", {
 test_that("catalogue function errors on numeric detailed param", {
   expect_error(
     restatis::catalogue(code = "711*", detailed = 1, category = "tables"),
-    regexp = "Paramter 'detailed' has to be of type 'logical' and of length 1.")
+    regexp = "Parameter 'detailed' has to be of type 'logical' and of length 1.")
 })
 
 test_that("catalogue function messages on FALSE detailed param", {
