@@ -19,7 +19,7 @@
 #' object <- modified_data(type = "tables", date = "31.03.2020")
 #'
 #' # Find Destatis-Objects related to the topic "Bevölkerung" (Code: '12*') which were new today
-#' object <- modified_data(code = "12*)
+#' object <- modified_data(code = "12*")
 #' }
 #'
 modified_data <- function(code = "",

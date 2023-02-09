@@ -2,30 +2,34 @@
 % Please edit documentation in R/restatis_variable.R
 \name{get_values_from_variables}
 \alias{get_values_from_variables}
-\title{Get Values From Variables}
+\title{get_values_from_variables}
 \usage{
 get_values_from_variables(
   code = NULL,
   sortcriterion = c("code", "content"),
+  error.ignore = FALSE,
   ...
 )
 }
 \arguments{
-\item{code}{a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.}
+\item{code}{a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.}
 
-\item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Destatis call itself. The default is "code".}
+\item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis call itself. The default is "code".}
 
-\item{...}{Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.}
+\item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
+
+\item{...}{Additional parameter of the Genesis call. These parameters are only affecting the Genesis call itself, no further processing.}
 }
 \value{
-A list with all recalled elements from Destatis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+A list with all recalled elements from Genesis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 }
 \description{
-Function to extract the possible values from a variable from Destatis.
+Function to extract the possible values from a variable from Genesis. Values for continuous variables are not extractable, so the function returns a warning message.
 }
 \examples{
 \dontrun{
 # Find the values of the variable "DLAND"
 object <- get_values_from_variables(code = "DLAND")
 }
+
 }

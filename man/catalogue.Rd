@@ -2,13 +2,14 @@
 % Please edit documentation in R/restatis_catalogue_mainfunction.R
 \name{catalogue}
 \alias{catalogue}
-\title{Search Destatis Catalogue With According Structural Representation}
+\title{catalogue}
 \usage{
 catalogue(
   code = NULL,
   category = c("tables", "statistics", "cubes"),
   detailed = FALSE,
   sortcriterion = c("code", "content"),
+  error.ignore = FALSE,
   ...
 )
 }
@@ -21,6 +22,8 @@ catalogue(
 
 \item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Destatis call itself.}
 
+\item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
+
 \item{...}{Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.}
 }
 \value{
@@ -31,10 +34,13 @@ Function to enable searching for tables, statistics, and cubes from Destatis. Ad
 }
 \examples{
 \dontrun{
-# Scroll through Destatis-Objects under the topic "12*" which is "Bevölkerung" in Destatis from all categories and with a detailed output
+# Scroll through Destatis-Objects under the topic "12*"
+# which is "Bevölkerung" in Destatis from all categories and
+# with a detailed output
 object <- catalouge(code = "12*", detailed = T)
 
-# Search tables under the topic "12*" which is "Bevölkerung" in Destatis without a detailed output
+# Search tables under the topic "12*" which is "Bevölkerung"
+# in Destatis without a detailed output
 object <- catalouge(code = "12*", category = "tables")
 }
 

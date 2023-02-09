@@ -2,7 +2,7 @@
 % Please edit documentation in R/restatis_modifydata.R
 \name{modified_data}
 \alias{modified_data}
-\title{Call For Modified Data}
+\title{modified_data}
 \usage{
 modified_data(
   code = "",
@@ -25,4 +25,17 @@ A list with all recalled elements from Genesis. Always includes the code of the 
 }
 \description{
 Function to check for updates or new objects in Genesis based on a specific date.
+}
+\examples{
+\dontrun{
+# Find Genesis objects which were modified last_week
+object <- modified_data(date = "week_before")
+
+# Find tables that were new from 31.03.2020
+object <- modified_data(type = "tables", date = "31.03.2020")
+
+# Find Destatis-Objects related to the topic "Bevölkerung" (Code: '12*') which were new today
+object <- modified_data(code = "12*")
+}
+
 }

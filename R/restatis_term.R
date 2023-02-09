@@ -11,7 +11,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Find terms that are similar (in spelling) to search term "bus" and sort them by Levenshtein edit distance
+#' # Find terms that are similar (in spelling) to search term "bus"
+#' # and sort them by Levenshtein edit distance
 #' object <- running_out_of_terms(term = "bus", similarity = TRUE)
 #'
 #' # Find terms that are related (in spelling) to search term "bus"

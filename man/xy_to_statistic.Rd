@@ -7,8 +7,9 @@
 xy_to_statistic(
   code = NULL,
   category = c("tables", "variables", "cubes"),
-  detailed = F,
+  detailed = FALSE,
   sortcriterion = c("code", "content"),
+  error.ignore = FALSE,
   ...
 )
 }
@@ -20,6 +21,8 @@ xy_to_statistic(
 \item{detailed}{a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. The default is detailed = FALSE.}
 
 \item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Destatis call itself. The default is "code".}
+
+\item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
 
 \item{...}{Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.}
 }
@@ -36,6 +39,8 @@ Function to find objects related to a statistics in Destatis.
 
 # Find all object types from the statistic with the code "12411"
 object <- xy_to_statistic(code = "12411")
-# Default of detailed-parameter is FALSE, and default of the category-parameter is to include all object types.
+# Default of detailed-parameter is FALSE, and default of the
+# category-parameter is to include all object types.
 }
+
 }

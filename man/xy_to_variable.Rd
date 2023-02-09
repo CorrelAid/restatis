@@ -2,13 +2,14 @@
 % Please edit documentation in R/Restatis_xytovariable.R
 \name{xy_to_variable}
 \alias{xy_to_variable}
-\title{Get Objects Related To Variables}
+\title{xy_to_variable}
 \usage{
 xy_to_variable(
   code = NULL,
   category = c("tables", "statistics", "cubes"),
-  detailed = F,
+  detailed = FALSE,
   sortcriterion = c("code", "content"),
+  error.ignore = FALSE,
   ...
 )
 }
@@ -20,6 +21,8 @@ xy_to_variable(
 \item{detailed}{a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. The default is detailed = FALSE.}
 
 \item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Destatis call itself. The default is "code".}
+
+\item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
 
 \item{...}{Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.}
 }
@@ -34,8 +37,10 @@ Function to find objects related to a variable in Destatis.
 # Find Tables for Variable "Kreise" and return detailed output
 object <- xy_to_variable(code = "Kreise", category = "tables", detailed = T)
 
-#' # Find everything for Variable "GES"
+# Find everything for Variable "GES"
 object <- xy_to_variable(code = "GES")
-# Default of detailed-parameter is FALSE, and default of the category-parameter is to include all object types.
+# Default of detailed-parameter is FALSE, and default of the
+# category-parameter is to include all object types.
 }
+
 }

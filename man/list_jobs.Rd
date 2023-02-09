@@ -4,8 +4,22 @@
 \alias{list_jobs}
 \title{Get active jobs}
 \usage{
-list_jobs(selection = NULL, ...)
+list_jobs(
+  selection = NULL,
+  sortcriterion = c("content", "time", "status"),
+  ...
+)
+}
+\arguments{
+\item{selection}{Filter the list of jobs for matching codes.}
+
+\item{sortcriterion}{Allows to sort the resulting list of jobs by their Code ("content"), the time of completion ("time") or status ("status")}
+
+\item{...}{Further parameters to be passed down to the API caller.}
+}
+\value{
+A list of all current jobs connected to the given user.
 }
 \description{
-Function to list all active jobs.
+Function to list all current jobs connected to the given user.
 }

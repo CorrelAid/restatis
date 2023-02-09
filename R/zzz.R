@@ -367,7 +367,7 @@ test_if_error_light <- function(input){
 # binding_function ####
 binding_lapply <- function(x,
                            characteristics){
-  list_of <- setNames(data.frame(matrix(ncol = length(characteristics), nrow = 0)), characteristics)
+  list_of <- stats::setNames(data.frame(matrix(ncol = length(characteristics), nrow = 0)), characteristics)
 
   lapply(x, function(x){
 

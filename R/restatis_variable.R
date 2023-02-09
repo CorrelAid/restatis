@@ -13,7 +13,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Find the variables of the statistic with the code "12411" with a detailed output
+#' # Find the variables of the statistic with the code "12411"
+#' # with a detailed output
 #' object <- get_variables_from_statistic(code = "12411", detailed = T)
 #' }
 #'
@@ -175,7 +176,8 @@ get_values_from_variables <- function(code = NULL,
 #'
 #' @examples
 #' \dontrun{
-#' # Find the values of variables in a specific statistic with the code "21111" and a detailed description of the variables
+#' # Find the values of variables in a specific statistic with
+#' # the code "21111" and a detailed description of the variables
 #' object <- get_values_from_variables_from_statistic(code = "21111", detailed = TRUE)
 #' }
 #'

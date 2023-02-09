@@ -17,9 +17,10 @@
 #' # Find Tables for Variable "Kreise" and return detailed output
 #' object <- xy_to_variable(code = "Kreise", category = "tables", detailed = T)
 #'
-#' #' # Find everything for Variable "GES"
+#' # Find everything for Variable "GES"
 #' object <- xy_to_variable(code = "GES")
-#' # Default of detailed-parameter is FALSE, and default of the category-parameter is to include all object types.
+#' # Default of detailed-parameter is FALSE, and default of the
+#' # category-parameter is to include all object types.
 #' }
 #'
 xy_to_variable <- function(code = NULL,
