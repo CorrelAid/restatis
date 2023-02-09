@@ -33,7 +33,6 @@ with_mock_dir("xy_statistic2", {
 # Test for errors, warnings, messages of parameters ----
 #-------------------------------------------------------------------------------
 
-
 test_that("xy_to_statistic function errors on multiple codes", {
   expect_error(
     restatis::xy_to_statistic(code = c("611*", "711*"), detailed = TRUE, category = "tables"),
