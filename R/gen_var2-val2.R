@@ -1,12 +1,12 @@
-#' gen_var2stat
+#' gen_var2stat: Get Variables From a Statistic
 #'
-#' @description Function to generate variables from statistics.
+#' @description Function to generate variables from statistics in Genesis.
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
 #' @param detailed a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. The default is detailed = FALSE.
-#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis call itself. The default is "code".
+#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself. The default is "code".
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Genesis call. These parameters are only affecting the Genesis call itself, no further processing.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Genesis. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
@@ -87,14 +87,14 @@ gen_var2stat <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_val2var
+#' gen_val2var: Get Values From a Variable
 #'
 #' @description Function to extract the possible values from a variable from Genesis. Values for continuous variables are not extractable, so the function returns a warning message.
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
-#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis call itself. The default is "code".
+#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself. The default is "code".
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Genesis call. These parameters are only affecting the Genesis call itself, no further processing.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Genesis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
@@ -161,15 +161,15 @@ gen_val2var <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_val2var2stat
+#' gen_val2var2stat: Get Values From a Variable From a Statistic
 #'
-#' @description Get values from variables from statistic. Values for continuous variables cannot be extracted, so the function returns a warning message for each continuous variable whose values are attempted to be extracted.
+#' @description Get values from variables from a statistic. Values for continuous variables cannot be extracted, so the function returns a warning message.
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
 #' @param detailed a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. This parameter only affects the details of the variables-related output. The default is FALSE.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is an parameter of the Genesis call itself. The default is "code".
-#' @param ... Additional parameter of the Genesis call. These parameters are only affecting the Genesis call itself for the variables, no further processing or the values-related objects.
+#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is an parameter of the Genesis API call itself. The default is "code".
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself for the variables, no further processing or the values-related objects.
 #'
 #' @return A list with all recalled elements from Genesis. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
@@ -221,14 +221,14 @@ gen_val2var2stat <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_search_vars
+#' gen_search_vars: Search for Specific Variables
 #'
-#' @description Function to search for specific variables in Genesis databank.
+#' @description Function to search for specific variables in Genesis.
 #'
 #' @param code a string with a maximum length of 6. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
-#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis call itself. The default is "code".
+#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself. The default is "code".
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Genesis call. These parameters are only affecting the Genesis call itself, no further processing.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Genesis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export

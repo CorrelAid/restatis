@@ -1,30 +1,27 @@
-# EVAS codes loaded - Used as the structure for the
-load("data/evas_list_long_20220724.RData")
-
-#' catalogue
+#' catalogue: Explore Different Objects and Their Structural Embedding in Genesis
 #'
-#' Function to enable searching for tables, statistics, and cubes from Destatis. Additionally, it structures the output based on the internal tree structure of Destatis itself based on the EVAS-numbers.
+#' Function to enable searching for tables, statistics, and cubes from Genesis. Additionally, it structures the output based on the internal tree structure of Genesis itself based on the EVAS-numbers. Time-series are represented as cubes with a specified time span.
 #'
-#' @param code a string with a maximum length of 10 characters. Code from a Destatis-Object. Only one code per iteration. "*"-Notations are possible.
-#' @param category a string. Specific Destatis-Object-types: 'tables', 'statistics', and 'cubes'. All three together are possible.
+#' @param code a string with a maximum length of 10 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possible.
+#' @param category a string. Specific Genesis-Object-types: 'tables', 'statistics', and 'cubes'. All three together are possible.
 #' @param detailed a logical. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title.
-#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Destatis call itself.
+#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
-#' @return A list with all recalled elements from Destatis. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis API. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' # Scroll through Destatis-Objects under the topic "12*"
+#' # Scroll through Objects under the topic "12*"
 #' # which is "Bevölkerung" in Destatis from all categories and
 #' # with a detailed output
-#' object <- catalouge(code = "12*", detailed = T)
+#' object <- gen_catalogue(code = "12*", detailed = T)
 #'
 #' # Search tables under the topic "12*" which is "Bevölkerung"
-#' # in Destatis without a detailed output
-#' object <- catalouge(code = "12*", category = "tables")
+#' # without a detailed output
+#' object <- gen_catalogue(code = "12*", category = "tables")
 #' }
 #'
 gen_catalogue <- function(code = NULL,

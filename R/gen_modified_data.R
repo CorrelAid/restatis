@@ -1,8 +1,8 @@
-#' modified_data
+#' gen_modified_data: Explore New Added Objects or Changed Objects in Genesis
 #'
-#' @description Function to check for updates or new objects in Genesis based on a specific date.
+#' @description Function to check for updates, changes, or new objects in Genesis based on a specific date.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Genesis object. Only one code per iteration. "*" notations are possible.
+#' @param code a string with a maximum length of 15 characters. Code from a Genesis object. Only one code per iteration. "*" notations are possible. Empty code (default value) includes all changes, updates, and new added objects.
 #' @param type a string. Specific Genesis object type: 'tables', 'statistics', and 'statisticsUpdates'. All three can be accessed through "all", which is the default.
 #' @param date a string. Specific date that is used as the last update or upload time in Genesis to include a Genesis object in return. Default option is 'now', which uses the current date of your system. Alternative options are 'week_before', using the current date of your system minus 7 days, 'month_before', using the current date of your system minus 4 weeks, and 'year_before', using the current date of your system minus 52 weeks. Additionally, it is possible to fill in a specific date of format 'DD.MM.YYYY'.
 #' @param ... Additional parameters for the Genesis call. These parameters are only affecting the Genesis call itself, not the further processing.
@@ -12,14 +12,14 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Find Genesis objects which were modified last_week
-#' object <- modified_data(date = "week_before")
+#' # Find objects which were modified last_week
+#' object <- gen_modified_data(date = "week_before")
 #'
 #' # Find tables that were new from 31.03.2020
-#' object <- modified_data(type = "tables", date = "31.03.2020")
+#' object <- gen_modified_data(type = "tables", date = "31.03.2020")
 #'
-#' # Find Destatis-Objects related to the topic "Bevölkerung" (Code: '12*') which were new today
-#' object <- modified_data(code = "12*")
+#' # Find objects related to the topic "Bevölkerung" (Code: '12*') which were new today
+#' object <- gen_modified_data(code = "12*")
 #' }
 #'
 gen_modified_data <- function(code = "",

@@ -1,4 +1,8 @@
 forming_evas <- function(list_of){
+  # Load the EVAS numbers
+  load("data/evas_list_long_20220724.RData")
+
+  # Progress them
   list_of$Main <- apply(list_of, 1, function(x){
     evas_list_long_20220724$Titel[evas_list_long_20220724$EVAS == substr(x["Code"], 1, 1)]
   })

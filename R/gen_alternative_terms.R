@@ -1,4 +1,4 @@
-#' Call for similiar or spelling related terms for further search
+#' gen_alternative_terms: Call for similiar or spelling related terms for further search
 #'
 #' @description Function to find search terms that are similar or related to one another and also represented in Genesis.
 #'
@@ -13,10 +13,10 @@
 #' \dontrun{
 #' # Find terms that are similar (in spelling) to search term "bus"
 #' # and sort them by Levenshtein edit distance
-#' object <- running_out_of_terms(term = "bus", similarity = TRUE)
+#' object <- gen_alternative_terms(term = "bus", similarity = TRUE)
 #'
 #' # Find terms that are related (in spelling) to search term "bus"
-#' object <- running_out_of_terms(term = "bus*", similarity = TRUE)
+#' object <- gen_alternative_terms(term = "bus*", similarity = TRUE)
 #' }
 #'
 gen_alternative_terms <- function(term = NULL,

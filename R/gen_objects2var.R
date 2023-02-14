@@ -1,24 +1,24 @@
-#' xy_to_variable
+#' gen_objects2var: Get Objects Related To Variable
 #'
-#' @description Function to find objects related to a variable in Destatis.
+#' @description Function to find objects related to a variable in Genesis.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
-#' @param category a string. Specific Destatis-Object-types: 'tables', 'statistics', and 'cubes'. All three together are possible and the default option.
+#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
+#' @param category a string. Specific object-types: 'tables', 'statistics', and 'cubes'. All three together are possible and the default option.
 #' @param detailed a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. The default is detailed = FALSE.
-#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Destatis call itself. The default is "code".
+#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself. The default is "code".
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
-#' @return A list with all recalled elements from Destatis. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' # Find Tables for Variable "Kreise" and return detailed output
-#' object <- xy_to_variable(code = "Kreise", category = "tables", detailed = T)
+#' object <- gen_objects2var(code = "Kreise", category = "tables", detailed = T)
 #'
 #' # Find everything for Variable "GES"
-#' object <- xy_to_variable(code = "GES")
+#' object <- gen_objects2var(code = "GES")
 #' # Default of detailed-parameter is FALSE, and default of the
 #' # category-parameter is to include all object types.
 #' }

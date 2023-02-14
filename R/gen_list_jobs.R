@@ -1,4 +1,4 @@
-#' gen_list_jobs
+#' gen_list_jobs: Explore current jobs of your user account
 #'
 #' @description Function to list all current jobs connected to the given user.
 #'
