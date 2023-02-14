@@ -1,27 +1,27 @@
-#' Search Function For Objects In Destatis
+#' gen_find: Search Function For Objects In Genesis
 #'
-#' Function to search through the Destatis databank. It is similar in usage as the search function on the Destatis mainpage.
+#' Function to search through Genesis. It is similar in usage as the search function on the Destatis mainpage (https://www.destatis.de/DE/Home/_inhalt.html).
 #' In the search query "AND" and "OR" can be included. An additional information here is that time-series are treated as cubes - they are not longer distinguished. If you want to find a specific object with a clear code with this find-function you need to specify the object type or search for all object types.
 #'
 #' @param term a string with no maximum character length.
-#' @param category a string. Specific Destatis-Object-types: 'tables', 'statistics', "variables", and 'cubes'. Using all together is possible. Default option are "all" objects.
+#' @param category a string. Specific object-types: 'tables', 'statistics', "variables", and 'cubes'. Using all together is possible. Default option are "all" objects.
 #' @param detailed a logical. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default Option is detailed = FALSE.
 #' @param ordering a logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and in second on an estimator of the number of variables in this object. Default option is ordering = TRUE.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
-#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' # Find objects related to "bus" in Destatis
-#' object <- search_for(term = "bus")
+#' # Find objects related to "bus" in Genesis
+#' object <- gen_find(term = "bus")
 #'
-#' # Find tables related to "bus" in Destatis and return a unordered detailed output
-#' object <- search_for(term = "bus", detailed = T, ordering = F)
+#' # Find tables related to "bus" in Genesis and return a unordered detailed output
+#' object <- gen_find(term = "bus", detailed = T, ordering = F)
 #' }
-search_for <- function(term = NULL,
+gen_find <- function(term = NULL,
                        category = c("all", "tables", "statistics", "variables", "cubes"),
                        detailed = FALSE,
                        ordering = TRUE,

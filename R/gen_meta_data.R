@@ -1,21 +1,21 @@
 # Statistic ####
-#' Meta-Information For Statistics
+#' gen_meta_data_stat: Meta-Information For Statistic
 #'
 #' Function to search for meta-information for a specific statistic.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
+#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
-#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the statistic with the code "12411"
-#' object <- meta_data_for_statistics(code = "12411")
+#' object <- gen_meta_data_stats(code = "12411")
 #' }
-meta_data_for_statistics <- function(code = NULL,
+gen_meta_data_stats <- function(code = NULL,
                                      error.ignore = FALSE,
                                      ...) {
   # Check of parameter ####
@@ -63,23 +63,23 @@ meta_data_for_statistics <- function(code = NULL,
 }
 
 # Variable ####
-#' Meta-Information For Variables
+#' gen_meta_data_var: Meta-Information For Variable
 #'
 #' Function to search for meta-information for a specific variable.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration. "*"-Notation is possible.
+#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notation is possible.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
-#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the variable with the code "FAMSTD"
-#' object <- meta_data_for_variables(code = "FAMSTD")
+#' object <- gen_meta_data_var(code = "FAMSTD")
 #' }
-meta_data_for_variables <- function(code = NULL,
+gen_meta_data_var <- function(code = NULL,
                                     error.ignore = FALSE,
                                     ...) {
   # Check of parameter ####
@@ -123,23 +123,23 @@ meta_data_for_variables <- function(code = NULL,
 }
 
 # Values ####
-#' Meta-Information For Values
+#' gen_meta_data_val: Meta-Information For Value
 #'
 #' Function to search for meta-information for a specific value.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
+#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
-#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the value with the code "LEDIG"
-#' object <- meta_data_for_values(code = "LEDIG")
+#' object <- gen_meta_data_val(code = "LEDIG")
 #' }
-meta_data_for_values <- function(code = NULL,
+gen_meta_data_val <- function(code = NULL,
                                  error.ignore = FALSE,
                                  ...) {
   # Check of parameter ####
@@ -182,23 +182,23 @@ meta_data_for_values <- function(code = NULL,
 
 
 # Tables ####
-#' Meta-Information For Tables
+#' gen_meta_data_tab: Meta-Information For Table
 #'
 #' Function to search for meta-information for a specific table.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
+#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
-#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the table with the code "11111"
-#' object <- meta_data_for_tables(code = "11111")
+#' object <- gen_meta_data_tab(code = "11111")
 #' }
-meta_data_for_tables <- function(code = NULL,
+gen_meta_data_tab <- function(code = NULL,
                                  error.ignore = FALSE,
                                  ...) {
   # Check of parameter ####
@@ -296,23 +296,23 @@ meta_data_for_tables <- function(code = NULL,
 }
 
 # Cubes ####
-#' Meta-Information For Cubes
+#' gen_meta_data_cube: Meta-Information For Cube
 #'
 #' Function to search for meta-information for a specific cube.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
+#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
-#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the cube with the code "11111KE001"
-#' object <- meta_data_for_tables(code = "11111KE001")
+#' object <- gen_meta_data_cube(code = "11111KE001")
 #' }
-meta_data_for_cubes <- function(code = NULL,
+gen_meta_data_cube <- function(code = NULL,
                                 error.ignore = FALSE,
                                 ...) {
   # Check of parameter ####
@@ -396,22 +396,22 @@ meta_data_for_cubes <- function(code = NULL,
 }
 
 # Overall ####
-#' Search For Meta-Information For All Types Of Objects
+#' gen_meta_data: Search For Meta-Information For All Types Of Objects
 #'
-#' @param codea string with a maximum length of 15 characters. Code from a Destatis-Object. Only one code per iteration.
-#' @param category a string. Specific Destatis-Object-types: 'Cube', 'Statistic', "Table", "Variable" and 'Value'. The function needs a specified object type.
+#' @param codea string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
+#' @param category a string. Specific object-types: 'Cube', 'Statistic', "Table", "Variable" and 'Value'. The function needs a specified object type.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Destatis call. These parameters are only affecting the Destatis call itself, no further processing.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
-#' @return A list with all recalled elements from Destatis. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the table with the code "11111"
-#' object <- meta_data_for_tables(code = "11111", category = "Table")
+#' object <- gen_meta_data(code = "11111", category = "Table")
 #' }
-meta_data_for <- function(code = NULL,
+gen_meta_data <- function(code = NULL,
                           category = c("Cube", "Statistic", "Table", "Variable", "Value"),
                           error.ignore = FALSE,
                           ...) {
@@ -428,15 +428,15 @@ meta_data_for <- function(code = NULL,
   }
 
   if (category == "Cube") {
-    meta_data_for_cubes(code = code, error.ignore = error.ignore, ...)
+    gen_meta_data_cube(code = code, error.ignore = error.ignore, ...)
   } else if (category == "Value") {
-    meta_data_for_values(code = code, error.ignore = error.ignore, ...)
+    gen_meta_data_val(code = code, error.ignore = error.ignore, ...)
   } else if (category == "Variable") {
-    meta_data_for_variables(code = code, error.ignore = error.ignore, ...)
+    gen_meta_data_var(code = code, error.ignore = error.ignore, ...)
   } else if (category == "Table") {
-    meta_data_for_tables(code = code, error.ignore = error.ignore, ...)
+    gen_meta_data_tab(code = code, error.ignore = error.ignore, ...)
   } else if (category == "Statistic") {
-    meta_data_for_statistics(code = code, error.ignore = error.ignore, ...)
+    gen_meta_data_stats(code = code, error.ignore = error.ignore, ...)
   } else {
     stop("Category is not found, please select a correct category.
          Available categories are Cube, Statistic, Table, Variable, or Value.
