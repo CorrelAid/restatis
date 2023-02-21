@@ -1,4 +1,3 @@
-# Statistic ####
 #' gen_meta_data_stat: Meta-Information For Statistic
 #'
 #' Function to search for meta-information for a specific statistic.
@@ -15,9 +14,10 @@
 #' # Find meta-information of the statistic with the code "12411"
 #' object <- gen_meta_data_stats(code = "12411")
 #' }
+#'
 gen_meta_data_stats <- function(code = NULL,
-                                     error.ignore = FALSE,
-                                     ...) {
+                                error.ignore = FALSE,
+                                ...) {
   # Check of parameter ####
   if (!(is.character(code)) && length(code) < 1L) {
     stop("code must be a single string", call. = T)
