@@ -1,3 +1,4 @@
+# Forming_evas ----
 forming_evas <- function(list_of){
   # Load the EVAS numbers
   load("data/evas_list_long_20220724.RData")
@@ -50,7 +51,7 @@ forming_evas <- function(list_of){
   return(aba)
 }
 
-#-------------------------------------------------------------------------------
+# check_function_input ----
 
 check_function_input <- function(code = NULL,
                                  term = NULL,
@@ -61,9 +62,19 @@ check_function_input <- function(code = NULL,
                                  date = NULL,
                                  similarity = NULL,
                                  error.ignore = NULL,
+                                 ordering = NULL,
                                  caller = NULL) {
 
-  #-----------------------------------------------------------------------------
+  # Code & Term ----
+
+  if (is.null(code) & is.null(term)) {
+
+    stop("Parameter `code` or `term` must NOT be NULL.",
+         call. = FALSE)
+
+  }
+
+  # Code ----
 
   if (!is.null(code)) {
 
@@ -74,16 +85,16 @@ check_function_input <- function(code = NULL,
 
     }
 
-    if (!is.null(code) & !is.character(code)) {
+    if (!is.character(code)) {
 
-      stop("Parameter 'code' has to be of type 'character' or NULL.",
+      stop("Parameter 'code' has to be of type 'character'.",
            call. = FALSE)
 
     }
 
   }
 
-  #-----------------------------------------------------------------------------
+  # Term ----
 
   if(!is.null(term)) {
 
@@ -94,14 +105,14 @@ check_function_input <- function(code = NULL,
 
     }
 
-    if (!is.null(term) & !is.character(term)) {
+    if (!is.character(term)) {
 
-      stop("Parameter 'term' has to be of type 'character' or NULL.",
+      stop("Parameter 'term' has to be of type 'character'.",
            call. = FALSE)
 
     }
 
-    if (nchar(term) > 15) {
+    if (nchar(term) > 15 & !(caller %in% c("gen_find", "restatis::gen_find"))) {
 
       stop("Parameter 'term' cannot consist of more than 15 characters.",
            call. = FALSE)
@@ -110,7 +121,7 @@ check_function_input <- function(code = NULL,
 
   }
 
-  #-----------------------------------------------------------------------------
+  # sortcriterion ----
 
   if(!is.null(sortcriterion)) {
 
@@ -134,20 +145,92 @@ check_function_input <- function(code = NULL,
 
   }
 
-  #-----------------------------------------------------------------------------
+  # category ----
 
-  if(!is.null(similarity)) {
+  if (!is.null(category)) {
 
-    if(!is.logical(similarity)) {
+    if (!(length(category) %in% c(1:3)) & caller %in% c("restatis::gen_catalogue",
+                                                        "restatis::gen_objects2var",
+                                                        "restatis::gen_objects2stat",
+                                                        "gen_catalogue",
+                                                        "gen_objects2var",
+                                                        "gen_objects2stat"
+    )) {
 
-      stop("Parameter 'similarity' has to be of type 'logical'.",
-           call. = FALSE)
+      stop("Parameter 'category' has to have a length of 1 to 3.")
 
     }
 
+    #----------------------------------------
+
+    if (!(length(category) %in% c(1,5)) & caller %in% c("restatis::gen_find",
+                                                        "restatis::gen_meta_data",
+                                                        "gen_find",
+                                                        "gen_meta_data"
+    )) {
+
+      stop("Parameter 'category' has to have a length of 1.")
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if(caller %in% c("restatis::gen_catalogue", "restatis::gen_objects2var",
+                     "gen_catalogue", "gen_objects2var")) {
+
+      if(!all(category %in% c("tables", "cubes", "statistics"))) {
+
+        stop("Available categories are tables, statistics, and cubes.",
+             call. = FALSE)
+
+      }
+
+    }
+
+    #----------------------------------------
+
+    if(caller %in% c("restatis::gen_objects2stat", "gen_objects2stat")) {
+
+      if(!all(category %in% c("tables", "cubes", "variables"))) {
+
+        stop("Available categories are tables, variables, and cubes.",
+             call. = FALSE)
+
+      }
+
+    }
+
+    #----------------------------------------
+
+    if(caller %in% c("restatis::gen_find", "gen_find")) {
+
+      if(!all(category %in% c("all", "tables", "statistics", "variables", "cubes"))) {
+
+        stop("Available categories are all, tables, statistics, variables, and cubes.",
+             call. = FALSE)
+
+      }
+
+    }
+
+    #----------------------------------------
+
+    if(caller %in% c("restatis::gen_meta_data", "gen_meta_data")) {
+
+      if(!all(category %in% c("Cube", "Statistic", "Table", "Variable", "Value"))) {
+
+        stop("Available categories are Cube, Table, Statistic, Variable, and Value.",
+             call. = FALSE)
+
+      }
+
+    }
+
+
   }
 
-  #---------------------------------------------------------------------------
+
+  # detailed ----
 
   if(!is.null(detailed)) {
 
@@ -166,68 +249,7 @@ check_function_input <- function(code = NULL,
 
   }
 
-  #---------------------------------------------------------------------------
-
-  if(!is.null(error.ignore)) {
-
-    if(length(error.ignore == 1)) {
-
-      if(!is.logical(error.ignore) | length(error.ignore) != 1) {
-
-        stop("Parameter 'error.ignore' has to be of type 'logical' and of length 1.",
-             call. = FALSE)
-
-      }
-
-    }
-
-    if(isTRUE(error.ignore)) {
-
-      message("Use 'error.ignore = FALSE' to stop the function at the point where no object could be found.")
-
-    }
-
-  }
-
-  #-----------------------------------------------------------------------------
-
-  if (!is.null(category)) {
-
-    if (!(length(category) %in% c(1:3))) {
-
-      stop("Parameter 'category' has to have a length of 1 to 3.")
-
-    }
-
-    #---------------------------------------------------------------------------
-
-    if(caller %in% c("restatis::gen_catalogue", "restatis::gen_objects2var")) {
-
-      if(!all(category %in% c("tables", "cubes", "statistics"))) {
-
-        stop("Available categories are tables, statistics, and cubes.",
-             call. = FALSE)
-
-      }
-
-    }
-
-    #----------------------------------------
-
-    if(caller == "restatis::gen_objects2stat") {
-
-      if(!all(category %in% c("tables", "cubes", "variables"))) {
-
-        stop("Available categories are tables, variables, and cubes.",
-             call. = FALSE)
-
-      }
-
-    }
-
-  }
-
-  #-----------------------------------------------------------------------------
+  # type ----
 
   if(!is.null(type)) {
 
@@ -240,7 +262,7 @@ check_function_input <- function(code = NULL,
 
   }
 
-  #-----------------------------------------------------------------------------
+  # date ----
 
   if(!is.null(date)) {
 
@@ -297,9 +319,65 @@ check_function_input <- function(code = NULL,
 
   }
 
+  # similarity ----
+
+  if(!is.null(similarity)) {
+
+    if(!is.logical(similarity)) {
+
+      stop("Parameter 'similarity' has to be of type 'logical'.",
+           call. = FALSE)
+
+    }
+
+  }
+
+  # error.ignore ----
+
+  if(!is.null(error.ignore)) {
+
+    if(length(error.ignore == 1)) {
+
+      if(!is.logical(error.ignore) | length(error.ignore) != 1) {
+
+        stop("Parameter 'error.ignore' has to be of type 'logical' and of length 1.",
+             call. = FALSE)
+
+      }
+
+    }
+
+    if(isTRUE(error.ignore)) {
+
+      message("Use 'error.ignore = FALSE' to stop the function at the point where no object could be found.")
+
+    }
+
+  }
+
+  # ordering ----
+
+  if(!is.null(ordering)) {
+
+    if(!is.logical(ordering) | length(ordering) != 1) {
+
+      stop("Parameter 'ordering' has to be of type 'logical' and of length 1.",
+           call. = FALSE)
+
+    }
+
+    if(isFALSE(ordering)) {
+
+      message("Use 'ordering = TRUE' to obtain the output ordered based on the search term presence.")
+
+    }
+
+  }
+
 }
 
-# json response ####
+# test_if_json ----
+
 test_if_json <- function(input){
 
   if (httr2::resp_content_type(input) == "application/json") {
@@ -316,7 +394,34 @@ test_if_json <- function(input){
 
 }
 
-# error response ####
+# test_if_error_find ----
+
+test_if_error_find <- function(input, para){
+
+  if (input$Status$Code != 0 & isTRUE(para)) {
+
+    stop(input$Status$Content)
+
+  } else if (input$Status$Code != 0 & isFALSE(para)){
+
+    message(input$Status$Content)
+
+    message("Artificial token is used.")
+
+    empty_object <- FALSE
+
+  } else {
+
+    empty_object <- "DONE"
+
+  }
+
+  return(empty_object)
+
+}
+
+# test_if_error ----
+
 test_if_error <- function(input, para){
 
   if (input$Status$Code == 104 & isFALSE(para)){
@@ -351,18 +456,29 @@ test_if_error <- function(input, para){
 
 }
 
-# error response light ####
-test_if_error_light <- function(input){
+# test_if_process_further ----
 
-  if (input$Status$Code != 0) {
+test_if_process_further <- function(input, para){
+  if (sum(unlist(lapply(input[4:8], function(x) {is.null(x)}))) == 5 &
+      isFALSE(para)) {
 
-    warning(input$Status$Content, call. = FALSE)
+    stop("No object found for your request. Check your parameters if you expected an object for this request.")
+
+  } else if (sum(unlist(lapply(input[4:8], function(x) {is.null(x)}))) == 5
+             & isTRUE(para)){
+
+    message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
+
+    empty_object <- TRUE
 
   }
 
+  return(empty_object)
+
 }
 
-# binding_function ####
+# binding_lapply ----
+
 binding_lapply <- function(x,
                            characteristics){
   list_of <- stats::setNames(data.frame(matrix(ncol = length(characteristics), nrow = 0)), characteristics)
@@ -378,4 +494,57 @@ binding_lapply <- function(x,
   colnames(list_of) <- characteristics
 
   return(list_of)
+
 }
+
+# gsub ----
+
+ggsub <- function(x){
+
+  a <- gsub(".*:", "", x$Content)
+
+  return(a)
+
+}
+
+# spezifisch_create ----
+
+spezifisch_create <- function(x){
+
+  a <- unlist(lapply(strsplit(x$Spezifisch, ","), length))
+
+  return(a)
+
+}
+
+# titel_search ----
+
+titel_search <- function(x, term){
+
+  a <- grepl(
+    paste(
+      unlist(
+        strsplit(term, c(" & | und "))),
+      collapse = "|"),
+    x$Content,
+    ignore.case = T
+  )
+
+  return(a)
+
+}
+
+# test_if_error_light ----
+
+test_if_error_light <- function(input){
+
+  if (input$Status$Code != 0) {
+
+    warning(input$Status$Content, call. = FALSE)
+
+  }
+
+}
+
+
+
