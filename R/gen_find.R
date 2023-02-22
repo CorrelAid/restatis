@@ -27,32 +27,17 @@ gen_find <- function(term = NULL,
                        ordering = TRUE,
                        error.ignore = FALSE,
                        ...) {
-  # Check of parameter ####
-  if (!(is.character(term)) && length(term) < 1L && is.null(term)) {
-    stop("term must be a single string or NULL", call. = F)
-  }
 
-  if (detailed == FALSE) {
-    message("Use detailed = TRUE to obtain the complete output.")
-  }
+  caller <- as.character(match.call()[1])
 
-  if (!all(category %in% c("all", "tables", "statistics", "variables", "cubes"))) {
-    stop("category must be one of the offered options", call. = F)
-  }
+  check_function_input(term = term,
+                       category = category,
+                       detailed = detailed,
+                       ordering = ordering,
+                       error.ignore = error.ignore,
+                       caller = caller)
 
   category <- match.arg(category)
-
-  if (!(is.logical(detailed))) {
-    stop("parameter has to be logical", call. = F)
-  }
-
-  if (!(is.logical(ordering))) {
-    stop("parameter has to be logical", call. = F)
-  }
-
-  if (!(is.logical(error.ignore))) {
-    stop("parameter has to be logical", call. = F)
-  }
 
   # Data ####
   results_raw <- gen_api("find/find",
@@ -64,7 +49,7 @@ gen_find <- function(term = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error(results_json, para = error.ignore)
+  empty_object <- test_if_error_find(results_json, para = error.ignore)
 
   empty_object <- test_if_process_further(results_json, para = error.ignore)
 

@@ -18,14 +18,9 @@
 gen_meta_data_stats <- function(code = NULL,
                                      error.ignore = FALSE,
                                      ...) {
-  # Check of parameter ####
-  if (!(is.character(code)) && length(code) < 1L) {
-    stop("code must be a single string", call. = T)
-  }
 
-  if (!(is.logical(error.ignore))) {
-    stop("parameter has to be logical", call. = F)
-  }
+  check_function_input(code = code,
+                       error.ignore = error.ignore)
 
   # Data ####
 
@@ -38,7 +33,7 @@ gen_meta_data_stats <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error_meta(results_json, para = error.ignore)
+  empty_object <- test_if_error_met(results_json, para = error.ignore)
 
   if(isTRUE(empty_object)){
     df_stats <- "No `meta_information`- object found for your request."
@@ -82,14 +77,9 @@ gen_meta_data_stats <- function(code = NULL,
 gen_meta_data_var <- function(code = NULL,
                                     error.ignore = FALSE,
                                     ...) {
-  # Check of parameter ####
-  if (!(is.character(code)) && length(code) < 1L) {
-    stop("code must be a single string", call. = T)
-  }
 
-  if (!(is.logical(error.ignore))) {
-    stop("parameter has to be logical", call. = F)
-  }
+  check_function_input(code = code,
+                       error.ignore = error.ignore)
 
   # Data ####
 
@@ -97,7 +87,7 @@ gen_meta_data_var <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error_meta(results_json, para = error.ignore)
+  empty_object <- test_if_error(results_json, para = error.ignore)
 
   if(isTRUE(empty_object)){
     df_var <- "No `meta_information`- object found for your request."
@@ -142,14 +132,9 @@ gen_meta_data_var <- function(code = NULL,
 gen_meta_data_val <- function(code = NULL,
                                  error.ignore = FALSE,
                                  ...) {
-  # Check of parameter ####
-  if (!(is.character(code)) && length(code) < 1L) {
-    stop("code must be a single string", call. = T)
-  }
 
-  if (!(is.logical(error.ignore))) {
-    stop("parameter has to be logical", call. = F)
-  }
+  check_function_input(code = code,
+                       error.ignore = error.ignore)
 
   # Data ####
 
@@ -157,7 +142,7 @@ gen_meta_data_val <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error_meta(results_json, para = error.ignore)
+  empty_object <- test_if_error(results_json, para = error.ignore)
 
   if(isTRUE(empty_object)){
     df_value <- "No `meta_information`- object found for your request."
@@ -201,14 +186,9 @@ gen_meta_data_val <- function(code = NULL,
 gen_meta_data_tab <- function(code = NULL,
                                  error.ignore = FALSE,
                                  ...) {
-  # Check of parameter ####
-  if (!(is.character(code)) && length(code) < 1L) {
-    stop("code must be a single string", call. = T)
-  }
 
-  if (!(is.logical(error.ignore))) {
-    stop("parameter has to be logical", call. = F)
-  }
+  check_function_input(code = code,
+                       error.ignore = error.ignore)
 
   # Data ####
 
@@ -216,7 +196,7 @@ gen_meta_data_tab <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error_meta(results_json, para = error.ignore)
+  empty_object <- test_if_error(results_json, para = error.ignore)
 
   if(isTRUE(empty_object)){
     char <- "No `meta_information`- object found for your request."
@@ -315,14 +295,9 @@ gen_meta_data_tab <- function(code = NULL,
 gen_meta_data_cube <- function(code = NULL,
                                 error.ignore = FALSE,
                                 ...) {
-  # Check of parameter ####
-  if (!(is.character(code)) && length(code) < 1L) {
-    stop("code must be a single string", call. = T)
-  }
 
-  if (!(is.logical(error.ignore))) {
-    stop("parameter has to be logical", call. = F)
-  }
+  check_function_input(code = code,
+                       error.ignore = error.ignore)
 
   # Data ####
 
@@ -330,7 +305,7 @@ gen_meta_data_cube <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error_meta(results_json, para = error.ignore)
+  empty_object <- test_if_error(results_json, para = error.ignore)
 
   if(isTRUE(empty_object)){
     char <- "No `meta_information`- object found for your request."
@@ -415,17 +390,14 @@ gen_meta_data <- function(code = NULL,
                           category = c("Cube", "Statistic", "Table", "Variable", "Value"),
                           error.ignore = FALSE,
                           ...) {
-  if (!(is.character(code)) && length(code) < 1L) {
-    stop("code must be a single string", call. = T)
-  }
 
-  if (!(length(category) == 1)) {
-    stop("Available categories are Cube, Statistic, Table, Variable, or Value. Please choose one of them.")
-  }
+  caller <- as.character(match.call()[1])
 
-  if (!(is.logical(error.ignore))) {
-    stop("parameter has to be logical", call. = F)
-  }
+  check_function_input(code = code,
+                       category = category,
+                       error.ignore = error.ignore,
+                       caller = caller)
+
 
   if (category == "Cube") {
     gen_meta_data_cube(code = code, error.ignore = error.ignore, ...)
