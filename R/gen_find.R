@@ -1,7 +1,6 @@
-#' gen_find: Search Function For Objects In Genesis
+#' gen_find
 #'
-#' Function to search through Genesis. It is similar in usage as the search function on the Destatis mainpage (https://www.destatis.de/DE/Home/_inhalt.html).
-#' In the search query "AND" and "OR" can be included. An additional information here is that time-series are treated as cubes - they are not longer distinguished. If you want to find a specific object with a clear code with this find-function you need to specify the object type or search for all object types.
+#' @description Function to search through Genesis. It is similar in usage as the search function on the Destatis main page (https://www.destatis.de/DE/Home/_inhalt.html). #' In the search query "AND" and "OR" can be included. An additional information here is that time-series are treated as cubes - they are not longer distinguished. If you want to find a specific object with a clear code with this find-function you need to specify the object type or search for all object types.
 #'
 #' @param term a string with no maximum character length.
 #' @param category a string. Specific object-types: 'tables', 'statistics', "variables", and 'cubes'. Using all together is possible. Default option are "all" objects.
@@ -19,14 +18,15 @@
 #' object <- gen_find(term = "bus")
 #'
 #' # Find tables related to "bus" in Genesis and return a unordered detailed output
-#' object <- gen_find(term = "bus", detailed = T, ordering = F)
+#' object <- gen_find(term = "bus", detailed = TRUE, ordering = FALSE)
 #' }
+#'
 gen_find <- function(term = NULL,
-                       category = c("all", "tables", "statistics", "variables", "cubes"),
-                       detailed = FALSE,
-                       ordering = TRUE,
-                       error.ignore = FALSE,
-                       ...) {
+                     category = c("all", "tables", "statistics", "variables", "cubes"),
+                     detailed = FALSE,
+                     ordering = TRUE,
+                     error.ignore = FALSE,
+                     ...) {
 
   caller <- as.character(match.call()[1])
 
@@ -39,7 +39,8 @@ gen_find <- function(term = NULL,
 
   category <- match.arg(category)
 
-  # Data ####
+  #-----------------------------------------------------------------------------
+
   results_raw <- gen_api("find/find",
                          username = gen_auth_get()$username,
                          password = gen_auth_get()$password,
@@ -53,9 +54,11 @@ gen_find <- function(term = NULL,
 
   empty_object <- test_if_process_further(results_json, para = error.ignore)
 
+  #-----------------------------------------------------------------------------
+
   if(isTRUE(empty_object)){
-    list_resp <- list(
-      "Output" = "No object found for your request.")
+
+    list_resp <- list("Output" = "No object found for your request.")
 
     attr(list_resp, "Term") <- results_json$Parameter$term
     attr(list_resp, "Language") <- results_json$Parameter$language
@@ -65,8 +68,8 @@ gen_find <- function(term = NULL,
     return(list_resp)
 
   } else if(isFALSE(empty_object)){
-    list_resp <- list(
-      "Output" = results_json$Status$Content)
+
+    list_resp <- list("Output" = results_json$Status$Content)
 
     attr(list_resp, "Term") <- results_json$Parameter$term
     attr(list_resp, "Language") <- results_json$Parameter$language
@@ -74,10 +77,15 @@ gen_find <- function(term = NULL,
     attr(list_resp, "Copyrigtht") <- results_json$Copyright
 
     return(list_resp)
-  } else if(empty_object == "DONE"){
-  if (detailed == T) {
+
+  } else if (empty_object == "DONE") {
+
+  if (detailed == TRUE) {
+
+  #-----------------------------------------------------------------------------
+
     if (category == "all") {
-      # Table ####
+
       df_table <- binding_lapply(results_json$Tables,
                                  characteristics = c("Code",
                                                      "Content",
@@ -89,7 +97,7 @@ gen_find <- function(term = NULL,
 
       df_table$Object_Type <- "Table"
 
-      # Statistic ####
+      #-------------------------------------------------------------------------
       df_stats <- binding_lapply(results_json$Statistics,
                                  characteristics = c("Code",
                                                      "Content",
@@ -102,7 +110,8 @@ gen_find <- function(term = NULL,
 
       df_stats$Object_Type <- "Statistic"
 
-      # Variables ####
+      #-------------------------------------------------------------------------
+
       df_variables <- binding_lapply(results_json$Variables,
                                      characteristics = c("Code",
                                                          "Content",
@@ -116,7 +125,8 @@ gen_find <- function(term = NULL,
 
       df_variables$Object_Type <- "Variable"
 
-      # Cubes ####
+      #-------------------------------------------------------------------------
+
       df_cubes <- binding_lapply(results_json$Cubes,
                                  characteristics = c("Code",
                                                      "Content",
@@ -131,22 +141,28 @@ gen_find <- function(term = NULL,
 
       df_cubes$Object_Type <- "Cube"
 
-      # Search for title-term match ####
+      #-------------------------------------------------------------------------
+
       if (nrow(df_table) != 0) {
         df_table$Titel <- titel_search(df_table, term)
       }
+
       if (nrow(df_stats) != 0) {
         df_stats$Titel <- titel_search(df_stats, term)
       }
+
       if (nrow(df_variables) != 0) {
         df_variables$Titel <- titel_search(df_variables, term)
       }
+
       if (nrow(df_cubes) != 0) {
         df_cubes$Titel <- titel_search(df_cubes, term)
       }
 
-      # Ordering ####
-      if(ordering){
+      #-------------------------------------------------------------------------
+
+      if (isTRUE(ordering)) {
+
         df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
                                                                           "Content",
                                                                           "Titel",
@@ -183,6 +199,7 @@ gen_find <- function(term = NULL,
                                                                            "Variablen",
                                                                            "Spezifisch",
                                                                            "Object_Type")]
+
       } else {
 
         df_table <- df_table[, c("Code",
@@ -224,10 +241,12 @@ gen_find <- function(term = NULL,
 
       }
 
-      # Combine ####
-      list_resp <- list(
-        "Tables" = tibble::as_tibble(df_table), "Statistics" = tibble::as_tibble(df_stats),
-        "Variables" = tibble::as_tibble(df_variables), "Cubes" = tibble::as_tibble(df_cubes))
+      #-------------------------------------------------------------------------
+
+      list_resp <- list("Tables" = tibble::as_tibble(df_table),
+                        "Statistics" = tibble::as_tibble(df_stats),
+                        "Variables" = tibble::as_tibble(df_variables),
+                        "Cubes" = tibble::as_tibble(df_cubes))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
@@ -236,8 +255,11 @@ gen_find <- function(term = NULL,
 
       return(list_resp)
     }
+
+    #---------------------------------------------------------------------------
+
     if (category == "tables") {
-      # Table ####
+
       df_table <- binding_lapply(results_json$Tables,
                                  characteristics = c("Code",
                                                      "Content",
@@ -249,13 +271,14 @@ gen_find <- function(term = NULL,
 
       df_table$Object_Type <- "Table"
 
-      # Search for title-term match ####
+      #-------------------------------------------------------------------------
+
       if (nrow(df_table) != 0) {
         df_table$Titel <- titel_search(df_table, term)
       }
 
-      # Ordering ####
-      if(ordering){
+      if (isTRUE(ordering)) {
+
         df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
                                                                           "Content",
                                                                           "Titel",
@@ -263,6 +286,7 @@ gen_find <- function(term = NULL,
                                                                           "Variablen",
                                                                           "Spezifisch",
                                                                           "Object_Type")]
+
       } else {
 
         df_table <- df_table[, c("Code",
@@ -274,7 +298,8 @@ gen_find <- function(term = NULL,
                                  "Object_Type")]
       }
 
-      # Combine ####
+      #-------------------------------------------------------------------------
+
       list_resp <- list("Tables" = tibble::as_tibble(df_table))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
@@ -285,8 +310,11 @@ gen_find <- function(term = NULL,
       return(list_resp)
 
     }
+
+    #---------------------------------------------------------------------------
+
     if (category == "statistics") {
-      # Statistic ####
+
       df_stats <- binding_lapply(results_json$Statistics,
                                  characteristics = c("Code",
                                                      "Content",
@@ -299,13 +327,16 @@ gen_find <- function(term = NULL,
 
       df_stats$Object_Type <- "Statistic"
 
-      # Search for title-term match ####
+      #-------------------------------------------------------------------------
+
       if (nrow(df_stats) != 0) {
         df_stats$Titel <- titel_search(df_stats, term)
       }
 
-      # Ordering ####
-      if(ordering){
+      #-------------------------------------------------------------------------
+
+      if(isTRUE(ordering)) {
+
         df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
                                                                            "Content",
                                                                            "Titel",
@@ -316,6 +347,7 @@ gen_find <- function(term = NULL,
                                                                            "Object_Type")]
 
       } else {
+
         df_stats <- df_stats[, c("Code",
                                  "Content",
                                  "Titel",
@@ -327,7 +359,8 @@ gen_find <- function(term = NULL,
 
       }
 
-      # Combine ####
+      #-------------------------------------------------------------------------
+
       list_resp <- list("Statistics" = tibble::as_tibble(df_stats))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
@@ -337,12 +370,12 @@ gen_find <- function(term = NULL,
 
       return(list_resp)
 
-
-
-
     }
+
+    #---------------------------------------------------------------------------
+
     if (category == "variables") {
-      # Variables ####
+
       df_variables <- binding_lapply(results_json$Variables,
                                      characteristics = c("Code",
                                                          "Content",
@@ -356,13 +389,14 @@ gen_find <- function(term = NULL,
 
       df_variables$Object_Type <- "Variable"
 
-      # Search for title-term match ####
+      #-------------------------------------------------------------------------
+
       if (nrow(df_variables) != 0) {
         df_variables$Titel <- titel_search(df_variables, term)
       }
 
-      # Ordering ####
-      if(ordering){
+      if(isTRUE(ordering)) {
+
         df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
                                                                                        "Content",
                                                                                        "Titel",
@@ -385,7 +419,8 @@ gen_find <- function(term = NULL,
 
       }
 
-      # Combine ####
+      #-------------------------------------------------------------------------
+
       list_resp <- list("Variables" = tibble::as_tibble(df_variables))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
@@ -394,13 +429,12 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
 
       return(list_resp)
-
-
-
-
     }
+
+    #---------------------------------------------------------------------------
+
     if (category == "cubes") {
-      # Cubes ####
+
       df_cubes <- binding_lapply(results_json$Cubes,
                                  characteristics = c("Code",
                                                      "Content",
@@ -415,13 +449,14 @@ gen_find <- function(term = NULL,
 
       df_cubes$Object_Type <- "Cube"
 
-      # Search for title-term match ####
+      #-------------------------------------------------------------------------
+
       if (nrow(df_cubes) != 0) {
         df_cubes$Titel <- titel_search(df_cubes, term)
       }
 
-      # Ordering ####
-      if(ordering){
+      if(isTRUE(ordering)) {
+
         df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
                                                                            "Content",
                                                                            "Titel",
@@ -432,6 +467,7 @@ gen_find <- function(term = NULL,
                                                                            "Variablen",
                                                                            "Spezifisch",
                                                                            "Object_Type")]
+
       } else {
 
         df_cubes <- df_cubes[, c("Code",
@@ -447,7 +483,8 @@ gen_find <- function(term = NULL,
 
       }
 
-      # Combine ####
+      #-------------------------------------------------------------------------
+
       list_resp <- list("Cubes" = tibble::as_tibble(df_cubes))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
@@ -459,10 +496,14 @@ gen_find <- function(term = NULL,
     }
   }
 
-  if (detailed == F) {
+  #-----------------------------------------------------------------------------
+
+  if (detailed == FALSE) {
+
     if (category == "all") {
 
-      # Table ####
+      #-------------------------------------------------------------------------
+
       df_table <- binding_lapply(results_json$Tables,
                                  characteristics = c("Code",
                                                      "Content"))
@@ -473,7 +514,8 @@ gen_find <- function(term = NULL,
 
       df_table$Object_Type <- "Table"
 
-      # Statistic ####
+      #-------------------------------------------------------------------------
+
       df_stats <- binding_lapply(results_json$Statistics,
                                  characteristics = c("Code",
                                                      "Content"))
@@ -484,7 +526,8 @@ gen_find <- function(term = NULL,
 
       df_stats$Object_Type <- "Statistic"
 
-      # Variables ####
+      #-------------------------------------------------------------------------
+
       df_variables <- binding_lapply(results_json$Variables,
                                      characteristics = c("Code",
                                                          "Content"))
@@ -495,7 +538,8 @@ gen_find <- function(term = NULL,
 
       df_variables$Object_Type <- "Variable"
 
-      # Cubes ####
+      #-------------------------------------------------------------------------
+
       df_cubes <- binding_lapply(results_json$Cubes,
                                  characteristics = c("Code",
                                                      "Content"))
@@ -506,22 +550,28 @@ gen_find <- function(term = NULL,
 
       df_cubes$Object_Type <- "Cube"
 
-      # Search for title-term match ####
+      #-------------------------------------------------------------------------
+
       if (nrow(df_table) != 0) {
         df_table$Titel <- titel_search(df_table, term)
       }
+
       if (nrow(df_stats) != 0) {
         df_stats$Titel <- titel_search(df_stats, term)
       }
+
       if (nrow(df_variables) != 0) {
         df_variables$Titel <- titel_search(df_variables, term)
       }
+
       if (nrow(df_cubes) != 0) {
         df_cubes$Titel <- titel_search(df_cubes, term)
       }
 
-      # Ordering ####
-      if(ordering){
+      #-------------------------------------------------------------------------
+
+      if(isTRUE(ordering)) {
+
         df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
                                                                           "Content",
                                                                           "Object_Type")]
@@ -557,11 +607,13 @@ gen_find <- function(term = NULL,
 
       }
 
-      # Combine ####
-      list_resp <- list(
-        "Tables" = tibble::as_tibble(df_table), "Statistics" = tibble::as_tibble(df_stats),
-        "Variables" = tibble::as_tibble(df_variables), "Cubes" = tibble::as_tibble(df_cubes)
-      )
+      #-------------------------------------------------------------------------
+
+      list_resp <- list("Tables" = tibble::as_tibble(df_table),
+                        "Statistics" = tibble::as_tibble(df_stats),
+                        "Variables" = tibble::as_tibble(df_variables),
+                        "Cubes" = tibble::as_tibble(df_cubes))
+
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
@@ -570,9 +622,11 @@ gen_find <- function(term = NULL,
       return(list_resp)
 
     }
+
+    #---------------------------------------------------------------------------
+
     if (category == "tables") {
 
-      # Table ####
       df_table <- binding_lapply(results_json$Tables,
                                  characteristics = c("Code",
                                                      "Content"))
@@ -583,24 +637,28 @@ gen_find <- function(term = NULL,
 
       df_table$Object_Type <- "Table"
 
-      # Search for title-term match ####
+      #-------------------------------------------------------------------------
+
       if (nrow(df_table) != 0) {
         df_table$Titel <- titel_search(df_table, term)
       }
 
-      # Ordering ####
-      if(ordering){
+      if(isTRUE(ordering)) {
+
         df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
                                                                           "Content",
                                                                           "Object_Type")]
+
       } else {
 
         df_table <- df_table[, c("Code",
                                  "Content",
                                  "Object_Type")]
+
       }
 
-      # Combine ####
+      #-------------------------------------------------------------------------
+
       list_resp <- list("Tables" = tibble::as_tibble(df_table))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
@@ -610,15 +668,10 @@ gen_find <- function(term = NULL,
 
       return(list_resp)
 
-
-
-
-
-
-
     }
+
     if (category == "statistics") {
-      # Statistic ####
+
       df_stats <- binding_lapply(results_json$Statistics,
                                  characteristics = c("Code",
                                                      "Content"))
@@ -629,25 +682,27 @@ gen_find <- function(term = NULL,
 
       df_stats$Object_Type <- "Statistic"
 
-      # Search for title-term match ####
+      #-------------------------------------------------------------------------
+
       if (nrow(df_stats) != 0) {
         df_stats$Titel <- titel_search(df_stats, term)
       }
 
-      # Ordering ####
-      if(ordering){
+      if(isTRUE(ordering)) {
         df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
                                                                            "Content",
                                                                            "Object_Type")]
 
       } else {
+
         df_stats <- df_stats[, c("Code",
                                  "Content",
                                  "Object_Type")]
 
       }
 
-      # Combine ####
+      #-------------------------------------------------------------------------
+
       list_resp <- list("Statistics" = tibble::as_tibble(df_stats))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
@@ -656,14 +711,12 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
 
       return(list_resp)
-
-
-
-
     }
+
+    #---------------------------------------------------------------------------
+
     if (category == "variables") {
 
-      # Variables ####
       df_variables <- binding_lapply(results_json$Variables,
                                      characteristics = c("Code",
                                                          "Content"))
@@ -674,13 +727,16 @@ gen_find <- function(term = NULL,
 
       df_variables$Object_Type <- "Variable"
 
-      # Search for title-term match ####
+      #-------------------------------------------------------------------------
+
       if (nrow(df_variables) != 0) {
         df_variables$Titel <- titel_search(df_variables, term)
       }
 
-      # Ordering ####
-      if(ordering){
+      #-------------------------------------------------------------------------
+
+      if(isTRUE(ordering)) {
+
         df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
                                                                                        "Content",
                                                                                        "Object_Type")]
@@ -693,7 +749,8 @@ gen_find <- function(term = NULL,
 
       }
 
-      # Combine ####
+      #-------------------------------------------------------------------------
+
       list_resp <- list("Variables" = tibble::as_tibble(df_variables))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
@@ -702,13 +759,12 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
 
       return(list_resp)
-
-
-
-
     }
+
+    #---------------------------------------------------------------------------
+
     if (category == "cubes") {
-      # Cubes ####
+
       df_cubes <- binding_lapply(results_json$Cubes,
                                  characteristics = c("Code",
                                                      "Content"))
@@ -719,16 +775,18 @@ gen_find <- function(term = NULL,
 
       df_cubes$Object_Type <- "Cube"
 
-      # Search for title-term match ####
+      #-------------------------------------------------------------------------
+
       if (nrow(df_cubes) != 0) {
         df_cubes$Titel <- titel_search(df_cubes, term)
       }
 
-      # Ordering ####
-      if(ordering){
+      if(isTRUE(ordering)) {
+
         df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
                                                                            "Content",
                                                                            "Object_Type")]
+
       } else {
 
         df_cubes <- df_cubes[, c("Code",
@@ -737,7 +795,8 @@ gen_find <- function(term = NULL,
 
       }
 
-      # Combine ####
+      #-------------------------------------------------------------------------
+
       list_resp <- list("Cubes" = tibble::as_tibble(df_cubes))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
@@ -746,9 +805,11 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
 
       return(list_resp)
+
     }
   }
 
   return(list_resp)
+
   }
 }

@@ -1,6 +1,9 @@
+#-------------------------------------------------------------------------------
+
 # Forming_evas ----
+
 forming_evas <- function(list_of){
-  # Load the EVAS numbers
+
   load("data/evas_list_long_20220724.RData")
 
   # Progress them
@@ -21,18 +24,27 @@ forming_evas <- function(list_of){
   })
 
   nestedlist <- split(list_of, list_of$Main, drop = TRUE)
+
   nestedlist <- lapply(nestedlist, function(x){
+
     split(x, x["Main2"], drop = TRUE)
+
   })
+
   nestedlist <- lapply(nestedlist, function(x){
+
     lapply(x, function(y){
       split(y, y["Main3"])
-    })})
+
+  })})
+
   nestedlist <- lapply(nestedlist, function(x){
+
     lapply(x, function(y){
       lapply(y, function(z){
         split(z, z["Main5"])
       })
+
     })
   })
 
@@ -50,6 +62,8 @@ forming_evas <- function(list_of){
 
   return(aba)
 }
+
+#-------------------------------------------------------------------------------
 
 # check_function_input ----
 
@@ -376,6 +390,8 @@ check_function_input <- function(code = NULL,
 
 }
 
+#-------------------------------------------------------------------------------
+
 # test_if_json ----
 
 test_if_json <- function(input){
@@ -393,6 +409,8 @@ test_if_json <- function(input){
   return(results_json)
 
 }
+
+#-------------------------------------------------------------------------------
 
 # test_if_error_find ----
 
@@ -419,6 +437,8 @@ test_if_error_find <- function(input, para){
   return(empty_object)
 
 }
+
+#-------------------------------------------------------------------------------
 
 # test_if_error ----
 
@@ -456,16 +476,17 @@ test_if_error <- function(input, para){
 
 }
 
+#-------------------------------------------------------------------------------
+
 # test_if_process_further ----
 
 test_if_process_further <- function(input, para){
-  if (sum(unlist(lapply(input[4:8], function(x) {is.null(x)}))) == 5 &
-      isFALSE(para)) {
+
+  if (sum(unlist(lapply(input[4:8], function(x) {is.null(x)}))) == 5 & isFALSE(para)) {
 
     stop("No object found for your request. Check your parameters if you expected an object for this request.")
 
-  } else if (sum(unlist(lapply(input[4:8], function(x) {is.null(x)}))) == 5
-             & isTRUE(para)){
+  } else if (sum(unlist(lapply(input[4:8], function(x) {is.null(x)}))) == 5 & isTRUE(para)){
 
     message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
 
@@ -476,6 +497,8 @@ test_if_process_further <- function(input, para){
   return(empty_object)
 
 }
+
+#-------------------------------------------------------------------------------
 
 # binding_lapply ----
 
@@ -497,6 +520,8 @@ binding_lapply <- function(x,
 
 }
 
+#-------------------------------------------------------------------------------
+
 # gsub ----
 
 ggsub <- function(x){
@@ -507,6 +532,8 @@ ggsub <- function(x){
 
 }
 
+#-------------------------------------------------------------------------------
+
 # spezifisch_create ----
 
 spezifisch_create <- function(x){
@@ -516,6 +543,8 @@ spezifisch_create <- function(x){
   return(a)
 
 }
+
+#-------------------------------------------------------------------------------
 
 # titel_search ----
 
@@ -534,6 +563,8 @@ titel_search <- function(x, term){
 
 }
 
+#-------------------------------------------------------------------------------
+
 # test_if_error_light ----
 
 test_if_error_light <- function(input){
@@ -545,6 +576,4 @@ test_if_error_light <- function(input){
   }
 
 }
-
-
 
