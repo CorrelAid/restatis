@@ -492,6 +492,10 @@ test_if_process_further <- function(input, para){
 
     empty_object <- TRUE
 
+  } else {
+
+    empty_object <- "DONE"
+
   }
 
   return(empty_object)
