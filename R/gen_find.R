@@ -1,15 +1,15 @@
 #' gen_find
 #'
-#' @description Function to search through Genesis. It is similar in usage as the search function on the Destatis main page (https://www.destatis.de/DE/Home/_inhalt.html). #' In the search query "AND" and "OR" can be included. An additional information here is that time-series are treated as cubes - they are not longer distinguished. If you want to find a specific object with a clear code with this find-function you need to specify the object type or search for all object types.
+#' @description Function to search through Genesis. It is similar in usage as the search function on the Destatis main page (https://www.destatis.de/DE/Home/_inhalt.html). In the search query, "AND" as well as "OR" can be included. Important note: Time-series are treated as cubes, they are not longer distinguished. If you want to find a specific object with a clear code with this find function, you need to specify the object type or search for all object types.
 #'
-#' @param term a string with no maximum character length.
-#' @param category a string. Specific object-types: 'tables', 'statistics', "variables", and 'cubes'. Using all together is possible. Default option are "all" objects.
-#' @param detailed a logical. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default Option is detailed = FALSE.
-#' @param ordering a logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and in second on an estimator of the number of variables in this object. Default option is ordering = TRUE.
-#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
+#' @param term A string with no maximum character length.
+#' @param category A string. Specific object types: 'tables', 'statistics', 'variables', and 'cubes'. Using all together is possible. Default option are 'all' objects.
+#' @param detailed A logical. Indicator if the function should return the detailed output of the iteration including all object related information or only a shortened output including only code and object title. Default Option is FALSE.
+#' @param ordering A logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and secondly on an estimator of the number of variables in this object. Default option is TRUE.
+#' @param error.ignore  A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce an artificial response (e.g., for complex processes not to fail).
+#' @param ... Additional parameters of the Genesis API call. These parameters are only affecting the Genesis API call itself, there is no further processing.
 #'
-#' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all elements retrieved from Genesis. Attributes are added to the data.frame describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -67,7 +67,7 @@ gen_find <- function(term = NULL,
 
     return(list_resp)
 
-  } else if(isFALSE(empty_object)){
+  } else if (isFALSE(empty_object)){
 
     list_resp <- list("Output" = results_json$Status$Content)
 
@@ -98,6 +98,7 @@ gen_find <- function(term = NULL,
       df_table$Object_Type <- "Table"
 
       #-------------------------------------------------------------------------
+
       df_stats <- binding_lapply(results_json$Statistics,
                                  characteristics = c("Code",
                                                      "Content",
@@ -161,7 +162,7 @@ gen_find <- function(term = NULL,
 
       #-------------------------------------------------------------------------
 
-      if (isTRUE(ordering)) {
+      if(isTRUE(ordering)) {
 
         df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
                                                                           "Content",
@@ -254,9 +255,8 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Copyrigtht") <- results_json$Copyright
 
       return(list_resp)
-    }
 
-    #---------------------------------------------------------------------------
+    }
 
     if (category == "tables") {
 
@@ -333,8 +333,6 @@ gen_find <- function(term = NULL,
         df_stats$Titel <- titel_search(df_stats, term)
       }
 
-      #-------------------------------------------------------------------------
-
       if(isTRUE(ordering)) {
 
         df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
@@ -358,8 +356,6 @@ gen_find <- function(term = NULL,
                                  "Object_Type")]
 
       }
-
-      #-------------------------------------------------------------------------
 
       list_resp <- list("Statistics" = tibble::as_tibble(df_stats))
 
@@ -761,6 +757,8 @@ gen_find <- function(term = NULL,
       return(list_resp)
     }
 
+    }
+
     #---------------------------------------------------------------------------
 
     if (category == "cubes") {
@@ -807,6 +805,7 @@ gen_find <- function(term = NULL,
       return(list_resp)
 
     }
+
   }
 
   return(list_resp)
