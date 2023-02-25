@@ -63,7 +63,7 @@ gen_find <- function(term = NULL,
     attr(list_resp, "Term") <- results_json$Parameter$term
     attr(list_resp, "Language") <- results_json$Parameter$language
     attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-    attr(list_resp, "Copyrigtht") <- results_json$Copyright
+    attr(list_resp, "Copyright") <- results_json$Copyright
 
     return(list_resp)
 
@@ -74,7 +74,7 @@ gen_find <- function(term = NULL,
     attr(list_resp, "Term") <- results_json$Parameter$term
     attr(list_resp, "Language") <- results_json$Parameter$language
     attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-    attr(list_resp, "Copyrigtht") <- results_json$Copyright
+    attr(list_resp, "Copyright") <- results_json$Copyright
 
     return(list_resp)
 
@@ -252,7 +252,7 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-      attr(list_resp, "Copyrigtht") <- results_json$Copyright
+      attr(list_resp, "Copyright") <- results_json$Copyright
 
       return(list_resp)
 
@@ -305,7 +305,7 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-      attr(list_resp, "Copyrigtht") <- results_json$Copyright
+      attr(list_resp, "Copyright") <- results_json$Copyright
 
       return(list_resp)
 
@@ -362,7 +362,7 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-      attr(list_resp, "Copyrigtht") <- results_json$Copyright
+      attr(list_resp, "Copyright") <- results_json$Copyright
 
       return(list_resp)
 
@@ -422,7 +422,7 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-      attr(list_resp, "Copyrigtht") <- results_json$Copyright
+      attr(list_resp, "Copyright") <- results_json$Copyright
 
       return(list_resp)
     }
@@ -486,7 +486,7 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-      attr(list_resp, "Copyrigtht") <- results_json$Copyright
+      attr(list_resp, "Copyright") <- results_json$Copyright
 
       return(list_resp)
     }
@@ -613,7 +613,7 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-      attr(list_resp, "Copyrigtht") <- results_json$Copyright
+      attr(list_resp, "Copyright") <- results_json$Copyright
 
       return(list_resp)
 
@@ -660,7 +660,7 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-      attr(list_resp, "Copyrigtht") <- results_json$Copyright
+      attr(list_resp, "Copyright") <- results_json$Copyright
 
       return(list_resp)
 
@@ -704,7 +704,7 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-      attr(list_resp, "Copyrigtht") <- results_json$Copyright
+      attr(list_resp, "Copyright") <- results_json$Copyright
 
       return(list_resp)
     }
@@ -752,7 +752,7 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-      attr(list_resp, "Copyrigtht") <- results_json$Copyright
+      attr(list_resp, "Copyright") <- results_json$Copyright
 
       return(list_resp)
     }
@@ -800,7 +800,7 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-      attr(list_resp, "Copyrigtht") <- results_json$Copyright
+      attr(list_resp, "Copyright") <- results_json$Copyright
 
       return(list_resp)
 
@@ -810,5 +810,4 @@ gen_find <- function(term = NULL,
 
   return(list_resp)
 
-  }
 }
