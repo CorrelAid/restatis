@@ -178,12 +178,20 @@ check_function_input <- function(code = NULL,
     #----------------------------------------
 
     if (!(length(category) %in% c(1,5)) & caller %in% c("restatis::gen_find",
-                                                        "restatis::gen_meta_data",
-                                                        "gen_find",
-                                                        "gen_meta_data"
+                                                        "gen_find"
     )) {
 
-      stop("Parameter 'category' has to have a length of 1.")
+      stop("Parameter 'category' must have a length of 1.")
+
+    }
+
+    #----------------------------------------
+
+    if (length(category) != 1 & caller %in% c("restatis::gen_meta_data",
+                                              "gen_meta_data"
+    )) {
+
+      stop("Parameter 'category' must have a length of 1. Please specify the category.")
 
     }
 
@@ -446,11 +454,12 @@ test_if_error <- function(input, para){
 
   if (input$Status$Code == 104 & isFALSE(para)){
 
-    stop("No object found for your request. Check your parameters if you expected an object for this request.")
+    stop("No object found for your request. Check your parameters if you expected an object for this request.",
+         call. = FALSE)
 
   } else if (input$Status$Code != 0 & isFALSE(para)){
 
-    stop(input$Status$Content)
+    stop(input$Status$Content, call. = FALSE)
 
   } else if (input$Status$Code == 104 & isTRUE(para)){
 
