@@ -446,11 +446,12 @@ test_if_error <- function(input, para){
 
   if (input$Status$Code == 104 & isFALSE(para)){
 
-    stop("No object found for your request. Check your parameters if you expected an object for this request.")
+    stop("No object found for your request. Check your parameters if you expected an object for this request.",
+         call. = FALSE)
 
   } else if (input$Status$Code != 0 & isFALSE(para)){
 
-    stop(input$Status$Content)
+    stop(input$Status$Content, call. = FALSE)
 
   } else if (input$Status$Code == 104 & isTRUE(para)){
 

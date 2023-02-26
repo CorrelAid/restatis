@@ -32,7 +32,7 @@ gen_meta_data_stats <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error_met(results_json, para = error.ignore)
+  empty_object <- test_if_error(results_json, para = error.ignore)
 
   #-----------------------------------------------------------------------------
 
@@ -60,7 +60,7 @@ gen_meta_data_stats <- function(code = NULL,
     attr(df_stats, "Method") <- results_json$Ident$Method
     attr(df_stats, "Updated") <- results_json$Object$Updated
     attr(df_stats, "Language") <- results_json$Parameter$language
-    attr(df_stats, "Copyrigtht") <- results_json$Copyright
+    attr(df_stats, "Copyright") <- results_json$Copyright
 
     return(df_stats)
 }
@@ -130,7 +130,7 @@ gen_meta_data_var <- function(code = NULL,
   attr(list_resp, "Method") <- results_json$Ident$Method
   attr(list_resp, "Updated") <- results_json$Object$Updated
   attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Copyrigtht") <- results_json$Copyright
+  attr(list_resp, "Copyright") <- results_json$Copyright
 
   return(list_resp)
 }
@@ -197,7 +197,7 @@ gen_meta_data_val <- function(code = NULL,
   attr(list_resp, "Method") <- results_json$Ident$Method
   attr(list_resp, "Updated") <- results_json$Object$Updated
   attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Copyrigtht") <- results_json$Copyright
+  attr(list_resp, "Copyright") <- results_json$Copyright
 
   return(list_resp)
 }
@@ -341,7 +341,7 @@ gen_meta_data_tab <- function(code = NULL,
   attr(list_resp, "Method") <- results_json$Ident$Method
   attr(list_resp, "Updated") <- results_json$Object$Updated
   attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Copyrigtht") <- results_json$Copyright
+  attr(list_resp, "Copyright") <- results_json$Copyright
 
   return(list_resp)
 }
@@ -463,7 +463,7 @@ gen_meta_data_cube <- function(code = NULL,
   attr(list_resp, "Method") <- results_json$Ident$Method
   attr(list_resp, "Updated") <- results_json$Object$Updated
   attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Copyrigtht") <- results_json$Copyright
+  attr(list_resp, "Copyright") <- results_json$Copyright
 
   return(list_resp)
 }
