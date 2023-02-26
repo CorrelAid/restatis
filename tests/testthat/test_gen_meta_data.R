@@ -53,6 +53,12 @@ test_that("gen_meta_data function errors on numeric code param", {
     regexp = "Parameter 'code' has to be of type 'character'.")
 })
 
+test_that("gen_meta_data function errors on multiple categories", {
+  expect_error(
+    restatis::gen_meta_data(code = "12345", category = c("Table", "Cube")),
+    regexp = "Parameter 'category' must have a length of 1. Please specify the category.")
+})
+
 test_that("gen_meta_data function errors on wrong category", {
   expect_error(
     restatis::gen_meta_data(code = "11111", category = "table"),
