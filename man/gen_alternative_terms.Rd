@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_alternative_terms.R
 \name{gen_alternative_terms}
 \alias{gen_alternative_terms}
-\title{Call for similiar or spelling related terms for further search}
+\title{gen_alternative_terms: Call for similiar or spelling related terms for further search}
 \usage{
 gen_alternative_terms(term = NULL, similarity = TRUE, ...)
 }
@@ -23,10 +23,10 @@ Function to find search terms that are similar or related to one another and als
 \dontrun{
 # Find terms that are similar (in spelling) to search term "bus"
 # and sort them by Levenshtein edit distance
-object <- running_out_of_terms(term = "bus", similarity = TRUE)
+object <- gen_alternative_terms(term = "bus", similarity = TRUE)
 
 # Find terms that are related (in spelling) to search term "bus"
-object <- running_out_of_terms(term = "bus*", similarity = TRUE)
+object <- gen_alternative_terms(term = "bus*", similarity = TRUE)
 }
 
 }

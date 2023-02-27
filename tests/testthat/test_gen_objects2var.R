@@ -42,7 +42,7 @@ test_that("gen_objects2var function errors on multiple codes", {
 test_that("gen_objects2var function errors on numeric code param", {
   expect_error(
     restatis::gen_objects2var(code = 12345, detailed = TRUE, category = "tables"),
-    regexp = "Parameter 'code' has to be of type 'character' or NULL.")
+    regexp = "Parameter 'code' has to be of type 'character'.")
 })
 
 #-------------------------------------------------------------------------------

@@ -23,8 +23,11 @@ gen_alternative_terms <- function(term = NULL,
                                   similarity = TRUE,
                                   ...) {
 
+  caller <- as.character(match.call()[1])
+
   check_function_input(term = term,
-                       similarity = similarity)
+                       similarity = similarity,
+                       caller = caller)
 
 #-------------------------------------------------------------------------------
 

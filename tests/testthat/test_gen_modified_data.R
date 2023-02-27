@@ -71,7 +71,7 @@ test_that("gen_modified_data errors on multiple codes", {
 test_that("gen_modified_data function errors on numeric code param", {
   expect_error(
     restatis::gen_modified_data(code = 12345),
-  regexp = "Parameter 'code' has to be of type 'character' or NULL.")
+  regexp = "Parameter 'code' has to be of type 'character'.")
 })
 
 #-------------------------------------------------------------------------------
@@ -81,4 +81,3 @@ test_that("gen_modified_data function errors on wrong type value", {
     restatis::gen_modified_data(code = "12345", type = "diesdasananas"),
   regexp = "Available categories for parameter 'type' are 'tables', 'statistics', 'statistic updates', and 'all'.")
 })
-

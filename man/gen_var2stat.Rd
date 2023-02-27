@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_var2-val2.R
 \name{gen_var2stat}
 \alias{gen_var2stat}
-\title{gen_var2stat}
+\title{gen_var2stat: Get Variables From a Statistic}
 \usage{
 gen_var2stat(
   code = NULL,
@@ -17,17 +17,17 @@ gen_var2stat(
 
 \item{detailed}{a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. The default is detailed = FALSE.}
 
-\item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis call itself. The default is "code".}
+\item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself. The default is "code".}
 
 \item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
 
-\item{...}{Additional parameter of the Genesis call. These parameters are only affecting the Genesis call itself, no further processing.}
+\item{...}{Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.}
 }
 \value{
 A list with all recalled elements from Genesis. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 }
 \description{
-Function to generate variables from statistics.
+Function to generate variables from statistics in Genesis.
 }
 \examples{
 \dontrun{

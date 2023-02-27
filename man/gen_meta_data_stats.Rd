@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_meta_data.R
 \name{gen_meta_data_stats}
 \alias{gen_meta_data_stats}
-\title{gen_meta_data_stat: Meta-Information For Statistic}
+\title{gen_meta_data_stat}
 \usage{
 gen_meta_data_stats(code = NULL, error.ignore = FALSE, ...)
 }

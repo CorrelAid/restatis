@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_meta_data.R
 \name{gen_meta_data_tab}
 \alias{gen_meta_data_tab}
-\title{gen_meta_data_tab: Meta-Information For Table}
+\title{gen_meta_data_tab}
 \usage{
 gen_meta_data_tab(code = NULL, error.ignore = FALSE, ...)
 }
@@ -24,4 +24,5 @@ Function to search for meta-information for a specific table.
 # Find meta-information of the table with the code "11111"
 object <- gen_meta_data_tab(code = "11111")
 }
+
 }

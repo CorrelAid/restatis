@@ -74,3 +74,4 @@ test_that("gen_find function errors on wrong error.ignore param", {
     restatis::gen_find(term = "bus", error.ignore = 1, category = "tables"),
     regexp = "Parameter 'error.ignore' has to be of type 'logical' and of length 1.")
 })
+

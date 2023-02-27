@@ -6,8 +6,8 @@ with_mock_dir("searchvars1", {
   test_that("gen_search_vars returns a list element", {
 
   result <- gen_search_vars(code = NULL,
-                             sortcriterion = c("code", "content"),
-                             error.ignore = FALSE)
+                            sortcriterion = c("code", "content"),
+                            error.ignore = FALSE)
 
   expect_type(result, type = "list")
 
@@ -49,7 +49,7 @@ test_that("gen_search_vars function errors on multiple codes", {
 test_that("gen_search_vars function errors on numeric code param", {
   expect_error(
     restatis::gen_search_vars(code = 12345, detailed = TRUE, category = "tables"),
-    regexp = "Parameter 'code' has to be of type 'character' or NULL.")
+    regexp = "Parameter 'code' has to be of type 'character'.")
 })
 
 #-------------------------------------------------------------------------------

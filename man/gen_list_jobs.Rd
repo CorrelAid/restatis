@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_list_jobs.R
 \name{gen_list_jobs}
 \alias{gen_list_jobs}
-\title{gen_list_jobs}
+\title{gen_list_jobs: Explore current jobs of your user account}
 \usage{
 gen_list_jobs(
   selection = NULL,

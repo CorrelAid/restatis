@@ -70,5 +70,3 @@ test_that("gen_meta_data function errors on wrong error.ignore param", {
     restatis::gen_meta_data(code = "11111", error.ignore = 1, category = "Table"),
     regexp = "Parameter 'error.ignore' has to be of type 'logical' and of length 1.")
 })
-
-

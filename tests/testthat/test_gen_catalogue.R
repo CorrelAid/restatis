@@ -6,9 +6,9 @@ with_mock_dir("catalogue1", {
   test_that("gen_catalogue function returns list for tables", {
 
       result <- restatis::gen_catalogue(code = "611*",
-                                    detailed = TRUE,
-                                    category = "tables",
-                                    error.ignore = FALSE)
+                                        detailed = TRUE,
+                                        category = "tables",
+                                        error.ignore = FALSE)
 
       expect_type(result, type = "list")
   })
@@ -75,7 +75,7 @@ test_that("gen_catalogue function errors on multiple codes", {
 test_that("gen_catalogue function errors on numeric code param", {
   expect_error(
     restatis::gen_catalogue(code = 12345, detailed = TRUE, category = "tables"),
-    regexp = "Parameter 'code' has to be of type 'character' or NULL.")
+    regexp = "Parameter 'code' has to be of type 'character'.")
 })
 
 #-------------------------------------------------------------------------------

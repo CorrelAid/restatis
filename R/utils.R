@@ -83,8 +83,13 @@ check_function_input <- function(code = NULL,
 
   if (is.null(code) & is.null(term)) {
 
-    stop("Parameter `code` or `term` must NOT be NULL.",
-         call. = FALSE)
+    if(!(caller %in% c("gen_search_vars",
+                      "restatis::gen_search_vars"))) {
+
+      stop("Parameter 'code' or 'term' must NOT be NULL.",
+           call. = FALSE)
+
+    }
 
   }
 

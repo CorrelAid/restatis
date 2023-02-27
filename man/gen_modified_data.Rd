@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_modified_data.R
 \name{gen_modified_data}
 \alias{gen_modified_data}
-\title{modified_data}
+\title{gen_modified_data: Explore New Added Objects or Changed Objects in Genesis}
 \usage{
 gen_modified_data(
   code = "",
@@ -12,7 +12,7 @@ gen_modified_data(
 )
 }
 \arguments{
-\item{code}{a string with a maximum length of 15 characters. Code from a Genesis object. Only one code per iteration. "*" notations are possible.}
+\item{code}{a string with a maximum length of 15 characters. Code from a Genesis object. Only one code per iteration. "*" notations are possible. Empty code (default value) includes all changes, updates, and new added objects.}
 
 \item{type}{a string. Specific Genesis object type: 'tables', 'statistics', and 'statisticsUpdates'. All three can be accessed through "all", which is the default.}
 
@@ -24,18 +24,18 @@ gen_modified_data(
 A list with all recalled elements from Genesis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to check for updates or new objects in Genesis based on a specific date.
+Function to check for updates, changes, or new objects in Genesis based on a specific date.
 }
 \examples{
 \dontrun{
-# Find Genesis objects which were modified last_week
-object <- modified_data(date = "week_before")
+# Find objects which were modified last_week
+object <- gen_modified_data(date = "week_before")
 
 # Find tables that were new from 31.03.2020
-object <- modified_data(type = "tables", date = "31.03.2020")
+object <- gen_modified_data(type = "tables", date = "31.03.2020")
 
-# Find Destatis-Objects related to the topic "Bevölkerung" (Code: '12*') which were new today
-object <- modified_data(code = "12*")
+# Find objects related to the topic "Bevölkerung" (Code: '12*') which were new today
+object <- gen_modified_data(code = "12*")
 }
 
 }

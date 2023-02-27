@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_meta_data.R
 \name{gen_meta_data_val}
 \alias{gen_meta_data_val}
-\title{gen_meta_data_val: Meta-Information For Value}
+\title{gen_meta_data_val}
 \usage{
 gen_meta_data_val(code = NULL, error.ignore = FALSE, ...)
 }
@@ -24,4 +24,5 @@ Function to search for meta-information for a specific value.
 # Find meta-information of the value with the code "LEDIG"
 object <- gen_meta_data_val(code = "LEDIG")
 }
+
 }

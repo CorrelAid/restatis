@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_var2-val2.R
 \name{gen_val2var}
 \alias{gen_val2var}
-\title{gen_val2var}
+\title{gen_val2var: Get Values From a Variable}
 \usage{
 gen_val2var(
   code = NULL,
@@ -14,11 +14,11 @@ gen_val2var(
 \arguments{
 \item{code}{a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.}
 
-\item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis call itself. The default is "code".}
+\item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself. The default is "code".}
 
 \item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
 
-\item{...}{Additional parameter of the Genesis call. These parameters are only affecting the Genesis call itself, no further processing.}
+\item{...}{Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.}
 }
 \value{
 A list with all recalled elements from Genesis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.

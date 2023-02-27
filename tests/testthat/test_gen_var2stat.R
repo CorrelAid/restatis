@@ -44,7 +44,7 @@ test_that("gen_var2stat function errors on multiple codes", {
 test_that("gen_var2stat function errors on numeric code param", {
   expect_error(
     restatis::gen_var2stat(code = 12345, detailed = TRUE, category = "tables"),
-    regexp = "Parameter 'code' has to be of type 'character' or NULL.")
+    regexp = "Parameter 'code' has to be of type 'character'.")
 })
 
 #-------------------------------------------------------------------------------

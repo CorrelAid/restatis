@@ -244,9 +244,12 @@ gen_search_vars <- function(code = NULL,
                             error.ignore = FALSE,
                             ...) {
 
+  caller <- as.character(match.call()[1])
+
   check_function_input(code = code,
                        error.ignore = error.ignore,
-                       sortcriterion = sortcriterion)
+                       sortcriterion = sortcriterion,
+                       caller = caller)
 
   sortcriterion <- match.arg(sortcriterion)
 

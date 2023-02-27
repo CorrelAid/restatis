@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_meta_data.R
 \name{gen_meta_data}
 \alias{gen_meta_data}
-\title{gen_meta_data: Search For Meta-Information For All Types Of Objects}
+\title{gen_meta_data}
 \usage{
 gen_meta_data(
   code = NULL,
@@ -24,11 +24,12 @@ gen_meta_data(
 A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 }
 \description{
-gen_meta_data: Search For Meta-Information For All Types Of Objects
+Search For Meta-Information For All Types Of Objects
 }
 \examples{
 \dontrun{
 # Find meta-information of the table with the code "11111"
 object <- gen_meta_data(code = "11111", category = "Table")
 }
+
 }

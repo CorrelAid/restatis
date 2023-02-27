@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_meta_data.R
 \name{gen_meta_data_cube}
 \alias{gen_meta_data_cube}
-\title{gen_meta_data_cube: Meta-Information For Cube}
+\title{gen_meta_data_cube}
 \usage{
 gen_meta_data_cube(code = NULL, error.ignore = FALSE, ...)
 }
@@ -24,4 +24,5 @@ Function to search for meta-information for a specific cube.
 # Find meta-information of the cube with the code "11111KE001"
 object <- gen_meta_data_cube(code = "11111KE001")
 }
+
 }

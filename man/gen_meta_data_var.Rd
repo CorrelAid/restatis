@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_meta_data.R
 \name{gen_meta_data_var}
 \alias{gen_meta_data_var}
-\title{gen_meta_data_var: Meta-Information For Variable}
+\title{gen_meta_data_var}
 \usage{
 gen_meta_data_var(code = NULL, error.ignore = FALSE, ...)
 }
@@ -24,4 +24,5 @@ Function to search for meta-information for a specific variable.
 # Find meta-information of the variable with the code "FAMSTD"
 object <- gen_meta_data_var(code = "FAMSTD")
 }
+
 }
