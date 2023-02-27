@@ -36,7 +36,7 @@ forming_evas <- function(list_of){
     lapply(x, function(y){
       split(y, y["Main3"])
 
-    })})
+  })})
 
   nestedlist <- lapply(nestedlist, function(x){
 
@@ -178,8 +178,7 @@ check_function_input <- function(code = NULL,
     #----------------------------------------
 
     if (!(length(category) %in% c(1,5)) & caller %in% c("restatis::gen_find",
-                                                        "gen_find"
-    )) {
+                                                        "gen_find")) {
 
       stop("Parameter 'category' must have a length of 1.")
 
@@ -188,8 +187,7 @@ check_function_input <- function(code = NULL,
     #----------------------------------------
 
     if (length(category) != 1 & caller %in% c("restatis::gen_meta_data",
-                                              "gen_meta_data"
-    )) {
+                                              "gen_meta_data")) {
 
       stop("Parameter 'category' must have a length of 1. Please specify the category.")
 
