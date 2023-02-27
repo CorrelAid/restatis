@@ -474,7 +474,7 @@ gen_meta_data_cube <- function(code = NULL,
 #'
 #' @description Search For Meta-Information For All Types Of Objects
 #'
-#' @param codea string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
+#' @param code string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
 #' @param category a string. Specific object-types: 'Cube', 'Statistic', "Table", "Variable" and 'Value'. The function needs a specified object type.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
 #' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
