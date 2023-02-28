@@ -12,13 +12,13 @@ gen_meta_data(
 )
 }
 \arguments{
+\item{code}{string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.}
+
 \item{category}{a string. Specific object-types: 'Cube', 'Statistic', "Table", "Variable" and 'Value'. The function needs a specified object type.}
 
 \item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
 
 \item{...}{Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.}
-
-\item{codea}{string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.}
 }
 \value{
 A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.

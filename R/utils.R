@@ -3,8 +3,9 @@
 # Forming_evas ----
 
 forming_evas <- function(list_of){
+  evas_list_long_20220724 <- NULL
 
-  load("data/evas_list_long_20220724.RData")
+  load("data/evas_list_long_20220724.rda")
 
   # Progress them
   list_of$Main <- apply(list_of, 1, function(x){
