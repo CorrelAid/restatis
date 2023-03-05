@@ -1,7 +1,14 @@
 #' Get a data cube
 #'
 #' @param name Name of the data cube
-#' @param ... TODO
+#' @param values Logical: Should values be included?
+#' @param metadata Logical: Should metadata be included?
+#' @param contents Names of required statistical specifications
+#' @param startyear Start of time period
+#' @param endyear End of time period
+#' @param timeslices Number of timeslices (cumulative to startyear or endyear)
+#' @param language Either "de" or "en"
+#' @param ... Additional parameters can be specified (Cf. https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf)
 #'
 #' @export
 #'
@@ -10,7 +17,16 @@
 #' gen_cube("47414BJ002")
 #' }
 gen_cube <- function(name, ...) {
-  cube <- gen_api("data/cubefile", name = name, ...) %>%
+  cube <- gen_api("data/cubefile", name = name, values = TRUE,
+                  metadata = TRUE, contents = NULL,  startyear = NULL,
+                  endyear = NULL, timeslices = NULL, ...) %>%
+
+    check_table_input( name = name,
+                       compress = compress,
+                       startyear = startyear,
+                       endyear = endyear,
+                       timeslices = timeslices)
+
     read_cube() %>%
     rename_cube_data_columns()
 
