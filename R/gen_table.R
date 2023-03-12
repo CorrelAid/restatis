@@ -68,6 +68,9 @@ gen_table_ <- function(name,
   param_check_year(startyear)
   param_check_year(endyear)
   regionalkey <- param_collapse_vec(regionalkey)
+  classifyingkey1 <- param_collapse_vec(classifyingkey1)
+  classifyingkey2 <- param_collapse_vec(classifyingkey2)
+  classifyingkey3 <- param_collapse_vec(classifyingkey3)
 
   resp <- gen_api("data/tablefile",
     name = name,
