@@ -10,8 +10,16 @@ Imports:
     askpass,
     httr2,
     memoise,
+<<<<<<< HEAD
     readr,
     vctrs
+=======
+    readr
+>>>>>>> table
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
+Suggests: 
+    httptest2,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
