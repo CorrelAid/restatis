@@ -12,7 +12,7 @@
         "username": "********************",
         "password": "********************",
         "selection": "",
-        "area": "Öffentlich",
+        "area": "oeffentlich",
         "searchcriterion": "Code",
         "sortcriterion": "Code",
         "type": "Alle",
@@ -29,7 +29,7 @@
         },
         {
             "Code": "ABF002",
-            "Content": "Im eigenen Betrieb erzeugte Abfälle",
+            "Content": "Im eigenen Betrieb erzeugte Abf?lle",
             "Type": "Wert",
             "Values": "-1",
             "Information": "false"
@@ -57,28 +57,28 @@
         },
         {
             "Code": "ABF006",
-            "Content": "Abfälle zur Beseitigung",
+            "Content": "Abf?lle zur Beseitigung",
             "Type": "Wert",
             "Values": "-1",
             "Information": "false"
         },
         {
             "Code": "ABF007",
-            "Content": "Abfälle zur Verwertung",
+            "Content": "Abf?lle zur Verwertung",
             "Type": "Wert",
             "Values": "-1",
             "Information": "false"
         },
         {
             "Code": "ABF008",
-            "Content": "Beim Erstempfänger beseitigte Haushaltsabfälle",
+            "Content": "Beim Erstempf?nger beseitigte Haushaltsabf?lle",
             "Type": "Wert",
             "Values": "-1",
             "Information": "false"
         },
         {
             "Code": "ABF009",
-            "Content": "Beim Erstempfänger verwertete Haushaltsabfälle",
+            "Content": "Beim Erstempf?nger verwertete Haushaltsabf?lle",
             "Type": "Wert",
             "Values": "-1",
             "Information": "false"
@@ -99,7 +99,7 @@
         },
         {
             "Code": "ABF012",
-            "Content": "Abfallmengen, von Primärerzeugern erzeugt",
+            "Content": "Abfallmengen, von Prim?rerzeugern erzeugt",
             "Type": "Wert",
             "Values": "-1",
             "Information": "false"
@@ -120,7 +120,7 @@
         },
         {
             "Code": "ABF015",
-            "Content": "Abfälle zu vorbereitenden Verfahren",
+            "Content": "Abf?lle zu vorbereitenden Verfahren",
             "Type": "Wert",
             "Values": "-1",
             "Information": "false"
@@ -169,7 +169,7 @@
         },
         {
             "Code": "ABG006",
-            "Content": "Wärmeabgabe",
+            "Content": "W?rmeabgabe",
             "Type": "Wert",
             "Values": "-1",
             "Information": "false"
@@ -253,14 +253,14 @@
         },
         {
             "Code": "ABS015",
-            "Content": "Steuerfreier Bierabsatz in EU-Länder",
+            "Content": "Steuerfreier Bierabsatz in EU-L?nder",
             "Type": "Wert",
             "Values": "-1",
             "Information": "false"
         },
         {
             "Code": "ABS016",
-            "Content": "Steuerfreier Bierabsatz in Drittländer",
+            "Content": "Steuerfreier Bierabsatz in Drittl?nder",
             "Type": "Wert",
             "Values": "-1",
             "Information": "false"
@@ -316,7 +316,7 @@
         },
         {
             "Code": "ABZ002",
-            "Content": "Abzüge der Arbeitnehmer",
+            "Content": "Abz?ge der Arbeitnehmer",
             "Type": "Wert",
             "Values": "-1",
             "Information": "true"
@@ -351,14 +351,14 @@
         },
         {
             "Code": "ADANS3",
-            "Content": "Art der Tätigkeit",
+            "Content": "Art der T?tigkeit",
             "Type": "sachlich",
             "Values": "11",
             "Information": "false"
         },
         {
             "Code": "ADBES1",
-            "Content": "Art der Bestände",
+            "Content": "Art der Best?nde",
             "Type": "sachlich",
             "Values": "4",
             "Information": "false"
@@ -379,7 +379,7 @@
         },
         {
             "Code": "ADOEL1",
-            "Content": "Verwandtschaftsverhältnis zu den Adoptiveltern",
+            "Content": "Verwandtschaftsverh?ltnis zu den Adoptiveltern",
             "Type": "sachlich",
             "Values": "3",
             "Information": "false"
@@ -512,7 +512,7 @@
         },
         {
             "Code": "AEW006",
-            "Content": "Erzeuger von primär nachgewiesenen Abfallmengen",
+            "Content": "Erzeuger von prim?r nachgewiesenen Abfallmengen",
             "Type": "Wert",
             "Values": "-1",
             "Information": "true"
@@ -540,21 +540,21 @@
         },
         {
             "Code": "AFGBE3",
-            "Content": "Aufgabenbereiche der öffentlichen Haushalte",
+            "Content": "Aufgabenbereiche der ?ffentlichen Haushalte",
             "Type": "sachlich",
             "Values": "22",
             "Information": "false"
         },
         {
             "Code": "AFGBE4",
-            "Content": "Aufgabenbereiche der öffentlichen Haushalte",
+            "Content": "Aufgabenbereiche der ?ffentlichen Haushalte",
             "Type": "sachlich",
             "Values": "6",
             "Information": "false"
         },
         {
             "Code": "AFHMN1",
-            "Content": "Aufenthalt vor der Maßnahme",
+            "Content": "Aufenthalt vor der Ma?nahme",
             "Type": "sachlich",
             "Values": "12",
             "Information": "false"
@@ -596,28 +596,28 @@
         },
         {
             "Code": "AGQ001",
-            "Content": "Armutsgefährdungsquote",
+            "Content": "Armutsgef?hrdungsquote",
             "Type": "Wert",
             "Values": "-1",
             "Information": "true"
         },
         {
             "Code": "AGQ002",
-            "Content": "Armutsgefährdungsquote von Personen ab 16 Jahren",
+            "Content": "Armutsgef?hrdungsquote von Personen ab 16 Jahren",
             "Type": "Wert",
             "Values": "-1",
             "Information": "true"
         },
         {
             "Code": "AGQ003",
-            "Content": "Armutsgefährdungsquote v.erwerbstät. Pers.ab 16 J.",
+            "Content": "Armutsgef?hrdungsquote v.erwerbst?t. Pers.ab 16 J.",
             "Type": "Wert",
             "Values": "-1",
             "Information": "true"
         },
         {
             "Code": "AGQ004",
-            "Content": "Armutsgefährdungsquote v.erwerbstät. Pers.ab 18 J.",
+            "Content": "Armutsgef?hrdungsquote v.erwerbst?t. Pers.ab 18 J.",
             "Type": "Wert",
             "Values": "-1",
             "Information": "true"
@@ -631,21 +631,21 @@
         },
         {
             "Code": "AKG001",
-            "Content": "Wägung Index der Arbeitskosten je geleistete Std.",
+            "Content": "W?gung Index der Arbeitskosten je geleistete Std.",
             "Type": "Wert",
             "Values": "-1",
             "Information": "true"
         },
         {
             "Code": "AKG002",
-            "Content": "Wägung Index d.Bruttoverdienste je geleistete Std.",
+            "Content": "W?gung Index d.Bruttoverdienste je geleistete Std.",
             "Type": "Wert",
             "Values": "-1",
             "Information": "true"
         },
         {
             "Code": "AKG003",
-            "Content": "Wägung Index d. Lohnnebenkosten je geleistete Std.",
+            "Content": "W?gung Index d. Lohnnebenkosten je geleistete Std.",
             "Type": "Wert",
             "Values": "-1",
             "Information": "true"
@@ -721,5 +721,5 @@
             "Information": "true"
         }
     ],
-    "Copyright": "© Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
 }

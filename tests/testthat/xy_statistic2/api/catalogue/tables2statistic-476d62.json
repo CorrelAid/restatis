@@ -13,7 +13,7 @@
         "password": "********************",
         "name": "61111",
         "selection": "",
-        "area": "Öffentlich",
+        "area": "oeffentlich",
         "pagelength": "100",
         "language": "de"
     },
@@ -50,29 +50,29 @@
         },
         {
             "Code": "61111-0007",
-            "Content": "Wägungsschema des Verbraucherpreisindex: Deutschland, Jahre,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP 2-5-Steller Hierarchie)",
+            "Content": "W?gungsschema des Verbraucherpreisindex: Deutschland, Jahre,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP 2-5-Steller Hierarchie)",
             "Time": "1995 - 2020"
         },
         {
             "Code": "61111-0010",
-            "Content": "Verbraucherpreisindex: Bundesländer, Jahre",
+            "Content": "Verbraucherpreisindex: Bundesl?nder, Jahre",
             "Time": "2020 - 2022"
         },
         {
             "Code": "61111-0011",
-            "Content": "Verbraucherpreisindex: Bundesländer, Monate",
+            "Content": "Verbraucherpreisindex: Bundesl?nder, Monate",
             "Time": "Januar 2020 - Februar 2023"
         },
         {
             "Code": "61111-0020",
-            "Content": "Index der Nettokaltmieten: Bundesländer, Jahre",
+            "Content": "Index der Nettokaltmieten: Bundesl?nder, Jahre",
             "Time": "2020 - 2022"
         },
         {
             "Code": "61111-0021",
-            "Content": "Index der Nettokaltmieten: Bundesländer, Monate",
+            "Content": "Index der Nettokaltmieten: Bundesl?nder, Monate",
             "Time": "Januar 2020 - Februar 2023"
         }
     ],
-    "Copyright": "© Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
 }

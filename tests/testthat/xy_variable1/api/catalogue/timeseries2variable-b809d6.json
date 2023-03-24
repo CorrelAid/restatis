@@ -13,14 +13,14 @@
         "password": "********************",
         "name": "DLAND",
         "selection": "",
-        "area": "Öffentlich",
+        "area": "oeffentlich",
         "pagelength": "100",
         "language": "de"
     },
     "List": [
         {
             "Code": "11111LJ001",
-            "Content": "Feststellung des Gebietsstands, Gebietsfläche, Bundesländer, Stichtag",
+            "Content": "Feststellung des Gebietsstands, Gebietsfl?che, Bundesl?nder, Stichtag",
             "State": "undefiniert",
             "Time": "31.12.1995-31.12.2020",
             "LatestUpdate": "06.12.2021 08:10:40h",
@@ -28,7 +28,7 @@
         },
         {
             "Code": "12111L1001",
-            "Content": "Zensus, Bevölkerung (Zensus), Bundesländer, Stichtag",
+            "Content": "Zensus, Bev?lkerung (Zensus), Bundesl?nder, Stichtag",
             "State": "undefiniert",
             "Time": "09.05.2011",
             "LatestUpdate": "10.04.2014 08:00:57h",
@@ -36,7 +36,7 @@
         },
         {
             "Code": "12111L1002",
-            "Content": "Zensus, Bevölkerung (Zensus), Bundesländer, Nationalität, Stichtag",
+            "Content": "Zensus, Bev?lkerung (Zensus), Bundesl?nder, Nationalit?t, Stichtag",
             "State": "undefiniert",
             "Time": "09.05.2011",
             "LatestUpdate": "10.04.2014 08:00:59h",
@@ -44,7 +44,7 @@
         },
         {
             "Code": "12111L1003",
-            "Content": "Zensus, Bevölkerung (Zensus), Bundesländer, Geschlecht, Stichtag",
+            "Content": "Zensus, Bev?lkerung (Zensus), Bundesl?nder, Geschlecht, Stichtag",
             "State": "undefiniert",
             "Time": "09.05.2011",
             "LatestUpdate": "10.04.2014 08:01:00h",
@@ -52,7 +52,7 @@
         },
         {
             "Code": "12111L1004",
-            "Content": "Zensus, Bevölkerung (Zensus), Bundesländer, Altersgruppen (u3-75m), Stichtag",
+            "Content": "Zensus, Bev?lkerung (Zensus), Bundesl?nder, Altersgruppen (u3-75m), Stichtag",
             "State": "undefiniert",
             "Time": "09.05.2011",
             "LatestUpdate": "10.04.2014 08:01:02h",
@@ -60,7 +60,7 @@
         },
         {
             "Code": "12111L1005",
-            "Content": "Zensus, Bevölkerung (Zensus), Bundesländer, Altersgruppen (u18-65m), Stichtag",
+            "Content": "Zensus, Bev?lkerung (Zensus), Bundesl?nder, Altersgruppen (u18-65m), Stichtag",
             "State": "undefiniert",
             "Time": "09.05.2011",
             "LatestUpdate": "10.04.2014 08:01:04h",
@@ -68,7 +68,7 @@
         },
         {
             "Code": "12111L1006",
-            "Content": "Zensus, Bevölkerung (Zensus), Bundesländer, Familienstand, Stichtag",
+            "Content": "Zensus, Bev?lkerung (Zensus), Bundesl?nder, Familienstand, Stichtag",
             "State": "undefiniert",
             "Time": "09.05.2011",
             "LatestUpdate": "10.04.2014 08:01:05h",
@@ -76,7 +76,7 @@
         },
         {
             "Code": "12111L1007",
-            "Content": "Zensus, Bevölkerung (Zensus), Bundesländer, Nationalität, Geschlecht, Stichtag",
+            "Content": "Zensus, Bev?lkerung (Zensus), Bundesl?nder, Nationalit?t, Geschlecht, Stichtag",
             "State": "undefiniert",
             "Time": "09.05.2011",
             "LatestUpdate": "10.04.2014 08:01:07h",
@@ -84,7 +84,7 @@
         },
         {
             "Code": "12111L1008",
-            "Content": "Zensus, Bevölkerung (Zensus), Bundesländer, Nationalität, Altersgruppen (u3-75m), Stichtag",
+            "Content": "Zensus, Bev?lkerung (Zensus), Bundesl?nder, Nationalit?t, Altersgruppen (u3-75m), Stichtag",
             "State": "undefiniert",
             "Time": "09.05.2011",
             "LatestUpdate": "10.04.2014 08:01:09h",
@@ -92,7 +92,7 @@
         },
         {
             "Code": "12111L1009",
-            "Content": "Zensus, Bevölkerung (Zensus), Bundesländer, Nationalität, Familienstand, Stichtag",
+            "Content": "Zensus, Bev?lkerung (Zensus), Bundesl?nder, Nationalit?t, Familienstand, Stichtag",
             "State": "undefiniert",
             "Time": "09.05.2011",
             "LatestUpdate": "10.04.2014 08:01:10h",
@@ -100,7 +100,7 @@
         },
         {
             "Code": "12111L1010",
-            "Content": "Zensus, Bevölkerung (Zensus), Bundesländer, Geschlecht, Altersgruppen (u3-75m), Stichtag",
+            "Content": "Zensus, Bev?lkerung (Zensus), Bundesl?nder, Geschlecht, Altersgruppen (u3-75m), Stichtag",
             "State": "undefiniert",
             "Time": "09.05.2011",
             "LatestUpdate": "10.04.2014 08:01:12h",
@@ -108,7 +108,7 @@
         },
         {
             "Code": "12111L1011",
-            "Content": "Zensus, Bevölkerung (Zensus), Bundesländer, Geschlecht, Familienstand, Stichtag",
+            "Content": "Zensus, Bev?lkerung (Zensus), Bundesl?nder, Geschlecht, Familienstand, Stichtag",
             "State": "undefiniert",
             "Time": "09.05.2011",
             "LatestUpdate": "10.04.2014 08:01:16h",
@@ -116,7 +116,7 @@
         },
         {
             "Code": "12111L1012",
-            "Content": "Zensus, Bevölkerung (Zensus), Bundesländer, Altersgruppen (u18-65m), Familienstand, Stichtag",
+            "Content": "Zensus, Bev?lkerung (Zensus), Bundesl?nder, Altersgruppen (u18-65m), Familienstand, Stichtag",
             "State": "undefiniert",
             "Time": "09.05.2011",
             "LatestUpdate": "10.04.2014 08:01:14h",
@@ -124,7 +124,7 @@
         },
         {
             "Code": "12211LJ001",
-            "Content": "Mikrozensus, Bevölkerung, Erwerbspersonen, Erwerbstätige, Erwerbslose, Nichterwerbspersonen, Bundesländer, Stichmonat",
+            "Content": "Mikrozensus, Bev?lkerung, Erwerbspersonen, Erwerbst?tige, Erwerbslose, Nichterwerbspersonen, Bundesl?nder, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1991-03/2004",
             "LatestUpdate": "22.03.2005 11:46:17h",
@@ -132,7 +132,7 @@
         },
         {
             "Code": "12211LJ002",
-            "Content": "Mikrozensus, Privathaushalte, Bundesländer, Stichmonat",
+            "Content": "Mikrozensus, Privathaushalte, Bundesl?nder, Stichmonat",
             "State": "undefiniert",
             "Time": "05/1970-03/2004",
             "LatestUpdate": "09.11.2020 11:43:47h",
@@ -140,7 +140,7 @@
         },
         {
             "Code": "12211LJ003",
-            "Content": "Mikrozensus, Privathaushalte, Bundesländer, Haushaltsgröße, Stichmonat",
+            "Content": "Mikrozensus, Privathaushalte, Bundesl?nder, Haushaltsgr??e, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1991-03/2004",
             "LatestUpdate": "09.11.2020 11:44:19h",
@@ -148,7 +148,7 @@
         },
         {
             "Code": "12211LJ004",
-            "Content": "Mikrozensus, Bevölkerung in Familien/Lebensformen, Bundesländer, Stichmonat",
+            "Content": "Mikrozensus, Bev?lkerung in Familien/Lebensformen, Bundesl?nder, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "09.11.2020 11:46:13h",
@@ -156,7 +156,7 @@
         },
         {
             "Code": "12211LJ005",
-            "Content": "Mikrozensus, Bevölkerung in Familien/Lebensformen, Bundesländer, Lebensformen, Stichmonat",
+            "Content": "Mikrozensus, Bev?lkerung in Familien/Lebensformen, Bundesl?nder, Lebensformen, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "09.11.2020 11:46:47h",
@@ -164,7 +164,7 @@
         },
         {
             "Code": "12211LJ006",
-            "Content": "Mikrozensus, Familien, Bundesländer, Vorhandensein von Kindern, Stichmonat",
+            "Content": "Mikrozensus, Familien, Bundesl?nder, Vorhandensein von Kindern, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "09.11.2020 11:47:04h",
@@ -172,7 +172,7 @@
         },
         {
             "Code": "12211LJ007",
-            "Content": "Mikrozensus, Paare, Bundesländer, Vorhandensein von Kindern, Stichmonat",
+            "Content": "Mikrozensus, Paare, Bundesl?nder, Vorhandensein von Kindern, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "09.11.2020 11:47:17h",
@@ -180,7 +180,7 @@
         },
         {
             "Code": "12211LJ008",
-            "Content": "Mikrozensus, Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche Lebensgemeinschaften, Bundesländer, Stichmonat",
+            "Content": "Mikrozensus, Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche Lebensgemeinschaften, Bundesl?nder, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "09.11.2020 11:47:33h",
@@ -188,7 +188,7 @@
         },
         {
             "Code": "12211LJ009",
-            "Content": "Mikrozensus, Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche Lebensgemeinschaften, Bundesländer, Vorhandensein von Kindern, Stichmonat",
+            "Content": "Mikrozensus, Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche Lebensgemeinschaften, Bundesl?nder, Vorhandensein von Kindern, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "09.11.2020 11:48:49h",
@@ -196,7 +196,7 @@
         },
         {
             "Code": "12211LJ010",
-            "Content": "Mikrozensus, Alleinerziehende, Bundesländer, Vorhandensein von Kindern, Stichmonat",
+            "Content": "Mikrozensus, Alleinerziehende, Bundesl?nder, Vorhandensein von Kindern, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "09.11.2020 11:49:06h",
@@ -204,7 +204,7 @@
         },
         {
             "Code": "12211LJ011",
-            "Content": "Mikrozensus, Alleinerziehende, Bundesländer, Vorhandensein von Kindern, Geschlecht, Stichmonat",
+            "Content": "Mikrozensus, Alleinerziehende, Bundesl?nder, Vorhandensein von Kindern, Geschlecht, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "17.06.2021 16:45:09h",
@@ -212,7 +212,7 @@
         },
         {
             "Code": "12211LJ012",
-            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Stichmonat",
+            "Content": "Mikrozensus, Alleinstehende, Bundesl?nder, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "09.11.2020 11:50:28h",
@@ -220,7 +220,7 @@
         },
         {
             "Code": "12211LJ013",
-            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Geschlecht, Stichmonat",
+            "Content": "Mikrozensus, Alleinstehende, Bundesl?nder, Geschlecht, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "09.11.2020 11:51:03h",
@@ -228,7 +228,7 @@
         },
         {
             "Code": "12211LJ014",
-            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Haushaltsgröße, Stichmonat",
+            "Content": "Mikrozensus, Alleinstehende, Bundesl?nder, Haushaltsgr??e, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "09.11.2020 11:52:36h",
@@ -236,7 +236,7 @@
         },
         {
             "Code": "12211LJ015",
-            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Haushaltsgröße, Geschlecht, Stichmonat",
+            "Content": "Mikrozensus, Alleinstehende, Bundesl?nder, Haushaltsgr??e, Geschlecht, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "09.11.2020 11:52:53h",
@@ -244,7 +244,7 @@
         },
         {
             "Code": "12211LJ016",
-            "Content": "Mikrozensus, Ledige Kinder in der Familie, Ledige Kinder unter 18 Jahren in der Familie, Bundesländer, Stichmonat",
+            "Content": "Mikrozensus, Ledige Kinder in der Familie, Ledige Kinder unter 18 Jahren in der Familie, Bundesl?nder, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "09.11.2020 11:53:13h",
@@ -252,7 +252,7 @@
         },
         {
             "Code": "12211LJ017",
-            "Content": "Mikrozensus, Ledige Kinder in der Familie, Ledige Kinder unter 18 Jahren in der Familie, Bundesländer, Familienformen, Stichmonat",
+            "Content": "Mikrozensus, Ledige Kinder in der Familie, Ledige Kinder unter 18 Jahren in der Familie, Bundesl?nder, Familienformen, Stichmonat",
             "State": "undefiniert",
             "Time": "04/1996-03/2004",
             "LatestUpdate": "09.11.2020 11:53:34h",
@@ -260,7 +260,7 @@
         },
         {
             "Code": "12211LJ018",
-            "Content": "Mikrozensus, Bevölkerung, Erwerbspersonen, Erwerbstätige, Erwerbslose, Nichterwerbspersonen, Bundesländer, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung, Erwerbspersonen, Erwerbst?tige, Erwerbslose, Nichterwerbspersonen, Bundesl?nder, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:32:58h",
@@ -268,7 +268,7 @@
         },
         {
             "Code": "12211LJ019",
-            "Content": "Mikrozensus, Bevölkerung (ab 15 Jahren), Bundesländer, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung (ab 15 Jahren), Bundesl?nder, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "25.11.2020 16:54:17h",
@@ -276,7 +276,7 @@
         },
         {
             "Code": "12211LJ020",
-            "Content": "Mikrozensus, Bevölkerung (ab 15 Jahren), Bundesländer, Geschlecht, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung (ab 15 Jahren), Bundesl?nder, Geschlecht, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "25.11.2020 16:54:15h",
@@ -284,7 +284,7 @@
         },
         {
             "Code": "12211LJ021",
-            "Content": "Mikrozensus, Bevölkerung (ab 15 Jahren), Bundesländer, Allgemeine Schulausbildung, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung (ab 15 Jahren), Bundesl?nder, Allgemeine Schulausbildung, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "25.11.2020 16:54:16h",
@@ -292,7 +292,7 @@
         },
         {
             "Code": "12211LJ022",
-            "Content": "Mikrozensus, Bevölkerung (ab 15 Jahren), Bundesländer, Geschlecht, Allgemeine Schulausbildung, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung (ab 15 Jahren), Bundesl?nder, Geschlecht, Allgemeine Schulausbildung, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "25.11.2020 16:54:11h",
@@ -300,7 +300,7 @@
         },
         {
             "Code": "12211LJ023",
-            "Content": "Mikrozensus, Bevölkerung (ab 15 Jahren), Bundesländer, Beruflicher Bildungsabschluss, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung (ab 15 Jahren), Bundesl?nder, Beruflicher Bildungsabschluss, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "25.11.2020 16:54:14h",
@@ -308,7 +308,7 @@
         },
         {
             "Code": "12211LJ024",
-            "Content": "Mikrozensus, Bevölkerung (ab 15 Jahren), Bundesländer, Geschlecht, Beruflicher Bildungsabschluss, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung (ab 15 Jahren), Bundesl?nder, Geschlecht, Beruflicher Bildungsabschluss, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "25.11.2020 16:54:13h",
@@ -316,7 +316,7 @@
         },
         {
             "Code": "12211LJ025",
-            "Content": "Mikrozensus, Privathaushalte, Bundesländer, Jahr",
+            "Content": "Mikrozensus, Privathaushalte, Bundesl?nder, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:44:43h",
@@ -324,7 +324,7 @@
         },
         {
             "Code": "12211LJ026",
-            "Content": "Mikrozensus, Privathaushalte, Bundesländer, Haushaltsgröße, Jahr",
+            "Content": "Mikrozensus, Privathaushalte, Bundesl?nder, Haushaltsgr??e, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:45:05h",
@@ -332,7 +332,7 @@
         },
         {
             "Code": "12211LJ027",
-            "Content": "Mikrozensus, Bevölkerung in Familien/Lebensformen, Bundesländer, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Familien/Lebensformen, Bundesl?nder, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:53:58h",
@@ -340,7 +340,7 @@
         },
         {
             "Code": "12211LJ028",
-            "Content": "Mikrozensus, Bevölkerung in Familien/Lebensformen, Bundesländer, Lebensformen, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Familien/Lebensformen, Bundesl?nder, Lebensformen, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:54:40h",
@@ -348,7 +348,7 @@
         },
         {
             "Code": "12211LJ029",
-            "Content": "Mikrozensus, Familien, Bundesländer, Vorhandensein von Kindern, Jahr",
+            "Content": "Mikrozensus, Familien, Bundesl?nder, Vorhandensein von Kindern, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:54:54h",
@@ -356,7 +356,7 @@
         },
         {
             "Code": "12211LJ030",
-            "Content": "Mikrozensus, Paare, Bundesländer, Vorhandensein von Kindern, Jahr",
+            "Content": "Mikrozensus, Paare, Bundesl?nder, Vorhandensein von Kindern, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:55:15h",
@@ -364,7 +364,7 @@
         },
         {
             "Code": "12211LJ031",
-            "Content": "Mikrozensus, Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche Lebensgemeinschaften, Bundesländer, Jahr",
+            "Content": "Mikrozensus, Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche Lebensgemeinschaften, Bundesl?nder, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:55:36h",
@@ -372,7 +372,7 @@
         },
         {
             "Code": "12211LJ032",
-            "Content": "Mikrozensus, Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche Lebensgemeinschaften, Bundesländer, Vorhandensein von Kindern, Jahr",
+            "Content": "Mikrozensus, Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche Lebensgemeinschaften, Bundesl?nder, Vorhandensein von Kindern, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:56:00h",
@@ -380,7 +380,7 @@
         },
         {
             "Code": "12211LJ033",
-            "Content": "Mikrozensus, Alleinerziehende, Bundesländer, Vorhandensein von Kindern, Jahr",
+            "Content": "Mikrozensus, Alleinerziehende, Bundesl?nder, Vorhandensein von Kindern, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:56:14h",
@@ -388,7 +388,7 @@
         },
         {
             "Code": "12211LJ034",
-            "Content": "Mikrozensus, Alleinerziehende, Bundesländer, Vorhandensein von Kindern, Geschlecht, Jahr",
+            "Content": "Mikrozensus, Alleinerziehende, Bundesl?nder, Vorhandensein von Kindern, Geschlecht, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:56:32h",
@@ -396,7 +396,7 @@
         },
         {
             "Code": "12211LJ035",
-            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Jahr",
+            "Content": "Mikrozensus, Alleinstehende, Bundesl?nder, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:57:58h",
@@ -404,7 +404,7 @@
         },
         {
             "Code": "12211LJ036",
-            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Geschlecht, Jahr",
+            "Content": "Mikrozensus, Alleinstehende, Bundesl?nder, Geschlecht, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:58:56h",
@@ -412,7 +412,7 @@
         },
         {
             "Code": "12211LJ037",
-            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Haushaltsgröße, Jahr",
+            "Content": "Mikrozensus, Alleinstehende, Bundesl?nder, Haushaltsgr??e, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 11:59:13h",
@@ -420,7 +420,7 @@
         },
         {
             "Code": "12211LJ038",
-            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Haushaltsgröße, Geschlecht, Jahr",
+            "Content": "Mikrozensus, Alleinstehende, Bundesl?nder, Haushaltsgr??e, Geschlecht, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 12:00:39h",
@@ -428,7 +428,7 @@
         },
         {
             "Code": "12211LJ039",
-            "Content": "Mikrozensus, Ledige Kinder in der Familie, Ledige Kinder unter 18 Jahren in der Familie, Bundesländer, Jahr",
+            "Content": "Mikrozensus, Ledige Kinder in der Familie, Ledige Kinder unter 18 Jahren in der Familie, Bundesl?nder, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 12:00:56h",
@@ -436,7 +436,7 @@
         },
         {
             "Code": "12211LJ040",
-            "Content": "Mikrozensus, Ledige Kinder in der Familie, Ledige Kinder unter 18 Jahren in der Familie, Bundesländer, Familienformen, Jahr",
+            "Content": "Mikrozensus, Ledige Kinder in der Familie, Ledige Kinder unter 18 Jahren in der Familie, Bundesl?nder, Familienformen, Jahr",
             "State": "undefiniert",
             "Time": "2005-2019",
             "LatestUpdate": "09.11.2020 12:01:10h",
@@ -444,7 +444,7 @@
         },
         {
             "Code": "12211LJ041",
-            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Gemeinschaftsunterk?nften, Bundesl?nder, Jahr",
             "State": "undefiniert",
             "Time": "2017-2021",
             "LatestUpdate": "30.01.2023 15:45:46h",
@@ -452,7 +452,7 @@
         },
         {
             "Code": "12211LJ042",
-            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Geschlecht, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Gemeinschaftsunterk?nften, Bundesl?nder, Geschlecht, Jahr",
             "State": "undefiniert",
             "Time": "2017-2021",
             "LatestUpdate": "30.01.2023 15:45:37h",
@@ -460,7 +460,7 @@
         },
         {
             "Code": "12211LJ043",
-            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Altersgruppen (u25-65m), Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Gemeinschaftsunterk?nften, Bundesl?nder, Altersgruppen (u25-65m), Jahr",
             "State": "undefiniert",
             "Time": "2017-2021",
             "LatestUpdate": "30.01.2023 15:45:56h",
@@ -468,7 +468,7 @@
         },
         {
             "Code": "12211LJ044",
-            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Art der Gemeinschaftsunterkunft, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Gemeinschaftsunterk?nften, Bundesl?nder, Art der Gemeinschaftsunterkunft, Jahr",
             "State": "undefiniert",
             "Time": "2017-2021",
             "LatestUpdate": "30.01.2023 15:45:50h",
@@ -476,7 +476,7 @@
         },
         {
             "Code": "12211LJ045",
-            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Hauptstatus, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Gemeinschaftsunterk?nften, Bundesl?nder, Hauptstatus, Jahr",
             "State": "undefiniert",
             "Time": "2017-2021",
             "LatestUpdate": "30.01.2023 15:45:59h",
@@ -484,7 +484,7 @@
         },
         {
             "Code": "12211LJ046",
-            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Geschlecht, Altersgruppen (u25-65m), Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Gemeinschaftsunterk?nften, Bundesl?nder, Geschlecht, Altersgruppen (u25-65m), Jahr",
             "State": "undefiniert",
             "Time": "2017-2021",
             "LatestUpdate": "30.01.2023 15:45:53h",
@@ -492,7 +492,7 @@
         },
         {
             "Code": "12211LJ047",
-            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Geschlecht, Art der Gemeinschaftsunterkunft, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Gemeinschaftsunterk?nften, Bundesl?nder, Geschlecht, Art der Gemeinschaftsunterkunft, Jahr",
             "State": "undefiniert",
             "Time": "2017-2021",
             "LatestUpdate": "30.01.2023 15:45:40h",
@@ -500,7 +500,7 @@
         },
         {
             "Code": "12211LJ048",
-            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Geschlecht, Hauptstatus, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Gemeinschaftsunterk?nften, Bundesl?nder, Geschlecht, Hauptstatus, Jahr",
             "State": "undefiniert",
             "Time": "2017-2021",
             "LatestUpdate": "30.01.2023 15:45:43h",
@@ -508,7 +508,7 @@
         },
         {
             "Code": "12211LJ049",
-            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Altersgruppen (u25-65m), Hauptstatus, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Gemeinschaftsunterk?nften, Bundesl?nder, Altersgruppen (u25-65m), Hauptstatus, Jahr",
             "State": "undefiniert",
             "Time": "2017-2021",
             "LatestUpdate": "30.01.2023 15:46:41h",
@@ -516,7 +516,7 @@
         },
         {
             "Code": "12211LJ050",
-            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Geschlecht, Altersgruppen (u25-65m), Hauptstatus, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Gemeinschaftsunterk?nften, Bundesl?nder, Geschlecht, Altersgruppen (u25-65m), Hauptstatus, Jahr",
             "State": "undefiniert",
             "Time": "2017-2021",
             "LatestUpdate": "30.01.2023 15:46:38h",
@@ -524,7 +524,7 @@
         },
         {
             "Code": "12211LJ240",
-            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbst?tige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesl?nder, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:00:12h",
@@ -532,7 +532,7 @@
         },
         {
             "Code": "12211LJ241",
-            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbst?tige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:00:09h",
@@ -540,7 +540,7 @@
         },
         {
             "Code": "12211LJ242",
-            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (u15-75m), Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbst?tige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesl?nder, Altersgruppen (u15-75m), Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 15:59:44h",
@@ -548,7 +548,7 @@
         },
         {
             "Code": "12211LJ243",
-            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Altersgruppen (u15-75m), Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbst?tige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Altersgruppen (u15-75m), Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 15:59:54h",
@@ -556,7 +556,7 @@
         },
         {
             "Code": "12211LJ244",
-            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (u15-65m), Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbst?tige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesl?nder, Altersgruppen (u15-65m), Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 15:59:48h",
@@ -564,7 +564,7 @@
         },
         {
             "Code": "12211LJ245",
-            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Überwiegender Lebensunterhalt, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbst?tige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesl?nder, ?berwiegender Lebensunterhalt, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 15:59:41h",
@@ -572,7 +572,7 @@
         },
         {
             "Code": "12211LJ246",
-            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (u15-65m), Überwiegender Lebensunterhalt, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbst?tige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesl?nder, Altersgruppen (u15-65m), ?berwiegender Lebensunterhalt, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:00:06h",
@@ -580,7 +580,7 @@
         },
         {
             "Code": "12211LJ247",
-            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Größenklassen des persönl. monatl. Nettoeinkommens, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbst?tige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesl?nder, Gr??enklassen des pers?nl. monatl. Nettoeinkommens, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 15:59:37h",
@@ -588,7 +588,7 @@
         },
         {
             "Code": "12211LJ248",
-            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Größenklassen des persönl. monatl. Nettoeinkommens, Jahr",
+            "Content": "Mikrozensus, Bev?lkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbst?tige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Gr??enklassen des pers?nl. monatl. Nettoeinkommens, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:00:01h",
@@ -596,7 +596,7 @@
         },
         {
             "Code": "12211LJ249",
-            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (15-75m), Jahr",
+            "Content": "Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Altersgruppen (15-75m), Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:00:37h",
@@ -604,7 +604,7 @@
         },
         {
             "Code": "12211LJ250",
-            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Altersgruppen (15-75m), Jahr",
+            "Content": "Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Altersgruppen (15-75m), Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:00:41h",
@@ -612,7 +612,7 @@
         },
         {
             "Code": "12211LJ251",
-            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Jahr",
+            "Content": "Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Stellung im Beruf, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:00:52h",
@@ -620,7 +620,7 @@
         },
         {
             "Code": "12211LJ252",
-            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Jahr",
+            "Content": "Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Stellung im Beruf, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:00:56h",
@@ -628,7 +628,7 @@
         },
         {
             "Code": "12211LJ253",
-            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (15-75m), Stellung im Beruf, Jahr",
+            "Content": "Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Altersgruppen (15-75m), Stellung im Beruf, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:00:45h",
@@ -636,7 +636,7 @@
         },
         {
             "Code": "12211LJ254",
-            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Altersgruppen (15-75m), Stellung im Beruf, Jahr",
+            "Content": "Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Altersgruppen (15-75m), Stellung im Beruf, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:00:49h",
@@ -644,7 +644,7 @@
         },
         {
             "Code": "12231LJ030",
-            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Jahr",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bev?lkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesl?nder, Jahr",
             "State": "undefiniert",
             "Time": "2022",
             "LatestUpdate": "23.01.2023 12:52:39h",
@@ -652,7 +652,7 @@
         },
         {
             "Code": "12231LJ031",
-            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Altersgruppen (16-u75), Jahr",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bev?lkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesl?nder, Altersgruppen (16-u75), Jahr",
             "State": "undefiniert",
             "Time": "2022",
             "LatestUpdate": "23.01.2023 12:52:39h",
@@ -660,7 +660,7 @@
         },
         {
             "Code": "12231LJ032",
-            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Priv. Internetaktivitäten i.d.letzten drei Monaten, Jahr",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bev?lkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesl?nder, Priv. Internetaktivit?ten i.d.letzten drei Monaten, Jahr",
             "State": "undefiniert",
             "Time": "2022",
             "LatestUpdate": "23.01.2023 12:52:39h",
@@ -668,7 +668,7 @@
         },
         {
             "Code": "12231LJ033",
-            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Altersgruppen (16-u75), Priv. Internetaktivitäten i.d.letzten drei Monaten, Jahr",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bev?lkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesl?nder, Altersgruppen (16-u75), Priv. Internetaktivit?ten i.d.letzten drei Monaten, Jahr",
             "State": "undefiniert",
             "Time": "2022",
             "LatestUpdate": "23.01.2023 12:52:39h",
@@ -676,7 +676,7 @@
         },
         {
             "Code": "12231LJ034",
-            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Private Internetkäufe in den letzten drei Monaten, Jahr",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bev?lkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesl?nder, Private Internetk?ufe in den letzten drei Monaten, Jahr",
             "State": "undefiniert",
             "Time": "2022",
             "LatestUpdate": "23.01.2023 12:52:39h",
@@ -684,7 +684,7 @@
         },
         {
             "Code": "12231LJ035",
-            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Altersgruppen (16-u75), Private Internetkäufe in den letzten drei Monaten, Jahr",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bev?lkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesl?nder, Altersgruppen (16-u75), Private Internetk?ufe in den letzten drei Monaten, Jahr",
             "State": "undefiniert",
             "Time": "2022",
             "LatestUpdate": "23.01.2023 12:52:39h",
@@ -692,7 +692,7 @@
         },
         {
             "Code": "12251LJ001",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:37:43h",
@@ -700,7 +700,7 @@
         },
         {
             "Code": "12251LJ002",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:37:41h",
@@ -708,7 +708,7 @@
         },
         {
             "Code": "12251LJ003",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Stellung im Beruf, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:37:47h",
@@ -716,7 +716,7 @@
         },
         {
             "Code": "12251LJ004",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Stellung im Beruf, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:37:54h",
@@ -724,7 +724,7 @@
         },
         {
             "Code": "12251LJ005",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Größenkl. der in der Arbeitsstätte tätigen Pers., Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Gr??enkl. der in der Arbeitsst?tte t?tigen Pers., Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:37:57h",
@@ -732,7 +732,7 @@
         },
         {
             "Code": "12251LJ006",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Größenkl. der in der Arbeitsstätte tätigen Pers., Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Gr??enkl. der in der Arbeitsst?tte t?tigen Pers., Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:38:00h",
@@ -740,7 +740,7 @@
         },
         {
             "Code": "12251LJ007",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Größenkl. der in der Arbeitsstätte tätigen Pers., Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Stellung im Beruf, Gr??enkl. der in der Arbeitsst?tte t?tigen Pers., Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:37:50h",
@@ -748,7 +748,7 @@
         },
         {
             "Code": "12251LJ008",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Größenkl. der in der Arbeitsstätte tätigen Pers., Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Stellung im Beruf, Gr??enkl. der in der Arbeitsst?tte t?tigen Pers., Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:38:40h",
@@ -756,7 +756,7 @@
         },
         {
             "Code": "12251LJ009",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Wochenend- und Feiertagsarbeit, Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Wochenend- und Feiertagsarbeit, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:38:43h",
@@ -764,7 +764,7 @@
         },
         {
             "Code": "12251LJ010",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Wochenend- und Feiertagsarbeit, Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Wochenend- und Feiertagsarbeit, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:38:47h",
@@ -772,7 +772,7 @@
         },
         {
             "Code": "12251LJ011",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Wochenend- und Feiertagsarbeit, Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Stellung im Beruf, Wochenend- und Feiertagsarbeit, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:38:50h",
@@ -780,7 +780,7 @@
         },
         {
             "Code": "12251LJ012",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Wochenend- und Feiertagsarbeit, Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Stellung im Beruf, Wochenend- und Feiertagsarbeit, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:38:55h",
@@ -788,7 +788,7 @@
         },
         {
             "Code": "12251LJ013",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Abend-, Nacht- und Schichtarbeit, Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Abend-, Nacht- und Schichtarbeit, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:38:58h",
@@ -796,7 +796,7 @@
         },
         {
             "Code": "12251LJ014",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Abend-, Nacht- und Schichtarbeit, Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Abend-, Nacht- und Schichtarbeit, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:39:02h",
@@ -804,7 +804,7 @@
         },
         {
             "Code": "12251LJ015",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Abend-, Nacht- und Schichtarbeit, Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Stellung im Beruf, Abend-, Nacht- und Schichtarbeit, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:39:06h",
@@ -812,12 +812,12 @@
         },
         {
             "Code": "12251LJ016",
-            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Abend-, Nacht- und Schichtarbeit, Jahr",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Bundesl?nder, Geschlecht, Stellung im Beruf, Abend-, Nacht- und Schichtarbeit, Jahr",
             "State": "undefiniert",
             "Time": "2021",
             "LatestUpdate": "30.01.2023 16:39:56h",
             "Information": "false"
         }
     ],
-    "Copyright": "© Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
 }

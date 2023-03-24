@@ -13,511 +13,511 @@
         "password": "********************",
         "name": "DLAND",
         "selection": "",
-        "area": "Öffentlich",
+        "area": "oeffentlich",
         "pagelength": "100",
         "language": "de"
     },
     "List": [
         {
             "Code": "11111-0001",
-            "Content": "Gebietsfläche: Bundesländer, Stichtag",
+            "Content": "Gebietsfl?che: Bundesl?nder, Stichtag",
             "Time": "31.12.1995 - 31.12.2020"
         },
         {
             "Code": "12111-0101",
-            "Content": "Bevölkerung (Zensus): Bundesländer, Stichtag, Nationalität,\nGeschlecht",
+            "Content": "Bev?lkerung (Zensus): Bundesl?nder, Stichtag, Nationalit?t,\nGeschlecht",
             "Time": ""
         },
         {
             "Code": "12111-0102",
-            "Content": "Bevölkerung (Zensus): Bundesländer, Stichtag, Nationalität,\nAltersgruppen",
+            "Content": "Bev?lkerung (Zensus): Bundesl?nder, Stichtag, Nationalit?t,\nAltersgruppen",
             "Time": ""
         },
         {
             "Code": "12111-0103",
-            "Content": "Bevölkerung (Zensus): Bundesländer, Stichtag, Nationalität,\nFamilienstand",
+            "Content": "Bev?lkerung (Zensus): Bundesl?nder, Stichtag, Nationalit?t,\nFamilienstand",
             "Time": ""
         },
         {
             "Code": "12111-0104",
-            "Content": "Bevölkerung (Zensus): Bundesländer, Stichtag, Geschlecht,\nAltersgruppen",
+            "Content": "Bev?lkerung (Zensus): Bundesl?nder, Stichtag, Geschlecht,\nAltersgruppen",
             "Time": ""
         },
         {
             "Code": "12111-0105",
-            "Content": "Bevölkerung (Zensus): Bundesländer, Stichtag, Geschlecht,\nFamilienstand",
+            "Content": "Bev?lkerung (Zensus): Bundesl?nder, Stichtag, Geschlecht,\nFamilienstand",
             "Time": ""
         },
         {
             "Code": "12111-0106",
-            "Content": "Bevölkerung (Zensus): Bundesländer, Stichtag, Familienstand,\nAltersgruppen",
+            "Content": "Bev?lkerung (Zensus): Bundesl?nder, Stichtag, Familienstand,\nAltersgruppen",
             "Time": ""
         },
         {
             "Code": "12211-0902",
-            "Content": "Bevölkerung in Gemeinschaftsunterkünften: Bundesländer,\nJahre, Hauptstatus, Geschlecht, Altersgruppen",
+            "Content": "Bev?lkerung in Gemeinschaftsunterk?nften: Bundesl?nder,\nJahre, Hauptstatus, Geschlecht, Altersgruppen",
             "Time": "2017 - 2021"
         },
         {
             "Code": "12211-0903",
-            "Content": "Bevölkerung in Gemeinschaftsunterkünften: Bundesländer,\nJahre, Art der Gemeinschaftsunterkunft, Geschlecht",
+            "Content": "Bev?lkerung in Gemeinschaftsunterk?nften: Bundesl?nder,\nJahre, Art der Gemeinschaftsunterkunft, Geschlecht",
             "Time": "2017 - 2021"
         },
         {
             "Code": "12211-1001",
-            "Content": "Bevölkerung, Erwerbstätige, Erwerbslose, Erwerbspersonen, Nichterwerbspersonen aus Hauptwohnsitzhaushalten: Bundesländer, Jahre, Geschlecht, Altersgruppen",
+            "Content": "Bev?lkerung, Erwerbst?tige, Erwerbslose, Erwerbspersonen, Nichterwerbspersonen aus Hauptwohnsitzhaushalten: Bundesl?nder, Jahre, Geschlecht, Altersgruppen",
             "Time": "2021 - 2021"
         },
         {
             "Code": "12211-1002",
-            "Content": "Bevölkerung, Erwerbstätige, Erwerbslose, Erwerbspersonen, Nichterwerbspersonen aus Hauptwohnsitzhaushalten: Bundesländer, Jahre, Überwiegender Lebensunterhalt, Altersgruppen",
+            "Content": "Bev?lkerung, Erwerbst?tige, Erwerbslose, Erwerbspersonen, Nichterwerbspersonen aus Hauptwohnsitzhaushalten: Bundesl?nder, Jahre, ?berwiegender Lebensunterhalt, Altersgruppen",
             "Time": "2021 - 2021"
         },
         {
             "Code": "12211-1003",
-            "Content": "Bevölkerung, Erwerbstätige, Erwerbslose, Erwerbspersonen,\nNichterwerbspersonen aus Hauptwohnsitzhaush.: Bundesländer,\nJahre, Geschlecht, Größenkl. persönl. monatl. Nettoeinkommen",
+            "Content": "Bev?lkerung, Erwerbst?tige, Erwerbslose, Erwerbspersonen,\nNichterwerbspersonen aus Hauptwohnsitzhaush.: Bundesl?nder,\nJahre, Geschlecht, Gr??enkl. pers?nl. monatl. Nettoeinkommen",
             "Time": "2021 - 2021"
         },
         {
             "Code": "12211-1004",
-            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Altersgruppen, Stellung im Beruf",
+            "Content": "Erwerbst?tige aus Hauptwohnsitzhaushalten: Bundesl?nder,\nJahre, Geschlecht, Altersgruppen, Stellung im Beruf",
             "Time": "2021 - 2021"
         },
         {
             "Code": "12211-9004",
-            "Content": "Bevölkerung, Erwerbstätige, Erwerbslose, Erwerbspersonen,\nNichterwerbspersonen: Bundesländer, Jahre (bis 2019)",
+            "Content": "Bev?lkerung, Erwerbst?tige, Erwerbslose, Erwerbspersonen,\nNichterwerbspersonen: Bundesl?nder, Jahre (bis 2019)",
             "Time": "04/1991 - 2019"
         },
         {
             "Code": "12211-9014",
-            "Content": "Bevölkerung (ab 15 Jahren): Bundesländer, Jahre (bis 2019),\nGeschlecht, Allgemeine Schulausbildung",
+            "Content": "Bev?lkerung (ab 15 Jahren): Bundesl?nder, Jahre (bis 2019),\nGeschlecht, Allgemeine Schulausbildung",
             "Time": "2005 - 2019"
         },
         {
             "Code": "12211-9015",
-            "Content": "Bevölkerung (ab 15 Jahren): Bundesländer, Jahre (bis 2019),\nGeschlecht, Beruflicher Bildungsabschluss",
+            "Content": "Bev?lkerung (ab 15 Jahren): Bundesl?nder, Jahre (bis 2019),\nGeschlecht, Beruflicher Bildungsabschluss",
             "Time": "2005 - 2019"
         },
         {
             "Code": "12211-9033",
-            "Content": "Privathaushalte: Bundesländer, Jahre (bis 2019)",
+            "Content": "Privathaushalte: Bundesl?nder, Jahre (bis 2019)",
             "Time": "05/1970 - 2019"
         },
         {
             "Code": "12211-9034",
-            "Content": "Privathaushalte: Bundesländer, Jahre (bis 2019), Haushaltsgröße",
+            "Content": "Privathaushalte: Bundesl?nder, Jahre (bis 2019), Haushaltsgr??e",
             "Time": "04/1991 - 2019"
         },
         {
             "Code": "12211-9041",
-            "Content": "Bevölkerung in Familien/Lebensformen: Bundesländer, Jahre (bis 2019), Lebensformen",
+            "Content": "Bev?lkerung in Familien/Lebensformen: Bundesl?nder, Jahre (bis 2019), Lebensformen",
             "Time": "04/1996 - 2019"
         },
         {
             "Code": "12211-9044",
-            "Content": "Familien, Paare, Alleinerziehende: Bundesländer, Jahre (bis 2019), Vorhandensein von Kindern",
+            "Content": "Familien, Paare, Alleinerziehende: Bundesl?nder, Jahre (bis 2019), Vorhandensein von Kindern",
             "Time": "04/1996 - 2019"
         },
         {
             "Code": "12211-9047",
-            "Content": "Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche\nLebensgemeinschaften: Bundesländer, Jahre (bis 2019),\nVorhandensein von Kindern",
+            "Content": "Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche\nLebensgemeinschaften: Bundesl?nder, Jahre (bis 2019),\nVorhandensein von Kindern",
             "Time": "04/1996 - 2019"
         },
         {
             "Code": "12211-9051",
-            "Content": "Alleinerziehende: Bundesländer, Jahre (bis 2019),\nGeschlecht, Vorhandensein von Kindern",
+            "Content": "Alleinerziehende: Bundesl?nder, Jahre (bis 2019),\nGeschlecht, Vorhandensein von Kindern",
             "Time": "04/1996 - 2019"
         },
         {
             "Code": "12211-9053",
-            "Content": "Alleinstehende: Bundesländer, Jahre (bis 2019), Geschlecht,\nHaushaltsgröße",
+            "Content": "Alleinstehende: Bundesl?nder, Jahre (bis 2019), Geschlecht,\nHaushaltsgr??e",
             "Time": "04/1996 - 2019"
         },
         {
             "Code": "12211-9056",
-            "Content": "Ledige Kinder in Familien: Bundesländer, Jahre (bis 2019),\nFamilienformen",
+            "Content": "Ledige Kinder in Familien: Bundesl?nder, Jahre (bis 2019),\nFamilienformen",
             "Time": "04/1996 - 2019"
         },
         {
             "Code": "12231-0101",
-            "Content": "Bevölkerung von 16 bis unter 75 Jahren in\nHauptwohnsitzhaushalten: Bundesländer, Jahre, Altersgruppen,\nPrivate Internetaktivitäten in den letzten drei Monaten",
+            "Content": "Bev?lkerung von 16 bis unter 75 Jahren in\nHauptwohnsitzhaushalten: Bundesl?nder, Jahre, Altersgruppen,\nPrivate Internetaktivit?ten in den letzten drei Monaten",
             "Time": "2022 - 2022"
         },
         {
             "Code": "12231-0102",
-            "Content": "Bevölkerung von 16 bis unter 75 Jahren in\nHauptwohnsitzhaushalten: Bundesländer, Jahre, Altersgruppen,\nPrivate Internetkäufe in den letzten drei Monaten",
+            "Content": "Bev?lkerung von 16 bis unter 75 Jahren in\nHauptwohnsitzhaushalten: Bundesl?nder, Jahre, Altersgruppen,\nPrivate Internetk?ufe in den letzten drei Monaten",
             "Time": "2022 - 2022"
         },
         {
             "Code": "12251-0101",
-            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer, Jahre, Geschlecht, Stellung im Beruf, Größenklassen der in der Arbeitsstätte tätigen Personen",
+            "Content": "Erwerbst?tige aus Hauptwohnsitzhaushalten: Bundesl?nder, Jahre, Geschlecht, Stellung im Beruf, Gr??enklassen der in der Arbeitsst?tte t?tigen Personen",
             "Time": "2021 - 2021"
         },
         {
             "Code": "12251-0102",
-            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Stellung im Beruf, Wochenend- und\nFeiertagsarbeit",
+            "Content": "Erwerbst?tige aus Hauptwohnsitzhaushalten: Bundesl?nder,\nJahre, Geschlecht, Stellung im Beruf, Wochenend- und\nFeiertagsarbeit",
             "Time": "2021 - 2021"
         },
         {
             "Code": "12251-0103",
-            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Stellung im Beruf, Abend-, Nacht- und\nSchichtarbeit",
+            "Content": "Erwerbst?tige aus Hauptwohnsitzhaushalten: Bundesl?nder,\nJahre, Geschlecht, Stellung im Beruf, Abend-, Nacht- und\nSchichtarbeit",
             "Time": "2021 - 2021"
         },
         {
             "Code": "12251-0104",
-            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Stellung im Beruf, Erwerbsarbeit zu\nHause",
+            "Content": "Erwerbst?tige aus Hauptwohnsitzhaushalten: Bundesl?nder,\nJahre, Geschlecht, Stellung im Beruf, Erwerbsarbeit zu\nHause",
             "Time": "2021 - 2021"
         },
         {
             "Code": "12251-0108",
-            "Content": "Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten:\nBundesländer, Jahre, Geschlecht, Altersgruppen, Art des\nArbeitsvertrages",
+            "Content": "Abh?ngig Erwerbst?tige aus Hauptwohnsitzhaushalten:\nBundesl?nder, Jahre, Geschlecht, Altersgruppen, Art des\nArbeitsvertrages",
             "Time": "2021 - 2021"
         },
         {
             "Code": "12411-0010",
-            "Content": "Bevölkerung: Bundesländer, Stichtag",
+            "Content": "Bev?lkerung: Bundesl?nder, Stichtag",
             "Time": "31.12.1958 - 31.12.2021"
         },
         {
             "Code": "12411-0011",
-            "Content": "Bevölkerung: Bundesländer, Stichtag, Geschlecht",
+            "Content": "Bev?lkerung: Bundesl?nder, Stichtag, Geschlecht",
             "Time": "31.12.1967 - 31.12.2021"
         },
         {
             "Code": "12411-0012",
-            "Content": "Bevölkerung: Bundesländer, Stichtag, Altersjahre",
+            "Content": "Bev?lkerung: Bundesl?nder, Stichtag, Altersjahre",
             "Time": "31.12.1967 - 31.12.2021"
         },
         {
             "Code": "12411-0013",
-            "Content": "Bevölkerung: Bundesländer, Stichtag, Geschlecht, Altersjahre",
+            "Content": "Bev?lkerung: Bundesl?nder, Stichtag, Geschlecht, Altersjahre",
             "Time": "31.12.1967 - 31.12.2021"
         },
         {
             "Code": "12411-0014",
-            "Content": "Bevölkerung: Bundesländer, Stichtag, Nationalität,\nGeschlecht, Altersjahre",
+            "Content": "Bev?lkerung: Bundesl?nder, Stichtag, Nationalit?t,\nGeschlecht, Altersjahre",
             "Time": "31.12.2000 - 31.12.2021"
         },
         {
             "Code": "12411-0021",
-            "Content": "Bevölkerung: Bundesländer, Stichtag zum Quartalsende,\nGeschlecht",
+            "Content": "Bev?lkerung: Bundesl?nder, Stichtag zum Quartalsende,\nGeschlecht",
             "Time": "31.03.1991 - 30.09.2022"
         },
         {
             "Code": "12411-0042",
-            "Content": "Durchschnittliche Bevölkerung: Bundesländer, Jahre,\nNationalität, Geschlecht",
+            "Content": "Durchschnittliche Bev?lkerung: Bundesl?nder, Jahre,\nNationalit?t, Geschlecht",
             "Time": "2000 - 2021"
         },
         {
             "Code": "12411-0050",
-            "Content": "Bevölkerungsdichte: Bundesländer, Stichtag",
+            "Content": "Bev?lkerungsdichte: Bundesl?nder, Stichtag",
             "Time": "31.12.1995 - 31.12.2020"
         },
         {
             "Code": "12421-0003",
-            "Content": "Vorausberechneter Bevölkerungsstand: Bundesländer, Stichtag,\nVarianten der Bevölkerungsvorausberechnung",
+            "Content": "Vorausberechneter Bev?lkerungsstand: Bundesl?nder, Stichtag,\nVarianten der Bev?lkerungsvorausberechnung",
             "Time": "31.12.2022 - 31.12.2070"
         },
         {
             "Code": "12421-0004",
-            "Content": "Vorausberechneter Bevölkerungsstand: Bundesländer, Stichtag,\nVarianten der Bevölkerungsvorausberechnung, Geschlecht,\nAltersjahre",
+            "Content": "Vorausberechneter Bev?lkerungsstand: Bundesl?nder, Stichtag,\nVarianten der Bev?lkerungsvorausberechnung, Geschlecht,\nAltersjahre",
             "Time": "31.12.2022 - 31.12.2070"
         },
         {
             "Code": "12421-0101",
-            "Content": "Vorausberechnete Privathaushalte: Bundesländer, Jahre,\nVarianten der Haushaltsvorausberechnung, Haushaltsgröße",
+            "Content": "Vorausberechnete Privathaushalte: Bundesl?nder, Jahre,\nVarianten der Haushaltsvorausberechnung, Haushaltsgr??e",
             "Time": "2019 - 2040"
         },
         {
             "Code": "12521-0020",
-            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht/Altersjahre/\nFamilienstand",
+            "Content": "Ausl?nder: Bundesl?nder, Stichtag, Geschlecht/Altersjahre/\nFamilienstand",
             "Time": "30.09.1980 - 31.12.2021"
         },
         {
             "Code": "12521-0021",
-            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht/Altersjahre/\nFamilienstand, Ländergruppierungen/Staatsangehörigkeit",
+            "Content": "Ausl?nder: Bundesl?nder, Stichtag, Geschlecht/Altersjahre/\nFamilienstand, L?ndergruppierungen/Staatsangeh?rigkeit",
             "Time": "30.09.1980 - 31.12.2021"
         },
         {
             "Code": "12521-0022",
-            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht, Altersjahre,\nLändergruppierungen/Staatsangehörigkeit",
+            "Content": "Ausl?nder: Bundesl?nder, Stichtag, Geschlecht, Altersjahre,\nL?ndergruppierungen/Staatsangeh?rigkeit",
             "Time": "31.12.1998 - 31.12.2021"
         },
         {
             "Code": "12521-0023",
-            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht, Altersjahre,\nMigrantengeneration, Ländergruppierungen/Staatsangehörigkeit",
+            "Content": "Ausl?nder: Bundesl?nder, Stichtag, Geschlecht, Altersjahre,\nMigrantengeneration, L?ndergruppierungen/Staatsangeh?rigkeit",
             "Time": "31.12.1998 - 31.12.2021"
         },
         {
             "Code": "12521-0024",
-            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht,\nFamilienstand, Ländergruppierungen/Staatsangehörigkeit",
+            "Content": "Ausl?nder: Bundesl?nder, Stichtag, Geschlecht,\nFamilienstand, L?ndergruppierungen/Staatsangeh?rigkeit",
             "Time": "31.12.1998 - 31.12.2021"
         },
         {
             "Code": "12521-0025",
-            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht,\nAufenthaltsdauer/Aufenthaltsdauer (Abgrenzung\nEinbürgerungen), Ländergruppierungen/Staatsangehörigkeit",
+            "Content": "Ausl?nder: Bundesl?nder, Stichtag, Geschlecht,\nAufenthaltsdauer/Aufenthaltsdauer (Abgrenzung\nEinb?rgerungen), L?ndergruppierungen/Staatsangeh?rigkeit",
             "Time": "31.12.1998 - 31.12.2021"
         },
         {
             "Code": "12521-0026",
-            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht,\nAufenthaltstitel/Ausgewählte Aufenthaltstitel,\nLändergruppierungen/Staatsangehörigkeit",
+            "Content": "Ausl?nder: Bundesl?nder, Stichtag, Geschlecht,\nAufenthaltstitel/Ausgew?hlte Aufenthaltstitel,\nL?ndergruppierungen/Staatsangeh?rigkeit",
             "Time": "31.12.1998 - 31.12.2021"
         },
         {
             "Code": "12521-0027",
-            "Content": "Ausländer: Bundesländer, Jahre, Geschlecht,\nRegisterbewegungen (regional), Ländergruppierungen/\nStaatsangehörigkeit",
+            "Content": "Ausl?nder: Bundesl?nder, Jahre, Geschlecht,\nRegisterbewegungen (regional), L?ndergruppierungen/\nStaatsangeh?rigkeit",
             "Time": "2015 - 2021"
         },
         {
             "Code": "12521-0028",
-            "Content": "Ausländer: Bundesländer, Jahre, Geschlecht, Altersjahre,\nRegisterzu- und abgänge (regional), Ländergruppierungen/\nStaatsangehörigkeit",
+            "Content": "Ausl?nder: Bundesl?nder, Jahre, Geschlecht, Altersjahre,\nRegisterzu- und abg?nge (regional), L?ndergruppierungen/\nStaatsangeh?rigkeit",
             "Time": "2015 - 2021"
         },
         {
             "Code": "12521-0029",
-            "Content": "Ausländer: Bundesländer, Jahre, Geschlecht,\nAufenthaltsdauer, Registerabgänge (regional),\nLändergruppierungen/Staatsangehörigkeit",
+            "Content": "Ausl?nder: Bundesl?nder, Jahre, Geschlecht,\nAufenthaltsdauer, Registerabg?nge (regional),\nL?ndergruppierungen/Staatsangeh?rigkeit",
             "Time": "2015 - 2021"
         },
         {
             "Code": "12521-0030",
-            "Content": "Durchschnittsalter der Ausländer: Bundesländer, Stichtag,\nGeschlecht, Ländergruppierungen/Staatsangehörigkeit",
+            "Content": "Durchschnittsalter der Ausl?nder: Bundesl?nder, Stichtag,\nGeschlecht, L?ndergruppierungen/Staatsangeh?rigkeit",
             "Time": "31.12.1998 - 31.12.2021"
         },
         {
             "Code": "12521-0031",
-            "Content": "Durchschnittliche Aufenthaltsdauer der Ausländer:\nBundesländer, Stichtag, Geschlecht, Ländergruppierungen/\nStaatsangehörigkeit",
+            "Content": "Durchschnittliche Aufenthaltsdauer der Ausl?nder:\nBundesl?nder, Stichtag, Geschlecht, L?ndergruppierungen/\nStaatsangeh?rigkeit",
             "Time": "31.12.1998 - 31.12.2021"
         },
         {
             "Code": "12531-0020",
-            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht/\nAltersjahre/Familienstand",
+            "Content": "Schutzsuchende: Bundesl?nder, Stichtag, Geschlecht/\nAltersjahre/Familienstand",
             "Time": "31.12.2007 - 31.12.2021"
         },
         {
             "Code": "12531-0021",
-            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht/\nAltersjahre/Familienstand, Ländergruppierungen/\nStaatsangehörigkeit",
+            "Content": "Schutzsuchende: Bundesl?nder, Stichtag, Geschlecht/\nAltersjahre/Familienstand, L?ndergruppierungen/\nStaatsangeh?rigkeit",
             "Time": "31.12.2007 - 31.12.2021"
         },
         {
             "Code": "12531-0022",
-            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht,\nAltersjahre, Ländergruppierungen/Staatsangehörigkeit",
+            "Content": "Schutzsuchende: Bundesl?nder, Stichtag, Geschlecht,\nAltersjahre, L?ndergruppierungen/Staatsangeh?rigkeit",
             "Time": "31.12.2007 - 31.12.2021"
         },
         {
             "Code": "12531-0023",
-            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht,\nAltersjahre, Migrantengeneration, Ländergruppierungen\n/Staatsangehörigkeit",
+            "Content": "Schutzsuchende: Bundesl?nder, Stichtag, Geschlecht,\nAltersjahre, Migrantengeneration, L?ndergruppierungen\n/Staatsangeh?rigkeit",
             "Time": "31.12.2007 - 31.12.2021"
         },
         {
             "Code": "12531-0024",
-            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht,\nFamilienstand, Ländergruppierungen/Staatsangehörigkeit",
+            "Content": "Schutzsuchende: Bundesl?nder, Stichtag, Geschlecht,\nFamilienstand, L?ndergruppierungen/Staatsangeh?rigkeit",
             "Time": "31.12.2007 - 31.12.2021"
         },
         {
             "Code": "12531-0025",
-            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht,\nAufenthaltsdauer/Aufenthaltsdauer (Abgrenzung\nEinbürgerungen), Ländergruppierungen/Staatsangehörigkeit",
+            "Content": "Schutzsuchende: Bundesl?nder, Stichtag, Geschlecht,\nAufenthaltsdauer/Aufenthaltsdauer (Abgrenzung\nEinb?rgerungen), L?ndergruppierungen/Staatsangeh?rigkeit",
             "Time": "31.12.2007 - 31.12.2021"
         },
         {
             "Code": "12531-0026",
-            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht,\nSchutzstatus/Schutzstatuskategorie, Ländergruppierungen/\nStaatsangehörigkeit",
+            "Content": "Schutzsuchende: Bundesl?nder, Stichtag, Geschlecht,\nSchutzstatus/Schutzstatuskategorie, L?ndergruppierungen/\nStaatsangeh?rigkeit",
             "Time": "31.12.2007 - 31.12.2021"
         },
         {
             "Code": "12531-0027",
-            "Content": "Durchschnittsalter der Schutzsuchenden: Bundesländer,\nStichtag, Geschlecht, Ländergruppierungen/\nStaatsangehörigkeit",
+            "Content": "Durchschnittsalter der Schutzsuchenden: Bundesl?nder,\nStichtag, Geschlecht, L?ndergruppierungen/\nStaatsangeh?rigkeit",
             "Time": "31.12.2007 - 31.12.2021"
         },
         {
             "Code": "12531-0028",
-            "Content": "Durchschnittliche Aufenthaltsdauer der Schutzsuchenden:\nBundesländer, Stichtag, Geschlecht, Ländergruppierungen/\nStaatsangehörigkeit",
+            "Content": "Durchschnittliche Aufenthaltsdauer der Schutzsuchenden:\nBundesl?nder, Stichtag, Geschlecht, L?ndergruppierungen/\nStaatsangeh?rigkeit",
             "Time": "31.12.2007 - 31.12.2021"
         },
         {
             "Code": "12611-0010",
-            "Content": "Eheschließungen: Bundesländer, Jahre",
+            "Content": "Eheschlie?ungen: Bundesl?nder, Jahre",
             "Time": "1990 - 2021"
         },
         {
             "Code": "12611-0011",
-            "Content": "Eheschließungen: Bundesländer, Monate",
+            "Content": "Eheschlie?ungen: Bundesl?nder, Monate",
             "Time": "Januar 1990 - November 2022"
         },
         {
             "Code": "12612-0100",
-            "Content": "Lebendgeborene: Bundesländer, Jahre, Geschlecht",
+            "Content": "Lebendgeborene: Bundesl?nder, Jahre, Geschlecht",
             "Time": "1990 - 2021"
         },
         {
             "Code": "12612-0101",
-            "Content": "Lebendgeborene: Bundesländer, Monate, Geschlecht",
+            "Content": "Lebendgeborene: Bundesl?nder, Monate, Geschlecht",
             "Time": "Januar 1990 - November 2022"
         },
         {
             "Code": "12612-0102",
-            "Content": "Lebendgeborene: Bundesländer, Jahre, Familienstand der\nEltern",
+            "Content": "Lebendgeborene: Bundesl?nder, Jahre, Familienstand der\nEltern",
             "Time": "1991 - 2021"
         },
         {
             "Code": "12612-0103",
-            "Content": "Lebendgeborene: Bundesländer, Jahre, Staatsangehörigkeit des\nKindes und der Eltern",
+            "Content": "Lebendgeborene: Bundesl?nder, Jahre, Staatsangeh?rigkeit des\nKindes und der Eltern",
             "Time": "1990 - 2021"
         },
         {
             "Code": "12612-0104",
-            "Content": "Zusammengefasste Geburtenziffern (je Frau): Bundesländer,\nJahre, Altersgruppen",
+            "Content": "Zusammengefasste Geburtenziffern (je Frau): Bundesl?nder,\nJahre, Altersgruppen",
             "Time": "1991 - 2021"
         },
         {
             "Code": "12612-0105",
-            "Content": "Nettoreproduktionsrate: Bundesländer, Jahre (bis 2010),\nAltersgruppen",
+            "Content": "Nettoreproduktionsrate: Bundesl?nder, Jahre (bis 2010),\nAltersgruppen",
             "Time": "2004 - 2010"
         },
         {
             "Code": "12612-0106",
-            "Content": "Totgeborene: Bundesländer, Jahre",
+            "Content": "Totgeborene: Bundesl?nder, Jahre",
             "Time": "1990 - 2021"
         },
         {
             "Code": "12613-0010",
-            "Content": "Gestorbene: Bundesländer, Jahre",
+            "Content": "Gestorbene: Bundesl?nder, Jahre",
             "Time": "1990 - 2021"
         },
         {
             "Code": "12613-0011",
-            "Content": "Gestorbene: Bundesländer, Jahre, Geschlecht",
+            "Content": "Gestorbene: Bundesl?nder, Jahre, Geschlecht",
             "Time": "1990 - 2021"
         },
         {
             "Code": "12613-0012",
-            "Content": "Gestorbene: Bundesländer, Monate",
+            "Content": "Gestorbene: Bundesl?nder, Monate",
             "Time": "Januar 1990 - November 2022"
         },
         {
             "Code": "12613-0013",
-            "Content": "Gestorbene: Bundesländer, Monate, Geschlecht",
+            "Content": "Gestorbene: Bundesl?nder, Monate, Geschlecht",
             "Time": "Januar 1990 - November 2022"
         },
         {
             "Code": "12621-0004",
-            "Content": "Durchschnittliche Lebenserwartung bei Geburt\n(Periodensterbetafel): Bundesländer, Jahre, Geschlecht",
+            "Content": "Durchschnittliche Lebenserwartung bei Geburt\n(Periodensterbetafel): Bundesl?nder, Jahre, Geschlecht",
             "Time": "2002/04 - 2019/21"
         },
         {
             "Code": "12631-0010",
-            "Content": "Ehescheidungen: Bundesländer, Jahre",
+            "Content": "Ehescheidungen: Bundesl?nder, Jahre",
             "Time": "1990 - 2021"
         },
         {
             "Code": "12631-0011",
-            "Content": "Ehescheidungen: Bundesländer, Jahre, Ehedauer",
+            "Content": "Ehescheidungen: Bundesl?nder, Jahre, Ehedauer",
             "Time": "1997 - 2021"
         },
         {
             "Code": "12631-0012",
-            "Content": "Ehescheidungen: Bundesländer, Jahre, Gemeinsame\nminderjährige Kinder",
+            "Content": "Ehescheidungen: Bundesl?nder, Jahre, Gemeinsame\nminderj?hrige Kinder",
             "Time": "1997 - 2021"
         },
         {
             "Code": "12651-0003",
-            "Content": "Begründungen von Lebenspartnerschaften: Bundesländer, Jahre (bis 2017), Geschlecht",
+            "Content": "Begr?ndungen von Lebenspartnerschaften: Bundesl?nder, Jahre (bis 2017), Geschlecht",
             "Time": "2014 - 2017"
         },
         {
             "Code": "12661-0002",
-            "Content": "Aufhebungen von Lebenspartnerschaften: Bundesländer, Jahre,\nGeschlecht",
+            "Content": "Aufhebungen von Lebenspartnerschaften: Bundesl?nder, Jahre,\nGeschlecht",
             "Time": "2014 - 2021"
         },
         {
             "Code": "12711-0020",
-            "Content": "Gesamtwanderungen über die Grenzen der Bundesländer: Bundesländer, Jahre, Nationalität, Geschlecht",
+            "Content": "Gesamtwanderungen ?ber die Grenzen der Bundesl?nder: Bundesl?nder, Jahre, Nationalit?t, Geschlecht",
             "Time": "2000 - 2021"
         },
         {
             "Code": "12711-0021",
-            "Content": "Wanderungen zwischen den Bundesländern: Bundesländer, Jahre, Nationalität, Geschlecht",
+            "Content": "Wanderungen zwischen den Bundesl?ndern: Bundesl?nder, Jahre, Nationalit?t, Geschlecht",
             "Time": "2000 - 2021"
         },
         {
             "Code": "12711-0023",
-            "Content": "Wanderungen zwischen Deutschland und dem Ausland:\nBundesländer, Jahre, Nationalität, Geschlecht",
+            "Content": "Wanderungen zwischen Deutschland und dem Ausland:\nBundesl?nder, Jahre, Nationalit?t, Geschlecht",
             "Time": "2000 - 2021"
         },
         {
             "Code": "13111-0005",
-            "Content": "Sozialversicherungspflichtig Beschäftigte am Arbeitsort:\nBundesländer, Stichtag, Geschlecht",
+            "Content": "Sozialversicherungspflichtig Besch?ftigte am Arbeitsort:\nBundesl?nder, Stichtag, Geschlecht",
             "Time": "31.03.2008 - 30.06.2022"
         },
         {
             "Code": "13111-0006",
-            "Content": "Sozialversicherungspflichtig Beschäftigte am Arbeitsort:\nBundesländer, Stichtag, Wirtschaftsabschnitte",
+            "Content": "Sozialversicherungspflichtig Besch?ftigte am Arbeitsort:\nBundesl?nder, Stichtag, Wirtschaftsabschnitte",
             "Time": "31.03.2008 - 30.06.2022"
         },
         {
             "Code": "13211-0007",
-            "Content": "Arbeitslose, Arbeitslosenquoten, Gemeldete Arbeitsstellen:\nBundesländer, Jahre",
+            "Content": "Arbeitslose, Arbeitslosenquoten, Gemeldete Arbeitsstellen:\nBundesl?nder, Jahre",
             "Time": "1991 - 2022"
         },
         {
             "Code": "13211-0008",
-            "Content": "Arbeitslose, Arbeitslosenquoten, Gemeldete Arbeitsstellen:\nBundesländer, Monate",
+            "Content": "Arbeitslose, Arbeitslosenquoten, Gemeldete Arbeitsstellen:\nBundesl?nder, Monate",
             "Time": "Januar 2005 - Februar 2023"
         },
         {
             "Code": "13211-0009",
-            "Content": "Arbeitslose: Bundesländer, Jahre, Geschlecht",
+            "Content": "Arbeitslose: Bundesl?nder, Jahre, Geschlecht",
             "Time": "1991 - 2022"
         },
         {
             "Code": "13211-0010",
-            "Content": "Arbeitslose: Bundesländer, Monate, Geschlecht",
+            "Content": "Arbeitslose: Bundesl?nder, Monate, Geschlecht",
             "Time": "Januar 2005 - Februar 2023"
         },
         {
             "Code": "13211-0011",
-            "Content": "Arbeitslosenquote aller zivilen Erwerbspersonen:\nBundesländer, Jahre, Geschlecht",
+            "Content": "Arbeitslosenquote aller zivilen Erwerbspersonen:\nBundesl?nder, Jahre, Geschlecht",
             "Time": "1991 - 2022"
         },
         {
             "Code": "13211-0012",
-            "Content": "Arbeitslosenquote aller zivilen Erwerbspersonen:\nBundesländer, Monate, Geschlecht",
+            "Content": "Arbeitslosenquote aller zivilen Erwerbspersonen:\nBundesl?nder, Monate, Geschlecht",
             "Time": "Januar 2005 - Februar 2023"
         },
         {
             "Code": "13311-0002",
-            "Content": "Erwerbstätige, Arbeitnehmer, Selbständige und mithelfende\nFamilienangehörige (im Inland): Bundesländer, Jahre,\nWirtschaftszweige",
+            "Content": "Erwerbst?tige, Arbeitnehmer, Selbst?ndige und mithelfende\nFamilienangeh?rige (im Inland): Bundesl?nder, Jahre,\nWirtschaftszweige",
             "Time": "1991 - 2022"
         },
         {
             "Code": "14111-0003",
-            "Content": "Wahlberechtigte, Wähler, Wahlbeteiligung, Erststimmen,\nZweitstimmen (Allgemeine Bundestagswahlstatistik):\nBundesländer, Stichtag",
+            "Content": "Wahlberechtigte, W?hler, Wahlbeteiligung, Erststimmen,\nZweitstimmen (Allgemeine Bundestagswahlstatistik):\nBundesl?nder, Stichtag",
             "Time": "22.09.2013 - 26.09.2021"
         },
         {
             "Code": "14111-0004",
-            "Content": "Gültige Erststimmen, gültige Zweitstimmen (Allgemeine\nBundestagswahlstatistik): Bundesländer, Stichtag, Parteien",
+            "Content": "G?ltige Erststimmen, g?ltige Zweitstimmen (Allgemeine\nBundestagswahlstatistik): Bundesl?nder, Stichtag, Parteien",
             "Time": "22.09.2013 - 26.09.2021"
         },
         {
             "Code": "14121-0004",
-            "Content": "Gültige Zweitstimmen (Repräsentative\nBundestagswahlstatistik): Bundesländer, Stichtag, Parteien,\nGeschlecht",
+            "Content": "G?ltige Zweitstimmen (Repr?sentative\nBundestagswahlstatistik): Bundesl?nder, Stichtag, Parteien,\nGeschlecht",
             "Time": "22.09.2002 - 26.09.2021"
         },
         {
             "Code": "14121-0005",
-            "Content": "Gültige Zweitstimmen (Repräsentative\nBundestagswahlstatistik): Bundesländer, Stichtag, Parteien,\nAltersgruppen",
+            "Content": "G?ltige Zweitstimmen (Repr?sentative\nBundestagswahlstatistik): Bundesl?nder, Stichtag, Parteien,\nAltersgruppen",
             "Time": "22.09.2013 - 26.09.2021"
         },
         {
             "Code": "14121-0006",
-            "Content": "Gültige Zweitstimmen (Repräsentative\nBundestagswahlstatistik): Bundesländer, Stichtag, Parteien,\nGeschlecht, Altersgruppen",
+            "Content": "G?ltige Zweitstimmen (Repr?sentative\nBundestagswahlstatistik): Bundesl?nder, Stichtag, Parteien,\nGeschlecht, Altersgruppen",
             "Time": "22.09.2013 - 26.09.2021"
         },
         {
             "Code": "14211-0002",
-            "Content": "Gültige Stimmen (Allgemeine Europawahlstatistik):\nBundesländer, Stichtag, Parteien",
+            "Content": "G?ltige Stimmen (Allgemeine Europawahlstatistik):\nBundesl?nder, Stichtag, Parteien",
             "Time": "12.06.1994 - 26.05.2019"
         }
     ],
-    "Copyright": "© Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
 }

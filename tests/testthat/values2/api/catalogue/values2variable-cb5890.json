@@ -13,7 +13,7 @@
         "password": "********************",
         "name": "DLAND",
         "selection": "",
-        "area": "Öffentlich",
+        "area": "oeffentlich",
         "searchcriterion": "Code",
         "sortcriterion": "Code",
         "pagelength": "100",
@@ -22,7 +22,7 @@
     "List": [
         {
             "Code": "08",
-            "Content": "Baden-Württemberg",
+            "Content": "Baden-W?rttemberg",
             "Variables": "9",
             "Information": "false"
         },
@@ -112,10 +112,10 @@
         },
         {
             "Code": "16",
-            "Content": "Thüringen",
+            "Content": "Th?ringen",
             "Variables": "11",
             "Information": "false"
         }
     ],
-    "Copyright": "© Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
 }

@@ -13,7 +13,7 @@
         "password": "********************",
         "name": "61111",
         "selection": "",
-        "area": "Öffentlich",
+        "area": "oeffentlich",
         "searchcriterion": "Code",
         "sortcriterion": "Code",
         "type": "Alle",
@@ -66,14 +66,14 @@
         {
             "Code": "DINSG",
             "Content": "Deutschland insgesamt",
-            "Type": "räumlich insgesamt",
+            "Type": "r?umlich insgesamt",
             "Values": "-1",
             "Information": "false"
         },
         {
             "Code": "DLAND",
-            "Content": "Bundesländer",
-            "Type": "räumlich",
+            "Content": "Bundesl?nder",
+            "Type": "r?umlich",
             "Values": "-1",
             "Information": "true"
         },
@@ -113,5 +113,5 @@
             "Information": "true"
         }
     ],
-    "Copyright": "© Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
 }

@@ -15,6 +15,5 @@ set_redactor(function(request) {
   request$url <- final_string
 
   return(request)
-  # print(request)
 
 })

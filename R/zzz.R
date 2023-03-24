@@ -1,3 +1,3 @@
-# .onLoad <- function(libname, pkgname) {
-#   gen_api <<- memoise::memoise(gen_api)
-# }
+.onLoad <- function(libname, pkgname) {
+  gen_api <<- memoise::memoise(gen_api)
+}

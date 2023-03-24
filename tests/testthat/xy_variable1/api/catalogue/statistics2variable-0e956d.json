@@ -13,7 +13,7 @@
         "password": "********************",
         "name": "DLAND",
         "selection": "",
-        "area": "Öffentlich",
+        "area": "oeffentlich",
         "searchcriterion": "Code",
         "sortcriterion": "Code",
         "pagelength": "100",
@@ -52,31 +52,31 @@
         },
         {
             "Code": "12411",
-            "Content": "Fortschreibung des Bevölkerungsstandes",
+            "Content": "Fortschreibung des Bev?lkerungsstandes",
             "Cubes": "28",
             "Information": "true"
         },
         {
             "Code": "12421",
-            "Content": "Bevölkerungsvorausberechnungen",
+            "Content": "Bev?lkerungsvorausberechnungen",
             "Cubes": "16",
             "Information": "true"
         },
         {
             "Code": "12521",
-            "Content": "Ausländerstatistik",
+            "Content": "Ausl?nderstatistik",
             "Cubes": "98",
             "Information": "true"
         },
         {
             "Code": "12531",
-            "Content": "Statistik über Schutzsuchende",
+            "Content": "Statistik ?ber Schutzsuchende",
             "Cubes": "78",
             "Information": "true"
         },
         {
             "Code": "12611",
-            "Content": "Statistik der Eheschließungen",
+            "Content": "Statistik der Eheschlie?ungen",
             "Cubes": "7",
             "Information": "true"
         },
@@ -88,7 +88,7 @@
         },
         {
             "Code": "12613",
-            "Content": "Statistik der Sterbefälle",
+            "Content": "Statistik der Sterbef?lle",
             "Cubes": "17",
             "Information": "true"
         },
@@ -100,13 +100,13 @@
         },
         {
             "Code": "12631",
-            "Content": "Statistik rechtskräftiger Urteile in Ehesachen",
+            "Content": "Statistik rechtskr?ftiger Urteile in Ehesachen",
             "Cubes": "6",
             "Information": "true"
         },
         {
             "Code": "12651",
-            "Content": "Begründung von Lebenspartnerschaften",
+            "Content": "Begr?ndung von Lebenspartnerschaften",
             "Cubes": "3",
             "Information": "true"
         },
@@ -124,19 +124,19 @@
         },
         {
             "Code": "13111",
-            "Content": "Statistik d. sozialversicherungspfl. Beschäftigten",
+            "Content": "Statistik d. sozialversicherungspfl. Besch?ftigten",
             "Cubes": "13",
             "Information": "true"
         },
         {
             "Code": "13211",
-            "Content": "Arbeitsmarktstatistik der Bundesagentur für Arbeit",
+            "Content": "Arbeitsmarktstatistik der Bundesagentur f?r Arbeit",
             "Cubes": "16",
             "Information": "true"
         },
         {
             "Code": "13311",
-            "Content": "Länderberechnung Erwerbstätige",
+            "Content": "L?nderberechnung Erwerbst?tige",
             "Cubes": "4",
             "Information": "true"
         },
@@ -148,7 +148,7 @@
         },
         {
             "Code": "14121",
-            "Content": "Repräsentative Bundestagswahlstatistik",
+            "Content": "Repr?sentative Bundestagswahlstatistik",
             "Cubes": "10",
             "Information": "true"
         },
@@ -160,7 +160,7 @@
         },
         {
             "Code": "14221",
-            "Content": "Repräsentative Europawahlstatistik",
+            "Content": "Repr?sentative Europawahlstatistik",
             "Cubes": "4",
             "Information": "true"
         },
@@ -196,7 +196,7 @@
         },
         {
             "Code": "21321",
-            "Content": "Statistik der Prüfungen",
+            "Content": "Statistik der Pr?fungen",
             "Cubes": "5",
             "Information": "true"
         },
@@ -214,7 +214,7 @@
         },
         {
             "Code": "21353",
-            "Content": "Statistik der Hochschulräte",
+            "Content": "Statistik der Hochschulr?te",
             "Cubes": "2",
             "Information": "true"
         },
@@ -238,19 +238,19 @@
         },
         {
             "Code": "21411",
-            "Content": "Statistik der Bundesausbildungsförderung (BAföG)",
+            "Content": "Statistik der Bundesausbildungsf?rderung (BAf?G)",
             "Cubes": "4",
             "Information": "true"
         },
         {
             "Code": "21421",
-            "Content": "Statistik der Aufstiegsfortbildungsförderung",
+            "Content": "Statistik der Aufstiegsfortbildungsf?rderung",
             "Cubes": "30",
             "Information": "true"
         },
         {
             "Code": "21431",
-            "Content": "Förderung nach dem Stipendienprogramm-Gesetz",
+            "Content": "F?rderung nach dem Stipendienprogramm-Gesetz",
             "Cubes": "37",
             "Information": "true"
         },
@@ -262,19 +262,19 @@
         },
         {
             "Code": "21621",
-            "Content": "Berichterstattung über öffentliche Kulturausgaben",
+            "Content": "Berichterstattung ?ber ?ffentliche Kulturausgaben",
             "Cubes": "6",
             "Information": "true"
         },
         {
             "Code": "21711",
-            "Content": "Bildungsberichterstattung für nationale Zwecke",
+            "Content": "Bildungsberichterstattung f?r nationale Zwecke",
             "Cubes": "13",
             "Information": "false"
         },
         {
             "Code": "21821",
-            "Content": "Berichterstattung über Forschung und Entwicklung",
+            "Content": "Berichterstattung ?ber Forschung und Entwicklung",
             "Cubes": "5",
             "Information": "false"
         },
@@ -286,13 +286,13 @@
         },
         {
             "Code": "22121",
-            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt",
+            "Content": "Statistik d. Empf?nger v. Hilfe z. Lebensunterhalt",
             "Cubes": "26",
             "Information": "true"
         },
         {
             "Code": "22131",
-            "Content": "Statistik d. Empfänger v. Leist.(5.-9.Kap.SGB XII)",
+            "Content": "Statistik d. Empf?nger v. Leist.(5.-9.Kap.SGB XII)",
             "Cubes": "20",
             "Information": "true"
         },
@@ -316,19 +316,19 @@
         },
         {
             "Code": "22211",
-            "Content": "Ausgaben und Einnahmen für Asylbewerberleistungen",
+            "Content": "Ausgaben und Einnahmen f?r Asylbewerberleistungen",
             "Cubes": "12",
             "Information": "true"
         },
         {
             "Code": "22221",
-            "Content": "Statistik der Empfänger von Asylbewerberleistungen",
+            "Content": "Statistik der Empf?nger von Asylbewerberleistungen",
             "Cubes": "11",
             "Information": "true"
         },
         {
             "Code": "22231",
-            "Content": "Stat.d. Empfänger von besonderen Asylbewerberlstg.",
+            "Content": "Stat.d. Empf?nger von besonderen Asylbewerberlstg.",
             "Cubes": "6",
             "Information": "true"
         },
@@ -340,19 +340,19 @@
         },
         {
             "Code": "22411",
-            "Content": "Statistik über ambulante Pflegeeinrichtungen",
+            "Content": "Statistik ?ber ambulante Pflegeeinrichtungen",
             "Cubes": "21",
             "Information": "true"
         },
         {
             "Code": "22412",
-            "Content": "Statistik über stationäre Pflegeeinrichtungen",
+            "Content": "Statistik ?ber station?re Pflegeeinrichtungen",
             "Cubes": "23",
             "Information": "true"
         },
         {
             "Code": "22421",
-            "Content": "Statistik über d. Empfänger v.Pflegegeldleistungen",
+            "Content": "Statistik ?ber d. Empf?nger v.Pflegegeldleistungen",
             "Cubes": "19",
             "Information": "true"
         },
@@ -364,7 +364,7 @@
         },
         {
             "Code": "22518",
-            "Content": "Stat. ü. d. Schutzauftrag bei Kindeswohlgefährdung",
+            "Content": "Stat. ?. d. Schutzauftrag bei Kindeswohlgef?hrdung",
             "Cubes": "26",
             "Information": "true"
         },
@@ -382,13 +382,13 @@
         },
         {
             "Code": "22523",
-            "Content": "Statistik der vorläufigen Schutzmaßnahmen",
+            "Content": "Statistik der vorl?ufigen Schutzma?nahmen",
             "Cubes": "31",
             "Information": "true"
         },
         {
             "Code": "22541",
-            "Content": "Kinder und tätige Personen in Tageseinrichtungen",
+            "Content": "Kinder und t?tige Personen in Tageseinrichtungen",
             "Cubes": "1",
             "Information": "true"
         },
@@ -400,7 +400,7 @@
         },
         {
             "Code": "22543",
-            "Content": "Kinder und tätige Personen in Kindertagespflege",
+            "Content": "Kinder und t?tige Personen in Kindertagespflege",
             "Cubes": "29",
             "Information": "true"
         },
@@ -442,7 +442,7 @@
         },
         {
             "Code": "23311",
-            "Content": "Statistik der Schwangerschaftsabbrüche",
+            "Content": "Statistik der Schwangerschaftsabbr?che",
             "Cubes": "2",
             "Information": "true"
         },
@@ -460,19 +460,19 @@
         },
         {
             "Code": "24221",
-            "Content": "Statistik über Straf- und Bußgeldverfahren",
+            "Content": "Statistik ?ber Straf- und Bu?geldverfahren",
             "Cubes": "4",
             "Information": "true"
         },
         {
             "Code": "24231",
-            "Content": "Statistik über Zivilsachen",
+            "Content": "Statistik ?ber Zivilsachen",
             "Cubes": "2",
             "Information": "true"
         },
         {
             "Code": "24241",
-            "Content": "Statistik über Familiensachen",
+            "Content": "Statistik ?ber Familiensachen",
             "Cubes": "4",
             "Information": "true"
         },
@@ -520,7 +520,7 @@
         },
         {
             "Code": "31131",
-            "Content": "Statistik des Bauüberhangs",
+            "Content": "Statistik des Bau?berhangs",
             "Cubes": "8",
             "Information": "true"
         },
@@ -532,7 +532,7 @@
         },
         {
             "Code": "31231",
-            "Content": "Fortschreibung Wohngebäude- und Wohnungsbestand",
+            "Content": "Fortschreibung Wohngeb?ude- und Wohnungsbestand",
             "Cubes": "6",
             "Information": "true"
         },
@@ -544,7 +544,7 @@
         },
         {
             "Code": "32121",
-            "Content": "Erhebung der öffentlich-rechtl. Abfallentsorgung",
+            "Content": "Erhebung der ?ffentlich-rechtl. Abfallentsorgung",
             "Cubes": "5",
             "Information": "true"
         },
@@ -556,55 +556,55 @@
         },
         {
             "Code": "32136",
-            "Content": "Erhebung über zurückgenommene Verkaufsverpackungen",
+            "Content": "Erhebung ?ber zur?ckgenommene Verkaufsverpackungen",
             "Cubes": "10",
             "Information": "true"
         },
         {
             "Code": "32141",
-            "Content": "Aufbereitung,Verwertung v. Bau- u. Abbruchabfällen",
+            "Content": "Aufbereitung,Verwertung v. Bau- u. Abbruchabf?llen",
             "Cubes": "7",
             "Information": "true"
         },
         {
             "Code": "32151",
-            "Content": "Erhebung der gefährlichen Abfälle",
+            "Content": "Erhebung der gef?hrlichen Abf?lle",
             "Cubes": "12",
             "Information": "true"
         },
         {
             "Code": "32161",
-            "Content": "Erhebung über die Abfallerzeugung",
+            "Content": "Erhebung ?ber die Abfallerzeugung",
             "Cubes": "6",
             "Information": "true"
         },
         {
             "Code": "32211",
-            "Content": "Erhebung der öffentlichen Wasserversorgung",
+            "Content": "Erhebung der ?ffentlichen Wasserversorgung",
             "Cubes": "4",
             "Information": "true"
         },
         {
             "Code": "32212",
-            "Content": "Erhebung der öffentlichen Abwasserentsorgung",
+            "Content": "Erhebung der ?ffentlichen Abwasserentsorgung",
             "Cubes": "2",
             "Information": "true"
         },
         {
             "Code": "32213",
-            "Content": "Erhebung der öffentlichen Abwasserbehandlung",
+            "Content": "Erhebung der ?ffentlichen Abwasserbehandlung",
             "Cubes": "4",
             "Information": "true"
         },
         {
             "Code": "32214",
-            "Content": "Erhebung der öff. Abwasserentsorgung - Klärschlamm",
+            "Content": "Erhebung der ?ff. Abwasserentsorgung - Kl?rschlamm",
             "Cubes": "1",
             "Information": "true"
         },
         {
             "Code": "32221",
-            "Content": "Erh. nichtöff. Wasserversorgung,Abwasserentsorgung",
+            "Content": "Erh. nicht?ff. Wasserversorgung,Abwasserentsorgung",
             "Cubes": "12",
             "Information": "true"
         },
@@ -621,5 +621,5 @@
             "Information": "true"
         }
     ],
-    "Copyright": "© Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
 }
