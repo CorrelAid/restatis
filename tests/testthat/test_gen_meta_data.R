@@ -22,7 +22,7 @@ with_mock_dir("meta1", {
 
 #-------------------------------------------------------------------------------
 
-with_mock_dir("meta2", {
+with_mock_dir("meta2_fake", {
   test_that("gen_meta_data errors if there is an error code", {
     expect_error(
       restatis::gen_meta_data(code = "1*",

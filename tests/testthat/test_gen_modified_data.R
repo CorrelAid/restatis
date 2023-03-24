@@ -36,7 +36,7 @@ with_mock_dir("modified3", {
   })
 })
 
-with_mock_dir("modified4", {
+with_mock_dir("modified4_fake", {
   test_that("gen_modified_data function warns if there is a non-zero status code", {
     expect_warning(
       restatis::gen_modified_data(code = "61234", date = "01.01.2022"),

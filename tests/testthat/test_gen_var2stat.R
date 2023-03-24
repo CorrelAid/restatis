@@ -6,8 +6,8 @@ with_mock_dir("variables1", {
   test_that("gen_var2stat function returns list", {
 
     result <- restatis::gen_var2stat(code = "61111",
-                                                     detailed = TRUE,
-                                                     sortcriterion = "code")
+                                     detailed = TRUE,
+                                     sortcriterion = "code")
 
     expect_type(result, type = "list")
 
@@ -23,7 +23,7 @@ with_mock_dir("variables1", {
 
 #-------------------------------------------------------------------------------
 
-with_mock_dir("variables2", {
+with_mock_dir("variables2_fake", {
   test_that("gen_var2stat function errors if there is a problem", {
     expect_error(
       restatis::gen_var2stat(code = "74111"),

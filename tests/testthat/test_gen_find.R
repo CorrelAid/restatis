@@ -23,7 +23,7 @@ with_mock_dir("find1", {
 
 #-------------------------------------------------------------------------------
 
-with_mock_dir("find2", {
+with_mock_dir("find2_fake", {
   test_that("gen_find errors if there is an error code", {
     expect_error(
       restatis::gen_find(term = "bus", error.ignore = TRUE),
@@ -34,7 +34,7 @@ with_mock_dir("find2", {
 #-------------------------------------------------------------------------------
 
 with_mock_dir("find3", {
-  test_that("gen_find errors if there is an error code", {
+  test_that("gen_find messages for 'detailed = TRUE'", {
     expect_message(
       restatis::gen_find(term = "zensus", error.ignore = TRUE),
       regexp = "Use 'detailed = TRUE' to obtain the complete output.")
@@ -74,4 +74,3 @@ test_that("gen_find function errors on wrong error.ignore param", {
     restatis::gen_find(term = "bus", error.ignore = 1, category = "tables"),
     regexp = "Parameter 'error.ignore' has to be of type 'logical' and of length 1.")
 })
-

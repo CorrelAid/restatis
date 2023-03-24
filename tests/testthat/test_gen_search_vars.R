@@ -24,7 +24,7 @@ with_mock_dir("searchvars1", {
 
 #-------------------------------------------------------------------------------
 
-with_mock_dir("searchvars2", {
+with_mock_dir("searchvars2_fake", {
   test_that("gen_search_vars returns a list element", {
 
     expect_error(
