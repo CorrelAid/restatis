@@ -14,7 +14,9 @@ with_mock_dir("modified2", {
   test_that("gen_modified_data function returns message", {
     expect_message(
       restatis::gen_modified_data(code = "61111"),
-      regexp = "Please note that this date is calculated automatically")
+      regexp = "Please note that this date is calculated automatically and may differ
+              from manually entered data. Manually entered data must have
+              the format DD.MM.YYYY.")
   })
 })
 
