@@ -53,8 +53,7 @@ Some of the options we want to use are the default ones, but we will explicitly 
 results <- gen_find(term = "busfahrer",
                     detailed = F,
                     ordering = T,
-                    category = "all"
-                    )
+                    category = "all")
 
 results
 ```
