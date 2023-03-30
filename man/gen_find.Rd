@@ -14,7 +14,7 @@ gen_find(
 )
 }
 \arguments{
-\item{term}{A string with no maximum character length.}
+\item{term}{A string with no maximum character length, but a word limit of five words.}
 
 \item{category}{A string. Specific object types: 'tables', 'statistics', 'variables', and 'cubes'. Using all together is possible. Default option are 'all' objects.}
 
@@ -30,7 +30,9 @@ gen_find(
 A list with all elements retrieved from Genesis. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to search through Genesis. It is similar in usage as the search function on the Destatis main page (https://www.destatis.de/DE/Home/_inhalt.html). In the search query, "AND" as well as "OR" can be included. Important note: Time-series are treated as cubes, they are not longer distinguished. If you want to find a specific object with a clear code with this find function, you need to specify the object type or search for all object types.
+Function to search through Genesis. It is similar in usage as the search function on the Destatis main page (https://www.destatis.de/DE/Home/_inhalt.html).
+In the search query, "UND" (german word for: and; can also be written "und" or "&") as well as "ODER" (german word for: or; can also be written "oder" or "|") can be included and logically combined. Furthermore, wildcards are possible by including "*". If more then one word is included in the term-string, automatically "and" is used to combine the different words.
+Important note: Time-series are treated as cubes, they are not longer distinguished. If you want to find a specific object with a clear code with this find function, you need to specify the object type or search for all object types.
 }
 \examples{
 \dontrun{
@@ -39,6 +41,12 @@ object <- gen_find(term = "bus")
 
 # Find tables related to "bus" in Genesis and return a unordered detailed output
 object <- gen_find(term = "bus", detailed = TRUE, ordering = FALSE)
+
+# Find tables related to "Autos" or "Corona" in Genesis and return a unordered detailed output
+object <- gen_find(term = "autos ODER corona", detailed = TRUE, ordering = FALSE)
+
+#' # Find tables related to "Autos" and "Corona" in Genesis and return a unordered detailed output
+object <- gen_find(term = "autos UND corona", detailed = TRUE, ordering = FALSE)
 }
 
 }
