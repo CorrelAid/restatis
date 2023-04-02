@@ -42,8 +42,12 @@
 #' }
 #'
 gen_table <- function(name, ...) {
+
   gen_table_(name, ...)
+
 }
+
+#-------------------------------------------------------------------------------
 
 gen_table_ <- function(name,
                        area = c("public", "user"),
