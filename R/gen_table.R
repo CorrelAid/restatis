@@ -65,12 +65,16 @@ gen_table_ <- function(name,
                        classifyingkey3 = NULL,
                        stand = NULL,
                        language = Sys.getenv("GENESIS_LANG")) {
+
   area <- match.arg(area)
+
   if (!isTRUE(language == "en")) {
-    area <- switch(area, public = "öffentlich", user = "benutzer")
+    area <- switch(area, public = "\u00F6ffentlich", user = "benutzer")
   }
+
   param_check_year(startyear)
   param_check_year(endyear)
+
   regionalkey <- param_collapse_vec(regionalkey)
   classifyingkey1 <- param_collapse_vec(classifyingkey1)
   classifyingkey2 <- param_collapse_vec(classifyingkey2)

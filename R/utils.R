@@ -6,7 +6,7 @@ resp_check_data_csv <- function(resp) {
 
 param_check_year <- function(year) {
 
-  if (as.integer(year) <= 1900 | as.integer(year) >= 2100)  {
+  if (as.integer(year) < 1900 | as.integer(year) > 2100)  {
 
     stop("The parameter 'year' has been misspecified (>= 1900 or <= 2100).",
          call. = FALSE)

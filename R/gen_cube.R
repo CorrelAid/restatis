@@ -74,7 +74,7 @@ gen_cube_ <- function(name,
   area <- match.arg(area)
 
   if (!isTRUE(language == "en")) {
-    area <- switch(area, public = "öffentlich", user = "benutzer")
+    area <- switch(area, public = "\u00F6ffentlich", user = "benutzer")
   }
 
   param_check_year(startyear)
