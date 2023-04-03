@@ -69,8 +69,7 @@ For our question about the income of bus drivers, we want to check the metadata 
 
 ```{r Investigate the interesting objects}
 information <- gen_meta_data(code = results$Cubes$Code[[1]],
-                             category = results$Cubes$Object_Type[[1]],
-                             )
+                             category = results$Cubes$Object_Type[[1]])
 
 information
 ```
