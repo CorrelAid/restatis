@@ -1,45 +1,20 @@
-`%||%` <- function(x, y) {
-  if (is.null(x)) y else x
-}
-
-lgl_to_str <- function(x) {
-  x <- x %||% logical()
-  stopifnot(is.logical(x) && length(x) <= 1L)
-  tolower(isTRUE(x))
-}
-
-str_collapse <- function(x) {
-  x <- x %||% character()
-  stopifnot(is.character(x))
-  paste0(x, collapse = ",")
-}
-
-lang_check <- function(x) {
-  x <- x %||% Sys.getenv("GENESIS_LANG")
-
-  if (!(x %in% c("de", "en"))) {
-    stop("Available languages are German (de) or English (en).")
+resp_check_data_csv <- function(resp) {
+  if (httr2::resp_content_type(resp) != "text/csv") {
+    stop("No data found that meets the specified parameters", call. = FALSE)
   }
 }
 
-type_check <- function(x) {
-  x <- x %||% "alle"
+param_check_year <- function(year) {
 
-  valid_types <- c(
-    "klassifizierend",
-    "insgesamt",
-    "räumlich",
-    "sachlich",
-    "wert",
-    "zeitlich",
-    "zeitidentifizierend",
-    "alle"
-  )
+  if (as.integer(year) < 1900 | as.integer(year) > 2100)  {
 
-  if (!(x %in% valid_types)) {
-    stop(
-      "One of the following types must be specified:\n",
-      paste(valid_types, collapse = ", "),
-    )
+    stop("The parameter 'year' has been misspecified (>= 1900 or <= 2100).",
+         call. = FALSE)
+
   }
+
+}
+
+param_collapse_vec <- function(vec) {
+  paste0(vec, collapse = ",")
 }
