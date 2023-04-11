@@ -72,3 +72,4 @@ gen_auth_ask <- function(credential_type) {
 gen_auth_path <- function(...) {
   file.path(tools::R_user_dir("restatis", "config"), ...)
 }
+

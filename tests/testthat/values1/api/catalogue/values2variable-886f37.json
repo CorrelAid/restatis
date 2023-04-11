@@ -1,0 +1,24 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "values2variable"
+    },
+    "Status": {
+        "Code": 104,
+        "Content": "Es gibt keine Objekte zum angegebenen Selektionskriterium",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "name": "61111",
+        "selection": "",
+        "area": "oeffentlich",
+        "searchcriterion": "Code",
+        "sortcriterion": "Code",
+        "pagelength": "100",
+        "language": "de"
+    },
+    "List": null,
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
+}

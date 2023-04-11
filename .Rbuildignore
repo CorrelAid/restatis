@@ -3,3 +3,5 @@
 ^\.github$
 ^README\.Rmd$
 ^LICENSE\.md$
+^doc$
+^Meta$

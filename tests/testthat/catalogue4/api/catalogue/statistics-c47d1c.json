@@ -1,0 +1,42 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "statistics"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "selection": "611*",
+        "searchcriterion": "Code",
+        "sortcriterion": "Code",
+        "pagelength": "100",
+        "language": "de",
+        "area": "Alle"
+    },
+    "List": [
+        {
+            "Code": "61111",
+            "Content": "Verbraucherpreisindex fuer Deutschland",
+            "Cubes": "22",
+            "Information": "true"
+        },
+        {
+            "Code": "61121",
+            "Content": "Harmonisierter Verbraucherpreisindex",
+            "Cubes": "12",
+            "Information": "true"
+        },
+        {
+            "Code": "61131",
+            "Content": "Index der Einzelhandelspreise",
+            "Cubes": "2",
+            "Information": "false"
+        }
+    ],
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
+}

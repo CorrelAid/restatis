@@ -1,0 +1,110 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "variables2statistic"
+    },
+    "Status": {
+        "Code": 100,
+        "Content": "test error message",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "name": "74111",
+        "selection": "",
+        "area": "oeffentlich",
+        "searchcriterion": "Code",
+        "sortcriterion": "Code",
+        "type": "Alle",
+        "pagelength": "100",
+        "language": "de"
+    },
+    "List": [
+        {
+            "Code": "BES003",
+            "Content": "Besch?ftigte im ?ffentlichen Dienst",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "BES019",
+            "Content": "Besch?ftigte im Aufgabenbereich Polizei",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "BES020",
+            "Content": "Besch. im Aufg.ber. Polizei (Vollzeit?quivalente)",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "BESBR2",
+            "Content": "Besch?ftigungsbereich",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "BESBR3",
+            "Content": "Besch?ftigungsbereich",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "BESUM4",
+            "Content": "Besch?ftigungsumfang",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "DINSG",
+            "Content": "Deutschland insgesamt",
+            "Type": "r?umlich insgesamt",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "DLAND",
+            "Content": "Bundesl?nder",
+            "Type": "r?umlich",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "DSTVS1",
+            "Content": "Dienstverh?ltnis (?ffentlicher Dienst)",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "DSTVS2",
+            "Content": "Dienstverh?ltnis",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "GES",
+            "Content": "Geschlecht",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "STAG",
+            "Content": "Stichtag",
+            "Type": "zeitidentifizierend",
+            "Values": "-1",
+            "Information": "false"
+        }
+    ],
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
+}
