@@ -1,27 +1,37 @@
 Package: restatis
-Title: What the Package Does (One Line, Title Case)
+Title: R Wrapper for the GENESIS Web Service RESTful API of the German
+    Federal Statistical Office (Statistisches Bundesamt/Destatis)
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Authors@R: c(
+    person("Yannik", "Buhl", role = "aut"),
+    person("Zoran", "Kovacevic", role = "aut"),
+    person("Dorian", "Le Jeune", role = "aut"),
+    person("Long", "Nguyen", , "long.nguyen@uni-bielefeld.de", role = c("aut", "cre")),
+    person("Johannes", "Ritter", role = "aut")
+  )
+Description: A RESTful API wrapper for accessing the GENESIS database of
+    the German Federal Statistical Office (Destatis). Also supports data
+    search functions, credential management, result caching, and handling
+    remote background jobs for large datasets.
 License: MIT + file LICENSE
+Depends: 
+    R (>= 2.10)
 Imports: 
     askpass,
     httr2,
     memoise,
-    vctrs,
-    readr
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+    readr,
+    tibble,
+    vctrs
 Suggests: 
     httptest2,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
 Config/testthat/edition: 3
-Depends: 
-    R (>= 2.10)
+Encoding: UTF-8
 LazyData: true
-VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
