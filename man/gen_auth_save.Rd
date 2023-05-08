@@ -10,12 +10,12 @@ gen_auth_save()
 See Details.
 }
 \details{
-Destatis username and password are encrypted and saved as RDS in the
+Genesis username and password are encrypted and saved as RDS in the
 package config directory.
 
 A random string is generated and stored in the session environment
 variable \code{RESTATIS_KEY}. This string is used as the key to encrypt and
-decrypt the entered Destatis credentials.
+decrypt the entered Genesis credentials.
 
 To avoid having to save authentication in future sessions, \code{RESTATIS_KEY} can
 be added to .Renviron. The usethis package includes a helper function for
