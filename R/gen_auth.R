@@ -16,8 +16,8 @@
 #' @export
 gen_auth_save <- function() {
 
-  username <- "" # gen_auth_ask("username")
-  password <- "" # gen_auth_ask("password")
+  username <- "A" # gen_auth_ask("username")
+  password <- "B" # gen_auth_ask("password")
 
   auth_path <- gen_auth_path("auth.rds")
 
