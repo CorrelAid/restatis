@@ -53,11 +53,11 @@
 
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Destatis username and password are encrypted and saved as RDS in the
+    <p>Genesis username and password are encrypted and saved as RDS in the
 package config directory.</p>
 <p>A random string is generated and stored in the session environment
 variable <code>RESTATIS_KEY</code>. This string is used as the key to encrypt and
-decrypt the entered Destatis credentials.</p>
+decrypt the entered Genesis credentials.</p>
 <p>To avoid having to save authentication in future sessions, <code>RESTATIS_KEY</code> can
 be added to .Renviron. The usethis package includes a helper function for
 editing .Renviron files from an R session with <code>usethis::edit_r_environ()</code>.</p>
