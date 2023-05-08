@@ -4,9 +4,11 @@ Title: R Wrapper for the GENESIS Web Service RESTful API of the German
 Version: 0.0.0.9000
 Authors@R: c(
     person("Yannik", "Buhl", role = "aut"),
-    person("Zoran", "Kovacevic", role = "aut"),
+    person("Zoran", "Kovacevic", role = "aut",
+           comment = c(ORCID = "0009-0002-0156-0862")),
     person("Dorian", "Le Jeune", role = "aut"),
-    person("Long", "Nguyen", , "long.nguyen@uni-bielefeld.de", role = c("aut", "cre")),
+    person("Long", "Nguyen", , "long.nguyen@uni-bielefeld.de", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-8878-7386")),
     person("Johannes", "Ritter", role = "aut")
   )
 Description: A RESTful API wrapper for accessing the GENESIS database of
@@ -35,3 +37,4 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+URL: https://correlaid.github.io/restatis/

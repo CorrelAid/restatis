@@ -5,7 +5,10 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/CorrelAid/restatis/workflows/R-CMD-check/badge.svg)](https://github.com/CorrelAid/restatis/actions)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/restatis)](https://CRAN.R-project.org/package=restatis)
+[![R-CMD-check](https://github.com/CorrelAid/restatis/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CorrelAid/restatis/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/CorrelAid/restatis/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/CorrelAid/restatis/actions/workflows/test-coverage.yaml)
 <!-- badges: end -->
 
 The goal of restatis is to …
