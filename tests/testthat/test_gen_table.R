@@ -6,7 +6,7 @@ with_mock_dir("table1", {
 
   test_that("gen_table returns data.frame", {
 
-    result <- gen_table("61111-0004")
+    result <- gen_table("61111-0001", startyear = 2019)
 
     expect_s3_class(result,
                     class = "data.frame")
