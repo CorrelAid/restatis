@@ -16,6 +16,7 @@ Description: A RESTful API wrapper for accessing the GENESIS database of
     search functions, credential management, result caching, and handling
     remote background jobs for large datasets.
 License: MIT + file LICENSE
+URL: https://correlaid.github.io/restatis/
 Depends: 
     R (>= 2.10)
 Imports: 
@@ -37,4 +38,3 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-URL: https://correlaid.github.io/restatis/
