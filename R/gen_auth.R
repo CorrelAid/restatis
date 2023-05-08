@@ -15,8 +15,9 @@
 #'
 #' @export
 gen_auth_save <- function() {
-  username <- gen_auth_ask("username")
-  password <- gen_auth_ask("password")
+
+  username <- "" # gen_auth_ask("username")
+  password <- "" # gen_auth_ask("password")
 
   auth_path <- gen_auth_path("auth.rds")
 
@@ -46,9 +47,10 @@ gen_auth_save <- function() {
 }
 
 gen_auth_get <- function() {
+
   auth_path <- gen_auth_path("auth.rds")
-  # file.exists(auth_path) &&
-  if (!(nzchar(Sys.getenv("RESTATIS_KEY")))) {
+
+  if (!(file.exists(auth_path) && nzchar(Sys.getenv("RESTATIS_KEY")))) {
     stop(
       "Genesis credentials not found.\n",
       "Please run `gen_auth_save()` to store Genesis username and password.\n",
