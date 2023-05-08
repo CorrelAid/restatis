@@ -7,14 +7,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
-```{r setup}
+
+
+```r
 library(restatis)
 ```
 
@@ -30,15 +26,71 @@ First, we can and should explore if and how our keyword is represented in the GE
 
 To be as broad as possible, we want to search for any term in the data bank that includes our keyword. Therefore we have to add to the searched term a `*` at the beginning and the end - this works as placeholders. 
 
-```{r Finding alternative terms}
+
+```r
 gen_alternative_terms(term = "*busfahrer*")
+#> $Output
+#> [1] "busfahrer"
+#> 
+#> attr(,"Term")
+#> [1] "*busfahrer*"
+#> attr(,"Language")
+#> [1] "de"
+#> attr(,"Pagelength")
+#> [1] "100"
+#> attr(,"Copyright")
+#> [1] "© Statistisches Bundesamt (Destatis), 2023"
 ```
 We already have a relatively specific keyword based on the results, and no additional specifications are necessary. 
 
 If we start with the keyword "bus" for example - the vehicle itself - we can see that the data bank has different related terms, which could be helpful to narrow our search radius further. In this example, it could be helpful to see that there are at least three different types of busses which are searchable: "fernbus", "schienenbus", and "kraftomnibusse". 
 
-```{r}
+
+```r
 gen_alternative_terms(term = "*bus*")
+#> $Output
+#>  [1] "Bus"                                      "bus"                                     
+#>  [3] "busin"                                    "Busse"                                   
+#>  [5] "busse"                                    "bambus"                                  
+#>  [7] "bussen"                                   "büsche"                                  
+#>  [9] "cottbus"                                  "fernbus"                                 
+#> [11] "a.bambus"                                 "aubussons"                               
+#> [13] "business"                                 "jadebusen"                               
+#> [15] "busfahrer"                                "busin.and"                               
+#> [17] "bambusmöbel"                              "bambuswaren"                             
+#> [19] "bustickets"                               "f.omnibusse"                             
+#> [21] "buschbohnen"                              "kraftomnibus"                            
+#> [23] "bambussprossen"                           "büstenhalter"                            
+#> [25] "kraftomnibusse"                           "businessschool"                          
+#> [27] "freilandbüsche"                           "busin.sch.berlin"                        
+#> [29] "doppellumentubus"                         "bambusflechtstoffen"                     
+#> [31] "flugticket, business"                     "business-class-tarif"                    
+#> [33] "halbstoffe aus bambus"                    "essstäbchen aus bambus"                  
+#> [35] "fahrkarte für fernbus"                    "kraftomnibusse, obusse"                  
+#> [37] "andere büstenhalter st"                   "cottbus, kreisfreie stadt"               
+#> [39] "korbmacherwaren aus bambus"               "flugticket, afrika, business"            
+#> [41] "flugticket, inland, business"             "flugticket, amerika, business"           
+#> [43] "crohn-krankheit (morbus crohn)"           "liniennahverkehr mit omnibussen"         
+#> [45] "flugticket, südamerika, business"         "intubation mit doppellumentubus"         
+#> [47] "linienfernverkehr mit omnibussen"         "flugticket, nordamerika, business"       
+#> [49] "kraftomnibusse einschl. omnibusse"        "andere triebwagen und schienenbusse"     
+#> [51] "flugticket, mittelamerika, business"      "bus-, straßenbahnfahrer - fachkraft"     
+#> [53] "bambussprossen, ohne essig zubereitet"    "fußbodenplatten aus bambus, mehrlagig"   
+#> [55] "gelegenheitsnahverkehr mit omnibussen"    "ebz business school, bochum (priv. fh)"  
+#> [57] "flugticket, asien/australien, business"   "flugticket, interkontinental, business"  
+#> [59] "gelegenheitsfernverkehr mit omnibussen"   "brotbretter, schneidebretter aus bambus" 
+#> [61] "büstenhalter mit slip bzw. unterhose st"  "gisma business school potsdam (priv.fh)" 
+#> [63] "büstenhalter aus spinnstofferzeugnissen"  "fußbodenplatten aus bambus, mehrlagig m2"
+#>  [ reached getOption("max.print") -- omitted 36 entries ]
+#> 
+#> attr(,"Term")
+#> [1] "*bus*"
+#> attr(,"Language")
+#> [1] "de"
+#> attr(,"Pagelength")
+#> [1] "100"
+#> attr(,"Copyright")
+#> [1] "© Statistisches Bundesamt (Destatis), 2023"
 ```
 
 
@@ -49,13 +101,53 @@ Because it is over the first overview, we do not need the detailed output, but w
 
 Some of the options we want to use are the default ones, but we will explicitly code them here.
 
-```{r Search for interesting data}
-results <- gen_find(term = "busfahrer",
-                    detailed = F,
-                    ordering = T,
-                    category = "all")
+
+```r
+results <- gen_find(
+  term = "busfahrer",
+  detailed = F,
+  ordering = T,
+  category = "all"
+)
+#> Use 'detailed = TRUE' to obtain the complete output.
 
 results
+#> $Tables
+#> # A tibble: 2 × 3
+#>   Code       Content                                                                                      Object_Type
+#>   <chr>      <chr>                                                                                        <chr>      
+#> 1 62361-0030 Bruttostundenverdienste, Bruttomonatsverdienste: Deutschland, Stichmonat, Geschlecht, Berufe Table      
+#> 2 62361-0034 Bruttojahresverdienste: Deutschland, Jahre, Geschlecht, Berufe                               Table      
+#> 
+#> $Statistics
+#> # A tibble: 1 × 3
+#>   Code  Content           Object_Type
+#>   <chr> <chr>             <chr>      
+#> 1 62361 Verdiensterhebung Statistic  
+#> 
+#> $Variables
+#> # A tibble: 1 × 3
+#>   Code   Content                             Object_Type
+#>   <chr>  <chr>                               <chr>      
+#> 1 KB10A5 Berufsgattungen (KB2010), 5-Steller Variable   
+#> 
+#> $Cubes
+#> # A tibble: 4 × 3
+#>   Code       Content                                                                                       Object_Type
+#>   <chr>      <chr>                                                                                         <chr>      
+#> 1 62361BJ013 Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonats… Cube       
+#> 2 62361BJ010 Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonats… Cube       
+#> 3 62361BJ019 Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. Sonderz., Mittlere Bruttojahresve… Cube       
+#> 4 62361BJ016 Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. Sonderz., Mittlere Bruttojahresve… Cube       
+#> 
+#> attr(,"Term")
+#> [1] "busfahrer"
+#> attr(,"Language")
+#> [1] "de"
+#> attr(,"Pagelength")
+#> [1] "100"
+#> attr(,"Copyright")
+#> [1] "© Statistisches Bundesamt (Destatis), 2023"
 ```
 
 We can see that we find results for our keyword "Busfahrer" in each category of objects (statistics, tables, variables, and cubes). Based on the promising content description of the first cube-object, our next step will be to check what they contain before asking for the data.
@@ -67,11 +159,57 @@ To check if objects are helpful for your interest, get the metadata of these obj
 
 For our question about the income of bus drivers, we want to check the metadata of the first cube-object, we got from the find-function. 
 
-```{r Investigate the interesting objects}
-information <- gen_meta_data(code = results$Cubes$Code[[1]],
-                             category = results$Cubes$Object_Type[[1]])
+
+```r
+information <- gen_meta_data(
+  code = results$Cubes$Code[[1]],
+  category = results$Cubes$Object_Type[[1]]
+)
 
 information
+#> $General
+#>                                                                                                                                                                                                                                                                                                      Code 
+#>                                                                                                                                                                                                                                                                                              "62361BJ013" 
+#>                                                                                                                                                                                                                                                                                                   Content 
+#> "Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonatsverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Geschlecht, Berufsgattungen (KB2010), 5-Steller, Stichmonat" 
+#>                                                                                                                                                                                                                                                                                                     State 
+#>                                                                                                                                                                                                                                                                                             "undefiniert" 
+#>                                                                                                                                                                                                                                                                                                    Values 
+#>                                                                                                                                                                                                                                                                                                       "0" 
+#> 
+#> $Timespan
+#> [1] "04/2022"
+#> 
+#> $Statistic_used
+#>                   Code                Content                Updated 
+#>                "62361"    "Verdiensterhebung" "27.04.2023 08:01:52h" 
+#> 
+#> $Structure
+#> $Structure$Axis
+#>      Code     Content                               Type                  Updated               
+#> [1,] "DINSG"  "Deutschland insgesamt"               "klassifizierend"     "25.01.2016 13:54:17h"
+#> [2,] "GES"    "Geschlecht"                          "klassifizierend"     "25.01.2016 13:54:45h"
+#> [3,] "KB10A5" "Berufsgattungen (KB2010), 5-Steller" "klassifizierend"     "23.11.2022 18:02:54h"
+#> [4,] "SMONAT" "Stichmonat"                          "zeitidentifizierend" "28.12.2022 09:37:21h"
+#> 
+#> $Structure$Content
+#>      Code     Content                                            Type            Unit  Values Updated               
+#> [1,] "VST045" "Durchschn. Bruttostundenverdienste ohne Sonderz." "Festkommazahl" "EUR" ""     "23.11.2022 17:57:57h"
+#> [2,] "VST047" "Durchschn. Bruttomonatsverdienste ohne Sonderz."  "Ganzzahl"      "EUR" ""     "23.11.2022 17:58:02h"
+#> [3,] "VST051" "Mittlere Bruttostundenverdienste ohne Sonderz."   "Festkommazahl" "EUR" ""     "23.11.2022 17:58:13h"
+#> [4,] "VST052" "Mittlere Bruttomonatsverdienste ohne Sonderz."    "Ganzzahl"      "EUR" ""     "23.11.2022 17:58:16h"
+#> 
+#> 
+#> attr(,"Code")
+#> [1] "62361BJ013"
+#> attr(,"Method")
+#> [1] "cube"
+#> attr(,"Updated")
+#> [1] "23.11.2022 18:07:07h"
+#> attr(,"Language")
+#> [1] "de"
+#> attr(,"Copyright")
+#> [1] "© Statistisches Bundesamt (Destatis), 2023"
 ```
 From the output of the meta data-function, we can see a lot of different information. Starting from basic characteristics of the whole object, e.g., code and content, till a fine description of the time span, source, and the structure of the object. Each of them with additional information about last updates, types, and many more. 
 
@@ -84,9 +222,9 @@ Based on the fact that we want a cube-object, we are using now the gen_cube-func
 
 Important note: It is not possible to get a whole statistic-object, but it is possible to collect the different related cube-objects independently and then try to recombine the them.
 
-```{r Get the data}
-# results <- gen_cube(results$Cubes$Code[[1]])
 
+```r
+# results <- gen_cube(results$Cubes$Code[[1]])
 ```
 
 
@@ -105,9 +243,13 @@ For convenience, the functions have already implemented the most generic "date" 
 
 We want to check if something new related to my collected cube-object has been published here. Therefore I only use the first part of the code "62361*". 
 
-```{r Review updates and changes}
-gen_modified_data(code = "62361", date = "week_before")
 
+```r
+gen_modified_data(code = "62361", date = "week_before")
+#> Please note that this date is calculated automatically and may differ
+#>                 from manually entered data. Manually entered data must have
+#>                 the format DD.MM.YYYY.
+#> No modified objects found for your code and date.
 ```
 
 FINISHED!
