@@ -34,7 +34,7 @@ jobs:
         uses: "DamianReeves/write-file-action@master"
         with:
           path: ${{ env.home }}/.config/R/restatis/auth.rds
-          contens: |
+          contents: |
             This Is Fake
           write-mode: preserve
     
