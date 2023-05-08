@@ -27,6 +27,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      RESTATIS_KEY: "this_is_a_mock_key"
 
     steps:
       - uses: actions/checkout@v3
