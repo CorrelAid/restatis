@@ -29,15 +29,7 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
       RESTATIS_KEY: "this_is_a_mock_key"
 
-    steps:
-      - name: Create fake credential file
-        uses: "DamianReeves/write-file-action@master"
-        with:
-          path: ${{ env.home }}/.config/R/restatis/auth.rds
-          contents: |
-            This Is Fake
-          write-mode: preserve
-    
+    steps: 
       - uses: actions/checkout@v3
 
       - uses: r-lib/actions/setup-pandoc@v2
