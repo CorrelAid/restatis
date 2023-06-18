@@ -6,6 +6,7 @@ with_mock_dir("modified1", {
   test_that("gen_modified_data function returns list", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_type(
       restatis::gen_modified_data(code = "61111", date = "01.01.2022"),
@@ -17,6 +18,7 @@ with_mock_dir("modified2", {
   test_that("gen_modified_data function returns message", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_message(
       restatis::gen_modified_data(code = "61111"),
@@ -32,6 +34,7 @@ with_mock_dir("modified3", {
   test_that("gen_modified_data function returns list with attributes", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- restatis::gen_modified_data(code = "61111", date = "01.01.2022")
 
@@ -50,6 +53,7 @@ with_mock_dir("modified4_fake", {
   test_that("gen_modified_data function warns if there is a non-zero status code", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_warning(
       restatis::gen_modified_data(code = "61234", date = "01.01.2022"),

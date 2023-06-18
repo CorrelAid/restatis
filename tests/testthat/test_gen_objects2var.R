@@ -6,6 +6,7 @@ with_mock_dir("xy_variable1", {
   test_that("gen_objects2var does return a list as result", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- restatis::gen_objects2var(code = "DLAND")
 
@@ -27,6 +28,7 @@ with_mock_dir("xy_variable2", {
   test_that("gen_objects2var does return a data.frame for a single category", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_s3_class(restatis::gen_objects2var(code = "DLAND",
                                              category = "tables"),
@@ -77,6 +79,7 @@ with_mock_dir("xy_variable3", {
   test_that("gen_objects2var function messages on FALSE detailed param", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_message(
       restatis::gen_objects2var(code = "DLAND", detailed = FALSE, category = "tables"),

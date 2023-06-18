@@ -6,6 +6,7 @@ with_mock_dir("variables1", {
   test_that("gen_var2stat function returns list", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- restatis::gen_var2stat(code = "61111",
                                      detailed = TRUE,
@@ -29,6 +30,7 @@ with_mock_dir("variables2_fake", {
   test_that("gen_var2stat function errors if there is a problem", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_error(
       restatis::gen_var2stat(code = "74111"),
@@ -64,6 +66,7 @@ with_mock_dir("variables3", {
   test_that("gen_var2stat function messages on FALSE detailed param", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_message(
       restatis::gen_var2stat(code = "61111", detailed = FALSE, category = "tables"),

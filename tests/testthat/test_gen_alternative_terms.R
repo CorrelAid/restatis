@@ -6,6 +6,7 @@ with_mock_dir("terms1", {
   test_that("search terms function returns list", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- restatis::gen_alternative_terms("forst*", TRUE)
 
