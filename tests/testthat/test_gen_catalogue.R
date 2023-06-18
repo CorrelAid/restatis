@@ -5,12 +5,14 @@
 with_mock_dir("catalogue1", {
   test_that("gen_catalogue function returns list for tables", {
 
-      result <- restatis::gen_catalogue(code = "611*",
-                                        detailed = TRUE,
-                                        category = "tables",
-                                        error.ignore = FALSE)
+    skip_on_cran()
 
-      expect_type(result, type = "list")
+    result <- restatis::gen_catalogue(code = "611*",
+                                      detailed = TRUE,
+                                      category = "tables",
+                                      error.ignore = FALSE)
+
+    expect_type(result, type = "list")
   })
 })
 
@@ -18,6 +20,9 @@ with_mock_dir("catalogue1", {
 
 with_mock_dir("catalogue2", {
   test_that("gen_catalogue function returns lists for statistics", {
+
+    skip_on_cran()
+
     expect_type(
       restatis::gen_catalogue(code = "41141",
                           detailed = FALSE,
@@ -31,6 +36,9 @@ with_mock_dir("catalogue2", {
 
 with_mock_dir("catalogue3", {
   test_that("gen_catalogue function returns error if there are no results", {
+
+    skip_on_cran()
+
     expect_error(
       restatis::gen_catalogue(code = "41141",
                           detailed = FALSE,
@@ -45,6 +53,8 @@ with_mock_dir("catalogue3", {
 with_mock_dir("catalogue4", {
   test_that("gen_catalogue function returns list of length 3 if all categories are selected", {
 
+    skip_on_cran()
+
     res <- restatis::gen_catalogue(code = "611*",
                                detailed = FALSE,
                                error.ignore = TRUE)
@@ -56,6 +66,9 @@ with_mock_dir("catalogue4", {
 
 with_mock_dir("catalogue5", {
   test_that("gen_catalogue function messages on TRUE error.ignore param", {
+
+    skip_on_cran()
+
     expect_message(
       restatis::gen_catalogue(code = "711*", detailed = TRUE, category = "tables", error.ignore = TRUE),
       regexp = "Use 'error.ignore = FALSE' to stop the function at the point where no object could be found.")
@@ -103,6 +116,9 @@ test_that("gen_catalogue function errors on numeric detailed param", {
 
 with_mock_dir("catalogue6", {
   test_that("gen_catalogue function messages on FALSE detailed param", {
+
+    skip_on_cran()
+
     expect_message(
       restatis::gen_catalogue(code = "711*", detailed = FALSE, category = "tables"),
       regexp = "Use 'detailed = TRUE' to obtain the complete output.")

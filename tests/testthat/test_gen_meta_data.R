@@ -5,6 +5,8 @@
 with_mock_dir("meta1", {
   test_that("gen_meta_data returns list", {
 
+    skip_on_cran()
+
     result <- restatis::gen_meta_data(code = "11111-0001",
                                       category = "Table")
 
@@ -24,6 +26,9 @@ with_mock_dir("meta1", {
 
 with_mock_dir("meta2_fake", {
   test_that("gen_meta_data errors if there is an error code", {
+
+    skip_on_cran()
+
     expect_error(
       restatis::gen_meta_data(code = "1*",
                               category = "Cube"),
@@ -35,6 +40,9 @@ with_mock_dir("meta2_fake", {
 
 with_mock_dir("meta3", {
   test_that("gen_meta_data gives message if error.ignore = TRUE", {
+
+    skip_on_cran()
+
     expect_message(
       restatis::gen_meta_data(code = "11111-0001",
                               category = "Table",

@@ -5,6 +5,8 @@
 with_mock_dir("variables1", {
   test_that("gen_var2stat function returns list", {
 
+    skip_on_cran()
+
     result <- restatis::gen_var2stat(code = "61111",
                                      detailed = TRUE,
                                      sortcriterion = "code")
@@ -25,6 +27,9 @@ with_mock_dir("variables1", {
 
 with_mock_dir("variables2_fake", {
   test_that("gen_var2stat function errors if there is a problem", {
+
+    skip_on_cran()
+
     expect_error(
       restatis::gen_var2stat(code = "74111"),
       regexp = "test error message")
@@ -57,6 +62,9 @@ test_that("gen_var2stat function errors on numeric detailed param", {
 
 with_mock_dir("variables3", {
   test_that("gen_var2stat function messages on FALSE detailed param", {
+
+    skip_on_cran()
+
     expect_message(
       restatis::gen_var2stat(code = "61111", detailed = FALSE, category = "tables"),
       regexp = "Use 'detailed = TRUE' to obtain the complete output.")

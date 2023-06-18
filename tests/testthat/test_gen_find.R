@@ -5,6 +5,8 @@
 with_mock_dir("find1", {
   test_that("gen_find returns list", {
 
+    skip_on_cran()
+
     result <- restatis::gen_find(term = "forst",
                                  detailed = TRUE,
                                  ordering = TRUE,
@@ -25,6 +27,9 @@ with_mock_dir("find1", {
 
 with_mock_dir("find2_fake", {
   test_that("gen_find errors if there is an error code", {
+
+    skip_on_cran()
+
     expect_error(
       restatis::gen_find(term = "bus", error.ignore = TRUE),
       regexp = "test error message")
@@ -35,6 +40,9 @@ with_mock_dir("find2_fake", {
 
 with_mock_dir("find3", {
   test_that("gen_find messages for 'detailed = TRUE'", {
+
+    skip_on_cran()
+
     expect_message(
       restatis::gen_find(term = "zensus", error.ignore = TRUE),
       regexp = "Use 'detailed = TRUE' to obtain the complete output.")

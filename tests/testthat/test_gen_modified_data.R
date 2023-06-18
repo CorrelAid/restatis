@@ -4,6 +4,9 @@
 
 with_mock_dir("modified1", {
   test_that("gen_modified_data function returns list", {
+
+    skip_on_cran()
+
     expect_type(
       restatis::gen_modified_data(code = "61111", date = "01.01.2022"),
       type = "list")
@@ -12,6 +15,9 @@ with_mock_dir("modified1", {
 
 with_mock_dir("modified2", {
   test_that("gen_modified_data function returns message", {
+
+    skip_on_cran()
+
     expect_message(
       restatis::gen_modified_data(code = "61111"),
       regexp = "Please note that this date is calculated automatically and may differ
@@ -25,21 +31,26 @@ with_mock_dir("modified2", {
 with_mock_dir("modified3", {
   test_that("gen_modified_data function returns list with attributes", {
 
-      result <- restatis::gen_modified_data(code = "61111", date = "01.01.2022")
+    skip_on_cran()
 
-      attrs <- attributes(result)
+    result <- restatis::gen_modified_data(code = "61111", date = "01.01.2022")
 
-      expect_true("names" %in% names(attrs))
-      expect_true("Code" %in% names(attrs))
-      expect_true("Language" %in% names(attrs))
-      expect_true("Pagelength" %in% names(attrs))
-      expect_true("Copyright" %in% names(attrs))
+    attrs <- attributes(result)
+
+    expect_true("names" %in% names(attrs))
+    expect_true("Code" %in% names(attrs))
+    expect_true("Language" %in% names(attrs))
+    expect_true("Pagelength" %in% names(attrs))
+    expect_true("Copyright" %in% names(attrs))
 
   })
 })
 
 with_mock_dir("modified4_fake", {
   test_that("gen_modified_data function warns if there is a non-zero status code", {
+
+    skip_on_cran()
+
     expect_warning(
       restatis::gen_modified_data(code = "61234", date = "01.01.2022"),
     regexp = "test warning message")

@@ -5,6 +5,8 @@
 with_mock_dir("terms1", {
   test_that("search terms function returns list", {
 
+    skip_on_cran()
+
     result <- restatis::gen_alternative_terms("forst*", TRUE)
 
     expect_type(result, type = "list")

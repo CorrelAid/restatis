@@ -5,6 +5,8 @@
 with_mock_dir("searchvars1", {
   test_that("gen_search_vars returns a list element", {
 
+  skip_on_cran()
+
   result <- gen_search_vars(code = NULL,
                             sortcriterion = c("code", "content"),
                             error.ignore = FALSE)
@@ -26,6 +28,8 @@ with_mock_dir("searchvars1", {
 
 with_mock_dir("searchvars2_fake", {
   test_that("gen_search_vars returns a list element", {
+
+    skip_on_cran()
 
     expect_error(
       gen_search_vars(code = "74111",

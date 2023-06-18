@@ -4,6 +4,9 @@
 
 with_mock_dir("values1", {
   test_that("gen_val2var function errors if there is no result", {
+
+    skip_on_cran()
+
     expect_error(
       restatis::gen_val2var(code = "61111",
                                           detailed = TRUE,
@@ -16,6 +19,8 @@ with_mock_dir("values1", {
 
 with_mock_dir("values2", {
   test_that("gen_val2var function returns list", {
+
+    skip_on_cran()
 
     result <- restatis::gen_val2var(code = "DLAND",
                                                   detailed = TRUE,

@@ -5,6 +5,8 @@
 with_mock_dir("xy_variable1", {
   test_that("gen_objects2var does return a list as result", {
 
+    skip_on_cran()
+
     result <- restatis::gen_objects2var(code = "DLAND")
 
     expect_type(result, type = "list")
@@ -23,6 +25,9 @@ with_mock_dir("xy_variable1", {
 
 with_mock_dir("xy_variable2", {
   test_that("gen_objects2var does return a data.frame for a single category", {
+
+    skip_on_cran()
+
     expect_s3_class(restatis::gen_objects2var(code = "DLAND",
                                              category = "tables"),
                     class = "data.frame")
@@ -70,6 +75,9 @@ test_that("gen_objects2var function errors on numeric detailed param", {
 
 with_mock_dir("xy_variable3", {
   test_that("gen_objects2var function messages on FALSE detailed param", {
+
+    skip_on_cran()
+
     expect_message(
       restatis::gen_objects2var(code = "DLAND", detailed = FALSE, category = "tables"),
       regexp = "Use 'detailed = TRUE' to obtain the complete output.")

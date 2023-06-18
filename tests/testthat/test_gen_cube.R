@@ -6,6 +6,8 @@ with_mock_dir("cube1", {
 
   test_that("gen_cube returns data.frame", {
 
+    skip_on_cran()
+
     result <- gen_cube("47414BJ002")
 
     expect_s3_class(result,
