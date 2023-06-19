@@ -69,9 +69,9 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://correlaid.github.io/restatis/">restatis</a></span><span class="op">)</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h3>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 <p>This vignette describes the basic workflow for finding, exploring,
 and retrieving data from the GENESIS API using <a href="https://correlaid.github.io/restatis/">restatis</a>.</p>
 <p>For the scenario in this vignette, we are going to be a researcher
@@ -196,9 +196,10 @@ step will be to check what it contains before requesting the data.</p>
 objects with additional attributes that represent the parameters and
 additional information of your GENESIS API query. So check the
 attributes if you ever need help recognising how you got the output.</p>
-<div class="section level3">
-<h3 id="checking-object-metadata">Checking object metadata<a class="anchor" aria-label="anchor" href="#checking-object-metadata"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="checking-object-metadata">Checking object metadata<a class="anchor" aria-label="anchor" href="#checking-object-metadata"></a>
+</h2>
 <p>To check whether GENESIS data objects are relevant to your interest,
 you should obtain the metadata for these objects before requesting the
 data itself. The metadata for each type of object stores different key
@@ -213,9 +214,9 @@ the metadata of the first cube object we got from the find function:</p>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Error in gen_metadata(code = search_results$Cubes$Code[1], category = search_results$Cubes$Object_Type[1]): could not find function "gen_metadata"</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="retrieving-data">Retrieving data<a class="anchor" aria-label="anchor" href="#retrieving-data"></a>
-</h3>
+<div class="section level2">
+<h2 id="retrieving-data">Retrieving data<a class="anchor" aria-label="anchor" href="#retrieving-data"></a>
+</h2>
 <p>We are now pretty sure that this cube object will help us find
 information about our research question. The next step is to get the
 data from the GENESIS API.</p>
@@ -248,7 +249,6 @@ independently and then try to recombine them.</p>
 <span><span class="co">#&gt; #   `VST051_WERT-VERFAELSCHT` &lt;dbl&gt;, VST052_WERT &lt;dbl&gt;, VST052_QUALITAET &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   VST052_GESPERRT &lt;lgl&gt;, `VST052_WERT-VERFAELSCHT` &lt;dbl&gt;</span></span></code></pre></div>
 <p>TODO: Create helpers to decipher column names.</p>
-</div>
 </div>
 <div class="section level2">
 <h2 id="appendix-check-for-changes-in-previously-collected-data">Appendix: check for changes in previously collected data<a class="anchor" aria-label="anchor" href="#appendix-check-for-changes-in-previously-collected-data"></a>
