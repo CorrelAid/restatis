@@ -1,7 +1,7 @@
 Package: restatis
 Title: R Wrapper for the GENESIS Web Service RESTful API of the German
     Federal Statistical Office (Statistisches Bundesamt/Destatis)
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(
     person("Yannik", "Buhl", role = "aut"),
     person("Zoran", "Kovacevic", role = "aut",

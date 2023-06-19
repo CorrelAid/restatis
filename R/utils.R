@@ -190,8 +190,8 @@ check_function_input <- function(code = NULL,
     #----------------------------------------
 
     if (length(category) != 1 && caller %in% c(
-      "restatis::gen_meta_data",
-      "gen_meta_data"
+      "restatis::gen_metadata",
+      "gen_metadata"
     )) {
       stop("Parameter 'category' must have a length of 1. Please specify the category.")
     }
@@ -231,7 +231,7 @@ check_function_input <- function(code = NULL,
 
     #----------------------------------------
 
-    if (caller %in% c("restatis::gen_meta_data", "gen_meta_data")) {
+    if (caller %in% c("restatis::gen_metadata", "gen_metadata")) {
       if (!all(category %in% c("Cube", "Statistic", "Table", "Variable", "Value"))) {
         stop("Available categories are Cube, Table, Statistic, Variable, and Value.",
           call. = FALSE

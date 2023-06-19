@@ -1,4 +1,4 @@
-#' gen_meta_data_stat
+#' gen_metadata_stat
 #'
 #' @description Function to search for meta-information for a specific statistic.
 #'
@@ -12,10 +12,10 @@
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the statistic with the code "12411"
-#' object <- gen_meta_data_stats(code = "12411")
+#' object <- gen_metadata_stats(code = "12411")
 #' }
 #'
-gen_meta_data_stats <- function(code = NULL,
+gen_metadata_stats <- function(code = NULL,
                                 error.ignore = FALSE,
                                 ...) {
 
@@ -67,7 +67,7 @@ gen_meta_data_stats <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_meta_data_var
+#' gen_metadata_var
 #'
 #' @description Function to search for meta-information for a specific variable.
 #'
@@ -81,10 +81,10 @@ gen_meta_data_stats <- function(code = NULL,
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the variable with the code "FAMSTD"
-#' object <- gen_meta_data_var(code = "FAMSTD")
+#' object <- gen_metadata_var(code = "FAMSTD")
 #' }
 #'
-gen_meta_data_var <- function(code = NULL,
+gen_metadata_var <- function(code = NULL,
                               error.ignore = FALSE,
                               ...) {
 
@@ -137,7 +137,7 @@ gen_meta_data_var <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_meta_data_val
+#' gen_metadata_val
 #'
 #' @description Function to search for meta-information for a specific value.
 #'
@@ -151,10 +151,10 @@ gen_meta_data_var <- function(code = NULL,
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the value with the code "LEDIG"
-#' object <- gen_meta_data_val(code = "LEDIG")
+#' object <- gen_metadata_val(code = "LEDIG")
 #' }
 #'
-gen_meta_data_val <- function(code = NULL,
+gen_metadata_val <- function(code = NULL,
                               error.ignore = FALSE,
                               ...) {
 
@@ -204,7 +204,7 @@ gen_meta_data_val <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_meta_data_tab
+#' gen_metadata_tab
 #'
 #' @description Function to search for meta-information for a specific table.
 #'
@@ -218,10 +218,10 @@ gen_meta_data_val <- function(code = NULL,
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the table with the code "11111"
-#' object <- gen_meta_data_tab(code = "11111")
+#' object <- gen_metadata_tab(code = "11111")
 #' }
 #'
-gen_meta_data_tab <- function(code = NULL,
+gen_metadata_tab <- function(code = NULL,
                               error.ignore = FALSE,
                               ...) {
 
@@ -348,7 +348,7 @@ gen_meta_data_tab <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_meta_data_cube
+#' gen_metadata_cube
 #'
 #' @description Function to search for meta-information for a specific cube.
 #'
@@ -362,10 +362,10 @@ gen_meta_data_tab <- function(code = NULL,
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the cube with the code "11111KE001"
-#' object <- gen_meta_data_cube(code = "11111KE001")
+#' object <- gen_metadata_cube(code = "11111KE001")
 #' }
 #'
-gen_meta_data_cube <- function(code = NULL,
+gen_metadata_cube <- function(code = NULL,
                                error.ignore = FALSE,
                                ...) {
 
@@ -470,7 +470,7 @@ gen_meta_data_cube <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_meta_data
+#' gen_metadata
 #'
 #' @description Search For Meta-Information For All Types Of Objects
 #'
@@ -485,10 +485,10 @@ gen_meta_data_cube <- function(code = NULL,
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the table with the code "11111"
-#' object <- gen_meta_data(code = "11111", category = "Table")
+#' object <- gen_metadata(code = "11111", category = "Table")
 #' }
 #'
-gen_meta_data <- function(code = NULL,
+gen_metadata <- function(code = NULL,
                           category = c("Cube", "Statistic", "Table", "Variable", "Value"),
                           error.ignore = FALSE,
                           ...) {
@@ -504,23 +504,23 @@ gen_meta_data <- function(code = NULL,
 
   if (category == "Cube") {
 
-    gen_meta_data_cube(code = code, error.ignore = error.ignore, ...)
+    gen_metadata_cube(code = code, error.ignore = error.ignore, ...)
 
   } else if (category == "Value") {
 
-    gen_meta_data_val(code = code, error.ignore = error.ignore, ...)
+    gen_metadata_val(code = code, error.ignore = error.ignore, ...)
 
   } else if (category == "Variable") {
 
-    gen_meta_data_var(code = code, error.ignore = error.ignore, ...)
+    gen_metadata_var(code = code, error.ignore = error.ignore, ...)
 
   } else if (category == "Table") {
 
-    gen_meta_data_tab(code = code, error.ignore = error.ignore, ...)
+    gen_metadata_tab(code = code, error.ignore = error.ignore, ...)
 
   } else if (category == "Statistic") {
 
-    gen_meta_data_stats(code = code, error.ignore = error.ignore, ...)
+    gen_metadata_stats(code = code, error.ignore = error.ignore, ...)
 
   } else {
 

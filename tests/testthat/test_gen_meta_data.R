@@ -3,12 +3,12 @@
 #-------------------------------------------------------------------------------
 
 with_mock_dir("meta1", {
-  test_that("gen_meta_data returns list", {
+  test_that("gen_metadata returns list", {
 
     skip_on_cran()
     skip_on_ci()
 
-    result <- restatis::gen_meta_data(code = "11111-0001",
+    result <- restatis::gen_metadata(code = "11111-0001",
                                       category = "Table")
 
     expect_type(result, type = "list")
@@ -26,13 +26,13 @@ with_mock_dir("meta1", {
 #-------------------------------------------------------------------------------
 
 with_mock_dir("meta2_fake", {
-  test_that("gen_meta_data errors if there is an error code", {
+  test_that("gen_metadata errors if there is an error code", {
 
     skip_on_cran()
     skip_on_ci()
 
     expect_error(
-      restatis::gen_meta_data(code = "1*",
+      restatis::gen_metadata(code = "1*",
                               category = "Cube"),
       regexp = "test error message")
   })
@@ -41,13 +41,13 @@ with_mock_dir("meta2_fake", {
 #-------------------------------------------------------------------------------
 
 with_mock_dir("meta3", {
-  test_that("gen_meta_data gives message if error.ignore = TRUE", {
+  test_that("gen_metadata gives message if error.ignore = TRUE", {
 
     skip_on_cran()
     skip_on_ci()
 
     expect_message(
-      restatis::gen_meta_data(code = "11111-0001",
+      restatis::gen_metadata(code = "11111-0001",
                               category = "Table",
                               error.ignore = TRUE),
       regexp = "Use 'error.ignore = FALSE' to stop the function at the point where no object could be found.")
@@ -58,26 +58,26 @@ with_mock_dir("meta3", {
 # Test for errors, warnings, messages of parameters ----
 #-------------------------------------------------------------------------------
 
-test_that("gen_meta_data function errors on numeric code param", {
+test_that("gen_metadata function errors on numeric code param", {
   expect_error(
-    restatis::gen_meta_data(code = 12345, category = "Table"),
+    restatis::gen_metadata(code = 12345, category = "Table"),
     regexp = "Parameter 'code' has to be of type 'character'.")
 })
 
-test_that("gen_meta_data function errors on multiple categories", {
+test_that("gen_metadata function errors on multiple categories", {
   expect_error(
-    restatis::gen_meta_data(code = "12345", category = c("Table", "Cube")),
+    restatis::gen_metadata(code = "12345", category = c("Table", "Cube")),
     regexp = "Parameter 'category' must have a length of 1. Please specify the category.")
 })
 
-test_that("gen_meta_data function errors on wrong category", {
+test_that("gen_metadata function errors on wrong category", {
   expect_error(
-    restatis::gen_meta_data(code = "11111", category = "table"),
+    restatis::gen_metadata(code = "11111", category = "table"),
     regexp = "Available categories are Cube, Table, Statistic, Variable, and Value.")
 })
 
-test_that("gen_meta_data function errors on wrong error.ignore param", {
+test_that("gen_metadata function errors on wrong error.ignore param", {
   expect_error(
-    restatis::gen_meta_data(code = "11111", error.ignore = 1, category = "Table"),
+    restatis::gen_metadata(code = "11111", error.ignore = 1, category = "Table"),
     regexp = "Parameter 'error.ignore' has to be of type 'logical' and of length 1.")
 })
