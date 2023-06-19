@@ -10,10 +10,10 @@
     <loc>https://correlaid.github.io/restatis/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://correlaid.github.io/restatis/articles/Vignette_Busfahrer.html</loc>
+    <loc>https://correlaid.github.io/restatis/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://correlaid.github.io/restatis/articles/index.html</loc>
+    <loc>https://correlaid.github.io/restatis/articles/restatis.html</loc>
   </url>
   <url>
     <loc>https://correlaid.github.io/restatis/authors.html</loc>
@@ -43,22 +43,22 @@
     <loc>https://correlaid.github.io/restatis/reference/gen_list_jobs.html</loc>
   </url>
   <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_meta_data.html</loc>
+    <loc>https://correlaid.github.io/restatis/reference/gen_metadata.html</loc>
   </url>
   <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_meta_data_cube.html</loc>
+    <loc>https://correlaid.github.io/restatis/reference/gen_metadata_cube.html</loc>
   </url>
   <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_meta_data_stats.html</loc>
+    <loc>https://correlaid.github.io/restatis/reference/gen_metadata_stats.html</loc>
   </url>
   <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_meta_data_tab.html</loc>
+    <loc>https://correlaid.github.io/restatis/reference/gen_metadata_tab.html</loc>
   </url>
   <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_meta_data_val.html</loc>
+    <loc>https://correlaid.github.io/restatis/reference/gen_metadata_val.html</loc>
   </url>
   <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_meta_data_var.html</loc>
+    <loc>https://correlaid.github.io/restatis/reference/gen_metadata_var.html</loc>
   </url>
   <url>
     <loc>https://correlaid.github.io/restatis/reference/gen_modified_data.html</loc>
