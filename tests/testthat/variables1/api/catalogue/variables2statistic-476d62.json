@@ -1,0 +1,117 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "variables2statistic"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "name": "61111",
+        "selection": "",
+        "area": "oeffentlich",
+        "searchcriterion": "Code",
+        "sortcriterion": "Code",
+        "type": "Alle",
+        "pagelength": "100",
+        "language": "de"
+    },
+    "List": [
+        {
+            "Code": "CC13A2",
+            "Content": "Verwendungszwecke des Individualkonsums, 2-Steller",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "CC13A3",
+            "Content": "Verwendungszwecke des Individualkonsums, 3-Steller",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "CC13A4",
+            "Content": "Verwendungszwecke des Individualkonsums, 4-Steller",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "CC13A5",
+            "Content": "Verwendungszwecke des Individualkonsums, 5-Steller",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "CC13B1",
+            "Content": "Verwendungszw.d.Individualkonsums,Sonderpositionen",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "CC13Z1",
+            "Content": "Verwendungszwecke des Individualkonsums,10-Steller",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "DINSG",
+            "Content": "Deutschland insgesamt",
+            "Type": "r?umlich insgesamt",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "DLAND",
+            "Content": "Bundesl?nder",
+            "Type": "r?umlich",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "JAHR",
+            "Content": "Jahr",
+            "Type": "zeitidentifizierend",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "MONAT",
+            "Content": "Monate",
+            "Type": "zeitlich",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "PRE034",
+            "Content": "Index der Nettokaltmieten",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "PRE999",
+            "Content": "Gewichtung",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "PREIS1",
+            "Content": "Verbraucherpreisindex",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        }
+    ],
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
+}

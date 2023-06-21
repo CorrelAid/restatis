@@ -2,12 +2,12 @@
 #'
 #' See Details.
 #'
-#' Destatis username and password are encrypted and saved as RDS in the
+#' Genesis username and password are encrypted and saved as RDS in the
 #'   package config directory.
 #'
 #' A random string is generated and stored in the session environment
 #'   variable `RESTATIS_KEY`. This string is used as the key to encrypt and
-#'   decrypt the entered Destatis credentials.
+#'   decrypt the entered Genesis credentials.
 #'
 #' To avoid having to save authentication in future sessions, `RESTATIS_KEY` can
 #'   be added to .Renviron. The usethis package includes a helper function for
@@ -15,6 +15,7 @@
 #'
 #' @export
 gen_auth_save <- function() {
+
   username <- gen_auth_ask("username")
   password <- gen_auth_ask("password")
 
@@ -46,12 +47,13 @@ gen_auth_save <- function() {
 }
 
 gen_auth_get <- function() {
+
   auth_path <- gen_auth_path("auth.rds")
 
   if (!(file.exists(auth_path) && nzchar(Sys.getenv("RESTATIS_KEY")))) {
     stop(
-      "Destatis credentials not found.\n",
-      "Please run `gen_auth_save()` to store Destatis username and password.\n",
+      "Genesis credentials not found.\n",
+      "Please run `gen_auth_save()` to store Genesis username and password.\n",
       call. = FALSE
     )
   }
@@ -72,3 +74,4 @@ gen_auth_ask <- function(credential_type) {
 gen_auth_path <- function(...) {
   file.path(tools::R_user_dir("restatis", "config"), ...)
 }
+

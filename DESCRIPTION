@@ -1,15 +1,40 @@
 Package: restatis
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Title: R Wrapper for the GENESIS Web Service RESTful API of the German
+    Federal Statistical Office (Statistisches Bundesamt/Destatis)
+Version: 0.1.0
+Authors@R: c(
+    person("Yannik", "Buhl", role = "aut"),
+    person("Zoran", "Kovacevic", role = "aut",
+           comment = c(ORCID = "0009-0002-0156-0862")),
+    person("Dorian", "Le Jeune", role = "aut"),
+    person("Long", "Nguyen", , "long.nguyen@uni-bielefeld.de", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-8878-7386")),
+    person("Johannes", "Ritter", role = "aut")
+  )
+Description: A RESTful API wrapper for accessing the GENESIS database of
+    the German Federal Statistical Office (Destatis). Also supports data
+    search functions, credential management, result caching, and handling
+    remote background jobs for large datasets.
 License: MIT + file LICENSE
+URL: https://correlaid.github.io/restatis/
+Depends: 
+    R (>= 2.10)
 Imports: 
     askpass,
     httr2,
-    memoise
+    memoise,
+    readr,
+    tibble,
+    vctrs
+Suggests: 
+    httptest2,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3

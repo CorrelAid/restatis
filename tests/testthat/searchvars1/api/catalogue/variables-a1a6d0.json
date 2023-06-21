@@ -1,0 +1,725 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "variables"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "selection": "",
+        "area": "oeffentlich",
+        "searchcriterion": "Code",
+        "sortcriterion": "Code",
+        "type": "Alle",
+        "pagelength": "100",
+        "language": "de"
+    },
+    "List": [
+        {
+            "Code": "ABF001",
+            "Content": "Input von Abfallentsorgungsanlagen",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABF002",
+            "Content": "Im eigenen Betrieb erzeugte Abf?lle",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABF003",
+            "Content": "Aus dem Inland angelieferter Abfall",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABF004",
+            "Content": "Aus dem Ausland angelieferter Abfall",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABF005",
+            "Content": "Output von Abfallentsorgungsanlagen",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABF006",
+            "Content": "Abf?lle zur Beseitigung",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABF007",
+            "Content": "Abf?lle zur Verwertung",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABF008",
+            "Content": "Beim Erstempf?nger beseitigte Haushaltsabf?lle",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABF009",
+            "Content": "Beim Erstempf?nger verwertete Haushaltsabf?lle",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABF010",
+            "Content": "Abfallerzeuger",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABF011",
+            "Content": "Abfallmengen",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABF012",
+            "Content": "Abfallmengen, von Prim?rerzeugern erzeugt",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABF013",
+            "Content": "Einsammler",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABF014",
+            "Content": "Erzeugte Abfallmenge",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "ABF015",
+            "Content": "Abf?lle zu vorbereitenden Verfahren",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABFAT1",
+            "Content": "Abfallarten",
+            "Type": "sachlich",
+            "Values": "5",
+            "Information": "false"
+        },
+        {
+            "Code": "ABFAT2",
+            "Content": "Abfallarten",
+            "Type": "sachlich",
+            "Values": "14",
+            "Information": "false"
+        },
+        {
+            "Code": "ABG002",
+            "Content": "Produktions- und Importabgaben abzgl. Subventionen",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "ABG003",
+            "Content": "Abgaben auf soz.Leistungen, verbrauchsnahe Steuern",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "ABG004",
+            "Content": "Abgabe an Sonstige",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABG005",
+            "Content": "Stromabgabe",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABG006",
+            "Content": "W?rmeabgabe",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABNAT1",
+            "Content": "Abnehmer",
+            "Type": "sachlich",
+            "Values": "4",
+            "Information": "false"
+        },
+        {
+            "Code": "ABNGR1",
+            "Content": "Abnehmergruppen",
+            "Type": "sachlich",
+            "Values": "3",
+            "Information": "false"
+        },
+        {
+            "Code": "ABNGR2",
+            "Content": "Abnehmergruppen",
+            "Type": "sachlich",
+            "Values": "3",
+            "Information": "false"
+        },
+        {
+            "Code": "ABS002",
+            "Content": "Abschreibungen",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "ABS008",
+            "Content": "Abschreibungen (Anteil am BPW)",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "ABS009",
+            "Content": "Stromabsatz",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABS010",
+            "Content": "Gasabsatz",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABS011",
+            "Content": "Absatz von Bier",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "ABS012",
+            "Content": "Absatz von Biermischungen",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "ABS013",
+            "Content": "Versteuerter Bierabsatz",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "ABS014",
+            "Content": "Steuerfreier Bierabsatz",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "ABS015",
+            "Content": "Steuerfreier Bierabsatz in EU-L?nder",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABS016",
+            "Content": "Steuerfreier Bierabsatz in Drittl?nder",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABS017",
+            "Content": "Steuerfreier Bierabsatz als Haustrunk",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABS019",
+            "Content": "Absatz von Schaumwein",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABS020",
+            "Content": "Versteuerter Schaumweinabsatz",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABS021",
+            "Content": "Steuerfreier Schaumweinabsatz",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ABSAT1",
+            "Content": "Absatzrichtung",
+            "Type": "sachlich",
+            "Values": "3",
+            "Information": "false"
+        },
+        {
+            "Code": "ABSATZ",
+            "Content": "Absatzrichtung",
+            "Type": "sachlich",
+            "Values": "5",
+            "Information": "true"
+        },
+        {
+            "Code": "ABSBQ1",
+            "Content": "Bereits erworbener Ausbildungsabschluss",
+            "Type": "sachlich",
+            "Values": "9",
+            "Information": "true"
+        },
+        {
+            "Code": "ABZ002",
+            "Content": "Abz?ge der Arbeitnehmer",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "ADAFW1",
+            "Content": "Art der Aufwendungen",
+            "Type": "sachlich",
+            "Values": "2",
+            "Information": "false"
+        },
+        {
+            "Code": "ADAFW2",
+            "Content": "Art der Aufwendungen",
+            "Type": "sachlich",
+            "Values": "5",
+            "Information": "false"
+        },
+        {
+            "Code": "ADANS1",
+            "Content": "Art der Anstellung",
+            "Type": "sachlich",
+            "Values": "2",
+            "Information": "false"
+        },
+        {
+            "Code": "ADANS2",
+            "Content": "Art der Anstellung",
+            "Type": "sachlich",
+            "Values": "3",
+            "Information": "false"
+        },
+        {
+            "Code": "ADANS3",
+            "Content": "Art der T?tigkeit",
+            "Type": "sachlich",
+            "Values": "11",
+            "Information": "false"
+        },
+        {
+            "Code": "ADBES1",
+            "Content": "Art der Best?nde",
+            "Type": "sachlich",
+            "Values": "4",
+            "Information": "false"
+        },
+        {
+            "Code": "ADFAW1",
+            "Content": "Art des finanziellen Aufwandes",
+            "Type": "sachlich",
+            "Values": "2",
+            "Information": "false"
+        },
+        {
+            "Code": "ADINV1",
+            "Content": "Art der Investitionen",
+            "Type": "sachlich",
+            "Values": "8",
+            "Information": "false"
+        },
+        {
+            "Code": "ADOEL1",
+            "Content": "Verwandtschaftsverh?ltnis zu den Adoptiveltern",
+            "Type": "sachlich",
+            "Values": "3",
+            "Information": "false"
+        },
+        {
+            "Code": "ADP001",
+            "Content": "Aufgehobene Adoptionen",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ADP002",
+            "Content": "Abgebrochene Adoptionspflegen",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ADP003",
+            "Content": "Zur Adoption vorgemerkte Kinder und Jugendliche",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ADP004",
+            "Content": "Vorgemerkte Adoptionsbewerbungen",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "ADP005",
+            "Content": "In Adoptionspflege untergebrachte Kinder/Jugendl.",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "ADPAT1",
+            "Content": "Art der Adoption",
+            "Type": "sachlich",
+            "Values": "2",
+            "Information": "false"
+        },
+        {
+            "Code": "ADPAW1",
+            "Content": "Art der Personalaufwendungen",
+            "Type": "sachlich",
+            "Values": "3",
+            "Information": "false"
+        },
+        {
+            "Code": "ADPAW2",
+            "Content": "Art der Personalaufwendungen",
+            "Type": "sachlich",
+            "Values": "4",
+            "Information": "false"
+        },
+        {
+            "Code": "ADSAW1",
+            "Content": "Art der Sachaufwendungen",
+            "Type": "sachlich",
+            "Values": "5",
+            "Information": "false"
+        },
+        {
+            "Code": "ADSAW2",
+            "Content": "Art der Sachaufwendungen",
+            "Type": "sachlich",
+            "Values": "10",
+            "Information": "false"
+        },
+        {
+            "Code": "ADSAW6",
+            "Content": "Art der Sachaufwendungen",
+            "Type": "sachlich",
+            "Values": "16",
+            "Information": "false"
+        },
+        {
+            "Code": "ADSST2",
+            "Content": "Soziale Stellung des Haupteinkommensbeziehers",
+            "Type": "sachlich",
+            "Values": "8",
+            "Information": "false"
+        },
+        {
+            "Code": "ADSST3",
+            "Content": "Soziale Stellung des Haupteinkommensbeziehers",
+            "Type": "sachlich",
+            "Values": "4",
+            "Information": "false"
+        },
+        {
+            "Code": "ADV09A",
+            "Content": "Nutzungsarten (AdV-Nutzungsartenkatalog 2009)",
+            "Type": "sachlich",
+            "Values": "32",
+            "Information": "false"
+        },
+        {
+            "Code": "ADVTN3",
+            "Content": "Nutzungsarten (AdV-Nutzungsartenverzeichnis 1991)",
+            "Type": "sachlich",
+            "Values": "8",
+            "Information": "true"
+        },
+        {
+            "Code": "ADVTN4",
+            "Content": "Nutzungsarten (AdV-Nutzungsartenverzeichnis 1991)",
+            "Type": "sachlich",
+            "Values": "9",
+            "Information": "true"
+        },
+        {
+            "Code": "ADVTN5",
+            "Content": "Nutzungsarten (AdV-Nutzungsartenverzeichnis 1991)",
+            "Type": "sachlich",
+            "Values": "5",
+            "Information": "true"
+        },
+        {
+            "Code": "ADVTN6",
+            "Content": "Nutzungsarten",
+            "Type": "sachlich",
+            "Values": "4",
+            "Information": "false"
+        },
+        {
+            "Code": "AEW006",
+            "Content": "Erzeuger von prim?r nachgewiesenen Abfallmengen",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AEW007",
+            "Content": "Abgegebene Abfallmenge an Entsorger",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "AFGBE1",
+            "Content": "Aufgabenbereiche",
+            "Type": "sachlich",
+            "Values": "14",
+            "Information": "false"
+        },
+        {
+            "Code": "AFGBE2",
+            "Content": "Aufgabenbereiche",
+            "Type": "sachlich",
+            "Values": "11",
+            "Information": "false"
+        },
+        {
+            "Code": "AFGBE3",
+            "Content": "Aufgabenbereiche der ?ffentlichen Haushalte",
+            "Type": "sachlich",
+            "Values": "22",
+            "Information": "false"
+        },
+        {
+            "Code": "AFGBE4",
+            "Content": "Aufgabenbereiche der ?ffentlichen Haushalte",
+            "Type": "sachlich",
+            "Values": "6",
+            "Information": "false"
+        },
+        {
+            "Code": "AFHMN1",
+            "Content": "Aufenthalt vor der Ma?nahme",
+            "Type": "sachlich",
+            "Values": "12",
+            "Information": "false"
+        },
+        {
+            "Code": "AFTAT1",
+            "Content": "Auftragsart",
+            "Type": "sachlich",
+            "Values": "5",
+            "Information": "false"
+        },
+        {
+            "Code": "AFTAT2",
+            "Content": "Auftragsart",
+            "Type": "sachlich",
+            "Values": "3",
+            "Information": "false"
+        },
+        {
+            "Code": "AFTAT3",
+            "Content": "Auftragsart",
+            "Type": "sachlich",
+            "Values": "3",
+            "Information": "false"
+        },
+        {
+            "Code": "AGEBN1",
+            "Content": "Auftraggeberebene",
+            "Type": "sachlich",
+            "Values": "4",
+            "Information": "false"
+        },
+        {
+            "Code": "AGEBN2",
+            "Content": "Auftraggeberebene",
+            "Type": "sachlich",
+            "Values": "2",
+            "Information": "false"
+        },
+        {
+            "Code": "AGQ001",
+            "Content": "Armutsgef?hrdungsquote",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AGQ002",
+            "Content": "Armutsgef?hrdungsquote von Personen ab 16 Jahren",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AGQ003",
+            "Content": "Armutsgef?hrdungsquote v.erwerbst?t. Pers.ab 16 J.",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AGQ004",
+            "Content": "Armutsgef?hrdungsquote v.erwerbst?t. Pers.ab 18 J.",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AKEA01",
+            "Content": "Arbeitskostenarten",
+            "Type": "sachlich",
+            "Values": "52",
+            "Information": "true"
+        },
+        {
+            "Code": "AKG001",
+            "Content": "W?gung Index der Arbeitskosten je geleistete Std.",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AKG002",
+            "Content": "W?gung Index d.Bruttoverdienste je geleistete Std.",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AKG003",
+            "Content": "W?gung Index d. Lohnnebenkosten je geleistete Std.",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AKI001",
+            "Content": "Index der Arbeitskosten je geleistete Stunde",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AKI002",
+            "Content": "Index der Bruttoverdienste je geleistete Stunde",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AKI003",
+            "Content": "Index der Lohnnebenkosten je geleistete Stunde",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AKJ001",
+            "Content": "Adoptierte Kinder und Jugendliche",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AKNSI1",
+            "Content": "Sitz des Auftrag-/Konzessionsnehmers",
+            "Type": "sachlich",
+            "Values": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "AKO001",
+            "Content": "Arbeitskosten je Vollzeiteinheit",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AKO002",
+            "Content": "Arbeitskosten je geleistete Stunde",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "AKO003",
+            "Content": "Bruttoverdienste je geleistete Stunde",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "AKO004",
+            "Content": "Lohnnebenkosten je geleistete Stunde",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "AKO007",
+            "Content": "Bruttoarbeitskosten je Vollzeiteinheit",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        }
+    ],
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
+}

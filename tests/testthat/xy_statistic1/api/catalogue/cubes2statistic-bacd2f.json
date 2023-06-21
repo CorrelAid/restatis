@@ -1,0 +1,199 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "cubes2statistic"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "name": "61111",
+        "selection": "",
+        "area": "oeffentlich",
+        "pagelength": "100",
+        "language": "de"
+    },
+    "List": [
+        {
+            "Code": "61111B5001",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Gewichtung, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 2-Steller, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "1995-2020",
+            "LatestUpdate": "17.02.2023 17:46:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111B5002",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Gewichtung, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 3-Steller, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "1995-2020",
+            "LatestUpdate": "17.02.2023 17:46:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111B5003",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Gewichtung, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 4-Steller, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "1995-2020",
+            "LatestUpdate": "17.02.2023 17:46:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111B5004",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Gewichtung, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 5-Steller, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "1995-2020",
+            "LatestUpdate": "17.02.2023 17:46:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ001",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "1991-2022",
+            "LatestUpdate": "09.03.2023 12:07:11h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ002",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 2-Steller, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "1991-2022",
+            "LatestUpdate": "09.03.2023 12:09:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ003",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 3-Steller, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "1991-2022",
+            "LatestUpdate": "09.03.2023 12:11:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ004",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 4-Steller, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "2020-2022",
+            "LatestUpdate": "17.02.2023 17:46:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ005",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 5-Steller, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "2020-2022",
+            "LatestUpdate": "17.02.2023 17:46:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ006",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszw.d.Individualkonsums,Sonderpositionen, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "2020-2022",
+            "LatestUpdate": "17.02.2023 17:46:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ007",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums,10-Steller, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "2020-2022",
+            "LatestUpdate": "03.03.2023 10:05:14h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM001",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Monate, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "Januar 1991-Februar 2023",
+            "LatestUpdate": "10.03.2023 08:00:47h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM002",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 2-Steller, Monate, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "Januar 1991-Februar 2023",
+            "LatestUpdate": "10.03.2023 08:00:35h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM003",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 3-Steller, Monate, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "Januar 1991-Februar 2023",
+            "LatestUpdate": "10.03.2023 08:00:54h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM004",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 4-Steller, Monate, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "Januar 2020-Februar 2023",
+            "LatestUpdate": "10.03.2023 08:00:51h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM005",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 5-Steller, Monate, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "Januar 2020-Februar 2023",
+            "LatestUpdate": "10.03.2023 08:00:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM006",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszw.d.Individualkonsums,Sonderpositionen, Monate, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "Januar 2020-Februar 2023",
+            "LatestUpdate": "10.03.2023 08:00:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM007",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums,10-Steller, Monate, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "Januar 2020-Februar 2023",
+            "LatestUpdate": "10.03.2023 08:00:31h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111LJ001",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Bundesl?nder, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "2020-2022",
+            "LatestUpdate": "17.02.2023 17:47:09h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111LJ100",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Index der Nettokaltmieten, Bundesl?nder, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "2020-2022",
+            "LatestUpdate": "17.02.2023 17:47:09h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111LM001",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Verbraucherpreisindex, Bundesl?nder, Monate, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "Januar 2020-Februar 2023",
+            "LatestUpdate": "10.03.2023 08:00:41h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111LM100",
+            "Content": "Verbraucherpreisindex f?r Deutschland, Index der Nettokaltmieten, Bundesl?nder, Monate, Jahr",
+            "State": "vollst?ndig mit Werten",
+            "Time": "Januar 2020-Februar 2023",
+            "LatestUpdate": "10.03.2023 08:00:44h",
+            "Information": "false"
+        }
+    ],
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
+}

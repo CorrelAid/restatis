@@ -1,0 +1,54 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "tables"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "selection": "711*",
+        "area": "oeffentlich",
+        "searchcriterion": "Code",
+        "sortcriterion": "Code",
+        "pagelength": "100",
+        "language": "de"
+    },
+    "List": [
+        {
+            "Code": "71141-0001",
+            "Content": "Rechnungsergebnisse des ?ffentlichen Gesamthaushalts\n(Ausgaben): Deutschland, Jahre, K?rperschaftsgruppen,\nAusgabearten",
+            "Time": "1992 - 2011"
+        },
+        {
+            "Code": "71141-0002",
+            "Content": "Rechnungsergebnisse des ?ffentlichen Gesamthaushalts\n(Einnahmen): Deutschland, Jahre, K?rperschaftsgruppen,\nEinnahmearten",
+            "Time": "1992 - 2011"
+        },
+        {
+            "Code": "71141-0003",
+            "Content": "Rechnungsergebnisse des ?ffentlichen Gesamthaushalts\n(Finanzierungssaldo, Besondere Finanzierungsvorg?nge):\nDeutschland, Jahre, K?rperschaftsgruppen",
+            "Time": "1992 - 2011"
+        },
+        {
+            "Code": "71141-0004",
+            "Content": "Rechnungsergebnisse des ?ffentlichen Gesamthaushalts\n(Nettoausgaben, Personalausgaben, Bauma?nahmen):\nDeutschland, Jahre, K?rperschaftsgruppen, Aufgabenbereiche",
+            "Time": "1992 - 2011"
+        },
+        {
+            "Code": "71141-0005",
+            "Content": "Investitionsausgaben der ?ffentlichen Haushalte:\nDeutschland, Jahre, K?rperschaftsgruppen, Art der\nInvestitionsausgaben",
+            "Time": "1984 - 2011"
+        },
+        {
+            "Code": "71141-0006",
+            "Content": "Investitionsausgaben der ?ffentlichen Haushalte:\nBundesl?nder, Jahre, K?rperschaftsgruppen, Art der\nInvestitionsausgaben",
+            "Time": "1984 - 2011"
+        }
+    ],
+    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
+}

@@ -1,0 +1,107 @@
+---
+title: "Basic restatis Workflow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vignette-busfahrer}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+options(
+  max.print = 32
+)
+```
+
+```{r setup}
+library(restatis)
+```
+
+## Introduction
+
+This vignette describes the basic workflow for finding, exploring, and retrieving data from the GENESIS API using [restatis](https://correlaid.github.io/restatis/).
+
+For the scenario in this vignette, we are going to be a researcher trying to find data on the income of bus drivers, called "Busfahrer".
+
+## Premilinary: finding relevant search terms
+
+First, we can and should explore if and how our keyword is represented in the GENESIS database. We want to see if our keywords are related in any way to other words, and we need to be more precise in our search process; or in case we already have a particular keyword, if there are related keywords that could be included in our search to expand our data collection.
+
+To be as broad as possible, we want to search for any term in the database that contains our keyword. To do this, we can use a "*" wildcard at the beginning and end of the search term:
+
+```{r Finding alternative terms}
+gen_alternative_terms(term = "*busfahrer*")
+```
+
+Based on the results, our original keyword "busfahrer" is already specific enough, and no additional specifications are necessary.
+
+Had we started with the keyword "bus" - the vehicle itself - we can see that the database has several related terms that might be helpful to narrow our search radius further. In this example, it might be helpful to see that there are at least three different types of buses that are searchable: "fernbus", "schienenbus" and "kraftomnibusse".
+
+```{r}
+gen_alternative_terms(term = "*bus*")
+```
+
+## Search for data objects
+
+Now that we have our specific keyword for our search, we can search the database for exactly that term. We want the results to be ordered so that items with a title that includes our search term are at the top. We also want to explore all object types for now:
+
+```{r}
+search_results <- gen_find(
+  term = "busfahrer",
+  detailed = FALSE,
+  ordering = TRUE,
+  category = "all"
+)
+
+search_results
+```
+
+We can see that we find results for our keyword "busfahrer" in each category of objects (statistics, tables, variables, and cubes). Based on the promising content description of the first cube object, our next step will be to check what it contains before requesting the data.
+
+As a side note, most of the functions in this package will return objects with additional attributes that represent the parameters and additional information of your GENESIS API query. So check the attributes if you ever need help recognising how you got the output.
+
+## Checking object metadata
+
+To check whether GENESIS data objects are relevant to your interest, you should obtain the metadata for these objects before requesting the data itself. The metadata for each type of object stores different key characteristics that will help you understand what the object is about.
+
+For our question about the income of bus drivers, we want to check the metadata of the first cube object we got from the find function:
+
+```{r}
+gen_metadata(
+  code = search_results$Cubes$Code[1],
+  category = search_results$Cubes$Object_Type[1]
+)
+```
+
+## Retrieving data
+
+We are now pretty sure that this cube object will help us find information about our research question. The next step is to get the data from the GENESIS API.
+
+Based on the fact that we want a cube object, we now use the `gen_cube()` function. For other GENESIS object types, use the corresponding functions (e.g., `gen_table()` for tables).
+
+Important note: It is not possible to get a whole GENESIS statistic object, but it is possible to collect the different related cube objects independently and then try to recombine them.
+
+```{r}
+gen_cube(search_results$Cubes$Code[1])
+```
+
+TODO: Create helpers to decipher column names.
+
+## Appendix: check for changes in previously collected data
+
+As a small additional step, we would like to check one week later if the collected data objects have been updated in the last week. We can also check if additional interesting data objects for our interest/keyword have been added to the database. To do this, we need to specify the code of the objects we are looking for and the time we want to look for updates.
+
+If we only want to check if something related has been updated, we only need to use the first part of the code until we are sure that it only covers the topic we are interested in. For example, use "62361*" if you want to check if some updated objects have been published for the specific statistic "Verdiensterhebung".
+
+For convenience, the functions have already implemented the most common `date` specifications, such as "week_before", "month_before", or "year_before". If you prefer a fixed date, you can enter it as a string in the format "DD-MM-YYYY".
+
+For example, we might want to check to see if something new has been published about our collected cube object. So we use only the first part of the code "62361*":
+
+```{r}
+gen_modified_data(code = "62361", date = "week_before")
+```

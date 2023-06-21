@@ -1,0 +1,199 @@
+---
+title: "Basic restatis Workflow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vignette-busfahrer}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+```r
+library(restatis)
+```
+
+## Introduction
+
+This vignette describes the basic workflow for finding, exploring, and retrieving data from the GENESIS API using [restatis](https://correlaid.github.io/restatis/).
+
+For the scenario in this vignette, we are going to be a researcher trying to find data on the income of bus drivers, called "Busfahrer".
+
+## Premilinary: finding relevant search terms
+
+First, we can and should explore if and how our keyword is represented in the GENESIS database. We want to see if our keywords are related in any way to other words, and we need to be more precise in our search process; or in case we already have a particular keyword, if there are related keywords that could be included in our search to expand our data collection.
+
+To be as broad as possible, we want to search for any term in the database that contains our keyword. To do this, we can use a "*" wildcard at the beginning and end of the search term:
+
+
+```r
+gen_alternative_terms(term = "*busfahrer*")
+#> $Output
+#> [1] "busfahrer"
+#> 
+#> attr(,"Term")
+#> [1] "*busfahrer*"
+#> attr(,"Language")
+#> [1] "de"
+#> attr(,"Pagelength")
+#> [1] "100"
+#> attr(,"Copyright")
+#> [1] "© Statistisches Bundesamt (Destatis), 2023"
+```
+
+Based on the results, our original keyword "busfahrer" is already specific enough, and no additional specifications are necessary.
+
+Had we started with the keyword "bus" - the vehicle itself - we can see that the database has several related terms that might be helpful to narrow our search radius further. In this example, it might be helpful to see that there are at least three different types of buses that are searchable: "fernbus", "schienenbus" and "kraftomnibusse".
+
+
+```r
+gen_alternative_terms(term = "*bus*")
+#> $Output
+#>  [1] "Bus"                  "bus"                  "busin"               
+#>  [4] "Busse"                "busse"                "bambus"              
+#>  [7] "bussen"               "büsche"               "cottbus"             
+#> [10] "fernbus"              "a.bambus"             "aubussons"           
+#> [13] "business"             "jadebusen"            "busfahrer"           
+#> [16] "busin.and"            "bambusmöbel"          "bambuswaren"         
+#> [19] "bustickets"           "f.omnibusse"          "buschbohnen"         
+#> [22] "kraftomnibus"         "bambussprossen"       "büstenhalter"        
+#> [25] "kraftomnibusse"       "businessschool"       "freilandbüsche"      
+#> [28] "busin.sch.berlin"     "doppellumentubus"     "bambusflechtstoffen" 
+#> [31] "flugticket, business" "business-class-tarif"
+#>  [ reached getOption("max.print") -- omitted 68 entries ]
+#> 
+#> attr(,"Term")
+#> [1] "*bus*"
+#> attr(,"Language")
+#> [1] "de"
+#> attr(,"Pagelength")
+#> [1] "100"
+#> attr(,"Copyright")
+#> [1] "© Statistisches Bundesamt (Destatis), 2023"
+```
+
+## Search for data objects
+
+Now that we have our specific keyword for our search, we can search the database for exactly that term. We want the results to be ordered so that items with a title that includes our search term are at the top. We also want to explore all object types for now:
+
+
+```r
+search_results <- gen_find(
+  term = "busfahrer",
+  detailed = FALSE,
+  ordering = TRUE,
+  category = "all"
+)
+#> Use 'detailed = TRUE' to obtain the complete output.
+
+search_results
+#> $Tables
+#> # A tibble: 2 × 3
+#>   Code       Content                                                        Object_Type
+#>   <chr>      <chr>                                                          <chr>      
+#> 1 62361-0030 Bruttostundenverdienste, Bruttomonatsverdienste: Deutschland,… Table      
+#> 2 62361-0034 Bruttojahresverdienste: Deutschland, Jahre, Geschlecht, Berufe Table      
+#> 
+#> $Statistics
+#> # A tibble: 1 × 3
+#>   Code  Content           Object_Type
+#>   <chr> <chr>             <chr>      
+#> 1 62361 Verdiensterhebung Statistic  
+#> 
+#> $Variables
+#> # A tibble: 1 × 3
+#>   Code   Content                             Object_Type
+#>   <chr>  <chr>                               <chr>      
+#> 1 KB10A5 Berufsgattungen (KB2010), 5-Steller Variable   
+#> 
+#> $Cubes
+#> # A tibble: 4 × 3
+#>   Code       Content                                                        Object_Type
+#>   <chr>      <chr>                                                          <chr>      
+#> 1 62361BJ013 Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne So… Cube       
+#> 2 62361BJ010 Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne So… Cube       
+#> 3 62361BJ019 Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. So… Cube       
+#> 4 62361BJ016 Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. So… Cube       
+#> 
+#> attr(,"Term")
+#> [1] "busfahrer"
+#> attr(,"Language")
+#> [1] "de"
+#> attr(,"Pagelength")
+#> [1] "100"
+#> attr(,"Copyright")
+#> [1] "© Statistisches Bundesamt (Destatis), 2023"
+```
+
+We can see that we find results for our keyword "busfahrer" in each category of objects (statistics, tables, variables, and cubes). Based on the promising content description of the first cube object, our next step will be to check what it contains before requesting the data.
+
+As a side note, most of the functions in this package will return objects with additional attributes that represent the parameters and additional information of your GENESIS API query. So check the attributes if you ever need help recognising how you got the output.
+
+## Checking object metadata
+
+To check whether GENESIS data objects are relevant to your interest, you should obtain the metadata for these objects before requesting the data itself. The metadata for each type of object stores different key characteristics that will help you understand what the object is about.
+
+For our question about the income of bus drivers, we want to check the metadata of the first cube object we got from the find function:
+
+
+```r
+gen_metadata(
+  code = search_results$Cubes$Code[1],
+  category = search_results$Cubes$Object_Type[1]
+)
+#> Error in gen_metadata(code = search_results$Cubes$Code[1], category = search_results$Cubes$Object_Type[1]): could not find function "gen_metadata"
+```
+
+## Retrieving data
+
+We are now pretty sure that this cube object will help us find information about our research question. The next step is to get the data from the GENESIS API.
+
+Based on the fact that we want a cube object, we now use the `gen_cube()` function. For other GENESIS object types, use the corresponding functions (e.g., `gen_table()` for tables).
+
+Important note: It is not possible to get a whole GENESIS statistic object, but it is possible to collect the different related cube objects independently and then try to recombine them.
+
+
+```r
+gen_cube(search_results$Cubes$Code[1])
+#> # A tibble: 2,508 × 20
+#>    DINSG GES   KB10A5     SMONAT  VST045_WERT VST045_QUALITAET VST045_GESPERRT
+#>  * <chr> <chr> <chr>      <chr>         <dbl> <chr>            <lgl>          
+#>  1 DG    GESM  KB10-01104 04/2022        31.3 e                NA             
+#>  2 DG    GESM  KB10-01203 04/2022        21.6 e                NA             
+#>  3 DG    GESM  KB10-01302 04/2022        17.4 e                NA             
+#>  4 DG    GESM  KB10-01402 04/2022        15.3 e                NA             
+#>  5 DG    GESM  KB10-11101 04/2022        12.8 e                NA             
+#>  6 DG    GESM  KB10-11102 04/2022        13.7 e                NA             
+#>  7 DG    GESM  KB10-11103 04/2022        23.6 ()               NA             
+#>  8 DG    GESM  KB10-11104 04/2022        30.8 e                NA             
+#>  9 DG    GESM  KB10-11113 04/2022        21.4 ()               NA             
+#> 10 DG    GESM  KB10-11114 04/2022         0   /                NA             
+#> # ℹ 2,498 more rows
+#> # ℹ 13 more variables: `VST045_WERT-VERFAELSCHT` <dbl>, VST047_WERT <dbl>,
+#> #   VST047_QUALITAET <chr>, VST047_GESPERRT <lgl>, `VST047_WERT-VERFAELSCHT` <dbl>,
+#> #   VST051_WERT <dbl>, VST051_QUALITAET <chr>, VST051_GESPERRT <lgl>,
+#> #   `VST051_WERT-VERFAELSCHT` <dbl>, VST052_WERT <dbl>, VST052_QUALITAET <chr>,
+#> #   VST052_GESPERRT <lgl>, `VST052_WERT-VERFAELSCHT` <dbl>
+```
+
+TODO: Create helpers to decipher column names.
+
+## Appendix: check for changes in previously collected data
+
+As a small additional step, we would like to check one week later if the collected data objects have been updated in the last week. We can also check if additional interesting data objects for our interest/keyword have been added to the database. To do this, we need to specify the code of the objects we are looking for and the time we want to look for updates.
+
+If we only want to check if something related has been updated, we only need to use the first part of the code until we are sure that it only covers the topic we are interested in. For example, use "62361*" if you want to check if some updated objects have been published for the specific statistic "Verdiensterhebung".
+
+For convenience, the functions have already implemented the most common `date` specifications, such as "week_before", "month_before", or "year_before". If you prefer a fixed date, you can enter it as a string in the format "DD-MM-YYYY".
+
+For example, we might want to check to see if something new has been published about our collected cube object. So we use only the first part of the code "62361*":
+
+
+```r
+gen_modified_data(code = "62361", date = "week_before")
+#> Please note that this date is calculated automatically and may differ
+#>                 from manually entered data. Manually entered data must have
+#>                 the format DD.MM.YYYY.
+#> No modified objects found for your code and date.
+```
