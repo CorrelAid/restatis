@@ -16,7 +16,8 @@ Description: A RESTful API wrapper for accessing the GENESIS database of
     search functions, credential management, result caching, and handling
     remote background jobs for large datasets.
 License: MIT + file LICENSE
-URL: https://correlaid.github.io/restatis/
+URL: https://correlaid.github.io/restatis/, https://github.com/CorrelAid/restatis
+BugReports: https://github.com/CorrelAid/restatis/issues
 Depends: 
     R (>= 2.10)
 Imports: 
