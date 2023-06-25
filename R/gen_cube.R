@@ -36,6 +36,9 @@
 #'       descriptions in German (`"de"`) or English (`"en"`)?}
 #'   }
 #'
+#' @return A [tibble][tibble::tibble()]. Non-data contents of the data cube object are saved in
+#'   the `metadata` [attribute][base::attr()] of the data frame.
+#'
 #' @export
 #'
 #' @examples

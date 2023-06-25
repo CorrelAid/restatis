@@ -40,6 +40,9 @@ updated after this #' date.}
 descriptions in German (\code{"de"}) or English (\code{"en"})?}
 }}
 }
+\value{
+A \link[tibble:tibble]{tibble}.
+}
 \description{
 Download a table with data from Genesis
 }

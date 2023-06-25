@@ -13,6 +13,8 @@
 #'   be added to .Renviron. The usethis package includes a helper function for
 #'   editing .Renviron files from an R session with [usethis::edit_r_environ()].
 #'
+#' @return Path to the RDS file in which credentials are saved, invisibly.
+#'
 #' @export
 gen_auth_save <- function() {
 
@@ -44,6 +46,8 @@ gen_auth_save <- function() {
     path = auth_path,
     key = "RESTATIS_KEY"
   )
+
+  invisible(auth_path)
 }
 
 gen_auth_get <- function() {

@@ -6,6 +6,9 @@
 \usage{
 gen_auth_save()
 }
+\value{
+Path to the RDS file in which credentials are saved, invisibly.
+}
 \description{
 See Details.
 }

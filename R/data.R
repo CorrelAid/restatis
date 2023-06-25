@@ -5,7 +5,7 @@
 #' \describe{
 #'   \item{EVAS}{EVAS code}
 #'   \item{Beschreibung}{Details on the EVAS code}
-#'   \item{Titel}{Alternative desription of EVAS code contents}
+#'   \item{Titel}{Alternative description of EVAS code contents}
 #'   ...
 #' }
 #' @source <https://www.destatis.de/DE/Methoden/Revisionen/Glossar/EVAS.html>

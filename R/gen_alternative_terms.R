@@ -1,4 +1,4 @@
-#' gen_alternative_terms: Call for similiar or spelling related terms for further search
+#' gen_alternative_terms: Call for similar or spelling related terms for further search
 #'
 #' @description Function to find search terms that are similar or related to one another and also represented in Genesis.
 #'

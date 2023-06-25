@@ -24,13 +24,17 @@ Imports:
     httr2,
     memoise,
     readr,
+    stats,
     tibble,
+    tools,
+    utils,
     vctrs
 Suggests: 
     httptest2,
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    usethis
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3

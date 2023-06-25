@@ -34,6 +34,8 @@
 #'       descriptions in German (`"de"`) or English (`"en"`)?}
 #'   }
 #'
+#' @return A [tibble][tibble::tibble()].
+#'
 #' @export
 #'
 #' @examples

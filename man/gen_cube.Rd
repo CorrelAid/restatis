@@ -42,6 +42,10 @@ updated after this #' date.}
 descriptions in German (\code{"de"}) or English (\code{"en"})?}
 }}
 }
+\value{
+A \link[tibble:tibble]{tibble}. Non-data contents of the data cube object are saved in
+the \code{metadata} \link[base:attr]{attribute} of the data frame.
+}
 \description{
 Download a cube with data from Genesis
 }

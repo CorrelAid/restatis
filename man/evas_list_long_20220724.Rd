@@ -11,7 +11,7 @@ A data frame with 1,097 rows and 3 columns:
 \describe{
 \item{EVAS}{EVAS code}
 \item{Beschreibung}{Details on the EVAS code}
-\item{Titel}{Alternative desription of EVAS code contents}
+\item{Titel}{Alternative description of EVAS code contents}
 ...
 }
 }

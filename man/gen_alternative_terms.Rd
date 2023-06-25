@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_alternative_terms.R
 \name{gen_alternative_terms}
 \alias{gen_alternative_terms}
-\title{gen_alternative_terms: Call for similiar or spelling related terms for further search}
+\title{gen_alternative_terms: Call for similar or spelling related terms for further search}
 \usage{
 gen_alternative_terms(term = NULL, similarity = TRUE, ...)
 }
