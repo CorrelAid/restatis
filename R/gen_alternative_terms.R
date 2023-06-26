@@ -22,58 +22,48 @@
 gen_alternative_terms <- function(term = NULL,
                                   similarity = TRUE,
                                   ...) {
-
   caller <- as.character(match.call()[1])
 
-  check_function_input(term = term,
-                       similarity = similarity,
-                       caller = caller)
+  check_function_input(
+    term = term,
+    similarity = similarity,
+    caller = caller
+  )
 
-#-------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------
 
   results_raw <- gen_api("catalogue/terms",
-
-    username = gen_auth_get()$username,
-    password = gen_auth_get()$password,
     selection = term,
-    ...)
+    ...
+  )
 
   results_json <- test_if_json(results_raw)
 
   if (length(results_json$List) == 0) {
-
     stop("No related terms found for your code.", call. = FALSE)
-
   } else {
-
     # similarity von Woertern berechnen und nach diesen Ordnen?
     termslist <- c()
 
     termslist <- lapply(results_json$List, function(x) {
-
       append(termslist, x$Content)
-
     })
 
     termslist <- lapply(termslist, function(x) {
-
       gsub("\\s+", " ", x)
-
     })
 
     termslist <- unlist(termslist)
 
     if (isTRUE(similarity)) {
-
       # generalized levenstein edit distance
       termslist <- termslist[order(utils::adist(term,
-                                                termslist,
-                                                ignore.case = TRUE))]
+        termslist,
+        ignore.case = TRUE
+      ))]
     } else {
-
       # nchar order
       termslist <- termslist[order(unlist(lapply(termslist, nchar)))]
-
     }
 
     list_resp <- list("Output" = termslist)
@@ -84,7 +74,5 @@ gen_alternative_terms <- function(term = NULL,
     attr(list_resp, "Copyright") <- results_json$Copyright
 
     return(list_resp)
-
   }
-
 }

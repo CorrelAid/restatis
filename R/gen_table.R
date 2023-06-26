@@ -44,9 +44,7 @@
 #' }
 #'
 gen_table <- function(name, ...) {
-
   gen_table_(name, ...)
-
 }
 
 #-------------------------------------------------------------------------------
@@ -67,11 +65,13 @@ gen_table_ <- function(name,
                        classifyingkey3 = NULL,
                        stand = NULL,
                        language = Sys.getenv("GENESIS_LANG")) {
-
   area <- match.arg(area)
 
   if (!isTRUE(language == "en")) {
-    area <- switch(area, public = "\u00F6ffentlich", user = "benutzer")
+    area <- switch(area,
+      public = "\u00F6ffentlich",
+      user = "benutzer"
+    )
   }
 
   param_check_year(startyear)

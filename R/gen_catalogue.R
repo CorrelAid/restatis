@@ -30,15 +30,16 @@ gen_catalogue <- function(code = NULL,
                           sortcriterion = c("code", "content"),
                           error.ignore = FALSE,
                           ...) {
-
   caller <- as.character(match.call()[1])
 
-  check_function_input(code = code,
-                       category = category,
-                       detailed = detailed,
-                       sortcriterion = sortcriterion,
-                       error.ignore = error.ignore,
-                       caller = caller)
+  check_function_input(
+    code = code,
+    category = category,
+    detailed = detailed,
+    sortcriterion = sortcriterion,
+    error.ignore = error.ignore,
+    caller = caller
+  )
 
   sortcriterion <- match.arg(sortcriterion)
 
@@ -46,51 +47,43 @@ gen_catalogue <- function(code = NULL,
 
   # Processing ####
   if ("cubes" %in% category) {
-
     results_raw <- gen_api("catalogue/cubes",
-                            username = gen_auth_get()$username,
-                            password = gen_auth_get()$password,
-                            selection = code,
-                            ...)
+      selection = code,
+      ...
+    )
 
     results_json <- test_if_json(results_raw)
 
     empty_object <- test_if_error(results_json, para = error.ignore)
 
-    if(isTRUE(empty_object)){
-
+    if (isTRUE(empty_object)) {
       list_of_cubes <- "No 'cubes' object found for your request."
-
-    } else if(isFALSE(empty_object)){
-
+    } else if (isFALSE(empty_object)) {
       list_of_cubes <- results_json$Status$Content
+    } else if (empty_object == "DONE") {
+      if (isTRUE(detailed)) {
+        list_of_cubes <- binding_lapply(results_json$List,
+          characteristics = c(
+            "Code",
+            "Content",
+            "Time",
+            "LatestUpdate",
+            "State",
+            "Information"
+          )
+        )
+      } else {
+        list_of_cubes <- binding_lapply(results_json$List,
+          characteristics = c(
+            "Code",
+            "Content"
+          )
+        )
+      }
 
-    } else if(empty_object == "DONE"){
+      list_of_cubes$Object_Type <- "Cube"
 
-    if (isTRUE(detailed)) {
-
-      list_of_cubes <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Time",
-                                                          "LatestUpdate",
-                                                          "State",
-                                                          "Information"))
-
-    } else {
-
-      list_of_cubes <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content"))
-
-
-
-    }
-
-    list_of_cubes$Object_Type <- "Cube"
-
-    list_of_cubes <- tibble::as_tibble(list_of_cubes)
-
+      list_of_cubes <- tibble::as_tibble(list_of_cubes)
     }
   }
 
@@ -98,51 +91,42 @@ gen_catalogue <- function(code = NULL,
   #-----------------------------------------------------------------------------
 
   if ("statistics" %in% category) {
-
     results_raw <- gen_api("catalogue/statistics",
-                    username = gen_auth_get()$username,
-                    password = gen_auth_get()$password,
-                    selection = code,
-                    sortcriterion = sortcriterion,
-                    ...)
+      selection = code,
+      sortcriterion = sortcriterion,
+      ...
+    )
 
     results_json <- test_if_json(results_raw)
 
     empty_object <- test_if_error(results_json, para = error.ignore)
 
-    if(isTRUE(empty_object)){
-
+    if (isTRUE(empty_object)) {
       list_of.stats <- "No 'statistics' object found for your request."
-
-    } else if(isFALSE(empty_object)){
-
+    } else if (isFALSE(empty_object)) {
       list_of.stats <- results_json$Status$Content
+    } else if (empty_object == "DONE") {
+      if (isTRUE(detailed)) {
+        list_of.stats <- binding_lapply(results_json$List,
+          characteristics = c(
+            "Code",
+            "Content",
+            "Cubes",
+            "Information"
+          )
+        )
+      } else {
+        list_of.stats <- binding_lapply(results_json$List,
+          characteristics = c(
+            "Code",
+            "Content"
+          )
+        )
+      }
 
-    } else if(empty_object == "DONE"){
+      list_of.stats$Object_Type <- "Statistic"
 
-    if (isTRUE(detailed)) {
-
-      list_of.stats <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Cubes",
-                                                          "Information"))
-
-
-    } else {
-
-      list_of.stats <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content"))
-
-
-
-    }
-
-    list_of.stats$Object_Type <- "Statistic"
-
-    list_of.stats <- tibble::as_tibble(list_of.stats)
-
+      list_of.stats <- tibble::as_tibble(list_of.stats)
     }
   }
 
@@ -151,50 +135,41 @@ gen_catalogue <- function(code = NULL,
   #-----------------------------------------------------------------------------
 
   if ("tables" %in% category) {
-
     results_raw <- gen_api("catalogue/tables",
-                    username = gen_auth_get()$username,
-                    password = gen_auth_get()$password,
-                    selection = code,
-                    sortcriterion = sortcriterion,
-                    ...)
+      selection = code,
+      sortcriterion = sortcriterion,
+      ...
+    )
 
     results_json <- test_if_json(results_raw)
 
     empty_object <- test_if_error(results_json, para = error.ignore)
 
-    if(isTRUE(empty_object)){
-
+    if (isTRUE(empty_object)) {
       list_of.tabs <- "No 'tables' object found for your request."
-
-    } else if(isFALSE(empty_object)){
-
+    } else if (isFALSE(empty_object)) {
       list_of.tabs <- results_json$Status$Content
+    } else if (empty_object == "DONE") {
+      if (isTRUE(detailed)) {
+        list_of.tabs <- binding_lapply(results_json$List,
+          characteristics = c(
+            "Code",
+            "Content",
+            "Time"
+          )
+        )
+      } else {
+        list_of.tabs <- binding_lapply(results_json$List,
+          characteristics = c(
+            "Code",
+            "Content"
+          )
+        )
+      }
 
-    } else if(empty_object == "DONE"){
+      list_of.tabs$Object_Type <- "Table"
 
-    if (isTRUE(detailed)) {
-
-      list_of.tabs <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Time"))
-
-
-
-    } else {
-
-      list_of.tabs <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content"))
-
-
-    }
-
-    list_of.tabs$Object_Type <- "Table"
-
-    list_of.tabs <- tibble::as_tibble(list_of.tabs)
-
+      list_of.tabs <- tibble::as_tibble(list_of.tabs)
     }
   }
 
@@ -203,49 +178,41 @@ gen_catalogue <- function(code = NULL,
 
   # Summary ####
   if (all(c("tables", "statistics", "cubes") %in% category)) {
-
     list_resp <- list(
-                  "Cubes" = if(length(list_of_cubes) == 1){list_of_cubes} else {list("A" = forming_evas(list_of_cubes))},
-                  "Statistics" = if(length(list_of.stats) == 1){list_of.stats} else {list("B" = forming_evas(list_of.stats))},
-                  "Tables" = if(length(list_of.tabs) == 1){list_of.tabs} else {list("C" = forming_evas(list_of.tabs))}
-                  )
-
+      "Cubes" = if (length(list_of_cubes) == 1) {
+        list_of_cubes
+      } else {
+        list("A" = forming_evas(list_of_cubes))
+      },
+      "Statistics" = if (length(list_of.stats) == 1) {
+        list_of.stats
+      } else {
+        list("B" = forming_evas(list_of.stats))
+      },
+      "Tables" = if (length(list_of.tabs) == 1) {
+        list_of.tabs
+      } else {
+        list("C" = forming_evas(list_of.tabs))
+      }
+    )
   } else if (category == "cubes") {
-
-    if(length(list_of_cubes) == 1){
-
+    if (length(list_of_cubes) == 1) {
       list_resp <- list("Output" = list_of_cubes)
-
     } else {
-
       list_resp <- list("Output" = forming_evas(list_of_cubes))
-
     }
-
   } else if (category == "statistics") {
-
-    if(length(list_of.stats) == 1){
-
+    if (length(list_of.stats) == 1) {
       list_resp <- list("Output" = list_of.stats)
-
     } else {
-
       list_resp <- list("Output" = forming_evas(list_of.stats))
-
     }
-
   } else if (category == "tables") {
-
-    if(length(list_of.tabs) == 1){
-
+    if (length(list_of.tabs) == 1) {
       list_resp <- list("Output" = list_of.tabs)
-
     } else {
-
       list_resp <- list("Output" = forming_evas(list_of.tabs))
-
     }
-
   }
 
   attr(list_resp, "Code") <- results_json$Parameter$selection
@@ -255,5 +222,4 @@ gen_catalogue <- function(code = NULL,
   attr(list_resp, "Copyright") <- results_json$Copyright
 
   return(list_resp)
-
 }

@@ -47,9 +47,7 @@
 #' }
 #'
 gen_cube <- function(name, ...) {
-
   gen_cube_(name, ...)
-
 }
 
 #-------------------------------------------------------------------------------
@@ -73,11 +71,13 @@ gen_cube_ <- function(name,
                       classifyingkey3 = NULL,
                       stand = NULL,
                       language = Sys.getenv("GENESIS_LANG")) {
-
   area <- match.arg(area)
 
   if (!isTRUE(language == "en")) {
-    area <- switch(area, public = "\u00F6ffentlich", user = "benutzer")
+    area <- switch(area,
+      public = "\u00F6ffentlich",
+      user = "benutzer"
+    )
   }
 
   param_check_year(startyear)
@@ -89,28 +89,29 @@ gen_cube_ <- function(name,
   classifyingkey2 <- param_collapse_vec(classifyingkey2)
   classifyingkey3 <- param_collapse_vec(classifyingkey3)
 
-  cube <- gen_api("data/cubefile", name = name,
-                  name = name,
-                  area = area,
-                  values = values,
-                  metadata = metadata,
-                  additionals = additionals,
-                  startyear = startyear,
-                  endyear = endyear,
-                  timeslices = timeslices,
-                  contents = contents,
-                  regionalvariable = regionalvariable,
-                  regionalkey = regionalkey,
-                  classifyingvariable1 = classifyingvariable1,
-                  classifyingkey1 = classifyingkey1,
-                  classifyingvariable2 = classifyingvariable2,
-                  classifyingkey2 = classifyingkey2,
-                  classifyingvariable3 = classifyingvariable3,
-                  classifyingkey3 = classifyingkey3,
-                  stand = stand,
-                  language = language,
-                  job = FALSE) %>%
-
+  cube <- gen_api("data/cubefile",
+    name = name,
+    name = name,
+    area = area,
+    values = values,
+    metadata = metadata,
+    additionals = additionals,
+    startyear = startyear,
+    endyear = endyear,
+    timeslices = timeslices,
+    contents = contents,
+    regionalvariable = regionalvariable,
+    regionalkey = regionalkey,
+    classifyingvariable1 = classifyingvariable1,
+    classifyingkey1 = classifyingkey1,
+    classifyingvariable2 = classifyingvariable2,
+    classifyingkey2 = classifyingkey2,
+    classifyingvariable3 = classifyingvariable3,
+    classifyingkey3 = classifyingkey3,
+    stand = stand,
+    language = language,
+    job = FALSE
+  ) %>%
     read_cube() %>%
     rename_cube_data_columns()
 

@@ -5,14 +5,11 @@ resp_check_data_csv <- function(resp) {
 }
 
 param_check_year <- function(year) {
-
-  if (as.integer(year) < 1900 || as.integer(year) > 2100)  {
-
+  if (as.integer(year) < 1900 || as.integer(year) > 2100) {
     stop("The parameter 'year' has been misspecified (>= 1900 or <= 2100).",
-         call. = FALSE)
-
+      call. = FALSE
+    )
   }
-
 }
 
 param_collapse_vec <- function(vec) {
@@ -268,28 +265,22 @@ check_function_input <- function(code = NULL,
   # date ----
 
   if (!is.null(date)) {
-
     if (identical(date, c("now", "week_before", "month_before", "year_before"))) {
-
       message("Please note that this date is calculated automatically and may differ
               from manually entered data. Manually entered data must have
               the format DD.MM.YYYY.")
 
       return("now")
-
     }
 
     if (!(length(date) %in% c(1, 4))) {
-
       stop("Parameter 'date' has to be of length 4 (c('now', 'week_before', 'month_before', 'year_before') for the default option of 'now' or of length 1.))",
-        call. = FALSE)
-
+        call. = FALSE
+      )
     }
 
     if (length(date) == 1) {
-
       if (date %in% c("now", "week_before", "month_before", "year_before")) {
-
         message("Please note that this date is calculated automatically and may differ
                 from manually entered data. Manually entered data must have
                 the format DD.MM.YYYY.")
@@ -298,17 +289,16 @@ check_function_input <- function(code = NULL,
       }
 
       if (!(date %in% c("now", "week_before", "month_before", "year_before"))) {
-
         if (!is.character(date)) {
-
           stop("If using a specific date for parameter 'date', it has to be of type 'character' (format: DD.MM.YYYY).",
-                call. = FALSE)
-
+            call. = FALSE
+          )
         }
 
         if (length(date) != 1 || nchar(date) != 10) {
           stop("If specifying a specific date for parameter 'date', it has to be of length 1 and format DD.MM.YYYY.",
-                call. = FALSE)
+            call. = FALSE
+          )
         }
 
         return(date)

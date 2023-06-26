@@ -17,7 +17,6 @@
 #'
 #' @export
 gen_auth_save <- function() {
-
   username <- gen_auth_ask("username")
   password <- gen_auth_ask("password")
 
@@ -51,7 +50,6 @@ gen_auth_save <- function() {
 }
 
 gen_auth_get <- function() {
-
   auth_path <- gen_auth_path("auth.rds")
 
   if (!(file.exists(auth_path) && nzchar(Sys.getenv("RESTATIS_KEY")))) {
@@ -78,4 +76,3 @@ gen_auth_ask <- function(credential_type) {
 gen_auth_path <- function(...) {
   file.path(tools::R_user_dir("restatis", "config"), ...)
 }
-

@@ -29,155 +29,142 @@ gen_objects2var <- function(code = NULL,
                             sortcriterion = c("code", "content"),
                             error.ignore = FALSE,
                             ...) {
-
   caller <- as.character(match.call()[1])
 
-  check_function_input(code = code,
-                       category = category,
-                       detailed = detailed,
-                       error.ignore = error.ignore,
-                       sortcriterion = sortcriterion,
-                       caller = caller)
+  check_function_input(
+    code = code,
+    category = category,
+    detailed = detailed,
+    error.ignore = error.ignore,
+    sortcriterion = sortcriterion,
+    caller = caller
+  )
 
   sortcriterion <- match.arg(sortcriterion)
 
   #-----------------------------------------------------------------------------
 
   if ("tables" %in% category) {
-
     results_raw <- gen_api("catalogue/tables2variable",
-                            username = gen_auth_get()$username,
-                            password = gen_auth_get()$password,
-                            name = code,
-                            sortcriterion = sortcriterion,
-                            ...)
+      name = code,
+      sortcriterion = sortcriterion,
+      ...
+    )
 
     results_json <- test_if_json(results_raw)
 
     empty_object <- test_if_error(results_json, para = error.ignore)
 
-    if(isTRUE(empty_object)){
-
+    if (isTRUE(empty_object)) {
       df_tables <- "No 'tables' object found for your request."
-
-    } else if(isFALSE(empty_object)){
-
+    } else if (isFALSE(empty_object)) {
       df_tables <- results_json$Status$Content
+    } else if (empty_object == "DONE") {
+      if (isTRUE(detailed)) {
+        df_tables <- binding_lapply(results_json$List,
+          characteristics = c(
+            "Code",
+            "Content",
+            "Time"
+          )
+        )
+      } else {
+        df_tables <- binding_lapply(results_json$List,
+          characteristics = c(
+            "Code",
+            "Content"
+          )
+        )
+      }
 
-    } else if(empty_object == "DONE"){
+      df_tables$Object_Type <- "Table"
 
-    if (isTRUE(detailed)) {
-
-      df_tables <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Time"))
-
-
-    } else {
-
-      df_tables <- binding_lapply(results_json$List,
-                                  characteristics = c("Code",
-                                                      "Content"))
-
-    }
-
-    df_tables$Object_Type <- "Table"
-
-    df_tables <- tibble::as_tibble(df_tables)
+      df_tables <- tibble::as_tibble(df_tables)
     }
   }
 
   #-----------------------------------------------------------------------------
 
   if ("statistics" %in% category) {
-
     results_raw <- gen_api("catalogue/statistics2variable",
-                            username = gen_auth_get()$username,
-                            password = gen_auth_get()$password,
-                            name = code,
-                            sortcriterion = sortcriterion,
-                            ...)
+      name = code,
+      sortcriterion = sortcriterion,
+      ...
+    )
 
     results_json <- test_if_json(results_raw)
 
     empty_object <- test_if_error(results_json, para = error.ignore)
 
-    if(isTRUE(empty_object)){
-
+    if (isTRUE(empty_object)) {
       df_statistics <- "No 'statistics' object found for your request."
-
-    } else if(isFALSE(empty_object)){
-
+    } else if (isFALSE(empty_object)) {
       df_statistics <- results_json$Status$Content
+    } else if (empty_object == "DONE") {
+      if (isTRUE(detailed)) {
+        df_statistics <- binding_lapply(results_json$List,
+          characteristics = c(
+            "Code",
+            "Content",
+            "Cubes",
+            "Information"
+          )
+        )
+      } else {
+        df_statistics <- binding_lapply(results_json$List,
+          characteristics = c(
+            "Code",
+            "Content"
+          )
+        )
+      }
 
-    } else if(empty_object == "DONE"){
+      df_statistics$Object_Type <- "Statistic"
 
-    if (isTRUE(detailed)) {
-
-      df_statistics <- binding_lapply(results_json$List,
-                                  characteristics = c("Code",
-                                                      "Content",
-                                                      "Cubes",
-                                                      "Information"))
-
-    } else {
-
-      df_statistics <- binding_lapply(results_json$List,
-                                  characteristics = c("Code",
-                                                      "Content"))
-    }
-
-    df_statistics$Object_Type <- "Statistic"
-
-    df_statistics <- tibble::as_tibble(df_statistics)
+      df_statistics <- tibble::as_tibble(df_statistics)
     }
   }
 
   #-----------------------------------------------------------------------------
 
   if ("cubes" %in% category) {
-
     results_raw <- gen_api("catalogue/timeseries2variable",
-                            username = gen_auth_get()$username,
-                            password = gen_auth_get()$password,
-                            name = code,
-                            ...)
+      name = code,
+      ...
+    )
 
     results_json <- test_if_json(results_raw)
 
     empty_object <- test_if_error(results_json, para = error.ignore)
 
-    if(isTRUE(empty_object)){
-
+    if (isTRUE(empty_object)) {
       df_cubes <- "No 'cubes' object found for your request."
-
-    } else if(isFALSE(empty_object)){
-
+    } else if (isFALSE(empty_object)) {
       df_cubes <- results_json$Status$Content
+    } else if (empty_object == "DONE") {
+      if (isTRUE(detailed)) {
+        df_cubes <- binding_lapply(results_json$List,
+          characteristics = c(
+            "Code",
+            "Content",
+            "Time",
+            "State",
+            "LatestUpdate",
+            "Information"
+          )
+        )
+      } else {
+        df_cubes <- binding_lapply(results_json$List,
+          characteristics = c(
+            "Code",
+            "Content"
+          )
+        )
+      }
 
-    } else if(empty_object == "DONE"){
+      df_cubes$Object_Type <- "Cube"
 
-    if (isTRUE(detailed)) {
-
-      df_cubes <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Time",
-                                                          "State",
-                                                          "LatestUpdate",
-                                                          "Information"))
-
-    } else {
-
-      df_cubes <- binding_lapply(results_json$List,
-                                 characteristics = c("Code",
-                                                     "Content"))
-    }
-
-    df_cubes$Object_Type <- "Cube"
-
-    df_cubes <- tibble::as_tibble(df_cubes)
+      df_cubes <- tibble::as_tibble(df_cubes)
     }
   }
 
@@ -185,25 +172,17 @@ gen_objects2var <- function(code = NULL,
 
   # Summary ####
   if (all(c("tables", "statistics", "cubes") %in% category)) {
-
     list_resp <- list(
       "Tables" = df_tables,
       "Statistics" = df_statistics,
       "Cubes" = df_cubes
     )
-
   } else if (category == "tables") {
-
     list_resp <- df_tables
-
   } else if (category == "statistics") {
-
     list_resp <- df_statistics
-
   } else if (category == "cubes") {
-
     list_resp <- df_cubes
-
   }
 
   attr(list_resp, "Code") <- results_json$Parameter$term
@@ -213,5 +192,4 @@ gen_objects2var <- function(code = NULL,
   attr(list_resp, "Copyright") <- results_json$Copyright
 
   return(list_resp)
-
 }

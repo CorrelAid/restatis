@@ -23,11 +23,12 @@ gen_var2stat <- function(code = NULL,
                          sortcriterion = c("code", "content"),
                          error.ignore = FALSE,
                          ...) {
-
-  check_function_input(code = code,
-                       detailed = detailed,
-                       error.ignore = error.ignore,
-                       sortcriterion = sortcriterion)
+  check_function_input(
+    code = code,
+    detailed = detailed,
+    error.ignore = error.ignore,
+    sortcriterion = sortcriterion
+  )
 
   sortcriterion <- match.arg(sortcriterion)
 
@@ -35,42 +36,42 @@ gen_var2stat <- function(code = NULL,
 
   # Processing ####
   results_raw <- gen_api("catalogue/variables2statistic",
-                          username = gen_auth_get()$username,
-                          password = gen_auth_get()$password,
-                          name = code,
-                          sortcriterion = sortcriterion,
-                          ...)
+    name = code,
+    sortcriterion = sortcriterion,
+    ...
+  )
 
   results_json <- test_if_json(results_raw)
 
   empty_object <- test_if_error(results_json, para = error.ignore)
 
-  if(isTRUE(empty_object)){
+  if (isTRUE(empty_object)) {
     list_of_variables <- "No `variables`- object found for your request."
-  } else if(isFALSE(empty_object)){
+  } else if (isFALSE(empty_object)) {
     list_of_variables <- results_json$Status$Content
-  } else if(empty_object == "DONE"){
-  if (isTRUE(detailed)) {
+  } else if (empty_object == "DONE") {
+    if (isTRUE(detailed)) {
+      list_of_variables <- binding_lapply(results_json$List,
+        characteristics = c(
+          "Code",
+          "Content",
+          "Type",
+          "Values",
+          "Information"
+        )
+      )
+    } else {
+      list_of_variables <- binding_lapply(results_json$List,
+        characteristics = c(
+          "Code",
+          "Content"
+        )
+      )
+    }
 
-    list_of_variables <- binding_lapply(results_json$List,
-                            characteristics = c("Code",
-                                                "Content",
-                                                "Type",
-                                                "Values",
-                                                "Information"))
+    list_of_variables$Object_Type <- "Variable"
 
-  } else {
-
-    list_of_variables <- binding_lapply(results_json$List,
-                                        characteristics = c("Code",
-                                                            "Content"
-                                                            ))
-
-  }
-
-  list_of_variables$Object_Type <- "Variable"
-
-  list_of_variables <- tibble::as_tibble(list_of_variables)
+    list_of_variables <- tibble::as_tibble(list_of_variables)
   }
 
   # Summary ####
@@ -82,7 +83,6 @@ gen_var2stat <- function(code = NULL,
   attr(list_resp, "Copyright") <- results_json$Copyright
 
   return(list_resp)
-
 }
 
 #-------------------------------------------------------------------------------
@@ -106,44 +106,46 @@ gen_var2stat <- function(code = NULL,
 #' }
 #'
 gen_val2var <- function(code = NULL,
-                            sortcriterion = c("code", "content"),
-                            error.ignore = FALSE,
-                            ...) {
-
-  check_function_input(code = code,
-                       error.ignore = error.ignore,
-                       sortcriterion = sortcriterion)
+                        sortcriterion = c("code", "content"),
+                        error.ignore = FALSE,
+                        ...) {
+  check_function_input(
+    code = code,
+    error.ignore = error.ignore,
+    sortcriterion = sortcriterion
+  )
 
   sortcriterion <- match.arg(sortcriterion)
 
   #-----------------------------------------------------------------------------
 
   results_raw <- gen_api("catalogue/values2variable",
-                          username = gen_auth_get()$username,
-                          password = gen_auth_get()$password,
-                          name = code,
-                          sortcriterion = sortcriterion,
-                          ...)
+    name = code,
+    sortcriterion = sortcriterion,
+    ...
+  )
 
   results_json <- test_if_json(results_raw)
 
   empty_object <- test_if_error(results_json, para = error.ignore)
 
-  if(isTRUE(empty_object)){
+  if (isTRUE(empty_object)) {
     list_of_variables <- "No `values`- object found for your request."
-  } else if(isFALSE(empty_object)){
+  } else if (isFALSE(empty_object)) {
     list_of_variables <- results_json$Status$Content
-  } else if(empty_object == "DONE"){
-  list_of_variables <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Variables",
-                                                          "Information"))
+  } else if (empty_object == "DONE") {
+    list_of_variables <- binding_lapply(results_json$List,
+      characteristics = c(
+        "Code",
+        "Content",
+        "Variables",
+        "Information"
+      )
+    )
 
     list_of_variables$Object_Type <- "Value"
 
     list_of_variables <- tibble::as_tibble(list_of_variables)
-
   }
 
   list_resp <- list("Values" = list_of_variables)
@@ -156,7 +158,6 @@ gen_val2var <- function(code = NULL,
   names(list_resp) <- paste("Values of", results_json$Parameter$name)
 
   return(list_resp)
-
 }
 
 #-------------------------------------------------------------------------------
@@ -186,37 +187,39 @@ gen_val2var2stat <- function(code = NULL,
                              sortcriterion = c("code", "content"),
                              error.ignore = FALSE,
                              ...) {
-
-  check_function_input(code = code,
-                       detailed = detailed,
-                       error.ignore = error.ignore,
-                       sortcriterion = sortcriterion)
+  check_function_input(
+    code = code,
+    detailed = detailed,
+    error.ignore = error.ignore,
+    sortcriterion = sortcriterion
+  )
 
   sortcriterion <- match.arg(sortcriterion)
 
   #-----------------------------------------------------------------------------
 
-  variables <- suppressMessages(suppressWarnings(gen_var2stat(code = code,
-                                            detailed = detailed,
-                                            sortcriterion = sortcriterion,
-                                            error.ignore = error.ignore,
-                                            ...)))
+  variables <- suppressMessages(suppressWarnings(gen_var2stat(
+    code = code,
+    detailed = detailed,
+    sortcriterion = sortcriterion,
+    error.ignore = error.ignore,
+    ...
+  )))
 
   list_values <- list()
 
   lapply(variables$Variables$Code, function(x) {
-
-    zwisch <- suppressMessages(suppressWarnings(gen_val2var(code = x,
-                                        sortcriterion = sortcriterion,
-                                        error.ignore = error.ignore)))
+    zwisch <- suppressMessages(suppressWarnings(gen_val2var(
+      code = x,
+      sortcriterion = sortcriterion,
+      error.ignore = error.ignore
+    )))
     list_values <<- append(list_values, zwisch)
-
   })
 
   list_resp <- list(variables, list_values)
 
   return(list_resp)
-
 }
 
 #-------------------------------------------------------------------------------
@@ -243,43 +246,46 @@ gen_search_vars <- function(code = NULL,
                             sortcriterion = c("code", "content"),
                             error.ignore = FALSE,
                             ...) {
-
   caller <- as.character(match.call()[1])
 
-  check_function_input(code = code,
-                       error.ignore = error.ignore,
-                       sortcriterion = sortcriterion,
-                       caller = caller)
+  check_function_input(
+    code = code,
+    error.ignore = error.ignore,
+    sortcriterion = sortcriterion,
+    caller = caller
+  )
 
   sortcriterion <- match.arg(sortcriterion)
 
   #-----------------------------------------------------------------------------
 
   results_raw <- gen_api("catalogue/variables",
-                          username = gen_auth_get()$username,
-                          password = gen_auth_get()$password,
-                          selection = code,
-                          sortcriterion = sortcriterion,
-                          ...)
+    selection = code,
+    sortcriterion = sortcriterion,
+    ...
+  )
 
   results_json <- test_if_json(results_raw)
 
   empty_object <- test_if_error(results_json, para = error.ignore)
 
-  if(isTRUE(empty_object)){
+  if (isTRUE(empty_object)) {
     list_of_variables <- "No `variables`- object found for your request."
-  } else if(isFALSE(empty_object)){
+  } else if (isFALSE(empty_object)) {
     list_of_variables <- results_json$Status$Content
-  } else if(empty_object == "DONE"){
-  list_of_variables <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Type",
-                                                          "Information"))
+  } else if (empty_object == "DONE") {
+    list_of_variables <- binding_lapply(results_json$List,
+      characteristics = c(
+        "Code",
+        "Content",
+        "Type",
+        "Information"
+      )
+    )
 
-  list_of_variables$Object_Type <- "Variable"
+    list_of_variables$Object_Type <- "Variable"
 
-  list_of_variables <- tibble::as_tibble(list_of_variables)
+    list_of_variables <- tibble::as_tibble(list_of_variables)
   }
 
   list_resp <- list("Variables" = list_of_variables)
@@ -290,5 +296,4 @@ gen_search_vars <- function(code = NULL,
   attr(list_resp, "Copyright") <- results_json$Copyright
 
   return(list_resp)
-
 }

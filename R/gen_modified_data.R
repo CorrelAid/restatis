@@ -26,30 +26,24 @@ gen_modified_data <- function(code = "",
                               type = c("all", "tables", "statistics", "statisticsUpdates"),
                               date = c("now", "week_before", "month_before", "year_before"),
                               ...) {
-
-  date <- check_function_input(code = code,
-                               type = type,
-                               date = date)
+  date <- check_function_input(
+    code = code,
+    type = type,
+    date = date
+  )
 
   #-----------------------------------------------------------------------------
 
   if (date == "now") {
-
     date <- format(Sys.Date(), format = "%d.%m.%Y")
-
   } else if (date == "week_before") {
-
     date <- format(Sys.Date() - 7, format = "%d.%m.%Y")
-
   } else if (date == "month_before") {
-
     date <- format(Sys.Date() - as.difftime(4, units = "weeks"),
-                   format = "%d.%m.%Y")
-
+      format = "%d.%m.%Y"
+    )
   } else if (date == "year_before") {
-
     date <- format(as.difftime(52, units = "weeks"), format = "%d.%m.%Y")
-
   }
 
   type <- match.arg(type)
@@ -58,14 +52,12 @@ gen_modified_data <- function(code = "",
 
   # Processing ####
   if (type == "tables") {
-
     results_raw <- gen_api("catalogue/modifieddata",
-                    username = gen_auth_get()$username,
-                    password = gen_auth_get()$password,
-                    selection = code,
-                    type = "Neue Tabellen",
-                    date = date,
-                    ...)
+      selection = code,
+      type = "Neue Tabellen",
+      date = date,
+      ...
+    )
 
     results_json <- test_if_json(results_raw)
 
@@ -75,14 +67,12 @@ gen_modified_data <- function(code = "",
   #-----------------------------------------------------------------------------
 
   if (type == "statistics") {
-
     results_raw <- gen_api("catalogue/modifieddata",
-                    username = gen_auth_get()$username,
-                    password = gen_auth_get()$password,
-                    selection = code,
-                    type = "Neue Statistiken",
-                    date = date,
-                    ...)
+      selection = code,
+      type = "Neue Statistiken",
+      date = date,
+      ...
+    )
 
     results_json <- test_if_json(results_raw)
 
@@ -92,14 +82,12 @@ gen_modified_data <- function(code = "",
   #-----------------------------------------------------------------------------
 
   if (type == "statisticsUpdates") {
-
     results_raw <- gen_api("catalogue/modifieddata",
-                    username = gen_auth_get()$username,
-                    password = gen_auth_get()$password,
-                    selection = code,
-                    type = "Aktualisierte Statistiken",
-                    date = date,
-                    ...)
+      selection = code,
+      type = "Aktualisierte Statistiken",
+      date = date,
+      ...
+    )
 
     results_json <- test_if_json(results_raw)
 
@@ -109,14 +97,12 @@ gen_modified_data <- function(code = "",
   #-----------------------------------------------------------------------------
 
   if (type == "all") {
-
     results_raw <- gen_api("catalogue/modifieddata",
-                    username = gen_auth_get()$username,
-                    password = gen_auth_get()$password,
-                    selection = code,
-                    type = "all",
-                    date = date,
-                    ...)
+      selection = code,
+      type = "all",
+      date = date,
+      ...
+    )
 
     results_json <- test_if_json(results_raw)
 
@@ -126,17 +112,17 @@ gen_modified_data <- function(code = "",
   #-----------------------------------------------------------------------------
 
   if (is.null(unlist(results_json$List))) {
-
     message("No modified objects found for your code and date.")
-
   } else {
-
     table <- binding_lapply(results_json$List,
-                                    characteristics = c("Code",
-                                                        "Content",
-                                                        "Date",
-                                                        "Added",
-                                                        "Type"))
+      characteristics = c(
+        "Code",
+        "Content",
+        "Date",
+        "Added",
+        "Type"
+      )
+    )
 
 
     table$Date <- as.Date.character(table$Date, format = "%d.%m.%Y")
@@ -154,6 +140,5 @@ gen_modified_data <- function(code = "",
     attr(list_resp, "Copyright") <- results_json$Copyright
 
     return(list_resp)
-
   }
 }

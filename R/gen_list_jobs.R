@@ -11,19 +11,14 @@
 #'
 gen_list_jobs <- function(selection = NULL,
                           sortcriterion = c("content", "time", "status"),
-                          ...
-                      ) {
-
+                          ...) {
   results_raw <- gen_api("catalogue/jobs",
-                         username = gen_auth_get()$username,
-                         password = gen_auth_get()$password,
-                         selection = selection,
-                         sortcriterion = sortcriterion,
-                         ...
-                         )
+    selection = selection,
+    sortcriterion = sortcriterion,
+    ...
+  )
 
   results_json <- test_if_json(results_raw)
 
   return(results_json)
-
 }
