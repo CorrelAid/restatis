@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_meta_data.R
 \name{gen_metadata}
 \alias{gen_metadata}
-\title{gen_metadata}
+\title{Search for Meta-Information for All Types of Objects}
 \usage{
 gen_metadata(
   code = NULL,
@@ -12,19 +12,19 @@ gen_metadata(
 )
 }
 \arguments{
-\item{code}{string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.}
+\item{code}{string with a maximum length of 15 characters. Code from a GENESIS-Object. Only one code per iteration.}
 
 \item{category}{a string. Specific object-types: 'Cube', 'Statistic', "Table", "Variable" and 'Value'. The function needs a specified object type.}
 
 \item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
 
-\item{...}{Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.}
+\item{...}{Additional parameter of the GENESIS API call. These parameters are only affecting the GENESIS API call itself, no further processing.}
 }
 \value{
-A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
+A list with all recalled elements from GENESIS. Attributes are added to the dataframe describing the search configuration for the returned output.
 }
 \description{
-Search For Meta-Information For All Types Of Objects
+Function to search for meta-information for all types of objects.
 }
 \examples{
 \dontrun{

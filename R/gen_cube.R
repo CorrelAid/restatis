@@ -1,9 +1,9 @@
-#’ Get the Data of a Cube From Genesis
+#' Get the Data of a Cube From GENESIS
 #'
-#' @description Download a cube with data from Genesis.
+#' @description Download a cube with data from GENESIS.
 #'
 #' @param name Name of the data cube
-#' @param ... Optional parameters passed on to the Genesis API call:
+#' @param ... Optional parameters passed on to the GENESIS API call:
 #'   \describe{
 #'     \item{\code{area}}{a string. The area in which the table is stored. Possible values:
 #'     \itemize{

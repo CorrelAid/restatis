@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_catalogue.R
 \name{gen_catalogue}
 \alias{gen_catalogue}
-\title{catalogue: Explore Different Objects and Their Structural Embedding in Genesis}
+\title{Explore Different Objects and Their Structural Embedding in GENESIS}
 \usage{
 gen_catalogue(
   code = NULL,
@@ -14,23 +14,23 @@ gen_catalogue(
 )
 }
 \arguments{
-\item{code}{a string with a maximum length of 10 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possible.}
+\item{code}{a string with a maximum length of 10 characters. Code from a GENESIS-Object. Only one code per iteration. "*"-Notations are possible.}
 
-\item{category}{a string. Specific Genesis-Object-types: 'tables', 'statistics', and 'cubes'. All three together are possible.}
+\item{category}{a string. Specific GENESIS-Object-types: 'tables', 'statistics', and 'cubes'. All three together are possible.}
 
 \item{detailed}{a logical. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title.}
 
-\item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself.}
+\item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the GENESIS API call itself.}
 
 \item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
 
-\item{...}{Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.}
+\item{...}{Additional parameter of the GENESIS API call. These parameters are only affecting the GENESIS API call itself, no further processing.}
 }
 \value{
-A list with all recalled elements from Genesis API. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+A list with all recalled elements from GENESIS API. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 }
 \description{
-Function to enable searching for tables, statistics, and cubes from Genesis. Additionally, it structures the output based on the internal tree structure of Genesis itself based on the EVAS-numbers. Time-series are represented as cubes with a specified time span.
+Function to enable searching for tables, statistics, and cubes from GENESIS. Additionally, it structures the output based on the internal tree structure of GENESIS itself based on the EVAS-numbers. Time-series are represented as cubes with a specified time span.
 }
 \examples{
 \dontrun{

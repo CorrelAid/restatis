@@ -1,13 +1,13 @@
-#’ Save Authentication of Your Genesis Account
+#' Save Authentication of Your GENESIS Account
 #'
 #' See Details.
 #'
-#' Genesis username and password are encrypted and saved as RDS in the
+#' GENESIS username and password are encrypted and saved as RDS in the
 #'   package config directory.
 #'
 #' A random string is generated and stored in the session environment
 #'   variable `RESTATIS_KEY`. This string is used as the key to encrypt and
-#'   decrypt the entered Genesis credentials.
+#'   decrypt the entered GENESIS credentials.
 #'
 #' To avoid having to save authentication in future sessions, `RESTATIS_KEY` can
 #'   be added to .Renviron. The usethis package includes a helper function for
@@ -54,8 +54,8 @@ gen_auth_get <- function() {
 
   if (!(file.exists(auth_path) && nzchar(Sys.getenv("RESTATIS_KEY")))) {
     stop(
-      "Genesis credentials not found.\n",
-      "Please run `gen_auth_save()` to store Genesis username and password.\n",
+      "GENESIS credentials not found.\n",
+      "Please run `gen_auth_save()` to store GENESIS username and password.\n",
       call. = FALSE
     )
   }

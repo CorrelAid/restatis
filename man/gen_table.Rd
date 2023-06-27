@@ -2,14 +2,14 @@
 % Please edit documentation in R/gen_table.R
 \name{gen_table}
 \alias{gen_table}
-\title{gen_table}
+\title{Get the Data of a Table From GENESIS}
 \usage{
 gen_table(name, ...)
 }
 \arguments{
 \item{name}{a string. Name of the table. Use of wildcards (\code{*}) allowed.}
 
-\item{...}{Optional parameters passed on to the Genesis API call:
+\item{...}{Optional parameters passed on to the GENESIS API call:
 \describe{
 \item{\code{area}}{a string. The area in which the table is stored. Possible values:
 \itemize{
@@ -44,7 +44,7 @@ descriptions in German (\code{"de"}) or English (\code{"en"})?}
 A \link[tibble:tibble]{tibble}.
 }
 \description{
-Download a table with data from Genesis
+Download a table with data from GENESIS.
 }
 \examples{
 \dontrun{

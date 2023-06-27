@@ -1,9 +1,9 @@
-#’ Get the Data of a Table From Genesis
+#' Get the Data of a Table From GENESIS
 #'
-#' @description Download a table with data from Genesis.
+#' @description Download a table with data from GENESIS.
 #'
 #' @param name a string. Name of the table. Use of wildcards (`*`) allowed.
-#' @param ... Optional parameters passed on to the Genesis API call:
+#' @param ... Optional parameters passed on to the GENESIS API call:
 #'   \describe{
 #'     \item{\code{area}}{a string. The area in which the table is stored. Possible values:
 #'     \itemize{

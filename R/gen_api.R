@@ -1,4 +1,4 @@
-#' Lower-Level Function to Interact With the Genesis API
+#' Lower-Level Function to Interact With the GENESIS API
 #'
 #' @param endpoint Self-explanatory
 #'

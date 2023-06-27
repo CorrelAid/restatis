@@ -1,6 +1,6 @@
-#' General Search for Objects Through Genesis
+#' General Search for Objects Through GENESIS
 #'
-#' @description Function to search through Genesis. It is similar in usage as the search function on the Destatis main page (https://www.destatis.de/DE/Home/_inhalt.html).
+#' @description Function to search through GENESIS. It is similar in usage as the search function on the Destatis main page (https://www.destatis.de/DE/Home/_inhalt.html).
 #' In the search query, "UND" (german word for: and; can also be written "und" or "&") as well as "ODER" (german word for: or; can also be written "oder" or "|") can be included and logically combined. Furthermore, wildcards are possible by including "*". If more then one word is included in the term-string, automatically "and" is used to combine the different words.
 #' Important note: Time-series are treated as cubes, they are not longer distinguished. If you want to find a specific object with a clear code with this find function, you need to specify the object type or search for all object types.
 #'
@@ -9,23 +9,23 @@
 #' @param detailed A logical. Indicator if the function should return the detailed output of the iteration including all object related information or only a shortened output including only code and object title. Default Option is FALSE.
 #' @param ordering A logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and secondly on an estimator of the number of variables in this object. Default option is TRUE.
 #' @param error.ignore  A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce an artificial response (e.g., for complex processes not to fail).
-#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
+#' @param ... Additional parameter of the GENESIS API call. These parameters are only affecting the GENESIS API call itself, no further processing.
 #'
-#' @return A list with all elements retrieved from Genesis. Attributes are added to the data.frame describing the search configuration for the returned output.
+#' @return A list with all elements retrieved from GENESIS. Attributes are added to the data.frame describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' # Find objects related to "bus" in Genesis
+#' # Find objects related to "bus" in GENESIS
 #' object <- gen_find(term = "bus")
 #'
-#' # Find tables related to "bus" in Genesis and return a unordered detailed output
+#' # Find tables related to "bus" in GENESIS and return a unordered detailed output
 #' object <- gen_find(term = "bus", detailed = TRUE, ordering = FALSE)
 #'
-#' # Find tables related to "Autos" or "Corona" in Genesis and return a unordered detailed output
+#' # Find tables related to "Autos" or "Corona" in GENESIS and return a unordered detailed output
 #' object <- gen_find(term = "autos ODER corona", detailed = TRUE, ordering = FALSE)
 #'
-#' #' # Find tables related to "Autos" and "Corona" in Genesis and return a unordered detailed output
+#' #' # Find tables related to "Autos" and "Corona" in GENESIS and return a unordered detailed output
 #' object <- gen_find(term = "autos UND corona", detailed = TRUE, ordering = FALSE)
 #' }
 #'

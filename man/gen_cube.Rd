@@ -2,14 +2,14 @@
 % Please edit documentation in R/gen_cube.R
 \name{gen_cube}
 \alias{gen_cube}
-\title{gen_cube}
+\title{Get the Data of a Cube From GENESIS}
 \usage{
 gen_cube(name, ...)
 }
 \arguments{
 \item{name}{Name of the data cube}
 
-\item{...}{Optional parameters passed on to the Genesis API call:
+\item{...}{Optional parameters passed on to the GENESIS API call:
 \describe{
 \item{\code{area}}{a string. The area in which the table is stored. Possible values:
 \itemize{
@@ -47,7 +47,7 @@ A \link[tibble:tibble]{tibble}. Non-data contents of the data cube object are sa
 the \code{metadata} \link[base:attr]{attribute} of the data frame.
 }
 \description{
-Download a cube with data from Genesis
+Download a cube with data from GENESIS.
 }
 \examples{
 \dontrun{

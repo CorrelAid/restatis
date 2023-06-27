@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_alternative_terms.R
 \name{gen_alternative_terms}
 \alias{gen_alternative_terms}
-\title{gen_alternative_terms: Call for similar or spelling related terms for further search}
+\title{Search for Related Terms Based on the Same Specific String}
 \usage{
 gen_alternative_terms(term = NULL, similarity = TRUE, ...)
 }
@@ -11,13 +11,13 @@ gen_alternative_terms(term = NULL, similarity = TRUE, ...)
 
 \item{similarity}{Logical. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function.}
 
-\item{...}{Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing.}
+\item{...}{Additional parameter of the GENESIS API call. These parameters are only affecting the GENESIS API call itself, no further processing.}
 }
 \value{
-A list with all recalled elements from Genesis. Attributes are added to the data.frame, describing the search configuration for the returned output.
+A list with all recalled elements from GENESIS. Attributes are added to the data.frame, describing the search configuration for the returned output.
 }
 \description{
-Function to find search terms that are similar or related to one another and also represented in Genesis.
+Function to find terms in GENESIS that are similar or related based on a simple comparison of strings. This can help to identify alternative search terms.
 }
 \examples{
 \dontrun{

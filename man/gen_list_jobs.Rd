@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_list_jobs.R
 \name{gen_list_jobs}
 \alias{gen_list_jobs}
-\title{gen_list_jobs: Explore current jobs of your user account}
+\title{Search for Current Jobs of Your User Account}
 \usage{
 gen_list_jobs(
   selection = NULL,
@@ -15,7 +15,7 @@ gen_list_jobs(
 
 \item{sortcriterion}{Allows to sort the resulting list of jobs by their Code ("content"), the time of completion ("time") or status ("status")}
 
-\item{...}{Further parameters to be passed down to the API caller.}
+\item{...}{Additional parameter of the GENESIS API call. These parameters are only affecting the GENESIS API call itself, no further processing.}
 }
 \value{
 A list of all current jobs connected to the given user.

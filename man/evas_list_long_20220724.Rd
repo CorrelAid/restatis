@@ -3,7 +3,7 @@
 \docType{data}
 \name{evas_list_long_20220724}
 \alias{evas_list_long_20220724}
-\title{List of EVAS codes}
+\title{List of EVAS Codes}
 \format{
 \subsection{\code{evas_list_long_20220724}}{
 
@@ -23,6 +23,6 @@ A data frame with 1,097 rows and 3 columns:
 evas_list_long_20220724
 }
 \description{
-List of EVAS codes
+List of EVAS Codes
 }
 \keyword{datasets}

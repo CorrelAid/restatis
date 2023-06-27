@@ -1,15 +1,15 @@
 #' Search for Objects Related to a Statistic
 #'
-#' @description Function to find objects related to a statistic in Genesis.
+#' @description Function to find objects related to a statistic in GENESIS.
 #'
-#' @param code a string with a maximum length of 6 characters (15 characters if cubes are not used as a category). Code from a Genesis-Object. Only one code per iteration.
+#' @param code a string with a maximum length of 6 characters (15 characters if cubes are not used as a category). Code from a GENESIS-Object. Only one code per iteration.
 #' @param category a string. Specific object-types: 'tables', 'variables', and 'cubes'. All three together are possible and the default option.
 #' @param detailed a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. The default is detailed = FALSE.
-#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself. The default is "code".
+#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the GENESIS API call itself. The default is "code".
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
+#' @param ... Additional parameter of the GENESIS API call. These parameters are only affecting the GENESIS API call itself, no further processing.
 #'
-#' @return A list with all recalled elements from Genesis. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from GENESIS. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
