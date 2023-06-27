@@ -1,4 +1,4 @@
-#' Save authentication
+#’ Save Authentication of Your Genesis Account
 #'
 #' See Details.
 #'

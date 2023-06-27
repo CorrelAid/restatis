@@ -1,10 +1,10 @@
-#' gen_alternative_terms: Call for similar or spelling related terms for further search
+#’ Search for Related Terms Based on the Same Specific String
 #'
-#' @description Function to find search terms that are similar or related to one another and also represented in Genesis.
+#' @description Function to find terms in Genesis that are similar or related based on a simple comparison of strings. This can help to identify alternative search terms.
 #'
 #' @param term Character string. Maximum length of 15 characters. Term or word for which you are searching for alternative or related terms. Use of '*' as a placeholder is possible to generate broader search areas.
 #' @param similarity Logical. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function.
-#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
 #' @return A list with all recalled elements from Genesis. Attributes are added to the data.frame, describing the search configuration for the returned output.
 #' @export

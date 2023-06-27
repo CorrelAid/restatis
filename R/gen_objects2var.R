@@ -1,4 +1,4 @@
-#' gen_objects2var: Get Objects Related To Variable
+#' Search for Objects Related to a Variable
 #'
 #' @description Function to find objects related to a variable in Genesis.
 #'
