@@ -1,6 +1,6 @@
-#' gen_table
+#’ Get the Data of a Table From Genesis
 #'
-#' @description Download a table with data from Genesis
+#' @description Download a table with data from Genesis.
 #'
 #' @param name a string. Name of the table. Use of wildcards (`*`) allowed.
 #' @param ... Optional parameters passed on to the Genesis API call:

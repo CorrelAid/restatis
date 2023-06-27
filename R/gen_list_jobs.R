@@ -1,10 +1,10 @@
-#' gen_list_jobs: Explore current jobs of your user account
+#' Search for Current Jobs of Your User Account
 #'
 #' @description Function to list all current jobs connected to the given user.
 #'
 #' @param selection Filter the list of jobs for matching codes.
 #' @param sortcriterion Allows to sort the resulting list of jobs by their Code ("content"), the time of completion ("time") or status ("status")
-#' @param ... Further parameters to be passed down to the API caller.
+#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
 #'
 #' @return A list of all current jobs connected to the given user.
 #' @export

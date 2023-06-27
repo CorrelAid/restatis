@@ -1,6 +1,6 @@
-#' catalogue: Explore Different Objects and Their Structural Embedding in Genesis
+#' Explore Different Objects and Their Structural Embedding in Genesis
 #'
-#' Function to enable searching for tables, statistics, and cubes from Genesis. Additionally, it structures the output based on the internal tree structure of Genesis itself based on the EVAS-numbers. Time-series are represented as cubes with a specified time span.
+#' @description Function to enable searching for tables, statistics, and cubes from Genesis. Additionally, it structures the output based on the internal tree structure of Genesis itself based on the EVAS-numbers. Time-series are represented as cubes with a specified time span.
 #'
 #' @param code a string with a maximum length of 10 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possible.
 #' @param category a string. Specific Genesis-Object-types: 'tables', 'statistics', and 'cubes'. All three together are possible.

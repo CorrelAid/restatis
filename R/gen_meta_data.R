@@ -1,4 +1,4 @@
-#' gen_metadata_stat
+#' Search for Meta-Information for a Statistic
 #'
 #' @description Function to search for meta-information for a specific statistic.
 #'
@@ -64,7 +64,7 @@ gen_metadata_stats <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_metadata_var
+#' Search for Meta-Information for a Variable
 #'
 #' @description Function to search for meta-information for a specific variable.
 #'
@@ -133,7 +133,7 @@ gen_metadata_var <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_metadata_val
+#' Search for Meta-Information for a Value
 #'
 #' @description Function to search for meta-information for a specific value.
 #'
@@ -199,7 +199,7 @@ gen_metadata_val <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_metadata_tab
+#' Search for Meta-Information for a Table
 #'
 #' @description Function to search for meta-information for a specific table.
 #'
@@ -345,7 +345,7 @@ gen_metadata_tab <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_metadata_cube
+#' Search for Meta-Information for a Cube
 #'
 #' @description Function to search for meta-information for a specific cube.
 #'
@@ -468,9 +468,9 @@ gen_metadata_cube <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_metadata
+#’ Search for Meta-Information for All Types of Objects
 #'
-#' @description Search For Meta-Information For All Types Of Objects
+#' @description Function to search for meta-information for all types of objects.
 #'
 #' @param code string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
 #' @param category a string. Specific object-types: 'Cube', 'Statistic', "Table", "Variable" and 'Value'. The function needs a specified object type.

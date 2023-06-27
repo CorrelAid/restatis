@@ -1,4 +1,4 @@
-#' Low-level function to interact with the Destatis GENESIS API
+#' Lower-Level Function to Interact With the Genesis API
 #'
 #' @param endpoint Self-explanatory
 #'

@@ -1,6 +1,6 @@
-#' gen_cube
+#’ Get the Data of a Cube From Genesis
 #'
-#' @description Download a cube with data from Genesis
+#' @description Download a cube with data from Genesis.
 #'
 #' @param name Name of the data cube
 #' @param ... Optional parameters passed on to the Genesis API call:
