@@ -4,9 +4,9 @@
 \name{restatis-package}
 \alias{restatis}
 \alias{restatis-package}
-\title{restatis: API Client for the German Federal Statistical Office Database}
+\title{restatis: Web API Client for the German Federal Statistical Office Database}
 \description{
-A RESTful API wrapper for accessing the GENESIS database of the German Federal Statistical Office (Destatis) \url{https://www-genesis.destatis.de/}. Also supports data search functions, credential management, result caching, and handling remote background jobs for large datasets.
+A 'RESTful' API wrapper for accessing the 'GENESIS' database of the German Federal Statistical Office (Destatis) \url{https://www-genesis.destatis.de/}. Also supports data search functions, credential management, result caching, and handling remote background jobs for large datasets.
 }
 \seealso{
 Useful links:

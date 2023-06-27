@@ -1,22 +1,23 @@
 Package: restatis
-Title: R Wrapper for the GENESIS Web Service RESTful API of the German
-    Federal Statistical Office (Statistisches Bundesamt/Destatis)
+Title: Web API Client for the German Federal Statistical Office Database
 Version: 0.1.0
 Authors@R: c(
-    person("Yannik", "Buhl", role = "aut"),
-    person("Zoran", "Kovacevic", role = "aut",
+    person("Yannik", "Buhl", , "yannik.buhl@posteo.de", role = "aut"),
+    person("Zoran", "Kovacevic", , "zoran.kovacevic@gess.ethz.ch", role = "aut",
            comment = c(ORCID = "0009-0002-0156-0862")),
-    person("Dorian", "Le Jeune", role = "aut"),
+    person("Dorian", "Le Jeune", , "d.le-jeune@gmx.de", role = "aut"),
     person("Long", "Nguyen", , "long.nguyen@uni-bielefeld.de", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-8878-7386")),
-    person("Johannes", "Ritter", role = "aut")
+    person("Johannes", "Ritter", , "ritter.johannes@gmail.com", role = "aut")
   )
-Description: A RESTful API wrapper for accessing the GENESIS database of
-    the German Federal Statistical Office (Destatis). Also supports data
-    search functions, credential management, result caching, and handling
-    remote background jobs for large datasets.
+Description: A 'RESTful' API wrapper for accessing the 'GENESIS' database
+    of the German Federal Statistical Office (Destatis)
+    <https://www-genesis.destatis.de/>. Also supports data search
+    functions, credential management, result caching, and handling remote
+    background jobs for large datasets.
 License: MIT + file LICENSE
-URL: https://correlaid.github.io/restatis/, https://github.com/CorrelAid/restatis
+URL: https://correlaid.github.io/restatis/,
+    https://github.com/CorrelAid/restatis
 BugReports: https://github.com/CorrelAid/restatis/issues
 Depends: 
     R (>= 2.10)
@@ -35,7 +36,8 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
-    usethis
+    usethis,
+    withr
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
