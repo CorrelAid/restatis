@@ -18,7 +18,7 @@ These have all been fixed.
 
 We are not sure we fully understand this. Is writing in the user's home generally not allowed in function bodies, or only in tests? (Examples and vignettes are skipped/manually pre-rendered and thus not affected.)
 
-If the latter, we have changed `gen_auth_path()` to use a private option `restatis:::config_dir`, which can be set to `tempdir()` in tests. This is the same approach used by the rtweet package ([implementation](https://github.com/ropensci/rtweet/blob/4d42cc8b1d5f4c445bb5865181485423c265f3ed/R/auth.R#L408), [test](https://github.com/ropensci/rtweet/blob/4d42cc8b1d5f4c445bb5865181485423c265f3ed/tests/testthat/test-auth.R#L16)). Currently, we do not test authentication, and testing of API responses is done using [mock files](https://enpiar.com/httptest2/reference/with_mock_dir.html), so the tests are not affected by this option.
+If the latter, we have changed `gen_auth_path()` to use a private option `restatis:::config_dir`, which can be set to `tempdir()` in tests. This is the same approach used by the rtweet package ([implementation](https://github.com/ropensci/rtweet/blob/4d42cc8b1d5f4c445bb5865181485423c265f3ed/R/auth.R#L408), [test](https://github.com/ropensci/rtweet/blob/4d42cc8b1d5f4c445bb5865181485423c265f3ed/tests/testthat/test-auth.R#L16)). Currently, we do not test authentication, and testing of API responses is done using [mock files](https://enpiar.com/httptest2/reference/with_mock_dir.html), so no credentials are written in the tests and the tests are not affected by this option.
 
 ## R CMD check results
 
