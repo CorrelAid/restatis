@@ -18,7 +18,7 @@ gen_modified_data(
 
 \item{date}{a string. Specific date that is used as the last update or upload time in Genesis to include a Genesis object in return. Default option is 'now', which uses the current date of your system. Alternative options are 'week_before', using the current date of your system minus 7 days, 'month_before', using the current date of your system minus 4 weeks, and 'year_before', using the current date of your system minus 52 weeks. Additionally, it is possible to fill in a specific date of format 'DD.MM.YYYY'.}
 
-\item{...}{Additional parameters for the Genesis call. These parameters are only affecting the Genesis call itself, not the further processing.}
+\item{...}{Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
 A list with all recalled elements from Genesis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.

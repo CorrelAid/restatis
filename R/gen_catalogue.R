@@ -5,9 +5,8 @@
 #' @param code a string with a maximum length of 10 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possible.
 #' @param category a string. Specific Genesis-Object-types: 'tables', 'statistics', and 'cubes'. All three together are possible.
 #' @param detailed a logical. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title.
-#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
+#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis API. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
@@ -27,7 +26,6 @@
 gen_catalogue <- function(code = NULL,
                           category = c("tables", "statistics", "cubes"),
                           detailed = FALSE,
-                          sortcriterion = c("code", "content"),
                           error.ignore = FALSE,
                           ...) {
 
@@ -36,11 +34,9 @@ gen_catalogue <- function(code = NULL,
   check_function_input(code = code,
                        category = category,
                        detailed = detailed,
-                       sortcriterion = sortcriterion,
                        error.ignore = error.ignore,
                        caller = caller)
 
-  sortcriterion <- match.arg(sortcriterion)
 
   #-----------------------------------------------------------------------------
 
@@ -103,7 +99,6 @@ gen_catalogue <- function(code = NULL,
                     username = gen_auth_get()$username,
                     password = gen_auth_get()$password,
                     selection = code,
-                    sortcriterion = sortcriterion,
                     ...)
 
     results_json <- test_if_json(results_raw)
@@ -156,7 +151,6 @@ gen_catalogue <- function(code = NULL,
                     username = gen_auth_get()$username,
                     password = gen_auth_get()$password,
                     selection = code,
-                    sortcriterion = sortcriterion,
                     ...)
 
     results_json <- test_if_json(results_raw)

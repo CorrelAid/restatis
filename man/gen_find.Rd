@@ -24,7 +24,7 @@ gen_find(
 
 \item{error.ignore}{A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce an artificial response (e.g., for complex processes not to fail).}
 
-\item{...}{Additional parameters of the Genesis API call. These parameters are only affecting the Genesis API call itself, there is no further processing.}
+\item{...}{Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
 A list with all elements retrieved from Genesis. Attributes are added to the data.frame describing the search configuration for the returned output.

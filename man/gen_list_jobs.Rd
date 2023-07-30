@@ -15,7 +15,7 @@ gen_list_jobs(
 
 \item{sortcriterion}{Allows to sort the resulting list of jobs by their Code ("content"), the time of completion ("time") or status ("status")}
 
-\item{...}{Further parameters to be passed down to the API caller.}
+\item{...}{Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
 A list of all current jobs connected to the given user.

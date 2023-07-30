@@ -5,7 +5,7 @@
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis object. Only one code per iteration. "*" notations are possible. Empty code (default value) includes all changes, updates, and new added objects.
 #' @param type a string. Specific Genesis object type: 'tables', 'statistics', and 'statisticsUpdates'. All three can be accessed through "all", which is the default.
 #' @param date a string. Specific date that is used as the last update or upload time in Genesis to include a Genesis object in return. Default option is 'now', which uses the current date of your system. Alternative options are 'week_before', using the current date of your system minus 7 days, 'month_before', using the current date of your system minus 4 weeks, and 'year_before', using the current date of your system minus 52 weeks. Additionally, it is possible to fill in a specific date of format 'DD.MM.YYYY'.
-#' @param ... Additional parameters for the Genesis call. These parameters are only affecting the Genesis call itself, not the further processing.
+#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 #' @export

@@ -9,7 +9,7 @@
 #' @param detailed A logical. Indicator if the function should return the detailed output of the iteration including all object related information or only a shortened output including only code and object title. Default Option is FALSE.
 #' @param ordering A logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and secondly on an estimator of the number of variables in this object. Default option is TRUE.
 #' @param error.ignore  A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce an artificial response (e.g., for complex processes not to fail).
-#' @param ... Additional parameters of the Genesis API call. These parameters are only affecting the Genesis API call itself, there is no further processing.
+#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all elements retrieved from Genesis. Attributes are added to the data.frame describing the search configuration for the returned output.
 #' @export

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_alternative_terms.R
 \name{gen_alternative_terms}
 \alias{gen_alternative_terms}
-\title{gen_alternative_terms: Call for similiar or spelling related terms for further search}
+\title{gen_alternative_terms: Call For Similiar or Spelling Related Terms for Further Search}
 \usage{
 gen_alternative_terms(term = NULL, similarity = TRUE, ...)
 }
@@ -11,7 +11,7 @@ gen_alternative_terms(term = NULL, similarity = TRUE, ...)
 
 \item{similarity}{Logical. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function.}
 
-\item{...}{Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing.}
+\item{...}{Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
 A list with all recalled elements from Genesis. Attributes are added to the data.frame, describing the search configuration for the returned output.

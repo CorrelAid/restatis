@@ -8,7 +8,6 @@ gen_catalogue(
   code = NULL,
   category = c("tables", "statistics", "cubes"),
   detailed = FALSE,
-  sortcriterion = c("code", "content"),
   error.ignore = FALSE,
   ...
 )
@@ -20,11 +19,9 @@ gen_catalogue(
 
 \item{detailed}{a logical. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title.}
 
-\item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself.}
-
 \item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
 
-\item{...}{Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.}
+\item{...}{Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
 A list with all recalled elements from Genesis API. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the dataframe describing the search configuration for the returned output.

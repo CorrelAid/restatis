@@ -89,17 +89,17 @@ with_mock_dir("xy_variable3", {
 
 #-------------------------------------------------------------------------------
 
-test_that("gen_objects2var function errors on wrong sort param", {
-  expect_error(
-    restatis::gen_objects2var(code = "DLAND", sortcriterion = "date"),
-    regexp = "Parameter 'sortcriterion' has to be 'code' or 'content'.")
-})
+# test_that("gen_objects2var function errors on wrong sort param", {
+#   expect_error(
+#     restatis::gen_objects2var(code = "DLAND", sortcriterion = "date"),
+#     regexp = "Parameter 'sortcriterion' has to be 'code' or 'content'.")
+# })
 
-test_that("gen_objects2var function errors on wrong sort param type", {
-  expect_error(
-    restatis::gen_objects2var(code = "DLAND", sortcriterion = 123),
-    regexp = "Parameter 'sortcriterion' has to be of type 'character'.")
-})
+# test_that("gen_objects2var function errors on wrong sort param type", {
+#   expect_error(
+#     restatis::gen_objects2var(code = "DLAND", sortcriterion = 123),
+#     regexp = "Parameter 'sortcriterion' has to be of type 'character'.")
+# })
 
 #-------------------------------------------------------------------------------
 

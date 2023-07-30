@@ -133,11 +133,11 @@ with_mock_dir("catalogue6", {
 
 #-------------------------------------------------------------------------------
 
-test_that("gen_catalogue function errors on numeric sortcriterion param", {
-  expect_error(
-    restatis::gen_catalogue(code = "711*", detailed = TRUE, category = "tables", sortcriterion = c(1, 2)),
-    regexp = "Parameter 'sortcriterion' has to be of type 'character'")
-})
+# test_that("gen_catalogue function errors on numeric sortcriterion param", {
+#   expect_error(
+#     restatis::gen_catalogue(code = "711*", detailed = TRUE, category = "tables", sortcriterion = c(1, 2)),
+#     regexp = "Parameter 'sortcriterion' has to be of type 'character'")
+# })
 
 #-------------------------------------------------------------------------------
 

@@ -18,6 +18,8 @@ library(restatis)
 
 This vignette describes the basic workflow for finding, exploring, and retrieving data from the GENESIS API using [restatis](https://correlaid.github.io/restatis/).
 
+For more details on additional parameters that can be used to specify the Genesis API call, see `vignette("additional_parameter")`.
+
 For the scenario in this vignette, we are going to be a researcher trying to find data on the income of bus drivers, called "Busfahrer".
 
 ## Premilinary: finding relevant search terms

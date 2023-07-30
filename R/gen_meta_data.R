@@ -4,7 +4,7 @@
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
+#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
@@ -73,7 +73,7 @@ gen_metadata_stats <- function(code = NULL,
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notation is possible.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
+#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
@@ -143,7 +143,7 @@ gen_metadata_var <- function(code = NULL,
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
+#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
@@ -210,7 +210,7 @@ gen_metadata_val <- function(code = NULL,
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
+#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
@@ -354,7 +354,7 @@ gen_metadata_tab <- function(code = NULL,
 #'
 #' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
+#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
@@ -477,7 +477,7 @@ gen_metadata_cube <- function(code = NULL,
 #' @param code string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
 #' @param category a string. Specific object-types: 'Cube', 'Statistic', "Table", "Variable" and 'Value'. The function needs a specified object type.
 #' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameter of the Genesis API call. These parameters are only affecting the Genesis API call itself, no further processing.
+#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
