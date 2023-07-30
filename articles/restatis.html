@@ -41,22 +41,18 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/additional_parameter.html">Additional Parameters for the Genesis API Call</a>
+  </div>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
 </form>
 
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/CorrelAid/restatis/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
+      <ul class="navbar-nav"></ul>
 </div>
 
     
@@ -71,7 +67,7 @@
       <img src="" class="logo" alt=""><h1>Basic restatis Workflow</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/CorrelAid/restatis/blob/HEAD/vignettes/restatis.Rmd" class="external-link"><code>vignettes/restatis.Rmd</code></a></small>
+      
       <div class="d-none name"><code>restatis.Rmd</code></div>
     </div>
 
@@ -84,6 +80,9 @@
 </h2>
 <p>This vignette describes the basic workflow for finding, exploring,
 and retrieving data from the GENESIS API using <a href="https://correlaid.github.io/restatis/">restatis</a>.</p>
+<p>For more details on additional parameters that can be used to specify
+the Genesis API call, see
+<code><a href="../articles/additional_parameter.html">vignette("additional_parameter")</a></code>.</p>
 <p>For the scenario in this vignette, we are going to be a researcher
 trying to find data on the income of bus drivers, called
 “Busfahrer”.</p>

@@ -10,6 +10,9 @@
     <loc>https://correlaid.github.io/restatis/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://correlaid.github.io/restatis/articles/additional_parameter.html</loc>
+  </url>
+  <url>
     <loc>https://correlaid.github.io/restatis/articles/index.html</loc>
   </url>
   <url>
@@ -20,9 +23,6 @@
   </url>
   <url>
     <loc>https://correlaid.github.io/restatis/index.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/news/index.html</loc>
   </url>
   <url>
     <loc>https://correlaid.github.io/restatis/reference/evas_list_long_20220724.html</loc>
@@ -89,8 +89,5 @@
   </url>
   <url>
     <loc>https://correlaid.github.io/restatis/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/restatis-package.html</loc>
   </url>
 </urlset>
