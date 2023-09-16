@@ -94,6 +94,7 @@ check_function_input <- function(code = NULL,
                                  similarity = NULL,
                                  error.ignore = NULL,
                                  ordering = NULL,
+                                 database = NULL,
                                  caller = NULL) {
   # Code & Term ----
 
@@ -222,10 +223,18 @@ check_function_input <- function(code = NULL,
     #----------------------------------------
 
     if (caller %in% c("restatis::gen_find", "gen_find")) {
-      if (!all(category %in% c("all", "tables", "statistics", "variables", "cubes"))) {
+      if (database == "zensus"){
+        if (!all(category %in% c("all", "tables", "statistics", "variables"))) {
+          stop("Available categories are all, tables, statistics, and variables.",
+               call. = FALSE
+          )
+        }
+      } else if (database == "destatis"){
+        if (!all(category %in% c("all", "tables", "statistics", "variables", "cubes"))) {
         stop("Available categories are all, tables, statistics, variables, and cubes.",
           call. = FALSE
-        )
+          )
+        }
       }
     }
 

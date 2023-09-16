@@ -1,4 +1,4 @@
-#' Save authentication
+#' Save authentication GENESIS
 #'
 #' See Details.
 #'

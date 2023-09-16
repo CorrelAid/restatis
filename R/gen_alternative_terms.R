@@ -4,6 +4,7 @@
 #'
 #' @param term Character string. Maximum length of 15 characters. Term or word for which you are searching for alternative or related terms. Use of '*' as a placeholder is possible to generate broader search areas.
 #' @param similarity Logical. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function.
+#' @param database Character string. Indicator if the Destatis or Zensus database is called.
 #' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis. Attributes are added to the data.frame, describing the search configuration for the returned output.
@@ -11,16 +12,20 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Find terms that are similar (in spelling) to search term "bus"
+#' # Find terms at Destatis that are similar (in spelling) to search term "bus"
 #' # and sort them by Levenshtein edit distance
-#' object <- gen_alternative_terms(term = "bus", similarity = TRUE)
+#' object <- gen_alternative_terms(term = "bus", similarity = TRUE, database = "destatis")
 #'
-#' # Find terms that are related (in spelling) to search term "bus"
-#' object <- gen_alternative_terms(term = "bus*", similarity = TRUE)
+#' # Find terms at Destatis that are related (in spelling) to search term "bus"
+#' object <- gen_alternative_terms(term = "bus*", similarity = TRUE, database = "destatis")
+#'
+#' # Find terms at Zensus that are related (in spelling) to search term "bus"
+#' object <- gen_alternative_terms(term = "bus*", similarity = TRUE, database = "zensus")
 #' }
 #'
 gen_alternative_terms <- function(term = NULL,
                                   similarity = TRUE,
+                                  database = c("zensus", "destatis"),
                                   ...) {
 
   caller <- as.character(match.call()[1])
@@ -31,12 +36,28 @@ gen_alternative_terms <- function(term = NULL,
 
 #-------------------------------------------------------------------------------
 
-  results_raw <- gen_api("catalogue/terms",
+  if( length(database) == 1 & database == "zensus" ){
 
-    username = gen_auth_get()$username,
-    password = gen_auth_get()$password,
-    selection = term,
-    ...)
+    results_raw <- gen_zensus_api("catalogue/terms",
+                           username = gen_zensus_auth_get()$username,
+                           password = gen_zensus_auth_get()$password,
+                           selection = term,
+                           ...)
+
+  } else if ( length(database) == 1 & database == "destatis" ){
+
+    results_raw <- gen_api("catalogue/terms",
+                           username = gen_auth_get()$username,
+                           password = gen_auth_get()$password,
+                           selection = term,
+                           ...)
+
+  } else {
+
+    stop("Parameter 'database' has to be 'zensus' or 'destatis'.",
+         call. = FALSE)
+
+  }
 
   results_json <- test_if_json(results_raw)
 
