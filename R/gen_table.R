@@ -50,6 +50,7 @@ gen_table <- function(name, ...) {
 #-------------------------------------------------------------------------------
 
 gen_table_ <- function(name,
+                       database = c("genesis", "zensus"),
                        area = c("public", "user"),
                        compress = FALSE,
                        transpose = FALSE,
@@ -80,26 +81,56 @@ gen_table_ <- function(name,
   classifyingkey2 <- param_collapse_vec(classifyingkey2)
   classifyingkey3 <- param_collapse_vec(classifyingkey3)
 
-  resp <- gen_api("data/tablefile",
-    name = name,
-    area = area,
-    compress = compress,
-    transpose = transpose,
-    startyear = startyear,
-    endyear = endyear,
-    regionalvariable = regionalvariable,
-    regionalkey = regionalkey,
-    classifyingvariable1 = classifyingvariable1,
-    classifyingkey1 = classifyingkey1,
-    classifyingvariable2 = classifyingvariable2,
-    classifyingkey2 = classifyingkey2,
-    classifyingvariable3 = classifyingvariable3,
-    classifyingkey3 = classifyingkey3,
-    stand = stand,
-    language = language,
-    format = "ffcsv",
-    job = FALSE
-  )
+  if(database == "zensus"){
+
+    resp <- gen_zensus_api("data/tablefile",
+                    name = name,
+                    area = area,
+                    compress = compress,
+                    transpose = transpose,
+                    startyear = startyear,
+                    endyear = endyear,
+                    regionalvariable = regionalvariable,
+                    regionalkey = regionalkey,
+                    classifyingvariable1 = classifyingvariable1,
+                    classifyingkey1 = classifyingkey1,
+                    classifyingvariable2 = classifyingvariable2,
+                    classifyingkey2 = classifyingkey2,
+                    classifyingvariable3 = classifyingvariable3,
+                    classifyingkey3 = classifyingkey3,
+                    stand = stand,
+                    language = language,
+                    format = "ffcsv",
+                    job = FALSE)
+
+  } else if (database == "genesis"){
+
+    resp <- gen_api("data/tablefile",
+                    name = name,
+                    area = area,
+                    compress = compress,
+                    transpose = transpose,
+                    startyear = startyear,
+                    endyear = endyear,
+                    regionalvariable = regionalvariable,
+                    regionalkey = regionalkey,
+                    classifyingvariable1 = classifyingvariable1,
+                    classifyingkey1 = classifyingkey1,
+                    classifyingvariable2 = classifyingvariable2,
+                    classifyingkey2 = classifyingkey2,
+                    classifyingvariable3 = classifyingvariable3,
+                    classifyingkey3 = classifyingkey3,
+                    stand = stand,
+                    language = language,
+                    format = "ffcsv",
+                    job = FALSE)
+
+  } else {
+
+    stop("Parameter 'database' has to be 'zensus' or 'genesis'.",
+         call. = FALSE)
+
+  }
 
   resp_check_data_csv(resp)
 
@@ -107,6 +138,5 @@ gen_table_ <- function(name,
     httr2::resp_body_string() %>%
     readr::read_delim(
       delim = ";",
-      show_col_types = FALSE
-    )
+      show_col_types = FALSE)
 }

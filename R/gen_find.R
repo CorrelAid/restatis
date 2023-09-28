@@ -35,7 +35,7 @@ gen_find <- function(term = NULL,
                      detailed = FALSE,
                      ordering = TRUE,
                      error.ignore = FALSE,
-                     database = c("zensus", "destatis"),
+                     database = c("zensus", "genesis"),
                      ...) {
 
   caller <- as.character(match.call()[1])
@@ -45,14 +45,14 @@ gen_find <- function(term = NULL,
                        detailed = detailed,
                        ordering = ordering,
                        error.ignore = error.ignore,
-                       database = databse,
+                       database = database,
                        caller = caller)
 
   category <- match.arg(category)
 
   #-----------------------------------------------------------------------------
 
-  if( database == "zensus"){
+  if(database == "zensus"){
 
     results_raw <- gen_zensus_api("find/find",
                            username = gen_zensus_auth_get()$username,
@@ -61,7 +61,7 @@ gen_find <- function(term = NULL,
                            category = category,
                            ...)
 
-  } else if (database == "destatis"){
+  } else if (database == "genesis"){
 
     results_raw <- gen_api("find/find",
                            username = gen_auth_get()$username,
@@ -72,7 +72,7 @@ gen_find <- function(term = NULL,
 
   } else {
 
-    stop("Parameter 'database' has to be 'zensus' or 'destatis'.",
+    stop("Parameter 'database' has to be 'zensus' or 'genesis'.",
          call. = FALSE)
 
   }
