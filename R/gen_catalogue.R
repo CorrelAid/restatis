@@ -1,14 +1,17 @@
-#' catalogue: Explore Different Objects and Their Structural Embedding in Genesis
+#' catalogue: Explore Different Objects and Their Structural Embedding in Genesis/Zensus
 #'
-#' Function to enable searching for tables, statistics, and cubes from Genesis. Additionally, it structures the output based on the internal tree structure of Genesis itself based on the EVAS-numbers. Time-series are represented as cubes with a specified time span.
+#' Function to enable searching for tables, statistics, and cubes from Genesis or Zensus. Additionally, it structures the Genesis-output based on the internal tree structure of Genesis itself based on the EVAS-numbers. Time-series are represented as cubes with a specified time span in Genesis.
 #'
-#' @param code a string with a maximum length of 10 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possible.
-#' @param category a string. Specific Genesis-Object-types: 'tables', 'statistics', and 'cubes'. All three together are possible.
-#' @param detailed a logical. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title.
-#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param code A string with a maximum length of 10 characters for a Genesis-Object and 15 characters for a Zensus-Object. Only one code per iteration. "*"-Notations are possible.
+#' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param category A string. Includes specific Genesis-Object-types: 'tables', 'statistics', and 'cubes' - and specific Zensus-Object-types: "tables" and "statistics". All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.
+#' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Not used for "statistics".
+#' @param detailed A logical. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
+#' @param error.ignore  A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param sortcriterion A string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis/Zensus API call itself. The default is "code".
+#' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all recalled elements from Genesis API. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis/Zensus API. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -24,30 +27,50 @@
 #' }
 #'
 gen_catalogue <- function(code = NULL,
+                          database = c("genesis", "zensus"),
                           category = c("tables", "statistics", "cubes"),
+                          area = c("all", "public", "user"),
                           detailed = FALSE,
                           error.ignore = FALSE,
+                          sortcriterion = c("code", "content"),
                           ...) {
 
   caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database)
 
   check_function_input(code = code,
                        category = category,
                        detailed = detailed,
                        error.ignore = error.ignore,
+                       database = gen_fun,
+                       sortcriterion = sortcriterion,
                        caller = caller)
 
+  area <- match.arg(area)
+
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
+
+  sortcriterion <- match.arg(sortcriterion)
 
   #-----------------------------------------------------------------------------
 
   # Processing ####
-  if ("cubes" %in% category) {
+  if ("cubes" %in% category && gen_fun == "gen_zensus_api") {
 
-    results_raw <- gen_api("catalogue/cubes",
-                            username = gen_auth_get()$username,
-                            password = gen_auth_get()$password,
-                            selection = code,
-                            ...)
+    list_of_cubes <- "No 'cubes' object available for 'zensus'-database."
+
+  } else if ("cubes" %in% category && gen_fun == "gen_api") {
+
+    results_raw <- do.call(gen_fun, list(
+                             endpoint = "catalogue/cubes",
+                             username = gen_auth_get()$username,
+                             password = gen_auth_get()$password,
+                             selection = code,
+                             sortcriterion = sortcriterion,
+                             area = area,
+                             ...
+                           ))
 
     results_json <- test_if_json(results_raw)
 
@@ -95,11 +118,31 @@ gen_catalogue <- function(code = NULL,
 
   if ("statistics" %in% category) {
 
-    results_raw <- gen_api("catalogue/statistics",
-                    username = gen_auth_get()$username,
-                    password = gen_auth_get()$password,
-                    selection = code,
-                    ...)
+    if(gen_fun == "gen_api"){
+
+      par_list <-  list(
+        endpoint = "catalogue/statistics",
+        username = gen_auth_get()$username,
+        password = gen_auth_get()$password,
+        selection = code,
+        sortcriterion = sortcriterion,
+        ...
+      )
+
+    } else if ( gen_fun == "gen_zensus_api"){
+
+      par_list <-  list(
+        endpoint = "catalogue/statistics",
+        username = gen_zensus_auth_get()$username,
+        password = gen_zensus_auth_get()$password,
+        selection = code,
+        sortcriterion = sortcriterion,
+        ...
+      )
+
+    }
+
+    results_raw <- do.call(gen_fun, par_list)
 
     results_json <- test_if_json(results_raw)
 
@@ -147,11 +190,33 @@ gen_catalogue <- function(code = NULL,
 
   if ("tables" %in% category) {
 
-    results_raw <- gen_api("catalogue/tables",
-                    username = gen_auth_get()$username,
-                    password = gen_auth_get()$password,
-                    selection = code,
-                    ...)
+    if(gen_fun == "gen_api"){
+
+      par_list <-  list(
+        endpoint = "catalogue/tables",
+        username = gen_auth_get()$username,
+        password = gen_auth_get()$password,
+        selection = code,
+        area = area,
+        sortcriterion = sortcriterion,
+        ...
+      )
+
+    } else if ( gen_fun == "gen_zensus_api"){
+
+      par_list <-  list(
+        endpoint = "catalogue/tables",
+        username = gen_zensus_auth_get()$username,
+        password = gen_zensus_auth_get()$password,
+        selection = code,
+        area = area,
+        sortcriterion = sortcriterion,
+        ...
+      )
+
+    }
+
+    results_raw <- do.call(gen_fun, par_list)
 
     results_json <- test_if_json(results_raw)
 
@@ -199,14 +264,14 @@ gen_catalogue <- function(code = NULL,
   if (all(c("tables", "statistics", "cubes") %in% category)) {
 
     list_resp <- list(
-                  "Cubes" = if(length(list_of_cubes) == 1){list_of_cubes} else {list("A" = forming_evas(list_of_cubes))},
-                  "Statistics" = if(length(list_of.stats) == 1){list_of.stats} else {list("B" = forming_evas(list_of.stats))},
-                  "Tables" = if(length(list_of.tabs) == 1){list_of.tabs} else {list("C" = forming_evas(list_of.tabs))}
+                  "Cubes" = if(length(list_of_cubes) == 1 | gen_fun == "gen_zensus_api"){list_of_cubes} else {list("A" = forming_evas(list_of_cubes))},
+                  "Statistics" = if(length(list_of.stats) == 1 | gen_fun == "gen_zensus_api"){list_of.stats} else {list("B" = forming_evas(list_of.stats))},
+                  "Tables" = if(length(list_of.tabs) == 1 | gen_fun == "gen_zensus_api"){list_of.tabs} else {list("C" = forming_evas(list_of.tabs))}
                   )
 
   } else if (category == "cubes") {
 
-    if(length(list_of_cubes) == 1){
+    if(length(list_of_cubes) == 1 | gen_fun == "gen_zensus_api"){
 
       list_resp <- list("Output" = list_of_cubes)
 
@@ -218,7 +283,7 @@ gen_catalogue <- function(code = NULL,
 
   } else if (category == "statistics") {
 
-    if(length(list_of.stats) == 1){
+    if(length(list_of.stats) == 1 | gen_fun == "gen_zensus_api"){
 
       list_resp <- list("Output" = list_of.stats)
 
@@ -230,7 +295,7 @@ gen_catalogue <- function(code = NULL,
 
   } else if (category == "tables") {
 
-    if(length(list_of.tabs) == 1){
+    if(length(list_of.tabs) == 1 | gen_fun == "gen_zensus_api"){
 
       list_resp <- list("Output" = list_of.tabs)
 
@@ -243,6 +308,7 @@ gen_catalogue <- function(code = NULL,
   }
 
   attr(list_resp, "Code") <- results_json$Parameter$selection
+  attr(list_resp, "Database") <- database[1]
   attr(list_resp, "Category") <- category
   attr(list_resp, "Language") <- results_json$Parameter$language
   attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength

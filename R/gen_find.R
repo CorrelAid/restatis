@@ -1,18 +1,18 @@
-#' gen_find
+#' find: Search for Different Objects in Genesis/Zensus
 #'
-#' @description Function to search through Genesis. It is similar in usage as the search function on the Destatis main page (https://www.destatis.de/DE/Home/_inhalt.html).
+#' @description Function to search through Genesis/Zensus. It is similar in usage as the search function on the Destatis main page (https://www.destatis.de/DE/Home/_inhalt.html).
 #' In the search query, "UND" (german word for: and; can also be written "und" or "&") as well as "ODER" (german word for: or; can also be written "oder" or "|") can be included and logically combined. Furthermore, wildcards are possible by including "*". If more then one word is included in the term-string, automatically "and" is used to combine the different words.
-#' Important note: Time-series are treated as cubes, they are not longer distinguished. If you want to find a specific object with a clear code with this find function, you need to specify the object type or search for all object types.
+#' Important note: Time-series are treated as cubes in Genesis, they are not longer distinguished. If you want to find a specific object with a clear code with this find function, you need to specify the object type or search for all object types.
 #'
 #' @param term A string with no maximum character length, but a word limit of five words.
-#' @param category A string. Specific object types: 'tables', 'statistics', 'variables', and 'cubes'. Using all together is possible. Default option are 'all' objects.
-#' @param detailed A logical. Indicator if the function should return the detailed output of the iteration including all object related information or only a shortened output including only code and object title. Default Option is FALSE.
-#' @param ordering A logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and secondly on an estimator of the number of variables in this object. Default option is TRUE.
-#' @param error.ignore  A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce an artificial response (e.g., for complex processes not to fail).
-#' @param database Character string. Indicator if the Destatis or Zensus database is called.
-#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param database Character string. Indicator if the Genesis or Zensus database is called. Default option is 'genesis'.
+#' @param category A string. Includes specific Genesis-Object-types: ''tables', 'statistics', 'variables', and 'cubes' - and specific Zensus-Object-types: "tables", "statistics", and "variables". All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database indicated by 'all'.
+#' @param detailed A logical. Indicator if the function should return the detailed output of the iteration including all object related information or only a shortened output including only code and object title. Default Option is 'FALSE'.
+#' @param ordering A logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and secondly on an estimator of the number of variables in this object. Default option is 'TRUE'.
+#' @param error.ignore  A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce an artificial response (e.g., for complex processes not to fail). Default option is 'FALSE'.
+#' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all elements retrieved from Genesis. Attributes are added to the data.frame describing the search configuration for the returned output.
+#' @return A list with all elements retrieved from Genesis/Zensus. Attributes are added to the data.frame describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -31,77 +31,100 @@
 #' }
 #'
 gen_find <- function(term = NULL,
+                     database = c("genesis", "zensus"),
                      category = c("all", "tables", "statistics", "variables", "cubes"),
                      detailed = FALSE,
                      ordering = TRUE,
                      error.ignore = FALSE,
-                     database = c("zensus", "genesis"),
                      ...) {
 
   caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database)
 
   check_function_input(term = term,
                        category = category,
                        detailed = detailed,
                        ordering = ordering,
                        error.ignore = error.ignore,
-                       database = database,
+                       database = gen_fun,
                        caller = caller)
 
   category <- match.arg(category)
 
   #-----------------------------------------------------------------------------
 
-  if(database == "zensus"){
+  if(gen_fun == "gen_zensus_api" & category == "cubes"){
 
-    results_raw <- gen_zensus_api("find/find",
-                           username = gen_zensus_auth_get()$username,
-                           password = gen_zensus_auth_get()$password,
-                           term = term,
-                           category = category,
-                           ...)
-
-  } else if (database == "genesis"){
-
-    results_raw <- gen_api("find/find",
-                           username = gen_auth_get()$username,
-                           password = gen_auth_get()$password,
-                           term = term,
-                           category = category,
-                           ...)
+    empty_object <- TRUE
 
   } else {
 
-    stop("Parameter 'database' has to be 'zensus' or 'genesis'.",
-         call. = FALSE)
+    if(gen_fun == "gen_api"){
+
+      par_list <-  list(
+        endpoint = "find/find",
+        username = gen_auth_get()$username,
+        password = gen_auth_get()$password,
+        term = term,
+        category = category,
+        ...
+      )
+
+    } else if ( gen_fun == "gen_zensus_api"){
+
+      par_list <-  list(
+        endpoint = "find/find",
+        username = gen_zensus_auth_get()$username,
+        password = gen_zensus_auth_get()$password,
+        term = term,
+        category = category,
+        ...
+      )
+
+    }
+
+    results_raw <- do.call(gen_fun, par_list)
+
+    results_json <- test_if_json(results_raw)
+
+    empty_object <- test_if_error_find(results_json, para = error.ignore)
+
+    empty_object <- test_if_process_further(results_json, para = error.ignore)
 
   }
 
-
-  results_json <- test_if_json(results_raw)
-
-  empty_object <- test_if_error_find(results_json, para = error.ignore)
-
-  empty_object <- test_if_process_further(results_json, para = error.ignore)
-
   #-----------------------------------------------------------------------------
 
-  if(isTRUE(empty_object)){
+  if(isTRUE(empty_object) & gen_fun == "gen_api"){
 
     list_resp <- list("Output" = "No object found for your request.")
 
     attr(list_resp, "Term") <- results_json$Parameter$term
+    attr(list_resp, "Database") <- database[1]
     attr(list_resp, "Language") <- results_json$Parameter$language
     attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
     attr(list_resp, "Copyright") <- results_json$Copyright
 
     return(list_resp)
 
-  } else if (isFALSE(empty_object)){
+  } else if( isTRUE(empty_object) & gen_fun == "gen_zensus_api" ){
+
+    list_resp <- list("Output" = "No cubes at all avalaible in 'zensus'-database.")
+
+    attr(list_resp, "Term") <- term
+    attr(list_resp, "Database") <- database[1]
+    attr(list_resp, "Category") <- category
+
+    return(list_resp)
+
+  }
+  else if (isFALSE(empty_object)){
 
     list_resp <- list("Output" = results_json$Status$Content)
 
     attr(list_resp, "Term") <- results_json$Parameter$term
+    attr(list_resp, "Database") <- database[1]
     attr(list_resp, "Language") <- results_json$Parameter$language
     attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
     attr(list_resp, "Copyright") <- results_json$Copyright
@@ -280,6 +303,7 @@ gen_find <- function(term = NULL,
                         "Cubes" = tibble::as_tibble(df_cubes))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
+      attr(list_resp, "Database") <- database[1]
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyright") <- results_json$Copyright
@@ -333,6 +357,7 @@ gen_find <- function(term = NULL,
       list_resp <- list("Tables" = tibble::as_tibble(df_table))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
+      attr(list_resp, "Database") <- database[1]
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyright") <- results_json$Copyright
@@ -390,6 +415,7 @@ gen_find <- function(term = NULL,
       list_resp <- list("Statistics" = tibble::as_tibble(df_stats))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
+      attr(list_resp, "Database") <- database[1]
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyright") <- results_json$Copyright
@@ -450,6 +476,7 @@ gen_find <- function(term = NULL,
       list_resp <- list("Variables" = tibble::as_tibble(df_variables))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
+      attr(list_resp, "Database") <- database[1]
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyright") <- results_json$Copyright
@@ -514,6 +541,7 @@ gen_find <- function(term = NULL,
       list_resp <- list("Cubes" = tibble::as_tibble(df_cubes))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
+      attr(list_resp, "Database") <- database[1]
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyright") <- results_json$Copyright
@@ -641,6 +669,7 @@ gen_find <- function(term = NULL,
                         "Cubes" = tibble::as_tibble(df_cubes))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
+      attr(list_resp, "Database") <- database[1]
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyright") <- results_json$Copyright
@@ -688,6 +717,7 @@ gen_find <- function(term = NULL,
       list_resp <- list("Tables" = tibble::as_tibble(df_table))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
+      attr(list_resp, "Database") <- database[1]
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyright") <- results_json$Copyright
@@ -732,6 +762,7 @@ gen_find <- function(term = NULL,
       list_resp <- list("Statistics" = tibble::as_tibble(df_stats))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
+      attr(list_resp, "Database") <- database[1]
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyright") <- results_json$Copyright
@@ -780,6 +811,7 @@ gen_find <- function(term = NULL,
       list_resp <- list("Variables" = tibble::as_tibble(df_variables))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
+      attr(list_resp, "Database") <- database[1]
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyright") <- results_json$Copyright
@@ -828,6 +860,7 @@ gen_find <- function(term = NULL,
       list_resp <- list("Cubes" = tibble::as_tibble(df_cubes))
 
       attr(list_resp, "Term") <- results_json$Parameter$term
+      attr(list_resp, "Database") <- database[1]
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyright") <- results_json$Copyright

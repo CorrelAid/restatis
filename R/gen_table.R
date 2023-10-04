@@ -51,7 +51,7 @@ gen_table <- function(name, ...) {
 
 gen_table_ <- function(name,
                        database = c("genesis", "zensus"),
-                       area = c("public", "user"),
+                       area = c("all", "public", "user"),
                        compress = FALSE,
                        transpose = FALSE,
                        startyear = 1900,
@@ -70,7 +70,7 @@ gen_table_ <- function(name,
   area <- match.arg(area)
 
   if (!isTRUE(language == "en")) {
-    area <- switch(area, public = "\u00F6ffentlich", user = "benutzer")
+    area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
   }
 
   param_check_year(startyear)

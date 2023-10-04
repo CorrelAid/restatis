@@ -1,14 +1,16 @@
 #' gen_var2stat: Get Variables From a Statistic
 #'
-#' @description Function to generate variables from statistics in Genesis.
+#' @description Function to generate variables from statistics in Genesis/Zensus.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
-#' @param detailed a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. The default is detailed = FALSE.
-#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself. The default is "code".
-#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param code A string with a maximum length of 15 characters. Code from a Genesis/Zensus-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
+#' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Only used for Genesis.
+#' @param detailed A logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. The default is detailed = FALSE.
+#' @param sortcriterion A string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis/Zensus API call itself. The default is "code".
+#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all recalled elements from Genesis. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis/Zensus. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -19,27 +21,59 @@
 #' }
 #'
 gen_var2stat <- function(code = NULL,
+                         database = c("genesis", "zensus"),
+                         area = c("all", "public", "user"),
                          detailed = FALSE,
                          sortcriterion = c("code", "content"),
                          error.ignore = FALSE,
                          ...) {
 
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database)
+
   check_function_input(code = code,
                        detailed = detailed,
                        error.ignore = error.ignore,
-                       sortcriterion = sortcriterion)
+                       sortcriterion = sortcriterion,
+                       database = gen_fun,
+                       caller = caller)
 
   sortcriterion <- match.arg(sortcriterion)
+
+  area <- match.arg(area)
+
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
 
   #-----------------------------------------------------------------------------
 
   # Processing ####
-  results_raw <- gen_api("catalogue/variables2statistic",
-                          username = gen_auth_get()$username,
-                          password = gen_auth_get()$password,
-                          name = code,
-                          sortcriterion = sortcriterion,
-                          ...)
+  if(gen_fun == "gen_api"){
+
+    par_list <-  list(
+      endpoint = "catalogue/variables2statistic",
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      name = code,
+      area = area,
+      sortcriterion = sortcriterion,
+      ...
+    )
+
+  } else if ( gen_fun == "gen_zensus_api"){
+
+    par_list <-  list(
+      endpoint = "catalogue/variables2statistic",
+      username = gen_zensus_auth_get()$username,
+      password = gen_zensus_auth_get()$password,
+      name = code,
+      sortcriterion = sortcriterion,
+      ...
+    )
+
+  }
+
+  results_raw <- do.call(gen_fun, par_list)
 
   results_json <- test_if_json(results_raw)
 
@@ -77,6 +111,7 @@ gen_var2stat <- function(code = NULL,
   list_resp <- list("Variables" = list_of_variables)
 
   attr(list_resp, "Code") <- results_json$Parameter$name
+  attr(list_resp, "Database") <- database[1]
   attr(list_resp, "Language") <- results_json$Parameter$language
   attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
   attr(list_resp, "Copyright") <- results_json$Copyright
@@ -89,14 +124,16 @@ gen_var2stat <- function(code = NULL,
 
 #' gen_val2var: Get Values From a Variable
 #'
-#' @description Function to extract the possible values from a variable from Genesis. Values for continuous variables are not extractable, so the function returns a warning message.
+#' @description Function to extract the possible values from a variable from Genesis/Zensus. Values for continuous variables are not extractable, so the function returns a warning message.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
-#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself. The default is "code".
-#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param code A string with a maximum length of 15 characters. Code from a Genesis/Zensus-Object. Only one code per iteration.
+#' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Only used for Genesis.
+#' @param sortcriterion A string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis/Zensus API call itself. The default is "code".
+#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all recalled elements from Genesis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis/Zensus. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -106,24 +143,55 @@ gen_var2stat <- function(code = NULL,
 #' }
 #'
 gen_val2var <- function(code = NULL,
-                            sortcriterion = c("code", "content"),
-                            error.ignore = FALSE,
-                            ...) {
+                        database = c("genesis", "zensus"),
+                        area = c("all", "public", "user"),
+                        sortcriterion = c("code", "content"),
+                        error.ignore = FALSE,
+                        ...) {
+
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
-                       sortcriterion = sortcriterion)
+                       sortcriterion = sortcriterion,
+                       database = gen_fun,
+                       caller = caller)
 
   sortcriterion <- match.arg(sortcriterion)
 
-  #-----------------------------------------------------------------------------
+  area <- match.arg(area)
 
-  results_raw <- gen_api("catalogue/values2variable",
-                          username = gen_auth_get()$username,
-                          password = gen_auth_get()$password,
-                          name = code,
-                          sortcriterion = sortcriterion,
-                          ...)
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
+
+  #-----------------------------------------------------------------------------
+  if(gen_fun == "gen_api"){
+
+    par_list <-  list(
+      endpoint = "catalogue/values2variable",
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      name = code,
+      area = area,
+      sortcriterion = sortcriterion,
+      ...
+    )
+
+  } else if ( gen_fun == "gen_zensus_api"){
+
+    par_list <-  list(
+      endpoint = "catalogue/values2variable",
+      username = gen_zensus_auth_get()$username,
+      password = gen_zensus_auth_get()$password,
+      name = code,
+      sortcriterion = sortcriterion,
+      ...
+    )
+
+  }
+
+  results_raw <- do.call(gen_fun, par_list)
 
   results_json <- test_if_json(results_raw)
 
@@ -149,6 +217,7 @@ gen_val2var <- function(code = NULL,
   list_resp <- list("Values" = list_of_variables)
 
   attr(list_resp, "Name") <- results_json$Parameter$name
+  attr(list_resp, "Database") <- database[1]
   attr(list_resp, "Language") <- results_json$Parameter$language
   attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
   attr(list_resp, "Copyright") <- results_json$Copyright
@@ -165,13 +234,15 @@ gen_val2var <- function(code = NULL,
 #'
 #' @description Get values from variables from a statistic. Values for continuous variables cannot be extracted, so the function returns a warning message.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
-#' @param detailed a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. This parameter only affects the details of the variables-related output. The default is FALSE.
-#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is an parameter of the Genesis API call itself. The default is "code".
-#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param code A string with a maximum length of 15 characters. Code from a Genesis/Zensus-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
+#' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Only used for Genesis.
+#' @param detailed A logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. This parameter only affects the details of the variables-related output. The default is FALSE.
+#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param sortcriterion A string. Indicator if the output should be sorted by 'code' or 'content'. This is an parameter of the Genesis/Zensus API call itself. The default is "code".
+#' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all recalled elements from Genesis. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis/Zensus Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -182,21 +253,26 @@ gen_val2var <- function(code = NULL,
 #' }
 #'
 gen_val2var2stat <- function(code = NULL,
+                             database = c("genesis", "zensus"),
+                             area = c("all", "public", "user"),
                              detailed = FALSE,
                              sortcriterion = c("code", "content"),
                              error.ignore = FALSE,
                              ...) {
 
   check_function_input(code = code,
-                       detailed = detailed,
                        error.ignore = error.ignore,
-                       sortcriterion = sortcriterion)
+                       sortcriterion = sortcriterion,
+                       database = gen_fun,
+                       caller = caller)
 
   sortcriterion <- match.arg(sortcriterion)
 
   #-----------------------------------------------------------------------------
 
   variables <- suppressMessages(suppressWarnings(gen_var2stat(code = code,
+                                            database = database,
+                                            area = area,
                                             detailed = detailed,
                                             sortcriterion = sortcriterion,
                                             error.ignore = error.ignore,
@@ -207,6 +283,8 @@ gen_val2var2stat <- function(code = NULL,
   lapply(variables$Variables$Code, function(x) {
 
     zwisch <- suppressMessages(suppressWarnings(gen_val2var(code = x,
+                                                            database = database,
+                                                            area = area,
                                         sortcriterion = sortcriterion,
                                         error.ignore = error.ignore)))
     list_values <<- append(list_values, zwisch)
@@ -223,14 +301,15 @@ gen_val2var2stat <- function(code = NULL,
 
 #' gen_search_vars: Search for Specific Variables
 #'
-#' @description Function to search for specific variables in Genesis.
+#' @description Function to search for specific variables in Genesis/Zensus
 #'
-#' @param code a string with a maximum length of 6. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
-#' @param sortcriterion a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself. The default is "code".
-#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param code A string with a maximum length of 6. Code from a Genesis/Zensus-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.
+#' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param sortcriterion A string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis/Zensus API call itself. The default is "code".
+#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all recalled elements from Genesis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis/Zensus Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -240,27 +319,56 @@ gen_val2var2stat <- function(code = NULL,
 #' }
 #'
 gen_search_vars <- function(code = NULL,
+                            database = c("genesis", "zensus"),
+                            area = c("all", "public", "user"),
                             sortcriterion = c("code", "content"),
                             error.ignore = FALSE,
                             ...) {
 
   caller <- as.character(match.call()[1])
 
+  gen_fun <- test_database_function(database)
+
   check_function_input(code = code,
                        error.ignore = error.ignore,
                        sortcriterion = sortcriterion,
+                       database = gen_fun,
                        caller = caller)
 
   sortcriterion <- match.arg(sortcriterion)
 
+  area <- match.arg(area)
+
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
+
   #-----------------------------------------------------------------------------
 
-  results_raw <- gen_api("catalogue/variables",
-                          username = gen_auth_get()$username,
-                          password = gen_auth_get()$password,
-                          selection = code,
-                          sortcriterion = sortcriterion,
-                          ...)
+  if(gen_fun == "gen_api"){
+
+    par_list <-  list(
+      endpoint = "catalogue/variables",
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      selection = code,
+      sortcriterion = sortcriterion,
+      area = area,
+      ...
+    )
+
+  } else if ( gen_fun == "gen_zensus_api"){
+
+    par_list <-  list(
+      endpoint = "catalogue/variables",
+      username = gen_zensus_auth_get()$username,
+      password = gen_zensus_auth_get()$password,
+      selection = code,
+      sortcriterion = sortcriterion,
+      ...
+    )
+
+  }
+
+  results_raw <- do.call(gen_fun, par_list)
 
   results_json <- test_if_json(results_raw)
 
@@ -285,6 +393,7 @@ gen_search_vars <- function(code = NULL,
   list_resp <- list("Variables" = list_of_variables)
 
   attr(list_resp, "Code") <- results_json$Parameter$selection
+  attr(list_resp, "Database") <- database[1]
   attr(list_resp, "Language") <- results_json$Parameter$language
   attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
   attr(list_resp, "Copyright") <- results_json$Copyright

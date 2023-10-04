@@ -1,13 +1,14 @@
-#' gen_modified_data: Explore New Added Objects or Changed Objects in Genesis
+#' gen_modified_data: Explore New Added Objects or Changed Objects in Genesis/Zensus
 #'
-#' @description Function to check for updates, changes, or new objects in Genesis based on a specific date.
+#' @description Function to check for updates, changes, or new objects in Genesis/Zensus based on a specific date.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Genesis object. Only one code per iteration. "*" notations are possible. Empty code (default value) includes all changes, updates, and new added objects.
-#' @param type a string. Specific Genesis object type: 'tables', 'statistics', and 'statisticsUpdates'. All three can be accessed through "all", which is the default.
-#' @param date a string. Specific date that is used as the last update or upload time in Genesis to include a Genesis object in return. Default option is 'now', which uses the current date of your system. Alternative options are 'week_before', using the current date of your system minus 7 days, 'month_before', using the current date of your system minus 4 weeks, and 'year_before', using the current date of your system minus 52 weeks. Additionally, it is possible to fill in a specific date of format 'DD.MM.YYYY'.
-#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param code A string with a maximum length of 15 characters. Code from a Genesis/Zensus object. Only one code per iteration. "*" notations are possible. Empty code (default value) includes all changes, updates, and new added objects.
+#' @param database Character string. Indicator if the Genesis or Zensus database is called. Default option is 'genesis'.
+#' @param type A string. Specific Genesis object type: 'tables', 'statistics', and 'statisticsUpdates'. Specific Zensus object type: 'tables' and 'statistics'. All types that are specific for one database can be used together through "all", which is the default.
+#' @param date A string. Specific date that is used as the last update or upload time in Genesis/Zensus to include a Genesis/Zensus object in return. Default option is 'now', which uses the current date of your system. Alternative options are 'week_before', using the current date of your system minus 7 days, 'month_before', using the current date of your system minus 4 weeks, and 'year_before', using the current date of your system minus 52 weeks. Additionally, it is possible to fill in a specific date of format 'DD.MM.YYYY'.
+#' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all recalled elements from Genesis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis/Zensus. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -23,13 +24,19 @@
 #' }
 #'
 gen_modified_data <- function(code = "",
+                              database = c("genesis", "zensus"),
                               type = c("all", "tables", "statistics", "statisticsUpdates"),
                               date = c("now", "week_before", "month_before", "year_before"),
                               ...) {
 
+  gen_fun <- test_database_function(database)
+
+  type <- match.arg(type)
+
   date <- check_function_input(code = code,
                                type = type,
-                               date = date)
+                               date = date,
+                               database = gen_fun)
 
   #-----------------------------------------------------------------------------
 
@@ -52,20 +59,38 @@ gen_modified_data <- function(code = "",
 
   }
 
-  type <- match.arg(type)
-
   #-----------------------------------------------------------------------------
 
   # Processing ####
   if (type == "tables") {
 
-    results_raw <- gen_api("catalogue/modifieddata",
-                    username = gen_auth_get()$username,
-                    password = gen_auth_get()$password,
-                    selection = code,
-                    type = "Neue Tabellen",
-                    date = date,
-                    ...)
+    if(gen_fun == "gen_api"){
+
+      par_list <-  list(
+        endpoint = "catalogue/modifieddata",
+        username = gen_auth_get()$username,
+        password = gen_auth_get()$password,
+        selection = code,
+        type = "Neue Tabellen",
+        date = date,
+        ...
+      )
+
+    } else if ( gen_fun == "gen_zensus_api"){
+
+      par_list <-  list(
+        endpoint = "catalogue/modifieddata",
+        username = gen_zensus_auth_get()$username,
+        password = gen_zensus_auth_get()$password,
+        selection = code,
+        type = "Neue Tabellen",
+        date = date,
+        ...
+      )
+
+    }
+
+    results_raw <- do.call(gen_fun, par_list)
 
     results_json <- test_if_json(results_raw)
 
@@ -76,13 +101,33 @@ gen_modified_data <- function(code = "",
 
   if (type == "statistics") {
 
-    results_raw <- gen_api("catalogue/modifieddata",
-                    username = gen_auth_get()$username,
-                    password = gen_auth_get()$password,
-                    selection = code,
-                    type = "Neue Statistiken",
-                    date = date,
-                    ...)
+    if(gen_fun == "gen_api"){
+
+      par_list <-  list(
+        endpoint = "catalogue/modifieddata",
+        username = gen_auth_get()$username,
+        password = gen_auth_get()$password,
+        selection = code,
+        type = "Neue Statistiken",
+        date = date,
+        ...
+      )
+
+    } else if ( gen_fun == "gen_zensus_api"){
+
+      par_list <-  list(
+        endpoint = "catalogue/modifieddata",
+        username = gen_zensus_auth_get()$username,
+        password = gen_zensus_auth_get()$password,
+        selection = code,
+        type = "Neue Statistiken",
+        date = date,
+        ...
+      )
+
+    }
+
+    results_raw <- do.call(gen_fun, par_list)
 
     results_json <- test_if_json(results_raw)
 
@@ -93,13 +138,21 @@ gen_modified_data <- function(code = "",
 
   if (type == "statisticsUpdates") {
 
-    results_raw <- gen_api("catalogue/modifieddata",
-                    username = gen_auth_get()$username,
-                    password = gen_auth_get()$password,
-                    selection = code,
-                    type = "Aktualisierte Statistiken",
-                    date = date,
-                    ...)
+    if(gen_fun == "gen_api"){
+
+      par_list <-  list(
+        endpoint = "catalogue/modifieddata",
+        username = gen_auth_get()$username,
+        password = gen_auth_get()$password,
+        selection = code,
+        type = "Aktualisierte Statistiken",
+        date = date,
+        ...
+      )
+
+    }
+
+    results_raw <- do.call(gen_fun, par_list)
 
     results_json <- test_if_json(results_raw)
 
@@ -110,13 +163,33 @@ gen_modified_data <- function(code = "",
 
   if (type == "all") {
 
-    results_raw <- gen_api("catalogue/modifieddata",
-                    username = gen_auth_get()$username,
-                    password = gen_auth_get()$password,
-                    selection = code,
-                    type = "all",
-                    date = date,
-                    ...)
+    if(gen_fun == "gen_api"){
+
+      par_list <-  list(
+        endpoint = "catalogue/modifieddata",
+        username = gen_auth_get()$username,
+        password = gen_auth_get()$password,
+        selection = code,
+        type = "all",
+        date = date,
+        ...
+      )
+
+    } else if ( gen_fun == "gen_zensus_api"){
+
+      par_list <-  list(
+        endpoint = "catalogue/modifieddata",
+        username = gen_zensus_auth_get()$username,
+        password = gen_zensus_auth_get()$password,
+        selection = code,
+        type = "all",
+        date = date,
+        ...
+      )
+
+    }
+
+    results_raw <- do.call(gen_fun, par_list)
 
     results_json <- test_if_json(results_raw)
 
@@ -147,6 +220,7 @@ gen_modified_data <- function(code = "",
     list_resp <- list("Modified" = table)
 
     attr(list_resp, "Code") <- results_json$Parameter$selection
+    attr(list_resp, "Database") <- database[1]
     attr(list_resp, "Type") <- results_json$Parameter$type
     attr(list_resp, "Date") <- results_json$Parameter$date
     attr(list_resp, "Language") <- results_json$Parameter$language

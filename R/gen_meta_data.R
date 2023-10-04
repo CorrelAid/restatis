@@ -2,11 +2,13 @@
 #'
 #' @description Function to search for meta-information for a specific statistic.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
-#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param code A string with a maximum length of 15 characters. Code from a Genesis/Zensus-Object. Only one code per iteration.
+#' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Only used for Genesis.
+#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis/Zensus. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -16,19 +18,49 @@
 #' }
 #'
 gen_metadata_stats <- function(code = NULL,
+                                database = c("genesis", "zensus"),
+                                area = c("all", "public", "user"),
                                 error.ignore = FALSE,
                                 ...) {
 
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database)
+
   check_function_input(code = code,
-                       error.ignore = error.ignore)
+                       error.ignore = error.ignore,
+                       caller = caller)
+
+  area <- match.arg(area)
+
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
 
   #-----------------------------------------------------------------------------
 
-  results_raw <- gen_api("metadata/statistic",
-    username = gen_auth_get()$username,
-    password = gen_auth_get()$password,
-    name = code,
-    ...)
+  if(gen_fun == "gen_api"){
+
+    par_list <-  list(
+      endpoint = "metadata/statistic",
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      name = code,
+      area = area,
+      ...
+    )
+
+  } else if ( gen_fun == "gen_zensus_api"){
+
+    par_list <-  list(
+      endpoint = "metadata/statistic",
+      username = gen_zensus_auth_get()$username,
+      password = gen_zensus_auth_get()$password,
+      name = code,
+      ...
+    )
+
+  }
+
+  results_raw <- do.call(gen_fun, par_list)
 
   results_json <- test_if_json(results_raw)
 
@@ -57,6 +89,7 @@ gen_metadata_stats <- function(code = NULL,
   }
 
     attr(df_stats, "Code") <- results_json$Parameter$name
+    attr(df_stats, "Database") <- database[1]
     attr(df_stats, "Method") <- results_json$Ident$Method
     attr(df_stats, "Updated") <- results_json$Object$Updated
     attr(df_stats, "Language") <- results_json$Parameter$language
@@ -71,11 +104,13 @@ gen_metadata_stats <- function(code = NULL,
 #'
 #' @description Function to search for meta-information for a specific variable.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration. "*"-Notation is possible.
-#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param code A string with a maximum length of 15 characters. Code from a Genesis/Zensus-Object. Only one code per iteration. "*"-Notation is possible.
+#' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Only used for Genesis.
+#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis/Zensus. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -85,19 +120,49 @@ gen_metadata_stats <- function(code = NULL,
 #' }
 #'
 gen_metadata_var <- function(code = NULL,
+                              database = c("genesis", "zensus"),
+                              area = c("all", "public", "user"),
                               error.ignore = FALSE,
                               ...) {
 
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database)
+
   check_function_input(code = code,
-                       error.ignore = error.ignore)
+                       error.ignore = error.ignore,
+                       caller = caller)
+
+  area <- match.arg(area)
+
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
 
   #-----------------------------------------------------------------------------
 
-  results_raw <- gen_api("metadata/variable",
-                         username = gen_auth_get()$username,
-                         password = gen_auth_get()$password,
-                         name = code,
-                         ...)
+  if(gen_fun == "gen_api"){
+
+    par_list <-  list(
+      endpoint = "metadata/variable",
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      name = code,
+      area = area,
+      ...
+    )
+
+  } else if ( gen_fun == "gen_zensus_api"){
+
+    par_list <-  list(
+      endpoint = "metadata/variable",
+      username = gen_zensus_auth_get()$username,
+      password = gen_zensus_auth_get()$password,
+      name = code,
+      ...
+    )
+
+  }
+
+  results_raw <- do.call(gen_fun, par_list)
 
   results_json <- test_if_json(results_raw)
 
@@ -127,6 +192,7 @@ gen_metadata_var <- function(code = NULL,
                     "Information" = results_json$Object$Information)
 
   attr(list_resp, "Code") <- results_json$Parameter$name
+  attr(list_resp, "Database") <- database[1]
   attr(list_resp, "Method") <- results_json$Ident$Method
   attr(list_resp, "Updated") <- results_json$Object$Updated
   attr(list_resp, "Language") <- results_json$Parameter$language
@@ -141,11 +207,13 @@ gen_metadata_var <- function(code = NULL,
 #'
 #' @description Function to search for meta-information for a specific value.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
-#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param code A string with a maximum length of 15 characters. Code from a Genesis/Zensus-Object. Only one code per iteration.
+#' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Only used for Genesis.
+#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis/Zensus. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -155,19 +223,49 @@ gen_metadata_var <- function(code = NULL,
 #' }
 #'
 gen_metadata_val <- function(code = NULL,
+                              database = c("genesis", "zensus"),
+                              area = c("all", "public", "user"),
                               error.ignore = FALSE,
                               ...) {
 
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database)
+
   check_function_input(code = code,
-                       error.ignore = error.ignore)
+                       error.ignore = error.ignore,
+                       caller = caller)
+
+  area <- match.arg(area)
+
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
 
   #-----------------------------------------------------------------------------
 
-  results_raw <- gen_api("metadata/value",
-                         username = gen_auth_get()$username,
-                         password = gen_auth_get()$password,
-                         name = code,
-                         ...)
+  if(gen_fun == "gen_api"){
+
+    par_list <-  list(
+      endpoint = "metadata/value",
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      name = code,
+      area = area,
+      ...
+    )
+
+  } else if ( gen_fun == "gen_zensus_api"){
+
+    par_list <-  list(
+      endpoint = "metadata/value",
+      username = gen_zensus_auth_get()$username,
+      password = gen_zensus_auth_get()$password,
+      name = code,
+      ...
+    )
+
+  }
+
+  results_raw <- do.call(gen_fun, par_list)
 
   results_json <- test_if_json(results_raw)
 
@@ -194,6 +292,7 @@ gen_metadata_val <- function(code = NULL,
                     "Information" = results_json$Object$Information)
 
   attr(list_resp, "Code") <- results_json$Parameter$name
+  attr(list_resp, "Database") <- database[1]
   attr(list_resp, "Method") <- results_json$Ident$Method
   attr(list_resp, "Updated") <- results_json$Object$Updated
   attr(list_resp, "Language") <- results_json$Parameter$language
@@ -208,11 +307,13 @@ gen_metadata_val <- function(code = NULL,
 #'
 #' @description Function to search for meta-information for a specific table.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
-#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param code A string with a maximum length of 15 characters. Code from a Genesis/Zensus-Object. Only one code per iteration.
+#' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Used for both databases.
+#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis/Zensus. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -222,19 +323,50 @@ gen_metadata_val <- function(code = NULL,
 #' }
 #'
 gen_metadata_tab <- function(code = NULL,
+                              database = c("genesis", "zensus"),
+                              area = c("all", "public", "user"),
                               error.ignore = FALSE,
                               ...) {
 
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database)
+
   check_function_input(code = code,
-                       error.ignore = error.ignore)
+                       error.ignore = error.ignore,
+                       caller = caller)
+
+  area <- match.arg(area)
+
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
 
   #-----------------------------------------------------------------------------
 
-  results_raw <- gen_api("metadata/table",
-                         username = gen_auth_get()$username,
-                         password = gen_auth_get()$password,
-                         name = code,
-                         ...)
+  if(gen_fun == "gen_api"){
+
+    par_list <-  list(
+      endpoint = "metadata/table",
+      username = gen_auth_get()$username,
+      password = gen_auth_get()$password,
+      name = code,
+      area = area,
+      ...
+    )
+
+  } else if ( gen_fun == "gen_zensus_api"){
+
+    par_list <-  list(
+      endpoint = "metadata/table",
+      username = gen_zensus_auth_get()$username,
+      password = gen_zensus_auth_get()$password,
+      name = code,
+      area = area,
+      ...
+    )
+
+  }
+
+  results_raw <- do.call(gen_fun, par_list)
 
   results_json <- test_if_json(results_raw)
 
@@ -338,6 +470,7 @@ gen_metadata_tab <- function(code = NULL,
                     "Embedded_in" = embedded)
 
   attr(list_resp, "Code") <- results_json$Parameter$name
+  attr(list_resp, "Database") <- database[1]
   attr(list_resp, "Method") <- results_json$Ident$Method
   attr(list_resp, "Updated") <- results_json$Object$Updated
   attr(list_resp, "Language") <- results_json$Parameter$language
@@ -350,10 +483,11 @@ gen_metadata_tab <- function(code = NULL,
 
 #' gen_metadata_cube
 #'
-#' @description Function to search for meta-information for a specific cube.
+#' @description Function to search for meta-information for a specific cube. Usable only for Genesis.
 #'
-#' @param code a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
-#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
+#' @param code A string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
+#' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Only used for Genesis.
+#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -367,10 +501,15 @@ gen_metadata_tab <- function(code = NULL,
 #'
 gen_metadata_cube <- function(code = NULL,
                                error.ignore = FALSE,
+                               area = c("all", "public", "user"),
                                ...) {
 
   check_function_input(code = code,
                        error.ignore = error.ignore)
+
+  area <- match.arg(area)
+
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
 
   #-----------------------------------------------------------------------------
 
@@ -378,6 +517,7 @@ gen_metadata_cube <- function(code = NULL,
                          username = gen_auth_get()$username,
                          password = gen_auth_get()$password,
                          name = code,
+                         area = area,
                          ...)
 
   results_json <- test_if_json(results_raw)
@@ -460,6 +600,7 @@ gen_metadata_cube <- function(code = NULL,
                     "Structure" = structure)
 
   attr(list_resp, "Code") <- results_json$Parameter$name
+  attr(list_resp, "Database") <- "genesis"
   attr(list_resp, "Method") <- results_json$Ident$Method
   attr(list_resp, "Updated") <- results_json$Object$Updated
   attr(list_resp, "Language") <- results_json$Parameter$language
@@ -474,12 +615,14 @@ gen_metadata_cube <- function(code = NULL,
 #'
 #' @description Search For Meta-Information For All Types Of Objects
 #'
-#' @param code string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.
-#' @param category a string. Specific object-types: 'Cube', 'Statistic', "Table", "Variable" and 'Value'. The function needs a specified object type.
-#' @param error.ignore  a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.
-#' @param ... Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param code A string with a maximum length of 15 characters. Code from a Genesis/Zensus-Object. Only one code per iteration.
+#' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param category A string. Specific object-types: 'Cube', 'Statistic', "Table", "Variable" and 'Value'. The function needs a specified object type.
+#' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Only used for Genesis.
+#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
+#' @return A list with all recalled elements from Genesis/Zensus. Attributes are added to the dataframe describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -489,15 +632,20 @@ gen_metadata_cube <- function(code = NULL,
 #' }
 #'
 gen_metadata <- function(code = NULL,
+                          database = c("genesis", "zensus"),
                           category = c("Cube", "Statistic", "Table", "Variable", "Value"),
+                          area = c("all", "public", "user"),
                           error.ignore = FALSE,
                           ...) {
 
   caller <- as.character(match.call()[1])
 
+  gen_fun <- test_database_function(database)
+
   check_function_input(code = code,
-                       category = category,
                        error.ignore = error.ignore,
+                       category = category,
+                       database = gen_fun,
                        caller = caller)
 
   #-----------------------------------------------------------------------------
@@ -508,24 +656,36 @@ gen_metadata <- function(code = NULL,
 
   } else if (category == "Value") {
 
-    gen_metadata_val(code = code, error.ignore = error.ignore, ...)
+    gen_metadata_val(code = code,
+                     database = database,
+                     area = area,
+                     error.ignore = error.ignore, ...)
 
   } else if (category == "Variable") {
 
-    gen_metadata_var(code = code, error.ignore = error.ignore, ...)
+    gen_metadata_var(code = code,
+                     database = database,
+                     area = area,
+                     error.ignore = error.ignore, ...)
 
   } else if (category == "Table") {
 
-    gen_metadata_tab(code = code, error.ignore = error.ignore, ...)
+    gen_metadata_tab(code = code,
+                     database = database,
+                     area = area,
+                     error.ignore = error.ignore, ...)
 
   } else if (category == "Statistic") {
 
-    gen_metadata_stats(code = code, error.ignore = error.ignore, ...)
+    gen_metadata_stats(code = code,
+                       database = database,
+                       area = area,
+                       error.ignore = error.ignore, ...)
 
   } else {
 
     stop("Category is not found, please select a correct category.
-         Available categories are Cube, Statistic, Table, Variable, or Value.
+         Available categories are Cube, Statistic, Table, Variable, or Value for Genesis and Statistic, Table, Variable, or Value for Zensus.
          Please choose one of them.", call. = TRUE)
   }
 }
