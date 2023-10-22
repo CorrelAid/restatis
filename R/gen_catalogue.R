@@ -58,7 +58,7 @@ gen_catalogue <- function(code = NULL,
   # Processing ####
   if ("cubes" %in% category && gen_fun == "gen_zensus_api") {
 
-    list_of_cubes <- "No 'cubes' object available for 'zensus'-database."
+    list_of_cubes <- "No 'cubes' object available for 'zensus' database."
 
   } else if ("cubes" %in% category && gen_fun == "gen_api") {
 
@@ -202,7 +202,7 @@ gen_catalogue <- function(code = NULL,
         ...
       )
 
-    } else if ( gen_fun == "gen_zensus_api"){
+    } else if (gen_fun == "gen_zensus_api"){
 
       par_list <-  list(
         endpoint = "catalogue/tables",

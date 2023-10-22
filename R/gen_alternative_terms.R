@@ -19,8 +19,8 @@
 #' # Find terms at Destatis that are related (in spelling) to search term "bus"
 #' object <- gen_alternative_terms(term = "bus*", similarity = TRUE, database = "genesis")
 #'
-#' # Find terms at Zensus that are related (in spelling) to search term "bus"
-#' object <- gen_alternative_terms(term = "bus*", similarity = TRUE, database = "zensus")
+#' # Find terms at Zensus that are related (in spelling) to search term "wohn"
+#' object <- gen_alternative_terms(term = "wohn*", similarity = TRUE, database = "zensus")
 #' }
 #'
 gen_alternative_terms <- function(term = NULL,

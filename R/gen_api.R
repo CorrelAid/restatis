@@ -1,6 +1,6 @@
-#' Low-level function to interact with the Destatis GENESIS API
+#' Low-level function to interact with Destatis' GENESIS API
 #'
-#' @param endpoint Self-explanatory
+#' @param endpoint The endpoint of the API that is to be queried
 #'
 #' @importFrom httr2 `%>%`
 #'
@@ -9,6 +9,7 @@
 #' @examples
 #' gen_api("helloworld/logincheck") %>%
 #'   httr2::resp_body_json()
+#'
 gen_api <- function(endpoint, ...) {
   httr2::request("https://www-genesis.destatis.de/genesisWS/rest/2020") %>%
     httr2::req_user_agent("https://github.com/CorrelAid/restatis") %>%

@@ -1,32 +1,33 @@
-#' Save authentication ZENSUS
+#' Save credentials for the German Zensus 2022 database
 #'
 #' See Details.
 #'
-#' Zensus username and password are encrypted and saved as RDS in the
+#' Zensus database username and password are encrypted and saved as RDS in the
 #'   package config directory.
 #'
 #' A random string is generated and stored in the session environment
 #'   variable `ZENSUS_KEY`. This string is used as the key to encrypt and
-#'   decrypt the entered Genesis credentials.
+#'   decrypt the entered credentials.
 #'
 #' To avoid having to save authentication in future sessions, `ZENSUS_KEY` can
-#'   be added to .Renviron. The usethis package includes a helper function for
-#'   editing .Renviron files from an R session with [usethis::edit_r_environ()].
+#'   be added to .Renviron. The {usethis} package includes a helper function for
+#'   editing .Renviron files from a R session with [usethis::edit_r_environ()].
 #'
 #' @export
+#'
 gen_zensus_auth_save <- function() {
 
   username <- gen_auth_ask("username")
   password <- gen_auth_ask("password")
 
-  auth_path <- gen_auth_path("auth_ZENSUS.rds")
+  auth_path <- gen_auth_path("auth_zensus.rds")
 
   key <- httr2::secret_make_key()
 
   Sys.setenv(ZENSUS_KEY = key)
 
   message(
-    "Saving credentials to ",
+    "Saving Zensus database credentials to ",
     auth_path,
     "\n\n",
     "Please add the following line to your .Renviron, ",
@@ -48,12 +49,12 @@ gen_zensus_auth_save <- function() {
 
 gen_zensus_auth_get <- function() {
 
-  auth_path <- gen_auth_path("auth_ZENSUS.rds")
+  auth_path <- gen_auth_path("auth_zensus.rds")
 
   if (!(file.exists(auth_path) && nzchar(Sys.getenv("ZENSUS_KEY")))) {
     stop(
       "Zensus credentials not found.\n",
-      "Please run `gen_auth_save()` to store Zensus username and password.\n",
+      "Please run `gen_zensus_auth_save()` to store Zensus database username and password.\n",
       call. = FALSE
     )
   }

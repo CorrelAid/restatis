@@ -20,9 +20,9 @@ gen_list_jobs <- function(code = NULL,
 
   sortcriterion <- match.arg(sortcriterion)
 
-  if( sortcriterion == "content" & gen_fun == "gen_zensus_api"){
+  if(sortcriterion == "content" & gen_fun == "gen_zensus_api"){
 
-    stop("Parameter 'sortcriterion' has to be 'status' or 'time' for 'zensus'-database.", call. = FALSE)
+    stop("Parameter 'sortcriterion' has to be 'status' or 'time' for the 'zensus' database.", call. = FALSE)
 
   }
 

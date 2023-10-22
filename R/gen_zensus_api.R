@@ -1,6 +1,6 @@
-#' Low-level function to interact with the Zensus 2022 GENESIS API
+#' Low-level function to interact with the German Zensus 2022 database
 #'
-#' @param endpoint Self-explanatory
+#' @param endpoint The endpoint of the API that is to be queried
 #'
 #' @importFrom httr2 `%>%`
 #'
@@ -9,6 +9,7 @@
 #' @examples
 #' gen_api("helloworld/logincheck") %>%
 #'   httr2::resp_body_json()
+#'
 gen_zensus_api <- function(endpoint, ...) {
   httr2::request("https://ergebnisse2011.zensus2022.de/api/rest/2020") %>%
     httr2::req_user_agent("https://github.com/CorrelAid/restatis") %>%

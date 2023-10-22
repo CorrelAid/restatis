@@ -1,4 +1,4 @@
-#' Save authentication GENESIS
+#' Save credentials for Destatis' GENESIS database
 #'
 #' See Details.
 #'
@@ -14,6 +14,7 @@
 #'   editing .Renviron files from an R session with [usethis::edit_r_environ()].
 #'
 #' @export
+#'
 gen_auth_save <- function() {
 
   username <- gen_auth_ask("username")

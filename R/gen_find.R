@@ -71,7 +71,7 @@ gen_find <- function(term = NULL,
         ...
       )
 
-    } else if ( gen_fun == "gen_zensus_api"){
+    } else if (gen_fun == "gen_zensus_api"){
 
       par_list <-  list(
         endpoint = "find/find",
@@ -108,7 +108,7 @@ gen_find <- function(term = NULL,
 
     return(list_resp)
 
-  } else if( isTRUE(empty_object) & gen_fun == "gen_zensus_api" ){
+  } else if(isTRUE(empty_object) & gen_fun == "gen_zensus_api" ){
 
     list_resp <- list("Output" = "No cubes at all avalaible in 'zensus'-database.")
 
