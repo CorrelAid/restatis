@@ -90,29 +90,40 @@ forming_evas <- function(list_of) {
           nestedlist <- lapply(nestedlist, function(d){
             lapply(d, function(y){
               lapply(y, function(x){
-                lapply(x, "[", keep)})
+                lapply(x, function(r, remain){
+                  obj <- r[keep]
+                  obj <- tibble::as_tibble(obj)
+                }, remain = keep)})
             })
           })
 
         } else {
           nestedlist <- lapply(nestedlist, function(d){
             lapply(d, function(y){
-              lapply(y, "[", keep)})
-          })
-        }
+              lapply(y, function(r, remain){
+                obj <- r[keep]
+                obj <- tibble::as_tibble(obj)
+              }, remain = keep
+              )})})}
 
       } else {
         nestedlist <- lapply(nestedlist, function(d){
-          lapply(d, "[", keep)})
-      }
+          lapply(d, function(r, remain){
+            obj <- r[keep]
+            obj <- tibble::as_tibble(obj)
+          }, remain = keep
+          )})}
 
     } else {
-      nestedlist <- lapply(nestedlist, "[", keep)
-    }
+      nestedlist <- lapply(nestedlist, function(r, remain){
+        obj <- r[keep]
+        obj <- tibble::as_tibble(obj)
+      }, remain = keep
+      )}
 
   } else {
-    nestedlist <- list_of[keep]
-  }
+    nestedlist <- tibble::as_tibble(list_of[keep])
+    }
 
   return(nestedlist)
 }

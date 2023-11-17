@@ -264,16 +264,16 @@ gen_catalogue <- function(code = NULL,
   if (all(c("tables", "statistics", "cubes") %in% category)) {
 
     list_resp <- list(
-                  "Cubes" = if(length(list_of_cubes) == 1 | gen_fun == "gen_zensus_api"){list_of_cubes} else {forming_evas(list_of_cubes)},
-                  "Statistics" = if(length(list_of.stats) == 1 | gen_fun == "gen_zensus_api"){list_of.stats} else {forming_evas(list_of.stats)},
-                  "Tables" = if(length(list_of.tabs) == 1 | gen_fun == "gen_zensus_api"){list_of.tabs} else {forming_evas(list_of.tabs)}
+                  "Cubes" = if(length(list_of_cubes) == 1 | gen_fun == "gen_zensus_api"){tibble::as_tibble(list_of_cubes)} else {forming_evas(list_of_cubes)},
+                  "Statistics" = if(length(list_of.stats) == 1 | gen_fun == "gen_zensus_api"){tibble::as_tibble(list_of.stats)} else {forming_evas(list_of.stats)},
+                  "Tables" = if(length(list_of.tabs) == 1 | gen_fun == "gen_zensus_api"){tibble::as_tibble(list_of.tabs)} else {forming_evas(list_of.tabs)}
                   )
 
   } else if (category == "cubes") {
 
     if(length(list_of_cubes) == 1 | gen_fun == "gen_zensus_api"){
 
-      list_resp <- list("Cubes" = list_of_cubes)
+      list_resp <- list("Cubes" = tibble::as_tibble(list_of_cubes))
 
     } else {
 
@@ -285,7 +285,7 @@ gen_catalogue <- function(code = NULL,
 
     if(length(list_of.stats) == 1 | gen_fun == "gen_zensus_api"){
 
-      list_resp <- list("Statistics" = list_of.stats)
+      list_resp <- list("Statistics" = tibble::as_tibble(list_of.stats))
 
     } else {
 
@@ -297,7 +297,7 @@ gen_catalogue <- function(code = NULL,
 
     if(length(list_of.tabs) == 1 | gen_fun == "gen_zensus_api"){
 
-      list_resp <- list("Tables" = list_of.tabs)
+      list_resp <- list("Tables" = tibble::as_tibble(list_of.tabs))
 
     } else {
 
