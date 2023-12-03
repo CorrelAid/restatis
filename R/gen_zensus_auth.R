@@ -47,6 +47,10 @@ gen_zensus_auth_save <- function() {
   )
 }
 
+#' Check if credentials for Zensus data base are available
+#'
+#' @return Zensus data base key for credentials
+#'
 gen_zensus_auth_get <- function() {
 
   auth_path <- gen_auth_path("auth_zensus.rds")

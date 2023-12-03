@@ -70,7 +70,7 @@ gen_metadata_stats <- function(code = NULL,
 
   if(isTRUE(empty_object)){
 
-    df_stats <- "No `meta_information`- object found for your request."
+    df_stats <- "No 'meta_information' object found for your request."
 
   } else if(isFALSE(empty_object)){
 
@@ -172,7 +172,7 @@ gen_metadata_var <- function(code = NULL,
 
   if(isTRUE(empty_object)){
 
-    df_var <- "No `meta_information`- object found for your request."
+    df_var <- "No 'meta_information' object found for your request."
 
   } else if(isFALSE(empty_object)){
 
@@ -275,7 +275,7 @@ gen_metadata_val <- function(code = NULL,
 
   if(isTRUE(empty_object)){
 
-    df_value <- "No `meta_information`- object found for your request."
+    df_value <- "No 'meta_information' object found for your request."
 
   } else if(isFALSE(empty_object)){
 
@@ -376,7 +376,7 @@ gen_metadata_tab <- function(code = NULL,
 
   if(isTRUE(empty_object)){
 
-    char <- "No `meta_information`- object found for your request."
+    char <- "No 'meta_information' object found for your request."
     structure <- NULL
     embedded <- NULL
 
@@ -528,7 +528,7 @@ gen_metadata_cube <- function(code = NULL,
 
   if(isTRUE(empty_object)){
 
-    char <- "No `meta_information`- object found for your request."
+    char <- "No 'meta_information' object found for your request."
     time <- NULL
     stat <- NULL
     structure <- NULL
@@ -633,7 +633,7 @@ gen_metadata_cube <- function(code = NULL,
 #'
 gen_metadata <- function(code = NULL,
                           database = c("genesis", "zensus"),
-                          category = c("Cube", "Statistic", "Table", "Variable", "Value"),
+                          category = c("cube", "statistic", "table", "variable", "value"),
                           area = c("all", "public", "user"),
                           error.ignore = FALSE,
                           ...) {
@@ -650,32 +650,32 @@ gen_metadata <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  if (category == "Cube") {
+  if (category == "cube") {
 
     gen_metadata_cube(code = code, error.ignore = error.ignore, ...)
 
-  } else if (category == "Value") {
+  } else if (category == "value") {
 
     gen_metadata_val(code = code,
                      database = database,
                      area = area,
                      error.ignore = error.ignore, ...)
 
-  } else if (category == "Variable") {
+  } else if (category == "variable") {
 
     gen_metadata_var(code = code,
                      database = database,
                      area = area,
                      error.ignore = error.ignore, ...)
 
-  } else if (category == "Table") {
+  } else if (category == "table") {
 
     gen_metadata_tab(code = code,
                      database = database,
                      area = area,
                      error.ignore = error.ignore, ...)
 
-  } else if (category == "Statistic") {
+  } else if (category == "statistic") {
 
     gen_metadata_stats(code = code,
                        database = database,
@@ -685,7 +685,8 @@ gen_metadata <- function(code = NULL,
   } else {
 
     stop("Category is not found, please select a correct category.
-         Available categories are Cube, Statistic, Table, Variable, or Value for Genesis and Statistic, Table, Variable, or Value for Zensus.
+         Available categories for data base GENESIS: 'cube', 'statistic', 'table', 'variable', 'value.
+         \n Available categories for Zensus data base: 'statistic', 'table', 'variable', 'value.' \n
          Please choose one of them.", call. = TRUE)
   }
 }

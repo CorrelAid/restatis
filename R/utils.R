@@ -607,29 +607,29 @@ test_if_error_light <- function(input) {
 
 test_database_function <- function(input){
 
-  if( length(input) > 1 ){
+  if(length(input) > 1){
 
     input <- input[1]
 
   }
 
-  if( is.na(input) ){
+  if(is.na(input)){
 
-    stop("database-parameter must be either 'genesis' or 'zensus'.", call. = FALSE)
+    stop("Database parameter must be either 'genesis' or 'zensus'.", call. = FALSE)
 
   }
 
-  if( input == "genesis" ){
+  if(input == "genesis"){
 
     return("gen_api")
 
-  } else if( input == "zensus"){
+  } else if(input == "zensus"){
 
     return("gen_zensus_api")
 
   } else {
 
-    stop("database-parameter must be either 'genesis' or 'zensus'. No other values allowed.", call. = FALSE)
+    stop("Database parameter must be either 'genesis' or 'zensus'. No other values allowed.", call. = FALSE)
 
   }
 }
