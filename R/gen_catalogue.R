@@ -264,20 +264,20 @@ gen_catalogue <- function(code = NULL,
   if (all(c("tables", "statistics", "cubes") %in% category)) {
 
     list_resp <- list(
-                  "Cubes" = if(length(list_of_cubes) == 1 | gen_fun == "gen_zensus_api"){list_of_cubes} else {list("A" = forming_evas(list_of_cubes))},
-                  "Statistics" = if(length(list_of.stats) == 1 | gen_fun == "gen_zensus_api"){list_of.stats} else {list("B" = forming_evas(list_of.stats))},
-                  "Tables" = if(length(list_of.tabs) == 1 | gen_fun == "gen_zensus_api"){list_of.tabs} else {list("C" = forming_evas(list_of.tabs))}
+                  "Cubes" = if(length(list_of_cubes) == 1 | gen_fun == "gen_zensus_api"){tibble::as_tibble(list_of_cubes)} else {forming_evas(list_of_cubes)},
+                  "Statistics" = if(length(list_of.stats) == 1 | gen_fun == "gen_zensus_api"){tibble::as_tibble(list_of.stats)} else {forming_evas(list_of.stats)},
+                  "Tables" = if(length(list_of.tabs) == 1 | gen_fun == "gen_zensus_api"){tibble::as_tibble(list_of.tabs)} else {forming_evas(list_of.tabs)}
                   )
 
   } else if (category == "cubes") {
 
     if(length(list_of_cubes) == 1 | gen_fun == "gen_zensus_api"){
 
-      list_resp <- list("Output" = list_of_cubes)
+      list_resp <- list("Cubes" = tibble::as_tibble(list_of_cubes))
 
     } else {
 
-      list_resp <- list("Output" = forming_evas(list_of_cubes))
+      list_resp <- list("Cubes" = forming_evas(list_of_cubes))
 
     }
 
@@ -285,11 +285,11 @@ gen_catalogue <- function(code = NULL,
 
     if(length(list_of.stats) == 1 | gen_fun == "gen_zensus_api"){
 
-      list_resp <- list("Output" = list_of.stats)
+      list_resp <- list("Statistics" = tibble::as_tibble(list_of.stats))
 
     } else {
 
-      list_resp <- list("Output" = forming_evas(list_of.stats))
+      list_resp <- list("Statistics" = forming_evas(list_of.stats))
 
     }
 
@@ -297,11 +297,11 @@ gen_catalogue <- function(code = NULL,
 
     if(length(list_of.tabs) == 1 | gen_fun == "gen_zensus_api"){
 
-      list_resp <- list("Output" = list_of.tabs)
+      list_resp <- list("Tables" = tibble::as_tibble(list_of.tabs))
 
     } else {
 
-      list_resp <- list("Output" = forming_evas(list_of.tabs))
+      list_resp <- list("Tables" = forming_evas(list_of.tabs))
 
     }
 
