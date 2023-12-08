@@ -252,7 +252,7 @@ check_function_input <- function(code = NULL,
       "gen_catalogue", "gen_objects2var"
     )) {
        if (!all(category %in% c("tables", "cubes", "statistics"))) {
-         stop("Available categories are tables, statistics, and cubes.",
+         stop("Available categories are 'tables', 'statistics', and 'cubes'.",
            call. = FALSE
          )
        }
@@ -265,15 +265,29 @@ check_function_input <- function(code = NULL,
       "gen_catalogue", "gen_objects2var"
     )) {
       if(database == "gen_zensus_api"){
-        if ("cubes" %in% category & error.ignore) {
-          warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'.
-            Function is continued with specified 'category'-parameter excluding 'cubes'.", call. = FALSE
+
+        if (length(category) == 1 && "cubes" %in% category && isFALSE(error.ignore)) {
+          stop("Available categories for 'zensus'-database are: 'tables' and 'statistics'.",
+                  call. = FALSE
           )
         }
 
-        else if ("cubes" %in% category ) {
-          stop("Available categories for 'zensus'-database are: 'tables' and 'statistics'.",
+        else if (length(category) == 1 && "cubes" %in% category && isTRUE(error.ignore)) {
+          warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'.
+                  Function is continued with a placeholder for the 'cubes' output.",
                call. = FALSE
+          )
+        }
+
+        else if ("cubes" %in% category && isFALSE(error.ignore)) {
+          warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'."
+               , call. = FALSE
+          )
+        }
+
+        else if ("cubes" %in% category && isTRUE(error.ignore)) {
+          warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'.
+            Function is continued with specified 'category'-parameter excluding 'cubes'.", call. = FALSE
           )
         }
       }
@@ -283,7 +297,7 @@ check_function_input <- function(code = NULL,
 
     if (caller %in% c("restatis::gen_objects2stat", "gen_objects2stat")) {
       if (!all(category %in% c("tables", "cubes", "variables"))) {
-        stop("Available categories are tables, variables, and cubes.",
+        stop("Available categories are 'tables', 'variables', and 'cubes'.",
           call. = FALSE
         )
       }
@@ -293,13 +307,13 @@ check_function_input <- function(code = NULL,
 
     if (caller %in% c("restatis::gen_objects2stat", "gen_objects2stat")) {
       if(database == "gen_zensus_api"){
-        if ("cubes" %in% category & error.ignore) {
+        if ("cubes" %in% category && isTRUE(error.ignore)) {
           warning("Available categories for 'zensus'-database are: 'tables' and 'variables'.
             Function is continued with specified 'category'-parameter excluding 'cubes'.", call. = FALSE
           )
         }
 
-        else if ("cubes" %in% category ) {
+        else if ("cubes" %in% category && isFALSE(error.ignore)) {
           stop("Available categories for 'zensus'-database are: 'tables' and 'variables'.",
                call. = FALSE
           )
@@ -311,27 +325,43 @@ check_function_input <- function(code = NULL,
 
     if (caller %in% c("restatis::gen_find", "gen_find")) {
         if (!all(category %in% c("all", "tables", "statistics", "variables", "cubes"))) {
-         stop("Available categories are all, tables, statistics, variables, and cubes.",
+          if(database == "gen_api"){
+         stop("Available categories for parameter 'category' for 'genesis'-database are 'all', 'tables', 'statistics', 'variables', and 'cubes'.",
           call. = FALSE
           )
+          }
+
+          if(gen_fun == "gen_zensus_api"){
+            stop("Available categories for parameter 'category' for 'zensus'-database are 'all', 'tables', 'statistics', and 'variables'.",
+                 call. = FALSE
+            )
+          }
         }
-      }
+    }
 
     #----------------------------------------
 
     if (caller %in% c("restatis::gen_find", "gen_find")) {
       if(database == "gen_zensus_api"){
-        if ("cubes" %in% category & error.ignore) {
+        if ("cubes" %in% category && isTRUE(error.ignore)) {
           warning("Available categories for 'zensus'-database are: 'all', 'tables', 'statistics', and 'variables'.
-            Function is continued with specified 'category'-parameter excluding 'cubes'.", call. = FALSE
+            Function is continued with a placeholder for the 'cubes' output.", call. = FALSE
           )
         }
 
-        else if ("cubes" %in% category && !"all" %in% category) {
-          stop("Available categories are all, tables, statistics, and variables.",
+        else if ( "all" %in% category) {
+          warning("Available categories for 'zensus'-database are: 'all', 'tables', 'statistics', and 'variables'.
+            Function is continued with a placeholder for the 'cubes' output.", call. = FALSE
+          )
+        }
+
+        else if ("cubes" %in% category && isFALSE(error.ignore)) {
+          stop("Available categories are 'all', 'tables', 'statistics', and 'variables'.",
                call. = FALSE
           )
         }
+
+
       }
     }
 
@@ -339,14 +369,18 @@ check_function_input <- function(code = NULL,
 
     if (caller %in% c("restatis::gen_metadata", "gen_metadata")) {
       if(database == "gen_api"){
-      if (!all(category %in% c("Cube", "Statistic", "Table", "Variable", "Value"))) {
-        stop("Available categories are Cube, Table, Statistic, Variable, and Value.",
-          call. = FALSE
-        )
+
+        if (!all(category %in% c("Cube", "Statistic", "Table", "Variable", "Value"))) {
+            stop("Available categories for parameter 'category' for 'genesis'-database are 'Cube', 'Table', 'Statistic', 'Variable', and 'Value'.",
+                  call. = FALSE
+            )
+          }
       }
-      } else if( database == "gen_zenus_api"){
+
+      else if( database == "gen_zensus_api") {
+
         if (!all(category %in% c("Statistic", "Table", "Variable", "Value"))) {
-          stop("Available categories are Table, Statistic, Variable, and Value.",
+          stop("Available categories for parameter 'category' for 'zensus'-database are 'Table', 'Statistic', 'Variable', and 'Value'.",
                call. = FALSE
           )
         }

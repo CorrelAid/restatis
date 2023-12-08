@@ -1,6 +1,6 @@
 #' gen_alternative_terms: Call For Similiar or Spelling Related Terms for Further Search
 #'
-#' @description Function to find search terms that are similar or related to one another and also represented in Genesis/Zensus.
+#' @description Function to find search terms that are similar or related to one another in spelling and also represented in Genesis/Zensus. Important note: The API call is searching for terms with the same characters. To be useful in searching for related terms it is highly recommended to work with "*"-placeholders (see examples). The placeholder can be placed before and/or after the search term.
 #'
 #' @param term Character string. Maximum length of 15 characters. Term or word for which you are searching for alternative or related terms. Use of '*' as a placeholder is possible to generate broader search areas.
 #' @param similarity Logical. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function. Default option is 'TRUE'.
@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Find terms at Destatis that are similar (in spelling) to search term "bus"
+#' # Find terms at Destatis that are the same (in spelling) to search term "bus"
 #' # and sort them by Levenshtein edit distance
 #' object <- gen_alternative_terms(term = "bus", similarity = TRUE, database = "genesis")
 #'

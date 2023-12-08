@@ -1,6 +1,6 @@
 #' catalogue: Explore Different Objects and Their Structural Embedding in Genesis/Zensus
 #'
-#' Function to enable searching for tables, statistics, and cubes from Genesis or Zensus. Additionally, it structures the Genesis-output based on the internal tree structure of Genesis itself based on the EVAS-numbers. Time-series are represented as cubes with a specified time span in Genesis.
+#' Function to enable searching for tables, statistics, and cubes from Genesis or Zensus. Additionally, it structures the Genesis-output based on the internal tree structure of Genesis itself based on the EVAS-numbers. Time-series are represented as cubes with a specified time span in Genesis. Important note: To be useful in searching for objects it is highly recommended to work with "*"-placeholders (see examples). The placeholder can be placed before and/or after the search term.
 #'
 #' @param code A string with a maximum length of 10 characters for a Genesis-Object and 15 characters for a Zensus-Object. Only one code per iteration. "*"-Notations are possible.
 #' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
@@ -269,9 +269,13 @@ gen_catalogue <- function(code = NULL,
                   "Tables" = if(length(list_of.tabs) == 1 | gen_fun == "gen_zensus_api"){tibble::as_tibble(list_of.tabs)} else {forming_evas(list_of.tabs)}
                   )
 
-  } else if (category == "cubes") {
+  } else if ("cubes" %in% category) {
 
-    if(length(list_of_cubes) == 1 | gen_fun == "gen_zensus_api"){
+    if(length(list_of_cubes) == 1 && gen_fun == "gen_zensus_api"){
+
+      list_resp <- list_of_cubes
+
+  } else if (length(list_of_cubes) == 1 | gen_fun == "gen_zensus_api"){
 
       list_resp <- list("Cubes" = tibble::as_tibble(list_of_cubes))
 
@@ -281,7 +285,7 @@ gen_catalogue <- function(code = NULL,
 
     }
 
-  } else if (category == "statistics") {
+  } else if ("statistics" %in% category) {
 
     if(length(list_of.stats) == 1 | gen_fun == "gen_zensus_api"){
 
@@ -293,7 +297,7 @@ gen_catalogue <- function(code = NULL,
 
     }
 
-  } else if (category == "tables") {
+  } else if ("tables" %in% category) {
 
     if(length(list_of.tabs) == 1 | gen_fun == "gen_zensus_api"){
 
@@ -307,12 +311,16 @@ gen_catalogue <- function(code = NULL,
 
   }
 
-  attr(list_resp, "Code") <- results_json$Parameter$selection
+  attr(list_resp, "Code") <- code
   attr(list_resp, "Database") <- database[1]
   attr(list_resp, "Category") <- category
+  if(length(category) == 1 && "cubes" %in% category && gen_fun == "gen_zensus_api"){
+    attr(list_resp, "Info") <- "NO API call done"
+  } else {
   attr(list_resp, "Language") <- results_json$Parameter$language
   attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
   attr(list_resp, "Copyright") <- results_json$Copyright
+  }
 
   return(list_resp)
 

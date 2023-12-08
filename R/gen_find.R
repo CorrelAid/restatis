@@ -181,6 +181,7 @@ gen_find <- function(term = NULL,
 
       #-------------------------------------------------------------------------
 
+      if(gen_fun == "gen_api"){
       df_cubes <- binding_lapply(results_json$Cubes,
                                  characteristics = c("Code",
                                                      "Content",
@@ -194,6 +195,7 @@ gen_find <- function(term = NULL,
       df_cubes$Variablen <- spezifisch_create(df_cubes)
 
       df_cubes$Object_Type <- "Cube"
+      }
 
       #-------------------------------------------------------------------------
 
@@ -209,8 +211,10 @@ gen_find <- function(term = NULL,
         df_variables$Titel <- titel_search(df_variables, term)
       }
 
+      if(gen_fun == "gen_api"){
       if (nrow(df_cubes) != 0) {
         df_cubes$Titel <- titel_search(df_cubes, term)
+      }
       }
 
       #-------------------------------------------------------------------------
@@ -243,6 +247,7 @@ gen_find <- function(term = NULL,
                                                                                        "Spezifisch",
                                                                                        "Object_Type")]
 
+        if(gen_fun == "gen_api"){
         df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
                                                                            "Content",
                                                                            "Titel",
@@ -253,6 +258,7 @@ gen_find <- function(term = NULL,
                                                                            "Variablen",
                                                                            "Spezifisch",
                                                                            "Object_Type")]
+        }
 
       } else {
 
@@ -282,6 +288,7 @@ gen_find <- function(term = NULL,
                                          "Spezifisch",
                                          "Object_Type")]
 
+        if(gen_fun == "gen_api"){
         df_cubes <- df_cubes[, c("Code",
                                  "Content",
                                  "Titel",
@@ -292,6 +299,7 @@ gen_find <- function(term = NULL,
                                  "Variablen",
                                  "Spezifisch",
                                  "Object_Type")]
+        }
 
       }
 
@@ -300,7 +308,7 @@ gen_find <- function(term = NULL,
       list_resp <- list("Tables" = tibble::as_tibble(df_table),
                         "Statistics" = tibble::as_tibble(df_stats),
                         "Variables" = tibble::as_tibble(df_variables),
-                        "Cubes" = tibble::as_tibble(df_cubes))
+                        "Cubes" = if(gen_fun == "gen_api"){tibble::as_tibble(df_cubes)} else {"No cubes at all avalaible in 'zensus'-database."})
 
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Database") <- database[1]
@@ -488,6 +496,8 @@ gen_find <- function(term = NULL,
 
     if (category == "cubes") {
 
+      if(gen_fun == "gen_api"){
+
       df_cubes <- binding_lapply(results_json$Cubes,
                                  characteristics = c("Code",
                                                      "Content",
@@ -547,6 +557,11 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Copyright") <- results_json$Copyright
 
       return(list_resp)
+      } else {
+
+      list_resp <- "No cubes at all avalaible in 'zensus'-database."
+
+      }
     }
   }
 
@@ -594,6 +609,7 @@ gen_find <- function(term = NULL,
 
       #-------------------------------------------------------------------------
 
+      if(gen_fun == "gen_api"){
       df_cubes <- binding_lapply(results_json$Cubes,
                                  characteristics = c("Code",
                                                      "Content"))
@@ -603,6 +619,8 @@ gen_find <- function(term = NULL,
       df_cubes$Variablen <- spezifisch_create(df_cubes)
 
       df_cubes$Object_Type <- "Cube"
+
+      }
 
       #-------------------------------------------------------------------------
 
@@ -618,8 +636,10 @@ gen_find <- function(term = NULL,
         df_variables$Titel <- titel_search(df_variables, term)
       }
 
+      if(gen_fun == "gen_api"){
       if (nrow(df_cubes) != 0) {
         df_cubes$Titel <- titel_search(df_cubes, term)
+      }
       }
 
       #-------------------------------------------------------------------------
@@ -638,9 +658,11 @@ gen_find <- function(term = NULL,
                                                                                        "Content",
                                                                                        "Object_Type")]
 
+        if(gen_fun == "gen_api"){
         df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
                                                                            "Content",
                                                                            "Object_Type")]
+        }
       } else {
 
         df_table <- df_table[, c("Code",
@@ -655,9 +677,11 @@ gen_find <- function(term = NULL,
                                          "Content",
                                          "Object_Type")]
 
+        if(gen_fun == "gen_api"){
         df_cubes <- df_cubes[, c("Code",
                                  "Content",
                                  "Object_Type")]
+        }
 
       }
 
@@ -666,7 +690,7 @@ gen_find <- function(term = NULL,
       list_resp <- list("Tables" = tibble::as_tibble(df_table),
                         "Statistics" = tibble::as_tibble(df_stats),
                         "Variables" = tibble::as_tibble(df_variables),
-                        "Cubes" = tibble::as_tibble(df_cubes))
+                        "Cubes" = if(gen_fun == "gen_api"){tibble::as_tibble(df_cubes)} else {"No cubes at all avalaible in 'zensus'-database."})
 
       attr(list_resp, "Term") <- results_json$Parameter$term
       attr(list_resp, "Database") <- database[1]
@@ -823,7 +847,7 @@ gen_find <- function(term = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (category == "cubes") {
+    if (category == "cubes" && gen_fun == "gen_api") {
 
       df_cubes <- binding_lapply(results_json$Cubes,
                                  characteristics = c("Code",
@@ -867,6 +891,8 @@ gen_find <- function(term = NULL,
 
       return(list_resp)
 
+    } else {
+      list_resp <- "No cubes at all avalaible in 'zensus'-database."
     }
 
   }
