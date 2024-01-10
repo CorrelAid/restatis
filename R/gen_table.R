@@ -134,9 +134,29 @@ gen_table_ <- function(name,
 
   resp_check_data_csv(resp)
 
-  resp %>%
-    httr2::resp_body_string() %>%
-    readr::read_delim(
-      delim = ";",
-      show_col_types = FALSE)
+  # Returning the table desired by the user
+  # There has to be a check on language to display correct decimal marks
+  # For German results, there needs to be a decimal mark set
+  if (language == "de") {
+
+    resp %>%
+      httr2::resp_body_string() %>%
+      readr::read_delim(
+        delim = ";",
+        show_col_types = FALSE,
+        locale = readr::locale(decimal_mark = ",", grouping_mark = "."))
+
+  } else if (language == "en") {
+
+    resp %>%
+      httr2::resp_body_string() %>%
+      readr::read_delim(
+        delim = ";",
+        show_col_types = FALSE)
+
+  } else {
+
+    stop("Error handling language setting locale (values different from 'de' and 'en'.")
+
+  }
 }
