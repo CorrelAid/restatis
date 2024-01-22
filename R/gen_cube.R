@@ -79,6 +79,7 @@ gen_cube_ <- function(name,
 
   param_check_year(startyear)
   param_check_year(endyear)
+  param_check_regionalkey(regionalkey)
 
   contents <- param_collapse_vec(contents)
   regionalkey <- param_collapse_vec(regionalkey)

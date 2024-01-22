@@ -65,7 +65,8 @@ gen_table_ <- function(name,
                        classifyingvariable3 = NULL,
                        classifyingkey3 = NULL,
                        stand = NULL,
-                       language = Sys.getenv("GENESIS_LANG")) {
+                       language = Sys.getenv("GENESIS_LANG"),
+                       job = FALSE) {
 
   area <- match.arg(area)
 
@@ -75,6 +76,7 @@ gen_table_ <- function(name,
 
   param_check_year(startyear)
   param_check_year(endyear)
+  param_check_regionalkey(regionalkey)
 
   regionalkey <- param_collapse_vec(regionalkey)
   classifyingkey1 <- param_collapse_vec(classifyingkey1)
@@ -144,7 +146,8 @@ gen_table_ <- function(name,
       readr::read_delim(
         delim = ";",
         show_col_types = FALSE,
-        locale = readr::locale(decimal_mark = ",", grouping_mark = "."))
+        locale = readr::locale(decimal_mark = ",", grouping_mark = "."),
+        name_repair = "minimal")
 
   } else if (language == "en") {
 
@@ -152,7 +155,8 @@ gen_table_ <- function(name,
       httr2::resp_body_string() %>%
       readr::read_delim(
         delim = ";",
-        show_col_types = FALSE)
+        show_col_types = FALSE,
+        name_repair = "minimal")
 
   } else {
 

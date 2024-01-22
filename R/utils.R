@@ -15,6 +15,21 @@ param_check_year <- function(year) {
 
 }
 
+#-------------------------------------------------------------------------------
+
+param_check_regionalkey <- function(regionalkey) {
+
+  if (!is.character(regionalkey)) {
+
+    stop("The parameter 'regionalkey' needs to be of type 'character'.",
+         call. = FALSE)
+
+  }
+
+}
+
+#-------------------------------------------------------------------------------
+
 param_collapse_vec <- function(vec) {
   paste0(vec, collapse = ",")
 }
