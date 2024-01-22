@@ -251,20 +251,13 @@ check_function_input <- function(code = NULL,
       "restatis::gen_catalogue", "restatis::gen_objects2var",
       "gen_catalogue", "gen_objects2var"
     )) {
-       if (!all(category %in% c("tables", "cubes", "statistics"))) {
-         stop("Available categories are 'tables', 'statistics', and 'cubes'.",
-           call. = FALSE
-         )
-       }
-    }
-
-    #----------------------------------------
-
-    if (caller %in% c(
-      "restatis::gen_catalogue", "restatis::gen_objects2var",
-      "gen_catalogue", "gen_objects2var"
-    )) {
       if(database == "gen_zensus_api"){
+
+        if (!all(category %in% c("tables", "cubes", "statistics"))) {
+          stop("Available categories are 'tables' and 'statistics'.",
+               call. = FALSE
+          )
+        }
 
         if (length(category) == 1 && "cubes" %in% category && isFALSE(error.ignore)) {
           stop("Available categories for 'zensus'-database are: 'tables' and 'statistics'.",
@@ -291,15 +284,13 @@ check_function_input <- function(code = NULL,
           )
         }
       }
-    }
 
-    #----------------------------------------
-
-    if (caller %in% c("restatis::gen_objects2stat", "gen_objects2stat")) {
-      if (!all(category %in% c("tables", "cubes", "variables"))) {
-        stop("Available categories are 'tables', 'variables', and 'cubes'.",
-          call. = FALSE
-        )
+      if(database == "gen_api"){
+        if (!all(category %in% c("tables", "cubes", "statistics"))) {
+          stop("Available categories are 'tables', 'statistics', and 'cubes'.",
+               call. = FALSE
+          )
+        }
       }
     }
 
@@ -307,14 +298,42 @@ check_function_input <- function(code = NULL,
 
     if (caller %in% c("restatis::gen_objects2stat", "gen_objects2stat")) {
       if(database == "gen_zensus_api"){
-        if ("cubes" %in% category && isTRUE(error.ignore)) {
+
+        if (!all(category %in% c("tables", "cubes", "variables"))) {
+          stop("Available categories are 'tables' and 'variables'.",
+               call. = FALSE
+          )
+        }
+
+        if (length(category) == 1 && "cubes" %in% category && isFALSE(error.ignore)) {
+          stop("Available categories for 'zensus'-database are: 'tables' and 'variables'.",
+               call. = FALSE
+          )
+        }
+
+        else if (length(category) == 1 && "cubes" %in% category && isTRUE(error.ignore)) {
           warning("Available categories for 'zensus'-database are: 'tables' and 'variables'.
-            Function is continued with specified 'category'-parameter excluding 'cubes'.", call. = FALSE
+                  Function is continued with a placeholder for the 'cubes' output.",
+                  call. = FALSE
           )
         }
 
         else if ("cubes" %in% category && isFALSE(error.ignore)) {
-          stop("Available categories for 'zensus'-database are: 'tables' and 'variables'.",
+          warning("Available categories for 'zensus'-database are: 'tables' and 'variables'."
+                  , call. = FALSE
+          )
+        }
+
+        else if ("cubes" %in% category && isTRUE(error.ignore)) {
+          warning("Available categories for 'zensus'-database are: 'tables' and 'variables'.
+            Function is continued with specified 'category'-parameter excluding 'cubes'.", call. = FALSE
+          )
+        }
+      }
+
+      if(database == "gen_api"){
+        if (!all(category %in% c("tables", "cubes", "variables"))) {
+          stop("Available categories are 'tables', 'variables', and 'cubes'.",
                call. = FALSE
           )
         }
@@ -572,6 +591,24 @@ test_if_error <- function(input, para) {
     message("Artificial token is used.")
 
     empty_object <- FALSE
+  } else {
+    empty_object <- "DONE"
+  }
+
+  return(empty_object)
+}
+
+# test_if_error_variables ----
+
+test_if_error_variables <- function(input, para) {
+  if (input$Status$Code == 104) {
+
+    empty_object <- TRUE
+
+    } else if (input$Status$Code != 0) {
+
+    empty_object <- FALSE
+
   } else {
     empty_object <- "DONE"
   }

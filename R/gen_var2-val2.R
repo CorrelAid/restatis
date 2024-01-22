@@ -165,6 +165,8 @@ gen_val2var <- function(code = NULL,
 
   area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
 
+  embedding <- list(...)$frame
+
   #-----------------------------------------------------------------------------
   if(gen_fun == "gen_api"){
 
@@ -195,7 +197,11 @@ gen_val2var <- function(code = NULL,
 
   results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error(results_json, para = error.ignore)
+  if(isTRUE(grepl("gen_val2var2stat", embedding))){
+    empty_object <- test_if_error_variables(results_json, para = error.ignore)
+  } else {
+    empty_object <- test_if_error(results_json, para = error.ignore)
+  }
 
   if(isTRUE(empty_object)){
     list_of_variables <- "No `values`- object found for your request."
@@ -268,6 +274,8 @@ gen_val2var2stat <- function(code = NULL,
 
   sortcriterion <- match.arg(sortcriterion)
 
+  embedding <- deparse(sys.calls())
+
   #-----------------------------------------------------------------------------
 
   variables <- suppressMessages(suppressWarnings(gen_var2stat(code = code,
@@ -286,7 +294,8 @@ gen_val2var2stat <- function(code = NULL,
                                                             database = database,
                                                             area = area,
                                         sortcriterion = sortcriterion,
-                                        error.ignore = error.ignore)))
+                                        error.ignore = error.ignore,
+                                        frame = embedding)))
     list_values <<- append(list_values, zwisch)
 
   })
