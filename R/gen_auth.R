@@ -40,39 +40,54 @@ gen_auth_save <- function() {
 
   dir.create(gen_auth_path(), showWarnings = FALSE, recursive = TRUE)
 
-  httr2::secret_write_rds(
-    list(username = username, password = password),
-    path = auth_path,
-    key = "RESTATIS_KEY"
-  )
-}
+  httr2::secret_write_rds(list(username = username, password = password),
+                          path = auth_path,
+                          key = "RESTATIS_KEY")
+
+  # Logincheck
+  perform_logincheck(database = "genesis")
+
+  }
+
+#-------------------------------------------------------------------------------
 
 gen_auth_get <- function() {
 
   auth_path <- gen_auth_path("auth.rds")
 
   if (!(file.exists(auth_path) && nzchar(Sys.getenv("RESTATIS_KEY")))) {
-    stop(
-      "Genesis credentials not found.\n",
-      "Please run `gen_auth_save()` to store Genesis username and password.\n",
-      call. = FALSE
-    )
+
+    stop(paste0("Genesis database credentials not found. ",
+                "Please run 'gen_auth_save()' to store Genesis database username and password."),
+      call. = FALSE)
+
   }
 
   httr2::secret_read_rds(auth_path, "RESTATIS_KEY")
+
 }
 
+#-------------------------------------------------------------------------------
+
 gen_auth_ask <- function(credential_type) {
+
   val <- askpass::askpass(paste0("Please enter your ", credential_type, ": "))
 
   if (is.null(val)) {
-    stop("Cancelled by user", call. = FALSE)
+
+    stop("Cancelled by user.", call. = FALSE)
+
   }
 
   val
+
 }
 
+#-------------------------------------------------------------------------------
+
 gen_auth_path <- function(...) {
+
   file.path(tools::R_user_dir("restatis", "config"), ...)
+
 }
 

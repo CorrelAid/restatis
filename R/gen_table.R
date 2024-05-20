@@ -68,10 +68,20 @@ gen_table_ <- function(name,
                        language = Sys.getenv("GENESIS_LANG"),
                        job = FALSE) {
 
+  #-----------------------------------------------------------------------------
+  # Parameter processing
+
+  database <- match.arg(database)
+
   area <- match.arg(area)
 
   if (!isTRUE(language == "en")) {
-    area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
+
+    area <- switch(area,
+                   all = "all",
+                   public = "\u00F6ffentlich",
+                   user = "benutzer")
+
   }
 
   param_check_year(startyear)
@@ -83,50 +93,55 @@ gen_table_ <- function(name,
   classifyingkey2 <- param_collapse_vec(classifyingkey2)
   classifyingkey3 <- param_collapse_vec(classifyingkey3)
 
+  #-----------------------------------------------------------------------------
+  # Data download
+
   if(database == "zensus"){
 
-    resp <- gen_zensus_api("data/tablefile",
-                    name = name,
-                    area = area,
-                    compress = compress,
-                    transpose = transpose,
-                    startyear = startyear,
-                    endyear = endyear,
-                    regionalvariable = regionalvariable,
-                    regionalkey = regionalkey,
-                    classifyingvariable1 = classifyingvariable1,
-                    classifyingkey1 = classifyingkey1,
-                    classifyingvariable2 = classifyingvariable2,
-                    classifyingkey2 = classifyingkey2,
-                    classifyingvariable3 = classifyingvariable3,
-                    classifyingkey3 = classifyingkey3,
-                    stand = stand,
-                    language = language,
-                    format = "ffcsv",
-                    job = FALSE)
+    response <- gen_zensus_api("data/tablefile",
+                               name = name,
+                               area = area,
+                               compress = compress,
+                               transpose = transpose,
+                               startyear = startyear,
+                               endyear = endyear,
+                               regionalvariable = regionalvariable,
+                               regionalkey = regionalkey,
+                               classifyingvariable1 = classifyingvariable1,
+                               classifyingkey1 = classifyingkey1,
+                               classifyingvariable2 = classifyingvariable2,
+                               classifyingkey2 = classifyingkey2,
+                               classifyingvariable3 = classifyingvariable3,
+                               classifyingkey3 = classifyingkey3,
+                               stand = stand,
+                               language = language,
+                               format = "ffcsv",
+                               job = FALSE)
 
+  #-----------------------------------------------------------------------------
   } else if (database == "genesis"){
 
-    resp <- gen_api("data/tablefile",
-                    name = name,
-                    area = area,
-                    compress = compress,
-                    transpose = transpose,
-                    startyear = startyear,
-                    endyear = endyear,
-                    regionalvariable = regionalvariable,
-                    regionalkey = regionalkey,
-                    classifyingvariable1 = classifyingvariable1,
-                    classifyingkey1 = classifyingkey1,
-                    classifyingvariable2 = classifyingvariable2,
-                    classifyingkey2 = classifyingkey2,
-                    classifyingvariable3 = classifyingvariable3,
-                    classifyingkey3 = classifyingkey3,
-                    stand = stand,
-                    language = language,
-                    format = "ffcsv",
-                    job = FALSE)
+    response <- gen_api("data/tablefile",
+                        name = name,
+                        area = area,
+                        compress = compress,
+                        transpose = transpose,
+                        startyear = startyear,
+                        endyear = endyear,
+                        regionalvariable = regionalvariable,
+                        regionalkey = regionalkey,
+                        classifyingvariable1 = classifyingvariable1,
+                        classifyingkey1 = classifyingkey1,
+                        classifyingvariable2 = classifyingvariable2,
+                        classifyingkey2 = classifyingkey2,
+                        classifyingvariable3 = classifyingvariable3,
+                        classifyingkey3 = classifyingkey3,
+                        stand = stand,
+                        language = language,
+                        format = "ffcsv",
+                        job = FALSE)
 
+  #-----------------------------------------------------------------------------
   } else {
 
     stop("Parameter 'database' has to be 'zensus' or 'genesis'.",
@@ -134,33 +149,14 @@ gen_table_ <- function(name,
 
   }
 
-  resp_check_data_csv(resp)
+  #-----------------------------------------------------------------------------
+  # Data processing
+
+  response_type <- resp_check_data_csv(response)
 
   # Returning the table desired by the user
-  # There has to be a check on language to display correct decimal marks
-  # For German results, there needs to be a decimal mark set
-  if (language == "de") {
+  return(return_table_object(response = response,
+                             response_type = response_type,
+                             language = language))
 
-    resp %>%
-      httr2::resp_body_string() %>%
-      readr::read_delim(
-        delim = ";",
-        show_col_types = FALSE,
-        locale = readr::locale(decimal_mark = ",", grouping_mark = "."),
-        name_repair = "minimal")
-
-  } else if (language == "en") {
-
-    resp %>%
-      httr2::resp_body_string() %>%
-      readr::read_delim(
-        delim = ";",
-        show_col_types = FALSE,
-        name_repair = "minimal")
-
-  } else {
-
-    stop("Error handling language setting locale (values different from 'de' and 'en'.")
-
-  }
 }

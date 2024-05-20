@@ -40,12 +40,16 @@ gen_zensus_auth_save <- function() {
 
   dir.create(gen_auth_path(), showWarnings = FALSE, recursive = TRUE)
 
-  httr2::secret_write_rds(
-    list(username = username, password = password),
-    path = auth_path,
-    key = "ZENSUS_KEY"
-  )
+  httr2::secret_write_rds(list(username = username, password = password),
+                          path = auth_path,
+                          key = "ZENSUS_KEY")
+
+  # Logincheck
+  perform_logincheck(database = "zensus")
+
 }
+
+#-------------------------------------------------------------------------------
 
 #' Check if credentials for Zensus data base are available
 #'
@@ -56,12 +60,13 @@ gen_zensus_auth_get <- function() {
   auth_path <- gen_auth_path("auth_zensus.rds")
 
   if (!(file.exists(auth_path) && nzchar(Sys.getenv("ZENSUS_KEY")))) {
-    stop(
-      "Zensus credentials not found.\n",
-      "Please run `gen_zensus_auth_save()` to store Zensus database username and password.\n",
-      call. = FALSE
-    )
+
+    stop(paste0("Zensus database credentials not found. ",
+                "Please run 'gen_zensus_auth_save()' to store Zensus database username and password."),
+         call. = FALSE)
+
   }
 
   httr2::secret_read_rds(auth_path, "ZENSUS_KEY")
+
 }

@@ -25,7 +25,8 @@ Imports:
     memoise,
     readr,
     tibble,
-    vctrs
+    vctrs,
+    usethis
 Suggests: 
     httptest2,
     knitr,

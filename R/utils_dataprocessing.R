@@ -1,9 +1,11 @@
-resp_check_data_csv <- function(resp) {
-  if (httr2::resp_content_type(resp) != "text/csv") {
-    stop("No data found that meets the specified parameters", call. = FALSE)
-  }
-}
+#-------------------------------------------------------------------------------
+# Util functions related to data processing
+#-------------------------------------------------------------------------------
 
+#' param_check_year
+#'
+#' @param year Year as parameter value
+#'
 param_check_year <- function(year) {
 
   if (as.integer(year) < 1900 || as.integer(year) > 2100)  {
@@ -17,9 +19,13 @@ param_check_year <- function(year) {
 
 #-------------------------------------------------------------------------------
 
+#' param_check_regionalkey
+#'
+#' @param regionalkey Regional key
+#'
 param_check_regionalkey <- function(regionalkey) {
 
-  if (!is.character(regionalkey)) {
+  if (!is.null(regionalkey) & !is.character(regionalkey)) {
 
     stop("The parameter 'regionalkey' needs to be of type 'character'.",
          call. = FALSE)
@@ -30,123 +36,235 @@ param_check_regionalkey <- function(regionalkey) {
 
 #-------------------------------------------------------------------------------
 
+#' param_collapse_vec
+#'
+#' @param vec Vector to be collapsed
+#'
 param_collapse_vec <- function(vec) {
+
   paste0(vec, collapse = ",")
+
 }
 
 #-------------------------------------------------------------------------------
 
-# Forming_evas ----
-
+#' forming_evas
+#'
+#' @param list_of List of EVAS to iterate over
+#'
 forming_evas <- function(list_of) {
+
   evas_list_long_20220724 <- restatis::evas_list_long_20220724
 
-  # Progress them
+  #-----------------------------------------------------------------------------
+  # Process them
+
   list_of$Main <- apply(list_of, 1, function(x) {
+
     obj <- evas_list_long_20220724$Titel[evas_list_long_20220724$EVAS == substr(x["Code"], 1, 1)]
+
     if(length(obj) == 0){
+
       obj <- "No assignment"
+
     }
+
     return(obj)
+
   })
+
+  #-----------------------------------------------------------------------------
 
   list_of$Main2 <- apply(list_of, 1, function(x) {
+
     obj <- evas_list_long_20220724$Titel[evas_list_long_20220724$EVAS == substr(x["Code"], 1, 2)]
+
     if(length(obj) == 0){
+
       obj <- "No assignment"
+
     }
+
     return(obj)
+
   })
+
+  #-----------------------------------------------------------------------------
 
   list_of$Main3 <- apply(list_of, 1, function(x) {
+
     obj <- evas_list_long_20220724$Titel[evas_list_long_20220724$EVAS == substr(x["Code"], 1, 3)]
+
     if(length(obj) == 0){
+
       obj <- "No assignment"
+
     }
+
     return(obj)
+
   })
 
+  #-----------------------------------------------------------------------------
+
   list_of$Main5 <- apply(list_of, 1, function(x) {
+
     obj <- evas_list_long_20220724$Titel[evas_list_long_20220724$EVAS == substr(x["Code"], 1, 5)]
+
     if(length(obj) == 0){
+
       obj <- "No assignment"
+
     }
+
     return(obj)
+
   })
+
+  #-----------------------------------------------------------------------------
 
   keep <- colnames(list_of[,1:(ncol(list_of) - 4)])
 
-
+  #-----------------------------------------------------------------------------
   if(sum(list_of$Main == "No assignment") != nrow(list_of)){
+
     nestedlist <- split(list_of, list_of$Main, drop = TRUE)
 
+    #---------------------------------------------------------------------------
     if(sum(list_of$Main2 == "No assignment") != nrow(list_of)){
-      nestedlist <- lapply(nestedlist, function(x) {
-        obj <- split(x, x["Main2"], drop = TRUE)
-      })
 
+      nestedlist <- lapply(nestedlist, function(x) {
+
+        obj <- split(x, x["Main2"], drop = TRUE)
+
+      })
+      #-------------------------------------------------------------------------
       if(sum(list_of$Main3 == "No assignment") != nrow(list_of)){
+
         nestedlist <- lapply(nestedlist, function(x) {
+
           lapply(x, function(y) {
+
             obj <- split(y, y["Main3"])
+
           })
+
         })
 
+        #-----------------------------------------------------------------------
         if(sum(list_of$Main5 == "No assignment") != nrow(list_of)){
+
           nestedlist <- lapply(nestedlist, function(x) {
+
             lapply(x, function(y) {
+
               lapply(y, function(z) {
+
                 obj <- split(z, z["Main5"])
+
                 return(obj)
+
               })
+
             })
+
           })
 
+          #---------------------------------------------------------------------
+
           nestedlist <- lapply(nestedlist, function(d){
+
             lapply(d, function(y){
+
               lapply(y, function(x){
+
                 lapply(x, function(r, remain){
+
                   obj <- r[keep]
                   obj <- tibble::as_tibble(obj)
-                }, remain = keep)})
+
+                },
+              remain = keep)})
+
             })
+
           })
 
+        #-----------------------------------------------------------------------
         } else {
+
           nestedlist <- lapply(nestedlist, function(d){
+
             lapply(d, function(y){
+
               lapply(y, function(r, remain){
+
                 obj <- r[keep]
                 obj <- tibble::as_tibble(obj)
-              }, remain = keep
-              )})})}
 
+                },
+              remain = keep
+
+            )}
+          )}
+        )}
+
+      #-------------------------------------------------------------------------
       } else {
+
         nestedlist <- lapply(nestedlist, function(d){
+
           lapply(d, function(r, remain){
+
             obj <- r[keep]
             obj <- tibble::as_tibble(obj)
-          }, remain = keep
-          )})}
+            },
+          remain = keep
 
-    } else {
-      nestedlist <- lapply(nestedlist, function(r, remain){
-        obj <- r[keep]
-        obj <- tibble::as_tibble(obj)
-      }, remain = keep
+        )}
+
       )}
 
-  } else {
-    nestedlist <- tibble::as_tibble(list_of[keep])
+    #---------------------------------------------------------------------------
+    } else {
+
+      nestedlist <- lapply(nestedlist, function(r, remain){
+
+        obj <- r[keep]
+        obj <- tibble::as_tibble(obj)
+
+        },
+      remain = keep)
+
     }
 
+  } else {
+
+    nestedlist <- tibble::as_tibble(list_of[keep])
+
+  }
+
   return(nestedlist)
+
 }
 
 #-------------------------------------------------------------------------------
 
-# check_function_input ----
-
+#' check_function_input
+#'
+#' @param code Parameter to be checked
+#' @param term Parameter to be checked
+#' @param sortcriterion Parameter to be checked
+#' @param category Parameter to be checked
+#' @param detailed Parameter to be checked
+#' @param type Parameter to be checked
+#' @param date Parameter to be checked
+#' @param similarity Parameter to be checked
+#' @param error.ignore Parameter to be checked
+#' @param ordering Parameter to be checked
+#' @param database Parameter to be checked
+#' @param caller Parameter to be checked
+#'
 check_function_input <- function(code = NULL,
                                  term = NULL,
                                  sortcriterion = NULL,
@@ -159,309 +277,470 @@ check_function_input <- function(code = NULL,
                                  ordering = NULL,
                                  database = NULL,
                                  caller = NULL) {
+
+  #-----------------------------------------------------------------------------
   # Code & Term ----
 
   if (is.null(code) && is.null(term)) {
-    if (!(caller %in% c(
-      "gen_search_vars",
-      "restatis::gen_search_vars"
-    ))) {
+
+    if (!(caller %in% c("gen_search_vars", "restatis::gen_search_vars"))) {
+
       stop("Parameter 'code' or 'term' must NOT be NULL.",
-        call. = FALSE
-      )
+           call. = FALSE)
+
     }
+
   }
 
+  #-----------------------------------------------------------------------------
   # Code ----
 
   if (!is.null(code)) {
+
     if (length(code) != 1L) {
+
       stop("Parameter 'code' must be a single string.",
-        call. = FALSE
-      )
-    }
+           call. = FALSE)
 
-    if (!is.character(code)) {
-      stop("Parameter 'code' has to be of type 'character'.",
-        call. = FALSE
-      )
-    }
-  }
-
-  # Term ----
-
-  if (!is.null(term)) {
-    if (length(term) != 1L) {
-      stop("Parameter 'term' must be a single string.",
-        call. = FALSE
-      )
-    }
-
-    if (!is.character(term)) {
-      stop("Parameter 'term' has to be of type 'character'.",
-        call. = FALSE
-      )
-    }
-
-    if (nchar(term) > 15 && !(caller %in% c("gen_find", "restatis::gen_find"))) {
-      stop("Parameter 'term' cannot consist of more than 15 characters.",
-        call. = FALSE
-      )
-    }
-  }
-
-  # sortcriterion ----
-
-  if (!is.null(sortcriterion)) {
-    if (!is.character(sortcriterion)) {
-      stop("Parameter 'sortcriterion' has to be of type 'character'.",
-        call. = FALSE
-      )
-    }
-
-    if (length(sortcriterion) == 1) {
-      if (!(sortcriterion %in% c("code", "content"))) {
-        stop("Parameter 'sortcriterion' has to be 'code' or 'content'.",
-          call. = FALSE
-        )
-      }
-    }
-  }
-
-  # category ----
-
-  if (!is.null(category)) {
-    if (!(length(category) %in% c(1:3)) && caller %in% c(
-      "restatis::gen_catalogue",
-      "restatis::gen_objects2var",
-      "restatis::gen_objects2stat",
-      "gen_catalogue",
-      "gen_objects2var",
-      "gen_objects2stat"
-    )) {
-      stop("Parameter 'category' has to have a length of 1 to 3.", call. = FALSE)
-    }
-
-    #----------------------------------------
-
-    if (!(length(category) %in% c(1, 5)) && caller %in% c(
-      "restatis::gen_find",
-      "gen_find"
-    )) {
-      stop("Parameter 'category' must have a length of 1.", call. = FALSE)
-    }
-
-    #----------------------------------------
-
-    if (length(category) != 1 && caller %in% c(
-      "restatis::gen_metadata",
-      "gen_metadata"
-    )) {
-      stop("Parameter 'category' must have a length of 1. Please specify the category.", call. = FALSE)
     }
 
     #---------------------------------------------------------------------------
 
-    if (caller %in% c(
-      "restatis::gen_catalogue", "restatis::gen_objects2var",
-      "gen_catalogue", "gen_objects2var"
-    )) {
-      if(database == "gen_zensus_api"){
+    if (!is.character(code)) {
 
-        if (!all(category %in% c("tables", "cubes", "statistics"))) {
-          stop("Available categories are 'tables' and 'statistics'.",
-               call. = FALSE
-          )
-        }
+      stop("Parameter 'code' has to be of type 'character'.",
+           call. = FALSE)
 
-        if (length(category) == 1 && "cubes" %in% category && isFALSE(error.ignore)) {
-          stop("Available categories for 'zensus'-database are: 'tables' and 'statistics'.",
-                  call. = FALSE
-          )
-        }
+    }
 
-        else if (length(category) == 1 && "cubes" %in% category && isTRUE(error.ignore)) {
-          warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'.
-                  Function is continued with a placeholder for the 'cubes' output.",
-               call. = FALSE
-          )
-        }
+  }
 
-        else if ("cubes" %in% category && isFALSE(error.ignore)) {
-          warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'."
-               , call. = FALSE
-          )
-        }
+  #-----------------------------------------------------------------------------
+  # Term ----
 
-        else if ("cubes" %in% category && isTRUE(error.ignore)) {
-          warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'.
-            Function is continued with specified 'category'-parameter excluding 'cubes'.", call. = FALSE
-          )
-        }
+  if (!is.null(term)) {
+
+    if (length(term) != 1L) {
+
+      stop("Parameter 'term' must be a single string.",
+           call. = FALSE)
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if (!is.character(term)) {
+
+      stop("Parameter 'term' has to be of type 'character'.",
+           call. = FALSE)
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if (nchar(term) > 15 && !(caller %in% c("gen_find", "restatis::gen_find"))) {
+
+      stop("Parameter 'term' cannot consist of more than 15 characters.",
+           call. = FALSE)
+
+    }
+
+  }
+
+  #-----------------------------------------------------------------------------
+  # sortcriterion ----
+
+  if (!is.null(sortcriterion)) {
+
+    if (!is.character(sortcriterion)) {
+
+      stop("Parameter 'sortcriterion' has to be of type 'character'.",
+           call. = FALSE)
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if (length(sortcriterion) == 1) {
+
+      if (!(sortcriterion %in% c("code", "content"))) {
+
+        stop("Parameter 'sortcriterion' has to be 'code' or 'content'.",
+             call. = FALSE)
+
       }
 
-      if(database == "gen_api"){
-        if (!all(category %in% c("tables", "cubes", "statistics"))) {
-          stop("Available categories are 'tables', 'statistics', and 'cubes'.",
-               call. = FALSE
-          )
-        }
+    }
+
+  }
+
+  #-----------------------------------------------------------------------------
+  # category ----
+
+  if (!is.null(category)) {
+
+    if (!(length(category) %in% c(1:3)) &&
+        caller %in% c("restatis::gen_catalogue",
+                      "restatis::gen_objects2var",
+                      "restatis::gen_objects2stat",
+                      "gen_catalogue",
+                      "gen_objects2var",
+                      "gen_objects2stat")) {
+
+      stop("Parameter 'category' has to have a length of 1 to 3.",
+           call. = FALSE)
+
       }
+
+    #---------------------------------------------------------------------------
+
+    if (!(length(category) %in% c(1, 5)) &&
+        caller %in% c("restatis::gen_find", "gen_find")) {
+
+      stop("Parameter 'category' must have a length of 1.",
+           call. = FALSE)
+
     }
 
     #----------------------------------------
 
-    if (caller %in% c("restatis::gen_objects2stat", "gen_objects2stat")) {
+    if (length(category) != 1 &&
+        caller %in% c("restatis::gen_metadata", "gen_metadata")) {
+
+      stop("Parameter 'category' must have a length of 1. Please specify the category.",
+           call. = FALSE)
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if (caller %in% c("restatis::gen_catalogue",
+                      "restatis::gen_objects2var",
+                      "gen_catalogue",
+                      "gen_objects2var")) {
+
+      #-------------------------------------------------------------------------
+
       if(database == "gen_zensus_api"){
 
-        if (!all(category %in% c("tables", "cubes", "variables"))) {
-          stop("Available categories are 'tables' and 'variables'.",
-               call. = FALSE
-          )
+        #-----------------------------------------------------------------------
+
+        if (!all(category %in% c("tables", "cubes", "statistics"))) {
+
+          stop("Available categories are 'tables' and 'statistics'.",
+               call. = FALSE)
+
         }
 
-        if (length(category) == 1 && "cubes" %in% category && isFALSE(error.ignore)) {
-          stop("Available categories for 'zensus'-database are: 'tables' and 'variables'.",
-               call. = FALSE
-          )
+        #-----------------------------------------------------------------------
+
+        if (length(category) == 1 &&
+            "cubes" %in% category &&
+            isFALSE(error.ignore)) {
+
+          stop("Available categories for 'zensus'-database are: 'tables' and 'statistics'.",
+               call. = FALSE)
+
         }
 
-        else if (length(category) == 1 && "cubes" %in% category && isTRUE(error.ignore)) {
-          warning("Available categories for 'zensus'-database are: 'tables' and 'variables'.
+        #-----------------------------------------------------------------------
+
+        else if (length(category) == 1 &&
+                 "cubes" %in% category &&
+                 isTRUE(error.ignore)) {
+
+          warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'.
                   Function is continued with a placeholder for the 'cubes' output.",
-                  call. = FALSE
-          )
+                  call. = FALSE)
+
         }
 
-        else if ("cubes" %in% category && isFALSE(error.ignore)) {
-          warning("Available categories for 'zensus'-database are: 'tables' and 'variables'."
-                  , call. = FALSE
-          )
+        else if ("cubes" %in% category &&
+                 isFALSE(error.ignore)) {
+
+          warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'.",
+                  call. = FALSE)
+
         }
 
-        else if ("cubes" %in% category && isTRUE(error.ignore)) {
-          warning("Available categories for 'zensus'-database are: 'tables' and 'variables'.
-            Function is continued with specified 'category'-parameter excluding 'cubes'.", call. = FALSE
-          )
+        else if ("cubes" %in% category &&
+                 isTRUE(error.ignore)) {
+
+          warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'.
+                  Function is continued with specified 'category'-parameter excluding 'cubes'.",
+                  call. = FALSE)
+
         }
+
       }
+
+    #-------------------------------------------------------------------------------
 
       if(database == "gen_api"){
-        if (!all(category %in% c("tables", "cubes", "variables"))) {
-          stop("Available categories are 'tables', 'variables', and 'cubes'.",
-               call. = FALSE
-          )
+
+        if (!all(category %in% c("tables", "cubes", "statistics"))) {
+
+          stop("Available categories are 'tables', 'statistics', and 'cubes'.",
+               call. = FALSE)
+
         }
+
       }
+
+    }
+
+    #----------------------------------------
+
+    if (caller %in% c("restatis::gen_objects2stat",
+                      "gen_objects2stat")) {
+
+      #-------------------------------------------------------------------------
+
+      if(database == "gen_zensus_api"){
+
+        #-----------------------------------------------------------------------
+
+        if (!all(category %in% c("tables", "cubes", "variables"))) {
+
+          stop("Available categories are 'tables' and 'variables'.",
+               call. = FALSE)
+
+        }
+
+        #-----------------------------------------------------------------------
+
+        if (length(category) == 1 &&
+            "cubes" %in% category &&
+            isFALSE(error.ignore)) {
+
+          stop("Available categories for 'zensus'-database are: 'tables' and 'variables'.",
+               call. = FALSE)
+
+        }
+
+        #-----------------------------------------------------------------------
+
+        else if (length(category) == 1 &&
+                 "cubes" %in% category && isTRUE(error.ignore)) {
+
+          warning("Available categories for 'zensus'-database are: 'tables' and 'variables'.
+                  Function is continued with a placeholder for the 'cubes' output.",
+                  call. = FALSE)
+
+        }
+
+        #-----------------------------------------------------------------------
+
+        else if ("cubes" %in% category &&
+                 isFALSE(error.ignore)) {
+
+          warning("Available categories for 'zensus'-database are: 'tables' and 'variables'.",
+                  call. = FALSE)
+
+        }
+
+        #-----------------------------------------------------------------------
+
+        else if ("cubes" %in% category &&
+                 isTRUE(error.ignore)) {
+
+          warning("Available categories for 'zensus'-database are: 'tables' and 'variables'.
+                  Function is continued with specified 'category'-parameter excluding 'cubes'.",
+                  call. = FALSE)
+
+        }
+
+      }
+
+      #-------------------------------------------------------------------------
+
+      if(database == "gen_api"){
+
+        if (!all(category %in% c("tables", "cubes", "variables"))) {
+
+          stop("Available categories are 'tables', 'variables', and 'cubes'.",
+               call. = FALSE)
+
+        }
+
+      }
+
     }
 
     #----------------------------------------
 
     if (caller %in% c("restatis::gen_find", "gen_find")) {
+
+      #-------------------------------------------------------------------------
+
         if (!all(category %in% c("all", "tables", "statistics", "variables", "cubes"))) {
+
+          #---------------------------------------------------------------------
+
           if(database == "gen_api"){
-         stop("Available categories for parameter 'category' for 'genesis'-database are 'all', 'tables', 'statistics', 'variables', and 'cubes'.",
-          call. = FALSE
-          )
+
+            stop("Available categories for parameter 'category' for 'genesis'-database are 'all', 'tables', 'statistics', 'variables', and 'cubes'.",
+                 call. = FALSE)
+
           }
+
+          #---------------------------------------------------------------------
 
           if(gen_fun == "gen_zensus_api"){
+
             stop("Available categories for parameter 'category' for 'zensus'-database are 'all', 'tables', 'statistics', and 'variables'.",
-                 call. = FALSE
-            )
-          }
+                 call. = FALSE)
+
         }
+
+      }
+
     }
 
-    #----------------------------------------
+    #---------------------------------------------------------------------------
 
     if (caller %in% c("restatis::gen_find", "gen_find")) {
+
+      #-------------------------------------------------------------------------
+
       if(database == "gen_zensus_api"){
-        if ("cubes" %in% category && isTRUE(error.ignore)) {
+
+        #-----------------------------------------------------------------------
+
+        if ("cubes" %in% category &&
+            isTRUE(error.ignore)) {
+
           warning("Available categories for 'zensus'-database are: 'all', 'tables', 'statistics', and 'variables'.
-            Function is continued with a placeholder for the 'cubes' output.", call. = FALSE
-          )
+                  Function is continued with a placeholder for the 'cubes' output.",
+                  call. = FALSE)
+
         }
 
-        else if ( "all" %in% category) {
+        #-----------------------------------------------------------------------
+
+        else if ("all" %in% category) {
+
           warning("Available categories for 'zensus'-database are: 'all', 'tables', 'statistics', and 'variables'.
-            Function is continued with a placeholder for the 'cubes' output.", call. = FALSE
-          )
+                  Function is continued with a placeholder for the 'cubes' output.",
+                  call. = FALSE)
+
         }
 
-        else if ("cubes" %in% category && isFALSE(error.ignore)) {
+        #-----------------------------------------------------------------------
+
+        else if ("cubes" %in% category &&
+                 isFALSE(error.ignore)) {
+
           stop("Available categories are 'all', 'tables', 'statistics', and 'variables'.",
-               call. = FALSE
-          )
-        }
+               call. = FALSE)
 
+        }
 
       }
+
     }
 
-    #----------------------------------------
+    #---------------------------------------------------------------------------
 
     if (caller %in% c("restatis::gen_metadata", "gen_metadata")) {
+
+      #-------------------------------------------------------------------------
+
       if(database == "gen_api"){
 
+        #-----------------------------------------------------------------------
+
         if (!all(category %in% c("Cube", "Statistic", "Table", "Variable", "Value"))) {
+
             stop("Available categories for parameter 'category' for 'genesis'-database are 'Cube', 'Table', 'Statistic', 'Variable', and 'Value'.",
-                  call. = FALSE
-            )
+                  call. = FALSE)
+
           }
-      }
+
+        }
+
+      #-------------------------------------------------------------------------
 
       else if( database == "gen_zensus_api") {
 
         if (!all(category %in% c("Statistic", "Table", "Variable", "Value"))) {
+
           stop("Available categories for parameter 'category' for 'zensus'-database are 'Table', 'Statistic', 'Variable', and 'Value'.",
-               call. = FALSE
-          )
+               call. = FALSE)
+
         }
+
       }
+
     }
+
   }
 
 
+  #-----------------------------------------------------------------------------
   # detailed ----
 
   if (!is.null(detailed)) {
-    if (!is.logical(detailed) || length(detailed) != 1) {
+
+    if (!is.logical(detailed) ||
+        length(detailed) != 1) {
+
       stop("Parameter 'detailed' has to be of type 'logical' and of length 1.",
-        call. = FALSE
-      )
+           call. = FALSE)
+
     }
+
+    #---------------------------------------------------------------------------
 
     if (isFALSE(detailed)) {
+
       message("Use 'detailed = TRUE' to obtain the complete output.")
+
     }
+
   }
 
+  #-------------------------------------------------------------------------------
   # type ----
 
   if (!is.null(type)) {
+
+    #---------------------------------------------------------------------------
+
     if (database == "gen_api"){
+
+      #-------------------------------------------------------------------------
+
       if (!all(type %in% c("all", "tables", "statistics", "statisticsUpdates"))) {
+
         stop("Available categories for parameter 'type' for 'genesis'-database are 'tables', 'statistics', 'statistic updates', and 'all'.",
-          call. = FALSE
-        )
+             call. = FALSE)
+
       }
+
     }
 
+    #---------------------------------------------------------------------------
+
     if (database == "gen_zensus_api"){
+
       if (!all(type %in% c("all", "tables", "statistics"))) {
+
         stop("Available categories for parameter 'type' for 'zensus'-database are 'tables', 'statistics', and 'all'.",
-             call. = FALSE
-        )
+             call. = FALSE)
+
       }
+
     }
 
   }
 
-
+  #-----------------------------------------------------------------------------
   # date ----
 
   if (!is.null(date)) {
+
+    #---------------------------------------------------------------------------
 
     if (identical(date, c("now", "week_before", "month_before", "year_before"))) {
 
@@ -473,14 +752,20 @@ check_function_input <- function(code = NULL,
 
     }
 
+    #---------------------------------------------------------------------------
+
     if (!(length(date) %in% c(1, 4))) {
 
       stop("Parameter 'date' has to be of length 4 (c('now', 'week_before', 'month_before', 'year_before') for the default option of 'now' or of length 1.))",
-        call. = FALSE)
+           call. = FALSE)
 
     }
 
+    #---------------------------------------------------------------------------
+
     if (length(date) == 1) {
+
+      #-------------------------------------------------------------------------
 
       if (date %in% c("now", "week_before", "month_before", "year_before")) {
 
@@ -489,256 +774,229 @@ check_function_input <- function(code = NULL,
                 the format DD.MM.YYYY.")
 
         return(date)
+
       }
 
+      #-------------------------------------------------------------------------
+
       if (!(date %in% c("now", "week_before", "month_before", "year_before"))) {
+
+        #-----------------------------------------------------------------------
 
         if (!is.character(date)) {
 
           stop("If using a specific date for parameter 'date', it has to be of type 'character' (format: DD.MM.YYYY).",
-                call. = FALSE)
+               call. = FALSE)
 
         }
 
-        if (length(date) != 1 || nchar(date) != 10) {
+        #-----------------------------------------------------------------------
+
+        if (length(date) != 1 ||
+            nchar(date) != 10) {
+
           stop("If specifying a specific date for parameter 'date', it has to be of length 1 and format DD.MM.YYYY.",
-                call. = FALSE)
+               call. = FALSE)
+
         }
 
         return(date)
+
       }
+
     }
+
   }
 
+  #-----------------------------------------------------------------------------
   # similarity ----
 
   if (!is.null(similarity)) {
+
     if (!is.logical(similarity)) {
+
       stop("Parameter 'similarity' has to be of type 'logical'.",
-        call. = FALSE
-      )
+           call. = FALSE)
+
     }
+
   }
 
+  #-----------------------------------------------------------------------------
   # error.ignore ----
 
   if (!is.null(error.ignore)) {
+
+    #---------------------------------------------------------------------------
+
     if (length(error.ignore == 1)) {
-      if (!is.logical(error.ignore) || length(error.ignore) != 1) {
+
+      #-------------------------------------------------------------------------
+
+      if (!is.logical(error.ignore) ||
+          length(error.ignore) != 1) {
+
         stop("Parameter 'error.ignore' has to be of type 'logical' and of length 1.",
-          call. = FALSE
-        )
+             call. = FALSE)
+
       }
+
     }
+
+    #---------------------------------------------------------------------------
 
     if (isTRUE(error.ignore)) {
+
       message("Use 'error.ignore = FALSE' to stop the function at the point where no object could be found.")
+
     }
+
   }
 
+  #-------------------------------------------------------------------------------
   # ordering ----
 
   if (!is.null(ordering)) {
-    if (!is.logical(ordering) || length(ordering) != 1) {
+
+    if (!is.logical(ordering) ||
+        length(ordering) != 1) {
+
       stop("Parameter 'ordering' has to be of type 'logical' and of length 1.",
-        call. = FALSE
-      )
+           call. = FALSE)
+
     }
+
+    #---------------------------------------------------------------------------
 
     if (isFALSE(ordering)) {
+
       message("Use 'ordering = TRUE' to obtain the output ordered based on the search term presence.")
+
     }
+
   }
+
 }
 
 #-------------------------------------------------------------------------------
 
-# test_if_json ----
-
-test_if_json <- function(input) {
-  if ((httr2::resp_content_type(input) == "application/json") && !is.na(httr2::resp_content_type(input))) {
-    results_json <- httr2::resp_body_json(input)
-  } else {
-    stop("No json-csv file detected.", call. = FALSE)
-  }
-
-  return(results_json)
-}
-
-#-------------------------------------------------------------------------------
-
-# test_if_error_find ----
-
-test_if_error_find <- function(input, para) {
-  if (input$Status$Code != 0 && isTRUE(para)) {
-    stop(input$Status$Content)
-  } else if (input$Status$Code != 0 && isFALSE(para)) {
-    message(input$Status$Content)
-
-    message("Artificial token is used.")
-
-    empty_object <- FALSE
-  } else {
-    empty_object <- "DONE"
-  }
-
-  return(empty_object)
-}
-
-#-------------------------------------------------------------------------------
-
-# test_if_error ----
-
-test_if_error <- function(input, para) {
-  if (input$Status$Code == 104 && isFALSE(para)) {
-    stop("No object found for your request. Check your parameters if you expected an object for this request.",
-      call. = FALSE
-    )
-  } else if (input$Status$Code != 0 && isFALSE(para)) {
-    stop(input$Status$Content, call. = FALSE)
-  } else if (input$Status$Code == 104 && isTRUE(para)) {
-    message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.", call. = FALSE)
-
-    empty_object <- TRUE
-  } else if (input$Status$Code != 0 && isTRUE(para)) {
-    message(input$Status$Content)
-
-    message("Artificial token is used.")
-
-    empty_object <- FALSE
-  } else {
-    empty_object <- "DONE"
-  }
-
-  return(empty_object)
-}
-
-# test_if_error_variables ----
-
-test_if_error_variables <- function(input, para) {
-  if (input$Status$Code == 104) {
-
-    empty_object <- TRUE
-
-    } else if (input$Status$Code != 0) {
-
-    empty_object <- FALSE
-
-  } else {
-    empty_object <- "DONE"
-  }
-
-  return(empty_object)
-}
-
-#-------------------------------------------------------------------------------
-
-# test_if_process_further ----
-
-test_if_process_further <- function(input, para) {
-  if (sum(unlist(lapply(input[4:8], function(x) {
-    is.null(x)
-  }))) == 5 && isFALSE(para)) {
-    stop("No object found for your request. Check your parameters if you expected an object for this request.", call. = FALSE)
-  } else if (sum(unlist(lapply(input[4:8], function(x) {
-    is.null(x)
-  }))) == 5 && isTRUE(para)) {
-    message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
-
-    empty_object <- TRUE
-  } else {
-    empty_object <- "DONE"
-  }
-
-  return(empty_object)
-}
-
-#-------------------------------------------------------------------------------
-
-# binding_lapply ----
-
+#' binding_lapply
+#'
+#' @param x Element to bind
+#' @param characteristics Characteristics to filter for
+#'
 binding_lapply <- function(x,
                            characteristics) {
-  list_of <- stats::setNames(data.frame(matrix(ncol = length(characteristics), nrow = 0)), characteristics)
+
+  list_of <- stats::setNames(data.frame(matrix(ncol = length(characteristics),
+                                               nrow = 0)),
+                             characteristics)
 
   lapply(x, function(x) {
+
     zwisch <- unlist(x[characteristics])
 
     list_of <<- rbind(list_of, zwisch[characteristics])
+
   })
 
   colnames(list_of) <- characteristics
 
   return(list_of)
+
 }
 
 #-------------------------------------------------------------------------------
 
-# gsub ----
-
+#' ggsub
+#'
+#' @param x Element to subset with $Content
+#'
 ggsub <- function(x) {
+
   a <- gsub(".*:", "", x$Content)
 
   return(a)
+
 }
 
 #-------------------------------------------------------------------------------
 
-# spezifisch_create ----
-
+#' spezifisch_create
+#'
+#' @param x Element to extract $Spezifisch from
+#'
 spezifisch_create <- function(x) {
+
   a <- unlist(lapply(strsplit(x$Spezifisch, ","), length))
 
   return(a)
+
 }
 
 #-------------------------------------------------------------------------------
 
-# titel_search ----
-
+#' titel_search
+#'
+#' @param x Element to extract $Content from
+#' @param term Search term
+#'
 titel_search <- function(x, term) {
+
   split <- unlist(strsplit(gsub(" ", "und", term), c("und|UND|Und|\\&|ODER|oder|Oder|\\|")))
 
   split <- split[sapply(split, function(y) {
+
     nchar(y) > 0
+
   })]
 
+  #-----------------------------------------------------------------------------
+
   if (length(split) == 1) {
+
     a <- grepl(split, x$Content, ignore.case = TRUE)
+
   } else if (grep("ODER|oder|Oder|\\|", term, ignore.case = TRUE) && grep("UND|und|Und|\\|", term, ignore.case = TRUE)) {
+
     a <- rep(FALSE, length(x$Content))
+
     message("Combination of words too complex for ordering. Data is processed without ordering.")
+
   } else if (grep("ODER|oder|Oder|\\|", term, ignore.case = TRUE)) {
+
     a <- grepl(paste(split, collapse = "|"), x$Content, ignore.case = TRUE)
+
   } else if (grep("UND|und|Und|\\|", term, ignore.case = TRUE)) {
+
     a <- sapply(x$Content, function(con) {
+
       all(sapply(split, function(z) {
+
         grepl(z, con, ignore.case = TRUE)
+
       }))
+
     })
+
   } else {
+
     a <- rep(FALSE, length(x$Content))
 
     message("Combination of words not valid for ordering. Data is processed without ordering.")
+
   }
 
   return(a)
-}
 
-
-#-------------------------------------------------------------------------------
-
-# test_if_error_light ----
-
-test_if_error_light <- function(input) {
-  if (input$Status$Code != 0) {
-    warning(input$Status$Content, call. = FALSE)
-  }
 }
 
 #-------------------------------------------------------------------------------
-# Decide the database related function
 
+#' test_database_function
+#'
+#' @param input Input to test for database name
+#'
 test_database_function <- function(input){
 
   if(length(input) > 1){
@@ -749,7 +1007,8 @@ test_database_function <- function(input){
 
   if(is.na(input)){
 
-    stop("Database parameter must be either 'genesis' or 'zensus'.", call. = FALSE)
+    stop("Database parameter must be either 'genesis' or 'zensus'.",
+         call. = FALSE)
 
   }
 
@@ -763,8 +1022,10 @@ test_database_function <- function(input){
 
   } else {
 
-    stop("Database parameter must be either 'genesis' or 'zensus'. No other values allowed.", call. = FALSE)
+    stop("Database parameter must be either 'genesis' or 'zensus'. No other values allowed.",
+         call. = FALSE)
 
   }
+
 }
 
