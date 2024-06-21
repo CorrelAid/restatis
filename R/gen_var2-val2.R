@@ -129,7 +129,7 @@ gen_var2stat <- function(code = NULL,
 #' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
 #' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Only used for Genesis.
 #' @param sortcriterion A string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis/Zensus API call itself. The default is "code".
-#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'TRUE' - .
 #' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis/Zensus. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -145,7 +145,7 @@ gen_val2var <- function(code = NULL,
                         database = c("all", "genesis", "zensus", "regio"),
                         area = c("all", "public", "user"),
                         sortcriterion = c("code", "content"),
-                        error.ignore = FALSE,
+                        error.ignore = TRUE,
                         ...) {
 
   caller <- as.character(match.call()[1])
@@ -241,7 +241,8 @@ gen_val2var <- function(code = NULL,
 #' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
 #' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Only used for Genesis.
 #' @param detailed A logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. This parameter only affects the details of the variables-related output. The default is FALSE.
-#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param error.ignore.var A logical. Indicator for the variables if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param error.ignore.val A logical. Indicator for the values if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'TRUE' - this prevents the function to stop even if a varaible has no further explanation (as often the case for numerical variables).
 #' @param sortcriterion A string. Indicator if the output should be sorted by 'code' or 'content'. This is an parameter of the Genesis/Zensus API call itself. The default is "code".
 #' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
@@ -260,13 +261,14 @@ gen_val2var2stat <- function(code = NULL,
                              area = c("all", "public", "user"),
                              detailed = FALSE,
                              sortcriterion = c("code", "content"),
-                             error.ignore = FALSE,
+                             error.ignore.var = FALSE,
+                             error.ignore.val = TRUE,
                              ...) {
 
   caller <- as.character(match.call()[1])
 
   check_function_input(code = code,
-                       error.ignore = error.ignore,
+                       error.ignore = error.ignore.var,
                        sortcriterion = sortcriterion,
                        database = gen_fun,
                        caller = caller)
@@ -284,7 +286,7 @@ gen_val2var2stat <- function(code = NULL,
                                                                 area = area,
                                                                 detailed = detailed,
                                                                 sortcriterion = sortcriterion,
-                                                                error.ignore = error.ignore,
+                                                                error.ignore = error.ignore.var,
                                                                 ...)))
 
     list_values <- list()
@@ -295,7 +297,7 @@ gen_val2var2stat <- function(code = NULL,
                                                               database = db,
                                                               area = area,
                                                               sortcriterion = sortcriterion,
-                                                              error.ignore = error.ignore,
+                                                              error.ignore = error.ignore.val,
                                                               frame = embedding)))
       list_values <<- append(list_values, zwisch)
 
