@@ -21,7 +21,7 @@
 #' }
 #'
 gen_var2stat <- function(code = NULL,
-                         database = c("genesis", "zensus"),
+                         database = c("all", "genesis", "zensus", "regio"),
                          area = c("all", "public", "user"),
                          detailed = FALSE,
                          sortcriterion = c("code", "content"),
@@ -48,75 +48,74 @@ gen_var2stat <- function(code = NULL,
   #-----------------------------------------------------------------------------
 
   # Processing ####
-  if(gen_fun == "gen_api"){
+  res <- lapply(gen_fun, function(db){
 
+    #---------------------------------------------------------------------------
     par_list <-  list(
       endpoint = "catalogue/variables2statistic",
-      username = gen_auth_get()$username,
-      password = gen_auth_get()$password,
+      username = gen_auth_get(database = rev_database_function(db))$username,
+      password = gen_auth_get(database = rev_database_function(db))$password,
       name = code,
-      area = area,
-      sortcriterion = sortcriterion,
       ...
     )
 
-  } else if ( gen_fun == "gen_zensus_api"){
+    if(db == "gen_api" | db == "gen_regio_api"){
+      par_list <- append(par_list, list(area = area))
+    }
 
-    par_list <-  list(
-      endpoint = "catalogue/variables2statistic",
-      username = gen_zensus_auth_get()$username,
-      password = gen_zensus_auth_get()$password,
-      name = code,
-      sortcriterion = sortcriterion,
-      ...
-    )
+    results_raw <- do.call(gen_fun, par_list)
 
-  }
+    results_json <- test_if_json(results_raw)
 
-  results_raw <- do.call(gen_fun, par_list)
+    empty_object <- test_if_error(results_json, para = error.ignore)
 
-  results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error(results_json, para = error.ignore)
+    if(isTRUE(empty_object)){
+      list_of_variables <- "No `variables`- object found for your request."
+    } else if(isFALSE(empty_object)){
+      list_of_variables <- results_json$Status$Content
+    } else if(empty_object == "DONE"){
+      if (isTRUE(detailed)) {
 
-  if(isTRUE(empty_object)){
-    list_of_variables <- "No `variables`- object found for your request."
-  } else if(isFALSE(empty_object)){
-    list_of_variables <- results_json$Status$Content
-  } else if(empty_object == "DONE"){
-  if (isTRUE(detailed)) {
+        list_of_variables <- binding_lapply(results_json$List,
+                                            characteristics = c("Code",
+                                                                "Content",
+                                                                "Type",
+                                                                "Values",
+                                                                "Information"))
 
-    list_of_variables <- binding_lapply(results_json$List,
-                            characteristics = c("Code",
-                                                "Content",
-                                                "Type",
-                                                "Values",
-                                                "Information"))
+      } else {
 
-  } else {
+        list_of_variables <- binding_lapply(results_json$List,
+                                            characteristics = c("Code",
+                                                                "Content"
+                                            ))
 
-    list_of_variables <- binding_lapply(results_json$List,
-                                        characteristics = c("Code",
-                                                            "Content"
-                                                            ))
+      }
 
-  }
+      list_of_variables$Object_Type <- "Variable"
 
-  list_of_variables$Object_Type <- "Variable"
+      list_of_variables <- tibble::as_tibble(list_of_variables)
+    }
 
-  list_of_variables <- tibble::as_tibble(list_of_variables)
-  }
+    #---------------------------------------------------------------------------
+    # Summary ####
+    list_resp <- list("Variables" = list_of_variables)
 
-  # Summary ####
-  list_resp <- list("Variables" = list_of_variables)
+    attr(list_resp, "Code") <- results_json$Parameter$name
+    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+    attr(list_resp, "Copyright") <- results_json$Copyright
 
-  attr(list_resp, "Code") <- results_json$Parameter$name
-  attr(list_resp, "Database") <- database[1]
-  attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-  attr(list_resp, "Copyright") <- results_json$Copyright
+    return(list_resp)
 
-  return(list_resp)
+  })
+
+  #-----------------------------------------------------------------------------
+  res <- check_results(res)
+
+  return(res)
 
 }
 
@@ -143,7 +142,7 @@ gen_var2stat <- function(code = NULL,
 #' }
 #'
 gen_val2var <- function(code = NULL,
-                        database = c("genesis", "zensus"),
+                        database = c("all", "genesis", "zensus", "regio"),
                         area = c("all", "public", "user"),
                         sortcriterion = c("code", "content"),
                         error.ignore = FALSE,
@@ -168,69 +167,67 @@ gen_val2var <- function(code = NULL,
   embedding <- list(...)$frame
 
   #-----------------------------------------------------------------------------
-  if(gen_fun == "gen_api"){
+
+  res <- lapply(gen_fun, function(db){
 
     par_list <-  list(
       endpoint = "catalogue/values2variable",
-      username = gen_auth_get()$username,
-      password = gen_auth_get()$password,
+      username = gen_auth_get(database = rev_database_function(db))$username,
+      password = gen_auth_get(database = rev_database_function(db))$password,
       name = code,
-      area = area,
-      sortcriterion = sortcriterion,
       ...
     )
 
-  } else if ( gen_fun == "gen_zensus_api"){
+    if(db == "gen_api" | db == "gen_regio_api"){
+      par_list <- append(par_list, list(area = area))
+    }
 
-    par_list <-  list(
-      endpoint = "catalogue/values2variable",
-      username = gen_zensus_auth_get()$username,
-      password = gen_zensus_auth_get()$password,
-      name = code,
-      sortcriterion = sortcriterion,
-      ...
-    )
+    results_raw <- do.call(gen_fun, par_list)
 
-  }
+    results_json <- test_if_json(results_raw)
 
-  results_raw <- do.call(gen_fun, par_list)
+    if(isTRUE(grepl("gen_val2var2stat", embedding))){
+      empty_object <- test_if_error_variables(results_json, para = error.ignore)
+    } else {
+      empty_object <- test_if_error(results_json, para = error.ignore)
+    }
 
-  results_json <- test_if_json(results_raw)
+    if(isTRUE(empty_object)){
+      list_of_variables <- "No `values`- object found for your request."
+    } else if(isFALSE(empty_object)){
+      list_of_variables <- results_json$Status$Content
+    } else if(empty_object == "DONE"){
+      list_of_variables <- binding_lapply(results_json$List,
+                                          characteristics = c("Code",
+                                                              "Content",
+                                                              "Variables",
+                                                              "Information"))
 
-  if(isTRUE(grepl("gen_val2var2stat", embedding))){
-    empty_object <- test_if_error_variables(results_json, para = error.ignore)
-  } else {
-    empty_object <- test_if_error(results_json, para = error.ignore)
-  }
+      list_of_variables$Object_Type <- "Value"
 
-  if(isTRUE(empty_object)){
-    list_of_variables <- "No `values`- object found for your request."
-  } else if(isFALSE(empty_object)){
-    list_of_variables <- results_json$Status$Content
-  } else if(empty_object == "DONE"){
-  list_of_variables <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Variables",
-                                                          "Information"))
+      list_of_variables <- tibble::as_tibble(list_of_variables)
 
-    list_of_variables$Object_Type <- "Value"
+    }
 
-    list_of_variables <- tibble::as_tibble(list_of_variables)
+    list_resp <- list("Values" = list_of_variables)
 
-  }
+    attr(list_resp, "Name") <- results_json$Parameter$name
+    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+    attr(list_resp, "Copyright") <- results_json$Copyright
 
-  list_resp <- list("Values" = list_of_variables)
+    names(list_resp) <- paste("Values of", results_json$Parameter$name)
 
-  attr(list_resp, "Name") <- results_json$Parameter$name
-  attr(list_resp, "Database") <- database[1]
-  attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-  attr(list_resp, "Copyright") <- results_json$Copyright
+    return(list_resp)
 
-  names(list_resp) <- paste("Values of", results_json$Parameter$name)
+  })
 
-  return(list_resp)
+  #-----------------------------------------------------------------------------
+
+  res <- check_results(res)
+
+  return(res)
 
 }
 
@@ -259,12 +256,14 @@ gen_val2var <- function(code = NULL,
 #' }
 #'
 gen_val2var2stat <- function(code = NULL,
-                             database = c("genesis", "zensus"),
+                             database = c("all", "genesis", "zensus", "regio"),
                              area = c("all", "public", "user"),
                              detailed = FALSE,
                              sortcriterion = c("code", "content"),
                              error.ignore = FALSE,
                              ...) {
+
+  caller <- as.character(match.call()[1])
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
@@ -278,31 +277,41 @@ gen_val2var2stat <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  variables <- suppressMessages(suppressWarnings(gen_var2stat(code = code,
-                                            database = database,
-                                            area = area,
-                                            detailed = detailed,
-                                            sortcriterion = sortcriterion,
-                                            error.ignore = error.ignore,
-                                            ...)))
+  res <- lapply(database, function(db){
 
-  list_values <- list()
+    variables <- suppressMessages(suppressWarnings(gen_var2stat(code = code,
+                                                                database = db,
+                                                                area = area,
+                                                                detailed = detailed,
+                                                                sortcriterion = sortcriterion,
+                                                                error.ignore = error.ignore,
+                                                                ...)))
 
-  lapply(variables$Variables$Code, function(x) {
+    list_values <- list()
 
-    zwisch <- suppressMessages(suppressWarnings(gen_val2var(code = x,
-                                                            database = database,
-                                                            area = area,
-                                        sortcriterion = sortcriterion,
-                                        error.ignore = error.ignore,
-                                        frame = embedding)))
-    list_values <<- append(list_values, zwisch)
+    lapply(variables$Variables$Code, function(x) {
+
+      zwisch <- suppressMessages(suppressWarnings(gen_val2var(code = x,
+                                                              database = db,
+                                                              area = area,
+                                                              sortcriterion = sortcriterion,
+                                                              error.ignore = error.ignore,
+                                                              frame = embedding)))
+      list_values <<- append(list_values, zwisch)
+
+    })
+
+    list_resp <- list(variables, list_values)
+
+    return(list_resp)
 
   })
 
-  list_resp <- list(variables, list_values)
+  #-----------------------------------------------------------------------------
 
-  return(list_resp)
+  res <- check_results(res)
+
+  return(res)
 
 }
 
@@ -328,7 +337,7 @@ gen_val2var2stat <- function(code = NULL,
 #' }
 #'
 gen_search_vars <- function(code = NULL,
-                            database = c("genesis", "zensus"),
+                            database = c("all", "genesis", "zensus", "regio"),
                             area = c("all", "public", "user"),
                             sortcriterion = c("code", "content"),
                             error.ignore = FALSE,
@@ -352,61 +361,60 @@ gen_search_vars <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  if(gen_fun == "gen_api"){
+  res <- lapply(gen_fun, function(db){
 
+    #---------------------------------------------------------------------------
     par_list <-  list(
       endpoint = "catalogue/variables",
-      username = gen_auth_get()$username,
-      password = gen_auth_get()$password,
-      selection = code,
-      sortcriterion = sortcriterion,
-      area = area,
-      ...
-    )
-
-  } else if ( gen_fun == "gen_zensus_api"){
-
-    par_list <-  list(
-      endpoint = "catalogue/variables",
-      username = gen_zensus_auth_get()$username,
-      password = gen_zensus_auth_get()$password,
+      username = gen_zensus_auth_get(database = rev_database_function(db))$username,
+      password = gen_zensus_auth_get(database = rev_database_function(db))$password,
       selection = code,
       sortcriterion = sortcriterion,
       ...
     )
 
-  }
+    if(db == "gen_api" | db == "gen_regio_api"){
+      par_list <- append(par_list, list(area = area))
+    }
 
-  results_raw <- do.call(gen_fun, par_list)
+    results_raw <- do.call(gen_fun, par_list)
 
-  results_json <- test_if_json(results_raw)
+    results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error(results_json, para = error.ignore)
+    empty_object <- test_if_error(results_json, para = error.ignore)
 
-  if(isTRUE(empty_object)){
-    list_of_variables <- "No `variables`- object found for your request."
-  } else if(isFALSE(empty_object)){
-    list_of_variables <- results_json$Status$Content
-  } else if(empty_object == "DONE"){
-  list_of_variables <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Type",
-                                                          "Information"))
+    if(isTRUE(empty_object)){
+      list_of_variables <- "No `variables`- object found for your request."
+    } else if(isFALSE(empty_object)){
+      list_of_variables <- results_json$Status$Content
+    } else if(empty_object == "DONE"){
+      list_of_variables <- binding_lapply(results_json$List,
+                                          characteristics = c("Code",
+                                                              "Content",
+                                                              "Type",
+                                                              "Information"))
 
-  list_of_variables$Object_Type <- "Variable"
+      list_of_variables$Object_Type <- "Variable"
 
-  list_of_variables <- tibble::as_tibble(list_of_variables)
-  }
+      list_of_variables <- tibble::as_tibble(list_of_variables)
+    }
 
-  list_resp <- list("Variables" = list_of_variables)
+    list_resp <- list("Variables" = list_of_variables)
 
-  attr(list_resp, "Code") <- results_json$Parameter$selection
-  attr(list_resp, "Database") <- database[1]
-  attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-  attr(list_resp, "Copyright") <- results_json$Copyright
+    attr(list_resp, "Code") <- results_json$Parameter$selection
+    attr(list_resp, "Database") <- database[1]
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+    attr(list_resp, "Copyright") <- results_json$Copyright
 
-  return(list_resp)
+    return(list_resp)
+
+  })
+
+  #-----------------------------------------------------------------------------
+
+  res <- check_results(res)
+
+  return(res)
 
 }

@@ -18,7 +18,7 @@
 #' }
 #'
 gen_metadata_stats <- function(code = NULL,
-                                database = c("genesis", "zensus"),
+                                database = c("all", "genesis", "zensus", "regio"),
                                 area = c("all", "public", "user"),
                                 error.ignore = FALSE,
                                 ...) {
@@ -29,6 +29,7 @@ gen_metadata_stats <- function(code = NULL,
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
+                       database = gen_fun,
                        caller = caller)
 
   area <- match.arg(area)
@@ -37,68 +38,65 @@ gen_metadata_stats <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  if(gen_fun == "gen_api"){
+  res <- lapply(gen_fun, function(db){
 
     par_list <-  list(
       endpoint = "metadata/statistic",
-      username = gen_auth_get()$username,
-      password = gen_auth_get()$password,
-      name = code,
-      area = area,
-      ...
-    )
-
-  } else if ( gen_fun == "gen_zensus_api"){
-
-    par_list <-  list(
-      endpoint = "metadata/statistic",
-      username = gen_zensus_auth_get()$username,
-      password = gen_zensus_auth_get()$password,
+      username = gen_auth_get(database = rev_database_function(db))$username,
+      password = gen_auth_get(database = rev_database_function(db))$password,
       name = code,
       ...
     )
 
-  }
+    if(db == "gen_api" | db == "gen_regio_api"){
+      par_list <- append(par_list, list(area = area))
+    }
 
-  results_raw <- do.call(gen_fun, par_list)
+    results_raw <- do.call(db, par_list)
 
-  results_json <- test_if_json(results_raw)
+    results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error(results_json, para = error.ignore)
+    empty_object <- test_if_error(results_json, para = error.ignore)
 
-  #-----------------------------------------------------------------------------
+    #---------------------------------------------------------------------------
+    if(isTRUE(empty_object)){
 
-  if(isTRUE(empty_object)){
+      df_stats <- "No 'meta_information' object found for your request."
 
-    df_stats <- "No 'meta_information' object found for your request."
+    } else if(isFALSE(empty_object)){
 
-  } else if(isFALSE(empty_object)){
+      df_stats <- results_json$Status$Content
 
-    df_stats <- results_json$Status$Content
+    } else if(empty_object == "DONE"){
 
-  } else if(empty_object == "DONE"){
-
-    df_stats <- c("Code" = results_json$Object$Code,
-                  "Content" = results_json$Object$Content,
-                  "Cubes" = results_json$Object$Cubes,
-                  "Variables" = results_json$Object$Variables,
-                  "Information" = results_json$Object$Information,
-                  "Time_from" = results_json$Object$Frequency[[1]]$From,
-                  "Time_to" = results_json$Object$Frequency[[1]]$To,
-                  "Time_type" = results_json$Object$Frequency[[1]]$Type)
-  }
+      df_stats <- c("Code" = results_json$Object$Code,
+                    "Content" = results_json$Object$Content,
+                    "Cubes" = results_json$Object$Cubes,
+                    "Variables" = results_json$Object$Variables,
+                    "Information" = results_json$Object$Information,
+                    "Time_from" = results_json$Object$Frequency[[1]]$From,
+                    "Time_to" = results_json$Object$Frequency[[1]]$To,
+                    "Time_type" = results_json$Object$Frequency[[1]]$Type)
+    }
 
     attr(df_stats, "Code") <- results_json$Parameter$name
-    attr(df_stats, "Database") <- database[1]
+    attr(df_stats, "Database") <- rev_database_function(db)
     attr(df_stats, "Method") <- results_json$Ident$Method
     attr(df_stats, "Updated") <- results_json$Object$Updated
     attr(df_stats, "Language") <- results_json$Parameter$language
     attr(df_stats, "Copyright") <- results_json$Copyright
 
     return(df_stats)
-}
 
-#-------------------------------------------------------------------------------
+  })
+
+  #-----------------------------------------------------------------------------
+
+  res <- check_results(res)
+
+  return(res)
+
+}
 
 #' gen_metadata_var
 #'
@@ -120,7 +118,7 @@ gen_metadata_stats <- function(code = NULL,
 #' }
 #'
 gen_metadata_var <- function(code = NULL,
-                              database = c("genesis", "zensus"),
+                              database = c("all", "genesis", "zensus", "regio"),
                               area = c("all", "public", "user"),
                               error.ignore = FALSE,
                               ...) {
@@ -131,6 +129,7 @@ gen_metadata_var <- function(code = NULL,
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
+                       database = gen_fun,
                        caller = caller)
 
   area <- match.arg(area)
@@ -139,66 +138,65 @@ gen_metadata_var <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  if(gen_fun == "gen_api"){
+  res <- lapply(gen_fun, function(db){
 
     par_list <-  list(
       endpoint = "metadata/variable",
-      username = gen_auth_get()$username,
-      password = gen_auth_get()$password,
-      name = code,
-      area = area,
-      ...
-    )
-
-  } else if ( gen_fun == "gen_zensus_api"){
-
-    par_list <-  list(
-      endpoint = "metadata/variable",
-      username = gen_zensus_auth_get()$username,
-      password = gen_zensus_auth_get()$password,
+      username = gen_auth_get(database = rev_database_function(db))$username,
+      password = gen_auth_get(database = rev_database_function(db))$password,
       name = code,
       ...
     )
 
-  }
+    if(db == "gen_api" | db == "gen_regio_api"){
+      par_list <- append(par_list, list(area = area))
+    }
 
-  results_raw <- do.call(gen_fun, par_list)
+    results_raw <- do.call(db, par_list)
 
-  results_json <- test_if_json(results_raw)
+    results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error(results_json, para = error.ignore)
+    empty_object <- test_if_error(results_json, para = error.ignore)
+
+    #---------------------------------------------------------------------------
+    if(isTRUE(empty_object)){
+
+      df_var <- "No 'meta_information' object found for your request."
+
+    } else if(isFALSE(empty_object)){
+
+      df_var <- results_json$Status$Content
+
+    } else if(empty_object == "DONE"){
+
+      df_var <- c("Code" = results_json$Object$Code,
+                  "Content" = results_json$Object$Content,
+                  "Values" = results_json$Object$Values,
+                  "Type" = results_json$Object$Type,
+                  "Validity_from" = results_json$Object$Validity$From,
+                  "Validity_to" = results_json$Object$Validity$To)
+    }
+
+    list_resp <- list("General" = df_var,
+                      "Information" = results_json$Object$Information)
+
+    attr(list_resp, "Code") <- results_json$Parameter$name
+    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Method") <- results_json$Ident$Method
+    attr(list_resp, "Updated") <- results_json$Object$Updated
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Copyright") <- results_json$Copyright
+
+    return(list_resp)
+
+  })
 
   #-----------------------------------------------------------------------------
 
-  if(isTRUE(empty_object)){
+  res <- check_results(res)
 
-    df_var <- "No 'meta_information' object found for your request."
+  return(res)
 
-  } else if(isFALSE(empty_object)){
-
-    df_var <- results_json$Status$Content
-
-  } else if(empty_object == "DONE"){
-
-    df_var <- c("Code" = results_json$Object$Code,
-                "Content" = results_json$Object$Content,
-                "Values" = results_json$Object$Values,
-                "Type" = results_json$Object$Type,
-                "Validity_from" = results_json$Object$Validity$From,
-                "Validity_to" = results_json$Object$Validity$To)
-  }
-
-  list_resp <- list("General" = df_var,
-                    "Information" = results_json$Object$Information)
-
-  attr(list_resp, "Code") <- results_json$Parameter$name
-  attr(list_resp, "Database") <- database[1]
-  attr(list_resp, "Method") <- results_json$Ident$Method
-  attr(list_resp, "Updated") <- results_json$Object$Updated
-  attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Copyright") <- results_json$Copyright
-
-  return(list_resp)
 }
 
 #-------------------------------------------------------------------------------
@@ -223,7 +221,7 @@ gen_metadata_var <- function(code = NULL,
 #' }
 #'
 gen_metadata_val <- function(code = NULL,
-                              database = c("genesis", "zensus"),
+                              database = c("all", "genesis", "zensus", "regio"),
                               area = c("all", "public", "user"),
                               error.ignore = FALSE,
                               ...) {
@@ -234,6 +232,7 @@ gen_metadata_val <- function(code = NULL,
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
+                       database = gen_fun,
                        caller = caller)
 
   area <- match.arg(area)
@@ -242,63 +241,62 @@ gen_metadata_val <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  if(gen_fun == "gen_api"){
+  res <- lapply(gen_fun, function(db){
 
     par_list <-  list(
       endpoint = "metadata/value",
-      username = gen_auth_get()$username,
-      password = gen_auth_get()$password,
-      name = code,
-      area = area,
-      ...
-    )
-
-  } else if ( gen_fun == "gen_zensus_api"){
-
-    par_list <-  list(
-      endpoint = "metadata/value",
-      username = gen_zensus_auth_get()$username,
-      password = gen_zensus_auth_get()$password,
+      username = gen_auth_get(database = rev_database_function(db))$username,
+      password = gen_auth_get(database = rev_database_function(db))$password,
       name = code,
       ...
     )
 
-  }
+    if(db == "gen_api" | db == "gen_regio_api"){
+      par_list <- append(par_list, list(area = area))
+    }
 
-  results_raw <- do.call(gen_fun, par_list)
+    results_raw <- do.call(db, par_list)
 
-  results_json <- test_if_json(results_raw)
+    results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error(results_json, para = error.ignore)
+    empty_object <- test_if_error(results_json, para = error.ignore)
+
+    #---------------------------------------------------------------------------
+    if(isTRUE(empty_object)){
+
+      df_value <- "No 'meta_information' object found for your request."
+
+    } else if(isFALSE(empty_object)){
+
+      df_value <- results_json$Status$Content
+
+    } else if(empty_object == "DONE"){
+
+      df_value <- c("Code" = results_json$Object$Code,
+                    "Content" = results_json$Object$Content,
+                    "Variables" = results_json$Object$Variables)
+    }
+
+    list_resp <- list("General" = df_value,
+                      "Information" = results_json$Object$Information)
+
+    attr(list_resp, "Code") <- results_json$Parameter$name
+    attr(list_resp, "Database") <- database[1]
+    attr(list_resp, "Method") <- results_json$Ident$Method
+    attr(list_resp, "Updated") <- results_json$Object$Updated
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Copyright") <- results_json$Copyright
+
+    return(list_resp)
+
+  })
 
   #-----------------------------------------------------------------------------
 
-  if(isTRUE(empty_object)){
+  res <- check_results(res)
 
-    df_value <- "No 'meta_information' object found for your request."
+  return(res)
 
-  } else if(isFALSE(empty_object)){
-
-    df_value <- results_json$Status$Content
-
-  } else if(empty_object == "DONE"){
-
-    df_value <- c("Code" = results_json$Object$Code,
-                  "Content" = results_json$Object$Content,
-                  "Variables" = results_json$Object$Variables)
-  }
-
-  list_resp <- list("General" = df_value,
-                    "Information" = results_json$Object$Information)
-
-  attr(list_resp, "Code") <- results_json$Parameter$name
-  attr(list_resp, "Database") <- database[1]
-  attr(list_resp, "Method") <- results_json$Ident$Method
-  attr(list_resp, "Updated") <- results_json$Object$Updated
-  attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Copyright") <- results_json$Copyright
-
-  return(list_resp)
 }
 
 #-------------------------------------------------------------------------------
@@ -323,7 +321,7 @@ gen_metadata_val <- function(code = NULL,
 #' }
 #'
 gen_metadata_tab <- function(code = NULL,
-                              database = c("genesis", "zensus"),
+                              database = c("all", "genesis", "zensus", "regio"),
                               area = c("all", "public", "user"),
                               error.ignore = FALSE,
                               ...) {
@@ -334,6 +332,7 @@ gen_metadata_tab <- function(code = NULL,
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
+                       database = gen_fun,
                        caller = caller)
 
   area <- match.arg(area)
@@ -342,141 +341,136 @@ gen_metadata_tab <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  if(gen_fun == "gen_api"){
+  res <- lapply(gen_fun, function(db){
 
     par_list <-  list(
       endpoint = "metadata/table",
-      username = gen_auth_get()$username,
-      password = gen_auth_get()$password,
+      username = gen_auth_get(database = rev_database_function(db))$username,
+      password = gen_auth_get(database = rev_database_function(db))$password,
       name = code,
       area = area,
       ...
     )
 
-  } else if ( gen_fun == "gen_zensus_api"){
+    results_raw <- do.call(db, par_list)
 
-    par_list <-  list(
-      endpoint = "metadata/table",
-      username = gen_zensus_auth_get()$username,
-      password = gen_zensus_auth_get()$password,
-      name = code,
-      area = area,
-      ...
-    )
+    results_json <- test_if_json(results_raw)
 
-  }
+    empty_object <- test_if_error(results_json, para = error.ignore)
 
-  results_raw <- do.call(gen_fun, par_list)
+    #---------------------------------------------------------------------------
+    if(isTRUE(empty_object)){
 
-  results_json <- test_if_json(results_raw)
+      char <- "No 'meta_information' object found for your request."
+      structure <- NULL
+      embedded <- NULL
 
-  empty_object <- test_if_error(results_json, para = error.ignore)
+    } else if(isFALSE(empty_object)){
+
+      char <- results_json$Status$Content
+      structure <- NULL
+      embedded <- NULL
+
+    } else if(empty_object == "DONE"){
+
+      char <- c("Code" = results_json$Object$Code,
+                "Content" = results_json$Object$Content,
+                "Time_From" = results_json$Object$Time$From,
+                "Time_To" = results_json$Object$Time$To,
+                "Valid" = results_json$Object$Valid)
+
+      embedded <- cbind("Code" = results_json$Object$Structure$Head$Code,
+                        "Content" = results_json$Object$Structure$Head$Content,
+                        "Type" = results_json$Object$Structure$Head$Type,
+                        "Values" = results_json$Object$Structure$Head$Values,
+                        "Selection" = results_json$Object$Structure$Head$Selected,
+                        "Updated" = results_json$Object$Structure$Head$Updated)
+
+      structure <- list()
+
+      structure$Head <- if (length(results_json$Object$Structure$Head$Structure) == 1) {
+
+        cbind("Code" = results_json$Object$Structure$Head$Structure[[1]]$Code,
+              "Content" = results_json$Object$Structure$Head$Structure[[1]]$Content,
+              "Type" = results_json$Object$Structure$Head$Structure[[1]]$Type,
+              "Values" = results_json$Object$Structure$Head$Structure[[1]]$Values,
+              "Selected" = results_json$Object$Structure$Head$Structure[[1]]$Selected,
+              "Structure" = results_json$Object$Structure$Head$Structure[[1]]$Structure,
+              "Updated" = results_json$Object$Structure$Head$Structure[[1]]$Updated)
+
+      } else {
+
+        cbind("Code" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 1)),
+              "Content" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 2)),
+              "Type" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 3)),
+              "Values" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 4)),
+              "Selected" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 5)),
+              "Structure" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 6)),
+              "Updated" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 7)))
+      }
+
+      structure$Columns <- if (length(results_json$Object$Structure$Columns) == 1) {
+
+        cbind("Code" = results_json$Object$Structure$Columns[[1]]$Code,
+              "Content" = results_json$Object$Structure$Columns[[1]]$Content,
+              "Type" = results_json$Object$Structure$Columns[[1]]$Type,
+              "Unit" = results_json$Object$Structure$Columns[[1]]$Unit,
+              "Values" = results_json$Object$Structure$Columns[[1]]$Values,
+              "Updated" = results_json$Object$Structure$Columns[[1]]$Updated)
+
+      } else {
+
+        cbind("Code" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 1)),
+              "Content" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 2)),
+              "Type" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 3)),
+              "Unit" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 4)),
+              "Values" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 5)),
+              "Updated" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 6)))
+
+      }
+
+      structure$Rows <- if (length(results_json$Object$Structure$Rows) == 1) {
+
+        cbind("Code" = results_json$Object$Structure$Rows[[1]]$Code,
+              "Content" = results_json$Object$Structure$Rows[[1]]$Content,
+              "Type" = results_json$Object$Structure$Rows[[1]]$Type,
+              "Unit" = results_json$Object$Structure$Rows[[1]]$Unit,
+              "Values" = results_json$Object$Structure$Rows[[1]]$Values,
+              "Updated" = results_json$Object$Structure$Rows[[1]]$Updated)
+
+      } else {
+
+        cbind("Code" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 1)),
+              "Content" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 2)),
+              "Type" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 3)),
+              "Unit" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 4)),
+              "Values" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 5)),
+              "Updated" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 6)))
+
+      }
+    }
+
+    list_resp <- list("General" = char,
+                      "Structure" = structure,
+                      "Embedded_in" = embedded)
+
+    attr(list_resp, "Code") <- results_json$Parameter$name
+    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Method") <- results_json$Ident$Method
+    attr(list_resp, "Updated") <- results_json$Object$Updated
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Copyright") <- results_json$Copyright
+
+    return(list_resp)
+
+  })
 
   #-----------------------------------------------------------------------------
 
-  if(isTRUE(empty_object)){
+  res <- check_results(res)
 
-    char <- "No 'meta_information' object found for your request."
-    structure <- NULL
-    embedded <- NULL
+  return(res)
 
-  } else if(isFALSE(empty_object)){
-
-    char <- results_json$Status$Content
-    structure <- NULL
-    embedded <- NULL
-
-  } else if(empty_object == "DONE"){
-
-    char <- c("Code" = results_json$Object$Code,
-              "Content" = results_json$Object$Content,
-              "Time_From" = results_json$Object$Time$From,
-              "Time_To" = results_json$Object$Time$To,
-              "Valid" = results_json$Object$Valid)
-
-    embedded <- cbind("Code" = results_json$Object$Structure$Head$Code,
-                      "Content" = results_json$Object$Structure$Head$Content,
-                      "Type" = results_json$Object$Structure$Head$Type,
-                      "Values" = results_json$Object$Structure$Head$Values,
-                      "Selection" = results_json$Object$Structure$Head$Selected,
-                      "Updated" = results_json$Object$Structure$Head$Updated)
-
-    structure <- list()
-
-    structure$Head <- if (length(results_json$Object$Structure$Head$Structure) == 1) {
-
-      cbind("Code" = results_json$Object$Structure$Head$Structure[[1]]$Code,
-            "Content" = results_json$Object$Structure$Head$Structure[[1]]$Content,
-            "Type" = results_json$Object$Structure$Head$Structure[[1]]$Type,
-            "Values" = results_json$Object$Structure$Head$Structure[[1]]$Values,
-            "Selected" = results_json$Object$Structure$Head$Structure[[1]]$Selected,
-            "Structure" = results_json$Object$Structure$Head$Structure[[1]]$Structure,
-            "Updated" = results_json$Object$Structure$Head$Structure[[1]]$Updated)
-
-    } else {
-
-      cbind("Code" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 1)),
-            "Content" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 2)),
-            "Type" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 3)),
-            "Values" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 4)),
-            "Selected" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 5)),
-            "Structure" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 6)),
-            "Updated" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 7)))
-    }
-
-    structure$Columns <- if (length(results_json$Object$Structure$Columns) == 1) {
-
-      cbind("Code" = results_json$Object$Structure$Columns[[1]]$Code,
-            "Content" = results_json$Object$Structure$Columns[[1]]$Content,
-            "Type" = results_json$Object$Structure$Columns[[1]]$Type,
-            "Unit" = results_json$Object$Structure$Columns[[1]]$Unit,
-            "Values" = results_json$Object$Structure$Columns[[1]]$Values,
-            "Updated" = results_json$Object$Structure$Columns[[1]]$Updated)
-
-    } else {
-
-      cbind("Code" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 1)),
-            "Content" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 2)),
-        "Type" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 3)),
-        "Unit" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 4)),
-        "Values" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 5)),
-        "Updated" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 6)))
-
-    }
-
-    structure$Rows <- if (length(results_json$Object$Structure$Rows) == 1) {
-
-      cbind("Code" = results_json$Object$Structure$Rows[[1]]$Code,
-            "Content" = results_json$Object$Structure$Rows[[1]]$Content,
-        "Type" = results_json$Object$Structure$Rows[[1]]$Type,
-        "Unit" = results_json$Object$Structure$Rows[[1]]$Unit,
-        "Values" = results_json$Object$Structure$Rows[[1]]$Values,
-        "Updated" = results_json$Object$Structure$Rows[[1]]$Updated)
-
-    } else {
-
-      cbind("Code" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 1)),
-            "Content" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 2)),
-        "Type" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 3)),
-        "Unit" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 4)),
-        "Values" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 5)),
-        "Updated" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 6)))
-
-    }
-  }
-
-  list_resp <- list("General" = char,
-                    "Structure" = structure,
-                    "Embedded_in" = embedded)
-
-  attr(list_resp, "Code") <- results_json$Parameter$name
-  attr(list_resp, "Database") <- database[1]
-  attr(list_resp, "Method") <- results_json$Ident$Method
-  attr(list_resp, "Updated") <- results_json$Object$Updated
-  attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Copyright") <- results_json$Copyright
-
-  return(list_resp)
 }
 
 #-------------------------------------------------------------------------------
@@ -500,12 +494,19 @@ gen_metadata_tab <- function(code = NULL,
 #' }
 #'
 gen_metadata_cube <- function(code = NULL,
+                               database = c("all", "genesis", "regio"),
                                error.ignore = FALSE,
                                area = c("all", "public", "user"),
                                ...) {
 
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database)
+
   check_function_input(code = code,
-                       error.ignore = error.ignore)
+                       error.ignore = error.ignore,
+                       database = gen_fun,
+                       caller = caller)
 
   area <- match.arg(area)
 
@@ -513,100 +514,114 @@ gen_metadata_cube <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  results_raw <- gen_api("metadata/cube",
-                         username = gen_auth_get()$username,
-                         password = gen_auth_get()$password,
-                         name = code,
-                         area = area,
-                         ...)
+  res <- lapply(gen_fun, function(db){
 
-  results_json <- test_if_json(results_raw)
+    par_list <-  list(
+      endpoint = "metadata/cube",
+      username = gen_auth_get(database = rev_database_function(db))$username,
+      password = gen_auth_get(database = rev_database_function(db))$password,
+      name = code,
+      area = area,
+      ...
+    )
 
-  empty_object <- test_if_error(results_json, para = error.ignore)
+    results_raw <- do.call(db, par_list)
+
+    results_json <- test_if_json(results_raw)
+
+    empty_object <- test_if_error(results_json, para = error.ignore)
+
+    #---------------------------------------------------------------------------
+    if(isTRUE(empty_object)){
+
+      char <- "No 'meta_information' object found for your request."
+      time <- NULL
+      stat <- NULL
+      structure <- NULL
+
+    } else if(isFALSE(empty_object)){
+
+      char <- results_json$Status$Content
+      time <- NULL
+      stat <- NULL
+      structure <- NULL
+
+    } else if(empty_object == "DONE"){
+
+      char <- c("Code" = results_json$Object$Code,
+                "Content" = results_json$Object$Content,
+                "State" = results_json$Object$State,
+                "Values" = results_json$Object$Values)
+
+      time <- unlist(results_json$Object$Timeslices)
+
+      stat <- c("Code" = results_json$Object$Statistic$Code,
+                "Content" = results_json$Object$Statistic$Content,
+                "Updated" = results_json$Object$Statistic$Updated)
+
+      structure <- list()
+
+      structure$Axis <- if (length(results_json$Object$Structure$Axis) == 1) {
+
+        cbind(
+          "Code" = results_json$Object$Structure$Axis[[1]]$Code,
+          "Content" = results_json$Object$Structure$Axis[[1]]$Content,
+          "Type" = results_json$Object$Structure$Axis[[1]]$Type,
+          "Updated" = results_json$Object$Structure$Axis[[1]]$Updated)
+
+      } else {
+
+        cbind(
+          "Code" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 1)),
+          "Content" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 2)),
+          "Type" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 3)),
+          "Updated" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 4)))
+      }
+
+      structure$Content <- if (length(results_json$Object$Structure$Contents) == 1) {
+
+        cbind("Code" = results_json$Object$Structure$Contents[[1]]$Code,
+              "Content" = results_json$Object$Structure$Contents[[1]]$Content,
+              "Type" = results_json$Object$Structure$Contents[[1]]$Type,
+              "Unit" = results_json$Object$Structure$Contents[[1]]$Unit,
+              "Values" = results_json$Object$Structure$Contents[[1]]$Values,
+              "Updated" = results_json$Object$Structure$Contents[[1]]$Updated,
+              "Timeslices" = results_json$Object$Structure$Contents[[1]]$Timeslices)
+
+      } else {
+
+        cbind("Code" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 1)),
+              "Content" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 2)),
+              "Type" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 3)),
+              "Unit" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 4)),
+              "Values" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 5)),
+              "Updated" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 7)),
+              "Updated" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 6)))
+      }
+    }
+
+    list_resp <- list("General" = char,
+                      "Timespan" = time,
+                      "Statistic_used" = stat,
+                      "Structure" = structure)
+
+    attr(list_resp, "Code") <- results_json$Parameter$name
+    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Method") <- results_json$Ident$Method
+    attr(list_resp, "Updated") <- results_json$Object$Updated
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Copyright") <- results_json$Copyright
+
+    return(list_resp)
+
+  })
 
   #-----------------------------------------------------------------------------
 
-  if(isTRUE(empty_object)){
+  res <- check_results(res)
 
-    char <- "No 'meta_information' object found for your request."
-    time <- NULL
-    stat <- NULL
-    structure <- NULL
+  return(res)
 
-  } else if(isFALSE(empty_object)){
-
-    char <- results_json$Status$Content
-    time <- NULL
-    stat <- NULL
-    structure <- NULL
-
-  } else if(empty_object == "DONE"){
-
-    char <- c("Code" = results_json$Object$Code,
-              "Content" = results_json$Object$Content,
-              "State" = results_json$Object$State,
-              "Values" = results_json$Object$Values)
-
-    time <- unlist(results_json$Object$Timeslices)
-
-    stat <- c("Code" = results_json$Object$Statistic$Code,
-              "Content" = results_json$Object$Statistic$Content,
-              "Updated" = results_json$Object$Statistic$Updated)
-
-    structure <- list()
-
-    structure$Axis <- if (length(results_json$Object$Structure$Axis) == 1) {
-
-      cbind(
-        "Code" = results_json$Object$Structure$Axis[[1]]$Code,
-        "Content" = results_json$Object$Structure$Axis[[1]]$Content,
-        "Type" = results_json$Object$Structure$Axis[[1]]$Type,
-        "Updated" = results_json$Object$Structure$Axis[[1]]$Updated)
-
-    } else {
-
-      cbind(
-        "Code" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 1)),
-        "Content" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 2)),
-        "Type" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 3)),
-        "Updated" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 4)))
-    }
-
-    structure$Content <- if (length(results_json$Object$Structure$Contents) == 1) {
-
-      cbind("Code" = results_json$Object$Structure$Contents[[1]]$Code,
-            "Content" = results_json$Object$Structure$Contents[[1]]$Content,
-        "Type" = results_json$Object$Structure$Contents[[1]]$Type,
-        "Unit" = results_json$Object$Structure$Contents[[1]]$Unit,
-        "Values" = results_json$Object$Structure$Contents[[1]]$Values,
-        "Updated" = results_json$Object$Structure$Contents[[1]]$Updated,
-        "Timeslices" = results_json$Object$Structure$Contents[[1]]$Timeslices)
-
-    } else {
-
-      cbind("Code" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 1)),
-            "Content" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 2)),
-        "Type" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 3)),
-        "Unit" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 4)),
-        "Values" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 5)),
-        "Updated" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 7)),
-        "Updated" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 6)))
-    }
-  }
-
-  list_resp <- list("General" = char,
-                    "Timespan" = time,
-                    "Statistic_used" = stat,
-                    "Structure" = structure)
-
-  attr(list_resp, "Code") <- results_json$Parameter$name
-  attr(list_resp, "Database") <- "genesis"
-  attr(list_resp, "Method") <- results_json$Ident$Method
-  attr(list_resp, "Updated") <- results_json$Object$Updated
-  attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Copyright") <- results_json$Copyright
-
-  return(list_resp)
 }
 
 #-------------------------------------------------------------------------------
@@ -632,7 +647,7 @@ gen_metadata_cube <- function(code = NULL,
 #' }
 #'
 gen_metadata <- function(code = NULL,
-                          database = c("genesis", "zensus"),
+                          database = c("all", "genesis", "zensus", "regio"),
                           category = c("cube", "statistic", "table", "variable", "value"),
                           area = c("all", "public", "user"),
                           error.ignore = FALSE,
@@ -650,43 +665,54 @@ gen_metadata <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  if (category == "cube") {
+  res <- lapply(gen_fun, function(odb){
 
-    gen_metadata_cube(code = code, error.ignore = error.ignore, ...)
+    if (category == "cube") {
 
-  } else if (category == "value") {
+      gen_metadata_cube(code = code,
+                        database = odb,
+                        error.ignore = error.ignore, ...)
 
-    gen_metadata_val(code = code,
-                     database = database,
-                     area = area,
-                     error.ignore = error.ignore, ...)
+    } else if (category == "value") {
 
-  } else if (category == "variable") {
-
-    gen_metadata_var(code = code,
-                     database = database,
-                     area = area,
-                     error.ignore = error.ignore, ...)
-
-  } else if (category == "table") {
-
-    gen_metadata_tab(code = code,
-                     database = database,
-                     area = area,
-                     error.ignore = error.ignore, ...)
-
-  } else if (category == "statistic") {
-
-    gen_metadata_stats(code = code,
-                       database = database,
+      gen_metadata_val(code = code,
+                       database = odb,
                        area = area,
                        error.ignore = error.ignore, ...)
 
-  } else {
+    } else if (category == "variable") {
 
-    stop("Category is not found, please select a correct category.
-         Available categories for data base GENESIS: 'cube', 'statistic', 'table', 'variable', 'value.
-         \n Available categories for Zensus data base: 'statistic', 'table', 'variable', 'value.' \n
+      gen_metadata_var(code = code,
+                       database = odb,
+                       area = area,
+                       error.ignore = error.ignore, ...)
+
+    } else if (category == "table") {
+
+      gen_metadata_tab(code = code,
+                       database = odb,
+                       area = area,
+                       error.ignore = error.ignore, ...)
+
+    } else if (category == "statistic") {
+
+      gen_metadata_stats(code = code,
+                         database = odb,
+                         area = area,
+                         error.ignore = error.ignore, ...)
+
+    } else {
+
+      stop("Category is not found, please select a correct category.
+         Available categories for data base GENESIS & Regionalstatistik: 'cube', 'statistic', 'table', 'variable', 'value'.
+         \n Available categories for Zensus data base: 'statistic', 'table', 'variable', 'value'. \n
          Please choose one of them.", call. = TRUE)
-  }
+    }
+
+  })
+
+  res <- check_results(res)
+
+  return(res)
+
 }

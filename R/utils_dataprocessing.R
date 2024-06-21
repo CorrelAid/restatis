@@ -54,14 +54,18 @@ param_collapse_vec <- function(vec) {
 #'
 forming_evas <- function(list_of) {
 
-  evas_list_long_20220724 <- restatis::evas_list_long_20220724
+  # Path selection
+  data_path <- system.file("data", "EVAS_numbers.RData", package = "restatis")
+
+  # Load data
+  evas_list <- load(data_path)
 
   #-----------------------------------------------------------------------------
   # Process them
 
   list_of$Main <- apply(list_of, 1, function(x) {
 
-    obj <- evas_list_long_20220724$Titel[evas_list_long_20220724$EVAS == substr(x["Code"], 1, 1)]
+    obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 1)]
 
     if(length(obj) == 0){
 
@@ -77,7 +81,7 @@ forming_evas <- function(list_of) {
 
   list_of$Main2 <- apply(list_of, 1, function(x) {
 
-    obj <- evas_list_long_20220724$Titel[evas_list_long_20220724$EVAS == substr(x["Code"], 1, 2)]
+    obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 2)]
 
     if(length(obj) == 0){
 
@@ -93,7 +97,7 @@ forming_evas <- function(list_of) {
 
   list_of$Main3 <- apply(list_of, 1, function(x) {
 
-    obj <- evas_list_long_20220724$Titel[evas_list_long_20220724$EVAS == substr(x["Code"], 1, 3)]
+    obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 3)]
 
     if(length(obj) == 0){
 
@@ -109,7 +113,7 @@ forming_evas <- function(list_of) {
 
   list_of$Main5 <- apply(list_of, 1, function(x) {
 
-    obj <- evas_list_long_20220724$Titel[evas_list_long_20220724$EVAS == substr(x["Code"], 1, 5)]
+    obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 5)]
 
     if(length(obj) == 0){
 
@@ -276,6 +280,7 @@ check_function_input <- function(code = NULL,
                                  error.ignore = NULL,
                                  ordering = NULL,
                                  database = NULL,
+                                 area = NULL,
                                  caller = NULL) {
 
   #-----------------------------------------------------------------------------
@@ -421,7 +426,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if(database == "gen_zensus_api"){
+      if("gen_zensus_api" %in% database){
 
         #-----------------------------------------------------------------------
 
@@ -476,7 +481,7 @@ check_function_input <- function(code = NULL,
 
     #-------------------------------------------------------------------------------
 
-      if(database == "gen_api"){
+      if("gen_api" %in% database){
 
         if (!all(category %in% c("tables", "cubes", "statistics"))) {
 
@@ -496,7 +501,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if(database == "gen_zensus_api"){
+      if("gen_zensus_api" %in% database){
 
         #-----------------------------------------------------------------------
 
@@ -554,7 +559,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if(database == "gen_api"){
+      if("gen_api" %in% database){
 
         if (!all(category %in% c("tables", "cubes", "variables"))) {
 
@@ -577,7 +582,7 @@ check_function_input <- function(code = NULL,
 
           #---------------------------------------------------------------------
 
-          if(database == "gen_api"){
+          if("gen_api" %in% database){
 
             stop("Available categories for parameter 'category' for 'genesis'-database are 'all', 'tables', 'statistics', 'variables', and 'cubes'.",
                  call. = FALSE)
@@ -586,7 +591,7 @@ check_function_input <- function(code = NULL,
 
           #---------------------------------------------------------------------
 
-          if(gen_fun == "gen_zensus_api"){
+          if("gen_zensus_api" %in% database){
 
             stop("Available categories for parameter 'category' for 'zensus'-database are 'all', 'tables', 'statistics', and 'variables'.",
                  call. = FALSE)
@@ -603,7 +608,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if(database == "gen_zensus_api"){
+      if("gen_zensus_api" %in% database){
 
         #-----------------------------------------------------------------------
 
@@ -646,7 +651,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if(database == "gen_api"){
+      if("gen_api" %in% database){
 
         #-----------------------------------------------------------------------
 
@@ -661,7 +666,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      else if( database == "gen_zensus_api") {
+      else if("gen_zensus_api" %in% database) {
 
         if (!all(category %in% c("Statistic", "Table", "Variable", "Value"))) {
 
@@ -707,7 +712,7 @@ check_function_input <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (database == "gen_api"){
+    if ("gen_api" %in% database){
 
       #-------------------------------------------------------------------------
 
@@ -722,7 +727,7 @@ check_function_input <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (database == "gen_zensus_api"){
+    if ("gen_zensus_api" %in% database){
 
       if (!all(type %in% c("all", "tables", "statistics"))) {
 
@@ -876,6 +881,28 @@ check_function_input <- function(code = NULL,
 
   }
 
+  #-----------------------------------------------------------------------------
+  # area ----
+  if (!is.null(area)) {
+
+    if (!is.character(area) ||
+        length(area) != 1) {
+
+      stop("Parameter 'area' has to be of type 'character' and of length 1.",
+           call. = FALSE)
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if (!area %in% c("all", "public", "user")) {
+
+      stop("Available categories for parameter 'area' are 'all', 'public', and 'user'.")
+
+    }
+
+  }
+
 }
 
 #-------------------------------------------------------------------------------
@@ -992,39 +1019,81 @@ titel_search <- function(x, term) {
 }
 
 #-------------------------------------------------------------------------------
-
 #' test_database_function
 #'
 #' @param input Input to test for database name
 #'
 test_database_function <- function(input){
 
-  if(length(input) > 1){
+  if(sum(is.na(input)) == length(input)){
 
-    input <- input[1]
-
-  }
-
-  if(is.na(input)){
-
-    stop("Database parameter must be either 'genesis' or 'zensus'.",
+    stop("Database parameter must be either 'genesis', 'zensus', 'regio', or 'all'.",
          call. = FALSE)
 
   }
 
-  if(input == "genesis"){
+  res <- c()
 
-    return("gen_api")
+  if("genesis" %in% input){
 
-  } else if(input == "zensus"){
+    res <- c(res, "genesis" = "gen_api")
 
-    return("gen_zensus_api")
+  }
+
+  if("zensus" %in% input){
+
+    res <- c(res, "zensus" = "gen_zensus_api")
+
+  }
+
+  if("regio" %in% input){
+
+    res <- c(res, "regio" = "gen_regio_api")
+
+  }
+
+  if("all" %in% input){
+
+    res <- c("genesis" = "gen_api", "zensus" = "gen_zensus_api", "regio" = "gen_regio_api")
+
+  }
+
+  if (identical(res, c())){
+
+    stop("Database parameter must be either 'genesis', 'zensus', 'regio', or 'all'. No other values allowed.",
+         call. = FALSE)
 
   } else {
 
-    stop("Database parameter must be either 'genesis' or 'zensus'. No other values allowed.",
-         call. = FALSE)
+    return(res)
 
+  }
+
+}
+#-------------------------------------------------------------------------------
+#' rev_database_function
+#'
+#' @param input Input to test for database name
+#'
+rev_database_function <- function(input){
+  input[which(input == "gen_api")] <- "genesis"
+  input[which(input == "gen_zensus_api")] <- "zensus"
+  input[which(input == "gen_regio_api")] <- "regio"
+
+  return(input)
+}
+#-------------------------------------------------------------------------------
+#' check_results
+#'
+#' @param input Input to test result structure
+#'
+check_results <- function(input){
+
+  if(length(input) > 1){
+    return(input)
+  } else {
+    input <- input[[1]]
+    return(input)
   }
 
 }

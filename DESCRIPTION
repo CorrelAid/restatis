@@ -26,7 +26,9 @@ Imports:
     readr,
     tibble,
     vctrs,
-    usethis
+    usethis,
+    rvest,
+    purrr
 Suggests: 
     httptest2,
     knitr,

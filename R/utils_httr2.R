@@ -41,7 +41,20 @@ test_if_json <- function(input) {
 }
 
 #-------------------------------------------------------------------------------
+#' test_if_okay
+#'
+#' @param input Response object
+#'
+test_if_okay <- function(input) {
 
+  results_json <- ifelse(input$`User-Agent` == "https://github.com/CorrelAid/restatis",
+                         "Yes",
+                         "No"
+                         )
+
+  return(results_json)
+
+}
 #-------------------------------------------------------------------------------
 
 #' test_if_error_find

@@ -24,7 +24,7 @@
 #' }
 #'
 gen_modified_data <- function(code = "",
-                              database = c("genesis", "zensus"),
+                              database = c("all", "genesis", "zensus", "regio"),
                               type = c("all", "tables", "statistics", "statisticsUpdates"),
                               date = c("now", "week_before", "month_before", "year_before"),
                               ...) {
@@ -62,172 +62,139 @@ gen_modified_data <- function(code = "",
   #-----------------------------------------------------------------------------
 
   # Processing ####
-  if (type == "tables") {
+  res <- lapply(gen_fun, function(db){
 
-    if(gen_fun == "gen_api"){
+    #---------------------------------------------------------------------------
+    if (type == "tables") {
 
       par_list <-  list(
         endpoint = "catalogue/modifieddata",
-        username = gen_auth_get()$username,
-        password = gen_auth_get()$password,
+        username = gen_auth_get(database = rev_database_function(db))$username,
+        password = gen_auth_get(database = rev_database_function(db))$password,
         selection = code,
         type = "Neue Tabellen",
         date = date,
         ...
       )
 
-    } else if ( gen_fun == "gen_zensus_api"){
+      results_raw <- do.call(db, par_list)
 
-      par_list <-  list(
-        endpoint = "catalogue/modifieddata",
-        username = gen_zensus_auth_get()$username,
-        password = gen_zensus_auth_get()$password,
-        selection = code,
-        type = "Neue Tabellen",
-        date = date,
-        ...
-      )
+      results_json <- test_if_json(results_raw)
+
+      test_if_error_light(results_json)
 
     }
 
-    results_raw <- do.call(gen_fun, par_list)
-
-    results_json <- test_if_json(results_raw)
-
-    test_if_error_light(results_json)
-  }
-
-  #-----------------------------------------------------------------------------
-
-  if (type == "statistics") {
-
-    if(gen_fun == "gen_api"){
+    #---------------------------------------------------------------------------
+    if (type == "statistics") {
 
       par_list <-  list(
-        endpoint = "catalogue/modifieddata",
-        username = gen_auth_get()$username,
-        password = gen_auth_get()$password,
-        selection = code,
-        type = "Neue Statistiken",
-        date = date,
-        ...
-      )
+          endpoint = "catalogue/modifieddata",
+          username = gen_auth_get(database = rev_database_function(db))$username,
+          password = gen_auth_get(database = rev_database_function(db))$password,
+          selection = code,
+          type = "Neue Statistiken",
+          date = date,
+          ...
+        )
 
-    } else if ( gen_fun == "gen_zensus_api"){
+      results_raw <- do.call(db, par_list)
 
-      par_list <-  list(
-        endpoint = "catalogue/modifieddata",
-        username = gen_zensus_auth_get()$username,
-        password = gen_zensus_auth_get()$password,
-        selection = code,
-        type = "Neue Statistiken",
-        date = date,
-        ...
-      )
+      results_json <- test_if_json(results_raw)
 
+      test_if_error_light(results_json)
     }
 
-    results_raw <- do.call(gen_fun, par_list)
+    #---------------------------------------------------------------------------
+    if (type == "statisticsUpdates") {
 
-    results_json <- test_if_json(results_raw)
+      if(db == "gen_api" | db == "gen_api_regio"){
 
-    test_if_error_light(results_json)
-  }
+        par_list <-  list(
+          endpoint = "catalogue/modifieddata",
+          username = gen_auth_get(database = rev_database_function(db))$username,
+          password = gen_auth_get(database = rev_database_function(db))$password,
+          selection = code,
+          type = "Aktualisierte Statistiken",
+          date = date,
+          ...
+        )
 
-  #-----------------------------------------------------------------------------
+      }
 
-  if (type == "statisticsUpdates") {
+      results_raw <- do.call(db, par_list)
 
-    if(gen_fun == "gen_api"){
+      results_json <- test_if_json(results_raw)
 
-      par_list <-  list(
-        endpoint = "catalogue/modifieddata",
-        username = gen_auth_get()$username,
-        password = gen_auth_get()$password,
-        selection = code,
-        type = "Aktualisierte Statistiken",
-        date = date,
-        ...
-      )
-
+      test_if_error_light(results_json)
     }
 
-    results_raw <- do.call(gen_fun, par_list)
-
-    results_json <- test_if_json(results_raw)
-
-    test_if_error_light(results_json)
-  }
-
-  #-----------------------------------------------------------------------------
-
-  if (type == "all") {
-
-    if(gen_fun == "gen_api"){
+    #---------------------------------------------------------------------------
+    if (type == "all") {
 
       par_list <-  list(
         endpoint = "catalogue/modifieddata",
-        username = gen_auth_get()$username,
-        password = gen_auth_get()$password,
+        username = gen_auth_get(database = rev_database_function(db))$username,
+        password = gen_auth_get(database = rev_database_function(db))$password,
         selection = code,
         type = "all",
         date = date,
         ...
       )
 
-    } else if ( gen_fun == "gen_zensus_api"){
+      results_raw <- do.call(db, par_list)
 
-      par_list <-  list(
-        endpoint = "catalogue/modifieddata",
-        username = gen_zensus_auth_get()$username,
-        password = gen_zensus_auth_get()$password,
-        selection = code,
-        type = "all",
-        date = date,
-        ...
-      )
+      results_json <- test_if_json(results_raw)
+
+      test_if_error_light(results_json)
 
     }
 
-    results_raw <- do.call(gen_fun, par_list)
 
-    results_json <- test_if_json(results_raw)
+    if (is.null(unlist(results_json$List))) {
 
-    test_if_error_light(results_json)
+      message(paste0("No modified objects found for your code and date in ", rev_database_function(db)))
+
+      return(NULL)
+
+    } else {
+
+      table <- binding_lapply(results_json$List,
+                              characteristics = c("Code",
+                                                  "Content",
+                                                  "Date",
+                                                  "Added",
+                                                  "Type"))
+
+
+      table$Date <- as.Date.character(table$Date, format = "%d.%m.%Y")
+
+      table <- tibble::as_tibble(table)
+      table <- table[order(table$Date, decreasing = TRUE), ]
+
+      list_resp <- list("Modified" = table)
+
+      attr(list_resp, "Code") <- results_json$Parameter$selection
+      attr(list_resp, "Database") <- rev_database_function(db)
+      attr(list_resp, "Type") <- results_json$Parameter$type
+      attr(list_resp, "Date") <- results_json$Parameter$date
+      attr(list_resp, "Language") <- results_json$Parameter$language
+      attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+      attr(list_resp, "Copyright") <- results_json$Copyright
+
+      return(list_resp)
+
   }
+  })
 
   #-----------------------------------------------------------------------------
 
-  if (is.null(unlist(results_json$List))) {
+  if(!is.null(unlist(res))){
 
-    message("No modified objects found for your code and date.")
+    res <- check_results(res)
 
-  } else {
-
-    table <- binding_lapply(results_json$List,
-                                    characteristics = c("Code",
-                                                        "Content",
-                                                        "Date",
-                                                        "Added",
-                                                        "Type"))
-
-
-    table$Date <- as.Date.character(table$Date, format = "%d.%m.%Y")
-
-    table <- tibble::as_tibble(table)
-    table <- table[order(table$Date, decreasing = TRUE), ]
-
-    list_resp <- list("Modified" = table)
-
-    attr(list_resp, "Code") <- results_json$Parameter$selection
-    attr(list_resp, "Database") <- database[1]
-    attr(list_resp, "Type") <- results_json$Parameter$type
-    attr(list_resp, "Date") <- results_json$Parameter$date
-    attr(list_resp, "Language") <- results_json$Parameter$language
-    attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-    attr(list_resp, "Copyright") <- results_json$Copyright
-
-    return(list_resp)
+    return(res)
 
   }
+
 }

@@ -27,7 +27,7 @@
 #' }
 #'
 gen_catalogue <- function(code = NULL,
-                          database = c("genesis", "zensus"),
+                          database = c("all", "genesis", "zensus", "regio"),
                           category = c("tables", "statistics", "cubes"),
                           area = c("all", "public", "user"),
                           detailed = FALSE,
@@ -56,272 +56,244 @@ gen_catalogue <- function(code = NULL,
   #-----------------------------------------------------------------------------
 
   # Processing ####
-  if ("cubes" %in% category && gen_fun == "gen_zensus_api") {
+  res <- lapply(gen_fun, function(db){
 
-    list_of_cubes <- "No 'cubes' object available for 'zensus' database."
+    #---------------------------------------------------------------------------
+    if ("cubes" %in% category && db == "gen_zensus_api") {
 
-  } else if ("cubes" %in% category && gen_fun == "gen_api") {
+      list_of_cubes <- "No 'cubes' object available for 'zensus' database."
 
-    results_raw <- do.call(gen_fun, list(
-                             endpoint = "catalogue/cubes",
-                             username = gen_auth_get()$username,
-                             password = gen_auth_get()$password,
-                             selection = code,
-                             sortcriterion = sortcriterion,
-                             area = area,
-                             ...
-                           ))
+    } else if ("cubes" %in% category && (db == "gen_api" | db == "gen_zensus_api")) {
 
-    results_json <- test_if_json(results_raw)
-
-    empty_object <- test_if_error(results_json, para = error.ignore)
-
-    if(isTRUE(empty_object)){
-
-      list_of_cubes <- "No 'cubes' object found for your request."
-
-    } else if(isFALSE(empty_object)){
-
-      list_of_cubes <- results_json$Status$Content
-
-    } else if(empty_object == "DONE"){
-
-    if (isTRUE(detailed)) {
-
-      list_of_cubes <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Time",
-                                                          "LatestUpdate",
-                                                          "State",
-                                                          "Information"))
-
-    } else {
-
-      list_of_cubes <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content"))
-
-
-
-    }
-
-    list_of_cubes$Object_Type <- "Cube"
-
-    list_of_cubes <- tibble::as_tibble(list_of_cubes)
-
-    }
-  }
-
-
-  #-----------------------------------------------------------------------------
-
-  if ("statistics" %in% category) {
-
-    if(gen_fun == "gen_api"){
-
-      par_list <-  list(
-        endpoint = "catalogue/statistics",
-        username = gen_auth_get()$username,
-        password = gen_auth_get()$password,
+      results_raw <- do.call(db, list(
+        endpoint = "catalogue/cubes",
+        username = gen_auth_get(database = rev_database_function(db))$username,
+        password = gen_auth_get(database = rev_database_function(db))$password,
         selection = code,
         sortcriterion = sortcriterion,
-        ...
-      )
-
-    } else if ( gen_fun == "gen_zensus_api"){
-
-      par_list <-  list(
-        endpoint = "catalogue/statistics",
-        username = gen_zensus_auth_get()$username,
-        password = gen_zensus_auth_get()$password,
-        selection = code,
-        sortcriterion = sortcriterion,
-        ...
-      )
-
-    }
-
-    results_raw <- do.call(gen_fun, par_list)
-
-    results_json <- test_if_json(results_raw)
-
-    empty_object <- test_if_error(results_json, para = error.ignore)
-
-    if(isTRUE(empty_object)){
-
-      list_of.stats <- "No 'statistics' object found for your request."
-
-    } else if(isFALSE(empty_object)){
-
-      list_of.stats <- results_json$Status$Content
-
-    } else if(empty_object == "DONE"){
-
-    if (isTRUE(detailed)) {
-
-      list_of.stats <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Cubes",
-                                                          "Information"))
-
-
-    } else {
-
-      list_of.stats <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content"))
-
-
-
-    }
-
-    list_of.stats$Object_Type <- "Statistic"
-
-    list_of.stats <- tibble::as_tibble(list_of.stats)
-
-    }
-  }
-
-
-
-  #-----------------------------------------------------------------------------
-
-  if ("tables" %in% category) {
-
-    if(gen_fun == "gen_api"){
-
-      par_list <-  list(
-        endpoint = "catalogue/tables",
-        username = gen_auth_get()$username,
-        password = gen_auth_get()$password,
-        selection = code,
         area = area,
-        sortcriterion = sortcriterion,
         ...
-      )
+      ))
 
-    } else if (gen_fun == "gen_zensus_api"){
+      results_json <- test_if_json(results_raw)
+
+      empty_object <- test_if_error(results_json, para = error.ignore)
+
+      if(isTRUE(empty_object)){
+
+        list_of_cubes <- "No 'cubes' object found for your request."
+
+      } else if(isFALSE(empty_object)){
+
+        list_of_cubes <- results_json$Status$Content
+
+      } else if(empty_object == "DONE"){
+
+        if (isTRUE(detailed)) {
+
+          list_of_cubes <- binding_lapply(results_json$List,
+                                          characteristics = c("Code",
+                                                              "Content",
+                                                              "Time",
+                                                              "LatestUpdate",
+                                                              "State",
+                                                              "Information"))
+
+        } else {
+
+          list_of_cubes <- binding_lapply(results_json$List,
+                                          characteristics = c("Code",
+                                                              "Content"))
+
+
+
+        }
+
+        list_of_cubes$Object_Type <- "Cube"
+
+        list_of_cubes <- tibble::as_tibble(list_of_cubes)
+
+      }
+    }
+
+    #---------------------------------------------------------------------------
+    if ("statistics" %in% category) {
+
+        par_list <-  list(
+          endpoint = "catalogue/statistics",
+          username = gen_zensus_auth_get(database = rev_database_function(db))$username,
+          password = gen_zensus_auth_get(database = rev_database_function(db))$password,
+          selection = db,
+          sortcriterion = sortcriterion,
+          ...
+        )
+
+      results_raw <- do.call(db, par_list)
+
+      results_json <- test_if_json(results_raw)
+
+      empty_object <- test_if_error(results_json, para = error.ignore)
+
+      if(isTRUE(empty_object)){
+
+        list_of.stats <- "No 'statistics' object found for your request."
+
+      } else if(isFALSE(empty_object)){
+
+        list_of.stats <- results_json$Status$Content
+
+      } else if(empty_object == "DONE"){
+
+        if (isTRUE(detailed)) {
+
+          list_of.stats <- binding_lapply(results_json$List,
+                                          characteristics = c("Code",
+                                                              "Content",
+                                                              "Cubes",
+                                                              "Information"))
+
+
+        } else {
+
+          list_of.stats <- binding_lapply(results_json$List,
+                                          characteristics = c("Code",
+                                                              "Content"))
+
+
+
+        }
+
+        list_of.stats$Object_Type <- "Statistic"
+
+        list_of.stats <- tibble::as_tibble(list_of.stats)
+
+      }
+    }
+
+    #---------------------------------------------------------------------------
+    if ("tables" %in% category) {
 
       par_list <-  list(
-        endpoint = "catalogue/tables",
-        username = gen_zensus_auth_get()$username,
-        password = gen_zensus_auth_get()$password,
-        selection = code,
-        area = area,
-        sortcriterion = sortcriterion,
-        ...
+          endpoint = "catalogue/tables",
+          username = gen_auth_get(database = rev_database_function(db))$username,
+          password = gen_auth_get(database = rev_database_function(db))$password,
+          selection = code,
+          area = area,
+          sortcriterion = sortcriterion,
+          ...
+        )
+
+      results_raw <- do.call(db, par_list)
+
+      results_json <- test_if_json(results_raw)
+
+      empty_object <- test_if_error(results_json, para = error.ignore)
+
+      if(isTRUE(empty_object)){
+
+        list_of.tabs <- "No 'tables' object found for your request."
+
+      } else if(isFALSE(empty_object)){
+
+        list_of.tabs <- results_json$Status$Content
+
+      } else if(empty_object == "DONE"){
+
+        if (isTRUE(detailed)) {
+
+          list_of.tabs <- binding_lapply(results_json$List,
+                                         characteristics = c("Code",
+                                                             "Content",
+                                                             "Time"))
+
+
+
+        } else {
+
+          list_of.tabs <- binding_lapply(results_json$List,
+                                         characteristics = c("Code",
+                                                             "Content"))
+
+
+        }
+
+        list_of.tabs$Object_Type <- "Table"
+
+        list_of.tabs <- tibble::as_tibble(list_of.tabs)
+
+      }
+    }
+
+    #---------------------------------------------------------------------------
+    # Summary ####
+    if (all(c("tables", "statistics", "cubes") %in% category)) {
+
+      list_resp <- list(
+        "Cubes" = if(length(list_of_cubes) == 1 | db == "gen_zensus_api"){tibble::as_tibble(list_of_cubes)} else {forming_evas(list_of_cubes)},
+        "Statistics" = if(length(list_of.stats) == 1 | db == "gen_zensus_api"){tibble::as_tibble(list_of.stats)} else {forming_evas(list_of.stats)},
+        "Tables" = if(length(list_of.tabs) == 1 | db == "gen_zensus_api"){tibble::as_tibble(list_of.tabs)} else {forming_evas(list_of.tabs)}
       )
 
+    } else if ("cubes" %in% category) {
+
+      if(length(list_of_cubes) == 1 && db == "gen_zensus_api"){
+
+        list_resp <- list_of_cubes
+
+      } else if (length(list_of_cubes) == 1 | db == "gen_zensus_api"){
+
+        list_resp <- list("Cubes" = tibble::as_tibble(list_of_cubes))
+
+      } else {
+
+        list_resp <- list("Cubes" = forming_evas(list_of_cubes))
+
+      }
+
+    } else if ("statistics" %in% category) {
+
+      if(length(list_of.stats) == 1 | db == "gen_zensus_api"){
+
+        list_resp <- list("Statistics" = tibble::as_tibble(list_of.stats))
+
+      } else {
+
+        list_resp <- list("Statistics" = forming_evas(list_of.stats))
+
+      }
+
+    } else if ("tables" %in% category) {
+
+      if(length(list_of.tabs) == 1 | db == "gen_zensus_api"){
+
+        list_resp <- list("Tables" = tibble::as_tibble(list_of.tabs))
+
+      } else {
+
+        list_resp <- list("Tables" = forming_evas(list_of.tabs))
+
+      }
+
     }
 
-    results_raw <- do.call(gen_fun, par_list)
-
-    results_json <- test_if_json(results_raw)
-
-    empty_object <- test_if_error(results_json, para = error.ignore)
-
-    if(isTRUE(empty_object)){
-
-      list_of.tabs <- "No 'tables' object found for your request."
-
-    } else if(isFALSE(empty_object)){
-
-      list_of.tabs <- results_json$Status$Content
-
-    } else if(empty_object == "DONE"){
-
-    if (isTRUE(detailed)) {
-
-      list_of.tabs <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Time"))
-
-
-
+    attr(list_resp, "Code") <- code
+    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Category") <- category
+    if(length(category) == 1 && "cubes" %in% category && db == "gen_zensus_api"){
+      attr(list_resp, "Info") <- "NO API call done"
     } else {
-
-      list_of.tabs <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content"))
-
-
+      attr(list_resp, "Language") <- results_json$Parameter$language
+      attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+      attr(list_resp, "Copyright") <- results_json$Copyright
     }
 
-    list_of.tabs$Object_Type <- "Table"
-
-    list_of.tabs <- tibble::as_tibble(list_of.tabs)
-
-    }
-  }
-
+    return(list_resp)
+  })
 
   #-----------------------------------------------------------------------------
 
-  # Summary ####
-  if (all(c("tables", "statistics", "cubes") %in% category)) {
+  res <- check_results(res)
 
-    list_resp <- list(
-                  "Cubes" = if(length(list_of_cubes) == 1 | gen_fun == "gen_zensus_api"){tibble::as_tibble(list_of_cubes)} else {forming_evas(list_of_cubes)},
-                  "Statistics" = if(length(list_of.stats) == 1 | gen_fun == "gen_zensus_api"){tibble::as_tibble(list_of.stats)} else {forming_evas(list_of.stats)},
-                  "Tables" = if(length(list_of.tabs) == 1 | gen_fun == "gen_zensus_api"){tibble::as_tibble(list_of.tabs)} else {forming_evas(list_of.tabs)}
-                  )
-
-  } else if ("cubes" %in% category) {
-
-    if(length(list_of_cubes) == 1 && gen_fun == "gen_zensus_api"){
-
-      list_resp <- list_of_cubes
-
-  } else if (length(list_of_cubes) == 1 | gen_fun == "gen_zensus_api"){
-
-      list_resp <- list("Cubes" = tibble::as_tibble(list_of_cubes))
-
-    } else {
-
-      list_resp <- list("Cubes" = forming_evas(list_of_cubes))
-
-    }
-
-  } else if ("statistics" %in% category) {
-
-    if(length(list_of.stats) == 1 | gen_fun == "gen_zensus_api"){
-
-      list_resp <- list("Statistics" = tibble::as_tibble(list_of.stats))
-
-    } else {
-
-      list_resp <- list("Statistics" = forming_evas(list_of.stats))
-
-    }
-
-  } else if ("tables" %in% category) {
-
-    if(length(list_of.tabs) == 1 | gen_fun == "gen_zensus_api"){
-
-      list_resp <- list("Tables" = tibble::as_tibble(list_of.tabs))
-
-    } else {
-
-      list_resp <- list("Tables" = forming_evas(list_of.tabs))
-
-    }
-
-  }
-
-  attr(list_resp, "Code") <- code
-  attr(list_resp, "Database") <- database[1]
-  attr(list_resp, "Category") <- category
-  if(length(category) == 1 && "cubes" %in% category && gen_fun == "gen_zensus_api"){
-    attr(list_resp, "Info") <- "NO API call done"
-  } else {
-  attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-  attr(list_resp, "Copyright") <- results_json$Copyright
-  }
-
-  return(list_resp)
+  return(res)
 
 }
