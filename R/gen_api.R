@@ -55,7 +55,7 @@ gen_regio_api <- function(endpoint, ...) {
 #'   httr2::resp_body_json()
 #'
 gen_zensus_api <- function(endpoint, ...) {
-  httr2::request("https://ergebnisse2011.zensus2022.de/api/rest/2020") %>%
+  httr2::request("https://www.regionalstatistik.de/genesisws/rest/2020/") %>%
     httr2::req_user_agent("https://github.com/CorrelAid/restatis") %>%
     httr2::req_url_path_append(endpoint) %>%
     httr2::req_url_query(!!!gen_auth_get(database = "zensus"), ...) %>%
