@@ -307,3 +307,33 @@ return_table_object <- function(response,
 }
 
 #-------------------------------------------------------------------------------
+
+warn_if_http_error <- function(response,
+                               database,
+                               verbose) {
+
+  if (response$status_code != 200) {
+
+    warning("Database: '",
+            database,
+            "' There seems to be an issue with the authentication process (logincheck upon credential specification failed with code ",
+            response$status_code,
+            "). ",
+            "Please retry specifying your credentials or check whether the API is currently down.",
+            call. = FALSE)
+
+    invisible(FALSE)
+
+  } else {
+
+    if(isTRUE(verbose)) {
+
+      message(paste0("Login check for database '", database, "' succeeded."))
+
+    }
+
+    invisible(TRUE)
+
+  }
+
+}

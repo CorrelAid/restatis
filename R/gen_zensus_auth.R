@@ -45,7 +45,7 @@ gen_zensus_auth_save <- function() {
                           key = "ZENSUS_KEY")
 
   # Logincheck
-  perform_logincheck(database = "zensus")
+  gen_logincheck(database = "zensus")
 
 }
 
