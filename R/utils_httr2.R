@@ -207,13 +207,33 @@ test_if_error_light <- function(input) {
 #'
 return_table_object <- function(response,
                                 response_type,
-                                language) {
-
-  # There has to be a check on language to display correct decimal marks
-  # For German results, there needs to be a decimal mark set
+                                language,
+                                all_character) {
 
   #-----------------------------------------------------------------------------
+  # Short parameter processing of 'all character' for later use in read_delim
+
+  if (isTRUE(all_character)) {
+
+    all_character <- expression(readr::cols(.default = readr::col_character()))
+
+  } else if (isFALSE(all_character)) {
+
+    all_character <- expression(readr::cols())
+
+  } else {
+
+    stop("Misspecification of parameter 'all_character'. Has to be TRUE or FALSE.",
+         call. = FALSE)
+
+  }
+
+  #-------------------------------------------------------------------------------
+
   if (response_type == "text/csv"){
+
+    # There has to be a check on language to display correct decimal marks
+    # For German results, there needs to be a decimal mark set
 
     if (language == "de") {
 
@@ -223,20 +243,22 @@ return_table_object <- function(response,
                                     show_col_types = FALSE,
                                     locale = readr::locale(decimal_mark = ",",
                                                            grouping_mark = "."),
-                                    name_repair = "minimal")
+                                    name_repair = "minimal",
+                                    col_types = eval(all_character))
 
     } else if (language == "en") {
 
       result <- response %>%
                   httr2::resp_body_string() %>%
-                  readr::read_delim(
-                    delim = ";",
-                    show_col_types = FALSE,
-                    name_repair = "minimal")
+                  readr::read_delim(delim = ";",
+                                    show_col_types = FALSE,
+                                    name_repair = "minimal",
+                                    col_types = eval(all_character))
 
     } else {
 
-      stop("Error handling language setting locale (values different from 'de' and 'en'.")
+      stop("Error handling language setting locale (values different from 'de' and 'en'.",
+           call. = FALSE)
 
     }
 
@@ -282,18 +304,21 @@ return_table_object <- function(response,
                                   show_col_types = FALSE,
                                   locale = readr::locale(decimal_mark = ",",
                                                          grouping_mark = "."),
-                                  name_repair = "minimal")
+                                  name_repair = "minimal",
+                                  col_types = eval(all_character))
 
     } else if (language == "en") {
 
       result <- readr::read_delim(file = extracted_file,
                                   delim = ";",
                                   show_col_types = FALSE,
-                                  name_repair = "minimal")
+                                  name_repair = "minimal",
+                                  col_types = eval(all_character))
 
     } else {
 
-      stop("Error handling language setting locale (values different from 'de' and 'en').")
+      stop("Error handling language setting locale (values different from 'de' and 'en').",
+           call. = FALSE)
 
     }
 
