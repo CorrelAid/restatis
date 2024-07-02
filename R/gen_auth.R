@@ -17,7 +17,7 @@
 #'
 gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio")) {
 
-  if(database == "genesis"){
+  if("genesis" %in% database && !"all" %in% database){
     username <- gen_auth_ask("username")
     password <- gen_auth_ask("password")
 
@@ -48,7 +48,7 @@ gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio")) {
     # Logincheck
     perform_logincheck(database = "genesis")
 
-  } else if (database == "zensus"){
+  } else if ("zensus" %in% database && !"all" %in% database){
 
     username <- gen_auth_ask("username")
     password <- gen_auth_ask("password")
@@ -80,7 +80,7 @@ gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio")) {
     # Logincheck
     perform_logincheck(database = "zensus")
 
-  } else if (database == "regio"){
+  } else if ("regio" %in% database && !"all" %in% database){
 
     username <- gen_auth_ask("username")
     password <- gen_auth_ask("password")
@@ -112,7 +112,7 @@ gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio")) {
     # Logincheck
     perform_logincheck(database = "regio")
 
-    } else if (database == "all"){
+    } else if ("all" %in% database){
 
       message("Saving credentials for Genesis database")
 
@@ -239,7 +239,11 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
     }
 
-    httr2::secret_read_rds(auth_path, "RESTATIS_KEY")
+    if(is.null(sys.call(-1))){
+    print(httr2::secret_read_rds(auth_path, "RESTATIS_KEY"))
+    } else {
+      httr2::secret_read_rds(auth_path, "RESTATIS_KEY")
+    }
 
   } else if ("zensus" %in% database && !"all" %in% database){
 
@@ -257,7 +261,12 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
     }
 
-    httr2::secret_read_rds(auth_path, "ZENSUS_KEY")
+    if(is.null(sys.call(-1))){
+      print(httr2::secret_read_rds(auth_path, "ZENSUS_KEY"))
+    } else {
+      httr2::secret_read_rds(auth_path, "ZENSUS_KEY")
+    }
+
 
   } else if ("regio" %in% database && !"all" %in% database){
 
@@ -275,7 +284,11 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
     }
 
-    print(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
+    if(is.null(sys.call(-1))){
+      print(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
+    } else {
+      httr2::secret_read_rds(auth_path, "REGIO_KEY")
+    }
 
   } else if ("all" %in% database){
 
@@ -293,8 +306,11 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
     }
 
-    print(httr2::secret_read_rds(auth_path, "RESTATIS_KEY"))
-
+    if(is.null(sys.call(-1))){
+      print(httr2::secret_read_rds(auth_path, "RESTATIS_KEY"))
+    } else {
+      httr2::secret_read_rds(auth_path, "RESTATIS_KEY")
+    }
 
     if(is.null(sys.call(-1))){
       message("Credentials for Zensus database")
@@ -310,8 +326,11 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
     }
 
-    print(httr2::secret_read_rds(auth_path, "ZENSUS_KEY"))
-
+    if(is.null(sys.call(-1))){
+      print(httr2::secret_read_rds(auth_path, "ZENSUS_KEY"))
+    } else {
+      httr2::secret_read_rds(auth_path, "ZENSUS_KEY")
+    }
 
     if(is.null(sys.call(-1))){
       message("Credentials for Regionalstatistik database")
@@ -327,7 +346,12 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
     }
 
-    print(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
+
+    if(is.null(sys.call(-1))){
+      print(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
+    } else {
+      httr2::secret_read_rds(auth_path, "REGIO_KEY")
+    }
 
   } else {
 
