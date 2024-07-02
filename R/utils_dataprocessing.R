@@ -58,7 +58,7 @@ forming_evas <- function(list_of) {
   data_path <- system.file("data", "EVAS_numbers.RData", package = "restatis")
 
   # Load data
-  evas_list <- load(data_path)
+  load(data_path)
 
   #-----------------------------------------------------------------------------
   # Process them
@@ -655,9 +655,9 @@ check_function_input <- function(code = NULL,
 
         #-----------------------------------------------------------------------
 
-        if (!all(category %in% c("Cube", "Statistic", "Table", "Variable", "Value"))) {
+        if (!all(category %in% c("cube", "statistic", "table", "variable", "value"))) {
 
-            stop("Available categories for parameter 'category' for 'genesis'-database are 'Cube', 'Table', 'Statistic', 'Variable', and 'Value'.",
+            stop("Available categories for parameter 'category' for 'genesis'-database are 'cube', 'table', 'statistic', 'variable', and 'value'.",
                   call. = FALSE)
 
           }
@@ -668,9 +668,9 @@ check_function_input <- function(code = NULL,
 
       else if("gen_zensus_api" %in% database) {
 
-        if (!all(category %in% c("Statistic", "Table", "Variable", "Value"))) {
+        if (!all(category %in% c("statistic", "table", "variable", "value"))) {
 
-          stop("Available categories for parameter 'category' for 'zensus'-database are 'Table', 'Statistic', 'Variable', and 'Value'.",
+          stop("Available categories for parameter 'category' for 'zensus'-database are 'table', 'statistic', 'variable', and 'value'.",
                call. = FALSE)
 
         }

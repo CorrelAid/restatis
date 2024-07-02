@@ -63,7 +63,7 @@ gen_catalogue <- function(code = NULL,
 
       list_of_cubes <- "No 'cubes' object available for 'zensus' database."
 
-    } else if ("cubes" %in% category && (db == "gen_api" | db == "gen_zensus_api")) {
+    } else if ("cubes" %in% category && (db == "gen_api" | db == "gen_regio_api")) {
 
       results_raw <- do.call(db, list(
         endpoint = "catalogue/cubes",
@@ -109,7 +109,7 @@ gen_catalogue <- function(code = NULL,
 
         }
 
-        list_of_cubes$Object_Type <- "Cube"
+        list_of_cubes$Object_Type <- "cube"
 
         list_of_cubes <- tibble::as_tibble(list_of_cubes)
 
@@ -163,7 +163,7 @@ gen_catalogue <- function(code = NULL,
 
         }
 
-        list_of.stats$Object_Type <- "Statistic"
+        list_of.stats$Object_Type <- "statistic"
 
         list_of.stats <- tibble::as_tibble(list_of.stats)
 
@@ -217,7 +217,7 @@ gen_catalogue <- function(code = NULL,
 
         }
 
-        list_of.tabs$Object_Type <- "Table"
+        list_of.tabs$Object_Type <- "table"
 
         list_of.tabs <- tibble::as_tibble(list_of.tabs)
 
@@ -229,7 +229,7 @@ gen_catalogue <- function(code = NULL,
     if (all(c("tables", "statistics", "cubes") %in% category)) {
 
       list_resp <- list(
-        "Cubes" = if(length(list_of_cubes) == 1 | db == "gen_zensus_api"){tibble::as_tibble(list_of_cubes)} else {forming_evas(list_of_cubes)},
+        "Cubes" = if(length(list_of_cubes) == 1 | db == "gen_zensus_api"){list_of_cubes} else {forming_evas(list_of_cubes)},
         "Statistics" = if(length(list_of.stats) == 1 | db == "gen_zensus_api"){tibble::as_tibble(list_of.stats)} else {forming_evas(list_of.stats)},
         "Tables" = if(length(list_of.tabs) == 1 | db == "gen_zensus_api"){tibble::as_tibble(list_of.tabs)} else {forming_evas(list_of.tabs)}
       )

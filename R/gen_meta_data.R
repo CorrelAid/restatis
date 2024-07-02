@@ -643,7 +643,7 @@ gen_metadata_cube <- function(code = NULL,
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the table with the code "11111"
-#' object <- gen_metadata(code = "11111", category = "Table")
+#' object <- gen_metadata(code = "11111", category = "table")
 #' }
 #'
 gen_metadata <- function(code = NULL,
@@ -670,34 +670,34 @@ gen_metadata <- function(code = NULL,
     if (category == "cube") {
 
       gen_metadata_cube(code = code,
-                        database = odb,
+                        database = rev_database_function(odb),
                         error.ignore = error.ignore, ...)
 
     } else if (category == "value") {
 
       gen_metadata_val(code = code,
-                       database = odb,
+                       database = rev_database_function(odb),
                        area = area,
                        error.ignore = error.ignore, ...)
 
     } else if (category == "variable") {
 
       gen_metadata_var(code = code,
-                       database = odb,
+                       database = rev_database_function(odb),
                        area = area,
                        error.ignore = error.ignore, ...)
 
     } else if (category == "table") {
 
       gen_metadata_tab(code = code,
-                       database = odb,
+                       database = rev_database_function(odb),
                        area = area,
                        error.ignore = error.ignore, ...)
 
     } else if (category == "statistic") {
 
       gen_metadata_stats(code = code,
-                         database = odb,
+                         database = rev_database_function(odb),
                          area = area,
                          error.ignore = error.ignore, ...)
 

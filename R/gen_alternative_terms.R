@@ -52,9 +52,17 @@ gen_alternative_terms <- function(term = NULL,
 
     results_json <- test_if_json(results_raw)
 
-    if (length(results_json$List) == 0) {
+    if (length(results_json$List) == 0  & length(gen_fun) == 1) {
 
       stop("No related terms found for your code.", call. = FALSE)
+
+    } else if (length(results_json$List) == 0  & length(gen_fun) > 1) {
+
+      termslist <- "No related terms found for your code."
+
+      list_resp <- list("Output" = termslist)
+
+      return(list_resp)
 
     } else {
 

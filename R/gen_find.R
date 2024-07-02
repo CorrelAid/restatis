@@ -56,6 +56,8 @@ gen_find <- function(term = NULL,
 
   res <- lapply(gen_fun, function(db){
 
+    browser()
+
     #---------------------------------------------------------------------------
     if(db == "gen_zensus_api" & category == "cubes"){
 
@@ -135,7 +137,7 @@ gen_find <- function(term = NULL,
 
           df_table$Variablen <- spezifisch_create(df_table)
 
-          df_table$Object_Type <- "Table"
+          df_table$Object_Type <- "table"
 
           #-------------------------------------------------------------------------
 
@@ -149,7 +151,7 @@ gen_find <- function(term = NULL,
 
           df_stats$Variablen <- spezifisch_create(df_stats)
 
-          df_stats$Object_Type <- "Statistic"
+          df_stats$Object_Type <- "statistic"
 
           #-------------------------------------------------------------------------
 
@@ -164,7 +166,7 @@ gen_find <- function(term = NULL,
 
           df_variables$Variablen <- spezifisch_create(df_variables)
 
-          df_variables$Object_Type <- "Variable"
+          df_variables$Object_Type <- "variable"
 
           #-------------------------------------------------------------------------
 
@@ -181,7 +183,7 @@ gen_find <- function(term = NULL,
 
             df_cubes$Variablen <- spezifisch_create(df_cubes)
 
-            df_cubes$Object_Type <- "Cube"
+            df_cubes$Object_Type <- "cube"
           }
 
           #-------------------------------------------------------------------------
@@ -318,7 +320,7 @@ gen_find <- function(term = NULL,
 
           df_table$Variablen <- spezifisch_create(df_table)
 
-          df_table$Object_Type <- "Table"
+          df_table$Object_Type <- "table"
 
           #-------------------------------------------------------------------------
 
@@ -375,7 +377,7 @@ gen_find <- function(term = NULL,
 
           df_stats$Variablen <- spezifisch_create(df_stats)
 
-          df_stats$Object_Type <- "Statistic"
+          df_stats$Object_Type <- "statistic"
 
           #-------------------------------------------------------------------------
 
@@ -434,7 +436,7 @@ gen_find <- function(term = NULL,
 
           df_variables$Variablen <- spezifisch_create(df_variables)
 
-          df_variables$Object_Type <- "Variable"
+          df_variables$Object_Type <- "variable"
 
           #-------------------------------------------------------------------------
 
@@ -497,7 +499,7 @@ gen_find <- function(term = NULL,
 
             df_cubes$Variablen <- spezifisch_create(df_cubes)
 
-            df_cubes$Object_Type <- "Cube"
+            df_cubes$Object_Type <- "cube"
 
             #-------------------------------------------------------------------------
 
@@ -568,7 +570,7 @@ gen_find <- function(term = NULL,
 
           df_table$Variablen <- spezifisch_create(df_table)
 
-          df_table$Object_Type <- "Table"
+          df_table$Object_Type <- "table"
 
           #-------------------------------------------------------------------------
 
@@ -580,7 +582,7 @@ gen_find <- function(term = NULL,
 
           df_stats$Variablen <- spezifisch_create(df_stats)
 
-          df_stats$Object_Type <- "Statistic"
+          df_stats$Object_Type <- "statistic"
 
           #-------------------------------------------------------------------------
 
@@ -592,7 +594,7 @@ gen_find <- function(term = NULL,
 
           df_variables$Variablen <- spezifisch_create(df_variables)
 
-          df_variables$Object_Type <- "Variable"
+          df_variables$Object_Type <- "variable"
 
           #-------------------------------------------------------------------------
 
@@ -605,7 +607,7 @@ gen_find <- function(term = NULL,
 
             df_cubes$Variablen <- spezifisch_create(df_cubes)
 
-            df_cubes$Object_Type <- "Cube"
+            df_cubes$Object_Type <- "cube"
 
           }
 
@@ -701,7 +703,7 @@ gen_find <- function(term = NULL,
 
           df_table$Variablen <- spezifisch_create(df_table)
 
-          df_table$Object_Type <- "Table"
+          df_table$Object_Type <- "table"
 
           #-------------------------------------------------------------------------
 
@@ -747,7 +749,7 @@ gen_find <- function(term = NULL,
 
           df_stats$Variablen <- spezifisch_create(df_stats)
 
-          df_stats$Object_Type <- "Statistic"
+          df_stats$Object_Type <- "statistic"
 
           #-------------------------------------------------------------------------
 
@@ -793,7 +795,7 @@ gen_find <- function(term = NULL,
 
           df_variables$Variablen <- spezifisch_create(df_variables)
 
-          df_variables$Object_Type <- "Variable"
+          df_variables$Object_Type <- "variable"
 
           #-------------------------------------------------------------------------
 
@@ -844,7 +846,7 @@ gen_find <- function(term = NULL,
 
         df_cubes$Variablen <- spezifisch_create(df_cubes)
 
-        df_cubes$Object_Type <- "Cube"
+        df_cubes$Object_Type <- "cube"
 
         #-------------------------------------------------------------------------
 

@@ -31,16 +31,16 @@ gen_update_EVAS <- function(){
   # Read the HTML content of the URL
   html <- rvest::read_html(url)
   html <- rvest::html_nodes(html, "table")
-  html <- purrr::map_dfr(html, html_table, convert = FALSE)
+  html <- purrr::map_dfr(html, function(table){rvest::html_table(table, convert = FALSE)})
   html <- html[, c("EVAS", "Beschreibung")]
   html$Titel <- paste(html$EVAS, html$Beschreibung, sep = " - ")
   attr(html, "Update_Date") <- format(Sys.Date(), "%Y%m%d")
 
   # Modify the data object
-  html <- html
+  evas_list <- html
 
   # Return the modified data object
-  save(html ,file = data_path)
+  save(evas_list ,file = data_path)
 }
 
 

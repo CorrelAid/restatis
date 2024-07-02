@@ -107,8 +107,7 @@ test_if_error <- function(input, para) {
 
   } else if (input$Status$Code == 104 && isTRUE(para)) {
 
-    message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.",
-            call. = FALSE)
+    message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
 
     empty_object <- TRUE
 
