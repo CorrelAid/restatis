@@ -10,9 +10,8 @@
 #' @export
 #'
 gen_list_jobs <- function(sortcriterion = c("type", "time", "status", "code"),
-                          database = c("genesis", "zensus"),
-                          ...
-                      ) {
+                          database = c("genesis", "zensus", "regio"),
+                          ...) {
 
   gen_fun <- test_database_function(database)
 
@@ -30,7 +29,7 @@ gen_list_jobs <- function(sortcriterion = c("type", "time", "status", "code"),
          )
   }
 
-  ##############################################################
+  #-----------------------------------------------------------------------------
 
   if(gen_fun == "gen_api"){
 
@@ -40,7 +39,15 @@ gen_list_jobs <- function(sortcriterion = c("type", "time", "status", "code"),
       ...
     )
 
-  } else if ( gen_fun == "gen_zensus_api"){
+  } else if (gen_fun == "gen_zensus_api"){
+
+    par_list <-  list(
+      endpoint = "catalogue/jobs",
+      sortcriterion = sortcriterion,
+      ...
+    )
+
+  } else if (gen_fun == "gen_regio_api") {
 
     par_list <-  list(
       endpoint = "catalogue/jobs",

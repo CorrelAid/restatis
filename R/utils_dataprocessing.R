@@ -999,30 +999,40 @@ titel_search <- function(x, term) {
 #'
 test_database_function <- function(input){
 
+  #-----------------------------------------------------------------------------
+
   if(length(input) > 1){
 
     input <- input[1]
 
   }
 
+  #-----------------------------------------------------------------------------
+
   if(is.na(input)){
 
-    stop("Database parameter must be either 'genesis' or 'zensus'.",
+    stop("Database parameter must be either 'genesis', 'regio' or 'zensus'.",
          call. = FALSE)
 
   }
 
-  if(input == "genesis"){
+  #-----------------------------------------------------------------------------
+
+  if (input == "genesis"){
 
     return("gen_api")
 
-  } else if(input == "zensus"){
+  } else if (input == "zensus"){
 
     return("gen_zensus_api")
 
+  } else if (input == "regio") {
+
+    return("gen_regio_api")
+
   } else {
 
-    stop("Database parameter must be either 'genesis' or 'zensus'. No other values allowed.",
+    stop("Database parameter must be either 'genesis', 'regio' or 'zensus'. No other values allowed.",
          call. = FALSE)
 
   }

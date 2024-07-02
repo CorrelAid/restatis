@@ -230,137 +230,206 @@ gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio")) {
 #'
 gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
-  if("genesis" %in% database && !("all" %in% database)){
+  #-----------------------------------------------------------------------------
 
-    if(is.null(sys.call(-1))){
+  if (length(database) == 1) {
 
-      message("Retrieving credentials for 'GENESIS' database.")
+    if (!(database %in% c("all", "genesis", "zensus", "regio"))) {
 
-    }
-
-    auth_path <- gen_auth_path("auth.rds")
-
-    if (!(file.exists(auth_path) && nzchar(Sys.getenv("RESTATIS_KEY")))) {
-
-      stop(paste0("'GENESIS' database credentials not found. ",
-                  "Please run 'gen_auth_save()' to store 'GENESIS' database username and password."),
+      stop("Misspecification of parameter 'database': Must only be 'all', 'zensus', 'regio' or 'genesis'.",
            call. = FALSE)
 
     }
-
-    return(httr2::secret_read_rds(auth_path, "RESTATIS_KEY"))
-
-    #---------------------------------------------------------------------------
-
-  } else if ("zensus" %in% database && !("all" %in% database)){
-
-    if(is.null(sys.call(-1))){
-
-      message("Retrieving credentials for 'Zensus' database.")
-
-    }
-
-    auth_path <- gen_auth_path("auth_zensus.rds")
-
-    if (!(file.exists(auth_path) && nzchar(Sys.getenv("ZENSUS_KEY")))) {
-
-      stop(paste0("'Zensus' database credentials not found. ",
-                  "Please run 'gen_auth_save()' to store 'Zensus' database username and password."),
-           call. = FALSE)
-
-    }
-
-    return(httr2::secret_read_rds(auth_path, "ZENSUS_KEY"))
-
-    #---------------------------------------------------------------------------
-
-  } else if ("regio" %in% database && !("all" %in% database)){
-
-    if(is.null(sys.call(-1))){
-
-      message("Retrieving credentials for 'Regionalstatistik' database.")
-
-    }
-
-    auth_path <- gen_auth_path("auth_regio.rds")
-
-    if (!(file.exists(auth_path) && nzchar(Sys.getenv("REGIO_KEY")))) {
-
-      stop(paste0("'Regionalstatistik' database credentials not found. ",
-                  "Please run 'gen_auth_save()' to store 'Regionalstatistik' database username and password."),
-           call. = FALSE)
-
-    }
-
-    return(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
-
-    #---------------------------------------------------------------------------
-
-  } else if ("all" %in% database){
-
-    if(is.null(sys.call(-1))){
-
-      message("Retrieving credentials for 'GENESIS' database.")
-
-    }
-
-    auth_path <- gen_auth_path("auth.rds")
-
-    if (!(file.exists(auth_path) && nzchar(Sys.getenv("RESTATIS_KEY")))) {
-
-      stop(paste0("'GENESIS' database credentials not found. ",
-                  "Please run 'gen_auth_save()' to store 'GENESIS' database username and password."),
-           call. = FALSE)
-
-    }
-
-    return(httr2::secret_read_rds(auth_path, "RESTATIS_KEY"))
-
-    #---------------------------------------------------------------------------
-
-    if(is.null(sys.call(-1))){
-
-      message("Retrieving credentials for 'Zensus' database.")
-
-    }
-
-    auth_path <- gen_auth_path("auth_zensus.rds")
-
-    if (!(file.exists(auth_path) && nzchar(Sys.getenv("ZENSUS_KEY")))) {
-
-      stop(paste0("'Zensus' database credentials not found. ",
-                  "Please run 'gen_auth_save()' to store 'Zensus' database username and password."),
-           call. = FALSE)
-
-    }
-
-    return(httr2::secret_read_rds(auth_path, "ZENSUS_KEY"))
-
-    #---------------------------------------------------------------------------
-
-    if(is.null(sys.call(-1))){
-
-      message("Retrieving credentials for 'Regionalstatistik' database.")
-
-    }
-
-    auth_path <- gen_auth_path("auth_regio.rds")
-
-    if (!(file.exists(auth_path) && nzchar(Sys.getenv("REGIO_KEY")))) {
-
-      stop(paste0("'Regionalstatistik' database credentials not found. ",
-                  "Please run 'gen_auth_save()' to store 'Regionalstatistik' database username and password."),
-           call. = FALSE)
-
-    }
-
-    return(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
-
-  } else {
-
-    stop("Invalid database argument. Please choose 'genesis', 'zensus', 'regio' or 'all'.")
 
   }
+
+  #-----------------------------------------------------------------------------
+
+  if (length(database) > 1) {
+
+    if ("all" %in% database) {
+
+      stop("If you want to specify 'all', do not specify further databases (i.e., just set database to 'all').",
+           call. = FALSE)
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if (!all(database %in% c("genesis", "zensus", "regio"))) {
+
+      stop("Misspecification of parameter 'database': Must only be 'zensus', 'regio' or 'genesis'.",
+           call. = FALSE)
+
+    }
+
+  }
+
+  #-----------------------------------------------------------------------------
+
+  if (length(database) == 1) {
+
+    #---------------------------------------------------------------------------
+
+    if (database == "genesis") {
+
+      auth_path <- gen_auth_path("auth.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("RESTATIS_KEY")))) {
+
+        stop(paste0("'GENESIS' database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store 'GENESIS' database username and password."),
+             call. = FALSE)
+
+      }
+
+      return(httr2::secret_read_rds(auth_path, "RESTATIS_KEY"))
+
+    #---------------------------------------------------------------------------
+
+    } else if (database == "zensus") {
+
+      auth_path <- gen_auth_path("auth_zensus.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("ZENSUS_KEY")))) {
+
+        stop(paste0("'Zensus' database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store 'Zensus' database username and password."),
+             call. = FALSE)
+
+    }
+
+    return(httr2::secret_read_rds(auth_path, "ZENSUS_KEY"))
+
+  #-------------------------------------------------------------------------------
+
+  } else if (database == "regio") {
+
+      auth_path <- gen_auth_path("auth_regio.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("REGIO_KEY")))) {
+
+        stop(paste0("'Regionalstatistik' database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store 'Regionalstatistik' database username and password."),
+             call. = FALSE)
+
+      }
+
+      return(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
+
+  #-----------------------------------------------------------------------------
+
+  } else if (database == "all") {
+
+      auth_path <- gen_auth_path("auth.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("RESTATIS_KEY")))) {
+
+        stop(paste0("'GENESIS' database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store 'GENESIS' database username and password."),
+             call. = FALSE)
+
+      }
+
+      message("Password for database 'GENESIS':\n")
+      print(httr2::secret_read_rds(auth_path, "RESTATIS_KEY"))
+
+      #---------------------------------------------------------------------------
+
+      auth_path <- gen_auth_path("auth_zensus.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("ZENSUS_KEY")))) {
+
+        stop(paste0("'Zensus' database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store 'Zensus' database username and password."),
+             call. = FALSE)
+
+      }
+
+      message("Password for database 'Zensus':\n")
+      print(httr2::secret_read_rds(auth_path, "ZENSUS_KEY"))
+
+      #---------------------------------------------------------------------------
+
+      auth_path <- gen_auth_path("auth_regio.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("REGIO_KEY")))) {
+
+        stop(paste0("'Regionalstatistik' database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store 'Regionalstatistik' database username and password."),
+             call. = FALSE)
+
+      }
+
+      message("Password for database 'regionalstatistik.de:\n")
+      print(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
+
+    } # End of 'else if (database == "all")'
+
+  } # End of 'if (length(database) == 1) '
+
+  #-----------------------------------------------------------------------------
+
+  if (length(database) > 1) {
+
+    if ("genesis" %in% database) {
+
+      auth_path <- gen_auth_path("auth.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("RESTATIS_KEY")))) {
+
+        stop(paste0("'GENESIS' database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store 'GENESIS' database username and password."),
+             call. = FALSE)
+
+      }
+
+      message("Password for database 'GENESIS':\n")
+      print(httr2::secret_read_rds(auth_path, "RESTATIS_KEY"))
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if ("zensus" %in% database) {
+
+      auth_path <- gen_auth_path("auth_zensus.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("ZENSUS_KEY")))) {
+
+        stop(paste0("'Zensus' database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store 'Zensus' database username and password."),
+             call. = FALSE)
+
+      }
+
+      message("Password for database 'Zensus':\n")
+      print(httr2::secret_read_rds(auth_path, "ZENSUS_KEY"))
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if ("regio" %in% database) {
+
+      auth_path <- gen_auth_path("auth_regio.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("REGIO_KEY")))) {
+
+        stop(paste0("'Regionalstatistik' database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store 'Regionalstatistik' database username and password."),
+             call. = FALSE)
+
+      }
+
+      message("Password for database 'regionalstatistik.de:\n")
+      print(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
+
+    }
+
+    #---------------------------------------------------------------------------
+
+  } # End of '(length(database) > 1)'
 
 }
 

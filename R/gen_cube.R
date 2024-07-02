@@ -52,6 +52,7 @@ gen_cube <- function(name, ...) {
 #-------------------------------------------------------------------------------
 
 gen_cube_ <- function(name,
+                      database = c("genesis","regio"),
                       area = c("public", "user"),
                       values = TRUE,
                       metadata = TRUE,
@@ -87,40 +88,76 @@ gen_cube_ <- function(name,
   classifyingkey2 <- param_collapse_vec(classifyingkey2)
   classifyingkey3 <- param_collapse_vec(classifyingkey3)
 
-  cube <- gen_api("data/cubefile", name = name,
-                  name = name,
-                  area = area,
-                  values = values,
-                  metadata = metadata,
-                  additionals = additionals,
-                  startyear = startyear,
-                  endyear = endyear,
-                  timeslices = timeslices,
-                  contents = contents,
-                  regionalvariable = regionalvariable,
-                  regionalkey = regionalkey,
-                  classifyingvariable1 = classifyingvariable1,
-                  classifyingkey1 = classifyingkey1,
-                  classifyingvariable2 = classifyingvariable2,
-                  classifyingkey2 = classifyingkey2,
-                  classifyingvariable3 = classifyingvariable3,
-                  classifyingkey3 = classifyingkey3,
-                  stand = stand,
-                  language = language,
-                  job = FALSE) %>%
+  #-----------------------------------------------------------------------------
 
-    read_cube() %>%
-    rename_cube_data_columns()
+  if (database == "genesis") {
 
-  structure(
-    cube$QEI,
-    metadata = cube[names(cube) != "QEI"]
-  )
+  cube_raw <- gen_api("data/cubefile",
+                      name = name,
+                      area = area,
+                      values = values,
+                      metadata = metadata,
+                      additionals = additionals,
+                      startyear = startyear,
+                      endyear = endyear,
+                      timeslices = timeslices,
+                      contents = contents,
+                      regionalvariable = regionalvariable,
+                      regionalkey = regionalkey,
+                      classifyingvariable1 = classifyingvariable1,
+                      classifyingkey1 = classifyingkey1,
+                      classifyingvariable2 = classifyingvariable2,
+                      classifyingkey2 = classifyingkey2,
+                      classifyingvariable3 = classifyingvariable3,
+                      classifyingkey3 = classifyingkey3,
+                      stand = stand,
+                      language = language,
+                      job = FALSE)
+
+  } else if (database == "regio") {
+
+    cube_raw <- gen_regio_api("data/cubefile",
+                              name = name,
+                              area = area,
+                              values = values,
+                              metadata = metadata,
+                              additionals = additionals,
+                              startyear = startyear,
+                              endyear = endyear,
+                              timeslices = timeslices,
+                              contents = contents,
+                              regionalvariable = regionalvariable,
+                              regionalkey = regionalkey,
+                              classifyingvariable1 = classifyingvariable1,
+                              classifyingkey1 = classifyingkey1,
+                              classifyingvariable2 = classifyingvariable2,
+                              classifyingkey2 = classifyingkey2,
+                              classifyingvariable3 = classifyingvariable3,
+                              classifyingkey3 = classifyingkey3,
+                              stand = stand,
+                              language = language,
+                              job = FALSE)
+
+  } else {
+
+    stop("Wrong specification of parameter 'database' (must be 'regio' or 'genesis'.",
+         call. = FALSE)
+
+  }
+
+  #-------------------------------------------------------------------------------
+
+  cube <- cube_raw %>% read_cube() %>% rename_cube_data_columns()
+
+  structure(cube$QEI,
+            metadata = cube[names(cube) != "QEI"])
+
 }
 
 #-------------------------------------------------------------------------------
 
 read_cube <- function(resp) {
+
   cube_str <- resp %>%
     httr2::resp_body_string() %>%
     readr::read_lines()
@@ -134,37 +171,44 @@ read_cube <- function(resp) {
   parsed <- lapply(parsed, `attr<-`, "block_name", NULL)
 
   stats::setNames(parsed, block_names)
+
 }
 
 #-------------------------------------------------------------------------------
 
 split_cube <- function(lines) {
+
   block_idx <- ifelse(is_cube_metadata_header(lines), seq_along(lines), NA)
+
   block_idx <- vctrs::vec_fill_missing(block_idx, "down")
 
   unname(split(lines, block_idx))
+
 }
 
 #-------------------------------------------------------------------------------
 
 is_cube_metadata_header <- function(lines) {
+
   startsWith(lines, "K")
+
 }
 
 #-------------------------------------------------------------------------------
 
 read_cube_block <- function(lines) {
+
   header <- read_cube_metadata_header(lines[1])
 
-  structure(
-    read_cube_data_lines(lines[-1], header$cols),
-    block_name = header$block_name
-  )
+  structure(read_cube_data_lines(lines[-1], header$cols),
+            block_name = header$block_name)
+
 }
 
 #-------------------------------------------------------------------------------
 
 read_cube_metadata_header <- function(line, rename_dups = TRUE) {
+
   stopifnot(length(line) == 1L)
 
   line_splitted <- strsplit(line, ";", fixed = TRUE)[[1]]
@@ -172,32 +216,35 @@ read_cube_metadata_header <- function(line, rename_dups = TRUE) {
   block_name <- line_splitted[2]
 
   col_names <- line_splitted[3:length(line_splitted)]
+
   col_names <- col_names[!col_names %in% c("\"nur Werte\"", "\"mit Werten\"")]
 
   if (rename_dups) col_names <- make.unique(col_names)
 
   list(block_name = block_name, cols = col_names)
+
 }
 
 #-------------------------------------------------------------------------------
 
 read_cube_data_lines <- function(lines, col_names) {
+
   lines <- sub("D;", "", lines, fixed = TRUE)
 
   class(lines) <- "AsIs" # so that vroom treats lines as literal data
 
-  readr::read_delim(
-    lines,
-    delim = ";",
-    col_names = col_names,
-    name_repair = "minimal",
-    show_col_types = FALSE
-  )
+  readr::read_delim(lines,
+                    delim = ";",
+                    col_names = col_names,
+                    name_repair = "minimal",
+                    show_col_types = FALSE)
+
 }
 
 #-------------------------------------------------------------------------------
 
 rename_cube_data_columns <- function(cube) {
+
   data_cols <- names(cube$QEI)
 
   # Datenquader-Achsen
@@ -218,12 +265,12 @@ rename_cube_data_columns <- function(cube) {
       suffix = dqi_default_names,
       feature_name = cube$DQI$NAME
     )[, c("feature_name", "suffix")],
-    MoreArgs = list(sep = "_")
-  ))
+    MoreArgs = list(sep = "_")))
 
   data_cols[data_cols %in% dqi_cols] <- dqi_cols_new
 
   names(cube$QEI) <- data_cols
 
-  cube
+  return(cube)
+
 }

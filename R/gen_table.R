@@ -35,8 +35,8 @@
 #'     \item{\code{job}}{Boolean. Indicate as to whether a job should be created
 #'        (not available with the 'Zensus' database).)}
 #'     \item{\code{all_character}}{Boolean. Should all variables be imported as
-#'        'character' variables? This can be useful if there are a lot of
-#'        leading zeros. Defaults to FALSE.}
+#'        'character' variables? Avoids fuzzy data type conversions if there are
+#'        leading zeros or other special characters. Defaults to TRUE.}
 #'   }
 #'
 #' @export
@@ -72,7 +72,7 @@ gen_table_ <- function(name,
                        stand = NULL,
                        language = Sys.getenv("GENESIS_LANG"),
                        job = FALSE,
-                       all_character = FALSE) {
+                       all_character = TRUE) {
 
   #-----------------------------------------------------------------------------
   # Parameter processing
