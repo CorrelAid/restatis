@@ -17,6 +17,9 @@ gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio")) {
 
   #-----------------------------------------------------------------------------
 
+  if (missing(database)) stop("You have to specify a value for parameter 'database'.",
+                              call. = FALSE)
+
   if(database == "genesis"){
 
     username <- gen_auth_ask("username")

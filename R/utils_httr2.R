@@ -333,31 +333,170 @@ return_table_object <- function(response,
 
 #-------------------------------------------------------------------------------
 
-warn_if_http_error <- function(response,
-                               database,
-                               verbose) {
+#' logincheck_http_error
+#'
+#' @param database The user input to 'gen_logincheck'
+#' @param verbose Boolean. Should the function message in case of success?
+#'
+#' @return
+#'
+logincheck_http_error <- function(database,
+                                  verbose) {
 
-  if (response$status_code != 200) {
+  #-----------------------------------------------------------------------------
 
-    warning("Database: '",
-            database,
-            "' There seems to be an issue with the authentication process (logincheck upon credential specification failed with code ",
-            response$status_code,
-            "). ",
-            "Please retry specifying your credentials or check whether the API is currently down.",
+  if (length(database) == 1 && database != "all") {
+
+    if (!(database %in% c("genesis", "zensus", "regio"))) {
+
+      stop("Misspecified parameter 'database' (can only be 'all', 'genesis', 'zensus' or 'regio').",
+           call. = FALSE)
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if (database == "genesis") response <- gen_api("helloworld/logincheck")
+    if (database == "zensus") response <- gen_zensus_api("helloworld/logincheck")
+    if (database == "regio") response <- gen_regio_api("helloworld/logincheck")
+
+    logincheck_stop_or_warn(response = response,
+                            error = TRUE,
+                            verbose = verbose,
+                            database = database)
+
+  #-----------------------------------------------------------------------------
+
+  } else if (length(database) == 1 && database == "all") {
+
+    databases <- list("genesis", "zensus", "regio")
+
+    response_list <- list(response_genesis = gen_api("helloworld/logincheck"),
+                          response_zensus = gen_zensus_api("helloworld/logincheck"),
+                          response_regio = gen_regio_api("helloworld/logincheck"))
+
+    purrr::walk2(.x = response_list,
+                 .y = databases,
+                 .f = ~ logincheck_stop_or_warn(response = .x,
+                                                database = .y,
+                                                error = FALSE,
+                                                verbose = verbose))
+
+  #-----------------------------------------------------------------------------
+
+  } else if (length(database) > 1 & !("all" %in% database)) {
+
+    if (!(all(database %in% c("genesis", "zensus", "regio")))) {
+
+      stop("You can only specify 'all', 'genesis', 'zensus' or 'regio' inside of the parameter 'database'.",
+           call. = FALSE)
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if ("genesis" %in% database) {
+
+      logincheck_stop_or_warn(response = gen_api("helloworld/logincheck"),
+                              error = FALSE,
+                              verbose = verbose,
+                              database = "genesis")
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if ("zensus" %in% database) {
+
+      logincheck_stop_or_warn(response = gen_zensus_api("helloworld/logincheck"),
+                              error = FALSE,
+                              verbose = verbose,
+                              database = "zensus")
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if ("regio" %in% database) {
+
+      logincheck_stop_or_warn(response = gen_regio_api("helloworld/logincheck"),
+                              error = FALSE,
+                              verbose = verbose,
+                              database = "regio")
+
+    }
+
+  #-----------------------------------------------------------------------------
+
+  } else {
+
+    stop("If you want to specify 'all', do not specify further databases (i.e., just set database to 'all').",
+         call. = FALSE)
+
+  }
+
+}
+
+#-------------------------------------------------------------------------------
+
+#' logincheck_stop_or_warn
+#'
+#' @param response A HTTP response object
+#' @param error Boolean. Should the function warn or throw an error?
+#' @param verbose Boolean. Should the function message in case of success?
+#' @param database The database that the check should be run for
+#'
+#' @return In case of failure warns or errors. Invisibly returns TRUE (success) or FALSE (failure)
+#'
+logincheck_stop_or_warn <- function(response,
+                                    error,
+                                    verbose,
+                                    database) {
+
+  #-----------------------------------------------------------------------------
+
+  request_failed <- grepl("Ein Fehler ist aufgetreten", httr2::resp_body_json(response)$Status)
+
+  if (isTRUE(request_failed) & isTRUE(error)) {
+
+    stop(paste0("Database: '",
+                database,
+                "': There seems to be an issue with the authentication process (logincheck upon credential specification failed). \n",
+                "Please retry specifying your credentials."),
+         call. = FALSE)
+
+    invisible(FALSE)
+
+  #-----------------------------------------------------------------------------
+
+  } else if (isTRUE(request_failed) & isFALSE(error)) {
+
+    warning(paste0("Database: '",
+                   database,
+                   "': There seems to be an issue with the authentication process (logincheck upon credential specification failed). \n",
+                   "Please retry specifying your credentials."),
             call. = FALSE)
 
     invisible(FALSE)
 
-  } else {
+  #-----------------------------------------------------------------------------
 
-    if(isTRUE(verbose)) {
+  } else if (isFALSE(request_failed)) {
+
+    if (isTRUE(verbose)) {
 
       message(paste0("Login check for database '", database, "' succeeded."))
 
     }
 
     invisible(TRUE)
+
+  #-----------------------------------------------------------------------------
+
+  } else {
+
+    stop("Checking the HTTP response failed.",
+         call. = FALSE)
 
   }
 
