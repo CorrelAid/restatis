@@ -9,6 +9,7 @@
 #' @param detailed A logical. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
 #' @param error.ignore  A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param sortcriterion A string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis/Zensus API call itself. The default is "code".
+#' @param verbose Logical. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis/Zensus API. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -33,6 +34,7 @@ gen_catalogue <- function(code = NULL,
                           detailed = FALSE,
                           error.ignore = FALSE,
                           sortcriterion = c("code", "content"),
+                          verbose = TRUE,
                           ...) {
 
   caller <- as.character(match.call()[1])
@@ -45,7 +47,8 @@ gen_catalogue <- function(code = NULL,
                        error.ignore = error.ignore,
                        database = gen_fun,
                        sortcriterion = sortcriterion,
-                       caller = caller)
+                       caller = caller,
+                       verbose = verbose)
 
   area <- match.arg(area)
 
@@ -57,6 +60,11 @@ gen_catalogue <- function(code = NULL,
 
   # Processing ####
   res <- lapply(gen_fun, function(db){
+
+    if(verbose) {
+      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      message(info)
+    }
 
     #---------------------------------------------------------------------------
     if ("cubes" %in% category && db == "gen_zensus_api") {
@@ -77,7 +85,7 @@ gen_catalogue <- function(code = NULL,
 
       results_json <- test_if_json(results_raw)
 
-      empty_object <- test_if_error(results_json, para = error.ignore)
+      empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
 
       if(isTRUE(empty_object)){
 
@@ -132,7 +140,7 @@ gen_catalogue <- function(code = NULL,
 
       results_json <- test_if_json(results_raw)
 
-      empty_object <- test_if_error(results_json, para = error.ignore)
+      empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
 
       if(isTRUE(empty_object)){
 
@@ -187,7 +195,7 @@ gen_catalogue <- function(code = NULL,
 
       results_json <- test_if_json(results_raw)
 
-      empty_object <- test_if_error(results_json, para = error.ignore)
+      empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
 
       if(isTRUE(empty_object)){
 
@@ -229,7 +237,7 @@ gen_catalogue <- function(code = NULL,
     if (all(c("tables", "statistics", "cubes") %in% category)) {
 
       list_resp <- list(
-        "Cubes" = if(length(list_of_cubes) == 1 | db == "gen_zensus_api"){list_of_cubes} else {forming_evas(list_of_cubes)},
+        "Cubes" = if(length(list_of_cubes) == 1 | db == "gen_zensus_api"){tibble::as_tibble(list_of_cubes)} else {forming_evas(list_of_cubes)},
         "Statistics" = if(length(list_of.stats) == 1 | db == "gen_zensus_api"){tibble::as_tibble(list_of.stats)} else {forming_evas(list_of.stats)},
         "Tables" = if(length(list_of.tabs) == 1 | db == "gen_zensus_api"){tibble::as_tibble(list_of.tabs)} else {forming_evas(list_of.tabs)}
       )

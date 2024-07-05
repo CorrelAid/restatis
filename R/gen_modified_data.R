@@ -6,6 +6,7 @@
 #' @param database Character string. Indicator if the Genesis or Zensus database is called. Default option is 'genesis'.
 #' @param type A string. Specific Genesis object type: 'tables', 'statistics', and 'statisticsUpdates'. Specific Zensus object type: 'tables' and 'statistics'. All types that are specific for one database can be used together through "all", which is the default.
 #' @param date A string. Specific date that is used as the last update or upload time in Genesis/Zensus to include a Genesis/Zensus object in return. Default option is 'now', which uses the current date of your system. Alternative options are 'week_before', using the current date of your system minus 7 days, 'month_before', using the current date of your system minus 4 weeks, and 'year_before', using the current date of your system minus 52 weeks. Additionally, it is possible to fill in a specific date of format 'DD.MM.YYYY'.
+#' @param verbose Logical. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis/Zensus. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
@@ -27,6 +28,7 @@ gen_modified_data <- function(code = "",
                               database = c("all", "genesis", "zensus", "regio"),
                               type = c("all", "tables", "statistics", "statisticsUpdates"),
                               date = c("now", "week_before", "month_before", "year_before"),
+                              verbose = TRUE,
                               ...) {
 
   gen_fun <- test_database_function(database)
@@ -36,7 +38,8 @@ gen_modified_data <- function(code = "",
   date <- check_function_input(code = code,
                                type = type,
                                date = date,
-                               database = gen_fun)
+                               database = gen_fun,
+                               verbose = verbose)
 
   #-----------------------------------------------------------------------------
 
@@ -63,6 +66,11 @@ gen_modified_data <- function(code = "",
 
   # Processing ####
   res <- lapply(gen_fun, function(db){
+
+    if(verbose) {
+      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      message(info)
+    }
 
     #---------------------------------------------------------------------------
     if (type == "tables") {
@@ -153,9 +161,11 @@ gen_modified_data <- function(code = "",
 
     if (is.null(unlist(results_json$List))) {
 
+      if(isTRUE(verbose)){
       message(paste0("No modified objects found for your code and date in ", rev_database_function(db)))
+      }
 
-      return(NULL)
+      return("No modified objects found")
 
     } else {
 

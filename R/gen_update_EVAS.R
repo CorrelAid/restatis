@@ -15,13 +15,6 @@ gen_update_EVAS <- function(){
 
   }
 
-  if (!requireNamespace("purrr", quietly = TRUE)) {
-
-    stop("If you want to use this specific function, the package {purrr} needs to be installed.",
-         call. = FALSE)
-
-  }
-
   # Path selection
   data_path <- system.file("data", "EVAS_numbers.RData", package = "restatis")
 

@@ -5,6 +5,7 @@
 #' @param term Character string. Maximum length of 15 characters. Term or word for which you are searching for alternative or related terms. Use of '*' as a placeholder is possible to generate broader search areas.
 #' @param similarity Logical. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function. Default option is 'TRUE'.
 #' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param verbose Logical. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the Genesis or Zensus API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis/Zensus/Regionalstatistik. Attributes are added to the data.frame, describing the search configuration for the returned output.
@@ -26,6 +27,7 @@
 gen_alternative_terms <- function(term = NULL,
                                   similarity = TRUE,
                                   database = c("all", "genesis", "zensus", "regio"),
+                                  verbose = TRUE,
                                   ...) {
 
   caller <- as.character(match.call()[1])
@@ -34,11 +36,17 @@ gen_alternative_terms <- function(term = NULL,
 
   check_function_input(term = term,
                        similarity = similarity,
-                       caller = caller)
+                       caller = caller,
+                       verbose = verbose)
 
   #-----------------------------------------------------------------------------
 
   res <- lapply(gen_fun, function(db){
+
+    if(verbose) {
+      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      message(info)
+    }
 
     par_list <-  list(
       endpoint = "catalogue/terms",
@@ -61,8 +69,6 @@ gen_alternative_terms <- function(term = NULL,
       termslist <- "No related terms found for your code."
 
       list_resp <- list("Output" = termslist)
-
-      return(list_resp)
 
     } else {
 
@@ -98,7 +104,6 @@ gen_alternative_terms <- function(term = NULL,
 
       list_resp <- list("Output" = termslist)
 
-      return(list_resp)
 
     }
 
@@ -108,6 +113,7 @@ gen_alternative_terms <- function(term = NULL,
     attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
     attr(list_resp, "Copyright") <- results_json$Copyright
 
+    return(list_resp)
   })
 
   res <- check_results(res)
