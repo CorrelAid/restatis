@@ -52,7 +52,7 @@ gen_cube <- function(name, ...) {
 #-------------------------------------------------------------------------------
 
 gen_cube_ <- function(name,
-                      database = c("genesis","regio"),
+                      database = c("genesis", "regio"),
                       area = c("public", "user"),
                       values = TRUE,
                       metadata = TRUE,
@@ -140,7 +140,7 @@ gen_cube_ <- function(name,
 
   } else {
 
-    stop("Wrong specification of parameter 'database' (must be 'regio' or 'genesis'.",
+    stop("Wrong specification of parameter 'database' (must be 'regio' or 'genesis').",
          call. = FALSE)
 
   }

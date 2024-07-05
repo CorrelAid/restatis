@@ -146,7 +146,7 @@ gen_table_ <- function(name,
                         stand = stand,
                         language = language,
                         format = "ffcsv",
-                        job = FALSE)
+                        job = job)
 
   #-----------------------------------------------------------------------------
 
@@ -170,7 +170,7 @@ gen_table_ <- function(name,
                               stand = stand,
                               language = language,
                               format = "ffcsv",
-                              job = FALSE)
+                              job = job)
 
   #-----------------------------------------------------------------------------
 
@@ -184,7 +184,7 @@ gen_table_ <- function(name,
   #-----------------------------------------------------------------------------
   # Data processing
 
-  response_type <- resp_check_data_csv(response)
+  response_type <- resp_check_data(response)
 
   # Returning the table desired by the user
   return(return_table_object(response = response,

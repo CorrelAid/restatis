@@ -2,24 +2,6 @@
 # Util functions related to API calls
 #-------------------------------------------------------------------------------
 
-#' resp_check_data_csv
-#'
-#' @param resp Response object
-#'
-resp_check_data_csv <- function(resp) {
-
-  if (!(httr2::resp_content_type(resp) %in% c("text/csv", "application/zip"))) {
-
-    stop("No data found that meets the specified parameters", call. = FALSE)
-
-  }
-
-  return <- httr2::resp_content_type(resp)
-
-}
-
-#-------------------------------------------------------------------------------
-
 #' test_if_json
 #'
 #' @param input Response object
@@ -199,11 +181,31 @@ test_if_error_light <- function(input) {
 
 #-------------------------------------------------------------------------------
 
+#' resp_check_data
+#'
+#' @param resp Response object
+#'
+resp_check_data <- function(resp) {
+
+  if (!(httr2::resp_content_type(resp) %in% c("application/zip", "text/csv", "application/json"))) {
+
+    stop("Encountered an invalid response type.",
+         call. = FALSE)
+
+  }
+
+  return <- httr2::resp_content_type(resp)
+
+}
+
+#-------------------------------------------------------------------------------
+
 #' return_table_object
 #'
-#' @param response
-#' @param response_type
-#' @param language
+#' @param response Response object
+#' @param response_type Response type
+#' @param language Language locale
+#' @param all_character Read all variables as character?
 #'
 return_table_object <- function(response,
                                 response_type,
@@ -228,9 +230,40 @@ return_table_object <- function(response,
 
   }
 
-  #-------------------------------------------------------------------------------
+  #-----------------------------------------------------------------------------
 
-  if (response_type == "text/csv"){
+  if (response_type == "application/json") {
+
+    response_parsed <- httr2::resp_body_json(response)
+
+    if (response_parsed$Status$Code == 98) {
+
+      error_message <- paste0("You have requested a table too big for simple download. \n",
+                              "Consider making a range of smaller requests or use the \n",
+                              "option to create a job by setting the 'job' parameter \n",
+                              "of 'gen_table()' to TRUE. You can then download the job \n",
+                              "later (use the function 'gen_list_jobs()' to check its status).")
+
+      stop(error_message, call. = FALSE)
+
+    } else if (response_parsed$Status$Code == 99) {
+
+      message <- paste0("You have requested successfully created a job with \n",
+                        "your request. Use the function 'gen_list_jobs()' ",
+                        "to check its status and download it once completed.")
+
+      message(message)
+
+    } else {
+
+      stop("There has been an error with your request (not parseable response type 'application/json').\n Please try again later or contact the package maintainer.",
+           call. = FALSE)
+
+    }
+
+  #-----------------------------------------------------------------------------
+
+  } else if (response_type == "text/csv"){
 
     # There has to be a check on language to display correct decimal marks
     # For German results, there needs to be a decimal mark set
@@ -257,18 +290,18 @@ return_table_object <- function(response,
 
     } else {
 
-      stop("Error handling language setting locale (values different from 'de' and 'en'.",
+      stop("Error handling language setting locale (values different from 'de' and 'en').",
            call. = FALSE)
 
     }
 
-  }
+    return(result)
 
-  #-------------------------------------------------------------------------------
+  #-----------------------------------------------------------------------------
 
   # If the API response is a ZIP file, we need to temporarily save it
 
-  if (response_type == "application/zip") {
+  } else if (response_type == "application/zip") {
 
     content <- httr2::resp_body_raw(response)
 
@@ -325,9 +358,16 @@ return_table_object <- function(response,
     # Remove temporarily created .csv file from temporary directory
     file.remove(extracted_file)
 
-  }
+    return(result)
 
-  return(result)
+  #-----------------------------------------------------------------------------
+
+  } else {
+
+    stop("Unknown API response type. Please refer to the package maintainers.",
+         call. = FALSE)
+
+  } # End of check application/json, application/zip, text/csv
 
 }
 

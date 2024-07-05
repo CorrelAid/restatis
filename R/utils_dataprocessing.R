@@ -1011,7 +1011,7 @@ test_database_function <- function(input){
 
   if(is.na(input)){
 
-    stop("Database parameter must be either 'genesis', 'regio' or 'zensus'.",
+    stop("You have to correctly specifiy a 'database' parameter. Please refer to the documentation for further information.",
          call. = FALSE)
 
   }
