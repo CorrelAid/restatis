@@ -19,6 +19,7 @@ gen_api <- function(endpoint, ...) {
     httr2::req_perform()
 }
 
+#-------------------------------------------------------------------------------
 
 #' Low-level function to interact with Regionalstatistik' GENESIS API
 #'
@@ -41,6 +42,7 @@ gen_regio_api <- function(endpoint, ...) {
     httr2::req_perform()
 }
 
+#-------------------------------------------------------------------------------
 
 #' Low-level function to interact with the German Zensus 2022 database
 #'

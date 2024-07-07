@@ -32,6 +32,11 @@
 #'       updated after this #' date.}
 #'     \item{\code{language}}{Search terms, returned messages and data
 #'       descriptions in German (`"de"`) or English (`"en"`)?}
+#'     \item{\code{job}}{Boolean. Indicate as to whether a job should be created
+#'        (not available with the 'Zensus' database).)}
+#'     \item{\code{all_character}}{Boolean. Should all variables be imported as
+#'        'character' variables? Avoids fuzzy data type conversions if there are
+#'        leading zeros or other special characters. Defaults to TRUE.}
 #'   }
 #'
 #' @export
@@ -50,7 +55,7 @@ gen_table <- function(name, ...) {
 #-------------------------------------------------------------------------------
 
 gen_table_ <- function(name,
-                       database = c("genesis", "zensus"),
+                       database = c("genesis", "zensus", "regio"),
                        area = c("all", "public", "user"),
                        compress = FALSE,
                        transpose = FALSE,
@@ -66,7 +71,8 @@ gen_table_ <- function(name,
                        classifyingkey3 = NULL,
                        stand = NULL,
                        language = Sys.getenv("GENESIS_LANG"),
-                       job = FALSE) {
+                       job = FALSE,
+                       all_character = TRUE) {
 
   #-----------------------------------------------------------------------------
   # Parameter processing
@@ -119,6 +125,7 @@ gen_table_ <- function(name,
                                job = FALSE)
 
   #-----------------------------------------------------------------------------
+
   } else if (database == "genesis"){
 
     response <- gen_api("data/tablefile",
@@ -139,12 +146,37 @@ gen_table_ <- function(name,
                         stand = stand,
                         language = language,
                         format = "ffcsv",
-                        job = FALSE)
+                        job = job)
 
   #-----------------------------------------------------------------------------
+
+  } else if (database == "regio") {
+
+    response <- gen_regio_api("data/tablefile",
+                              name = name,
+                              area = area,
+                              compress = compress,
+                              transpose = transpose,
+                              startyear = startyear,
+                              endyear = endyear,
+                              regionalvariable = regionalvariable,
+                              regionalkey = regionalkey,
+                              classifyingvariable1 = classifyingvariable1,
+                              classifyingkey1 = classifyingkey1,
+                              classifyingvariable2 = classifyingvariable2,
+                              classifyingkey2 = classifyingkey2,
+                              classifyingvariable3 = classifyingvariable3,
+                              classifyingkey3 = classifyingkey3,
+                              stand = stand,
+                              language = language,
+                              format = "ffcsv",
+                              job = job)
+
+  #-----------------------------------------------------------------------------
+
   } else {
 
-    stop("Parameter 'database' has to be 'zensus' or 'genesis'.",
+    stop("Parameter 'database' has to be 'zensus', 'regio' or 'genesis'.",
          call. = FALSE)
 
   }
@@ -152,11 +184,12 @@ gen_table_ <- function(name,
   #-----------------------------------------------------------------------------
   # Data processing
 
-  response_type <- resp_check_data_csv(response)
+  response_type <- resp_check_data(response)
 
   # Returning the table desired by the user
   return(return_table_object(response = response,
                              response_type = response_type,
-                             language = language))
+                             language = language,
+                             all_character = all_character))
 
 }

@@ -1085,12 +1085,16 @@ titel_search <- function(x, term) {
 #'
 test_database_function <- function(input){
 
+  #-----------------------------------------------------------------------------
+
   if(sum(is.na(input)) == length(input)){
 
-    stop("Database parameter must be either 'genesis', 'zensus', 'regio', or 'all'.",
+    stop("You have to correctly specifiy a 'database' parameter. Please refer to the documentation for further information.",
          call. = FALSE)
 
   }
+
+  #-----------------------------------------------------------------------------
 
   res <- c()
 
@@ -1120,7 +1124,7 @@ test_database_function <- function(input){
 
   if (identical(res, c())){
 
-    stop("Database parameter must be either 'genesis', 'zensus', 'regio', or 'all'. No other values allowed.",
+    stop("You have to correctly specifiy a 'database' parameter. Please refer to the documentation for further information.",
          call. = FALSE)
 
   } else {

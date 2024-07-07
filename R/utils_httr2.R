@@ -2,24 +2,6 @@
 # Util functions related to API calls
 #-------------------------------------------------------------------------------
 
-#' resp_check_data_csv
-#'
-#' @param resp Response object
-#'
-resp_check_data_csv <- function(resp) {
-
-  if (!(httr2::resp_content_type(resp) %in% c("text/csv", "application/zip"))) {
-
-    stop("No data found that meets the specified parameters", call. = FALSE)
-
-  }
-
-  return <- httr2::resp_content_type(resp)
-
-}
-
-#-------------------------------------------------------------------------------
-
 #' test_if_json
 #'
 #' @param input Response object
@@ -221,21 +203,92 @@ test_if_error_light <- function(input, verbose = NULL) {
 
 #-------------------------------------------------------------------------------
 
+#' resp_check_data
+#'
+#' @param resp Response object
+#'
+resp_check_data <- function(resp) {
+
+  if (!(httr2::resp_content_type(resp) %in% c("application/zip", "text/csv", "application/json"))) {
+
+    stop("Encountered an invalid response type.",
+         call. = FALSE)
+
+  }
+
+  return <- httr2::resp_content_type(resp)
+
+}
+
+#-------------------------------------------------------------------------------
+
 #' return_table_object
 #'
-#' @param response
-#' @param response_type
-#' @param language
+#' @param response Response object
+#' @param response_type Response type
+#' @param language Language locale
+#' @param all_character Read all variables as character?
 #'
 return_table_object <- function(response,
                                 response_type,
-                                language) {
-
-  # There has to be a check on language to display correct decimal marks
-  # For German results, there needs to be a decimal mark set
+                                language,
+                                all_character) {
 
   #-----------------------------------------------------------------------------
-  if (response_type == "text/csv"){
+  # Short parameter processing of 'all character' for later use in read_delim
+
+  if (isTRUE(all_character)) {
+
+    all_character <- expression(readr::cols(.default = readr::col_character()))
+
+  } else if (isFALSE(all_character)) {
+
+    all_character <- expression(readr::cols())
+
+  } else {
+
+    stop("Misspecification of parameter 'all_character'. Has to be TRUE or FALSE.",
+         call. = FALSE)
+
+  }
+
+  #-----------------------------------------------------------------------------
+
+  if (response_type == "application/json") {
+
+    response_parsed <- httr2::resp_body_json(response)
+
+    if (response_parsed$Status$Code == 98) {
+
+      error_message <- paste0("You have requested a table too big for simple download. \n",
+                              "Consider making a range of smaller requests or use the \n",
+                              "option to create a job by setting the 'job' parameter \n",
+                              "of 'gen_table()' to TRUE. You can then download the job \n",
+                              "later (use the function 'gen_list_jobs()' to check its status).")
+
+      stop(error_message, call. = FALSE)
+
+    } else if (response_parsed$Status$Code == 99) {
+
+      message <- paste0("You have requested successfully created a job with \n",
+                        "your request. Use the function 'gen_list_jobs()' ",
+                        "to check its status and download it once completed.")
+
+      message(message)
+
+    } else {
+
+      stop("There has been an error with your request (not parseable response type 'application/json').\n Please try again later or contact the package maintainer.",
+           call. = FALSE)
+
+    }
+
+  #-----------------------------------------------------------------------------
+
+  } else if (response_type == "text/csv"){
+
+    # There has to be a check on language to display correct decimal marks
+    # For German results, there needs to be a decimal mark set
 
     if (language == "de") {
 
@@ -245,30 +298,32 @@ return_table_object <- function(response,
                                     show_col_types = FALSE,
                                     locale = readr::locale(decimal_mark = ",",
                                                            grouping_mark = "."),
-                                    name_repair = "minimal")
+                                    name_repair = "minimal",
+                                    col_types = eval(all_character))
 
     } else if (language == "en") {
 
       result <- response %>%
                   httr2::resp_body_string() %>%
-                  readr::read_delim(
-                    delim = ";",
-                    show_col_types = FALSE,
-                    name_repair = "minimal")
+                  readr::read_delim(delim = ";",
+                                    show_col_types = FALSE,
+                                    name_repair = "minimal",
+                                    col_types = eval(all_character))
 
     } else {
 
-      stop("Error handling language setting locale (values different from 'de' and 'en'.")
+      stop("Error handling language setting locale (values different from 'de' and 'en').",
+           call. = FALSE)
 
     }
 
-  }
+    return(result)
 
-  #-------------------------------------------------------------------------------
+  #-----------------------------------------------------------------------------
 
   # If the API response is a ZIP file, we need to temporarily save it
 
-  if (response_type == "application/zip") {
+  } else if (response_type == "application/zip") {
 
     content <- httr2::resp_body_raw(response)
 
@@ -304,57 +359,205 @@ return_table_object <- function(response,
                                   show_col_types = FALSE,
                                   locale = readr::locale(decimal_mark = ",",
                                                          grouping_mark = "."),
-                                  name_repair = "minimal")
+                                  name_repair = "minimal",
+                                  col_types = eval(all_character))
 
     } else if (language == "en") {
 
       result <- readr::read_delim(file = extracted_file,
                                   delim = ";",
                                   show_col_types = FALSE,
-                                  name_repair = "minimal")
+                                  name_repair = "minimal",
+                                  col_types = eval(all_character))
 
     } else {
 
-      stop("Error handling language setting locale (values different from 'de' and 'en').")
+      stop("Error handling language setting locale (values different from 'de' and 'en').",
+           call. = FALSE)
 
     }
 
     # Remove temporarily created .csv file from temporary directory
     file.remove(extracted_file)
 
-  }
+    return(result)
 
-  return(result)
+  #-----------------------------------------------------------------------------
+
+  } else {
+
+    stop("Unknown API response type. Please refer to the package maintainers.",
+         call. = FALSE)
+
+  } # End of check application/json, application/zip, text/csv
 
 }
 
 #-------------------------------------------------------------------------------
 
-perform_logincheck <- function(database) {
+#' logincheck_http_error
+#'
+#' @param database The user input to 'gen_logincheck'
+#' @param verbose Boolean. Should the function message in case of success?
+#'
+#' @return
+#'
+logincheck_http_error <- function(database,
+                                  verbose) {
 
-  if (database == "genesis") {
+  #-----------------------------------------------------------------------------
 
-    response <- gen_api("helloworld/logincheck")
+  if (length(database) == 1 && database != "all") {
 
-  } else if (database == "zensus") {
+    if (!(database %in% c("genesis", "zensus", "regio"))) {
 
-    response <- gen_zensus_api("helloworld/logincheck")
+      stop("Misspecified parameter 'database' (can only be 'all', 'genesis', 'zensus' or 'regio').",
+           call. = FALSE)
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if (database == "genesis") response <- gen_api("helloworld/logincheck")
+    if (database == "zensus") response <- gen_zensus_api("helloworld/logincheck")
+    if (database == "regio") response <- gen_regio_api("helloworld/logincheck")
+
+    logincheck_stop_or_warn(response = response,
+                            error = TRUE,
+                            verbose = verbose,
+                            database = database)
+
+  #-----------------------------------------------------------------------------
+
+  } else if (length(database) == 1 && database == "all") {
+
+    databases <- list("genesis", "zensus", "regio")
+
+    response_list <- list(response_genesis = gen_api("helloworld/logincheck"),
+                          response_zensus = gen_zensus_api("helloworld/logincheck"),
+                          response_regio = gen_regio_api("helloworld/logincheck"))
+
+    purrr::walk2(.x = response_list,
+                 .y = databases,
+                 .f = ~ logincheck_stop_or_warn(response = .x,
+                                                database = .y,
+                                                error = FALSE,
+                                                verbose = verbose))
+
+  #-----------------------------------------------------------------------------
+
+  } else if (length(database) > 1 & !("all" %in% database)) {
+
+    if (!(all(database %in% c("genesis", "zensus", "regio")))) {
+
+      stop("You can only specify 'all', 'genesis', 'zensus' or 'regio' inside of the parameter 'database'.",
+           call. = FALSE)
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if ("genesis" %in% database) {
+
+      logincheck_stop_or_warn(response = gen_api("helloworld/logincheck"),
+                              error = FALSE,
+                              verbose = verbose,
+                              database = "genesis")
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if ("zensus" %in% database) {
+
+      logincheck_stop_or_warn(response = gen_zensus_api("helloworld/logincheck"),
+                              error = FALSE,
+                              verbose = verbose,
+                              database = "zensus")
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if ("regio" %in% database) {
+
+      logincheck_stop_or_warn(response = gen_regio_api("helloworld/logincheck"),
+                              error = FALSE,
+                              verbose = verbose,
+                              database = "regio")
+
+    }
+
+  #-----------------------------------------------------------------------------
 
   } else {
 
-    stop("Misspecified parameter 'database' for function 'perform_logincheck'.",
+    stop("If you want to specify 'all', do not specify further databases (i.e., just set database to 'all').",
          call. = FALSE)
 
   }
 
+}
+
+#-------------------------------------------------------------------------------
+
+#' logincheck_stop_or_warn
+#'
+#' @param response A HTTP response object
+#' @param error Boolean. Should the function warn or throw an error?
+#' @param verbose Boolean. Should the function message in case of success?
+#' @param database The database that the check should be run for
+#'
+#' @return In case of failure warns or errors. Invisibly returns TRUE (success) or FALSE (failure)
+#'
+logincheck_stop_or_warn <- function(response,
+                                    error,
+                                    verbose,
+                                    database) {
+
   #-----------------------------------------------------------------------------
 
-  if (response$status_code != 200) {
+  request_failed <- grepl("Ein Fehler ist aufgetreten", httr2::resp_body_json(response)$Status)
 
-    stop(paste0("There seems to be an issue with the authentication process (logincheck upon credential specification failed with code ",
-                response$status_code,
-                "). ",
-                "Please retry specifying your credentials or check whether the API is currently down."),
+  if (isTRUE(request_failed) & isTRUE(error)) {
+
+    stop(paste0("Database: '",
+                database,
+                "': There seems to be an issue with the authentication process (logincheck upon credential specification failed). \n",
+                "Please retry specifying your credentials."),
+         call. = FALSE)
+
+    invisible(FALSE)
+
+  #-----------------------------------------------------------------------------
+
+  } else if (isTRUE(request_failed) & isFALSE(error)) {
+
+    warning(paste0("Database: '",
+                   database,
+                   "': There seems to be an issue with the authentication process (logincheck upon credential specification failed). \n",
+                   "Please retry specifying your credentials."),
+            call. = FALSE)
+
+    invisible(FALSE)
+
+  #-----------------------------------------------------------------------------
+
+  } else if (isFALSE(request_failed)) {
+
+    if (isTRUE(verbose)) {
+
+      message(paste0("Login check for database '", database, "' succeeded."))
+
+    }
+
+    invisible(TRUE)
+
+  #-----------------------------------------------------------------------------
+
+  } else {
+
+    stop("Checking the HTTP response failed.",
          call. = FALSE)
 
   }
