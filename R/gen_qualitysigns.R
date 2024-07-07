@@ -1,6 +1,6 @@
 #' gen_signs: Explore Meaning of Special Signs in the Objects
 #'
-#' @description Function to list all current used special signs (e.g., 0, *, X, (), p, ...) and their meaning in Genesis or Zensus.
+#' @description Function to list all current used special signs (e.g., 0, *, X, (), p, ...) and their meaning in Genesis, Zensus, and/or regio.
 #'
 #' @param database Character string. Indicator if the Genesis or Zensus database is called. Default option is 'genesis'.
 #' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
@@ -8,40 +8,36 @@
 #' @return A list of all current used special signs.
 #' @export
 #'
-gen_signs <- function(database = c("genesis", "zensus"),
+gen_signs <- function(database = c("all", "genesis", "zensus", "regio"),
                       ...
-) {
+                      ) {
 
   gen_fun <- test_database_function(database)
 
-  if(gen_fun == "gen_api"){
+  res <- lapply(gen_fun, function(db){
 
     par_list <-  list(
       endpoint = "catalogue/qualitysigns",
       ...
     )
 
-  } else if ( gen_fun == "gen_zensus_api"){
+    results_raw <- do.call(db, par_list)
 
-    par_list <-  list(
-      endpoint = "catalogue/qualitysigns",
-      ...
-    )
+    results_json <- test_if_json(results_raw)
 
-  }
+    mid_res <- list("Output" = tibble::as_tibble(binding_lapply(results_json$List,
+                                                            characteristics = c("Code",
+                                                                                "Content"))))
 
-  results_raw <- do.call(gen_fun, par_list)
+    attr(mid_res, "Database") <- rev_database_function(db)
+    attr(mid_res, "Language") <- results_json$Parameter$language
+    attr(mid_res, "Copyright") <- results_json$Copyright
 
-  results_json <- test_if_json(results_raw)
+    return(mid_res)
 
-  res <- list("Output" = tibble::as_tibble(binding_lapply(results_json$List,
-                        characteristics = c("Code",
-                                            "Content"))))
+  })
 
-
-  attr(res, "Database") <- database[1]
-  attr(res, "Language") <- results_json$Parameter$language
-  attr(res, "Copyright") <- results_json$Copyright
+  res <- check_results(res)
 
   return(res)
 

@@ -446,6 +446,8 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 #'
 gen_auth_ask <- function(credential_type) {
 
+
+
   val <- askpass::askpass(paste0("Please enter your ", credential_type, ": "))
 
   if (is.null(val)) {

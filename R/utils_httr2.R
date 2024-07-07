@@ -23,23 +23,40 @@ test_if_json <- function(input) {
 }
 
 #-------------------------------------------------------------------------------
+#' test_if_okay
+#'
+#' @param input Response object
+#'
+test_if_okay <- function(input) {
+
+  results_json <- ifelse(input$`User-Agent` == "https://github.com/CorrelAid/restatis",
+                         "Yes",
+                         "No"
+                         )
+
+  return(results_json)
+
+}
+#-------------------------------------------------------------------------------
 
 #' test_if_error_find
 #'
 #' @param input Response object
 #' @param para Parameter TRUE/FALSE
 #'
-test_if_error_find <- function(input, para) {
+test_if_error_find <- function(input, para, verbose = NULL) {
 
-  if (input$Status$Code != 0 && isTRUE(para)) {
+  if (input$Status$Code != 0 && isTRUE(para) && input$Status$Code != 22) {
 
     stop(input$Status$Content)
 
-  } else if (input$Status$Code != 0 && isFALSE(para)) {
+  } else if (input$Status$Code != 0 && isFALSE(para) && input$Status$Code != 22) {
 
+    if( !is.null(verbose) && isTRUE(verbose)){
     message(input$Status$Content)
 
     message("Artificial token is used.")
+    }
 
     empty_object <- FALSE
 
@@ -60,30 +77,33 @@ test_if_error_find <- function(input, para) {
 #' @param input Response object
 #' @param para Parameter TRUE/FALSE
 #'
-test_if_error <- function(input, para) {
+test_if_error <- function(input, para, verbose = NULL) {
 
   if (input$Status$Code == 104 && isFALSE(para)) {
 
     stop("No object found for your request. Check your parameters if you expected an object for this request.",
          call. = FALSE)
 
-  } else if (input$Status$Code != 0 && isFALSE(para)) {
+  } else if (input$Status$Code != 0 && isFALSE(para) && input$Status$Code != 22) {
 
     stop(input$Status$Content,
          call. = FALSE)
 
   } else if (input$Status$Code == 104 && isTRUE(para)) {
 
-    message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.",
-            call. = FALSE)
+    if( !is.null(verbose) && isTRUE(verbose)){
+    message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
+    }
 
     empty_object <- TRUE
 
-  } else if (input$Status$Code != 0 && isTRUE(para)) {
+  } else if (input$Status$Code != 0 && isTRUE(para) && input$Status$Code != 22) {
 
+    if( !is.null(verbose) && isTRUE(verbose)){
     message(input$Status$Content)
 
     message("Artificial token is used.")
+    }
 
     empty_object <- FALSE
 
@@ -110,7 +130,7 @@ test_if_error_variables <- function(input, para) {
 
     empty_object <- TRUE
 
-  } else if (input$Status$Code != 0) {
+  } else if (input$Status$Code != 0 && input$Status$Code != 22) {
 
     empty_object <- FALSE
 
@@ -131,7 +151,7 @@ test_if_error_variables <- function(input, para) {
 #' @param input Response object
 #' @param para Parameter TRUE/FALSE
 #'
-test_if_process_further <- function(input, para) {
+test_if_process_further <- function(input, para, verbose = NULL) {
 
   if (sum(unlist(lapply(input[4:8], function(x) {
 
@@ -148,7 +168,9 @@ test_if_process_further <- function(input, para) {
 
   }))) == 5 && isTRUE(para)) {
 
+    if( !is.null(verbose) && isTRUE(verbose)){
     message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
+    }
 
     empty_object <- TRUE
 
@@ -168,9 +190,9 @@ test_if_process_further <- function(input, para) {
 #'
 #' @param input Response object
 #'
-test_if_error_light <- function(input) {
+test_if_error_light <- function(input, verbose = NULL) {
 
-  if (input$Status$Code != 0) {
+  if (input$Status$Code != 0 && !is.null(verbose) && isTRUE(verbose) && input$Status$Code != 22) {
 
     warning(input$Status$Content,
             call. = FALSE)

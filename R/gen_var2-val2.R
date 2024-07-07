@@ -8,6 +8,7 @@
 #' @param detailed A logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. The default is detailed = FALSE.
 #' @param sortcriterion A string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis/Zensus API call itself. The default is "code".
 #' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param verbose Logical. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis/Zensus. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -21,11 +22,12 @@
 #' }
 #'
 gen_var2stat <- function(code = NULL,
-                         database = c("genesis", "zensus"),
+                         database = c("all", "genesis", "zensus", "regio"),
                          area = c("all", "public", "user"),
                          detailed = FALSE,
                          sortcriterion = c("code", "content"),
                          error.ignore = FALSE,
+                         verbose = TRUE,
                          ...) {
 
   caller <- as.character(match.call()[1])
@@ -37,7 +39,8 @@ gen_var2stat <- function(code = NULL,
                        error.ignore = error.ignore,
                        sortcriterion = sortcriterion,
                        database = gen_fun,
-                       caller = caller)
+                       caller = caller,
+                       verbose = verbose)
 
   sortcriterion <- match.arg(sortcriterion)
 
@@ -48,75 +51,80 @@ gen_var2stat <- function(code = NULL,
   #-----------------------------------------------------------------------------
 
   # Processing ####
-  if(gen_fun == "gen_api"){
+  res <- lapply(gen_fun, function(db){
 
+    if(verbose) {
+      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      message(info)
+    }
+
+
+    #---------------------------------------------------------------------------
     par_list <-  list(
       endpoint = "catalogue/variables2statistic",
-      username = gen_auth_get()$username,
-      password = gen_auth_get()$password,
+      username = gen_auth_get(database = rev_database_function(db))$username,
+      password = gen_auth_get(database = rev_database_function(db))$password,
       name = code,
-      area = area,
-      sortcriterion = sortcriterion,
       ...
     )
 
-  } else if ( gen_fun == "gen_zensus_api"){
+    if(db == "gen_api" | db == "gen_regio_api"){
+      par_list <- append(par_list, list(area = area))
+    }
 
-    par_list <-  list(
-      endpoint = "catalogue/variables2statistic",
-      username = gen_zensus_auth_get()$username,
-      password = gen_zensus_auth_get()$password,
-      name = code,
-      sortcriterion = sortcriterion,
-      ...
-    )
+    results_raw <- do.call(db, par_list)
 
-  }
+    results_json <- test_if_json(results_raw)
 
-  results_raw <- do.call(gen_fun, par_list)
+    empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
 
-  results_json <- test_if_json(results_raw)
 
-  empty_object <- test_if_error(results_json, para = error.ignore)
+    if(isTRUE(empty_object)){
+      list_of_variables <- "No `variables`- object found for your request."
+    } else if(isFALSE(empty_object)){
+      list_of_variables <- results_json$Status$Content
+    } else if(empty_object == "DONE"){
+      if (isTRUE(detailed)) {
 
-  if(isTRUE(empty_object)){
-    list_of_variables <- "No `variables`- object found for your request."
-  } else if(isFALSE(empty_object)){
-    list_of_variables <- results_json$Status$Content
-  } else if(empty_object == "DONE"){
-  if (isTRUE(detailed)) {
+        list_of_variables <- binding_lapply(results_json$List,
+                                            characteristics = c("Code",
+                                                                "Content",
+                                                                "Type",
+                                                                "Values",
+                                                                "Information"))
 
-    list_of_variables <- binding_lapply(results_json$List,
-                            characteristics = c("Code",
-                                                "Content",
-                                                "Type",
-                                                "Values",
-                                                "Information"))
+      } else {
 
-  } else {
+        list_of_variables <- binding_lapply(results_json$List,
+                                            characteristics = c("Code",
+                                                                "Content"
+                                            ))
 
-    list_of_variables <- binding_lapply(results_json$List,
-                                        characteristics = c("Code",
-                                                            "Content"
-                                                            ))
+      }
 
-  }
+      list_of_variables$Object_Type <- "Variable"
 
-  list_of_variables$Object_Type <- "Variable"
+      list_of_variables <- tibble::as_tibble(list_of_variables)
+    }
 
-  list_of_variables <- tibble::as_tibble(list_of_variables)
-  }
+    #---------------------------------------------------------------------------
+    # Summary ####
+    list_resp <- list("Variables" = list_of_variables)
 
-  # Summary ####
-  list_resp <- list("Variables" = list_of_variables)
+    attr(list_resp, "Code") <- results_json$Parameter$name
+    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+    attr(list_resp, "Copyright") <- results_json$Copyright
 
-  attr(list_resp, "Code") <- results_json$Parameter$name
-  attr(list_resp, "Database") <- database[1]
-  attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-  attr(list_resp, "Copyright") <- results_json$Copyright
+    return(list_resp)
 
-  return(list_resp)
+  })
+
+  #-----------------------------------------------------------------------------
+  res <- check_results(res)
+
+  return(res)
 
 }
 
@@ -130,7 +138,8 @@ gen_var2stat <- function(code = NULL,
 #' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
 #' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Only used for Genesis.
 #' @param sortcriterion A string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis/Zensus API call itself. The default is "code".
-#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'TRUE' - .
+#' @param verbose Logical. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis/Zensus. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -143,10 +152,11 @@ gen_var2stat <- function(code = NULL,
 #' }
 #'
 gen_val2var <- function(code = NULL,
-                        database = c("genesis", "zensus"),
+                        database = c("all", "genesis", "zensus", "regio"),
                         area = c("all", "public", "user"),
                         sortcriterion = c("code", "content"),
-                        error.ignore = FALSE,
+                        error.ignore = TRUE,
+                        verbose = TRUE,
                         ...) {
 
   caller <- as.character(match.call()[1])
@@ -157,7 +167,8 @@ gen_val2var <- function(code = NULL,
                        error.ignore = error.ignore,
                        sortcriterion = sortcriterion,
                        database = gen_fun,
-                       caller = caller)
+                       caller = caller,
+                       verbose = verbose)
 
   sortcriterion <- match.arg(sortcriterion)
 
@@ -165,72 +176,75 @@ gen_val2var <- function(code = NULL,
 
   area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
 
-  embedding <- list(...)$frame
+  embedding <- deparse(sys.calls())
 
   #-----------------------------------------------------------------------------
-  if(gen_fun == "gen_api"){
+
+  res <- lapply(gen_fun, function(db){
+
+    if(verbose) {
+      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      message(info)
+    }
 
     par_list <-  list(
       endpoint = "catalogue/values2variable",
-      username = gen_auth_get()$username,
-      password = gen_auth_get()$password,
+      username = gen_auth_get(database = rev_database_function(db))$username,
+      password = gen_auth_get(database = rev_database_function(db))$password,
       name = code,
-      area = area,
-      sortcriterion = sortcriterion,
       ...
     )
 
-  } else if ( gen_fun == "gen_zensus_api"){
+    if(db == "gen_api" | db == "gen_regio_api"){
+      par_list <- append(par_list, list(area = area))
+    }
 
-    par_list <-  list(
-      endpoint = "catalogue/values2variable",
-      username = gen_zensus_auth_get()$username,
-      password = gen_zensus_auth_get()$password,
-      name = code,
-      sortcriterion = sortcriterion,
-      ...
-    )
+    results_raw <- do.call(db, par_list)
 
-  }
+    results_json <- test_if_json(results_raw)
 
-  results_raw <- do.call(gen_fun, par_list)
+    if(isFALSE(grepl("pairlist\\(gen_val2var", embedding))){
+      empty_object <- test_if_error_variables(results_json, para = error.ignore)
+    } else {
+      empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
+    }
 
-  results_json <- test_if_json(results_raw)
+    if(isTRUE(empty_object)){
+      list_of_variables <- "No `values`- object found for your request."
+    } else if(isFALSE(empty_object)){
+      list_of_variables <- results_json$Status$Content
+    } else if(empty_object == "DONE"){
+      list_of_variables <- binding_lapply(results_json$List,
+                                          characteristics = c("Code",
+                                                              "Content",
+                                                              "Variables",
+                                                              "Information"))
 
-  if(isTRUE(grepl("gen_val2var2stat", embedding))){
-    empty_object <- test_if_error_variables(results_json, para = error.ignore)
-  } else {
-    empty_object <- test_if_error(results_json, para = error.ignore)
-  }
+      list_of_variables$Object_Type <- "Value"
 
-  if(isTRUE(empty_object)){
-    list_of_variables <- "No `values`- object found for your request."
-  } else if(isFALSE(empty_object)){
-    list_of_variables <- results_json$Status$Content
-  } else if(empty_object == "DONE"){
-  list_of_variables <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Variables",
-                                                          "Information"))
+      list_of_variables <- tibble::as_tibble(list_of_variables)
 
-    list_of_variables$Object_Type <- "Value"
+    }
 
-    list_of_variables <- tibble::as_tibble(list_of_variables)
+    list_resp <- list("Values" = list_of_variables)
 
-  }
+    attr(list_resp, "Name") <- results_json$Parameter$name
+    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+    attr(list_resp, "Copyright") <- results_json$Copyright
 
-  list_resp <- list("Values" = list_of_variables)
+    names(list_resp) <- paste("Values of", results_json$Parameter$name)
 
-  attr(list_resp, "Name") <- results_json$Parameter$name
-  attr(list_resp, "Database") <- database[1]
-  attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-  attr(list_resp, "Copyright") <- results_json$Copyright
+    return(list_resp)
 
-  names(list_resp) <- paste("Values of", results_json$Parameter$name)
+  })
 
-  return(list_resp)
+  #-----------------------------------------------------------------------------
+
+  res <- check_results(res)
+
+  return(res)
 
 }
 
@@ -244,8 +258,10 @@ gen_val2var <- function(code = NULL,
 #' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
 #' @param area A string. Indicator from which area of the database the results are called. In general, "all" is the appropriate solution. Default option is 'all'. Only used for Genesis.
 #' @param detailed A logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. This parameter only affects the details of the variables-related output. The default is FALSE.
-#' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param error.ignore.var A logical. Indicator for the variables if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param error.ignore.val A logical. Indicator for the values if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'TRUE' - this prevents the function to stop even if a varaible has no further explanation (as often the case for numerical variables).
 #' @param sortcriterion A string. Indicator if the output should be sorted by 'code' or 'content'. This is an parameter of the Genesis/Zensus API call itself. The default is "code".
+#' @param verbose Logical. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis/Zensus Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -259,50 +275,82 @@ gen_val2var <- function(code = NULL,
 #' }
 #'
 gen_val2var2stat <- function(code = NULL,
-                             database = c("genesis", "zensus"),
+                             database = c("all", "genesis", "zensus", "regio"),
                              area = c("all", "public", "user"),
                              detailed = FALSE,
                              sortcriterion = c("code", "content"),
-                             error.ignore = FALSE,
+                             error.ignore.var = FALSE,
+                             error.ignore.val = TRUE,
+                             verbose = TRUE,
                              ...) {
 
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database)
+
   check_function_input(code = code,
-                       error.ignore = error.ignore,
+                       error.ignore = error.ignore.var,
                        sortcriterion = sortcriterion,
                        database = gen_fun,
-                       caller = caller)
+                       caller = caller,
+                       verbose = verbose)
 
   sortcriterion <- match.arg(sortcriterion)
 
-  embedding <- deparse(sys.calls())
+  if("all" %in% database){
+    database <- c("genesis", "zensus", "regio")
+  }
 
   #-----------------------------------------------------------------------------
 
-  variables <- suppressMessages(suppressWarnings(gen_var2stat(code = code,
-                                            database = database,
-                                            area = area,
-                                            detailed = detailed,
-                                            sortcriterion = sortcriterion,
-                                            error.ignore = error.ignore,
-                                            ...)))
+  res <- lapply(database, function(db){
 
-  list_values <- list()
+    variables <- suppressMessages(suppressWarnings(gen_var2stat(code = code,
+                                                                database = db,
+                                                                area = area,
+                                                                detailed = detailed,
+                                                                sortcriterion = sortcriterion,
+                                                                error.ignore = error.ignore.var,
+                                                                verbose = verbose,
+                                                                ...)))
 
-  lapply(variables$Variables$Code, function(x) {
+    if(length(dim(variables$Variables)) != 2){
+      if(variables$Variables == "No `variables`- object found for your request."){
 
-    zwisch <- suppressMessages(suppressWarnings(gen_val2var(code = x,
-                                                            database = database,
-                                                            area = area,
-                                        sortcriterion = sortcriterion,
-                                        error.ignore = error.ignore,
-                                        frame = embedding)))
-    list_values <<- append(list_values, zwisch)
+         list_resp <- variables
+
+      }
+      } else {
+
+        list_values <- list()
+
+        lapply(variables$Variables$Code, function(x) {
+
+          zwisch <- suppressMessages(suppressWarnings(gen_val2var(code = x,
+                                                                  database = db,
+                                                                  area = area,
+                                                                  sortcriterion = sortcriterion,
+                                                                  error.ignore = error.ignore.val,
+                                                                  verbose = verbose)))
+
+          list_values <<- append(list_values, zwisch)
+
+        })
+
+      list_resp <- list(variables, list_values)
+
+  }
+
+
+    return(list_resp)
 
   })
 
-  list_resp <- list(variables, list_values)
+  #-----------------------------------------------------------------------------
 
-  return(list_resp)
+  res <- check_results(res)
+
+  return(res)
 
 }
 
@@ -316,6 +364,7 @@ gen_val2var2stat <- function(code = NULL,
 #' @param database Character string. Indicator if the Genesis or Zensus database is called. Only one database can be addressed per function call. Default option is 'genesis'.
 #' @param sortcriterion A string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis/Zensus API call itself. The default is "code".
 #' @param error.ignore A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param verbose Logical. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from Genesis/Zensus Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
@@ -328,10 +377,11 @@ gen_val2var2stat <- function(code = NULL,
 #' }
 #'
 gen_search_vars <- function(code = NULL,
-                            database = c("genesis", "zensus"),
+                            database = c("all", "genesis", "zensus", "regio"),
                             area = c("all", "public", "user"),
                             sortcriterion = c("code", "content"),
                             error.ignore = FALSE,
+                            verbose = TRUE,
                             ...) {
 
   caller <- as.character(match.call()[1])
@@ -342,7 +392,8 @@ gen_search_vars <- function(code = NULL,
                        error.ignore = error.ignore,
                        sortcriterion = sortcriterion,
                        database = gen_fun,
-                       caller = caller)
+                       caller = caller,
+                       verbose = verbose)
 
   sortcriterion <- match.arg(sortcriterion)
 
@@ -352,61 +403,66 @@ gen_search_vars <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  if(gen_fun == "gen_api"){
+  res <- lapply(gen_fun, function(db){
 
+    if(verbose) {
+      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      message(info)
+    }
+
+    #---------------------------------------------------------------------------
     par_list <-  list(
       endpoint = "catalogue/variables",
-      username = gen_auth_get()$username,
-      password = gen_auth_get()$password,
+      username = gen_auth_get(database = rev_database_function(db))$username,
+      password = gen_auth_get(database = rev_database_function(db))$password,
       selection = code,
       sortcriterion = sortcriterion,
       area = area,
       ...
     )
 
-  } else if ( gen_fun == "gen_zensus_api"){
+    if(db == "gen_api" | db == "gen_regio_api"){
+      par_list <- append(par_list, list(area = area))
+    }
 
-    par_list <-  list(
-      endpoint = "catalogue/variables",
-      username = gen_zensus_auth_get()$username,
-      password = gen_zensus_auth_get()$password,
-      selection = code,
-      sortcriterion = sortcriterion,
-      ...
-    )
+    results_raw <- do.call(db, par_list)
 
-  }
+    results_json <- test_if_json(results_raw)
 
-  results_raw <- do.call(gen_fun, par_list)
+    empty_object <- test_if_error(results_json, para = error.ignore)
 
-  results_json <- test_if_json(results_raw)
+    if(isTRUE(empty_object)){
+      list_of_variables <- "No `variables`- object found for your request."
+    } else if(isFALSE(empty_object)){
+      list_of_variables <- results_json$Status$Content
+    } else if(empty_object == "DONE"){
+      list_of_variables <- binding_lapply(results_json$List,
+                                          characteristics = c("Code",
+                                                              "Content",
+                                                              "Type",
+                                                              "Information"))
 
-  empty_object <- test_if_error(results_json, para = error.ignore)
+      list_of_variables$Object_Type <- "Variable"
 
-  if(isTRUE(empty_object)){
-    list_of_variables <- "No `variables`- object found for your request."
-  } else if(isFALSE(empty_object)){
-    list_of_variables <- results_json$Status$Content
-  } else if(empty_object == "DONE"){
-  list_of_variables <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Type",
-                                                          "Information"))
+      list_of_variables <- tibble::as_tibble(list_of_variables)
+    }
 
-  list_of_variables$Object_Type <- "Variable"
+    list_resp <- list("Variables" = list_of_variables)
 
-  list_of_variables <- tibble::as_tibble(list_of_variables)
-  }
+    attr(list_resp, "Code") <- results_json$Parameter$selection
+    attr(list_resp, "Database") <- database[1]
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+    attr(list_resp, "Copyright") <- results_json$Copyright
 
-  list_resp <- list("Variables" = list_of_variables)
+    return(list_resp)
 
-  attr(list_resp, "Code") <- results_json$Parameter$selection
-  attr(list_resp, "Database") <- database[1]
-  attr(list_resp, "Language") <- results_json$Parameter$language
-  attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-  attr(list_resp, "Copyright") <- results_json$Copyright
+  })
 
-  return(list_resp)
+  #-----------------------------------------------------------------------------
+
+  res <- check_results(res)
+
+  return(res)
 
 }
