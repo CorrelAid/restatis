@@ -43,6 +43,7 @@ test_if_okay <- function(input) {
 #'
 #' @param input Response object
 #' @param para Parameter TRUE/FALSE
+#' @param verbose Verbose TRUE/FALSE
 #'
 test_if_error_find <- function(input, para, verbose = NULL) {
 
@@ -52,10 +53,12 @@ test_if_error_find <- function(input, para, verbose = NULL) {
 
   } else if (input$Status$Code != 0 && isFALSE(para) && input$Status$Code != 22) {
 
-    if( !is.null(verbose) && isTRUE(verbose)){
-    message(input$Status$Content)
+    if(!is.null(verbose) && isTRUE(verbose)) {
 
-    message("Artificial token is used.")
+      message(input$Status$Content)
+
+      message("Artificial token is used.")
+
     }
 
     empty_object <- FALSE
@@ -76,6 +79,7 @@ test_if_error_find <- function(input, para, verbose = NULL) {
 #'
 #' @param input Response object
 #' @param para Parameter TRUE/FALSE
+#' @param verbose Verbose TRUE/FALSE
 #'
 test_if_error <- function(input, para, verbose = NULL) {
 
@@ -91,8 +95,10 @@ test_if_error <- function(input, para, verbose = NULL) {
 
   } else if (input$Status$Code == 104 && isTRUE(para)) {
 
-    if( !is.null(verbose) && isTRUE(verbose)){
-    message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
+    if(!is.null(verbose) && isTRUE(verbose)){
+
+      message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
+
     }
 
     empty_object <- TRUE
@@ -100,9 +106,11 @@ test_if_error <- function(input, para, verbose = NULL) {
   } else if (input$Status$Code != 0 && isTRUE(para) && input$Status$Code != 22) {
 
     if( !is.null(verbose) && isTRUE(verbose)){
-    message(input$Status$Content)
 
-    message("Artificial token is used.")
+      message(input$Status$Content)
+
+      message("Artificial token is used.")
+
     }
 
     empty_object <- FALSE
@@ -150,6 +158,7 @@ test_if_error_variables <- function(input, para) {
 #'
 #' @param input Response object
 #' @param para Parameter TRUE/FALSE
+#' @param verbose Verbose TRUE/FALSE
 #'
 test_if_process_further <- function(input, para, verbose = NULL) {
 
@@ -168,8 +177,10 @@ test_if_process_further <- function(input, para, verbose = NULL) {
 
   }))) == 5 && isTRUE(para)) {
 
-    if( !is.null(verbose) && isTRUE(verbose)){
-    message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
+    if(!is.null(verbose) && isTRUE(verbose)){
+
+      message("No object found for your request. Check your parameters if you expected an object for this request. Artificial token is used.")
+
     }
 
     empty_object <- TRUE
@@ -189,6 +200,7 @@ test_if_process_further <- function(input, para, verbose = NULL) {
 #' test_if_error_light
 #'
 #' @param input Response object
+#' @param verbose Verbose TRUE/FALSE
 #'
 test_if_error_light <- function(input, verbose = NULL) {
 

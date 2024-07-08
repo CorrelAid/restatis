@@ -5,4 +5,5 @@
   gen_regio_api <<- memoise::memoise(gen_regio_api)
 
   if (!nzchar(Sys.getenv("GENESIS_LANG"))) Sys.setenv(GENESIS_LANG = "en")
+
 }

@@ -67,7 +67,7 @@ forming_evas <- function(list_of) {
 
     obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 1)]
 
-    if(length(obj) == 0){
+    if (length(obj) == 0) {
 
       obj <- "No assignment"
 
@@ -83,7 +83,7 @@ forming_evas <- function(list_of) {
 
     obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 2)]
 
-    if(length(obj) == 0){
+    if (length(obj) == 0) {
 
       obj <- "No assignment"
 
@@ -99,7 +99,7 @@ forming_evas <- function(list_of) {
 
     obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 3)]
 
-    if(length(obj) == 0){
+    if (length(obj) == 0) {
 
       obj <- "No assignment"
 
@@ -115,7 +115,7 @@ forming_evas <- function(list_of) {
 
     obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 5)]
 
-    if(length(obj) == 0){
+    if (length(obj) == 0) {
 
       obj <- "No assignment"
 
@@ -130,20 +130,21 @@ forming_evas <- function(list_of) {
   keep <- colnames(list_of[,1:(ncol(list_of) - 4)])
 
   #-----------------------------------------------------------------------------
-  if(sum(list_of$Main == "No assignment") != nrow(list_of)){
+  if (sum(list_of$Main == "No assignment") != nrow(list_of)) {
 
     nestedlist <- split(list_of, list_of$Main, drop = TRUE)
 
     #---------------------------------------------------------------------------
-    if(sum(list_of$Main2 == "No assignment") != nrow(list_of)){
+    if (sum(list_of$Main2 == "No assignment") != nrow(list_of)) {
 
       nestedlist <- lapply(nestedlist, function(x) {
 
         obj <- split(x, x["Main2"], drop = TRUE)
 
       })
+
       #-------------------------------------------------------------------------
-      if(sum(list_of$Main3 == "No assignment") != nrow(list_of)){
+      if (sum(list_of$Main3 == "No assignment") != nrow(list_of)) {
 
         nestedlist <- lapply(nestedlist, function(x) {
 
@@ -156,7 +157,7 @@ forming_evas <- function(list_of) {
         })
 
         #-----------------------------------------------------------------------
-        if(sum(list_of$Main5 == "No assignment") != nrow(list_of)){
+        if (sum(list_of$Main5 == "No assignment") != nrow(list_of)) {
 
           nestedlist <- lapply(nestedlist, function(x) {
 
@@ -188,6 +189,7 @@ forming_evas <- function(list_of) {
                   obj <- tibble::as_tibble(obj)
 
                 },
+
               remain = keep)})
 
             })
@@ -195,6 +197,7 @@ forming_evas <- function(list_of) {
           })
 
         #-----------------------------------------------------------------------
+
         } else {
 
           nestedlist <- lapply(nestedlist, function(d){
@@ -207,13 +210,17 @@ forming_evas <- function(list_of) {
                 obj <- tibble::as_tibble(obj)
 
                 },
+
               remain = keep
 
             )}
+
           )}
+
         )}
 
       #-------------------------------------------------------------------------
+
       } else {
 
         nestedlist <- lapply(nestedlist, function(d){
@@ -223,6 +230,7 @@ forming_evas <- function(list_of) {
             obj <- r[keep]
             obj <- tibble::as_tibble(obj)
             },
+
           remain = keep
 
         )}
@@ -230,6 +238,7 @@ forming_evas <- function(list_of) {
       )}
 
     #---------------------------------------------------------------------------
+
     } else {
 
       nestedlist <- lapply(nestedlist, function(r, remain){
@@ -238,6 +247,7 @@ forming_evas <- function(list_of) {
         obj <- tibble::as_tibble(obj)
 
         },
+
       remain = keep)
 
     }
@@ -268,6 +278,9 @@ forming_evas <- function(list_of) {
 #' @param ordering Parameter to be checked
 #' @param database Parameter to be checked
 #' @param caller Parameter to be checked
+#' @param area Parameter to be checked
+#' @param verbose Parameter to be checked
+#' @param raw Parameter to be checked
 #'
 check_function_input <- function(code = NULL,
                                  term = NULL,
@@ -295,8 +308,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if (!is.logical(verbose) ||
-          length(verbose) != 1) {
+      if (!is.logical(verbose) || length(verbose) != 1) {
 
         stop("Parameter 'verbose' has to be of type 'logical' and of length 1.",
              call. = FALSE)
@@ -433,8 +445,7 @@ check_function_input <- function(code = NULL,
 
     #----------------------------------------
 
-    if (length(category) != 1 &&
-        caller %in% c("restatis::gen_metadata", "gen_metadata")) {
+    if (length(category) != 1 && caller %in% c("restatis::gen_metadata", "gen_metadata")) {
 
       stop("Parameter 'category' must have a length of 1. Please specify the category.",
            call. = FALSE)
@@ -465,34 +476,32 @@ check_function_input <- function(code = NULL,
 
         if (length(category) == 1 &&
             "cubes" %in% category &&
-            isFALSE(error.ignore) && isTRUE(verbose)) {
+            isFALSE(error.ignore) &&
+            isTRUE(verbose)) {
 
-          stop("Available categories for 'zensus'-database are: 'tables' and 'statistics'.",
+          stop("Available categories for 'zensus' database are: 'tables' and 'statistics'.",
                call. = FALSE)
 
-        }
 
         #-----------------------------------------------------------------------
 
-        else if (length(category) == 1 &&
-                 "cubes" %in% category &&
-                 isTRUE(error.ignore)  && isTRUE(verbose)) {
+        } else if (length(category) == 1 &&
+                   "cubes" %in% category &&
+                   isTRUE(error.ignore)  &&
+                   isTRUE(verbose)) {
 
-          warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'.\nFunction is continued with a placeholder for the 'cubes' output.",
+          warning("Available categories for the 'zensus' database are: 'tables' and 'statistics'.\nFunction is continued with a placeholder for the 'cubes' output.",
                   call. = FALSE)
 
-        }
-
-        else if ("cubes" %in% category &&
-                 isFALSE(error.ignore) && isTRUE(verbose)) {
+        } else if ("cubes" %in% category &&
+                   isFALSE(error.ignore) &&
+                   isTRUE(verbose)) {
 
           warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'.",
                   call. = FALSE)
 
-        }
-
-        else if ("cubes" %in% category &&
-                 isTRUE(error.ignore) && isTRUE(verbose)) {
+        } else if ("cubes" %in% category &&
+                   isTRUE(error.ignore) && isTRUE(verbose)) {
 
           warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'.\nFunction is continued with specified 'category'-parameter excluding 'cubes'.",
                   call. = FALSE)
@@ -516,7 +525,7 @@ check_function_input <- function(code = NULL,
 
     }
 
-    #----------------------------------------
+    #---------------------------------------------------------------------------
 
     if (caller %in% c("restatis::gen_objects2stat",
                       "gen_objects2stat")) {
@@ -540,7 +549,7 @@ check_function_input <- function(code = NULL,
             "cubes" %in% category &&
             isFALSE(error.ignore)) {
 
-          stop("Available categories for 'zensus'-database are: 'tables' and 'variables'.",
+          stop("Available categories for 'zensus' database are: 'tables' and 'variables'.",
                call. = FALSE)
 
         }
@@ -548,9 +557,11 @@ check_function_input <- function(code = NULL,
         #-----------------------------------------------------------------------
 
         else if (length(category) == 1 &&
-                 "cubes" %in% category && isTRUE(error.ignore)  && isTRUE(verbose)) {
+                 "cubes" %in% category &&
+                 isTRUE(error.ignore)  &&
+                 isTRUE(verbose)) {
 
-          warning("Available categories for 'zensus'-database are: 'tables' and 'variables'.\nFunction is continued with a placeholder for the 'cubes' output.",
+          warning("Available categories for 'zensus' database are: 'tables' and 'variables'.\nFunction is continued with a placeholder for the 'cubes' output.",
                   call. = FALSE)
 
         }
@@ -558,7 +569,8 @@ check_function_input <- function(code = NULL,
         #-----------------------------------------------------------------------
 
         else if ("cubes" %in% category &&
-                 isFALSE(error.ignore) && isTRUE(verbose)) {
+                 isFALSE(error.ignore) &&
+                 isTRUE(verbose)) {
 
           warning("Available categories for 'zensus'-database are: 'tables' and 'variables'.",
                   call. = FALSE)
@@ -568,9 +580,10 @@ check_function_input <- function(code = NULL,
         #-----------------------------------------------------------------------
 
         else if ("cubes" %in% category &&
-                 isTRUE(error.ignore) && isTRUE(verbose)) {
+                 isTRUE(error.ignore) &&
+                 isTRUE(verbose)) {
 
-          warning("Available categories for 'zensus'-database are: 'tables' and 'variables'.\nFunction is continued with specified 'category'-parameter excluding 'cubes'.",
+          warning("Available categories for 'zensus' database are: 'tables' and 'variables'.\nFunction is continued with specified 'category'-parameter excluding 'cubes'.",
                   call. = FALSE)
 
         }
@@ -592,7 +605,7 @@ check_function_input <- function(code = NULL,
 
     }
 
-    #----------------------------------------
+    #---------------------------------------------------------------------------
 
     if (caller %in% c("restatis::gen_find", "gen_find")) {
 
@@ -604,7 +617,7 @@ check_function_input <- function(code = NULL,
 
           if("gen_api" %in% database){
 
-            stop("Available categories for parameter 'category' for 'genesis'-database are 'all', 'tables', 'statistics', 'variables', and 'cubes'.",
+            stop("Available categories for parameter 'category' for 'genesis' database are 'all', 'tables', 'statistics', 'variables', and 'cubes'.",
                  call. = FALSE)
 
           }
@@ -613,7 +626,7 @@ check_function_input <- function(code = NULL,
 
           if("gen_zensus_api" %in% database){
 
-            stop("Available categories for parameter 'category' for 'zensus'-database are 'all', 'tables', 'statistics', and 'variables'.",
+            stop("Available categories for parameter 'category' for 'zensus' database are 'all', 'tables', 'statistics', and 'variables'.",
                  call. = FALSE)
 
         }
@@ -630,13 +643,13 @@ check_function_input <- function(code = NULL,
 
       if("gen_zensus_api" %in% database){
 
-
         #-----------------------------------------------------------------------
 
         if ("cubes" %in% category &&
-            isTRUE(error.ignore) && isTRUE(verbose)) {
+            isTRUE(error.ignore) &&
+            isTRUE(verbose)) {
 
-          warning("Available categories for 'zensus'-database are: 'all', 'tables', 'statistics', and 'variables'.\nFunction is continued with a placeholder for the 'cubes' output.",
+          warning("Available categories for 'zensus' database are: 'all', 'tables', 'statistics', and 'variables'.\nFunction is continued with a placeholder for the 'cubes' output.",
                   call. = FALSE)
 
         }
@@ -645,7 +658,7 @@ check_function_input <- function(code = NULL,
 
         else if ("all" %in% category && isTRUE(verbose)) {
 
-          warning("Available categories for 'zensus'-database are: 'all', 'tables', 'statistics', and 'variables'.\nFunction is continued with a placeholder for the 'cubes' output.",
+          warning("Available categories for 'zensus' database are: 'all', 'tables', 'statistics', and 'variables'.\nFunction is continued with a placeholder for the 'cubes' output.",
                   call. = FALSE)
 
         }
@@ -655,7 +668,7 @@ check_function_input <- function(code = NULL,
         else if ("cubes" %in% category &&
                  isFALSE(error.ignore)) {
 
-          stop("Available categories for 'zensus'-database are 'all', 'tables', 'statistics', and 'variables'.",
+          stop("Available categories for 'zensus' database are 'all', 'tables', 'statistics', and 'variables'.",
                call. = FALSE)
 
         }
@@ -676,7 +689,7 @@ check_function_input <- function(code = NULL,
 
         if (!all(category %in% c("cube", "statistic", "table", "variable", "value"))) {
 
-            stop("Available categories for parameter 'category' for 'genesis'-database are 'cube', 'table', 'statistic', 'variable', and 'value'.",
+            stop("Available categories for parameter 'category' for 'genesis' database are 'cube', 'table', 'statistic', 'variable', and 'value'.",
                   call. = FALSE)
 
           }
@@ -689,7 +702,7 @@ check_function_input <- function(code = NULL,
 
         if (!all(category %in% c("statistic", "table", "variable", "value"))) {
 
-          stop("Available categories for parameter 'category' for 'zensus'-database are 'table', 'statistic', 'variable', and 'value'.",
+          stop("Available categories for parameter 'category' for 'zensus' database are 'table', 'statistic', 'variable', and 'value'.",
                call. = FALSE)
 
         }
@@ -706,8 +719,7 @@ check_function_input <- function(code = NULL,
 
   if (!is.null(detailed)) {
 
-    if (!is.logical(detailed) ||
-        length(detailed) != 1) {
+    if (!is.logical(detailed) || length(detailed) != 1) {
 
       stop("Parameter 'detailed' has to be of type 'logical' and of length 1.",
            call. = FALSE)
@@ -737,7 +749,7 @@ check_function_input <- function(code = NULL,
 
       if (!all(type %in% c("all", "tables", "statistics", "statisticsUpdates"))) {
 
-        stop("Available categories for parameter 'type' for 'genesis'-database are 'tables', 'statistics', 'statistic updates', and 'all'.",
+        stop("Available categories for parameter 'type' for 'genesis' database are 'tables', 'statistics', 'statistic updates', and 'all'.",
              call. = FALSE)
 
       }
@@ -750,7 +762,7 @@ check_function_input <- function(code = NULL,
 
       if (!all(type %in% c("all", "tables", "statistics"))) {
 
-        stop("Available categories for parameter 'type' for 'zensus'-database are 'tables', 'statistics', and 'all'.",
+        stop("Available categories for parameter 'type' for 'zensus' database are 'tables', 'statistics', and 'all'.",
              call. = FALSE)
 
       }
@@ -796,7 +808,7 @@ check_function_input <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (isTRUE(error.ignore)  && isTRUE(verbose)) {
+    if (isTRUE(error.ignore) && isTRUE(verbose)) {
 
       message("Use 'error.ignore = FALSE' to stop the function at the point where no object could be found.")
 
@@ -809,8 +821,7 @@ check_function_input <- function(code = NULL,
 
   if (!is.null(ordering)) {
 
-    if (!is.logical(ordering) ||
-        length(ordering) != 1) {
+    if (!is.logical(ordering) || length(ordering) != 1) {
 
       stop("Parameter 'ordering' has to be of type 'logical' and of length 1.",
            call. = FALSE)
@@ -819,7 +830,7 @@ check_function_input <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (isFALSE(ordering)  && isTRUE(verbose)) {
+    if (isFALSE(ordering) && isTRUE(verbose)) {
 
       message("Use 'ordering = TRUE' to obtain the output ordered based on the search term presence.")
 
@@ -831,8 +842,7 @@ check_function_input <- function(code = NULL,
   # area ----
   if (!is.null(area)) {
 
-    if (!is.character(area) ||
-        length(area) != 1) {
+    if (!is.character(area) || length(area) != 1) {
 
       stop("Parameter 'area' has to be of type 'character' and of length 1.",
            call. = FALSE)
@@ -855,7 +865,7 @@ check_function_input <- function(code = NULL,
 
     if(isTRUE(verbose) && isFALSE(error.ignore) && length(database) > 1){
 
-      message("If you want to search through all databases it is often useful to set the 'error.ignore'-parameter to TRUE.\nThis will prevent the function from stopping if no object is found in one of the databases.")
+      message("If you want to search through all databases it is often useful to set the 'error.ignore' parameter to TRUE.\nThis will prevent the function from stopping if no object is found in one of the databases.")
 
     }
 
@@ -865,20 +875,20 @@ check_function_input <- function(code = NULL,
   # raw ----
   if(!is.null(raw)){
 
-    if(!is.logical(raw) || length(raw) != 1){
+    if (!is.logical(raw) || length(raw) != 1) {
 
       stop("Parameter 'raw' has to be of type 'logical' and of length 1.",
            call. = FALSE)
 
     }
 
-    if(isTRUE(raw) && isTRUE(verbose)){
+    if (isTRUE(raw) && isTRUE(verbose)) {
 
       message("Use 'raw = FALSE' to obtain the output in a more readable format.")
 
     }
 
-    if(isFALSE(raw) && isTRUE(verbose)){
+    if (isFALSE(raw) && isTRUE(verbose)) {
 
       message("The default 'raw = FALSE' can simplify some information to a significant extent.")
 
@@ -922,7 +932,7 @@ check_function_input <- function(code = NULL,
 
       if (date %in% c("now", "week_before", "month_before", "year_before")) {
 
-        if(isTRUE(verbose)){
+        if (isTRUE(verbose)) {
 
         message("Please note that this date is calculated automatically and may differ from manually entered data.\nManually entered data must have the format DD.MM.YYYY.")
 
@@ -1044,7 +1054,8 @@ titel_search <- function(x, term) {
 
     a <- grepl(split, x$Content, ignore.case = TRUE)
 
-  } else if (grep("\\bODER\\b|\\boder\\b|\\bOder\\b|\\|", term, ignore.case = TRUE) && grep("\\bUND\\b|\\bund\\b|\\bUnd\\b|\\|", term, ignore.case = TRUE)) {
+  } else if (grep("\\bODER\\b|\\boder\\b|\\bOder\\b|\\|", term, ignore.case = TRUE) &&
+             grep("\\bUND\\b|\\bund\\b|\\bUnd\\b|\\|", term, ignore.case = TRUE)) {
 
     a <- rep(FALSE, length(x$Content))
 
@@ -1140,12 +1151,15 @@ test_database_function <- function(input){
 #' @param input Input to test for database name
 #'
 rev_database_function <- function(input){
+
   input[which(input == "gen_api")] <- "genesis"
   input[which(input == "gen_zensus_api")] <- "zensus"
   input[which(input == "gen_regio_api")] <- "regio"
 
   return(input)
+
 }
+
 #-------------------------------------------------------------------------------
 #' check_results
 #'
@@ -1154,11 +1168,14 @@ rev_database_function <- function(input){
 check_results <- function(input){
 
   if(length(input) > 1){
+
     return(input)
+
   } else {
+
     input <- input[[1]]
     return(input)
+
   }
 
 }
-
