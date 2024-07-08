@@ -1,14 +1,19 @@
-#' gen_list_jobs: Explore Current Jobs of Your User Account
+#' gen_list_jobs
 #'
-#' @description Function to list all current jobs connected to the given user in 'GENESIS' or 'regionalstatistik.de'. Important note: For this function it is also possible to use `searchcriterion`-parameter and `selection`-parameter, making it possible to filter the job list based on 'type','time','status' or 'code'. For more details see `vignette("additional_parameter")`.
+#' @description Function to list all current jobs connected to the given user in the GENESIS or regionalstatistik.de database. Important note: For this function it is also possible to use `searchcriterion` parameter and `selection` parameter, making it possible to filter the job list based on 'type','time','status' or 'code'. For more details see `vignette("additional_parameter")`.
 #'
 #' @param database Character string. Indicator if 'genesis' or 'regionalstatistik.de' database is called. Default option is 'genesis'.
-#' @param sortcriterion A string. Indicator if the output should be sorted by 'type','time','status' or 'code'. This is a parameter of the Genesis/Zensus API call itself. The default is 'type'.
-#' @param flat Should the function return a list with jobs and metadata or just a flat data.frame? Defaults to FALSE.
-#' @param ... Additional parameters for the API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param sortcriterion Character string. Indicator if the output should be sorted by 'type','time','status' or 'code'. This is a parameter of the API call itself. The default is 'type'.
+#' @param flat Boolean. Should the function return a list with jobs and metadata ('FALSE') or just a flat data.frame ('TRUE')? Defaults to FALSE.
+#' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list of all current jobs connected to the given user.
+#' @return A list or data.frame (see parameter 'flat') of all current jobs of the user.
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' gen_list_jobs("regio", flat = TRUE)
+#' }
 #'
 gen_list_jobs <- function(database = c("genesis", "regio"),
                           sortcriterion = c("type", "time", "status", "code"),
@@ -16,6 +21,13 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
                           ...) {
 
   gen_fun <- test_database_function(database)
+
+  if (length(database) != 1) {
+
+    stop("This function allows only two values of  'database': 'genesis' or 'regio'.",
+         call. = FALSE)
+
+  }
 
   if (!is.character(sortcriterion)) {
 
@@ -26,7 +38,7 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
 
   sortcriterion <- match.arg(sortcriterion)
 
-  if(!(sortcriterion %in% c("type", "time", "status", "code"))){
+  if (!(sortcriterion %in% c("type", "time", "status", "code"))) {
 
     stop("Parameter 'sortcriterion' has to be 'type', 'time', 'status', or 'code'.",
          call. = FALSE)
@@ -35,7 +47,7 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
 
   #-----------------------------------------------------------------------------
 
-  if(gen_fun == "gen_api"){
+  if (gen_fun == "gen_api"){
 
     par_list <-  list(endpoint = "catalogue/jobs",
                       sortcriterion = sortcriterion,
@@ -46,6 +58,11 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
     par_list <-  list(endpoint = "catalogue/jobs",
                       sortcriterion = sortcriterion,
                       ...)
+
+  } else {
+
+    stop("Misspecification of the parameter 'database': Only 'genesis' and 'regio' allowed.",
+         call. = FALSE)
 
   }
 
@@ -95,14 +112,12 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
 
 #' gen_download_job
 #'
-#' @param name The job code retrieved by using gen_list_jobs()
-#' @param database The database where the job has been generated ('genesis' or 'regio')
-#' @param area The area in which the table is stored
-#' @param compress Should empty rows and columns be discarded?
-#' @param language Search terms, returned messages and data descriptions in German ('de') or English ('en')
-#' @param all_character Boolean. Should all variables be imported as
-#'        'character' variables? Avoids fuzzy data type conversions if there are
-#'        leading zeros or other special characters. Defaults to TRUE.
+#' @param name Character string. The job code retrieved by using gen_list_jobs().
+#' @param database Character string. Indicator if the GENESIS ('genesis') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'.
+#' @param compress Boolean. Should empty rows and columns be discarded? Default is FALSE.
+#' @param language Character string. Search terms, returned messages and data descriptions in German ("de") or English ("en")?
+#' @param all_character Boolean. Should all variables be imported as 'character' variables? Avoids fuzzy data type conversions if there are leading zeros or other special characters. Defaults to TRUE.
 #'
 #' @return Returns a data.frame with the table content
 #' @export
@@ -135,7 +150,7 @@ gen_download_job <- function(name,
   }
 
   #-----------------------------------------------------------------------------
-  # Short parameter processing of 'all character' for later use in read_delim
+  # Parameter processing of 'all character' for later use in read_delim
 
   if (isTRUE(all_character)) {
 
@@ -215,6 +230,8 @@ gen_download_job <- function(name,
     } # End of language check
 
   #-----------------------------------------------------------------------------
+
+    return(result)
 
   } else {
 

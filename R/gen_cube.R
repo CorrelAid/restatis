@@ -1,38 +1,39 @@
 #' gen_cube
 #'
-#' @description Download a cube with data from Genesis
+#' @description Download a cube with data from GENESIS or regionalstatistik.de database
 #'
-#' @param name Name of the data cube
-#' @param ... Optional parameters passed on to the Genesis API call:
+#' @param name Character string for a cube object (only GENESIS and regionalstatistik.de)
+#' @param ... Further (optional) parameters passed on to the API call:
 #'   \describe{
-#'     \item{\code{area}}{a string. The area in which the table is stored. Possible values:
+#'     \item{\code{area}}{Character string. The area in which the table is stored. Possible values:
 #'     \itemize{
 #'       \item \code{"public"}: cube in the public catalogue
 #'       \item \code{"user"}: cube in the user's account
+#'       \item \code{"all"}: both of the above
 #'     }}
-#'     \item{\code{values}}{a logical. Should values be included?}
-#'     \item{\code{metadata}}{a logical. Should metadata be included?}
-#'     \item{\code{additionals}}{a logical. Should additional metadata be included?}
-#'     \item{\code{contents}}{a string. Names of required statistical specifications}
-#'     \item{\code{startyear,endyear}}{a number. Only retrieve data between these years.}
-#'     \item{\code{timeslices}}{a number. Number of timeslices (cumulative to startyear or endyear)}
-#'     \item{\code{regionalvariable}}{character. Code of the regional variable
+#'     \item{\code{values}}{Boolean. Should values be included?}
+#'     \item{\code{metadata}}{Boolean. Should metadata be included?}
+#'     \item{\code{additionals}}{Boolean. Should additional metadata be included?}
+#'     \item{\code{contents}}{Character string. Names of required statistical specifications}
+#'     \item{\code{startyear,endyear}}{Four-digit integers. Only retrieve data between these years.}
+#'     \item{\code{timeslices}}{Integer. Number of timeslices (cumulative to startyear or endyear)}
+#'     \item{\code{regionalvariable}}{Character string. Code of the regional variable
 #'     whose value is specified in \code{regionalkey} to filter the results.}
-#'     \item{\code{regionalkey}}{character. One or more regional keys. Multiple
+#'     \item{\code{regionalkey}}{Character string. One or more regional keys. Multiple
 #'       values can be supplied as a character vector or as a single string,
 #'       with the regional keys separated by commas. Use of wildcard (`*`) allowed.}
 #'     \item{\code{classifyingvariable1,classifyingvariable2
-#'       ,classifyingvariable3}}{character. Code of the subject classification
+#'       ,classifyingvariable3}}{Character string. Code of the subject classification
 #'       (SK-Merkmal) to which the selection by means of the corresponding
 #'       `classifyingkey` parameter is to be applied.}
-#'     \item{\code{classifyingkey1,classifyingkey2,classifyingkey3}}{character.
+#'     \item{\code{classifyingkey1,classifyingkey2,classifyingkey3}}{Character string.
 #'       One or more values of a subject classification (e.g. "WZ93012"). Applied
 #'       to the corresponding `classifyingvariable` parameter. Multiple
 #'       keys can be supplied as a character vector or as a single string,
 #'       with the keys separated by commas. Use of wildcard (`*`) allowed.}
-#'     \item{\code{stand}}{a string \code{"DD.MM.YYYY"}. Only retrieve data
-#'       updated after this #' date.}
-#'     \item{\code{language}}{Search terms, returned messages and data
+#'     \item{\code{stand}}{Character string, format: \code{"DD.MM.YYYY"}. Only retrieve data
+#'       updated after this date.}
+#'     \item{\code{language}}{Character string. Search terms, returned messages and data
 #'       descriptions in German (`"de"`) or English (`"en"`)?}
 #'   }
 #'
@@ -75,7 +76,9 @@ gen_cube_ <- function(name,
   area <- match.arg(area)
 
   if (!isTRUE(language == "en")) {
+
     area <- switch(area, public = "\u00F6ffentlich", user = "benutzer")
+
   }
 
   param_check_year(startyear)
@@ -114,6 +117,8 @@ gen_cube_ <- function(name,
                       language = language,
                       job = FALSE)
 
+  #-----------------------------------------------------------------------------
+
   } else if (database == "regio") {
 
     cube_raw <- gen_regio_api("data/cubefile",
@@ -140,7 +145,7 @@ gen_cube_ <- function(name,
 
   } else {
 
-    stop("Wrong specification of parameter 'database' (must be 'regio' or 'genesis').",
+    stop("Wrong specification of parameter 'database' (must only be 'regio' or 'genesis').",
          call. = FALSE)
 
   }
@@ -156,6 +161,10 @@ gen_cube_ <- function(name,
 
 #-------------------------------------------------------------------------------
 
+#' read_cube
+#'
+#' @param resp API response object resulting from a call to 'data/cubefile'
+#'
 read_cube <- function(resp) {
 
   cube_str <- resp %>%
@@ -176,6 +185,10 @@ read_cube <- function(resp) {
 
 #-------------------------------------------------------------------------------
 
+#' split_cube
+#'
+#' @param lines Lines to split a cube
+#'
 split_cube <- function(lines) {
 
   block_idx <- ifelse(is_cube_metadata_header(lines), seq_along(lines), NA)
@@ -188,6 +201,10 @@ split_cube <- function(lines) {
 
 #-------------------------------------------------------------------------------
 
+#' is_cube_metadata_header
+#'
+#' @param lines Lines to check for header
+#'
 is_cube_metadata_header <- function(lines) {
 
   startsWith(lines, "K")
@@ -196,6 +213,10 @@ is_cube_metadata_header <- function(lines) {
 
 #-------------------------------------------------------------------------------
 
+#' read_cube_block
+#'
+#' @param lines Lines to read as header
+#'
 read_cube_block <- function(lines) {
 
   header <- read_cube_metadata_header(lines[1])
@@ -207,6 +228,11 @@ read_cube_block <- function(lines) {
 
 #-------------------------------------------------------------------------------
 
+#' read_cube_metadata_header
+#'
+#' @param line Line to read
+#' @param rename_dups Rename duplicates?
+#'
 read_cube_metadata_header <- function(line, rename_dups = TRUE) {
 
   stopifnot(length(line) == 1L)
@@ -227,6 +253,11 @@ read_cube_metadata_header <- function(line, rename_dups = TRUE) {
 
 #-------------------------------------------------------------------------------
 
+#' read_cube_data_lines
+#'
+#' @param lines Lines to read data from
+#' @param col_names Specify column names
+#'
 read_cube_data_lines <- function(lines, col_names) {
 
   lines <- sub("D;", "", lines, fixed = TRUE)
@@ -243,6 +274,10 @@ read_cube_data_lines <- function(lines, col_names) {
 
 #-------------------------------------------------------------------------------
 
+#' rename_cube_data_columns
+#'
+#' @param cube A cube object to rename the columns in
+#'
 rename_cube_data_columns <- function(cube) {
 
   data_cols <- names(cube$QEI)

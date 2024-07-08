@@ -1,33 +1,33 @@
-#' find: Search for Different Objects in Genesis/Zensus
+#' gen_find
 #'
-#' @description Function to search through Genesis/Zensus. It is similar in usage as the search function on the Destatis main page (https://www.destatis.de/DE/Home/_inhalt.html).
-#' In the search query, "UND" (german word for: and; can also be written "und" or "&") as well as "ODER" (german word for: or; can also be written "oder" or "|") can be included and logically combined. Furthermore, wildcards are possible by including "*". If more then one word is included in the term-string, automatically "and" is used to combine the different words.
-#' Important note: Time-series are treated as cubes in Genesis, they are not longer distinguished. If you want to find a specific object with a clear code with this find function, you need to specify the object type or search for all object types.
+#' @description Function to search through the databases GENESIS, Zensus 2022 and regionalstatistik.de. It is similar in usage as the search function on the GENESIS main page (https://www-genesis.destatis.de/genesis/online).
+#' In the search query, "UND" (German word for 'and', also written "und" or "&") as well as "ODER" (German word for 'or', also written "oder" or "|") can be included and logically combined. Furthermore, wildcards are possible by including "*". If more then one word is included in the term string, 'and' is used automatically to combine the different words.
+#' Important note: Time-series are treated as cubes in GENESIS and regionalstatistik.de, they are not longer distinguished. If you want to find a specific object with a clear code with this find function, you need to specify the object type or search for all object types.
 #'
-#' @param term A string with no maximum character length, but a word limit of five words.
-#' @param database Character string. Indicator if the Genesis or Zensus database is called. Default option is 'genesis'.
-#' @param category A string. Includes specific Genesis-Object-types: ''tables', 'statistics', 'variables', and 'cubes' - and specific Zensus-Object-types: "tables", "statistics", and "variables". All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database indicated by 'all'.
-#' @param detailed A logical. Indicator if the function should return the detailed output of the iteration including all object related information or only a shortened output including only code and object title. Default Option is 'FALSE'.
+#' @param term A character string with no maximum character length, but a word limit of five words.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param category Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.
+#' @param detailed Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
 #' @param ordering A logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and secondly on an estimator of the number of variables in this object. Default option is 'TRUE'.
-#' @param error.ignore  A logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce an artificial response (e.g., for complex processes not to fail). Default option is 'FALSE'.
-#' @param verbose Logical. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
-#' @param ... Additional parameters for the Genesis/Zensus API call. These parameters are only affecting the Genesis/Zensus call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all elements retrieved from Genesis/Zensus. Attributes are added to the data.frame describing the search configuration for the returned output.
+#' @return A list with all recalled elements from the API. Based on the 'detailed' parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' # Find objects related to "bus" in Genesis
+#' # Find objects related to "bus" in GENESIS
 #' object <- gen_find(term = "bus")
 #'
-#' # Find tables related to "bus" in Genesis and return a unordered detailed output
+#' # Find tables related to "bus" in GENESIS and return a unordered detailed output
 #' object <- gen_find(term = "bus", detailed = TRUE, ordering = FALSE)
 #'
-#' # Find tables related to "Autos" or "Corona" in Genesis and return a unordered detailed output
+#' # Find tables related to "Autos" or "Corona" in GENESIS and return a unordered detailed output
 #' object <- gen_find(term = "autos ODER corona", detailed = TRUE, ordering = FALSE)
 #'
-#' #' # Find tables related to "Autos" and "Corona" in Genesis and return a unordered detailed output
+#' #' # Find tables related to "Autos" and "Corona" in GENESIS and return a unordered detailed output
 #' object <- gen_find(term = "autos UND corona", detailed = TRUE, ordering = FALSE)
 #' }
 #'
@@ -59,26 +59,27 @@ gen_find <- function(term = NULL,
 
   res <- lapply(gen_fun, function(db){
 
-    if(verbose) {
+    if (verbose) {
+
       info <- paste("Started the processing of", rev_database_function(db), "database.")
+
       message(info)
+
     }
 
     #---------------------------------------------------------------------------
-    if(db == "gen_zensus_api" & category == "cubes"){
+    if (db == "gen_zensus_api" & category == "cubes") {
 
       empty_object <- TRUE
 
     } else {
 
-      par_list <-  list(
-          endpoint = "find/find",
-          username = gen_auth_get(database = rev_database_function(db))$username,
-          password = gen_auth_get(database = rev_database_function(db))$password,
-          term = term,
-          category = category,
-          ...
-      )
+      par_list <-  list(endpoint = "find/find",
+                        username = gen_auth_get(database = rev_database_function(db))$username,
+                        password = gen_auth_get(database = rev_database_function(db))$password,
+                        term = term,
+                        category = category,
+                        ...)
 
       results_raw <- do.call(db, par_list)
 
@@ -91,7 +92,8 @@ gen_find <- function(term = NULL,
     }
 
     #---------------------------------------------------------------------------
-    if(isTRUE(empty_object) && (db == "gen_api" || db == "gen_regio_api")){
+
+    if (isTRUE(empty_object) && (db == "gen_api" || db == "gen_regio_api")) {
 
       list_resp <- list("Output" = "No object found for your request.")
 
@@ -103,9 +105,9 @@ gen_find <- function(term = NULL,
 
       return(list_resp)
 
-    } else if(isTRUE(empty_object) & db == "gen_zensus_api" ){
+    } else if (isTRUE(empty_object) & db == "gen_zensus_api" ){
 
-      list_resp <- list("Output" = "No object found for your request. No cubes at all avalaible in 'zensus'-database.")
+      list_resp <- list("Output" = "There are generally no 'cubes' objects available for the 'zensus' database.")
 
       attr(list_resp, "Term") <- term
       attr(list_resp, "Database") <- rev_database_function(db)
@@ -113,8 +115,7 @@ gen_find <- function(term = NULL,
 
       return(list_resp)
 
-    }
-    else if (isFALSE(empty_object)){
+    } else if (isFALSE(empty_object)){
 
       list_resp <- list("Output" = results_json$Status$Content)
 
@@ -176,7 +177,8 @@ gen_find <- function(term = NULL,
 
           #-------------------------------------------------------------------------
 
-          if(db == "gen_api" | db == "gen_regio_api"){
+          if (db == "gen_api" | db == "gen_regio_api") {
+
             df_cubes <- binding_lapply(results_json$Cubes,
                                        characteristics = c("Code",
                                                            "Content",
@@ -190,31 +192,42 @@ gen_find <- function(term = NULL,
             df_cubes$Variablen <- spezifisch_create(df_cubes)
 
             df_cubes$Object_Type <- "cube"
+
           }
 
           #-------------------------------------------------------------------------
 
           if (nrow(df_table) != 0) {
+
             df_table$Titel <- titel_search(df_table, term)
+
           }
 
           if (nrow(df_stats) != 0) {
+
             df_stats$Titel <- titel_search(df_stats, term)
+
           }
 
           if (nrow(df_variables) != 0) {
+
             df_variables$Titel <- titel_search(df_variables, term)
+
           }
 
-          if(db == "gen_api" | db == "gen_regio_api"){
+          if (db == "gen_api" | db == "gen_regio_api") {
+
             if (nrow(df_cubes) != 0) {
+
               df_cubes$Titel <- titel_search(df_cubes, term)
+
             }
+
           }
 
           #-------------------------------------------------------------------------
 
-          if(isTRUE(ordering)) {
+          if (isTRUE(ordering)) {
 
             df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
                                                                               "Content",
@@ -242,7 +255,10 @@ gen_find <- function(term = NULL,
                                                                                            "Spezifisch",
                                                                                            "Object_Type")]
 
-            if(db == "gen_api" | db == "gen_regio_api"){
+            #-------------------------------------------------------------------
+
+            if (db == "gen_api" | db == "gen_regio_api") {
+
               df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
                                                                                  "Content",
                                                                                  "Titel",
@@ -253,9 +269,11 @@ gen_find <- function(term = NULL,
                                                                                  "Variablen",
                                                                                  "Spezifisch",
                                                                                  "Object_Type")]
+
             }
 
-          } else {
+
+          } else { # End of if (isTRUE(ordering))
 
             df_table <- df_table[, c("Code",
                                      "Content",
@@ -283,7 +301,10 @@ gen_find <- function(term = NULL,
                                              "Spezifisch",
                                              "Object_Type")]
 
-            if(db == "gen_api" | db == "gen_regio_api"){
+            #-------------------------------------------------------------------
+
+            if (db == "gen_api" | db == "gen_regio_api") {
+
               df_cubes <- df_cubes[, c("Code",
                                        "Content",
                                        "Titel",
@@ -294,6 +315,7 @@ gen_find <- function(term = NULL,
                                        "Variablen",
                                        "Spezifisch",
                                        "Object_Type")]
+
             }
 
           }
@@ -303,7 +325,7 @@ gen_find <- function(term = NULL,
           list_resp <- list("Tables" = tibble::as_tibble(df_table),
                             "Statistics" = tibble::as_tibble(df_stats),
                             "Variables" = tibble::as_tibble(df_variables),
-                            "Cubes" = if(db == "gen_api" | db == "gen_regio_api"){tibble::as_tibble(df_cubes)} else {"No cubes at all avalaible in 'zensus'-database."})
+                            "Cubes" = if (db == "gen_api" | db == "gen_regio_api") { tibble::as_tibble(df_cubes) } else { "There are generally no 'cubes' objects available for the 'zensus' database." })
 
           attr(list_resp, "Term") <- results_json$Parameter$term
           attr(list_resp, "Database") <- rev_database_function(db)
@@ -313,7 +335,9 @@ gen_find <- function(term = NULL,
 
           return(list_resp)
 
-        }
+        } # End of (if category == "all")
+
+        #-----------------------------------------------------------------------
 
         if (category == "tables") {
 
@@ -331,7 +355,9 @@ gen_find <- function(term = NULL,
           #-------------------------------------------------------------------------
 
           if (nrow(df_table) != 0) {
+
             df_table$Titel <- titel_search(df_table, term)
+
           }
 
           if (isTRUE(ordering)) {
@@ -353,6 +379,7 @@ gen_find <- function(term = NULL,
                                      "Variablen",
                                      "Spezifisch",
                                      "Object_Type")]
+
           }
 
           #-------------------------------------------------------------------------
@@ -388,10 +415,12 @@ gen_find <- function(term = NULL,
           #-------------------------------------------------------------------------
 
           if (nrow(df_stats) != 0) {
+
             df_stats$Titel <- titel_search(df_stats, term)
+
           }
 
-          if(isTRUE(ordering)) {
+          if (isTRUE(ordering)) {
 
             df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
                                                                                "Content",
@@ -447,10 +476,12 @@ gen_find <- function(term = NULL,
           #-------------------------------------------------------------------------
 
           if (nrow(df_variables) != 0) {
+
             df_variables$Titel <- titel_search(df_variables, term)
+
           }
 
-          if(isTRUE(ordering)) {
+          if (isTRUE(ordering)) {
 
             df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
                                                                                            "Content",
@@ -485,13 +516,14 @@ gen_find <- function(term = NULL,
           attr(list_resp, "Copyright") <- results_json$Copyright
 
           return(list_resp)
+
         }
 
         #---------------------------------------------------------------------------
 
         if (category == "cubes") {
 
-          if(db == "gen_api" | db == "gen_regio_api"){
+          if (db == "gen_api" | db == "gen_regio_api") {
 
             df_cubes <- binding_lapply(results_json$Cubes,
                                        characteristics = c("Code",
@@ -510,10 +542,12 @@ gen_find <- function(term = NULL,
             #-------------------------------------------------------------------------
 
             if (nrow(df_cubes) != 0) {
+
               df_cubes$Titel <- titel_search(df_cubes, term)
+
             }
 
-            if(isTRUE(ordering)) {
+            if (isTRUE(ordering)) {
 
               df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
                                                                                  "Content",
@@ -552,12 +586,15 @@ gen_find <- function(term = NULL,
             attr(list_resp, "Copyright") <- results_json$Copyright
 
             return(list_resp)
+
           } else {
 
-            list_resp <- "No cubes at all avalaible in 'zensus'-database."
+            list_resp <- "There are generally no 'cubes' objects available for the 'zensus' database."
 
           }
+
         }
+
       }
 
       #-----------------------------------------------------------------------------
@@ -604,7 +641,8 @@ gen_find <- function(term = NULL,
 
           #-------------------------------------------------------------------------
 
-          if(db == "gen_api" | db == "gen_regio_api"){
+          if (db == "gen_api" | db == "gen_regio_api") {
+
             df_cubes <- binding_lapply(results_json$Cubes,
                                        characteristics = c("Code",
                                                            "Content"))
@@ -620,26 +658,36 @@ gen_find <- function(term = NULL,
           #-------------------------------------------------------------------------
 
           if (nrow(df_table) != 0) {
+
             df_table$Titel <- titel_search(df_table, term)
+
           }
 
           if (nrow(df_stats) != 0) {
+
             df_stats$Titel <- titel_search(df_stats, term)
+
           }
 
           if (nrow(df_variables) != 0) {
+
             df_variables$Titel <- titel_search(df_variables, term)
+
           }
 
-          if(db == "gen_api" | db == "gen_regio_api"){
+          if (db == "gen_api" | db == "gen_regio_api") {
+
             if (nrow(df_cubes) != 0) {
+
               df_cubes$Titel <- titel_search(df_cubes, term)
+
             }
+
           }
 
           #-------------------------------------------------------------------------
 
-          if(isTRUE(ordering)) {
+          if (isTRUE(ordering)) {
 
             df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
                                                                               "Content",
@@ -653,11 +701,14 @@ gen_find <- function(term = NULL,
                                                                                            "Content",
                                                                                            "Object_Type")]
 
-            if(db == "gen_api" | db == "gen_regio_api"){
+            if (db == "gen_api" | db == "gen_regio_api") {
+
               df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
                                                                                  "Content",
                                                                                  "Object_Type")]
+
             }
+
           } else {
 
             df_table <- df_table[, c("Code",
@@ -672,10 +723,12 @@ gen_find <- function(term = NULL,
                                              "Content",
                                              "Object_Type")]
 
-            if(db == "gen_api" | db == "gen_regio_api"){
+            if (db == "gen_api" | db == "gen_regio_api") {
+
               df_cubes <- df_cubes[, c("Code",
                                        "Content",
                                        "Object_Type")]
+
             }
 
           }
@@ -685,7 +738,7 @@ gen_find <- function(term = NULL,
           list_resp <- list("Tables" = tibble::as_tibble(df_table),
                             "Statistics" = tibble::as_tibble(df_stats),
                             "Variables" = tibble::as_tibble(df_variables),
-                            "Cubes" = if(db == "gen_api" | db == "gen_regio_api"){tibble::as_tibble(df_cubes)} else {"No cubes at all avalaible in 'zensus'-database."})
+                            "Cubes" = if (db == "gen_api" | db == "gen_regio_api") { tibble::as_tibble(df_cubes) } else { "There are generally no 'cubes' objects available for the 'zensus' database." })
 
           attr(list_resp, "Term") <- results_json$Parameter$term
           attr(list_resp, "Database") <- rev_database_function(db)
@@ -714,10 +767,12 @@ gen_find <- function(term = NULL,
           #-------------------------------------------------------------------------
 
           if (nrow(df_table) != 0) {
+
             df_table$Titel <- titel_search(df_table, term)
+
           }
 
-          if(isTRUE(ordering)) {
+          if (isTRUE(ordering)) {
 
             df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
                                                                               "Content",
@@ -760,10 +815,13 @@ gen_find <- function(term = NULL,
           #-------------------------------------------------------------------------
 
           if (nrow(df_stats) != 0) {
+
             df_stats$Titel <- titel_search(df_stats, term)
+
           }
 
-          if(isTRUE(ordering)) {
+          if (isTRUE(ordering)) {
+
             df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
                                                                                "Content",
                                                                                "Object_Type")]
@@ -787,6 +845,7 @@ gen_find <- function(term = NULL,
           attr(list_resp, "Copyright") <- results_json$Copyright
 
           return(list_resp)
+
         }
 
         #---------------------------------------------------------------------------
@@ -806,12 +865,14 @@ gen_find <- function(term = NULL,
           #-------------------------------------------------------------------------
 
           if (nrow(df_variables) != 0) {
+
             df_variables$Titel <- titel_search(df_variables, term)
+
           }
 
           #-------------------------------------------------------------------------
 
-          if(isTRUE(ordering)) {
+          if (isTRUE(ordering)) {
 
             df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
                                                                                            "Content",
@@ -836,6 +897,7 @@ gen_find <- function(term = NULL,
           attr(list_resp, "Copyright") <- results_json$Copyright
 
           return(list_resp)
+
         }
 
       }
@@ -857,10 +919,12 @@ gen_find <- function(term = NULL,
         #-------------------------------------------------------------------------
 
         if (nrow(df_cubes) != 0) {
+
           df_cubes$Titel <- titel_search(df_cubes, term)
+
         }
 
-        if(isTRUE(ordering)) {
+        if (isTRUE(ordering)) {
 
           df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
                                                                              "Content",
@@ -887,7 +951,9 @@ gen_find <- function(term = NULL,
         return(list_resp)
 
       } else {
-        list_resp <- "No cubes at all avalaible in 'zensus'-database."
+
+        list_resp <- "There are generally no 'cubes' objects available for the 'zensus' database."
+
       }
 
     }
