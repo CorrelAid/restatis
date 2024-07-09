@@ -58,10 +58,10 @@ gen_catalogue <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  # Processing ####
+  # Processing #
   res <- lapply(gen_fun, function(db){
 
-    if (verbose) {
+    if (isTRUE(verbose)) {
 
       info <- paste("Started the processing of", rev_database_function(db), "database.")
 

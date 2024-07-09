@@ -412,7 +412,7 @@ return_table_object <- function(response,
 #' @param database The user input to 'gen_logincheck'
 #' @param verbose Boolean. Should the function message in case of success?
 #'
-#' @return
+#' @return Informative error/warning messages + invisibly TRUE/FALSE
 #'
 logincheck_http_error <- function(database,
                                   verbose) {

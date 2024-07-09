@@ -1,0 +1,99 @@
+{
+    "Ident": {
+        "Service": "metadata",
+        "Method": "cube"
+    },
+    "Status": {
+        "Code": 999,
+        "Content": "test error message",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "name": "1*",
+        "area": "Alle",
+        "language": "de"
+    },
+    "Object": {
+        "Code": "12631BJ003",
+        "Content": "Statistik rechtskräftiger Urteile in Ehesachen, Ehescheidungen, Ehedauer, Gemeinsame minderjährige Kinder, Deutschland insgesamt, Jahr",
+        "State": "undefiniert",
+        "Timeslices": [
+            "1997",
+            "1998",
+            "1999",
+            "2000",
+            "2001",
+            "2002",
+            "2003",
+            "2004",
+            "2005",
+            "2006",
+            "2007",
+            "2008",
+            "2009",
+            "2010",
+            "2011",
+            "2012",
+            "2013",
+            "2014",
+            "2015",
+            "2016",
+            "2017",
+            "2018",
+            "2019",
+            "2020",
+            "2021",
+            "2022",
+            "2023"
+        ],
+        "Values": "0",
+        "Statistic": {
+            "Code": "12631",
+            "Content": "Statistik rechtskräftiger Urteile in Ehesachen",
+            "Updated": "10.10.2023 13:47:12h"
+        },
+        "Structure": {
+            "Axis": [
+                {
+                    "Code": "BEVED1",
+                    "Content": "Ehedauer",
+                    "Type": "klassifizierend",
+                    "Updated": "19.02.2019 16:40:34h"
+                },
+                {
+                    "Code": "BEVMK1",
+                    "Content": "Gemeinsame minderjährige Kinder",
+                    "Type": "klassifizierend",
+                    "Updated": "25.01.2016 13:54:27h"
+                },
+                {
+                    "Code": "DINSG",
+                    "Content": "Deutschland insgesamt",
+                    "Type": "klassifizierend",
+                    "Updated": "25.01.2016 13:54:17h"
+                },
+                {
+                    "Code": "JAHR",
+                    "Content": "Jahr",
+                    "Type": "zeitidentifizierend",
+                    "Updated": "28.12.2022 09:37:21h"
+                }
+            ],
+            "Contents": [
+                {
+                    "Code": "BEV004",
+                    "Content": "Ehescheidungen",
+                    "Type": "Ganzzahl",
+                    "Unit": "Anzahl",
+                    "Values": "",
+                    "Timeslices": null,
+                    "Updated": "04.08.2016 11:00:13h"
+                }
+            ]
+        },
+        "Updated": "27.06.2024 08:06:32h"
+    },
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2024"
+}

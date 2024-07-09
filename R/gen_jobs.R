@@ -123,7 +123,7 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
 #' @export
 #'
 #' @examples
-#' #' \dontrun{
+#' \dontrun{
 #' gen_download_job("21311-00-01-1_123456789", "regio")
 #' }
 #'

@@ -8,10 +8,11 @@ with_mock_dir("find1", {
     skip_on_cran()
     skip_on_ci()
 
-    result <- restatis::gen_find(term = "forst",
-                                 detailed = TRUE,
-                                 ordering = TRUE,
-                                 error.ignore = FALSE)
+    result <- gen_find(term = "forst",
+                       detailed = TRUE,
+                       ordering = TRUE,
+                       error.ignore = FALSE,
+                       database = "genesis")
 
     expect_type(result, type = "list")
 
@@ -27,13 +28,17 @@ with_mock_dir("find1", {
 #-------------------------------------------------------------------------------
 
 with_mock_dir("find2_fake", {
-  test_that("gen_find errors if there is an error code", {
+  test_that("gen_find errors if there is an error code (fake response)", {
+
+    # Here, the mockfile needs to be altered:
+    # The Status$Code needs, e.g., 999
+    # The Status$Content needs to be "test error message"
 
     skip_on_cran()
     skip_on_ci()
 
     expect_error(
-      restatis::gen_find(term = "bus", error.ignore = TRUE),
+      gen_find(term = "bus", error.ignore = TRUE, database = "genesis"),
       regexp = "test error message")
   })
 })
@@ -47,9 +52,11 @@ with_mock_dir("find3", {
     skip_on_ci()
 
     expect_message(
-      restatis::gen_find(term = "zensus", error.ignore = TRUE),
+      gen_find(term = "zensus", error.ignore = TRUE, database = "genesis"),
       regexp = "Use 'detailed = TRUE' to obtain the complete output.")
+
   })
+
 })
 
 #-------------------------------------------------------------------------------
@@ -58,30 +65,30 @@ with_mock_dir("find3", {
 
 test_that("gen_find function errors on numeric term param", {
   expect_error(
-    restatis::gen_find(term = 12345, detailed = TRUE, category = "tables"),
+    gen_find(term = 12345, detailed = TRUE, category = "tables", database = "genesis"),
     regexp = "Parameter 'term' has to be of type 'character'.")
 })
 
 test_that("gen_find function errors on wrong category", {
   expect_error(
-    restatis::gen_find(term = "bus", detailed = TRUE, category = "table"),
-    regexp = "Available categories are all, tables, statistics, variables, and cubes.")
+    gen_find(term = "bus", detailed = TRUE, category = "table", database = "genesis"),
+    regexp = "Available categories for parameter 'category' for 'genesis' database are 'all', 'tables', 'statistics', 'variables', and 'cubes'.")
 })
 
 test_that("gen_find function errors on wrong detailed param", {
   expect_error(
-    restatis::gen_find(term = "bus", detailed = 1, category = "tables"),
+    gen_find(term = "bus", detailed = 1, category = "tables", database = "genesis"),
     regexp = "Parameter 'detailed' has to be of type 'logical' and of length 1.")
 })
 
 test_that("gen_find function errors on wrong ordering param", {
   expect_error(
-    restatis::gen_find(term = "bus", ordering = 1, category = "tables"),
+    gen_find(term = "bus", ordering = 1, category = "tables", database = "genesis"),
     regexp = "Parameter 'ordering' has to be of type 'logical' and of length 1.")
 })
 
 test_that("gen_find function errors on wrong error.ignore param", {
   expect_error(
-    restatis::gen_find(term = "bus", error.ignore = 1, category = "tables"),
+    gen_find(term = "bus", error.ignore = 1, category = "tables", database = "genesis"),
     regexp = "Parameter 'error.ignore' has to be of type 'logical' and of length 1.")
 })

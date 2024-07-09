@@ -2,29 +2,38 @@
 % Please edit documentation in R/gen_var2-val2.R
 \name{gen_search_vars}
 \alias{gen_search_vars}
-\title{gen_search_vars: Search for Specific Variables}
+\title{gen_search_vars}
 \usage{
 gen_search_vars(
   code = NULL,
+  database = c("all", "genesis", "zensus", "regio"),
+  area = c("all", "public", "user"),
   sortcriterion = c("code", "content"),
   error.ignore = FALSE,
+  verbose = TRUE,
   ...
 )
 }
 \arguments{
-\item{code}{a string with a maximum length of 6. Code from a Genesis-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.}
+\item{code}{Character string with a maximum length of 6 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.}
 
-\item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the Genesis API call itself. The default is "code".}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.}
 
-\item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
+\item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
 
-\item{...}{Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
+\item{sortcriterion}{Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.}
+
+\item{error.ignore}{Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.}
+
+\item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
+
+\item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
-A list with all recalled elements from Genesis. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+A list with all recalled elements from the API. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to search for specific variables in Genesis.
+Function to search for specific variables
 }
 \examples{
 \dontrun{

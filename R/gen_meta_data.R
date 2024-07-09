@@ -7,6 +7,7 @@
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param raw Boolean. Should a non-parsed API response be returned?
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
@@ -86,13 +87,13 @@ gen_metadata_statistic <- function(code = NULL,
       if (isFALSE(raw)) {
 
       df_stats <-cbind("Code" = results_json$Object$Code,
-                    "Content" = results_json$Object$Content,
-                    "Cubes" = results_json$Object$Cubes,
-                    "Variables" = results_json$Object$Variables,
-                    "Information" = results_json$Object$Information,
-                    "Time_from" = results_json$Object$Frequency[[1]]$From,
-                    "Time_to" = results_json$Object$Frequency[[1]]$To,
-                    "Time_type" = results_json$Object$Frequency[[1]]$Type)
+                       "Content" = results_json$Object$Content,
+                       "Cubes" = results_json$Object$Cubes,
+                       "Variables" = results_json$Object$Variables,
+                       "Information" = results_json$Object$Information,
+                       "Time_from" = results_json$Object$Frequency[[1]]$From,
+                       "Time_to" = results_json$Object$Frequency[[1]]$To,
+                       "Time_type" = results_json$Object$Frequency[[1]]$Type)
       } else {
 
         df_stats <- results_json$Object
@@ -129,6 +130,7 @@ gen_metadata_statistic <- function(code = NULL,
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param raw Boolean. Should a non-parsed API response be returned?
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
@@ -259,6 +261,7 @@ gen_metadata_variable <- function(code = NULL,
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param raw Boolean. Should a non-parsed API response be returned?
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
@@ -386,6 +389,7 @@ gen_metadata_value <- function(code = NULL,
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param raw Boolean. Should a non-parsed API response be returned?
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
@@ -585,6 +589,7 @@ gen_metadata_table <- function(code = NULL,
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param raw Boolean. Should a non-parsed API response be returned?
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
@@ -760,6 +765,7 @@ gen_metadata_cube <- function(code = NULL,
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param raw Boolean. Should a non-parsed API response be returned?
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.

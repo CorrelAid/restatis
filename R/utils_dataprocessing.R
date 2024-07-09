@@ -55,7 +55,7 @@ param_collapse_vec <- function(vec) {
 forming_evas <- function(list_of) {
 
   # Path selection
-  data_path <- system.file("data", "EVAS_numbers.RData", package = "restatis")
+  data_path <- system.file("data", "evas_list.rda", package = "restatis")
 
   # Load data
   load(data_path)

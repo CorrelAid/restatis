@@ -74,6 +74,7 @@ gen_cube_ <- function(name,
                       language = Sys.getenv("GENESIS_LANG")) {
 
   area <- match.arg(area)
+  database <- match.arg(database)
 
   if (!isTRUE(language == "en")) {
 

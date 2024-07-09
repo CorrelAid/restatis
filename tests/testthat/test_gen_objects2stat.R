@@ -8,7 +8,7 @@ with_mock_dir("xy_statistic1", {
     skip_on_cran()
     skip_on_ci()
 
-    result <- restatis::gen_objects2stat(code = "61111")
+    result <- gen_objects2stat(code = "61111", database = "genesis")
 
     expect_type(result, type = "list")
 
@@ -30,8 +30,9 @@ with_mock_dir("xy_statistic2", {
     skip_on_cran()
     skip_on_ci()
 
-    expect_s3_class(restatis::gen_objects2stat(code = "61111",
-                                          category = "tables"),
+    expect_s3_class(gen_objects2stat(code = "61111",
+                                     category = "tables",
+                                     database = "genesis"),
                 class = "data.frame")
   })
 })
@@ -42,13 +43,13 @@ with_mock_dir("xy_statistic2", {
 
 test_that("gen_objects2stat function errors on multiple codes", {
   expect_error(
-    restatis::gen_objects2stat(code = c("611*", "711*"), detailed = TRUE, category = "tables"),
+    gen_objects2stat(code = c("611*", "711*"), detailed = TRUE, category = "tables", database = "genesis"),
     regexp = "Parameter 'code' must be a single string.")
 })
 
 test_that("gen_objects2stat function errors on numeric code param", {
   expect_error(
-    restatis::gen_objects2stat(code = 12345, detailed = TRUE, category = "tables"),
+    gen_objects2stat(code = 12345, detailed = TRUE, category = "tables", database = "genesis"),
     regexp = "Parameter 'code' has to be of type 'character'.")
 })
 
@@ -56,14 +57,14 @@ test_that("gen_objects2stat function errors on numeric code param", {
 
 test_that("gen_objects2stat function errors on wrong categories", {
   expect_error(
-    restatis::gen_objects2stat(code = "611*", detailed = TRUE, category = "statistics"),
-    regexp = "Available categories are tables, variables, and cubes.")
+    gen_objects2stat(code = "611*", detailed = TRUE, category = "statistics", database = "genesis"),
+    regexp = "Available categories are 'tables', 'variables', and 'cubes'.")
 })
 
 test_that("gen_objects2stat function errors on too many categories", {
   expect_error(
-    restatis::gen_objects2stat(code = "611*", detailed = TRUE,
-                        category = c("variables", "statistics", "tables", "cubes")),
+    gen_objects2stat(code = "611*", detailed = TRUE,
+                        category = c("variables", "statistics", "tables", "cubes"), database = "genesis"),
     regexp = "Parameter 'category' has to have a length of 1 to 3.")
 })
 
@@ -71,7 +72,7 @@ test_that("gen_objects2stat function errors on too many categories", {
 
 test_that("gen_objects2stat function errors on numeric detailed param", {
   expect_error(
-    restatis::gen_objects2stat(code = "711*", detailed = 1, category = "tables"),
+    gen_objects2stat(code = "711*", detailed = 1, category = "tables", database = "genesis"),
     regexp = "Parameter 'detailed' has to be of type 'logical' and of length 1.")
 })
 
@@ -82,22 +83,24 @@ with_mock_dir("xy_statistic3", {
     skip_on_ci()
 
     expect_message(
-      restatis::gen_objects2stat(code = "61111", detailed = FALSE, category = "tables"),
+      gen_objects2stat(code = "61111", detailed = FALSE, category = "tables", database = "genesis"),
       regexp = "Use 'detailed = TRUE' to obtain the complete output.")
+
   })
+
 })
 
 #-------------------------------------------------------------------------------
 
 # test_that("gen_objects2stat function errors on wrong sort param", {
 #   expect_error(
-#     restatis::gen_objects2stat(code = "61111", sortcriterion = "date"),
+#     gen_objects2stat(code = "61111", sortcriterion = "date"),
 #     regexp = "Parameter 'sortcriterion' has to be 'code' or 'content'.")
 # })
 
 # test_that("gen_objects2stat function errors on wrong sort param type", {
 #   expect_error(
-#     restatis::gen_objects2stat(code = "6111*", sortcriterion = 123),
+#     gen_objects2stat(code = "6111*", sortcriterion = 123),
 #     regexp = "Parameter 'sortcriterion' has to be of type 'character'.")
 # })
 
@@ -105,6 +108,6 @@ with_mock_dir("xy_statistic3", {
 
 test_that("gen_objects2stat function errors on wrong error.ignore param", {
   expect_error(
-    restatis::gen_objects2stat(code = "711*", error.ignore = 1),
+    gen_objects2stat(code = "711*", error.ignore = 1),
     regexp = "Parameter 'error.ignore' has to be of type 'logical' and of length 1.")
 })

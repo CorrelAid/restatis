@@ -6,22 +6,34 @@
 \usage{
 gen_metadata(
   code = NULL,
-  category = c("Cube", "Statistic", "Table", "Variable", "Value"),
+  database = c("all", "genesis", "zensus", "regio"),
+  category = c("cube", "statistic", "table", "variable", "value"),
+  area = c("all", "public", "user"),
   error.ignore = FALSE,
+  verbose = TRUE,
+  raw = FALSE,
   ...
 )
 }
 \arguments{
-\item{code}{string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.}
+\item{code}{String with a maximum length of 10 characters for a database object (GENESIS and regionalstatistik.de) and 15 characters for a Zensus 2022 object. Only one code per iteration. "*" notations are possible.}
 
-\item{category}{a string. Specific object-types: 'Cube', 'Statistic', "Table", "Variable" and 'Value'. The function needs a specified object type.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.}
 
-\item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
+\item{category}{Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.}
 
-\item{...}{Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
+\item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
+
+\item{error.ignore}{Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.}
+
+\item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
+
+\item{raw}{Boolean. Should a non-parsed API response be returned?}
+
+\item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
-A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
+A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
 Search For Meta-Information For All Types Of Objects
@@ -29,7 +41,7 @@ Search For Meta-Information For All Types Of Objects
 \examples{
 \dontrun{
 # Find meta-information of the table with the code "11111"
-object <- gen_metadata(code = "11111", category = "Table")
+object <- gen_metadata(code = "11111", category = "table")
 }
 
 }

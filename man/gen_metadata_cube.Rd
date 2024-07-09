@@ -4,20 +4,36 @@
 \alias{gen_metadata_cube}
 \title{gen_metadata_cube}
 \usage{
-gen_metadata_cube(code = NULL, error.ignore = FALSE, ...)
+gen_metadata_cube(
+  code = NULL,
+  database = c("all", "genesis", "regio"),
+  error.ignore = FALSE,
+  area = c("all", "public", "user"),
+  verbose = TRUE,
+  raw = raw,
+  ...
+)
 }
 \arguments{
-\item{code}{a string with a maximum length of 15 characters. Code from a Genesis-Object. Only one code per iteration.}
+\item{code}{A character string with a maximum length of 15 characters. Code from a GENESIS or regionalstatistik.de object. Only one code per iteration.}
 
-\item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.}
 
-\item{...}{Additional parameters for the Genesis API call. These parameters are only affecting the Genesis call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
+\item{error.ignore}{Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.}
+
+\item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
+
+\item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
+
+\item{raw}{Boolean. Should a non-parsed API response be returned?}
+
+\item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
-A list with all recalled elements from Genesis. Attributes are added to the dataframe describing the search configuration for the returned output.
+A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to search for meta-information for a specific cube.
+Function to search for meta information for a specific cube. Usable only for GENESIS and regionalstatistik.de.
 }
 \examples{
 \dontrun{
