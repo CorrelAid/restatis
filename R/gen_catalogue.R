@@ -133,7 +133,7 @@ gen_catalogue <- function(code = NULL,
         par_list <-  list(endpoint = "catalogue/statistics",
                           username = gen_auth_get(database = rev_database_function(db))$username,
                           password = gen_auth_get(database = rev_database_function(db))$password,
-                          selection = db,
+                          selection = code,
                           sortcriterion = sortcriterion,
                           ...)
 
