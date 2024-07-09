@@ -9,7 +9,7 @@
 #' @param category Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.
 #' @param detailed Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
 #' @param ordering A logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and secondly on an estimator of the number of variables in this object. Default option is 'TRUE'.
-#' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'TRUE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
@@ -68,9 +68,10 @@ gen_find <- function(term = NULL,
     }
 
     #---------------------------------------------------------------------------
-    if (db == "gen_zensus_api" & category == "cubes") {
 
-      empty_object <- TRUE
+    if (db == "gen_zensus_api" && category == "cubes") {
+
+      empty_object <- "FAIL"
 
     } else {
 
@@ -93,7 +94,7 @@ gen_find <- function(term = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (isTRUE(empty_object) && (db == "gen_api" || db == "gen_regio_api")) {
+    if (isTRUE(empty_object)) {
 
       list_resp <- list("Output" = "No object found for your request.")
 
@@ -105,7 +106,7 @@ gen_find <- function(term = NULL,
 
       return(list_resp)
 
-    } else if (isTRUE(empty_object) & db == "gen_zensus_api" ){
+    } else if (empty_object == "FAIL" & db == "gen_zensus_api" ){
 
       list_resp <- list("Output" = "There are generally no 'cubes' objects available for the 'zensus' database.")
 
@@ -129,603 +130,191 @@ gen_find <- function(term = NULL,
 
     } else if (empty_object == "DONE") {
 
-      if (detailed == TRUE) {
+    #---------------------------------------------------------------------------
 
-        #-----------------------------------------------------------------------------
+      if (category == "all") {
 
-        if (category == "all") {
+        category <- c("tables", "statistics", "variables", "cubes")
 
-          df_table <- binding_lapply(results_json$Tables,
-                                     characteristics = c("Code",
-                                                         "Content",
-                                                         "Time"))
+      }
 
-          df_table$Spezifisch <- ggsub(df_table)
+    #---------------------------------------------------------------------------
 
-          df_table$Variablen <- spezifisch_create(df_table)
+      if("tables" %in% category) {
 
-          df_table$Object_Type <- "table"
+        if(!is.null(results_json$Tables)) {
 
-          #-------------------------------------------------------------------------
+          if(isTRUE(detailed)){
 
-          df_stats <- binding_lapply(results_json$Statistics,
-                                     characteristics = c("Code",
-                                                         "Content",
-                                                         "Information",
-                                                         "Cubes"))
-
-          df_stats$Spezifisch <- ggsub(df_stats)
-
-          df_stats$Variablen <- spezifisch_create(df_stats)
-
-          df_stats$Object_Type <- "statistic"
-
-          #-------------------------------------------------------------------------
-
-          df_variables <- binding_lapply(results_json$Variables,
-                                         characteristics = c("Code",
-                                                             "Content",
-                                                             "Type",
-                                                             "Values",
-                                                             "Information"))
-
-          df_variables$Spezifisch <- ggsub(df_variables)
-
-          df_variables$Variablen <- spezifisch_create(df_variables)
-
-          df_variables$Object_Type <- "variable"
-
-          #-------------------------------------------------------------------------
-
-          if (db == "gen_api" | db == "gen_regio_api") {
-
-            df_cubes <- binding_lapply(results_json$Cubes,
+            df_table <- binding_lapply(results_json$Tables,
                                        characteristics = c("Code",
                                                            "Content",
-                                                           "Time",
-                                                           "LatestUpdate",
-                                                           "State",
-                                                           "Information"))
+                                                           "Time"))
 
-            df_cubes$Spezifisch <- ggsub(df_cubes)
+            df_table$Spezifisch <- ggsub(df_table)
 
-            df_cubes$Variablen <- spezifisch_create(df_cubes)
+            df_table$Variablen <- spezifisch_create(df_table)
 
-            df_cubes$Object_Type <- "cube"
+            df_table$Object_Type <- "table"
 
-          }
 
-          #-------------------------------------------------------------------------
+            if (nrow(df_table) != 0) {
 
-          if (nrow(df_table) != 0) {
-
-            df_table$Titel <- titel_search(df_table, term)
-
-          }
-
-          if (nrow(df_stats) != 0) {
-
-            df_stats$Titel <- titel_search(df_stats, term)
-
-          }
-
-          if (nrow(df_variables) != 0) {
-
-            df_variables$Titel <- titel_search(df_variables, term)
-
-          }
-
-          if (db == "gen_api" | db == "gen_regio_api") {
-
-            if (nrow(df_cubes) != 0) {
-
-              df_cubes$Titel <- titel_search(df_cubes, term)
-
-            }
-
-          }
-
-          #-------------------------------------------------------------------------
-
-          if (isTRUE(ordering)) {
-
-            df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
-                                                                              "Content",
-                                                                              "Titel",
-                                                                              "Time",
-                                                                              "Variablen",
-                                                                              "Spezifisch",
-                                                                              "Object_Type")]
-
-            df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
-                                                                               "Content",
-                                                                               "Titel",
-                                                                               "Information",
-                                                                               "Cubes",
-                                                                               "Variablen",
-                                                                               "Spezifisch",
-                                                                               "Object_Type")]
-
-            df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
-                                                                                           "Content",
-                                                                                           "Titel",
-                                                                                           "Values",
-                                                                                           "Information",
-                                                                                           "Variablen",
-                                                                                           "Spezifisch",
-                                                                                           "Object_Type")]
-
-            #-------------------------------------------------------------------
-
-            if (db == "gen_api" | db == "gen_regio_api") {
-
-              df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
-                                                                                 "Content",
-                                                                                 "Titel",
-                                                                                 "Time",
-                                                                                 "LatestUpdate",
-                                                                                 "State",
-                                                                                 "Information",
-                                                                                 "Variablen",
-                                                                                 "Spezifisch",
-                                                                                 "Object_Type")]
+              df_table$Titel <- titel_search(df_table, term)
 
             }
 
 
-          } else { # End of if (isTRUE(ordering))
+            if (isTRUE(ordering)) {
 
-            df_table <- df_table[, c("Code",
-                                     "Content",
-                                     "Titel",
-                                     "Time",
-                                     "Variablen",
-                                     "Spezifisch",
-                                     "Object_Type")]
+              df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
+                                                                                "Content",
+                                                                                "Titel",
+                                                                                "Time",
+                                                                                "Variablen",
+                                                                                "Spezifisch",
+                                                                                "Object_Type")]
 
-            df_stats <- df_stats[, c("Code",
-                                     "Content",
-                                     "Titel",
-                                     "Information",
-                                     "Cubes",
-                                     "Variablen",
-                                     "Spezifisch",
-                                     "Object_Type")]
+            } else {
 
-            df_variables <- df_variables[, c("Code",
-                                             "Content",
-                                             "Titel",
-                                             "Values",
-                                             "Information",
-                                             "Variablen",
-                                             "Spezifisch",
-                                             "Object_Type")]
-
-            #-------------------------------------------------------------------
-
-            if (db == "gen_api" | db == "gen_regio_api") {
-
-              df_cubes <- df_cubes[, c("Code",
+              df_table <- df_table[, c("Code",
                                        "Content",
                                        "Titel",
                                        "Time",
-                                       "LatestUpdate",
-                                       "State",
-                                       "Information",
                                        "Variablen",
                                        "Spezifisch",
                                        "Object_Type")]
 
             }
 
-          }
 
-          #-------------------------------------------------------------------------
+          } else if (isFALSE(detailed)) {
 
-          list_resp <- list("Tables" = tibble::as_tibble(df_table),
-                            "Statistics" = tibble::as_tibble(df_stats),
-                            "Variables" = tibble::as_tibble(df_variables),
-                            "Cubes" = if (db == "gen_api" | db == "gen_regio_api") { tibble::as_tibble(df_cubes) } else { "There are generally no 'cubes' objects available for the 'zensus' database." })
-
-          attr(list_resp, "Term") <- results_json$Parameter$term
-          attr(list_resp, "Database") <- rev_database_function(db)
-          attr(list_resp, "Language") <- results_json$Parameter$language
-          attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-          attr(list_resp, "Copyright") <- results_json$Copyright
-
-          return(list_resp)
-
-        } # End of (if category == "all")
-
-        #-----------------------------------------------------------------------
-
-        if (category == "tables") {
-
-          df_table <- binding_lapply(results_json$Tables,
-                                     characteristics = c("Code",
-                                                         "Content",
-                                                         "Time"))
-
-          df_table$Spezifisch <- ggsub(df_table)
-
-          df_table$Variablen <- spezifisch_create(df_table)
-
-          df_table$Object_Type <- "table"
-
-          #-------------------------------------------------------------------------
-
-          if (nrow(df_table) != 0) {
-
-            df_table$Titel <- titel_search(df_table, term)
-
-          }
-
-          if (isTRUE(ordering)) {
-
-            df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
-                                                                              "Content",
-                                                                              "Titel",
-                                                                              "Time",
-                                                                              "Variablen",
-                                                                              "Spezifisch",
-                                                                              "Object_Type")]
-
-          } else {
-
-            df_table <- df_table[, c("Code",
-                                     "Content",
-                                     "Titel",
-                                     "Time",
-                                     "Variablen",
-                                     "Spezifisch",
-                                     "Object_Type")]
-
-          }
-
-          #-------------------------------------------------------------------------
-
-          list_resp <- list("Tables" = tibble::as_tibble(df_table))
-
-          attr(list_resp, "Term") <- results_json$Parameter$term
-          attr(list_resp, "Database") <- rev_database_function(db)
-          attr(list_resp, "Language") <- results_json$Parameter$language
-          attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-          attr(list_resp, "Copyright") <- results_json$Copyright
-
-          return(list_resp)
-
-        }
-
-        #---------------------------------------------------------------------------
-
-        if (category == "statistics") {
-
-          df_stats <- binding_lapply(results_json$Statistics,
-                                     characteristics = c("Code",
-                                                         "Content",
-                                                         "Information",
-                                                         "Cubes"))
-
-          df_stats$Spezifisch <- ggsub(df_stats)
-
-          df_stats$Variablen <- spezifisch_create(df_stats)
-
-          df_stats$Object_Type <- "statistic"
-
-          #-------------------------------------------------------------------------
-
-          if (nrow(df_stats) != 0) {
-
-            df_stats$Titel <- titel_search(df_stats, term)
-
-          }
-
-          if (isTRUE(ordering)) {
-
-            df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
-                                                                               "Content",
-                                                                               "Titel",
-                                                                               "Information",
-                                                                               "Cubes",
-                                                                               "Variablen",
-                                                                               "Spezifisch",
-                                                                               "Object_Type")]
-
-          } else {
-
-            df_stats <- df_stats[, c("Code",
-                                     "Content",
-                                     "Titel",
-                                     "Information",
-                                     "Cubes",
-                                     "Variablen",
-                                     "Spezifisch",
-                                     "Object_Type")]
-
-          }
-
-          list_resp <- list("Statistics" = tibble::as_tibble(df_stats))
-
-          attr(list_resp, "Term") <- results_json$Parameter$term
-          attr(list_resp, "Database") <- rev_database_function(db)
-          attr(list_resp, "Language") <- results_json$Parameter$language
-          attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-          attr(list_resp, "Copyright") <- results_json$Copyright
-
-          return(list_resp)
-
-        }
-
-        #---------------------------------------------------------------------------
-
-        if (category == "variables") {
-
-          df_variables <- binding_lapply(results_json$Variables,
-                                         characteristics = c("Code",
-                                                             "Content",
-                                                             "Type",
-                                                             "Values",
-                                                             "Information"))
-
-          df_variables$Spezifisch <- ggsub(df_variables)
-
-          df_variables$Variablen <- spezifisch_create(df_variables)
-
-          df_variables$Object_Type <- "variable"
-
-          #-------------------------------------------------------------------------
-
-          if (nrow(df_variables) != 0) {
-
-            df_variables$Titel <- titel_search(df_variables, term)
-
-          }
-
-          if (isTRUE(ordering)) {
-
-            df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
-                                                                                           "Content",
-                                                                                           "Titel",
-                                                                                           "Values",
-                                                                                           "Information",
-                                                                                           "Variablen",
-                                                                                           "Spezifisch",
-                                                                                           "Object_Type")]
-
-          } else {
-
-            df_variables <- df_variables[, c("Code",
-                                             "Content",
-                                             "Titel",
-                                             "Values",
-                                             "Information",
-                                             "Variablen",
-                                             "Spezifisch",
-                                             "Object_Type")]
-
-          }
-
-          #-------------------------------------------------------------------------
-
-          list_resp <- list("Variables" = tibble::as_tibble(df_variables))
-
-          attr(list_resp, "Term") <- results_json$Parameter$term
-          attr(list_resp, "Database") <- rev_database_function(db)
-          attr(list_resp, "Language") <- results_json$Parameter$language
-          attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-          attr(list_resp, "Copyright") <- results_json$Copyright
-
-          return(list_resp)
-
-        }
-
-        #---------------------------------------------------------------------------
-
-        if (category == "cubes") {
-
-          if (db == "gen_api" | db == "gen_regio_api") {
-
-            df_cubes <- binding_lapply(results_json$Cubes,
+            df_table <- binding_lapply(results_json$Tables,
                                        characteristics = c("Code",
-                                                           "Content",
-                                                           "Time",
-                                                           "LatestUpdate",
-                                                           "State",
-                                                           "Information"))
+                                                           "Content"))
 
-            df_cubes$Spezifisch <- ggsub(df_cubes)
+            df_table$Spezifisch <- ggsub(df_table)
 
-            df_cubes$Variablen <- spezifisch_create(df_cubes)
+            df_table$Variablen <- spezifisch_create(df_table)
 
-            df_cubes$Object_Type <- "cube"
+            df_table$Object_Type <- "table"
 
-            #-------------------------------------------------------------------------
 
-            if (nrow(df_cubes) != 0) {
+            if (nrow(df_table) != 0) {
 
-              df_cubes$Titel <- titel_search(df_cubes, term)
+              df_table$Titel <- titel_search(df_table, term)
 
             }
 
+
             if (isTRUE(ordering)) {
 
-              df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
+              df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
+                                                                                "Content",
+                                                                                "Object_Type")]
+            } else {
+
+              df_table <- df_table[, c("Code",
+                                       "Content",
+                                       "Object_Type")]
+
+            }
+
+          }
+
+        } else {
+
+          df_table <- find_token(results_json$Tables,
+                                 error.input = error.ignore,
+                                 text = verbose,
+                                 sub_category = "Tables")
+
+        }
+
+      }
+
+    #---------------------------------------------------------------------------
+
+      if("statistics" %in% category) {
+
+        if(!is.null(results_json$Statistics)) {
+
+          if(isTRUE(detailed)){
+
+            df_stats <- binding_lapply(results_json$Statistics,
+                                       characteristics = c("Code",
+                                                           "Content",
+                                                           "Information",
+                                                           "Cubes"))
+
+            df_stats$Spezifisch <- ggsub(df_stats)
+
+            df_stats$Variablen <- spezifisch_create(df_stats)
+
+            df_stats$Object_Type <- "statistic"
+
+
+            if (nrow(df_stats) != 0) {
+
+              df_stats$Titel <- titel_search(df_stats, term)
+
+            }
+
+
+            if (isTRUE(ordering)) {
+
+              df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
                                                                                  "Content",
                                                                                  "Titel",
-                                                                                 "Time",
-                                                                                 "LatestUpdate",
-                                                                                 "State",
                                                                                  "Information",
+                                                                                 "Cubes",
                                                                                  "Variablen",
                                                                                  "Spezifisch",
                                                                                  "Object_Type")]
 
             } else {
 
-              df_cubes <- df_cubes[, c("Code",
+              df_stats <- df_stats[, c("Code",
                                        "Content",
                                        "Titel",
-                                       "Time",
-                                       "LatestUpdate",
-                                       "State",
                                        "Information",
+                                       "Cubes",
                                        "Variablen",
                                        "Spezifisch",
                                        "Object_Type")]
 
             }
 
-            #-------------------------------------------------------------------------
 
-            list_resp <- list("Cubes" = tibble::as_tibble(df_cubes))
+          } else if (isFALSE(detailed)) {
 
-            attr(list_resp, "Term") <- results_json$Parameter$term
-            attr(list_resp, "Database") <- rev_database_function(db)
-            attr(list_resp, "Language") <- results_json$Parameter$language
-            attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-            attr(list_resp, "Copyright") <- results_json$Copyright
-
-            return(list_resp)
-
-          } else {
-
-            list_resp <- "There are generally no 'cubes' objects available for the 'zensus' database."
-
-          }
-
-        }
-
-      }
-
-      #-----------------------------------------------------------------------------
-
-      if (detailed == FALSE) {
-
-        if (category == "all") {
-
-          #-------------------------------------------------------------------------
-
-          df_table <- binding_lapply(results_json$Tables,
-                                     characteristics = c("Code",
-                                                         "Content"))
-
-          df_table$Spezifisch <- ggsub(df_table)
-
-          df_table$Variablen <- spezifisch_create(df_table)
-
-          df_table$Object_Type <- "table"
-
-          #-------------------------------------------------------------------------
-
-          df_stats <- binding_lapply(results_json$Statistics,
-                                     characteristics = c("Code",
-                                                         "Content"))
-
-          df_stats$Spezifisch <- ggsub(df_stats)
-
-          df_stats$Variablen <- spezifisch_create(df_stats)
-
-          df_stats$Object_Type <- "statistic"
-
-          #-------------------------------------------------------------------------
-
-          df_variables <- binding_lapply(results_json$Variables,
-                                         characteristics = c("Code",
-                                                             "Content"))
-
-          df_variables$Spezifisch <- ggsub(df_variables)
-
-          df_variables$Variablen <- spezifisch_create(df_variables)
-
-          df_variables$Object_Type <- "variable"
-
-          #-------------------------------------------------------------------------
-
-          if (db == "gen_api" | db == "gen_regio_api") {
-
-            df_cubes <- binding_lapply(results_json$Cubes,
+            df_stats <- binding_lapply(results_json$Statistics,
                                        characteristics = c("Code",
                                                            "Content"))
 
-            df_cubes$Spezifisch <- ggsub(df_cubes)
+            df_stats$Spezifisch <- ggsub(df_stats)
 
-            df_cubes$Variablen <- spezifisch_create(df_cubes)
+            df_stats$Variablen <- spezifisch_create(df_stats)
 
-            df_cubes$Object_Type <- "cube"
+            df_stats$Object_Type <- "statistic"
 
-          }
 
-          #-------------------------------------------------------------------------
+            if (nrow(df_stats) != 0) {
 
-          if (nrow(df_table) != 0) {
-
-            df_table$Titel <- titel_search(df_table, term)
-
-          }
-
-          if (nrow(df_stats) != 0) {
-
-            df_stats$Titel <- titel_search(df_stats, term)
-
-          }
-
-          if (nrow(df_variables) != 0) {
-
-            df_variables$Titel <- titel_search(df_variables, term)
-
-          }
-
-          if (db == "gen_api" | db == "gen_regio_api") {
-
-            if (nrow(df_cubes) != 0) {
-
-              df_cubes$Titel <- titel_search(df_cubes, term)
+              df_stats$Titel <- titel_search(df_stats, term)
 
             }
 
-          }
 
-          #-------------------------------------------------------------------------
+            if (isTRUE(ordering)) {
 
-          if (isTRUE(ordering)) {
-
-            df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
-                                                                              "Content",
-                                                                              "Object_Type")]
-
-            df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
-                                                                               "Content",
-                                                                               "Object_Type")]
-
-            df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
-                                                                                           "Content",
-                                                                                           "Object_Type")]
-
-            if (db == "gen_api" | db == "gen_regio_api") {
-
-              df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
+              df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
                                                                                  "Content",
                                                                                  "Object_Type")]
+            } else {
 
-            }
-
-          } else {
-
-            df_table <- df_table[, c("Code",
-                                     "Content",
-                                     "Object_Type")]
-
-            df_stats <- df_stats[, c("Code",
-                                     "Content",
-                                     "Object_Type")]
-
-            df_variables <- df_variables[, c("Code",
-                                             "Content",
-                                             "Object_Type")]
-
-            if (db == "gen_api" | db == "gen_regio_api") {
-
-              df_cubes <- df_cubes[, c("Code",
+              df_stats <- df_stats[, c("Code",
                                        "Content",
                                        "Object_Type")]
 
@@ -733,214 +322,239 @@ gen_find <- function(term = NULL,
 
           }
 
-          #-------------------------------------------------------------------------
+        } else {
 
-          list_resp <- list("Tables" = tibble::as_tibble(df_table),
-                            "Statistics" = tibble::as_tibble(df_stats),
-                            "Variables" = tibble::as_tibble(df_variables),
-                            "Cubes" = if (db == "gen_api" | db == "gen_regio_api") { tibble::as_tibble(df_cubes) } else { "There are generally no 'cubes' objects available for the 'zensus' database." })
-
-          attr(list_resp, "Term") <- results_json$Parameter$term
-          attr(list_resp, "Database") <- rev_database_function(db)
-          attr(list_resp, "Language") <- results_json$Parameter$language
-          attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-          attr(list_resp, "Copyright") <- results_json$Copyright
-
-          return(list_resp)
-
-        }
-
-        #---------------------------------------------------------------------------
-
-        if (category == "tables") {
-
-          df_table <- binding_lapply(results_json$Tables,
-                                     characteristics = c("Code",
-                                                         "Content"))
-
-          df_table$Spezifisch <- ggsub(df_table)
-
-          df_table$Variablen <- spezifisch_create(df_table)
-
-          df_table$Object_Type <- "table"
-
-          #-------------------------------------------------------------------------
-
-          if (nrow(df_table) != 0) {
-
-            df_table$Titel <- titel_search(df_table, term)
-
-          }
-
-          if (isTRUE(ordering)) {
-
-            df_table <- df_table[with(df_table, order(-Titel, -Variablen)), c("Code",
-                                                                              "Content",
-                                                                              "Object_Type")]
-
-          } else {
-
-            df_table <- df_table[, c("Code",
-                                     "Content",
-                                     "Object_Type")]
-
-          }
-
-          #-------------------------------------------------------------------------
-
-          list_resp <- list("Tables" = tibble::as_tibble(df_table))
-
-          attr(list_resp, "Term") <- results_json$Parameter$term
-          attr(list_resp, "Database") <- rev_database_function(db)
-          attr(list_resp, "Language") <- results_json$Parameter$language
-          attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-          attr(list_resp, "Copyright") <- results_json$Copyright
-
-          return(list_resp)
-
-        }
-
-        if (category == "statistics") {
-
-          df_stats <- binding_lapply(results_json$Statistics,
-                                     characteristics = c("Code",
-                                                         "Content"))
-
-          df_stats$Spezifisch <- ggsub(df_stats)
-
-          df_stats$Variablen <- spezifisch_create(df_stats)
-
-          df_stats$Object_Type <- "statistic"
-
-          #-------------------------------------------------------------------------
-
-          if (nrow(df_stats) != 0) {
-
-            df_stats$Titel <- titel_search(df_stats, term)
-
-          }
-
-          if (isTRUE(ordering)) {
-
-            df_stats <- df_stats[with(df_stats, order(-Titel, -Variablen)), c( "Code",
-                                                                               "Content",
-                                                                               "Object_Type")]
-
-          } else {
-
-            df_stats <- df_stats[, c("Code",
-                                     "Content",
-                                     "Object_Type")]
-
-          }
-
-          #-------------------------------------------------------------------------
-
-          list_resp <- list("Statistics" = tibble::as_tibble(df_stats))
-
-          attr(list_resp, "Term") <- results_json$Parameter$term
-          attr(list_resp, "Database") <- rev_database_function(db)
-          attr(list_resp, "Language") <- results_json$Parameter$language
-          attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-          attr(list_resp, "Copyright") <- results_json$Copyright
-
-          return(list_resp)
-
-        }
-
-        #---------------------------------------------------------------------------
-
-        if (category == "variables") {
-
-          df_variables <- binding_lapply(results_json$Variables,
-                                         characteristics = c("Code",
-                                                             "Content"))
-
-          df_variables$Spezifisch <- ggsub(df_variables)
-
-          df_variables$Variablen <- spezifisch_create(df_variables)
-
-          df_variables$Object_Type <- "variable"
-
-          #-------------------------------------------------------------------------
-
-          if (nrow(df_variables) != 0) {
-
-            df_variables$Titel <- titel_search(df_variables, term)
-
-          }
-
-          #-------------------------------------------------------------------------
-
-          if (isTRUE(ordering)) {
-
-            df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
-                                                                                           "Content",
-                                                                                           "Object_Type")]
-
-          } else {
-
-            df_variables <- df_variables[, c("Code",
-                                             "Content",
-                                             "Object_Type")]
-
-          }
-
-          #-------------------------------------------------------------------------
-
-          list_resp <- list("Variables" = tibble::as_tibble(df_variables))
-
-          attr(list_resp, "Term") <- results_json$Parameter$term
-          attr(list_resp, "Database") <- rev_database_function(db)
-          attr(list_resp, "Language") <- results_json$Parameter$language
-          attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-          attr(list_resp, "Copyright") <- results_json$Copyright
-
-          return(list_resp)
+          df_stats <- find_token(results_json$Statistics,
+                                 error.input = error.ignore,
+                                 text = verbose,
+                                 sub_category = "Statistics")
 
         }
 
       }
 
-      #---------------------------------------------------------------------------
+    #---------------------------------------------------------------------------
 
-      if (category == "cubes" && (db == "gen_api" || db == "gen_regio_api")) {
+      if("variables" %in% category) {
 
-        df_cubes <- binding_lapply(results_json$Cubes,
-                                   characteristics = c("Code",
-                                                       "Content"))
+        if(!is.null(results_json$Variables)) {
 
-        df_cubes$Spezifisch <- ggsub(df_cubes)
+          if(isTRUE(detailed)){
 
-        df_cubes$Variablen <- spezifisch_create(df_cubes)
+            df_variables <- binding_lapply(results_json$Variables,
+                                           characteristics = c("Code",
+                                                               "Content",
+                                                               "Type",
+                                                               "Values",
+                                                               "Information"))
 
-        df_cubes$Object_Type <- "cube"
+            df_variables$Spezifisch <- ggsub(df_variables)
 
-        #-------------------------------------------------------------------------
+            df_variables$Variablen <- spezifisch_create(df_variables)
 
-        if (nrow(df_cubes) != 0) {
+            df_variables$Object_Type <- "variable"
 
-          df_cubes$Titel <- titel_search(df_cubes, term)
 
-        }
+            if (nrow(df_variables) != 0) {
 
-        if (isTRUE(ordering)) {
+              df_variables$Titel <- titel_search(df_variables, term)
 
-          df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
-                                                                             "Content",
-                                                                             "Object_Type")]
+            }
+
+
+            if (isTRUE(ordering)) {
+
+              df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
+                                                                                             "Content",
+                                                                                             "Titel",
+                                                                                             "Values",
+                                                                                             "Information",
+                                                                                             "Variablen",
+                                                                                             "Spezifisch",
+                                                                                             "Object_Type")]
+
+            } else {
+
+              df_variables <- df_variables[, c("Code",
+                                               "Content",
+                                               "Titel",
+                                               "Values",
+                                               "Information",
+                                               "Variablen",
+                                               "Spezifisch",
+                                               "Object_Type")]
+
+            }
+
+
+          } else if (isFALSE(detailed)) {
+
+            df_variables <- binding_lapply(results_json$Variables,
+                                           characteristics = c("Code",
+                                                               "Content"))
+
+            df_variables$Spezifisch <- ggsub(df_variables)
+
+            df_variables$Variablen <- spezifisch_create(df_variables)
+
+            df_variables$Object_Type <- "variable"
+
+
+            if (nrow(df_variables) != 0) {
+
+              df_variables$Titel <- titel_search(df_variables, term)
+
+            }
+
+
+            if (isTRUE(ordering)) {
+
+              df_variables <- df_variables[with(df_variables, order(-Titel, -Variablen)), c( "Code",
+                                                                                             "Content",
+                                                                                             "Object_Type")]
+
+            } else {
+
+              df_variables <- df_variables[, c("Code",
+                                               "Content",
+                                               "Object_Type")]
+
+            }
+
+          }
 
         } else {
 
-          df_cubes <- df_cubes[, c("Code",
-                                   "Content",
-                                   "Object_Type")]
+          df_stats <- find_token(results_json$Variables,
+                                 error.input = error.ignore,
+                                 text = verbose,
+                                 sub_category = "Variables")
 
         }
 
-        #-------------------------------------------------------------------------
+      }
 
-        list_resp <- list("Cubes" = tibble::as_tibble(df_cubes))
+    #---------------------------------------------------------------------------
+
+      if("cubes" %in% category) {
+
+        if (db == "gen_api" | db == "gen_regio_api") {
+
+          if(!is.null(results_json$Cubes)) {
+
+            if(isTRUE(detailed)){
+
+              df_cubes <- binding_lapply(results_json$Cubes,
+                                         characteristics = c("Code",
+                                                             "Content",
+                                                             "Time",
+                                                             "LatestUpdate",
+                                                             "State",
+                                                             "Information"))
+
+              df_cubes$Spezifisch <- ggsub(df_cubes)
+
+              df_cubes$Variablen <- spezifisch_create(df_cubes)
+
+              df_cubes$Object_Type <- "cube"
+
+
+              if (nrow(df_cubes) != 0) {
+
+                df_cubes$Titel <- titel_search(df_cubes, term)
+
+              }
+
+
+              if (isTRUE(ordering)) {
+
+                df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
+                                                                                   "Content",
+                                                                                   "Titel",
+                                                                                   "Time",
+                                                                                   "LatestUpdate",
+                                                                                   "State",
+                                                                                   "Information",
+                                                                                   "Variablen",
+                                                                                   "Spezifisch",
+                                                                                   "Object_Type")]
+
+              } else {
+
+                df_cubes <- df_cubes[, c("Code",
+                                         "Content",
+                                         "Titel",
+                                         "Time",
+                                         "LatestUpdate",
+                                         "State",
+                                         "Information",
+                                         "Variablen",
+                                         "Spezifisch",
+                                         "Object_Type")]
+
+              }
+
+
+            } else if (isFALSE(detailed)) {
+
+              df_cubes <- binding_lapply(results_json$Cubes,
+                                         characteristics = c("Code",
+                                                             "Content"))
+
+              df_cubes$Spezifisch <- ggsub(df_cubes)
+
+              df_cubes$Variablen <- spezifisch_create(df_cubes)
+
+              df_cubes$Object_Type <- "cube"
+
+
+              if (nrow(df_cubes) != 0) {
+
+                df_cubes$Titel <- titel_search(df_cubes, term)
+
+              }
+
+
+              if (isTRUE(ordering)) {
+
+                df_cubes <- df_cubes[with(df_cubes, order(-Titel, -Variablen)), c( "Code",
+                                                                                   "Content",
+                                                                                   "Object_Type")]
+
+              } else {
+
+                df_cubes <- df_cubes[, c("Code",
+                                         "Content",
+                                         "Object_Type")]
+
+              }
+
+            }
+
+          } else {
+
+            df_cubes <- find_token(results_json$Cubes,
+                                   error.input = error.ignore,
+                                   text = verbose,
+                                   sub_category = "Cubes")
+
+          }
+
+
+        } else if (db == "gen_zensus_api") {
+
+          df_cubes <- "There are generally no 'cubes' objects available for the 'zensus' database."
+
+        }
+
+    #---------------------------------------------------------------------------
+
+        list_resp <- list(
+          "Tables" = if("tables" %in% category) { tibble::as_tibble(df_table) },
+          "Statistics" = if("statistics" %in% category) { tibble::as_tibble(df_stats) },
+          "Variables" = if("variables" %in% category) { tibble::as_tibble(df_variables) },
+          "Cubes" = if("cubes" %in% category) { tibble::as_tibble(df_cubes) }
+        )
 
         attr(list_resp, "Term") <- results_json$Parameter$term
         attr(list_resp, "Database") <- rev_database_function(db)
@@ -950,19 +564,8 @@ gen_find <- function(term = NULL,
 
         return(list_resp)
 
-      } else {
-
-        list_resp <- "There are generally no 'cubes' objects available for the 'zensus' database."
-
-      }
-
     }
-
-    return(list_resp)
-
-  })
-
-  #-----------------------------------------------------------------------------
+  }})
 
   res <- check_results(res)
 

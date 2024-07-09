@@ -658,7 +658,7 @@ check_function_input <- function(code = NULL,
 
         else if ("all" %in% category && isTRUE(verbose)) {
 
-          warning("Available categories for 'zensus' database are: 'all', 'tables', 'statistics', and 'variables'.\nFunction is continued with a placeholder for the 'cubes' output.",
+          warning("There are generally no 'cubes' objects available for the 'zensus' database. Token is automatically used.",
                   call. = FALSE)
 
         }
@@ -1175,6 +1175,34 @@ check_results <- function(input){
 
     input <- input[[1]]
     return(input)
+
+  }
+
+}
+
+#-------------------------------------------------------------------------------
+#' find_token
+#'
+#' @param input Input to test result structure
+#' @param error.input error.ignore TRUE or FALSE
+#' @param text verbose TRUE or FALSE
+#' #' @param text sub_category character string
+#'
+find_token <- function(input, error.input, text, sub_category){
+
+  mes <- paste("No", sub_category, "found for the search term.")
+
+  if(isTRUE(error.input)) {
+
+    if(isTRUE(text)){
+      message(mes)
+    }
+
+    return(mes)
+
+  } else {
+
+    stop(mes)
 
   }
 
