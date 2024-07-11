@@ -233,9 +233,9 @@ gen_catalogue <- function(code = NULL,
 
     if (all(c("tables", "statistics", "cubes") %in% category)) {
 
-      list_resp <- list("Cubes" = if(length(list_of_cubes) == 1 | db == "gen_zensus_api"){tibble::as_tibble(list_of_cubes)} else {forming_evas(list_of_cubes)},
-                        "Statistics" = if(length(list_of_stats) == 1 | db == "gen_zensus_api"){tibble::as_tibble(list_of_stats)} else {forming_evas(list_of_stats)},
-                        "Tables" = if(length(list_of_tabs) == 1 | db == "gen_zensus_api"){tibble::as_tibble(list_of_tabs)} else {forming_evas(list_of_tabs)})
+      list_resp <- list("Cubes" = if(length(list_of_cubes) == 1){tibble::as_tibble(list_of_cubes)} else {forming_evas(list_of_cubes)},
+                        "Statistics" = if(length(list_of_stats) == 1){tibble::as_tibble(list_of_stats)} else {forming_evas(list_of_stats)},
+                        "Tables" = if(length(list_of_tabs) == 1){tibble::as_tibble(list_of_tabs)} else {forming_evas(list_of_tabs)})
 
 
     #---------------------------------------------------------------------------
@@ -245,7 +245,7 @@ gen_catalogue <- function(code = NULL,
 
         list_resp <- list_of_cubes
 
-      } else if (length(list_of_cubes) == 1 | db == "gen_zensus_api"){
+      } else if (length(list_of_cubes) == 1 ){
 
         list_resp <- list("Cubes" = tibble::as_tibble(list_of_cubes))
 
@@ -258,7 +258,7 @@ gen_catalogue <- function(code = NULL,
     #---------------------------------------------------------------------------
     } else if ("statistics" %in% category) {
 
-      if (length(list_of_stats) == 1 | db == "gen_zensus_api"){
+      if (length(list_of_stats) == 1 ){
 
         list_resp <- list("Statistics" = tibble::as_tibble(list_of_stats))
 
@@ -272,7 +272,7 @@ gen_catalogue <- function(code = NULL,
     #---------------------------------------------------------------------------
     } else if ("tables" %in% category) {
 
-      if(length(list_of_tabs) == 1 | db == "gen_zensus_api"){
+      if(length(list_of_tabs) == 1 ){
 
         list_resp <- list("Tables" = tibble::as_tibble(list_of_tabs))
 
