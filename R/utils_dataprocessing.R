@@ -1037,8 +1037,9 @@ spezifisch_create <- function(x) {
 #'
 #' @param x Element to extract $Content from
 #' @param term Search term
+#' @param text Indicator verbose
 #'
-titel_search <- function(x, term) {
+titel_search <- function(x, term, text) {
 
   split <- unlist(strsplit(gsub(" ", "\\bund\\b", term), c("\\bund\\b|\\bUND\\b|\\bUnd\\b|\\&|\\bODER\\b|\\boder\\b|\\bOder\\b|\\|")))
 
@@ -1059,7 +1060,9 @@ titel_search <- function(x, term) {
 
     a <- rep(FALSE, length(x$Content))
 
+    if(isTRUE(verbose)){
     message("Combination of words too complex for ordering. Data is processed without ordering.")
+    }
 
   } else if (grep("\\bODER\\b|\\boder\\b|\\bOder\\b|\\|", term, ignore.case = TRUE)) {
 
@@ -1081,7 +1084,9 @@ titel_search <- function(x, term) {
 
     a <- rep(FALSE, length(x$Content))
 
-    message("Combination of words not valid for ordering. Data is processed without ordering.")
+    if(isTRUE(verbose)){
+      message("Combination of words not valid for ordering. Data is processed without ordering.")
+    }
 
   }
 
@@ -1093,8 +1098,10 @@ titel_search <- function(x, term) {
 #' test_database_function
 #'
 #' @param input Input to test for database name
+#' @param error.input Indicator error.ignore
+#' @param text Indicator verbose
 #'
-test_database_function <- function(input){
+test_database_function <- function(input, error.input, text){
 
   #-----------------------------------------------------------------------------
 
@@ -1129,12 +1136,86 @@ test_database_function <- function(input){
 
   if("all" %in% input){
 
+    if(isTRUE(text)){
+
+      message("All databases accessible to you are selected. Additional databases specified in the 'database'-parameter are ignored.")
+
+    }
+
     res <- c("genesis" = "gen_api", "zensus" = "gen_zensus_api", "regio" = "gen_regio_api")
 
   } else if(length(res) != length(input)){
 
-    stop("One or more of the specified databases are not part of this package. Currently only 'genesis', 'zensus', and 'regio' are implemented.",
+    if(isFALSE(error.input)){
+
+
+
+      stop("One or more of the specified databases are not part of this package. Currently only 'genesis', 'zensus', and 'regio' are implemented.",
+           call. = FALSE)
+
+    } else {
+
+      if(isTRUE(text)){
+
+        message("One or more of the specified databases are not part of this package. The function is continued with the available databases that you specified.")
+
+      }
+
+    }
+
+  }
+
+  #-----------------------------------------------------------------------------
+
+  check <- sapply(res, function(y){
+
+    nam <- rev_database_function(y)
+
+    result <- tryCatch(
+      {
+        user <- gen_auth_get(nam)$username
+      },
+      error = function(e) {
+        return(FALSE)
+      }
+    )
+
+    if(isFALSE(result)){
+
+      return(FALSE)
+
+    } else {
+
+      return(TRUE)
+    }
+  })
+
+  if(sum(check) == 0){
+
+    stop("None of the specified databases are accessible to you. Please check your credentials.",
          call. = FALSE)
+
+  } else if (any(check == FALSE)){
+
+    if(isTRUE(error.input)){
+
+      if(isTRUE(text)){
+
+        mess <- paste("The following databases are not accessible to you:", names(res[!check]))
+        message(mess)
+
+        message("The function is continued with the available databases that you specified.")
+
+      }
+
+      res <- res[check]
+
+    } else {
+
+      mess <- paste("The following databases are not accessible to you:", names(res[!check]), "\nPlease check your credentials.")
+      stop(mess, call. = FALSE)
+
+    }
   }
 
   #-----------------------------------------------------------------------------

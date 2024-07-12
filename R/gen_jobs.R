@@ -20,7 +20,9 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
                           flat = FALSE,
                           ...) {
 
-  gen_fun <- test_database_function(database)
+  gen_fun <- test_database_function(database,
+                                    error.input = T,
+                                    text = T)
 
   if (length(database) != 1) {
 

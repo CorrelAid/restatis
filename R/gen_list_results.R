@@ -13,7 +13,9 @@ gen_list_results <- function(database = c("genesis", "zensus", "regio"),
                              area = c("all", "public", "user"),
                              ...) {
 
-  gen_fun <- test_database_function(database)
+  gen_fun <- test_database_function(database,
+                                    error.input = T,
+                                    text = T)
 
   area <- match.arg(area)
 

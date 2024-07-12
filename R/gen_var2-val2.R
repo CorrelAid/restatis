@@ -32,7 +32,12 @@ gen_var2stat <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database)
+  check_function_input(error.ignore = error.ignore,
+                       verbose = verbose)
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
 
   check_function_input(code = code,
                        detailed = detailed,
@@ -170,7 +175,12 @@ gen_val2var <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database)
+  check_function_input(error.ignore = error.ignore,
+                       verbose = verbose)
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
@@ -307,7 +317,12 @@ gen_val2var2stat <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database)
+  check_function_input(error.ignore = error.ignore.var,
+                       verbose = verbose)
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore.var,
+                                    text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore.var,
@@ -411,7 +426,12 @@ gen_search_vars <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database)
+  check_function_input(error.ignore = error.ignore,
+                       verbose = verbose)
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,

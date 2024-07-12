@@ -42,7 +42,12 @@ gen_find <- function(term = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database)
+  check_function_input(error.ignore = error.ignore,
+                       verbose = verbose)
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
 
   check_function_input(term = term,
                        category = category,
@@ -160,7 +165,7 @@ gen_find <- function(term = NULL,
 
             if (nrow(df_table) != 0) {
 
-              df_table$Titel <- titel_search(df_table, term)
+              df_table$Titel <- titel_search(df_table, term, text = verbose)
 
             }
 
@@ -203,7 +208,7 @@ gen_find <- function(term = NULL,
 
             if (nrow(df_table) != 0) {
 
-              df_table$Titel <- titel_search(df_table, term)
+              df_table$Titel <- titel_search(df_table, term, text = verbose)
 
             }
 
@@ -257,7 +262,7 @@ gen_find <- function(term = NULL,
 
             if (nrow(df_stats) != 0) {
 
-              df_stats$Titel <- titel_search(df_stats, term)
+              df_stats$Titel <- titel_search(df_stats, term, text = verbose)
 
             }
 
@@ -302,7 +307,7 @@ gen_find <- function(term = NULL,
 
             if (nrow(df_stats) != 0) {
 
-              df_stats$Titel <- titel_search(df_stats, term)
+              df_stats$Titel <- titel_search(df_stats, term, text = verbose)
 
             }
 
@@ -357,7 +362,7 @@ gen_find <- function(term = NULL,
 
             if (nrow(df_variables) != 0) {
 
-              df_variables$Titel <- titel_search(df_variables, term)
+              df_variables$Titel <- titel_search(df_variables, term, text = verbose)
 
             }
 
@@ -402,7 +407,7 @@ gen_find <- function(term = NULL,
 
             if (nrow(df_variables) != 0) {
 
-              df_variables$Titel <- titel_search(df_variables, term)
+              df_variables$Titel <- titel_search(df_variables, term, text = verbose)
 
             }
 
@@ -461,7 +466,7 @@ gen_find <- function(term = NULL,
 
               if (nrow(df_cubes) != 0) {
 
-                df_cubes$Titel <- titel_search(df_cubes, term)
+                df_cubes$Titel <- titel_search(df_cubes, term, text = verbose)
 
               }
 
@@ -510,7 +515,7 @@ gen_find <- function(term = NULL,
 
               if (nrow(df_cubes) != 0) {
 
-                df_cubes$Titel <- titel_search(df_cubes, term)
+                df_cubes$Titel <- titel_search(df_cubes, term, text = verbose)
 
               }
 

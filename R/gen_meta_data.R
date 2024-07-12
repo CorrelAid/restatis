@@ -29,7 +29,12 @@ gen_metadata_statistic <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database)
+  check_function_input(error.ignore = error.ignore,
+                       verbose = verbose)
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
@@ -152,7 +157,12 @@ gen_metadata_variable <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database)
+  check_function_input(error.ignore = error.ignore,
+                       verbose = verbose)
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
@@ -283,7 +293,12 @@ gen_metadata_value <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database)
+  check_function_input(error.ignore = error.ignore,
+                       verbose = verbose)
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
@@ -411,7 +426,12 @@ gen_metadata_table <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database)
+  check_function_input(error.ignore = error.ignore,
+                       verbose = verbose)
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
@@ -604,15 +624,20 @@ gen_metadata_table <- function(code = NULL,
 #'
 gen_metadata_cube <- function(code = NULL,
                               database = c("all", "genesis", "regio"),
-                              error.ignore = FALSE,
                               area = c("all", "public", "user"),
+                              error.ignore = FALSE,
                               verbose = TRUE,
                               raw = raw,
                               ...) {
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database)
+  check_function_input(error.ignore = error.ignore,
+                       verbose = verbose)
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
@@ -788,7 +813,12 @@ gen_metadata <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database)
+  check_function_input(error.ignore = error.ignore,
+                       verbose = verbose)
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,

@@ -38,7 +38,12 @@ gen_objects2var <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database)
+  check_function_input(error.ignore = error.ignore,
+                       verbose = verbose)
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
 
   check_function_input(code = code,
                        category = category,
