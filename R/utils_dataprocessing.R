@@ -322,7 +322,7 @@ check_function_input <- function(code = NULL,
   #-----------------------------------------------------------------------------
   # Code & Term ----
 
-  if (is.null(code) && is.null(term)) {
+  if (is.null(code) && is.null(term) && !is.null(caller)) {
 
     if (!(caller %in% c("gen_search_vars", "restatis::gen_search_vars"))) {
 
@@ -792,17 +792,11 @@ check_function_input <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (length(error.ignore == 1)) {
-
-      #-------------------------------------------------------------------------
-
-      if (!is.logical(error.ignore) ||
+    if (!is.logical(error.ignore) ||
           length(error.ignore) != 1) {
 
         stop("Parameter 'error.ignore' has to be of type 'logical' and of length 1.",
              call. = FALSE)
-
-      }
 
     }
 
@@ -1102,6 +1096,22 @@ titel_search <- function(x, term, text) {
 #' @param text Indicator verbose
 #'
 test_database_function <- function(input, error.input, text){
+
+    #-------------------------------------------------------------------------
+
+  if (!is.logical(text) || length(text) != 1) {
+
+     stop("Parameter 'verbose' has to be of type 'logical' and of length 1.",
+           call. = FALSE)
+
+  }
+
+  if (!is.logical(error.input) || length(error.input) != 1) {
+
+    stop("Parameter 'error.ignore' has to be of type 'logical' and of length 1.",
+         call. = FALSE)
+
+  }
 
   #-----------------------------------------------------------------------------
 

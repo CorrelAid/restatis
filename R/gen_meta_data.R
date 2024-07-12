@@ -3,11 +3,11 @@
 #' @description Function to search for meta information for a specific statistic.
 #'
 #' @param code A character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
-#' @param raw Boolean. Should a non-parsed API response be returned?
+#' @param raw Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
@@ -28,9 +28,6 @@ gen_metadata_statistic <- function(code = NULL,
                                    ...) {
 
   caller <- as.character(match.call()[1])
-
-  check_function_input(error.ignore = error.ignore,
-                       verbose = verbose)
 
   gen_fun <- test_database_function(database,
                                     error.input = error.ignore,
@@ -131,11 +128,11 @@ gen_metadata_statistic <- function(code = NULL,
 #' @description Function to search for meta information for a specific variable.
 #'
 #' @param code A character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
-#' @param raw Boolean. Should a non-parsed API response be returned?
+#' @param raw Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
@@ -156,9 +153,6 @@ gen_metadata_variable <- function(code = NULL,
                                   ...) {
 
   caller <- as.character(match.call()[1])
-
-  check_function_input(error.ignore = error.ignore,
-                       verbose = verbose)
 
   gen_fun <- test_database_function(database,
                                     error.input = error.ignore,
@@ -267,11 +261,11 @@ gen_metadata_variable <- function(code = NULL,
 #' @description Function to search for meta information for a specific value.
 #'
 #' @param code A character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
-#' @param raw Boolean. Should a non-parsed API response be returned?
+#' @param raw Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
@@ -292,9 +286,6 @@ gen_metadata_value <- function(code = NULL,
                                ...) {
 
   caller <- as.character(match.call()[1])
-
-  check_function_input(error.ignore = error.ignore,
-                       verbose = verbose)
 
   gen_fun <- test_database_function(database,
                                     error.input = error.ignore,
@@ -400,11 +391,11 @@ gen_metadata_value <- function(code = NULL,
 #' @description Function to search for meta information for a specific table.
 #'
 #' @param code A character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
-#' @param raw Boolean. Should a non-parsed API response be returned?
+#' @param raw Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
@@ -425,9 +416,6 @@ gen_metadata_table <- function(code = NULL,
                                ...) {
 
   caller <- as.character(match.call()[1])
-
-  check_function_input(error.ignore = error.ignore,
-                       verbose = verbose)
 
   gen_fun <- test_database_function(database,
                                     error.input = error.ignore,
@@ -605,11 +593,11 @@ gen_metadata_table <- function(code = NULL,
 #' @description Function to search for meta information for a specific cube. Usable only for GENESIS and regionalstatistik.de.
 #'
 #' @param code A character string with a maximum length of 15 characters. Code from a GENESIS or regionalstatistik.de object. Only one code per iteration.
-#' @param database Character string. Indicator if the GENESIS ('genesis') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param database Character string. Indicator if the GENESIS ('genesis') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
-#' @param raw Boolean. Should a non-parsed API response be returned?
+#' @param raw Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
@@ -627,13 +615,10 @@ gen_metadata_cube <- function(code = NULL,
                               area = c("all", "public", "user"),
                               error.ignore = FALSE,
                               verbose = TRUE,
-                              raw = raw,
+                              raw = FALSE,
                               ...) {
 
   caller <- as.character(match.call()[1])
-
-  check_function_input(error.ignore = error.ignore,
-                       verbose = verbose)
 
   gen_fun <- test_database_function(database,
                                     error.input = error.ignore,
@@ -784,13 +769,13 @@ gen_metadata_cube <- function(code = NULL,
 #'
 #' @description Search For Meta-Information For All Types Of Objects
 #'
-#' @param code String with a maximum length of 10 characters for a database object (GENESIS and regionalstatistik.de) and 15 characters for a Zensus 2022 object. Only one code per iteration. "*" notations are possible.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param code String with a maximum length of 15 characters for a database object (GENESIS, regionalstatistik.de, Zensus 2022). Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
 #' @param category Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
-#' @param raw Boolean. Should a non-parsed API response be returned?
+#' @param raw Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
@@ -812,9 +797,6 @@ gen_metadata <- function(code = NULL,
                          ...) {
 
   caller <- as.character(match.call()[1])
-
-  check_function_input(error.ignore = error.ignore,
-                       verbose = verbose)
 
   gen_fun <- test_database_function(database,
                                     error.input = error.ignore,

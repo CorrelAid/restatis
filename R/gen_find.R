@@ -5,7 +5,7 @@
 #' Important note: Time-series are treated as cubes in GENESIS and regionalstatistik.de, they are not longer distinguished. If you want to find a specific object with a clear code with this find function, you need to specify the object type or search for all object types.
 #'
 #' @param term A character string with no maximum character length, but a word limit of five words.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
 #' @param category Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.
 #' @param detailed Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
 #' @param ordering A logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and secondly on an estimator of the number of variables in this object. Default option is 'TRUE'.
@@ -36,14 +36,11 @@ gen_find <- function(term = NULL,
                      category = c("all", "tables", "statistics", "variables", "cubes"),
                      detailed = FALSE,
                      ordering = TRUE,
-                     error.ignore = FALSE,
+                     error.ignore = TRUE,
                      verbose = TRUE,
                      ...) {
 
   caller <- as.character(match.call()[1])
-
-  check_function_input(error.ignore = error.ignore,
-                       verbose = verbose)
 
   gen_fun <- test_database_function(database,
                                     error.input = error.ignore,
