@@ -174,9 +174,7 @@ gen_objects2var <- function(code = NULL,
 
     if ("cubes" %in% category && db == "gen_zensus_api") {
 
-      df_cubes <- "No 'cubes' object available for 'zensus'-database."
-
-      return(df_cubes)
+      df_cubes <- "There are generally no 'cubes' objects available for the 'zensus' database."
 
     } else if ("cubes" %in% category && (db == "gen_api" || db == "gen_regio_api")) {
 

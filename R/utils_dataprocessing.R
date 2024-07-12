@@ -1131,7 +1131,13 @@ test_database_function <- function(input){
 
     res <- c("genesis" = "gen_api", "zensus" = "gen_zensus_api", "regio" = "gen_regio_api")
 
+  } else if(length(res) != length(input)){
+
+    stop("One or more of the specified databases are not part of this package. Currently only 'genesis', 'zensus', and 'regio' are implemented.",
+         call. = FALSE)
   }
+
+  #-----------------------------------------------------------------------------
 
   if (identical(res, c())){
 

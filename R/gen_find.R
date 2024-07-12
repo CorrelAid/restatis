@@ -425,7 +425,7 @@ gen_find <- function(term = NULL,
 
         } else {
 
-          df_stats <- find_token(results_json$Variables,
+          df_variables <- find_token(results_json$Variables,
                                  error.input = error.ignore,
                                  text = verbose,
                                  sub_category = "Variables")
@@ -546,15 +546,16 @@ gen_find <- function(term = NULL,
           df_cubes <- "There are generally no 'cubes' objects available for the 'zensus' database."
 
         }
+      }
 
     #---------------------------------------------------------------------------
 
-        list_resp <- list(
-          "Tables" = if("tables" %in% category) { tibble::as_tibble(df_table) },
-          "Statistics" = if("statistics" %in% category) { tibble::as_tibble(df_stats) },
-          "Variables" = if("variables" %in% category) { tibble::as_tibble(df_variables) },
-          "Cubes" = if("cubes" %in% category) { tibble::as_tibble(df_cubes) }
-        )
+        list_resp <- list()
+
+        if("tables" %in% category) {list_resp$Tables <- tibble::as_tibble(df_table) }
+        if("statistics" %in% category) {list_resp$Statistics <- tibble::as_tibble(df_stats) }
+        if("variables" %in% category) {list_resp$Variables <- tibble::as_tibble(df_variables) }
+        if("cubes" %in% category) {list_resp$Cubes <- tibble::as_tibble(df_cubes) }
 
         attr(list_resp, "Term") <- results_json$Parameter$term
         attr(list_resp, "Database") <- rev_database_function(db)
@@ -565,7 +566,7 @@ gen_find <- function(term = NULL,
         return(list_resp)
 
     }
-  }})
+  })
 
   res <- check_results(res)
 
