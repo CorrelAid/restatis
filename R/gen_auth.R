@@ -61,8 +61,21 @@ gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio")) {
 
   } else if (database == "zensus"){
 
-    username <- gen_auth_ask("username")
-    password <- gen_auth_ask("password")
+    want_token_resp <- askpass::askpass("Do you want to specifiy a Zensus 2022 API token for API access? Type 'yes'.\n
+                                        If you want to specify username and password, type any character.")
+    want_token <- ifelse(trimws(tolower(want_token_resp)) == "yes", TRUE, FALSE)
+
+    if (isTRUE(want_token)) {
+
+      username <- gen_auth_ask("API token")
+      password <- NULL
+
+    } else {
+
+      username <- gen_auth_ask("username")
+      password <- gen_auth_ask("password")
+
+    }
 
     auth_path <- gen_auth_path("auth_zensus.rds")
 
