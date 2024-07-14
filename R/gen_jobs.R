@@ -118,7 +118,7 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
 #' @param database Character string. Indicator if the GENESIS ('genesis') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'.
 #' @param compress Boolean. Should empty rows and columns be discarded? Default is FALSE.
-#' @param language Character string. Search terms, returned messages and data descriptions in German ("de") or English ("en")?
+#' @param language Character string. Defines if the decimal mark and grouping mark of integers should be represented based on the European (e.g.: '100,5', '200.000,5') or American ('100.5', '200,000.5') system. Defaults to 'Sys.getenv("GENESIS_LANG")'.
 #' @param all_character Boolean. Should all variables be imported as 'character' variables? Avoids fuzzy data type conversions if there are leading zeros or other special characters. Defaults to TRUE.
 #'
 #' @return Returns a data.frame with the table content
@@ -142,14 +142,10 @@ gen_download_job <- function(name,
 
   area <- match.arg(area)
 
-  if (!isTRUE(language == "en")) {
-
-    area <- switch(area,
-                   all = "all",
-                   public = "\u00F6ffentlich",
-                   user = "benutzer")
-
-  }
+  area <- switch(area,
+                 all = "all",
+                 public = "\u00F6ffentlich",
+                 user = "benutzer")
 
   #-----------------------------------------------------------------------------
   # Parameter processing of 'all character' for later use in read_delim
