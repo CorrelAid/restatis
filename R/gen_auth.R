@@ -6,9 +6,9 @@
 #'
 #' @details Username and password are encrypted and saved as RDS in the
 #'   package config directory. A random string is generated and stored in the
-#'   session environment variable `RESTATIS_KEY`. This string is used as the key
-#'   to encrypt and decrypt the entered credentials. To avoid having to save
-#'   authentication in future sessions, `RESTATIS_KEY` can be added to .Renviron.
+#'   session environment variable `GENESIS_KEY`. This string is used as the key
+#'   to encrypt and decrypt the entered credentials. To avoid havding to save
+#'   authentication in future sessions, `GENESIS_KEY` can be added to .Renviron.
 #'   The usethis package includes a helper function for editing .Renviron files
 #'   from an R session with [usethis::edit_r_environ()].
 #'
@@ -27,209 +27,44 @@ gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio")) {
 
   #-----------------------------------------------------------------------------
 
-  if (database == "genesis"){
+  if (database %in% c("genesis", "regio")) {
 
-    username <- gen_auth_ask("username")
-    password <- gen_auth_ask("password")
+    insert_and_save_credentials(database)
 
-    auth_path <- gen_auth_path("auth.rds")
-
-    key <- httr2::secret_make_key()
-
-    Sys.setenv(RESTATIS_KEY = key)
-
-    message("Saving GENESIS database credentials to ",
-            auth_path,
-            "\n\n",
-            "Please add the following line to your .Renviron, ",
-            "e.g. via `usethis::edit_r_environ()`, ",
-            "to use the specified username and password across sessions:\n\n",
-            "RESTATIS_KEY=",
-            key,
-            "\n\n")
-
-    dir.create(gen_auth_path(), showWarnings = FALSE, recursive = TRUE)
-
-    httr2::secret_write_rds(list(username = username, password = password),
-                            path = auth_path,
-                            key = "RESTATIS_KEY")
-
-    # Logincheck
-    gen_logincheck(database = "genesis")
+    gen_logincheck(database = database)
 
   #-----------------------------------------------------------------------------
 
   } else if (database == "zensus"){
 
-    want_token_resp <- askpass::askpass("Do you want to specifiy a Zensus 2022 API token for API access? Type 'yes'.\n
-                                        If you want to specify username and password, type any character.")
-    want_token <- ifelse(trimws(tolower(want_token_resp)) == "yes", TRUE, FALSE)
+    insert_and_save_credentials("zensus")
 
-    if (isTRUE(want_token)) {
-
-      username <- gen_auth_ask("API token")
-      password <- NULL
-
-    } else {
-
-      username <- gen_auth_ask("username")
-      password <- gen_auth_ask("password")
-
-    }
-
-    auth_path <- gen_auth_path("auth_zensus.rds")
-
-    key <- httr2::secret_make_key()
-
-    Sys.setenv(ZENSUS_KEY = key)
-
-    message("Saving Zensus 2022 database credentials to ",
-            auth_path,
-            "\n\n",
-            "Please add the following line to your .Renviron, ",
-            "e.g. via `usethis::edit_r_environ()`, ",
-            "to use the specified username and password across sessions:\n\n",
-            "ZENSUS_KEY=",
-            key,
-            "\n\n")
-
-    dir.create(gen_auth_path(), showWarnings = FALSE, recursive = TRUE)
-
-    httr2::secret_write_rds(list(username = username, password = password),
-                            path = auth_path,
-                            key = "ZENSUS_KEY")
-
-    # Logincheck
     gen_logincheck(database = "zensus")
-
-  #-----------------------------------------------------------------------------
-
-  } else if (database == "regio"){
-
-    username <- gen_auth_ask("username")
-    password <- gen_auth_ask("password")
-
-    auth_path <- gen_auth_path("auth_regio.rds")
-
-    key <- httr2::secret_make_key()
-
-    Sys.setenv(REGIO_KEY = key)
-
-    message("Saving regionalstatistik.de database credentials to ",
-            auth_path,
-            "\n\n",
-            "Please add the following line to your .Renviron, ",
-            "e.g. via `usethis::edit_r_environ()`, ",
-            "to use the specified username and password across sessions:\n\n",
-            "REGIO_KEY=",
-            key,
-            "\n\n")
-
-    dir.create(gen_auth_path(), showWarnings = FALSE, recursive = TRUE)
-
-    httr2::secret_write_rds(list(username = username, password = password),
-                            path = auth_path,
-                            key = "REGIO_KEY")
-
-    # Logincheck
-    gen_logincheck(database = "regio")
-
-  #-----------------------------------------------------------------------------
 
   } else if (database == "all"){
 
-    message("~~ Saving credentials for GENESIS database.")
+    #---------------------------------------------------------------------------
 
-    username <- gen_auth_ask("username")
-    password <- gen_auth_ask("password")
+    message("~~ Saving credentials for the 'genesis' database.")
 
-    auth_path <- gen_auth_path("auth.rds")
+    insert_and_save_credentials("genesis")
 
-    key <- httr2::secret_make_key()
-
-    Sys.setenv(RESTATIS_KEY = key)
-
-    message("Saving GENESIS database credentials to ",
-            auth_path,
-            "\n\n",
-            "Please add the following line to your .Renviron, ",
-            "e.g. via `usethis::edit_r_environ()`, ",
-            "to use the specified username and password across sessions:\n\n",
-            "RESTATIS_KEY=",
-            key,
-            "\n\n")
-
-    dir.create(gen_auth_path(), showWarnings = FALSE, recursive = TRUE)
-
-    httr2::secret_write_rds(list(username = username, password = password),
-                            path = auth_path,
-                            key = "RESTATIS_KEY")
-
-    # Logincheck
     gen_logincheck(database = "genesis")
 
     #-------------------------------------------------------------------------
 
-    message("~~ Saving credentials for Zensus 2022 database.")
+    message("~~ Saving credentials for the Zensus 2022 database.\n")
 
-    username <- gen_auth_ask("username")
-    password <- gen_auth_ask("password")
+    insert_and_save_credentials("zensus")
 
-    auth_path <- gen_auth_path("auth_zensus.rds")
-
-    key <- httr2::secret_make_key()
-
-    Sys.setenv(ZENSUS_KEY = key)
-
-    message("Saving Zensus 2022 database credentials to ",
-            auth_path,
-            "\n\n",
-            "Please add the following line to your .Renviron, ",
-            "e.g. via `usethis::edit_r_environ()`, ",
-            "to use the specified username and password across sessions:\n\n",
-            "ZENSUS_KEY=",
-            key,
-            "\n\n")
-
-    dir.create(gen_auth_path(), showWarnings = FALSE, recursive = TRUE)
-
-    httr2::secret_write_rds(list(username = username, password = password),
-                            path = auth_path,
-                            key = "ZENSUS_KEY")
-
-    # Logincheck
     gen_logincheck(database = "zensus")
 
     #-------------------------------------------------------------------------
 
     message("~~ Saving credentials for regionalstatistik.de database.")
 
-    username <- gen_auth_ask("username")
-    password <- gen_auth_ask("password")
+    insert_and_save_credentials("regio")
 
-    auth_path <- gen_auth_path("auth_regio.rds")
-
-    key <- httr2::secret_make_key()
-
-    Sys.setenv(REGIO_KEY = key)
-
-    message("Saving regionalstatistik.de database credentials to ",
-            auth_path,
-            "\n\n",
-            "Please add the following line to your .Renviron, ",
-            "e.g. via `usethis::edit_r_environ()`, ",
-            "to use the specified username and password across sessions:\n\n",
-            "REGIO_KEY=",
-            key,
-            "\n\n")
-
-    dir.create(gen_auth_path(), showWarnings = FALSE, recursive = TRUE)
-
-    httr2::secret_write_rds(list(username = username, password = password),
-                            path = auth_path,
-                            key = "REGIO_KEY")
-
-    # Logincheck
     gen_logincheck(database = "regio")
 
   #-----------------------------------------------------------------------------
@@ -305,9 +140,9 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
     if (database == "genesis") {
 
-      auth_path <- gen_auth_path("auth.rds")
+      auth_path <- gen_auth_path("auth_genesis.rds")
 
-      if (!(file.exists(auth_path) && nzchar(Sys.getenv("RESTATIS_KEY")))) {
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("GENESIS_KEY")))) {
 
         stop(paste0("GENESIS database credentials not found. ",
                     "Please run 'gen_auth_save()' to store GENESIS database username and password."),
@@ -315,7 +150,7 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
       }
 
-      return(httr2::secret_read_rds(auth_path, "RESTATIS_KEY"))
+      return(httr2::secret_read_rds(auth_path, "GENESIS_KEY"))
 
     #---------------------------------------------------------------------------
 
@@ -353,9 +188,9 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
   } else if (database == "all") {
 
-      auth_path <- gen_auth_path("auth.rds")
+      auth_path <- gen_auth_path("auth_genesis.rds")
 
-      if (!(file.exists(auth_path) && nzchar(Sys.getenv("RESTATIS_KEY")))) {
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("GENESIS_KEY")))) {
 
         stop(paste0("GENESIS database credentials not found. ",
                     "Please run 'gen_auth_save()' to store GENESIS database username and password."),
@@ -364,7 +199,7 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
       }
 
       message("Credentials for database GENESIS:\n")
-      print(httr2::secret_read_rds(auth_path, "RESTATIS_KEY"))
+      print(httr2::secret_read_rds(auth_path, "GENESIS_KEY"))
 
       #---------------------------------------------------------------------------
 
@@ -406,9 +241,9 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
     if ("genesis" %in% database) {
 
-      auth_path <- gen_auth_path("auth.rds")
+      auth_path <- gen_auth_path("auth_genesis.rds")
 
-      if (!(file.exists(auth_path) && nzchar(Sys.getenv("RESTATIS_KEY")))) {
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("GENESIS_KEY")))) {
 
         stop(paste0("GENESIS database credentials not found. ",
                     "Please run 'gen_auth_save()' to store GENESIS database username and password."),
@@ -417,7 +252,7 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
       }
 
       message("Credentials for database GENESIS:\n")
-      print(httr2::secret_read_rds(auth_path, "RESTATIS_KEY"))
+      print(httr2::secret_read_rds(auth_path, "GENESIS_KEY"))
 
     }
 
