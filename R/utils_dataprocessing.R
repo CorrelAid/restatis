@@ -61,11 +61,8 @@ forming_evas <- function(list_of) {
 
   } else if (!file.exists(system.file("data", "evas_list.rda", package = "restatis"))) {
 
-    # This applies to the case of using devtools::check()
-    # and running it via check_dir = "tests/testthat"
+    # This applies to the case of using devtools::check(check_dir = "tests/testthat")
     data_path <- "../../../../../data/evas_list.rda"
-    print(data_path)
-    print(getwd())
 
   }
 

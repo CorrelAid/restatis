@@ -614,10 +614,12 @@ insert_and_save_credentials <- function(database) {
                             path = auth_path,
                             key = key_name)
 
+  #-----------------------------------------------------------------------------
+
   } else if (database == "zensus") {
 
     want_token_resp <- menu(choices = c("Zensus 2022 API token",
-                                        "username/mail address + password"),
+                                        "mail address + password"),
                             graphics = FALSE,
                             title = "Do you want to specifiy a Zensus 2022 API token or regular credentials for access?")
 
@@ -677,7 +679,6 @@ insert_and_save_credentials <- function(database) {
                               key = "ZENSUS_KEY")
 
     }
-
 
   } else {
 
