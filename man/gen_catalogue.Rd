@@ -10,16 +10,16 @@ gen_catalogue(
   category = c("tables", "statistics", "cubes"),
   area = c("all", "public", "user"),
   detailed = FALSE,
-  error.ignore = FALSE,
   sortcriterion = c("code", "content"),
+  error.ignore = FALSE,
   verbose = TRUE,
   ...
 )
 }
 \arguments{
-\item{code}{String with a maximum length of 10 characters for a database object (GENESIS and regionalstatistik.de) and 15 characters for a Zensus 2022 object. Only one code per iteration. "*" notations are possible.}
+\item{code}{String with a maximum length of 15 characters for a database object (GENESIS and regionalstatistik.de) and 15 characters for a Zensus 2022 object. Only one code per iteration. "*" notations are possible.}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
 
 \item{category}{Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.}
 
@@ -27,9 +27,9 @@ gen_catalogue(
 
 \item{detailed}{Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.}
 
-\item{error.ignore}{Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.}
-
 \item{sortcriterion}{Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.}
+
+\item{error.ignore}{Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.}
 
 \item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
 

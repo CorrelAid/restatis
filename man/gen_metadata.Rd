@@ -16,9 +16,9 @@ gen_metadata(
 )
 }
 \arguments{
-\item{code}{String with a maximum length of 10 characters for a database object (GENESIS and regionalstatistik.de) and 15 characters for a Zensus 2022 object. Only one code per iteration. "*" notations are possible.}
+\item{code}{String with a maximum length of 15 characters for a database object (GENESIS, regionalstatistik.de, Zensus 2022). Only one code per iteration.}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
 
 \item{category}{Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.}
 
@@ -28,7 +28,7 @@ gen_metadata(
 
 \item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
 
-\item{raw}{Boolean. Should a non-parsed API response be returned?}
+\item{raw}{Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.}
 
 \item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }

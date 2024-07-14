@@ -1,1 +1,2 @@
-utils::globalVariables(c("evas_list"))
+utils::globalVariables(c("evas_list",
+                         "verbose"))

@@ -55,7 +55,19 @@ param_collapse_vec <- function(vec) {
 forming_evas <- function(list_of) {
 
   # Path selection
-  data_path <- system.file("data", "evas_list.rda", package = "restatis")
+  if (file.exists(system.file("data", "evas_list.rda", package = "restatis"))) {
+
+    data_path <- system.file("data", "evas_list.rda", package = "restatis")
+
+  } else if (!file.exists(system.file("data", "evas_list.rda", package = "restatis"))) {
+
+    # This applies to the case of using devtools::check()
+    # and running it via check_dir = "tests/testthat"
+    data_path <- "../../../../../data/evas_list.rda"
+    print(data_path)
+    print(getwd())
+
+  }
 
   # Load data
   load(data_path)
@@ -1283,7 +1295,7 @@ check_results <- function(input){
 #' @param input Input to test result structure
 #' @param error.input error.ignore TRUE or FALSE
 #' @param text verbose TRUE or FALSE
-#' #' @param text sub_category character string
+#' @param sub_category sub_category character string
 #'
 find_token <- function(input, error.input, text, sub_category){
 

@@ -4,12 +4,14 @@
 \alias{titel_search}
 \title{titel_search}
 \usage{
-titel_search(x, term)
+titel_search(x, term, text)
 }
 \arguments{
 \item{x}{Element to extract $Content from}
 
 \item{term}{Search term}
+
+\item{text}{Indicator verbose}
 }
 \description{
 titel_search

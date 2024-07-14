@@ -17,7 +17,7 @@ gen_metadata_statistic(
 \arguments{
 \item{code}{A character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
 
 \item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
 
@@ -25,7 +25,7 @@ gen_metadata_statistic(
 
 \item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
 
-\item{raw}{Boolean. Should a non-parsed API response be returned?}
+\item{raw}{Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.}
 
 \item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }

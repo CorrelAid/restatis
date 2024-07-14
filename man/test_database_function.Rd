@@ -4,10 +4,14 @@
 \alias{test_database_function}
 \title{test_database_function}
 \usage{
-test_database_function(input)
+test_database_function(input, error.input, text)
 }
 \arguments{
 \item{input}{Input to test for database name}
+
+\item{error.input}{Indicator error.ignore}
+
+\item{text}{Indicator verbose}
 }
 \description{
 test_database_function

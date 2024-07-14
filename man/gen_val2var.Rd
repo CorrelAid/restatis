@@ -17,13 +17,13 @@ gen_val2var(
 \arguments{
 \item{code}{Character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
 
 \item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
 
 \item{sortcriterion}{Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.}
 
-\item{error.ignore}{Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.}
+\item{error.ignore}{Boolean. Indicator for values if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'TRUE', this prevents the function to stop even if a variable has no further explanation (often the case for numerical variables).}
 
 \item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
 

@@ -17,7 +17,7 @@ gen_search_vars(
 \arguments{
 \item{code}{Character string with a maximum length of 6 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
 
 \item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
 
