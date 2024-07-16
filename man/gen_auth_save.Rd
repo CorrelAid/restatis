@@ -15,9 +15,9 @@ Save credentials of the different databases for further convenient use
 \details{
 Username and password are encrypted and saved as RDS in the
 package config directory. A random string is generated and stored in the
-session environment variable \code{RESTATIS_KEY}. This string is used as the key
-to encrypt and decrypt the entered credentials. To avoid having to save
-authentication in future sessions, \code{RESTATIS_KEY} can be added to .Renviron.
+session environment variable \code{GENESIS_KEY}. This string is used as the key
+to encrypt and decrypt the entered credentials. To avoid havding to save
+authentication in future sessions, \code{GENESIS_KEY} can be added to .Renviron.
 The usethis package includes a helper function for editing .Renviron files
 from an R session with \code{\link[usethis:edit]{usethis::edit_r_environ()}}.
 }

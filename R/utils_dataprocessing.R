@@ -54,20 +54,8 @@ param_collapse_vec <- function(vec) {
 #'
 forming_evas <- function(list_of) {
 
-  # Path selection
-  if (file.exists(system.file("data", "evas_list.rda", package = "restatis"))) {
-
-    data_path <- system.file("data", "evas_list.rda", package = "restatis")
-
-  } else if (!file.exists(system.file("data", "evas_list.rda", package = "restatis"))) {
-
-    # This applies to the case of using devtools::check(check_dir = "tests/testthat")
-    data_path <- "../../../../../data/evas_list.rda"
-
-  }
-
   # Load data
-  load(data_path)
+  data(evas_list)
 
   #-----------------------------------------------------------------------------
   # Process them

@@ -22,7 +22,7 @@ gen_download_job(
 
 \item{compress}{Boolean. Should empty rows and columns be discarded? Default is FALSE.}
 
-\item{language}{Character string. Search terms, returned messages and data descriptions in German ("de") or English ("en")?}
+\item{language}{Character string. Defines if the decimal mark and grouping mark of integers should be represented based on the European (e.g.: '100,5', '200.000,5') or American ('100.5', '200,000.5') system. Defaults to 'Sys.getenv("GENESIS_LANG")'.}
 
 \item{all_character}{Boolean. Should all variables be imported as 'character' variables? Avoids fuzzy data type conversions if there are leading zeros or other special characters. Defaults to TRUE.}
 }
