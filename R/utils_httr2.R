@@ -628,6 +628,7 @@ insert_and_save_credentials <- function(database) {
     if (isTRUE(want_token)) {
 
       username <- gen_auth_ask("API token")
+      password <- ""
 
       auth_path <- gen_auth_path("auth_zensus.rds")
 
@@ -647,7 +648,8 @@ insert_and_save_credentials <- function(database) {
 
       dir.create(gen_auth_path(), showWarnings = FALSE, recursive = TRUE)
 
-      httr2::secret_write_rds(list(username = username),
+      httr2::secret_write_rds(list(username = username,
+                                   password = password),
                               path = auth_path,
                               key = "ZENSUS_KEY")
 
