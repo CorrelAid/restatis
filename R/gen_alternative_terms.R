@@ -33,7 +33,7 @@ gen_alternative_terms <- function(term = NULL,
   caller <- as.character(match.call()[1])
 
   gen_fun <- test_database_function(database,
-                                    error.input = T,
+                                    error.input = TRUE,
                                     text = verbose)
 
   check_function_input(term = term,

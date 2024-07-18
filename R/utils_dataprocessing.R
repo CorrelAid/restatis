@@ -1051,8 +1051,10 @@ titel_search <- function(x, term, text) {
 
     a <- rep(FALSE, length(x$Content))
 
-    if(isTRUE(verbose)){
-    message("Combination of words too complex for ordering. Data is processed without ordering.")
+    if (isTRUE(verbose)) {
+
+      message("Combination of words too complex for ordering. Data is processed without ordering.")
+
     }
 
   } else if (grep("\\bODER\\b|\\boder\\b|\\bOder\\b|\\|", term, ignore.case = TRUE)) {
@@ -1075,8 +1077,10 @@ titel_search <- function(x, term, text) {
 
     a <- rep(FALSE, length(x$Content))
 
-    if(isTRUE(verbose)){
+    if (isTRUE(verbose)) {
+
       message("Combination of words not valid for ordering. Data is processed without ordering.")
+
     }
 
   }
@@ -1112,7 +1116,7 @@ test_database_function <- function(input, error.input, text){
 
   #-----------------------------------------------------------------------------
 
-  if(sum(is.na(input)) == length(input)){
+  if (sum(is.na(input)) == length(input)) {
 
     stop("You have to correctly specifiy a 'database' parameter. Please refer to the documentation for further information.",
          call. = FALSE)
@@ -1123,27 +1127,27 @@ test_database_function <- function(input, error.input, text){
 
   res <- c()
 
-  if("genesis" %in% input){
+  if ("genesis" %in% input) {
 
     res <- c(res, "genesis" = "gen_api")
 
   }
 
-  if("zensus" %in% input){
+  if ("zensus" %in% input) {
 
     res <- c(res, "zensus" = "gen_zensus_api")
 
   }
 
-  if("regio" %in% input){
+  if ("regio" %in% input) {
 
     res <- c(res, "regio" = "gen_regio_api")
 
   }
 
-  if("all" %in% input){
+  if ("all" %in% input) {
 
-    if(isTRUE(text)){
+    if (isTRUE(text)) {
 
       message("All databases accessible to you are selected. Additional databases specified in the 'database'-parameter are ignored.")
 
@@ -1151,18 +1155,16 @@ test_database_function <- function(input, error.input, text){
 
     res <- c("genesis" = "gen_api", "zensus" = "gen_zensus_api", "regio" = "gen_regio_api")
 
-  } else if(length(res) != length(input)){
+  } else if (length(res) != length(input)) {
 
-    if(isFALSE(error.input)){
-
-
+    if (isFALSE(error.input)) {
 
       stop("One or more of the specified databases are not part of this package. Currently only 'genesis', 'zensus', and 'regio' are implemented.",
            call. = FALSE)
 
     } else {
 
-      if(isTRUE(text)){
+      if (isTRUE(text)) {
 
         message("One or more of the specified databases are not part of this package. The function is continued with the available databases that you specified.")
 
@@ -1174,41 +1176,47 @@ test_database_function <- function(input, error.input, text){
 
   #-----------------------------------------------------------------------------
 
-  check <- sapply(res, function(y){
+  check <- sapply(res, function(y) {
 
     nam <- rev_database_function(y)
 
-    result <- tryCatch(
-      {
-        user <- gen_auth_get(nam)$username
-      },
-      error = function(e) {
-        return(FALSE)
-      }
-    )
+    result <- tryCatch({
 
-    if(isFALSE(result)){
+        user <- gen_auth_get(nam)$username
+
+      }, error = function(e) {
+
+        return(FALSE)
+
+      })
+
+    if (isFALSE(result)) {
 
       return(FALSE)
 
     } else {
 
       return(TRUE)
+
     }
+
   })
 
-  if(sum(check) == 0){
+  #-----------------------------------------------------------------------------
+
+  if (sum(check) == 0) {
 
     stop("None of the specified databases are accessible to you. Please check your credentials.",
          call. = FALSE)
 
-  } else if (any(check == FALSE)){
+  } else if (any(check == FALSE)) {
 
-    if(isTRUE(error.input)){
+    if (isTRUE(error.input)) {
 
-      if(isTRUE(text)){
+      if (isTRUE(text)) {
 
         mess <- paste("The following databases are not accessible to you:", names(res[!check]))
+
         message(mess)
 
         message("The function is continued with the available databases that you specified.")
@@ -1220,14 +1228,16 @@ test_database_function <- function(input, error.input, text){
     } else {
 
       mess <- paste("The following databases are not accessible to you:", names(res[!check]), "\nPlease check your credentials.")
+
       stop(mess, call. = FALSE)
 
     }
+
   }
 
   #-----------------------------------------------------------------------------
 
-  if (identical(res, c())){
+  if (identical(res, c())) {
 
     stop("You have to correctly specifiy a 'database' parameter. Please refer to the documentation for further information.",
          call. = FALSE)
@@ -1239,6 +1249,7 @@ test_database_function <- function(input, error.input, text){
   }
 
 }
+
 #-------------------------------------------------------------------------------
 #' rev_database_function
 #'
@@ -1261,7 +1272,7 @@ rev_database_function <- function(input){
 #'
 check_results <- function(input){
 
-  if(length(input) > 1){
+  if (length(input) > 1) {
 
     return(input)
 
@@ -1282,14 +1293,16 @@ check_results <- function(input){
 #' @param text verbose TRUE or FALSE
 #' @param sub_category sub_category character string
 #'
-find_token <- function(input, error.input, text, sub_category){
+find_token <- function(input, error.input, text, sub_category) {
 
   mes <- paste("No", sub_category, "found for the search term.")
 
-  if(isTRUE(error.input)) {
+  if (isTRUE(error.input)) {
 
-    if(isTRUE(text)){
+    if (isTRUE(text)) {
+
       message(mes)
+
     }
 
     return(mes)
