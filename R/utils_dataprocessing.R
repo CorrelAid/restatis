@@ -55,7 +55,7 @@ param_collapse_vec <- function(vec) {
 forming_evas <- function(list_of) {
 
   # Load data
-  data(evas_list)
+  evas_list <- restatis::evas_list
 
   #-----------------------------------------------------------------------------
   # Process them
