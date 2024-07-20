@@ -1,93 +1,72 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://correlaid.github.io/restatis/404.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/articles/additional_parameter.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/articles/restatis.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/index.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/evas_list_long_20220724.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_alternative_terms.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_auth_save.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_catalogue.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_cube.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_find.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_list_jobs.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_metadata_cube.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_metadata_stats.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_metadata_tab.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_metadata_val.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_metadata_var.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_modified_data.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_objects2stat.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_objects2var.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_search_vars.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_table.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_val2var.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_val2var2stat.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/gen_var2stat.html</loc>
-  </url>
-  <url>
-    <loc>https://correlaid.github.io/restatis/reference/index.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://correlaid.github.io/restatis/404.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/LICENSE-text.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/LICENSE.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/articles/additional_parameter.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/articles/index.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/articles/restatis.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/authors.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/index.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/binding_lapply.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/check_function_input.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/check_results.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/evas_list.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/find_token.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/forming_evas.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_alternative_terms.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_auth_ask.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_auth_get.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_auth_path.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_auth_save.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_catalogue.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_cube.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_download_job.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_find.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_list_jobs.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_logincheck.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_metadata.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_cube.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_statistic.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_table.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_value.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_variable.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_modified_data.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_objects2stat.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_objects2var.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_search_vars.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_signs.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_table.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_update_evas.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_val2var.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_val2var2stat.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_var2stat.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/ggsub.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/index.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/insert_and_save_credentials.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/is_cube_metadata_header.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/logincheck_http_error.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/logincheck_stop_or_warn.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/param_check_regionalkey.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/param_check_year.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/param_collapse_vec.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/read_cube.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/read_cube_block.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/read_cube_data_lines.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/read_cube_metadata_header.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/rename_cube_data_columns.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/resp_check_data.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/return_table_object.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/rev_database_function.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/spezifisch_create.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/split_cube.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/test_database_function.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/test_if_error.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/test_if_error_find.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/test_if_error_light.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/test_if_error_variables.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/test_if_json.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/test_if_okay.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/test_if_process_further.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/titel_search.html</loc></url>
 </urlset>
+
