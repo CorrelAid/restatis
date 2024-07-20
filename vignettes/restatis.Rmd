@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r}
+```{r eval=FALSE}
 library(restatis)
 ```
 
@@ -25,7 +25,7 @@ First, we can and should explore if and how our keyword is represented in the GE
 
 To be as broad as possible, we want to search for any term in the database that contains our keyword. To do this, we can use a "*" wildcard at the beginning and end of the search term:
 
-```{r}
+```{r eval=FALSE}
 restatis::gen_alternative_terms(term = "*busfahrer*", database = "genesis")
 
 ```
@@ -35,7 +35,7 @@ Based on the results, our original keyword "busfahrer" is already specific enoug
 Had we started with the keyword "bus" - the vehicle itself - we can see that the database has several related terms that might be helpful to narrow our search radius further. In this example, it might be helpful to see that there are at least three different types of buses that are searchable: "fernbus", "schienenbus" and "kraftomnibusse".
 
 
-```{r}
+```{r eval=FALSE}
 gen_alternative_terms(term = "*bus*", database = "genesis")
 
 ```
@@ -45,7 +45,7 @@ gen_alternative_terms(term = "*bus*", database = "genesis")
 Now that we have our specific keyword for our search, we can search the database for exactly that term. We want the results to be ordered so that items with a title that includes our search term are at the top. We also want to explore all object types for now:
 
 
-```{r}
+```{r eval=FALSE}
 search_results <- gen_find(term = "busfahrer",
                            detailed = FALSE,
                            ordering = TRUE,
@@ -67,7 +67,7 @@ To check whether data objects are relevant to your interest, you should obtain t
 For our question about the income of bus drivers, we want to check the metadata of the first cube object we got from the find function:
 
 
-```{r}
+```{r eval=FALSE}
 gen_metadata(code = search_results$Cubes$Code[1],
              category = search_results$Cubes$Object_Type[1],
              database = "genesis")
@@ -83,7 +83,7 @@ Based on the fact that we want a cube object, we now use the `gen_cube()` functi
 Important note: It is not possible to get a whole statistic object, but it is possible to collect the different related cube objects independently and then try to recombine them.
 
 
-```{r}
+```{r eval=FALSE}
 gen_cube(search_results$Cubes$Code[1], database = "genesis")
 
 ```
@@ -99,7 +99,7 @@ For convenience, the functions have already implemented the most common `date` s
 For example, we might want to check to see if something new has been published about our collected cube object. So we use only the first part of the code "62361*":
 
 
-```{r}
+```{r eval=FALSE}
 gen_modified_data(code = "62361", date = "week_before")
 
 ```
