@@ -18,7 +18,7 @@ This is a brief overview of the additional parameters for an API call via {resta
 Especially `gen_table()` and `gen_cube()` have a lot of different additional parameters to specify the API call. For a detailed overview, see the following official documents:
 
 - The GENESIS database: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
-- The Zensus 2022 database: https://ergebnisse2011.zensus2022.de/datenbank/misc/ZENSUS-Webservices_Einfuehrung.pdf
+- The Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf
 - regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
 
 ## Short Overview of the Most Used Additional Parameters
@@ -193,7 +193,7 @@ For variables:
 | type   | -        |
 
 - See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf 
-- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse2011.zensus2022.de/datenbank/misc/ZENSUS-Webservices_Einfuehrung.pdf
+- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf
 - See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
 
 For tables:
@@ -242,7 +242,7 @@ For tables:
 <summary>gen_table</summary> 
 
 - See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf 
-- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse2011.zensus2022.de/datenbank/misc/ZENSUS-Webservices_Einfuehrung.pdf
+- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf
 - See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
 
 </details>
@@ -260,7 +260,7 @@ For tables:
 | type   | -        |
 
 - See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf 
-- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse2011.zensus2022.de/datenbank/misc/ZENSUS-Webservices_Einfuehrung.pdf
+- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf
 - See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
 
 </details>
@@ -290,7 +290,7 @@ For tables:
 | type   | -        |
 
 - See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf 
-- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse2011.zensus2022.de/datenbank/misc/ZENSUS-Webservices_Einfuehrung.pdf
+- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf
 - See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
 
 </details>
@@ -308,7 +308,7 @@ For tables:
 | type   | -        |
 
 - See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf 
-- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse2011.zensus2022.de/datenbank/misc/ZENSUS-Webservices_Einfuehrung.pdf
+- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf
 - See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
 
 </details>
