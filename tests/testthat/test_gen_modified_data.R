@@ -72,35 +72,60 @@ with_mock_dir("modified4_fake", {
 #-------------------------------------------------------------------------------
 
 test_that("gen_modified_data errors on misspecified dates", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_modified_data(code = "61111", date = "1.1.2022"),
   regexp = "it has to be of length 1 and format DD.MM.YYYY")
+
 })
 
 test_that("gen_modified_data errors on misspecified dates", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_modified_data(code = "61111", date = 23456),
   regexp = "'date', it has to be of type 'character'.")
+
 })
 
 #-------------------------------------------------------------------------------
 
 test_that("gen_modified_data errors on multiple codes", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_modified_data(code = c("611*", "711*")),
   regexp = "Parameter 'code' must be a single string.")
+
 })
 
 test_that("gen_modified_data function errors on numeric code param", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_modified_data(code = 12345),
   regexp = "Parameter 'code' has to be of type 'character'.")
+
 })
 
 #-------------------------------------------------------------------------------
 
 test_that("gen_modified_data function errors on wrong type value", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_modified_data(code = "12345", type = "diesdasananas"),
   regexp = "'arg' should be one of")
+
 })

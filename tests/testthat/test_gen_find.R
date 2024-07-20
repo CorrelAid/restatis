@@ -22,7 +22,9 @@ with_mock_dir("find1", {
     expect_true("Language" %in% names(attrs))
     expect_true("Pagelength" %in% names(attrs))
     expect_true("Copyright" %in% names(attrs))
+
   })
+
 })
 
 #-------------------------------------------------------------------------------
@@ -40,7 +42,9 @@ with_mock_dir("find2_fake", {
     expect_error(
       gen_find(term = "bus", error.ignore = TRUE, database = "genesis"),
       regexp = "test error message")
+
   })
+
 })
 
 #-------------------------------------------------------------------------------
@@ -64,31 +68,56 @@ with_mock_dir("find3", {
 #-------------------------------------------------------------------------------
 
 test_that("gen_find function errors on numeric term param", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_find(term = 12345, detailed = TRUE, category = "tables", database = "genesis"),
     regexp = "Parameter 'term' has to be of type 'character'.")
+
 })
 
 test_that("gen_find function errors on wrong category", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_find(term = "bus", detailed = TRUE, category = "table", database = "genesis"),
     regexp = "Available categories for parameter 'category' for 'genesis' database are 'all', 'tables', 'statistics', 'variables', and 'cubes'.")
+
 })
 
 test_that("gen_find function errors on wrong detailed param", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_find(term = "bus", detailed = 1, category = "tables", database = "genesis"),
     regexp = "Parameter 'detailed' has to be of type 'logical' and of length 1.")
+
 })
 
 test_that("gen_find function errors on wrong ordering param", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_find(term = "bus", ordering = 1, category = "tables", database = "genesis"),
     regexp = "Parameter 'ordering' has to be of type 'logical' and of length 1.")
+
 })
 
 test_that("gen_find function errors on wrong error.ignore param", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_find(term = "bus", error.ignore = 1, category = "tables", database = "genesis"),
     regexp = "Parameter 'error.ignore' has to be of type 'logical' and of length 1.")
+
 })

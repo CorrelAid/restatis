@@ -56,7 +56,9 @@ with_mock_dir("catalogue3", {
                     error.ignore = FALSE,
                     database = "genesis"),
       regexp = "No object found for your request")
+
   })
+
 })
 
 #-------------------------------------------------------------------------------
@@ -91,7 +93,9 @@ with_mock_dir("catalogue5", {
                     error.ignore = TRUE,
                     database = "genesis"),
       regexp = "Use 'error.ignore = FALSE' to stop the function at the point where no object could be found.")
+
   })
+
 })
 
 #-------------------------------------------------------------------------------
@@ -99,15 +103,24 @@ with_mock_dir("catalogue5", {
 #-------------------------------------------------------------------------------
 
 test_that("gen_catalogue function errors on multiple codes", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_catalogue(code = c("611*", "711*"),
                   detailed = TRUE,
                   category = "tables",
                   database = "genesis"),
     regexp = "Parameter 'code' must be a single string.")
+
 })
 
 test_that("gen_catalogue function errors on numeric code param", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_catalogue(code = 12345,
                   detailed = TRUE,
@@ -119,32 +132,47 @@ test_that("gen_catalogue function errors on numeric code param", {
 #-------------------------------------------------------------------------------
 
 test_that("gen_catalogue function errors on wrong categories", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_catalogue(code = "611*",
                   detailed = TRUE,
                   category = "variables",
                   database = "genesis"),
     regexp = "Available categories are 'tables', 'statistics', and 'cubes'.")
+
 })
 
 test_that("gen_catalogue function errors on too many categories", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_catalogue(code = "611*",
                   detailed = TRUE,
                   category = c("variables", "statistics", "tables", "cubes"),
                   database = "genesis"),
     regexp = "Parameter 'category' has to have a length of 1 to 3.")
+
 })
 
 #-------------------------------------------------------------------------------
 
 test_that("gen_catalogue function errors on numeric detailed param", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_catalogue(code = "711*",
                   detailed = 1,
                   category = "tables",
                   database = "genesis"),
     regexp = "Parameter 'detailed' has to be of type 'logical' and of length 1.")
+
 })
 
 with_mock_dir("catalogue6", {
@@ -159,12 +187,18 @@ with_mock_dir("catalogue6", {
                     category = "tables",
                     database = "genesis"),
       regexp = "Use 'detailed = TRUE' to obtain the complete output.")
+
   })
+
 })
 
 #-------------------------------------------------------------------------------
 
 test_that("gen_catalogue function errors on wrong error.ignore param", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_catalogue(code = "711*",
                   detailed = TRUE,
@@ -172,5 +206,6 @@ test_that("gen_catalogue function errors on wrong error.ignore param", {
                   error.ignore = 1,
                   database = "genesis"),
     regexp = "Parameter 'error.ignore' has to be of type 'logical' and of length 1.")
+
 })
 

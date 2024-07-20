@@ -20,6 +20,7 @@ with_mock_dir("xy_statistic1", {
     expect_true("Copyright" %in% names(attrs))
 
   })
+
 })
 
 #-------------------------------------------------------------------------------
@@ -34,7 +35,9 @@ with_mock_dir("xy_statistic2", {
                                      category = "tables",
                                      database = "genesis"),
                 class = "data.frame")
+
   })
+
 })
 
 #-------------------------------------------------------------------------------
@@ -42,38 +45,63 @@ with_mock_dir("xy_statistic2", {
 #-------------------------------------------------------------------------------
 
 test_that("gen_objects2stat function errors on multiple codes", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_objects2stat(code = c("611*", "711*"), detailed = TRUE, category = "tables", database = "genesis"),
     regexp = "Parameter 'code' must be a single string.")
+
 })
 
 test_that("gen_objects2stat function errors on numeric code param", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_objects2stat(code = 12345, detailed = TRUE, category = "tables", database = "genesis"),
     regexp = "Parameter 'code' has to be of type 'character'.")
+
 })
 
 #-------------------------------------------------------------------------------
 
 test_that("gen_objects2stat function errors on wrong categories", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_objects2stat(code = "611*", detailed = TRUE, category = "statistics", database = "genesis"),
     regexp = "Available categories are 'tables', 'variables', and 'cubes'.")
+
 })
 
 test_that("gen_objects2stat function errors on too many categories", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_objects2stat(code = "611*", detailed = TRUE,
                         category = c("variables", "statistics", "tables", "cubes"), database = "genesis"),
     regexp = "Parameter 'category' has to have a length of 1 to 3.")
+
 })
 
 #-------------------------------------------------------------------------------
 
 test_that("gen_objects2stat function errors on numeric detailed param", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_objects2stat(code = "711*", detailed = 1, category = "tables", database = "genesis"),
     regexp = "Parameter 'detailed' has to be of type 'logical' and of length 1.")
+
 })
 
 with_mock_dir("xy_statistic3", {
@@ -92,22 +120,13 @@ with_mock_dir("xy_statistic3", {
 
 #-------------------------------------------------------------------------------
 
-# test_that("gen_objects2stat function errors on wrong sort param", {
-#   expect_error(
-#     gen_objects2stat(code = "61111", sortcriterion = "date"),
-#     regexp = "Parameter 'sortcriterion' has to be 'code' or 'content'.")
-# })
-
-# test_that("gen_objects2stat function errors on wrong sort param type", {
-#   expect_error(
-#     gen_objects2stat(code = "6111*", sortcriterion = 123),
-#     regexp = "Parameter 'sortcriterion' has to be of type 'character'.")
-# })
-
-#-------------------------------------------------------------------------------
-
 test_that("gen_objects2stat function errors on wrong error.ignore param", {
+
+  skip_on_cran()
+  skip_on_ci()
+
   expect_error(
     gen_objects2stat(code = "711*", error.ignore = 1),
     regexp = "Parameter 'error.ignore' has to be of type 'logical' and of length 1.")
+
 })

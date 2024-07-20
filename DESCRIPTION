@@ -1,7 +1,5 @@
 Package: restatis
-Title: R Wrapper to access a wide range of Germany's Federal Statistical System 
-    databases based on the GENESIS Web Service RESTful API of the German
-    Federal Statistical Office (Statistisches Bundesamt/Destatis)
+Title: R Wrapper to Access a Wide Range of Germany's Federal Statistical System Databases Based on the GENESIS Web Service RESTful API of the German Federal Statistical Office (Statistisches Bundesamt/Destatis)
 Version: 0.2.0
 Authors@R: c(
     person("Yannik", "Buhl", , "ybuhl@posteo.de", role = c("aut", "cre")),
