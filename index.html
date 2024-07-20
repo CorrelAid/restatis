@@ -56,14 +56,21 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>restatis is a wrapper around the RESTful API that provides access to the <a href="https://www-genesis.destatis.de/" class="external-link">GENESIS databases of the Federal Statistical Office of Germany (Destatis)</a>.</p>
+<p>restatis is a wrapper around the RESTful API that provides access to the three main databases of German official statistics:</p>
+<ul>
+<li>The <a href="https://www-genesis.destatis.de/genesis/online" class="external-link"><strong>GENESIS database</strong> of the Federal Statistical Office of Germany (Destatis)</a>.</li>
+<li>
+<a href="https://www.regionalstatistik.de/genesis/online/" class="external-link"><strong>regionalstatistik.de</strong> which is the database of the German Länder (Regionaldatenbank)</a>.</li>
+<li>The <a href="https://ergebnisse.zensus2022.de/datenbank/online/" class="external-link">database of the <strong>German 2022 Census</strong> (Zensus 2022)</a>.</li>
+</ul>
+<p>All functions work on either one of them, on all of them or just on a selection.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the released version of restatis from CRAN:</p>
+<p>You can install the released version of {restatis} from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"restatis"</span><span class="op">)</span></span></code></pre></div>
-<p>Or install the development version of restatis from <a href="https://github.com/CorrelAid/restatis" class="external-link">GitHub</a> with:</p>
+<p>Or install the development version of {restatis} from <a href="https://github.com/CorrelAid/restatis" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"CorrelAid/restatis"</span><span class="op">)</span></span></code></pre></div>
@@ -74,17 +81,60 @@
 <div class="section level3">
 <h3 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
 </h3>
-<p>To access the Destatis GENESIS API, you need to have an account at <a href="https://www-genesis.destatis.de" class="external-link uri">https://www-genesis.destatis.de</a> and store your username and password for use in R with <code><a href="reference/gen_auth_save.html">gen_auth_save()</a></code> (see <code><a href="reference/gen_auth_save.html">?gen_auth_save</a></code> for more details).</p>
+<p>To access each one of the APIs, you need to have an account that you can create on the homepage (see links to them above) and store your username and password for use in R with <code><a href="reference/gen_auth_save.html">restatis::gen_auth_save()</a></code> (see <code><a href="reference/gen_auth_save.html">?gen_auth_save</a></code> for more details). The Zensus 2022 database does support authentication with an API token as well.</p>
 </div>
 <div class="section level3">
 <h3 id="main-features">Main features<a class="anchor" aria-label="anchor" href="#main-features"></a>
 </h3>
-<p>restatis provides functions (prefixed with <code>gen_</code>) for finding, exploring, and retrieving data from the GENESIS API. See the <a href="https://correlaid.github.io/restatis/articles/restatis.html">“Basic restatis workflow” vignette</a> for an overview of the main features of the package.</p>
+<p>{restatis} provides functions (prefixed with <code>gen_</code>) for finding, exploring, and retrieving data from the three supported APIs. See the <a href="https://correlaid.github.io/restatis/articles/restatis.html">“Basic restatis workflow” vignette</a> for an overview of the main features of the package.</p>
+<p>In a short overview, there are functions divided in two main parts, searching for (meta)data and retrieving data:</p>
+<div class="section level4">
+<h4 id="searching-for-metadata">Searching for (meta)data<a class="anchor" aria-label="anchor" href="#searching-for-metadata"></a>
+</h4>
+<ul>
+<li>
+<strong>gen_catalogue()</strong>: Search the API’s catalogue of data</li>
+<li>
+<strong>gen_find()</strong>: Find objects related to a search term</li>
+<li>
+<strong>gen_metadata()</strong>: Find meta data to an objects</li>
+<li>
+<strong>gen_alternative_terms()</strong>: Find alternative terms to a search term</li>
+<li>
+<strong>gen_modified_data()</strong>: Find out when an object has last been modified</li>
+<li>
+<strong>gen_objects2stat()</strong>, <strong>gen_objects2var()</strong>, <strong>gen_var2stat()</strong>, <strong>gen_val2var()</strong>, <strong>gen_val2var2stat()</strong> and <strong>gen_search_vars()</strong>: Find objects, statistics, variables and values related to each other</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="retrieving-data">Retrieving data<a class="anchor" aria-label="anchor" href="#retrieving-data"></a>
+</h4>
+<ul>
+<li>
+<strong>gen_cube()</strong>: Using this function, you can download ‘cube’ objects</li>
+<li>
+<strong>gen_table()</strong>: Using this function, you can download ‘table’ objects</li>
+<li>
+<strong>gen_list_jobs()</strong> and <strong>gen_download_job()</strong>: Using this function, you can find and download previously created jobs (large tables)</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="other-functions">Other functions<a class="anchor" aria-label="anchor" href="#other-functions"></a>
+</h4>
+<ul>
+<li>
+<strong>gen_logincheck()</strong>: Perform a logincheck to test your credentials</li>
+<li>
+<strong>gen_qualitysigns()</strong>: Get a list of quality signs (special characters) found in the API’s tables</li>
+<li>
+<strong>gen_update_evas()</strong>: Manually scrape a newer version of the EVAS numbers (official statistic IDs)</li>
+</ul>
+</div>
 </div>
 <div class="section level3">
 <h3 id="caching">Caching<a class="anchor" aria-label="anchor" href="#caching"></a>
 </h3>
-<p>restatis uses <a href="https://github.com/r-lib/memoise" class="external-link">memoisation</a> to cache query results. This means that if you call a function multiple times with the same input, the values returned the first time are stored and reused from the second time.</p>
+<p>{restatis} uses <a href="https://github.com/r-lib/memoise" class="external-link"><strong>memoisation</strong></a> to cache query results. This means that if you call a function multiple times with the same input, the values returned the first time are stored and reused from the second time.</p>
 <p>Cached objects are stored in the memory and do not persist across R sessions.</p>
 </div>
 </div>
