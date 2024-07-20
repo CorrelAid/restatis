@@ -1,0 +1,11 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "variables2statistic"
+    },
+    "Status": {
+        "Code": 999,
+        "Content": "test error message",
+        "Type": "Warnung"
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "variables"
+    },
+    "Status": {
+        "Code": 104,
+        "Content": "There are no objects matching your selection.",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "selection": "74111",
+        "area": "all",
+        "searchcriterion": "code",
+        "sortcriterion": "code",
+        "type": "all",
+        "pagelength": "100",
+        "language": "en"
+    },
+    "List": null,
+    "Copyright": "© Federal Statistical Office, Wiesbaden 2024"
+}

@@ -21,7 +21,7 @@
     "List": [
         {
             "Code": "61111",
-            "Content": "Verbraucherpreisindex fuer Deutschland",
+            "Content": "Verbraucherpreisindex für Deutschland",
             "Cubes": "22",
             "Information": "true"
         },
@@ -38,5 +38,5 @@
             "Information": "false"
         }
     ],
-    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2024"
 }

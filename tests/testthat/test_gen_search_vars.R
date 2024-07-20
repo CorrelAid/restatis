@@ -10,7 +10,8 @@ with_mock_dir("searchvars1", {
 
   result <- gen_search_vars(code = NULL,
                             sortcriterion = c("code", "content"),
-                            error.ignore = FALSE)
+                            error.ignore = FALSE,
+                            database = "genesis")
 
   expect_type(result, type = "list")
 
@@ -27,17 +28,19 @@ with_mock_dir("searchvars1", {
 
 #-------------------------------------------------------------------------------
 
-with_mock_dir("searchvars2_fake", {
-  test_that("gen_search_vars returns a list element", {
+with_mock_dir("searchvars2", {
+  test_that("gen_search_vars errors if there is no object found", {
 
     skip_on_cran()
     skip_on_ci()
 
     expect_error(
       gen_search_vars(code = "74111",
-                       sortcriterion = c("code", "content"),
-                       error.ignore = FALSE),
-      regexp = "test error message")
+                      sortcriterion = c("code", "content"),
+                      error.ignore = FALSE,
+                      database = "genesis",
+                      language = "en"),
+      regexp = "No object found for your request.")
   })
 
 })
@@ -48,13 +51,13 @@ with_mock_dir("searchvars2_fake", {
 
 test_that("gen_search_vars function errors on multiple codes", {
   expect_error(
-    restatis::gen_search_vars(code = c("611*", "711*"), detailed = TRUE, category = "tables"),
+    gen_search_vars(code = c("611*", "711*"), detailed = TRUE, category = "tables"),
     regexp = "Parameter 'code' must be a single string.")
 })
 
 test_that("gen_search_vars function errors on numeric code param", {
   expect_error(
-    restatis::gen_search_vars(code = 12345, detailed = TRUE, category = "tables"),
+    gen_search_vars(code = 12345, detailed = TRUE, category = "tables"),
     regexp = "Parameter 'code' has to be of type 'character'.")
 })
 
@@ -62,13 +65,13 @@ test_that("gen_search_vars function errors on numeric code param", {
 
 test_that("gen_search_vars function errors on wrong sort param", {
   expect_error(
-    restatis::gen_search_vars(code = "61111", sortcriterion = "date"),
+    gen_search_vars(code = "61111", sortcriterion = "date"),
     regexp = "Parameter 'sortcriterion' has to be 'code' or 'content'.")
 })
 
 test_that("gen_search_vars function errors on wrong sort param type", {
   expect_error(
-    restatis::gen_search_vars(code = "6111*", sortcriterion = 123),
+    gen_search_vars(code = "6111*", sortcriterion = 123),
     regexp = "Parameter 'sortcriterion' has to be of type 'character'.")
 })
 
@@ -76,7 +79,7 @@ test_that("gen_search_vars function errors on wrong sort param type", {
 
 test_that("gen_search_vars function errors on wrong error.ignore param", {
   expect_error(
-    restatis::gen_search_vars(code = "711*", error.ignore = 1),
+    gen_search_vars(code = "711*", error.ignore = 1),
     regexp = "Parameter 'error.ignore' has to be of type 'logical' and of length 1.")
 })
 

@@ -4,582 +4,520 @@
         "Method": "find"
     },
     "Status": {
-        "Code": 100,
+        "Code": 999,
         "Content": "test error message",
         "Type": "Information"
     },
     "Parameter": {
         "username": "********************",
         "password": "********************",
-        "term": "forst",
+        "term": "bus",
         "category": "Alle",
         "pagelength": "100",
         "language": "de"
     },
     "Cubes": [
         {
-            "Code": "12211BJ424",
-            "Content": "Mikrozensus, Erwerbstaetige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Berufsbereiche (KB2010), 1-Steller, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2020-2021",
-            "LatestUpdate": "30.01.2023 16:01:50h",
+            "Code": "12251B4005",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020",
+            "LatestUpdate": "17.11.2022 12:12:42h",
             "Information": "false"
         },
         {
-            "Code": "12211BJ425",
-            "Content": "Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Geschlecht, Berufsbereiche (KB2010), 1-Steller, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2020-2021",
-            "LatestUpdate": "30.01.2023 16:01:47h",
+            "Code": "12251B4006",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Geschlecht, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020",
+            "LatestUpdate": "17.11.2022 12:12:59h",
             "Information": "false"
         },
         {
-            "Code": "12211BJ426",
-            "Content": "Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Stellung im Beruf, Berufsbereiche (KB2010), 1-Steller, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2020-2021",
-            "LatestUpdate": "30.01.2023 16:01:37h",
+            "Code": "12251B4007",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Stellung im Beruf, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020",
+            "LatestUpdate": "17.11.2022 12:13:19h",
             "Information": "false"
         },
         {
-            "Code": "12211BJ427",
-            "Content": "Mikrozensus, Erwerbst?tige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Geschlecht, Stellung im Beruf, Berufsbereiche (KB2010), 1-Steller, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2020-2021",
-            "LatestUpdate": "30.01.2023 16:01:53h",
+            "Code": "12251B4008",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Geschlecht, Stellung im Beruf, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020",
+            "LatestUpdate": "17.11.2022 12:13:40h",
             "Information": "false"
         },
         {
-            "Code": "21331BS002",
-            "Content": "Statistik der Gasth?rer, Gasth?rer, Deutschland insgesamt, F?chergruppen, Semester",
-            "State": "vollst?ndig mit Werten",
-            "Time": "WS 1994/95-WS 2021/22",
-            "LatestUpdate": "24.05.2022 08:01:01h",
+            "Code": "45413BJ008",
+            "Content": "Statistik über die touristische Nachfrage, Reisen, Deutschland insgesamt, Verkehrsmittel, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2012-2023",
+            "LatestUpdate": "03.07.2024 08:02:18h",
             "Information": "false"
         },
         {
-            "Code": "21341BJ002",
-            "Content": "Statistik des Hochschulpersonals, Hauptberufl. wissenschaftl. u. k?nstler. Personal, Deutschland insgesamt, Geschlecht, Lehr- und Forschungsbereiche, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "1997-2021",
-            "LatestUpdate": "22.09.2022 08:00:06h",
+            "Code": "46181BJ001",
+            "Content": "Personenverkehr mit Bussen und Bahnen, Beförderte Personen, Beförderungsleistung, Deutschland insgesamt, Verkehrsart, Hauptverkehrsverbindung, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2004-2022",
+            "LatestUpdate": "29.11.2023 14:33:17h",
             "Information": "false"
         },
         {
-            "Code": "21341BJ003",
-            "Content": "Statistik des Hochschulpersonals, Professoren, Deutschland insgesamt, Geschlecht, F?chergruppen, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "1997-2021",
-            "LatestUpdate": "22.09.2022 08:00:08h",
+            "Code": "46181BJ002",
+            "Content": "Personenverkehr mit Bussen und Bahnen, Unternehmen, Beförderte Personen, Beförderungsleistung, Fahrleistung, Beförderungsangebot, Deutschland insgesamt, Tätigkeit der Unternehmen im Liniennahverkehr, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2004-2022",
+            "LatestUpdate": "29.11.2023 14:33:27h",
             "Information": "false"
         },
         {
-            "Code": "21351BJ001",
-            "Content": "Statistik der Habilitationen, Habilitationen, Deutschland insgesamt, F?chergruppen, Geschlecht, Nationalit?t, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "1992-2021",
-            "LatestUpdate": "05.07.2022 08:00:41h",
+            "Code": "46181BJ003",
+            "Content": "Personenverkehr mit Bussen und Bahnen, Fahrleistung, Beförderungsangebot, Deutschland insgesamt, Verkehrsart, Einsatzgebiet, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2004-2022",
+            "LatestUpdate": "29.11.2023 14:33:35h",
             "Information": "false"
         },
         {
-            "Code": "21351BJ003",
-            "Content": "Statistik der Habilitationen, Durchschnittsalter der habilitierten Personen, Deutschland insgesamt, F?chergruppen, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "1992-2021",
-            "LatestUpdate": "05.07.2022 08:00:38h",
+            "Code": "46181BV001",
+            "Content": "Personenverkehr mit Bussen und Bahnen, Unternehmen, Beförderte Personen, Personenkilometer, Deutschland insgesamt, Verkehrsart (Liniennah- und Linienfernverkehr), Quartale, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1. Quartal 2004-1. Quartal 2024",
+            "LatestUpdate": "27.06.2024 08:08:11h",
             "Information": "false"
         },
         {
-            "Code": "21351BJ005",
-            "Content": "Statistik der Habilitationen, Durchschnittsalter der habilitierten Personen, Deutschland insgesamt, F?chergruppen, Geschlecht, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "1992-2021",
-            "LatestUpdate": "05.07.2022 08:00:43h",
+            "Code": "46181L5001",
+            "Content": "Personenverkehr mit Bussen und Bahnen, Linienlängen im Nahverkehr, Linien im Nahverkehr, Bundesländer, Verkehrsart, Stichtag",
+            "State": "vollständig mit Werten",
+            "Time": "31.12.2004-31.12.2019",
+            "LatestUpdate": "05.08.2022 13:05:31h",
             "Information": "false"
         },
         {
-            "Code": "21352BJ011",
-            "Content": "Statistik der Promovierenden, Promovierende, Deutschland insgesamt, F?chergruppen, Altersgruppen (u24-40m, unbekannt), Stichtag",
-            "State": "vollst?ndig mit Werten",
-            "Time": "01.12.2019-01.12.2021",
-            "LatestUpdate": "15.08.2022 13:17:20h",
+            "Code": "46181L5002",
+            "Content": "Personenverkehr mit Bussen und Bahnen, Fahrzeuge, Sitzplätze, Stehplätze, Bundesländer, Verkehrsart, Stichtag",
+            "State": "vollständig mit Werten",
+            "Time": "31.12.2004-31.12.2019",
+            "LatestUpdate": "05.08.2022 13:05:28h",
             "Information": "false"
         },
         {
-            "Code": "21352BJ012",
-            "Content": "Statistik der Promovierenden, Promovierende, Deutschland insgesamt, Geschlecht, F?chergruppen, Altersgruppen (u24-40m, unbekannt), Stichtag",
-            "State": "vollst?ndig mit Werten",
-            "Time": "01.12.2019-01.12.2021",
-            "LatestUpdate": "15.08.2022 13:17:17h",
+            "Code": "46181L5003",
+            "Content": "Personenverkehr mit Bussen und Bahnen, Beschäftigte, Bundesländer, Einsatzart, Stichtag",
+            "State": "vollständig mit Werten",
+            "Time": "31.12.2004-31.12.2019",
+            "LatestUpdate": "05.08.2022 13:05:30h",
             "Information": "false"
         },
         {
-            "Code": "21352BJ013",
-            "Content": "Statistik der Promovierenden, Promovierende, Durchschnittsalter der Promovierenden, Deutschland insgesamt, F?chergruppen, Stichtag",
-            "State": "vollst?ndig mit Werten",
-            "Time": "01.12.2019-01.12.2021",
-            "LatestUpdate": "15.08.2022 13:17:18h",
+            "Code": "46181LJ001",
+            "Content": "Personenverkehr mit Bussen und Bahnen, Unternehmen, Beförderte Personen, Beförderungsleistung, Fahrleistung, Beförderungsangebot, Bundesländer, Verkehrsart, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2004-2022",
+            "LatestUpdate": "29.11.2023 14:33:31h",
             "Information": "false"
         },
         {
-            "Code": "21352BJ014",
-            "Content": "Statistik der Promovierenden, Promovierende, Durchschnittsalter der Promovierenden, Deutschland insgesamt, Geschlecht, F?chergruppen, Stichtag",
-            "State": "vollst?ndig mit Werten",
-            "Time": "01.12.2019-01.12.2021",
-            "LatestUpdate": "15.08.2022 13:17:16h",
+            "Code": "46181LJ002",
+            "Content": "Personenverkehr mit Bussen und Bahnen, Unternehmen, Beförderte Personen, Beförderungsleistung, Fahrleistung, Beförderungsangebot, Einnahmen im Liniennahverkehr, Bundesländer, Unternehmensart, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2004-2022",
+            "LatestUpdate": "29.11.2023 14:33:24h",
             "Information": "false"
         },
         {
-            "Code": "21352BJ015",
-            "Content": "Statistik der Promovierenden, Promovierende, Deutschland insgesamt, Nationalit?t, F?chergruppen, Stichtag",
-            "State": "vollst?ndig mit Werten",
-            "Time": "01.12.2019-01.12.2021",
-            "LatestUpdate": "15.08.2022 13:18:28h",
+            "Code": "46181LJ003",
+            "Content": "Personenverkehr mit Bussen und Bahnen, Beförderungsleistung, Beförderungsleistung von großen Unternehmen, Fahrleistung, Fahrleistung von großen Unternehmen, Bundesländer, Verkehrsart, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2004-2022",
+            "LatestUpdate": "29.11.2023 14:33:21h",
             "Information": "false"
         },
         {
-            "Code": "21352BJ016",
-            "Content": "Statistik der Promovierenden, Promovierende, Deutschland insgesamt, Geschlecht, Nationalit?t, F?chergruppen, Stichtag",
-            "State": "vollst?ndig mit Werten",
-            "Time": "01.12.2019-01.12.2021",
-            "LatestUpdate": "15.08.2022 13:18:25h",
-            "Information": "false"
-        },
-        {
-            "Code": "21371BJ003",
-            "Content": "Hochschulfinanzstatistik, Ausgaben der Hochschulen, Deutschland insgesamt, F?chergruppen, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2006-2020",
-            "LatestUpdate": "22.03.2022 08:00:13h",
-            "Information": "false"
-        },
-        {
-            "Code": "21371BJ004",
-            "Content": "Hochschulfinanzstatistik, Ausgaben der Hochschulen, Deutschland insgesamt, Hochschulart, F?chergruppen, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2006-2020",
-            "LatestUpdate": "22.03.2022 08:00:12h",
-            "Information": "false"
-        },
-        {
-            "Code": "21371LJ003",
-            "Content": "Hochschulfinanzstatistik, Ausgaben der Hochschulen, Bundesl?nder, F?chergruppen, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2006-2020",
-            "LatestUpdate": "22.03.2022 08:00:14h",
-            "Information": "false"
-        },
-        {
-            "Code": "21371LJ004",
-            "Content": "Hochschulfinanzstatistik, Ausgaben der Hochschulen, Bundesl?nder, Hochschulart, F?chergruppen, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2006-2020",
-            "LatestUpdate": "22.03.2022 08:00:16h",
-            "Information": "false"
-        },
-        {
-            "Code": "21381BJ102",
-            "Content": "Hochschulstatistische Kennzahlen, Laufende Ausgaben der Hochschulen je Studierenden, Laufende Ausgaben d. Hochschulen je Wiss. Personal, Laufende Ausgaben der Hochschulen je Professor, Drittmittel der Hochschulen je Wiss. Personal, Drittmittel der Hochschulen je Professor, Deutschland insgesamt, F?chergruppen, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2011-2020",
-            "LatestUpdate": "20.09.2022 08:00:51h",
-            "Information": "false"
-        },
-        {
-            "Code": "21431BJ009",
-            "Content": "F?rderung nach dem Stipendienprogramm-Gesetz, Stipendiaten, Deutschland insgesamt, F?chergruppen, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2020-2021",
-            "LatestUpdate": "31.05.2022 08:01:24h",
-            "Information": "false"
-        },
-        {
-            "Code": "21431BJ010",
-            "Content": "F?rderung nach dem Stipendienprogramm-Gesetz, Stipendiaten, Deutschland insgesamt, Geschlecht, F?chergruppen, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2020-2021",
-            "LatestUpdate": "31.05.2022 08:01:28h",
-            "Information": "false"
-        },
-        {
-            "Code": "21431BJ011",
-            "Content": "F?rderung nach dem Stipendienprogramm-Gesetz, Stipendiaten, Deutschland insgesamt, Nationalit?t, F?chergruppen, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2020-2021",
-            "LatestUpdate": "31.05.2022 08:01:26h",
-            "Information": "false"
-        },
-        {
-            "Code": "21431BJ012",
-            "Content": "F?rderung nach dem Stipendienprogramm-Gesetz, Stipendiaten, Deutschland insgesamt, Geschlecht, Nationalit?t, F?chergruppen, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2020-2021",
-            "LatestUpdate": "31.05.2022 08:00:22h",
-            "Information": "false"
-        },
-        {
-            "Code": "21811BJ007",
-            "Content": "Ausgaben, Einnahmen, Personal ?ff. Forschungseinr., Interne Ausgaben f?r Forschung und Entwicklung, Personal f?r FuE (Vollzeit?quivalente), Deutschland insgesamt, Wissenschaftszweige, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2019-2021",
-            "LatestUpdate": "08.03.2023 08:01:05h",
-            "Information": "false"
-        },
-        {
-            "Code": "21811BJ008",
-            "Content": "Ausgaben, Einnahmen, Personal ?ff. Forschungseinr., Interne Ausgaben f?r Forschung und Entwicklung, Personal f?r FuE (Vollzeit?quivalente), Deutschland insgesamt, Einrichtungsgruppe, Wissenschaftszweige, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2019-2021",
-            "LatestUpdate": "08.03.2023 08:01:02h",
-            "Information": "false"
-        },
-        {
-            "Code": "21811BJ009",
-            "Content": "Ausgaben, Einnahmen, Personal ?ff. Forschungseinr., Interne Ausgaben f?r Forschung und Entwicklung, Personal f?r FuE (Vollzeit?quivalente), Deutschland insgesamt, Einrichtungsart, Wissenschaftszweige, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2019-2021",
-            "LatestUpdate": "08.03.2023 08:01:17h",
-            "Information": "false"
-        },
-        {
-            "Code": "21811BJ034",
-            "Content": "Ausgaben, Einnahmen, Personal ?ff. Forschungseinr., Personal f?r FuE (Vollzeit?quivalente), Deutschland insgesamt, Wissenschaftszweige, Personalgruppen, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2019-2021",
-            "LatestUpdate": "08.03.2023 08:05:13h",
-            "Information": "false"
-        },
-        {
-            "Code": "21811LJ003",
-            "Content": "Ausgaben, Einnahmen, Personal ?ff. Forschungseinr., Interne Ausgaben f?r Forschung und Entwicklung, Bundesl?nder und Ausland, Wissenschaftszweige, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2019-2021",
-            "LatestUpdate": "08.03.2023 08:06:15h",
+            "Code": "46181LV001",
+            "Content": "Personenverkehr mit Bussen und Bahnen, Unternehmen, Beförderte Personen, Personenkilometer, Bundesländer, Verkehrsart (Liniennah- und Linienfernverkehr), Quartale, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1. Quartal 2004-1. Quartal 2024",
+            "LatestUpdate": "27.06.2024 08:08:15h",
             "Information": "false"
         },
         {
             "Code": "51000BJ160",
-            "Content": "Au?enhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Au?enhandelsstatistik (6-Steller), Deutschland insgesamt, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2008-2022",
-            "LatestUpdate": "20.03.2023 18:00:31h",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2008-2023",
+            "LatestUpdate": "17.06.2024 18:09:56h",
             "Information": "false"
         },
         {
             "Code": "51000BJ161",
-            "Content": "Au?enhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Au?enhandelsstatistik (6-Steller), Deutschland insgesamt, L?nderverzeichnis f?r die Au?enhandelsstatistik, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2008-2022",
-            "LatestUpdate": "20.03.2023 18:15:53h",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2008-2023",
+            "LatestUpdate": "17.06.2024 18:22:32h",
             "Information": "false"
         },
         {
             "Code": "51000BJ180",
-            "Content": "Au?enhandel, Ausfuhr: Besondere Ma?einheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Ma?einheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Au?enhandelsstatistik (8-Steller), Deutschland insgesamt, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2006-2022",
-            "LatestUpdate": "20.03.2023 18:01:33h",
+            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2006-2023",
+            "LatestUpdate": "17.06.2024 18:09:29h",
             "Information": "false"
         },
         {
             "Code": "51000BJ181",
-            "Content": "Au?enhandel, Ausfuhr: Besondere Ma?einheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Ma?einheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Au?enhandelsstatistik (8-Steller), Deutschland insgesamt, L?nderverzeichnis f?r die Au?enhandelsstatistik, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "2006-2022",
-            "LatestUpdate": "20.03.2023 18:17:44h",
+            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2006-2023",
+            "LatestUpdate": "17.06.2024 18:24:36h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BJ330",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warengruppen (EGW 2002: 3-Steller), Deutschland insgesamt, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2008-2023",
+            "LatestUpdate": "17.06.2024 18:12:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BJ331",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warengruppen (EGW 2002: 3-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2008-2023",
+            "LatestUpdate": "17.06.2024 18:13:04h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BJ903",
+            "Content": "Außenhandel, Ausfuhr: Volumen, Einfuhr: Volumen, Warengruppen (EGW 2002: 3-Steller), Deutschland insgesamt, Ländergruppen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2008-2023",
+            "LatestUpdate": "13.02.2024 18:42:27h",
             "Information": "false"
         },
         {
             "Code": "51000BM160",
-            "Content": "Au?enhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Au?enhandelsstatistik (6-Steller), Deutschland insgesamt, Monate, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "Januar 2008-Januar 2023",
-            "LatestUpdate": "20.03.2023 18:12:08h",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2008-April 2024",
+            "LatestUpdate": "17.06.2024 18:31:57h",
             "Information": "false"
         },
         {
             "Code": "51000BM161",
-            "Content": "Au?enhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Au?enhandelsstatistik (6-Steller), Deutschland insgesamt, L?nderverzeichnis f?r die Au?enhandelsstatistik, Monate, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "Januar 2008-Januar 2023",
-            "LatestUpdate": "20.03.2023 18:50:12h",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2008-April 2024",
+            "LatestUpdate": "17.06.2024 20:38:26h",
             "Information": "false"
         },
         {
             "Code": "51000BM180",
-            "Content": "Au?enhandel, Ausfuhr: Besondere Ma?einheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Ma?einheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Au?enhandelsstatistik (8-Steller), Deutschland insgesamt, Monate, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "Januar 2006-Januar 2023",
-            "LatestUpdate": "20.03.2023 18:13:34h",
+            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2006-April 2024",
+            "LatestUpdate": "17.06.2024 18:34:13h",
             "Information": "false"
         },
         {
             "Code": "51000BM181",
-            "Content": "Au?enhandel, Ausfuhr: Besondere Ma?einheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Ma?einheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Au?enhandelsstatistik (8-Steller), Deutschland insgesamt, L?nderverzeichnis f?r die Au?enhandelsstatistik, Monate, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "Januar 2006-Januar 2023",
-            "LatestUpdate": "20.03.2023 19:37:45h",
+            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2006-April 2024",
+            "LatestUpdate": "17.06.2024 21:33:17h",
             "Information": "false"
         },
         {
-            "Code": "62361BJ009",
-            "Content": "Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonatsverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Berufsgruppen (KB2010), 3-Steller, Stichmonat",
-            "State": "vollst?ndig mit Werten",
-            "Time": "04/2022",
-            "LatestUpdate": "23.11.2022 18:07:06h",
+            "Code": "51000BM330",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warengruppen (EGW 2002: 3-Steller), Deutschland insgesamt, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2001-April 2024",
+            "LatestUpdate": "17.06.2024 18:42:51h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BM331",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warengruppen (EGW 2002: 3-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2001-April 2024",
+            "LatestUpdate": "17.06.2024 18:51:36h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BM903",
+            "Content": "Außenhandel, Ausfuhr: Volumen, Einfuhr: Volumen, Warengruppen (EGW 2002: 3-Steller), Deutschland insgesamt, Ländergruppen, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2008-April 2024",
+            "LatestUpdate": "17.06.2024 18:00:20h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000LJ330",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Einfuhr: Gewicht, Einfuhr: Wert, Warengruppen (EGW 2002: 3-Steller), Bundesländer mit Ausland und Restposition, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2008-2023",
+            "LatestUpdate": "17.06.2024 18:16:20h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000LJ331",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Einfuhr: Gewicht, Einfuhr: Wert, Warengruppen (EGW 2002: 3-Steller), Bundesländer mit Ausland und Restposition, Länderverzeichnis für die Außenhandelsstatistik, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2008-2023",
+            "LatestUpdate": "17.06.2024 18:29:59h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000LM330",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Einfuhr: Gewicht, Einfuhr: Wert, Warengruppen (EGW 2002: 3-Steller), Bundesländer mit Ausland und Restposition, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2008-April 2024",
+            "LatestUpdate": "17.06.2024 18:30:47h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000LM331",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Einfuhr: Gewicht, Einfuhr: Wert, Warengruppen (EGW 2002: 3-Steller), Bundesländer mit Ausland und Restposition, Länderverzeichnis für die Außenhandelsstatistik, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2008-April 2024",
+            "LatestUpdate": "17.06.2024 19:37:22h",
             "Information": "false"
         },
         {
             "Code": "62361BJ010",
             "Content": "Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonatsverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Berufsgattungen (KB2010), 5-Steller, Stichmonat",
-            "State": "vollst?ndig mit Werten",
-            "Time": "04/2022",
-            "LatestUpdate": "23.11.2022 18:07:06h",
-            "Information": "false"
-        },
-        {
-            "Code": "62361BJ012",
-            "Content": "Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonatsverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Geschlecht, Berufsgruppen (KB2010), 3-Steller, Stichmonat",
-            "State": "vollst?ndig mit Werten",
-            "Time": "04/2022",
-            "LatestUpdate": "23.11.2022 18:07:07h",
+            "State": "vollständig mit Werten",
+            "Time": "04/2022-04/2023",
+            "LatestUpdate": "18.01.2024 08:01:17h",
             "Information": "false"
         },
         {
             "Code": "62361BJ013",
             "Content": "Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonatsverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Geschlecht, Berufsgattungen (KB2010), 5-Steller, Stichmonat",
-            "State": "vollst?ndig mit Werten",
-            "Time": "04/2022",
-            "LatestUpdate": "23.11.2022 18:07:07h",
+            "State": "vollständig mit Werten",
+            "Time": "04/2022-04/2023",
+            "LatestUpdate": "18.01.2024 08:00:53h",
             "Information": "false"
         },
         {
-            "Code": "71141BJ006",
-            "Content": "Rechnungsergebnisse d.?ffentlichen Gesamthaushalts, Nettoausgaben, Personalausgaben, Bauma?nahmen, Deutschland insgesamt, K?rperschaftsgruppen, Aufgabenbereiche der ?ffentlichen Haushalte, Jahr",
-            "State": "vollst?ndig mit Werten",
-            "Time": "1992-2011",
-            "LatestUpdate": "26.02.2014 15:37:23h",
+            "Code": "62361BJ016",
+            "Content": "Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. Sonderz., Mittlere Bruttojahresverdienste inkl. Sonderz., Deutschland insgesamt, Berufsgattungen (KB2010), 5-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022-2023",
+            "LatestUpdate": "28.03.2024 08:04:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "62361BJ019",
+            "Content": "Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. Sonderz., Mittlere Bruttojahresverdienste inkl. Sonderz., Deutschland insgesamt, Geschlecht, Berufsgattungen (KB2010), 5-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022-2023",
+            "LatestUpdate": "28.03.2024 08:04:51h",
             "Information": "false"
         }
     ],
     "Statistics": [
         {
-            "Code": "12211",
-            "Content": "Mikrozensus",
-            "Cubes": "483",
-            "Information": "true"
-        },
-        {
-            "Code": "21331",
-            "Content": "Statistik der Gasth?rer",
-            "Cubes": "2",
-            "Information": "true"
-        },
-        {
-            "Code": "21341",
-            "Content": "Statistik des Hochschulpersonals",
-            "Cubes": "3",
-            "Information": "true"
-        },
-        {
-            "Code": "21351",
-            "Content": "Statistik der Habilitationen",
-            "Cubes": "6",
-            "Information": "true"
-        },
-        {
-            "Code": "21352",
-            "Content": "Statistik der Promovierenden",
-            "Cubes": "28",
-            "Information": "true"
-        },
-        {
-            "Code": "21371",
-            "Content": "Hochschulfinanzstatistik",
-            "Cubes": "8",
-            "Information": "true"
-        },
-        {
-            "Code": "21381",
-            "Content": "Hochschulstatistische Kennzahlen",
-            "Cubes": "11",
+            "Code": "12251",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus",
+            "Cubes": "60",
             "Information": "false"
         },
         {
-            "Code": "21431",
-            "Content": "F?rderung nach dem Stipendienprogramm-Gesetz",
-            "Cubes": "37",
+            "Code": "45413",
+            "Content": "Statistik über die touristische Nachfrage",
+            "Cubes": "10",
             "Information": "true"
         },
         {
-            "Code": "21811",
-            "Content": "Ausgaben, Einnahmen, Personal ?ff. Forschungseinr.",
-            "Cubes": "47",
+            "Code": "46181",
+            "Content": "Personenverkehr mit Bussen und Bahnen",
+            "Cubes": "11",
             "Information": "true"
         },
         {
             "Code": "51000",
-            "Content": "Au?enhandel",
+            "Content": "Außenhandel",
             "Cubes": "79",
             "Information": "true"
         },
         {
             "Code": "62361",
             "Content": "Verdiensterhebung",
-            "Cubes": "103",
-            "Information": "true"
-        },
-        {
-            "Code": "71141",
-            "Content": "Rechnungsergebnisse d.?ffentlichen Gesamthaushalts",
-            "Cubes": "10",
+            "Cubes": "152",
             "Information": "true"
         }
     ],
     "Tables": [
         {
-            "Code": "12211-0009",
-            "Content": "Erwerbst?tige aus Hauptwohnsitzhaushalten: Deutschland,\nJahre, Geschlecht, Stellung im Beruf, Berufe",
+            "Code": "12251-0006",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Deutschland, Jahre, Geschlecht, Stellung im Beruf, Benutztes Verkehrsmittel für den Hinweg zur Arbeitsstätte",
             "Time": ""
         },
         {
-            "Code": "21331-0002",
-            "Content": "Gasth?rer: Deutschland, Semester, F?chergruppen",
+            "Code": "45413-0004",
+            "Content": "Reisen: Deutschland, Jahre,\nReisedauer/Reisegründe/Unterkünfte/Verkehrsmittel",
             "Time": ""
         },
         {
-            "Code": "21341-0002",
-            "Content": "Hauptberufliches wissenschaftliches und k?nstlerisches\nPersonal an Hochschulen: Deutschland, Jahre, Lehr- und\nForschungsbereiche nach F?chergruppen, Geschlecht",
+            "Code": "46181-0001",
+            "Content": "Beförderte Personen, Beförderungsleistung\n(Personenfernverkehr mit Bussen): Deutschland, Jahre,\nVerkehrsart, Hauptverkehrsverbindung",
             "Time": ""
         },
         {
-            "Code": "21341-0003",
-            "Content": "Professoren: Deutschland, Jahre, F?chergruppen, Geschlecht",
+            "Code": "46181-0002",
+            "Content": "Fahrleistung, Beförderungsangebot (Personenfernverkehr mit\nBussen): Deutschland, Jahre, Verkehrsart, Einsatzgebiet",
             "Time": ""
         },
         {
-            "Code": "21351-0001",
-            "Content": "Habilitationen: Deutschland, Jahre, F?chergruppen,\nNationalit?t, Geschlecht",
+            "Code": "46181-0003",
+            "Content": "Unternehmen, Beförderte Personen, Beförderungsleistung,\nFahrleistung, Beförderungsangebot (Personenverkehr m. Bussen\nu. Bahnen): Deutschland, Jahre, Tätigkeit der Unternehmen",
             "Time": ""
         },
         {
-            "Code": "21351-0002",
-            "Content": "Durchschnittsalter der habilitierten Personen: Deutschland,\nJahre, F?chergruppen, Geschlecht",
+            "Code": "46181-0005",
+            "Content": "Unternehmen, Beförderte Personen, Personenkilometer\n(Personenverkehr mit Bussen und Bahnen): Deutschland,\nQuartale, Verkehrsart",
             "Time": ""
         },
         {
-            "Code": "21352-0002",
-            "Content": "Promovierende: Deutschland, Stichtag, Geschlecht,\nAltersgruppen, F?chergruppen",
+            "Code": "46181-0010",
+            "Content": "Unternehmen, Beförderte Personen, Beförderungsleistung,\nFahrleistung, Beförderungsangebot (Personenverkehr mit\nBussen und Bahnen): Bundesländer, Jahre, Verkehrsart",
             "Time": ""
         },
         {
-            "Code": "21352-0003",
-            "Content": "Promovierende: Deutschland, Stichtag, Nationalit?t,\nGeschlecht, F?chergruppen und Studienbereiche",
+            "Code": "46181-0011",
+            "Content": "Unternehmen, Beförderte Pers., Beförderungs-, Fahrleistung,\nBeförderungsangebot, Einnahmen (Personenverkehr mit\nBussen und Bahnen): Bundesländer, Jahre, Unternehmensart",
             "Time": ""
         },
         {
-            "Code": "21352-0004",
-            "Content": "Durchschnittsalter der Promovierenden: Deutschland,\nStichtag, Geschlecht, F?chergruppen",
+            "Code": "46181-0012",
+            "Content": "Beförderungs-, Fahrleistung (von großen Unternehmen)\n(Personenverkehr mit Bussen und Bahnen): Bundesländer,\nJahre, Verkehrsart",
             "Time": ""
         },
         {
-            "Code": "21371-0001",
-            "Content": "Ausgaben der Hochschulen: Deutschland, Jahre, Hochschulart,\nF?chergruppen",
+            "Code": "46181-0015",
+            "Content": "Unternehmen, Beförderte Personen, Personenkilometer\n(Personenverkehr mit Bussen und Bahnen): Bundesländer,\nQuartale, Verkehrsart",
             "Time": ""
         },
         {
-            "Code": "21371-0002",
-            "Content": "Ausgaben der Hochschulen: Bundesl?nder, Jahre, Hochschulart,\nF?chergruppen",
+            "Code": "46181-0020",
+            "Content": "Linienlängen, Linien im Nahverkehr (Personenverkehr mit\nBussen und Bahnen): Bundesländer, Stichtag, Verkehrsart",
             "Time": ""
         },
         {
-            "Code": "21381-0005",
-            "Content": "Laufende Ausgaben der Hochschulen, Drittmittel der\nHochschulen: Deutschland, Jahre, F?chergruppen",
+            "Code": "46181-0021",
+            "Content": "Fahrzeuge, Sitz-, Stehplätze (Personenverkehr mit Bussen und\nBahnen): Bundesländer, Stichtag, Verkehrsart",
             "Time": ""
         },
         {
-            "Code": "21431-0004",
-            "Content": "Stipendiaten: Deutschland, Jahre, Nationalit?t, Geschlecht,\nF?chergruppen",
-            "Time": ""
-        },
-        {
-            "Code": "21811-0003",
-            "Content": "Interne Ausgaben f?r Forschung und Entwicklung: Deutschland,\nJahre, Einrichtungsart, Wissenschaftszweige",
-            "Time": ""
-        },
-        {
-            "Code": "21811-0005",
-            "Content": "Personal f?r Forschung und Entwicklung (Vollzeit?quivalente): Deutschland, Jahre, Einrichtungsart, Wissenschaftszweige",
-            "Time": ""
-        },
-        {
-            "Code": "21811-0007",
-            "Content": "Personal f?r Forschung und Entwicklung (Vollzeit?quivalente): Deutschland, Jahre, Personalgruppen, Wissenschaftszweige",
-            "Time": ""
-        },
-        {
-            "Code": "21811-0022",
-            "Content": "Interne Ausgaben f?r Forschung und Entwicklung: Bundesl?nder\nund Ausland, Jahre, Wissenschaftszweige",
+            "Code": "46181-0022",
+            "Content": "Beschäftigte (Personenverkehr mit Bussen und Bahnen):\nBundesländer, Stichtag, Einsatzart",
             "Time": ""
         },
         {
             "Code": "51000-0005",
-            "Content": "Aus- und Einfuhr (Au?enhandel): Deutschland, Jahre,\nWarensystematik",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWarensystematik",
             "Time": ""
         },
         {
             "Code": "51000-0006",
-            "Content": "Aus- und Einfuhr (Au?enhandel): Deutschland, Monate,\nWarensystematik",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWarensystematik",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0007",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre, Länder,\nWarensystematik",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0008",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate, Länder,\nWarensystematik",
             "Time": ""
         },
         {
             "Code": "51000-0009",
-            "Content": "Aus- und Einfuhr (Au?enhandel): Deutschland, Jahre, Land,\nWarenverzeichnis (4-/6-Steller)",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre, Land,\nWarenverzeichnis (4-/6-Steller)",
             "Time": ""
         },
         {
             "Code": "51000-0010",
-            "Content": "Aus- und Einfuhr (Au?enhandel): Deutschland, Jahre,\nWare (4-/6-Steller), L?nder",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWare (4-/6-Steller), Länder",
             "Time": ""
         },
         {
             "Code": "51000-0011",
-            "Content": "Aus- und Einfuhr (Au?enhandel): Deutschland, Monate, Land,\nWarenverzeichnis (4-/6-Steller)",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate, Land,\nWarenverzeichnis (4-/6-Steller)",
             "Time": ""
         },
         {
             "Code": "51000-0012",
-            "Content": "Aus- und Einfuhr (Au?enhandel): Deutschland, Monate,\nWare (4-/6-Steller), L?nder",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWare (4-/6-Steller), Länder",
             "Time": ""
         },
         {
             "Code": "51000-0013",
-            "Content": "Aus- und Einfuhr (Au?enhandel): Deutschland, Jahre,\nWarenverzeichnis (8-Steller)",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWarenverzeichnis (8-Steller)",
             "Time": ""
         },
         {
             "Code": "51000-0014",
-            "Content": "Aus- und Einfuhr (Au?enhandel): Deutschland, Monate,\nWarenverzeichnis (8-Steller)",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWarenverzeichnis (8-Steller)",
             "Time": ""
         },
         {
             "Code": "51000-0015",
-            "Content": "Aus- und Einfuhr (Au?enhandel): Deutschland, Jahre, Land,\nWarenverzeichnis (8-Steller)",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre, Land,\nWarenverzeichnis (8-Steller)",
             "Time": ""
         },
         {
             "Code": "51000-0016",
-            "Content": "Aus- und Einfuhr (Au?enhandel): Deutschland, Jahre,\nWare (8-Steller), L?nder",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWare (8-Steller), Länder",
             "Time": ""
         },
         {
             "Code": "51000-0017",
-            "Content": "Aus- und Einfuhr (Au?enhandel): Deutschland, Monate, Land,\nWarenverzeichnis (8-Steller)",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate, Land,\nWarenverzeichnis (8-Steller)",
             "Time": ""
         },
         {
             "Code": "51000-0018",
-            "Content": "Aus- und Einfuhr (Au?enhandel): Deutschland, Monate,\nWare (8-Steller), L?nder",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWare (8-Steller), Länder",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0034",
+            "Content": "Aus- und Einfuhr (Außenhandel): Bundesländer, Jahre,\nWarensystematik",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0035",
+            "Content": "Aus- und Einfuhr (Außenhandel): Bundesländer, Monate,\nWarensystematik",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0036",
+            "Content": "Aus- und Einfuhr (Außenhandel): Bundesländer, Jahre,\nLänder, Warensystematik",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0037",
+            "Content": "Aus- und Einfuhr (Außenhandel): Bundesländer, Monate,\nLänder, Warensystematik",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0050",
+            "Content": "Ein- u. Ausfuhr (Volumen) (Außenhandel): Deutschland, Jahre,\nLändergruppen, Warengruppen (EGW 2002: 3-Steller)",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0051",
+            "Content": "Ein- u. Ausfuhr (Volumen) (Außenhandel): Deutschland,\nMonate, Ländergruppen, Warengruppen (EGW 2002: 3-Steller)",
             "Time": ""
         },
         {
@@ -588,88 +526,25 @@
             "Time": ""
         },
         {
-            "Code": "71141-0004",
-            "Content": "Rechnungsergebnisse des ?ffentlichen Gesamthaushalts\n(Nettoausgaben, Personalausgaben, Bauma?nahmen):\nDeutschland, Jahre, K?rperschaftsgruppen, Aufgabenbereiche",
+            "Code": "62361-0034",
+            "Content": "Bruttojahresverdienste: Deutschland, Jahre, Geschlecht, Berufe",
             "Time": ""
         }
     ],
     "Timeseries": null,
     "Variables": [
         {
-            "Code": "AFGBE3",
-            "Content": "Aufgabenbereiche der ?ffentlichen Haushalte",
-            "Type": "sachlich",
-            "Values": "22",
-            "Information": "false"
-        },
-        {
-            "Code": "BERLF1",
-            "Content": "Lehr- und Forschungsbereiche",
-            "Type": "sachlich",
-            "Values": "84",
-            "Information": "false"
-        },
-        {
-            "Code": "BILFG1",
-            "Content": "F?chergruppen",
+            "Code": "ARBVK1",
+            "Content": "Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst.",
             "Type": "sachlich",
             "Values": "10",
-            "Information": "false"
+            "Information": "true"
         },
         {
-            "Code": "BILFG2",
-            "Content": "F?chergruppen",
+            "Code": "EGW3",
+            "Content": "Warengruppen (EGW 2002: 3-Steller)",
             "Type": "sachlich",
-            "Values": "10",
-            "Information": "false"
-        },
-        {
-            "Code": "BILFG3",
-            "Content": "F?chergruppen",
-            "Type": "sachlich",
-            "Values": "11",
-            "Information": "false"
-        },
-        {
-            "Code": "BILFG4",
-            "Content": "F?chergruppen",
-            "Type": "sachlich",
-            "Values": "9",
-            "Information": "false"
-        },
-        {
-            "Code": "BILFG5",
-            "Content": "F?chergruppen",
-            "Type": "sachlich",
-            "Values": "8",
-            "Information": "false"
-        },
-        {
-            "Code": "BILFG6",
-            "Content": "F?chergruppen",
-            "Type": "sachlich",
-            "Values": "12",
-            "Information": "false"
-        },
-        {
-            "Code": "BILFG7",
-            "Content": "F?chergruppen",
-            "Type": "sachlich",
-            "Values": "9",
-            "Information": "false"
-        },
-        {
-            "Code": "KB10A1",
-            "Content": "Berufsbereiche (KB2010), 1-Steller",
-            "Type": "sachlich",
-            "Values": "10",
-            "Information": "false"
-        },
-        {
-            "Code": "KB10A3",
-            "Content": "Berufsgruppen (KB2010), 3-Steller",
-            "Type": "sachlich",
-            "Values": "144",
+            "Values": "212",
             "Information": "true"
         },
         {
@@ -680,26 +555,26 @@
             "Information": "true"
         },
         {
+            "Code": "VERKM1",
+            "Content": "Verkehrsmittel",
+            "Type": "sachlich",
+            "Values": "6",
+            "Information": "false"
+        },
+        {
             "Code": "WAM6",
-            "Content": "Warenverzeichnis Au?enhandelsstatistik (6-Steller)",
+            "Content": "Warenverzeichnis Außenhandelsstatistik (6-Steller)",
             "Type": "sachlich",
             "Values": "6435",
             "Information": "true"
         },
         {
             "Code": "WAM8",
-            "Content": "Warenverzeichnis Au?enhandelsstatistik (8-Steller)",
+            "Content": "Warenverzeichnis Außenhandelsstatistik (8-Steller)",
             "Type": "sachlich",
-            "Values": "14244",
+            "Values": "14270",
             "Information": "true"
-        },
-        {
-            "Code": "WISZW1",
-            "Content": "Wissenschaftszweige",
-            "Type": "sachlich",
-            "Values": "6",
-            "Information": "false"
         }
     ],
-    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2024"
 }

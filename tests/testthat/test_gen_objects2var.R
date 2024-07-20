@@ -8,7 +8,7 @@ with_mock_dir("xy_variable1", {
     skip_on_cran()
     skip_on_ci()
 
-    result <- restatis::gen_objects2var(code = "DLAND")
+    result <- gen_objects2var(code = "DLAND", database = "genesis")
 
     expect_type(result, type = "list")
 
@@ -25,15 +25,19 @@ with_mock_dir("xy_variable1", {
 #-------------------------------------------------------------------------------
 
 with_mock_dir("xy_variable2", {
+
   test_that("gen_objects2var does return a data.frame for a single category", {
 
     skip_on_cran()
     skip_on_ci()
 
-    expect_s3_class(restatis::gen_objects2var(code = "DLAND",
-                                             category = "tables"),
+    expect_s3_class(gen_objects2var(code = "DLAND",
+                                    category = "tables",
+                                    database = "genesis"),
                     class = "data.frame")
+
   })
+
 })
 
 #-------------------------------------------------------------------------------
@@ -42,13 +46,13 @@ with_mock_dir("xy_variable2", {
 
 test_that("gen_objects2var function errors on multiple codes", {
   expect_error(
-    restatis::gen_objects2var(code = c("DLAND", "LAND"), detailed = TRUE, category = "tables"),
+    gen_objects2var(code = c("DLAND", "LAND"), detailed = TRUE, category = "tables"),
     regexp = "Parameter 'code' must be a single string.")
 })
 
 test_that("gen_objects2var function errors on numeric code param", {
   expect_error(
-    restatis::gen_objects2var(code = 12345, detailed = TRUE, category = "tables"),
+    gen_objects2var(code = 12345, detailed = TRUE, category = "tables"),
     regexp = "Parameter 'code' has to be of type 'character'.")
 })
 
@@ -56,13 +60,13 @@ test_that("gen_objects2var function errors on numeric code param", {
 
 test_that("gen_objects2var function errors on wrong categories", {
   expect_error(
-    restatis::gen_objects2var(code = "DLAND", detailed = TRUE, category = "variables"),
-    regexp = "Available categories are tables, statistics, and cubes.")
+    gen_objects2var(code = "DLAND", detailed = TRUE, category = "variables", database = "genesis"),
+    regexp = "Available categories are 'tables', 'statistics', and 'cubes'.")
 })
 
 test_that("gen_objects2var function errors on too many categories", {
   expect_error(
-    restatis::gen_objects2var(code = "611*", detailed = TRUE,
+    gen_objects2var(code = "611*", detailed = TRUE,
                               category = c("variables", "statistics", "tables", "cubes")),
     regexp = "Parameter 'category' has to have a length of 1 to 3.")
 })
@@ -71,7 +75,7 @@ test_that("gen_objects2var function errors on too many categories", {
 
 test_that("gen_objects2var function errors on numeric detailed param", {
   expect_error(
-    restatis::gen_objects2var(code = "DLAND", detailed = 1, category = "tables"),
+    gen_objects2var(code = "DLAND", detailed = 1, category = "tables"),
     regexp = "Parameter 'detailed' has to be of type 'logical' and of length 1.")
 })
 
@@ -82,7 +86,7 @@ with_mock_dir("xy_variable3", {
     skip_on_ci()
 
     expect_message(
-      restatis::gen_objects2var(code = "DLAND", detailed = FALSE, category = "tables"),
+      gen_objects2var(code = "DLAND", detailed = FALSE, category = "tables", database = "genesis"),
       regexp = "Use 'detailed = TRUE' to obtain the complete output.")
   })
 })
@@ -91,13 +95,13 @@ with_mock_dir("xy_variable3", {
 
 # test_that("gen_objects2var function errors on wrong sort param", {
 #   expect_error(
-#     restatis::gen_objects2var(code = "DLAND", sortcriterion = "date"),
+#     gen_objects2var(code = "DLAND", sortcriterion = "date"),
 #     regexp = "Parameter 'sortcriterion' has to be 'code' or 'content'.")
 # })
 
 # test_that("gen_objects2var function errors on wrong sort param type", {
 #   expect_error(
-#     restatis::gen_objects2var(code = "DLAND", sortcriterion = 123),
+#     gen_objects2var(code = "DLAND", sortcriterion = 123),
 #     regexp = "Parameter 'sortcriterion' has to be of type 'character'.")
 # })
 
@@ -105,6 +109,6 @@ with_mock_dir("xy_variable3", {
 
 test_that("gen_objects2var function errors on wrong error.ignore param", {
   expect_error(
-    restatis::gen_objects2var(code = "7DLAND", error.ignore = 1),
+    gen_objects2var(code = "7DLAND", error.ignore = 1),
     regexp = "Parameter 'error.ignore' has to be of type 'logical' and of length 1.")
 })

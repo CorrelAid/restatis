@@ -1,0 +1,119 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "tables"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "successfull",
+        "Type": "information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "selection": "611*",
+        "area": "all",
+        "searchcriterion": "code",
+        "sortcriterion": "code",
+        "pagelength": "100",
+        "language": "en"
+    },
+    "List": [
+        {
+            "Code": "61111-0001",
+            "Content": "Consumer price index: Germany, years",
+            "Time": "1991 to 2023"
+        },
+        {
+            "Code": "61111-0002",
+            "Content": "Consumer price index: Germany, months",
+            "Time": "January 1991 to May 2024"
+        },
+        {
+            "Code": "61111-0003",
+            "Content": "Consumer price index: Germany, years, individual consumption\nby purpose (COICOP 2-5-digit hierarchy)",
+            "Time": "1991 to 2023"
+        },
+        {
+            "Code": "61111-0004",
+            "Content": "Consumer price index: Germany, months, individual\nconsumption by purpose (COICOP 2-5-digit hierarchy)",
+            "Time": "January 1991 to May 2024"
+        },
+        {
+            "Code": "61111-0005",
+            "Content": "Consumer price index: Germany, years, individual consumption\nby purpose (COICOP 2-/3-/4-/5-/10-digit codes/special items)",
+            "Time": "1991 to 2023"
+        },
+        {
+            "Code": "61111-0006",
+            "Content": "Consumer price index: Germany, months, individual\nconsumption by purpose (COICOP 2-/3-/4-/5-/10-digit codes/\nspecial items)",
+            "Time": "January 1991 to May 2024"
+        },
+        {
+            "Code": "61111-0007",
+            "Content": "Weighting scheme of the consumer price index: Germany,\nyears, individual consumption by purpose (COICOP 2-5-digit\nhierarchy)",
+            "Time": "2020 to 2020"
+        },
+        {
+            "Code": "61111-0010",
+            "Content": "Consumer price index: Länder, years",
+            "Time": "1995 to 2023"
+        },
+        {
+            "Code": "61111-0011",
+            "Content": "Consumer price index: Länder, months",
+            "Time": "January 1995 to May 2024"
+        },
+        {
+            "Code": "61111-0020",
+            "Content": "Index of net rents exclusive of heating expenses:\nLänder, years",
+            "Time": "2005 to 2023"
+        },
+        {
+            "Code": "61111-0021",
+            "Content": "Index of net rents exclusive of heating expenses:\nLänder, months",
+            "Time": "January 2005 to May 2024"
+        },
+        {
+            "Code": "61121-0001",
+            "Content": "Harmonised index of consumer prices: Germany, years",
+            "Time": "1996 to 2023"
+        },
+        {
+            "Code": "61121-0002",
+            "Content": "Harmonised index of consumer prices: Germany, months",
+            "Time": "January 1996 to May 2024"
+        },
+        {
+            "Code": "61121-0003",
+            "Content": "Harmonised index of consumer prices: Germany, years,\nEuropean classification of individual consumption by purpose\n(ECOICOP 2-5-digit hierarchy)",
+            "Time": "1996 to 2023"
+        },
+        {
+            "Code": "61121-0004",
+            "Content": "Harmonised index of consumer prices: Germany, months,\nEuropean classification of individual consumption by purpose\n(ECOICOP 2-5-digit hierarchy)",
+            "Time": "January 1996 to May 2024"
+        },
+        {
+            "Code": "61121-0005",
+            "Content": "Harmonised index of consumer prices: Germany, years,\nEuropean classification of individual consumption by purpose\n(ECOICOP 2-/3-/4-/5-digit codes/special items)",
+            "Time": "1996 to 2023"
+        },
+        {
+            "Code": "61121-0006",
+            "Content": "Harmonised index of consumer prices: Germany, months,\nEuropean classification of individual consumption by purpose\n(ECOICOP 2-/3-/4-/5-digit codes/special items)",
+            "Time": "January 1996 to May 2024"
+        },
+        {
+            "Code": "61131-0001",
+            "Content": "Index of retail prices: Germany, years, value added tax,\neconomic activities",
+            "Time": "1991 to 2023"
+        },
+        {
+            "Code": "61131-0002",
+            "Content": "Index of retail prices: Germany, months, value added tax,\neconomic activities",
+            "Time": "January 1991 to May 2024"
+        }
+    ],
+    "Copyright": "© Federal Statistical Office, Wiesbaden 2024"
+}
