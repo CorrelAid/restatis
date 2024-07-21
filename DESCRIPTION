@@ -34,7 +34,6 @@ Imports:
     purrr
 Suggests: 
     httptest2,
-    usethis,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
