@@ -38,7 +38,7 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
-    rvest
+    rvest,
     usethis,
     withr
 VignetteBuilder: 
