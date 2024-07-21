@@ -347,26 +347,26 @@ gen_val2var2stat <- function(code = NULL,
 
       if (variables$Variables == "No 'variables' object found for your request.") {
 
-         list_resp <- variables
+        list_resp <- variables
 
-        }
+      }
 
-      } else {
+    } else {
 
-        list_values <- list()
+      list_values <- list()
 
-        lapply(variables$Variables$Code, function(x) {
+      lapply(variables$Variables$Code, function(x) {
 
-          zwisch <- suppressMessages(suppressWarnings(gen_val2var(code = x,
-                                                                  database = db,
-                                                                  area = area,
-                                                                  sortcriterion = sortcriterion,
-                                                                  error.ignore = error.ignore.val,
-                                                                  verbose = verbose)))
+        zwisch <- suppressMessages(suppressWarnings(gen_val2var(code = x,
+                                                                database = db,
+                                                                area = area,
+                                                                sortcriterion = sortcriterion,
+                                                                error.ignore = error.ignore.val,
+                                                                verbose = verbose)))
 
-          list_values <<- append(list_values, zwisch)
+        list_values <<- append(list_values, zwisch)
 
-        })
+      })
 
       list_resp <- list(variables, list_values)
 

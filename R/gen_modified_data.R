@@ -47,22 +47,15 @@ gen_modified_data <- function(code = "",
   #-----------------------------------------------------------------------------
 
   if (date == "now") {
-
     date <- format(Sys.Date(), format = "%d.%m.%Y")
-
   } else if (date == "week_before") {
-
     date <- format(Sys.Date() - 7, format = "%d.%m.%Y")
-
   } else if (date == "month_before") {
-
     date <- format(Sys.Date() - as.difftime(4, units = "weeks"),
-                   format = "%d.%m.%Y")
-
+      format = "%d.%m.%Y"
+    )
   } else if (date == "year_before") {
-
     date <- format(as.difftime(52, units = "weeks"), format = "%d.%m.%Y")
-
   }
 
   #-----------------------------------------------------------------------------

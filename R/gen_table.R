@@ -40,6 +40,8 @@
 #'        leading zeros or other special characters. Defaults to TRUE.}
 #'   }
 #'
+#' @return A [tibble][tibble::tibble()].
+#'
 #' @export
 #'
 #' @examples
@@ -48,9 +50,7 @@
 #' }
 #'
 gen_table <- function(name, ...) {
-
   gen_table_(name, ...)
-
 }
 
 #-------------------------------------------------------------------------------

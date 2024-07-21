@@ -29,7 +29,6 @@ gen_alternative_terms <- function(term = NULL,
                                   database = c("all", "genesis", "zensus", "regio"),
                                   verbose = TRUE,
                                   ...) {
-
   caller <- as.character(match.call()[1])
 
   gen_fun <- test_database_function(database,

@@ -1,4 +1,4 @@
-#' List of EVAS codes
+#' List of EVAS Codes
 #'
 #' @format ## `evas_list`
 #' A data frame with 1132 rows and 3 columns:

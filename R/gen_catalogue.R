@@ -20,7 +20,7 @@
 #' # Scroll through objects under the topic "12*"
 #' # which is "Bevoelkerung" in GENESIS from all categories and
 #' # with a detailed output
-#' object <- gen_catalogue(code = "12*", detailed = T)
+#' object <- gen_catalogue(code = "12*", detailed = TRUE)
 #'
 #' # Search tables under the topic "12*" which is "Bevölkerung"
 #' # without a detailed output
@@ -36,7 +36,6 @@ gen_catalogue <- function(code = NULL,
                           error.ignore = FALSE,
                           verbose = TRUE,
                           ...) {
-
   caller <- as.character(match.call()[1])
 
   gen_fun <- test_database_function(database,
@@ -313,5 +312,6 @@ gen_catalogue <- function(code = NULL,
   res <- check_results(res)
 
   return(res)
+
 
 }

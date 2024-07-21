@@ -46,7 +46,7 @@ Function to search for tables, statistics, and cubes from GENESIS, Zensus 2022 o
 # Scroll through objects under the topic "12*"
 # which is "Bevoelkerung" in GENESIS from all categories and
 # with a detailed output
-object <- gen_catalogue(code = "12*", detailed = T)
+object <- gen_catalogue(code = "12*", detailed = TRUE)
 
 # Search tables under the topic "12*" which is "Bevölkerung"
 # without a detailed output

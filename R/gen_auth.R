@@ -12,13 +12,14 @@
 #'   The usethis package includes a helper function for editing .Renviron files
 #'   from an R session with [usethis::edit_r_environ()].
 #'
+#' @return Path to the RDS file in which credentials are saved, invisibly.
+#'
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' gen_auth_save("zensus")
 #' }
-#'
 #'
 gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio")) {
 
@@ -93,7 +94,6 @@ gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio")) {
 #' \dontrun{
 #' gen_auth_get("all")
 #' }
-#'
 #'
 gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
@@ -335,4 +335,3 @@ gen_auth_path <- function(...) {
   return(file.path(tools::R_user_dir("restatis", "config"), ...))
 
 }
-

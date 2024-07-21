@@ -1,4 +1,4 @@
-#' gen_find
+#' General Search for Objects Through GENESIS
 #'
 #' @description Function to search through the databases GENESIS, Zensus 2022 and regionalstatistik.de. It is similar in usage as the search function on the GENESIS main page (https://www-genesis.destatis.de/genesis/online).
 #' In the search query, "UND" (German word for 'and', also written "und" or "&") as well as "ODER" (German word for 'or', also written "oder" or "|") can be included and logically combined. Furthermore, wildcards are possible by including "*". If more then one word is included in the term string, 'and' is used automatically to combine the different words.
@@ -39,7 +39,6 @@ gen_find <- function(term = NULL,
                      error.ignore = TRUE,
                      verbose = TRUE,
                      ...) {
-
   caller <- as.character(match.call()[1])
 
   gen_fun <- test_database_function(database,

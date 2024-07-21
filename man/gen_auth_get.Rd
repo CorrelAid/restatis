@@ -20,5 +20,4 @@ Function to retrieve the credentials stored via \code{gen_auth_save()}
 gen_auth_get("all")
 }
 
-
 }

@@ -9,6 +9,9 @@ gen_auth_save(database = c("all", "genesis", "zensus", "regio"))
 \arguments{
 \item{database}{Character string. The database to store credentials for ('all', 'genesis', 'zensus' or 'regio').}
 }
+\value{
+Path to the RDS file in which credentials are saved, invisibly.
+}
 \description{
 Save credentials of the different databases for further convenient use
 }
@@ -25,6 +28,5 @@ from an R session with \code{\link[usethis:edit]{usethis::edit_r_environ()}}.
 \dontrun{
 gen_auth_save("zensus")
 }
-
 
 }

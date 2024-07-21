@@ -3,7 +3,7 @@
 \docType{data}
 \name{evas_list}
 \alias{evas_list}
-\title{List of EVAS codes}
+\title{List of EVAS Codes}
 \format{
 \subsection{\code{evas_list}}{
 
@@ -22,6 +22,6 @@ A data frame with 1132 rows and 3 columns:
 evas_list
 }
 \description{
-List of EVAS codes
+List of EVAS Codes
 }
 \keyword{datasets}

@@ -46,6 +46,9 @@ descriptions in German (\code{"de"}) or English (\code{"en"})?}
 leading zeros or other special characters. Defaults to TRUE.}
 }}
 }
+\value{
+A \link[tibble:tibble]{tibble}.
+}
 \description{
 Download a table with data from GENESIS, Zensus 2022 or regionalstatistik.de databases
 }

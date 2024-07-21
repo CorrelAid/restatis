@@ -2,4 +2,4 @@
 
 0 errors | 0 warnings | 0 note
 
-* Than update to the package adding support for further databases 
+* Large update to the package adding support for further databases 

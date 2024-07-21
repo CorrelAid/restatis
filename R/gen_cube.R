@@ -37,6 +37,9 @@
 #'       descriptions in German (`"de"`) or English (`"en"`)?}
 #'   }
 #'
+#' @return A [tibble][tibble::tibble()]. Non-data contents of the data cube object are saved in
+#'   the `metadata` [attribute][base::attr()] of the data frame.
+#'
 #' @export
 #'
 #' @examples
@@ -45,9 +48,7 @@
 #' }
 #'
 gen_cube <- function(name, ...) {
-
   gen_cube_(name, ...)
-
 }
 
 #-------------------------------------------------------------------------------
@@ -72,7 +73,6 @@ gen_cube_ <- function(name,
                       classifyingkey3 = NULL,
                       stand = NULL,
                       language = Sys.getenv("GENESIS_LANG")) {
-
   area <- match.arg(area)
   database <- match.arg(database)
 

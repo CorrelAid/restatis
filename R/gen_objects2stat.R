@@ -124,13 +124,13 @@ gen_objects2stat <- function(code = NULL,
 
     if ("variables" %in% category) {
 
-        par_list <- list(endpoint = "catalogue/variables2statistic",
-                         username = gen_auth_get(database = rev_database_function(db))$username,
-                         password = gen_auth_get(database = rev_database_function(db))$password,
-                         name = code,
-                         area = area,
-                         sortcriterion = sortcriterion,
-                         ...)
+      par_list <- list(endpoint = "catalogue/variables2statistic",
+                       username = gen_auth_get(database = rev_database_function(db))$username,
+                       password = gen_auth_get(database = rev_database_function(db))$password,
+                       name = code,
+                       area = area,
+                       sortcriterion = sortcriterion,
+                       ...)
 
       results_raw <- do.call(db, par_list)
 
