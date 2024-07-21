@@ -1,0 +1,25 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "modifieddata"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "selection": "61111",
+        "type": "Alle",
+        "date": "21.07.2024",
+        "pagelength": "100",
+        "language": "de",
+        "area": "Alle"
+    },
+    "List": [
+        null
+    ],
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2024"
+}

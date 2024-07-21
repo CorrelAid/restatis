@@ -12,8 +12,8 @@ gen_signs <- function(database = c("all", "genesis", "zensus", "regio"),
                       ...) {
 
   gen_fun <- test_database_function(database,
-                                    error.input = T,
-                                    text = T)
+                                    error.input = TRUE,
+                                    text = TRUE)
 
   res <- lapply(gen_fun, function(db){
 

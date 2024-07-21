@@ -33,7 +33,7 @@ gen_modified_data <- function(code = "",
                               ...) {
 
   gen_fun <- test_database_function(database,
-                                    error.input = T,
+                                    error.input = TRUE,
                                     text = verbose)
 
   type <- match.arg(type)

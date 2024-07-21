@@ -104,7 +104,8 @@ sessions.
 ## Disclaimer
 
 This package is in no way affiliated with the German Federal Statistical
-Office (Destatis). It is a simple wrapper providing R functions to
-access Destatis’ API. The package authors are in no way responsible for
-the data that can be retrieved using its functions. The license of this
+Office (Destatis) or the ‘Verbund Statistische Ämter des Bundes und der
+Länder’. It is a simple wrapper providing R functions to access
+Destatis’ API. The package authors are in no way responsible for the
+data that can be retrieved using its functions. The license of this
 package solely applies to its source code.
