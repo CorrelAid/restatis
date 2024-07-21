@@ -28,8 +28,12 @@
 <url><loc>https://correlaid.github.io/restatis/reference/gen_metadata.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_cube.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_statistic.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_stats.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_tab.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_table.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_val.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_value.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_var.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_metadata_variable.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_modified_data.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_objects2stat.html</loc></url>
@@ -56,6 +60,7 @@
 <url><loc>https://correlaid.github.io/restatis/reference/read_cube_metadata_header.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/rename_cube_data_columns.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/resp_check_data.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/restatis-package.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/return_table_object.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/rev_database_function.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/spezifisch_create.html</loc></url>
