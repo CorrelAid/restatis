@@ -2,29 +2,38 @@
 % Please edit documentation in R/gen_var2-val2.R
 \name{gen_val2var}
 \alias{gen_val2var}
-\title{Search for the Values of a Variable}
+\title{gen_val2var}
 \usage{
 gen_val2var(
   code = NULL,
+  database = c("all", "genesis", "zensus", "regio"),
+  area = c("all", "public", "user"),
   sortcriterion = c("code", "content"),
-  error.ignore = FALSE,
+  error.ignore = TRUE,
+  verbose = TRUE,
   ...
 )
 }
 \arguments{
-\item{code}{a string with a maximum length of 15 characters. Code from a GENESIS-Object. Only one code per iteration.}
+\item{code}{Character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.}
 
-\item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the GENESIS API call itself. The default is "code".}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
 
-\item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
+\item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
 
-\item{...}{Additional parameter of the GENESIS API call. These parameters are only affecting the GENESIS API call itself, no further processing.}
+\item{sortcriterion}{Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.}
+
+\item{error.ignore}{Boolean. Indicator for values if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'TRUE', this prevents the function to stop even if a variable has no further explanation (often the case for numerical variables).}
+
+\item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
+
+\item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
-A list with all recalled elements from GENESIS. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+A list with all recalled elements from the API.  Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to extract the possible values from a variable from GENESIS. Values for continuous variables are not extractable, so the function returns a warning message.
+Function to extract the possible values from a variable. Values for continuous variables are not extractable, which is why the function returns a warning message in this case.
 }
 \examples{
 \dontrun{

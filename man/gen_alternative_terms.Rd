@@ -2,31 +2,44 @@
 % Please edit documentation in R/gen_alternative_terms.R
 \name{gen_alternative_terms}
 \alias{gen_alternative_terms}
-\title{Search for Related Terms Based on the Same Specific String}
+\title{gen_alternative_terms}
 \usage{
-gen_alternative_terms(term = NULL, similarity = TRUE, ...)
+gen_alternative_terms(
+  term = NULL,
+  similarity = TRUE,
+  database = c("all", "genesis", "zensus", "regio"),
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{term}{Character string. Maximum length of 15 characters. Term or word for which you are searching for alternative or related terms. Use of '*' as a placeholder is possible to generate broader search areas.}
 
-\item{similarity}{Logical. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function.}
+\item{similarity}{Boolean. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function. Default is 'TRUE'.}
 
-\item{...}{Additional parameter of the GENESIS API call. These parameters are only affecting the GENESIS API call itself, no further processing.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
+
+\item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
+
+\item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
-A list with all recalled elements from GENESIS. Attributes are added to the data.frame, describing the search configuration for the returned output.
+A list with all recollected elements from the respective database. Attributes are added to the data.frame, describing the search configuration for the returned output.
 }
 \description{
-Function to find terms in GENESIS that are similar or related based on a simple comparison of strings. This can help to identify alternative search terms.
+Function to find search terms that are similar or related to one another in spelling and also represented in the GENESIS, Zensus 2022 or regionalstatistik.de databases. Important note: The API call is searching for terms with the same characters. To be useful in searching for related terms it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
 }
 \examples{
 \dontrun{
-# Find terms that are similar (in spelling) to search term "bus"
+# Find terms at GENESIS that are the same (in spelling) to search term "bus"
 # and sort them by Levenshtein edit distance
-object <- gen_alternative_terms(term = "bus", similarity = TRUE)
+object <- gen_alternative_terms(term = "bus", similarity = TRUE, database = "genesis")
 
-# Find terms that are related (in spelling) to search term "bus"
-object <- gen_alternative_terms(term = "bus*", similarity = TRUE)
+# Find terms at GENESIS that are related (in spelling) to search term "bus"
+object <- gen_alternative_terms(term = "bus*", similarity = TRUE, database = "genesis")
+
+# Find terms at Zensus 2022 that are related (in spelling) to search term "wohn"
+object <- gen_alternative_terms(term = "wohn*", similarity = TRUE, database = "zensus")
 }
 
 }

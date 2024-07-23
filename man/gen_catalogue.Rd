@@ -2,42 +2,51 @@
 % Please edit documentation in R/gen_catalogue.R
 \name{gen_catalogue}
 \alias{gen_catalogue}
-\title{Explore Different Objects and Their Structural Embedding in GENESIS}
+\title{gen_catalogue}
 \usage{
 gen_catalogue(
   code = NULL,
+  database = c("all", "genesis", "zensus", "regio"),
   category = c("tables", "statistics", "cubes"),
+  area = c("all", "public", "user"),
   detailed = FALSE,
   sortcriterion = c("code", "content"),
   error.ignore = FALSE,
+  verbose = TRUE,
   ...
 )
 }
 \arguments{
-\item{code}{a string with a maximum length of 10 characters. Code from a GENESIS-Object. Only one code per iteration. "*"-Notations are possible.}
+\item{code}{String with a maximum length of 15 characters for a database object (GENESIS and regionalstatistik.de) and 15 characters for a Zensus 2022 object. Only one code per iteration. "*" notations are possible.}
 
-\item{category}{a string. Specific GENESIS-Object-types: 'tables', 'statistics', and 'cubes'. All three together are possible.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
 
-\item{detailed}{a logical. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title.}
+\item{category}{Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.}
 
-\item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the GENESIS API call itself.}
+\item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
 
-\item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
+\item{detailed}{Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.}
 
-\item{...}{Additional parameter of the GENESIS API call. These parameters are only affecting the GENESIS API call itself, no further processing.}
+\item{sortcriterion}{Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.}
+
+\item{error.ignore}{Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.}
+
+\item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
+
+\item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
-A list with all recalled elements from GENESIS API. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+A list with all recalled elements from the API. Based on the 'detailed' parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to enable searching for tables, statistics, and cubes from GENESIS. Additionally, it structures the output based on the internal tree structure of GENESIS itself based on the EVAS-numbers. Time-series are represented as cubes with a specified time span.
+Function to search for tables, statistics, and cubes from GENESIS, Zensus 2022 or regionalstatistik.de. Additionally, it structures the output based on the internal tree structure based on the EVAS-numbers. Time-series are represented as cubes with a specified time span. Important note: To be useful in searching for objects it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
 }
 \examples{
 \dontrun{
-# Scroll through Objects under the topic "12*"
-# which is "Bevölkerung" in Destatis from all categories and
+# Scroll through objects under the topic "12*"
+# which is "Bevoelkerung" in GENESIS from all categories and
 # with a detailed output
-object <- gen_catalogue(code = "12*", detailed = T)
+object <- gen_catalogue(code = "12*", detailed = TRUE)
 
 # Search tables under the topic "12*" which is "Bevölkerung"
 # without a detailed output

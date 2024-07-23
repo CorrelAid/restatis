@@ -2,43 +2,44 @@
 % Please edit documentation in R/gen_cube.R
 \name{gen_cube}
 \alias{gen_cube}
-\title{Get the Data of a Cube From GENESIS}
+\title{gen_cube}
 \usage{
 gen_cube(name, ...)
 }
 \arguments{
-\item{name}{Name of the data cube}
+\item{name}{Character string for a cube object (only GENESIS and regionalstatistik.de)}
 
-\item{...}{Optional parameters passed on to the GENESIS API call:
+\item{...}{Further (optional) parameters passed on to the API call:
 \describe{
-\item{\code{area}}{a string. The area in which the table is stored. Possible values:
+\item{\code{area}}{Character string. The area in which the table is stored. Possible values:
 \itemize{
 \item \code{"public"}: cube in the public catalogue
 \item \code{"user"}: cube in the user's account
+\item \code{"all"}: both of the above
 }}
-\item{\code{values}}{a logical. Should values be included?}
-\item{\code{metadata}}{a logical. Should metadata be included?}
-\item{\code{additionals}}{a logical. Should additional metadata be included?}
-\item{\code{contents}}{a string. Names of required statistical specifications}
-\item{\code{startyear,endyear}}{a number. Only retrieve data between these years.}
-\item{\code{timeslices}}{a number. Number of timeslices (cumulative to startyear or endyear)}
-\item{\code{regionalvariable}}{character. Code of the regional variable
+\item{\code{values}}{Boolean. Should values be included?}
+\item{\code{metadata}}{Boolean. Should metadata be included?}
+\item{\code{additionals}}{Boolean. Should additional metadata be included?}
+\item{\code{contents}}{Character string. Names of required statistical specifications}
+\item{\code{startyear,endyear}}{Four-digit integers. Only retrieve data between these years.}
+\item{\code{timeslices}}{Integer. Number of timeslices (cumulative to startyear or endyear)}
+\item{\code{regionalvariable}}{Character string. Code of the regional variable
 whose value is specified in \code{regionalkey} to filter the results.}
-\item{\code{regionalkey}}{character. One or more regional keys. Multiple
+\item{\code{regionalkey}}{Character string. One or more regional keys. Multiple
 values can be supplied as a character vector or as a single string,
 with the regional keys separated by commas. Use of wildcard (\code{*}) allowed.}
 \item{\code{classifyingvariable1,classifyingvariable2
-      ,classifyingvariable3}}{character. Code of the subject classification
+      ,classifyingvariable3}}{Character string. Code of the subject classification
 (SK-Merkmal) to which the selection by means of the corresponding
 \code{classifyingkey} parameter is to be applied.}
-\item{\code{classifyingkey1,classifyingkey2,classifyingkey3}}{character.
+\item{\code{classifyingkey1,classifyingkey2,classifyingkey3}}{Character string.
 One or more values of a subject classification (e.g. "WZ93012"). Applied
 to the corresponding \code{classifyingvariable} parameter. Multiple
 keys can be supplied as a character vector or as a single string,
 with the keys separated by commas. Use of wildcard (\code{*}) allowed.}
-\item{\code{stand}}{a string \code{"DD.MM.YYYY"}. Only retrieve data
-updated after this #' date.}
-\item{\code{language}}{Search terms, returned messages and data
+\item{\code{stand}}{Character string, format: \code{"DD.MM.YYYY"}. Only retrieve data
+updated after this date.}
+\item{\code{language}}{Character string. Search terms, returned messages and data
 descriptions in German (\code{"de"}) or English (\code{"en"})?}
 }}
 }
@@ -47,7 +48,7 @@ A \link[tibble:tibble]{tibble}. Non-data contents of the data cube object are sa
 the \code{metadata} \link[base:attr]{attribute} of the data frame.
 }
 \description{
-Download a cube with data from GENESIS.
+Download a cube with data from GENESIS or regionalstatistik.de database
 }
 \examples{
 \dontrun{

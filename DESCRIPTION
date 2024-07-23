@@ -1,20 +1,22 @@
 Package: restatis
-Title: Web API Client for the German Federal Statistical Office Database
-Version: 0.1.0
+Title: R Wrapper to Access a Wide Range of Germany's Federal Statistical System 
+    Databases Based on the GENESIS Web Service RESTful API of the German Federal 
+    Statistical Office (Statistisches Bundesamt/Destatis)
+Version: 0.2.0
 Authors@R: c(
-    person("Yannik", "Buhl", , "yannik.buhl@posteo.de", role = "aut"),
-    person("Zoran", "Kovacevic", , "zoran.kovacevic@gess.ethz.ch", role = "aut",
+    person("Yannik", "Buhl", , "ybuhl@posteo.de", role = c("aut", "cre")),
+    person("Zoran", "Kovacevic", role = "aut",
            comment = c(ORCID = "0009-0002-0156-0862")),
-    person("Dorian", "Le Jeune", , "d.le-jeune@gmx.de", role = "aut"),
-    person("Long", "Nguyen", , "long.nguyen@uni-bielefeld.de", role = c("aut", "cre"),
+    person("Dorian", "Le Jeune", role = "aut"),
+    person("Long", "Nguyen", , "long.nguyen@uni-bielefeld.de", role = "aut",
            comment = c(ORCID = "0000-0001-8878-7386")),
     person("Johannes", "Ritter", , "ritter.johannes@gmail.com", role = "aut")
   )
-Description: A 'RESTful' API wrapper for accessing the 'GENESIS' database
-    of the German Federal Statistical Office (Destatis)
-    <https://www-genesis.destatis.de/>. Also supports data search
-    functions, credential management, result caching, and handling remote
-    background jobs for large datasets.
+Description: A RESTful API wrapper for accessing the GENESIS database of
+    the German Federal Statistical Office (Destatis) as well as its Census 
+    Database and the database of Germany's regional statistics. Supports data 
+    search functions, credential management, result caching, and handling 
+    remote background jobs for large datasets.
 License: MIT + file LICENSE
 URL: https://correlaid.github.io/restatis/,
     https://github.com/CorrelAid/restatis
@@ -28,14 +30,14 @@ Imports:
     readr,
     stats,
     tibble,
-    tools,
-    utils,
-    vctrs
+    vctrs,
+    purrr
 Suggests: 
     httptest2,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
+    rvest,
     usethis,
     withr
 VignetteBuilder: 
@@ -44,4 +46,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2

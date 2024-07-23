@@ -2,32 +2,41 @@
 % Please edit documentation in R/gen_var2-val2.R
 \name{gen_var2stat}
 \alias{gen_var2stat}
-\title{Search for the Variables From a Statistic}
+\title{gen_var2stat}
 \usage{
 gen_var2stat(
   code = NULL,
+  database = c("all", "genesis", "zensus", "regio"),
+  area = c("all", "public", "user"),
   detailed = FALSE,
   sortcriterion = c("code", "content"),
   error.ignore = FALSE,
+  verbose = TRUE,
   ...
 )
 }
 \arguments{
-\item{code}{a string with a maximum length of 15 characters. Code from a GENESIS-Object. Only one code per iteration. "*"-Notations are possibly to be used as a placeholder.}
+\item{code}{Character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.}
 
-\item{detailed}{a logical. Indicator if function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. The default is detailed = FALSE.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
 
-\item{sortcriterion}{a string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the GENESIS API call itself. The default is "code".}
+\item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
 
-\item{error.ignore}{a logical. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response.}
+\item{detailed}{Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.}
 
-\item{...}{Additional parameter of the GENESIS API call. These parameters are only affecting the GENESIS API call itself, no further processing.}
+\item{sortcriterion}{Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.}
+
+\item{error.ignore}{Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.}
+
+\item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
+
+\item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
-A list with all recalled elements from GENESIS. Based on the detailed-parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing of the data. Attributes are added to the dataframe describing the search configuration for the returned output.
+A list with all recalled elements from the API. Based on the 'detailed' parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to generate variables from statistics in GENESIS.
+Function to generate variables from statistics
 }
 \examples{
 \dontrun{

@@ -5,7 +5,7 @@
     },
     "Status": {
         "Code": 104,
-        "Content": "test warning message",
+        "Content": "Es gibt keine Objekte zum angegebenen Selektionskriterium",
         "Type": "Information"
     },
     "Parameter": {
@@ -19,5 +19,5 @@
         "area": "Alle"
     },
     "List": null,
-    "Copyright": "Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2024"
 }

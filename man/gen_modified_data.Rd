@@ -2,29 +2,35 @@
 % Please edit documentation in R/gen_modified_data.R
 \name{gen_modified_data}
 \alias{gen_modified_data}
-\title{Search for Newly Added Objects or Documented Changes to Objects in GENESIS}
+\title{gen_modified_data}
 \usage{
 gen_modified_data(
   code = "",
+  database = c("all", "genesis", "zensus", "regio"),
   type = c("all", "tables", "statistics", "statisticsUpdates"),
   date = c("now", "week_before", "month_before", "year_before"),
+  verbose = TRUE,
   ...
 )
 }
 \arguments{
-\item{code}{a string with a maximum length of 15 characters. Code from a GENESIS object. Only one code per iteration. "*" notations are possible. Empty code (default value) includes all changes, updates, and new added objects.}
+\item{code}{A character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.}
 
-\item{type}{a string. Specific GENESIS object type: 'tables', 'statistics', and 'statisticsUpdates'. All three can be accessed through "all", which is the default.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
 
-\item{date}{a string. Specific date that is used as the last update or upload time in GENESIS to include a GENESIS object in return. Default option is 'now', which uses the current date of your system. Alternative options are 'week_before', using the current date of your system minus 7 days, 'month_before', using the current date of your system minus 4 weeks, and 'year_before', using the current date of your system minus 52 weeks. Additionally, it is possible to fill in a specific date of format 'DD.MM.YYYY'.}
+\item{type}{Character string. Specific GENESIS and regionalstatistik.de object types: 'tables', 'statistics', and 'statisticsUpdates'. Specific Zensus 2022 object types: 'tables' and 'statistics'. All types that are specific for one database can be used together through 'all', which is the default.}
 
-\item{...}{Additional parameter of the GENESIS API call. These parameters are only affecting the GENESIS API call itself, no further processing.}
+\item{date}{Character string. Specific date that is used as the last update or upload time to include an object in return. Default option is 'now', which uses the current date of your system. Alternative options are 'week_before', using the current date of your system minus 7 days, 'month_before', using the current date of your system minus 4 weeks, and 'year_before', using the current date of your system minus 52 weeks. Additionally, it is possible to fill in a specific date of format 'DD.MM.YYYY'.}
+
+\item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
+
+\item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
-A list with all recalled elements from GENESIS. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
+A list with all recalled elements from the API. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to check for updates, changes, or new objects in GENESIS based on a specific date.
+Function to check for updates, changes, or new objects based on a specific date.
 }
 \examples{
 \dontrun{

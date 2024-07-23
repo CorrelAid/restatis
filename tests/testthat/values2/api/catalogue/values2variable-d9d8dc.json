@@ -1,0 +1,121 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "values2variable"
+    },
+    "Status": {
+        "Code": 22,
+        "Content": "erfolgreich (Mindestens ein Parameter enthält ungültige Werte. Er wurde angepasst, um den Service starten zu können.: sortcriterion)",
+        "Type": "Warnung"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "name": "DLAND",
+        "selection": "",
+        "area": "Alle",
+        "searchcriterion": "Code",
+        "sortcriterion": "Code",
+        "pagelength": "100",
+        "language": "de"
+    },
+    "List": [
+        {
+            "Code": "08",
+            "Content": "Baden-Württemberg",
+            "Variables": "9",
+            "Information": "false"
+        },
+        {
+            "Code": "09",
+            "Content": "Bayern",
+            "Variables": "9",
+            "Information": "false"
+        },
+        {
+            "Code": "11",
+            "Content": "Berlin",
+            "Variables": "11",
+            "Information": "false"
+        },
+        {
+            "Code": "12",
+            "Content": "Brandenburg",
+            "Variables": "9",
+            "Information": "false"
+        },
+        {
+            "Code": "04",
+            "Content": "Bremen",
+            "Variables": "12",
+            "Information": "false"
+        },
+        {
+            "Code": "02",
+            "Content": "Hamburg",
+            "Variables": "12",
+            "Information": "false"
+        },
+        {
+            "Code": "06",
+            "Content": "Hessen",
+            "Variables": "9",
+            "Information": "false"
+        },
+        {
+            "Code": "13",
+            "Content": "Mecklenburg-Vorpommern",
+            "Variables": "12",
+            "Information": "false"
+        },
+        {
+            "Code": "03",
+            "Content": "Niedersachsen",
+            "Variables": "10",
+            "Information": "false"
+        },
+        {
+            "Code": "05",
+            "Content": "Nordrhein-Westfalen",
+            "Variables": "9",
+            "Information": "false"
+        },
+        {
+            "Code": "07",
+            "Content": "Rheinland-Pfalz",
+            "Variables": "9",
+            "Information": "false"
+        },
+        {
+            "Code": "10",
+            "Content": "Saarland",
+            "Variables": "11",
+            "Information": "false"
+        },
+        {
+            "Code": "14",
+            "Content": "Sachsen",
+            "Variables": "9",
+            "Information": "false"
+        },
+        {
+            "Code": "15",
+            "Content": "Sachsen-Anhalt",
+            "Variables": "11",
+            "Information": "false"
+        },
+        {
+            "Code": "01",
+            "Content": "Schleswig-Holstein",
+            "Variables": "12",
+            "Information": "false"
+        },
+        {
+            "Code": "16",
+            "Content": "Thüringen",
+            "Variables": "11",
+            "Information": "false"
+        }
+    ],
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2024"
+}

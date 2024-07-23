@@ -1,0 +1,335 @@
+---
+title: "Additional Parameters for API Calls with {restatis}"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vignette-additional_parameter}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r eval=FALSE, echo=FALSE}
+library(restatis)
+```
+
+## Information
+
+This is a brief overview of the additional parameters for an API call via {restatis}. These parameters only affect the API call itself, not the data processing. Be aware: Not all parameters are available for all functions.
+
+Especially `gen_table()` and `gen_cube()` have a lot of different additional parameters to specify the API call. For a detailed overview, see the following official documents:
+
+- The GENESIS database: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
+- The Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf
+- regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
+
+## Short Overview of the Most Used Additional Parameters
+
+### Parameter: Selection & Searchcriterion
+
+The `selection` parameter is a string that specifies the filter to use for filtering the API call. The criterion to which this parameter is applied to is defined by the `searchcriterion` parameter. The maximum length of the string depends on the function being used, but often times varies between 10 and 15 characters. It is possible to use '\*' as a placeholder. The default for this parameter is *no* filtering. 
+
+The `searchcriterion` parameter is a string that specifies the criterion to be used by the `selection` parameter. Possible values depend on the function being used, but are often times "code" for filtering based on code or "content" for filtering based on the content description. The default for this parameter is *no* filter criterion. Often times, the `searchcriterion` parameter and the `sortcriterion` parameter have the same possible values.
+
+Examples:
+```{r eval=FALSE}
+# Get the values of the variable "WAM8" which code starts with "WA29"
+gen_val2var("WAM8", selection = "WA29*", searchcriterion = "code", database = "genesis")
+
+# The same result can be achieved by the following line due to the default of the "searchcriterion" parameter:
+gen_val2var("WAM8", selection = "WA29*", database = "genesis")
+```
+
+### Parameter: Sortcriterion
+The `sortcriterion` parameter is a string that specifies whether the raw output of the API call is sorted according to the specified input. Possible values depend on the function being used, but often times "code" for sorting based on code and "content" for sorting based on the content description are possible. The default is *no* sorting.
+
+Examples:
+```{r eval=FALSE}
+# Get the values of the variable "WAM8" sorted based on their codes
+gen_val2var("WAM8", sortcriterion = "code")
+```
+
+### Parameter: Pagelength
+The `pagelength` parameter is a number between 1 and 2500. It indicates the maximum length of the API call output. Default is 100.
+
+Examples:
+```{r eval=FALSE}
+# Get the values of the variable "WAM8", where the maximum length of the output is 2500 entries
+gen_val2var("WAM8", pagelength = 2500)
+```
+
+### Parameter: Language
+The `language` parameter is a string. It indicates if the API call output is in German by using "de" or in English by using "en". Default is "en" (API default is "de" but it is overwritten by {restatis} to being "en").
+
+Examples:
+```{r eval=FALSE}
+# Get the values of the variable "WAM8" in German
+gen_val2var("WAM8", language = "de")
+
+# Get the values of the variable "WAM8" in English
+gen_val2var("WAM8", language = "en")
+```
+
+
+## Explicit Overview of Additional Parameters per Function
+
+<details>
+<summary>gen_alternative_terms</summary> 
+
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-15 characters; filtering based on "code" of the objects; "*" notations are possible       |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+
+</details>
+
+<details>
+<summary>gen_catalogue</summary> 
+For cubes: (only GENESIS and regionalstatistik.de)
+
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-10 characters; filtering based on "code" of the objects; "*" notations are possible       |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+| area   | "all" / "public" / "user"        |
+
+For statistics:
+
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-15 characters; filtering based on searchcriterion; "*" notations are possible       |
+| searchcriterion   | "code" / "content"       |
+| sortcriterion   | "code" / "content"       |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+
+For tables:
+
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-15 characters; filtering based on searchcriterion; "*" notations are possible       |
+| searchcriterion   | "code" / "content" (only Zensus 2022 database)    |
+| sortcriterion   | "code" / "top"       |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+| area   | "all" / "public" / "user"        |
+
+</details>
+
+<details>
+<summary>gen_cube</summary> 
+
+see the following official documentation: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
+see the following official documentation: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
+Only available for GENESIS and regionalstatistik.de
+
+</details>
+
+<details>
+<summary>gen_find</summary> 
+| Parameter   | Description |
+| ----------- | ----------- |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+
+</details>
+
+<details>
+<summary>gen_list_jobs</summary> 
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-50 characters; filtering based on "code" of the objects or searchcriterion; "*" notations are possible       |
+| searchcriterion   | "type" / "code" / "time" / "status"      |
+| sortcriterion   | "type" / "code" / "time" / "status"      |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+| type   | -        |
+
+- See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf 
+- See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
+
+</details>
+
+<details>
+<summary>gen_metadata</summary> 
+| Parameter   | Description |
+| ----------- | ----------- |
+| language   | "de" / "en"        |
+| area   | "all" / "public" / "user"  *1      |
+
+*1 for Zensus 2022 database only tables offer the additional parameter "area".
+</details>
+
+<details>
+<summary>gen_modified_data</summary> 
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection   | 1-15 characters; filtering based on "code" of the objects; "*" notations are possible |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+</details>
+
+<details>
+<summary>gen_objects2stat</summary> 
+For cubes: (only GENESIS and regionalstatistik.de)
+
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-10 characters; filtering based on "code" of the objects; "*" notations are possible       |
+| area   | "all" / "public" / "user"        |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+
+For variables:
+
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-6 characters; filtering based on searchcriterion; "*" notations are possible       |
+| searchcriterion   | "code" / "content"       |
+| sortcriterion   | "code" / "content"       |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+| area   | "all" / "public" / "user"        |
+| type   | -        |
+
+- See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf 
+- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf
+- See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
+
+For tables:
+
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-15 characters; filtering based on "code" of the objects; "*" notations are possible       |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+| area   | "all" / "public" / "user"        |
+</details>
+
+<details>
+<summary>gen_objects2var</summary> 
+For cubes: (only GENESIS and regionalstatistik.de)
+
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-15 characters; filtering based on "code" of the objects; "*" notations are possible       |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+| area   | "all" / "public" / "user"        |
+
+For statistics:
+
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-15 characters; filtering based on searchcriterion; "*" notations are possible       |
+| searchcriterion   | "code" / "content"       |
+| sortcriterion   | "code" / "content"       |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+| area   | "all" / "public" / "user"        |
+
+For tables:
+
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-15 characters; filtering based on "code" of the objects; "*" notations are possible       |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+| area   | "all" / "public" / "user"        |
+</details>
+
+<details>
+<summary>gen_table</summary> 
+
+- See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf 
+- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf
+- See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
+
+</details>
+
+<details>
+<summary>gen_var2stat</summary> 
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-6 characters; filtering based on searchcriterion; "*" notations are possible       |
+| searchcriterion   | "code" / "content"       |
+| sortcriterion   | "code" / "content"       |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+| area   | "all" / "public" / "user"        |
+| type   | -        |
+
+- See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf 
+- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf
+- See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
+
+</details>
+
+<details>
+<summary>gen_val2var</summary> 
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-15 characters; filtering based on searchcriterion; "*" notations are possible       |
+| searchcriterion   | "code" / "content"       |
+| sortcriterion   | "code" / "content"       |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+
+</details>
+
+<details>
+<summary>gen_val2var2stat</summary> 
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-6 characters; filtering based on searchcriterion; "*" notations are possible       |
+| searchcriterion   | "code" / "content"       |
+| sortcriterion   | "code" / "content"       |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+| area   | "all" / "public" / "user"        |
+| type   | -        |
+
+- See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf 
+- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf
+- See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
+
+</details>
+
+<details>
+<summary>gen_search_vars</summary> 
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-6 characters; filtering based on searchcriterion; "*" notations are possible       |
+| searchcriterion   | "code" / "content"       |
+| sortcriterion   | "code" / "content"       |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+| area   | "all" / "public" / "user"        |
+| type   | -        |
+
+- See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf 
+- See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf
+- See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf
+
+</details>
+
+<details>
+<summary>gen_signs</summary> 
+
+| Parameter   | Description |
+| ----------- | ----------- |
+| language   | "de" / "en"        |
+
+</details>
+
+<details>
+<summary>gen_list_results</summary> 
+
+| Parameter   | Description |
+| ----------- | ----------- |
+| selection      | 1-15 characters; filtering based on "code"; "*" notations are possible       |
+| area   | "all" / "public" / "user"        |
+| pagelength   | 1-2500        |
+| language   | "de" / "en"        |
+
+</details>

@@ -36,13 +36,13 @@
             "Content": "forsten"
         },
         {
-            "Content": "forstgehoelze"
+            "Content": "forstgehölze"
         },
         {
-            "Content": "forstgeh?lze                                    st"
+            "Content": "forstgehölze                                    st"
         },
         {
-            "Content": "forstgeh?lzpflanzen"
+            "Content": "forstgehölzpflanzen"
         },
         {
             "Content": "forstl"
@@ -114,7 +114,7 @@
             "Content": "forstwirtschaftlicher"
         },
         {
-            "Content": "forstwirtschaftsabf?lle"
+            "Content": "forstwirtschaftsabfälle"
         },
         {
             "Content": "forstwirtschaftsberufe"
@@ -144,5 +144,5 @@
             "Content": "forstwissenschaften"
         }
     ],
-    "Copyright": "? Statistisches Bundesamt (Destatis), 2023"
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2024"
 }

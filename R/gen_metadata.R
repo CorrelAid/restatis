@@ -1,0 +1,879 @@
+#' gen_metadata_statistic
+#'
+#' @description Function to search for meta information for a specific statistic.
+#'
+#' @param code A character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
+#' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param raw Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.
+#' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#'
+#' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Find meta-information of the statistic with the code "12411"
+#' object <- gen_metadata_stats(code = "12411")
+#' }
+#'
+gen_metadata_statistic <- function(code = NULL,
+                                   database = c("all", "genesis", "zensus", "regio"),
+                                   area = c("all", "public", "user"),
+                                   error.ignore = FALSE,
+                                   verbose = TRUE,
+                                   raw = FALSE,
+                                   ...) {
+
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
+
+  check_function_input(code = code,
+                       error.ignore = error.ignore,
+                       database = gen_fun,
+                       caller = caller,
+                       verbose = verbose,
+                       raw = raw)
+
+  area <- match.arg(area)
+
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
+
+  #-----------------------------------------------------------------------------
+
+  res <- lapply(gen_fun, function(db){
+
+    if (isTRUE(verbose)) {
+
+      info <- paste("Started the processing of", rev_database_function(db), "database.")
+
+      message(info)
+
+    }
+
+    par_list <-  list(endpoint = "metadata/statistic",
+                      username = gen_auth_get(database = rev_database_function(db))$username,
+                      password = gen_auth_get(database = rev_database_function(db))$password,
+                      name = code,
+                      ...)
+
+    if (db == "gen_api" | db == "gen_regio_api") {
+
+      par_list <- append(par_list, list(area = area))
+
+    }
+
+    results_raw <- do.call(db, par_list)
+
+    results_json <- test_if_json(results_raw)
+
+    empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
+
+    #---------------------------------------------------------------------------
+
+    if (isTRUE(empty_object)){
+
+      df_stats <- "No 'meta_information' object found for your request."
+
+    } else if (isFALSE(empty_object)) {
+
+      df_stats <- results_json$Status$Content
+
+    } else if (empty_object == "DONE") {
+
+      if (isFALSE(raw)) {
+
+      df_stats <-cbind("Code" = results_json$Object$Code,
+                       "Content" = results_json$Object$Content,
+                       "Cubes" = results_json$Object$Cubes,
+                       "Variables" = results_json$Object$Variables,
+                       "Information" = results_json$Object$Information,
+                       "Time_from" = results_json$Object$Frequency[[1]]$From,
+                       "Time_to" = results_json$Object$Frequency[[1]]$To,
+                       "Time_type" = results_json$Object$Frequency[[1]]$Type)
+      } else {
+
+        df_stats <- results_json$Object
+
+      }
+
+    }
+
+    attr(df_stats, "Code") <- results_json$Parameter$name
+    attr(df_stats, "Database") <- rev_database_function(db)
+    attr(df_stats, "Method") <- results_json$Ident$Method
+    attr(df_stats, "Updated") <- results_json$Object$Updated
+    attr(df_stats, "Language") <- results_json$Parameter$language
+    attr(df_stats, "Copyright") <- results_json$Copyright
+
+    return(df_stats)
+
+  })
+
+  #-----------------------------------------------------------------------------
+
+  res <- check_results(res)
+
+  return(res)
+
+}
+
+#' gen_metadata_variable
+#'
+#' @description Function to search for meta information for a specific variable.
+#'
+#' @param code A character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
+#' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param raw Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.
+#' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#'
+#' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Find meta-information of the variable with the code "FAMSTD"
+#' object <- gen_metadata_var(code = "FAMSTD")
+#' }
+#'
+gen_metadata_variable <- function(code = NULL,
+                                  database = c("all", "genesis", "zensus", "regio"),
+                                  area = c("all", "public", "user"),
+                                  error.ignore = FALSE,
+                                  verbose = TRUE,
+                                  raw = FALSE,
+                                  ...) {
+
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
+
+  check_function_input(code = code,
+                       error.ignore = error.ignore,
+                       database = gen_fun,
+                       caller = caller,
+                       verbose = verbose,
+                       raw = raw)
+
+  area <- match.arg(area)
+
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
+
+  #-----------------------------------------------------------------------------
+
+  res <- lapply(gen_fun, function(db){
+
+    if (isTRUE(verbose)) {
+
+      info <- paste("Started the processing of", rev_database_function(db), "database.")
+
+      message(info)
+
+    }
+
+    par_list <-  list(endpoint = "metadata/variable",
+                      username = gen_auth_get(database = rev_database_function(db))$username,
+                      password = gen_auth_get(database = rev_database_function(db))$password,
+                      name = code,
+                      ...)
+
+    if (db == "gen_api" | db == "gen_regio_api") {
+
+      par_list <- append(par_list, list(area = area))
+
+    }
+
+    results_raw <- do.call(db, par_list)
+
+    results_json <- test_if_json(results_raw)
+
+    empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
+
+    #---------------------------------------------------------------------------
+
+    if (isTRUE(empty_object)) {
+
+      df_var <- "No 'meta_information' object found for your request."
+
+    } else if (isFALSE(empty_object)){
+
+      df_var <- results_json$Status$Content
+
+    } else if (empty_object == "DONE"){
+
+      if (isFALSE(raw)) {
+
+      df_var <-cbind("Code" = results_json$Object$Code,
+                  "Content" = results_json$Object$Content,
+                  "Values" = results_json$Object$Values,
+                  "Type" = results_json$Object$Type,
+                  "Validity_from" = results_json$Object$Validity$From,
+                  "Validity_to" = results_json$Object$Validity$To)
+
+      }
+
+    }
+
+    if (isFALSE(raw)){
+
+      list_resp <- list("General" = df_var,
+                        "Information" = results_json$Object$Information)
+
+    } else {
+
+      list_resp <- results_json$Object
+
+    }
+
+    attr(list_resp, "Code") <- results_json$Parameter$name
+    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Method") <- results_json$Ident$Method
+    attr(list_resp, "Updated") <- results_json$Object$Updated
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Copyright") <- results_json$Copyright
+
+    return(list_resp)
+
+  })
+
+  #-----------------------------------------------------------------------------
+
+  res <- check_results(res)
+
+  return(res)
+
+}
+
+#-------------------------------------------------------------------------------
+
+#' gen_metadata_value
+#'
+#' @description Function to search for meta information for a specific value.
+#'
+#' @param code A character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
+#' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param raw Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.
+#' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#'
+#' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Find meta-information of the value with the code "LEDIG"
+#' object <- gen_metadata_val(code = "LEDIG")
+#' }
+#'
+gen_metadata_value <- function(code = NULL,
+                               database = c("all", "genesis", "zensus", "regio"),
+                               area = c("all", "public", "user"),
+                               error.ignore = FALSE,
+                               verbose = TRUE,
+                               raw = FALSE,
+                               ...) {
+
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
+
+  check_function_input(code = code,
+                       error.ignore = error.ignore,
+                       database = gen_fun,
+                       caller = caller,
+                       verbose = verbose,
+                       raw = raw)
+
+  area <- match.arg(area)
+
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
+
+  #-----------------------------------------------------------------------------
+
+  res <- lapply(gen_fun, function(db){
+
+    if (isTRUE(verbose)) {
+
+      info <- paste("Started the processing of", rev_database_function(db), "database.")
+
+      message(info)
+
+    }
+
+    par_list <-  list(endpoint = "metadata/value",
+                      username = gen_auth_get(database = rev_database_function(db))$username,
+                      password = gen_auth_get(database = rev_database_function(db))$password,
+                      name = code,
+                      ...)
+
+    if (db == "gen_api" | db == "gen_regio_api") {
+
+      par_list <- append(par_list, list(area = area))
+
+    }
+
+    results_raw <- do.call(db, par_list)
+
+    results_json <- test_if_json(results_raw)
+
+    empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
+
+    #---------------------------------------------------------------------------
+
+    if (isTRUE(empty_object)) {
+
+      df_value <- "No 'meta_information' object found for your request."
+
+    } else if (isFALSE(empty_object)) {
+
+      df_value <- results_json$Status$Content
+
+    } else if (empty_object == "DONE") {
+
+      if (isFALSE(raw)) {
+
+      df_value <-cbind("Code" = results_json$Object$Code,
+                       "Content" = results_json$Object$Content,
+                       "Variables" = results_json$Object$Variables)
+
+      }
+
+    }
+
+    if (isFALSE(raw)) {
+
+      list_resp <- list("General" = df_value,
+                        "Information" = results_json$Object$Information)
+
+    } else {
+
+      list_resp <- results_json$Object
+
+    }
+
+    attr(list_resp, "Code") <- results_json$Parameter$name
+    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Method") <- results_json$Ident$Method
+    attr(list_resp, "Updated") <- results_json$Object$Updated
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Copyright") <- results_json$Copyright
+
+    return(list_resp)
+
+  })
+
+  #-----------------------------------------------------------------------------
+
+  res <- check_results(res)
+
+  return(res)
+
+}
+
+#-------------------------------------------------------------------------------
+
+#' gen_metadata_table
+#'
+#' @description Function to search for meta information for a specific table.
+#'
+#' @param code A character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
+#' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param raw Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.
+#' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#'
+#' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Find meta-information of the table with the code "11111"
+#' object <- gen_metadata_tab(code = "11111")
+#' }
+#'
+gen_metadata_table <- function(code = NULL,
+                               database = c("all", "genesis", "zensus", "regio"),
+                               area = c("all", "public", "user"),
+                               error.ignore = FALSE,
+                               verbose = TRUE,
+                               raw = FALSE,
+                               ...) {
+
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
+
+  check_function_input(code = code,
+                       error.ignore = error.ignore,
+                       database = gen_fun,
+                       caller = caller,
+                       verbose = verbose,
+                       raw = raw)
+
+  area <- match.arg(area)
+
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
+
+  #-----------------------------------------------------------------------------
+
+  res <- lapply(gen_fun, function(db){
+
+    if (isTRUE(verbose)) {
+
+      info <- paste("Started the processing of", rev_database_function(db), "database.")
+
+      message(info)
+
+    }
+
+    par_list <-  list(endpoint = "metadata/table",
+                      username = gen_auth_get(database = rev_database_function(db))$username,
+                      password = gen_auth_get(database = rev_database_function(db))$password,
+                      name = code,
+                      area = area,
+                      ...)
+
+    results_raw <- do.call(db, par_list)
+
+    results_json <- test_if_json(results_raw)
+
+    empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
+
+    #---------------------------------------------------------------------------
+    if (isTRUE(empty_object)) {
+
+      char <- "No 'meta_information' object found for your request."
+      structure <- NULL
+      embedded <- NULL
+
+    } else if (isFALSE(empty_object)) {
+
+      char <- results_json$Status$Content
+      structure <- NULL
+      embedded <- NULL
+
+    } else if (empty_object == "DONE") {
+
+      if (isFALSE(raw)) {
+
+      char <- cbind("Code" = results_json$Object$Code,
+                    "Content" = results_json$Object$Content,
+                    "Time_From" = results_json$Object$Time$From,
+                    "Time_To" = results_json$Object$Time$To,
+                    "Valid" = results_json$Object$Valid)
+
+      embedded <- cbind("Code" = results_json$Object$Structure$Head$Code,
+                        "Content" = results_json$Object$Structure$Head$Content,
+                        "Type" = results_json$Object$Structure$Head$Type,
+                        "Values" = results_json$Object$Structure$Head$Values,
+                        "Selection" = results_json$Object$Structure$Head$Selected,
+                        "Updated" = results_json$Object$Structure$Head$Updated)
+
+      structure <- list()
+
+      structure$Head <- if (length(results_json$Object$Structure$Head$Structure) == 1) {
+
+        cbind("Code" = results_json$Object$Structure$Head$Structure[[1]]$Code,
+              "Content" = results_json$Object$Structure$Head$Structure[[1]]$Content,
+              "Type" = results_json$Object$Structure$Head$Structure[[1]]$Type,
+              "Values" = results_json$Object$Structure$Head$Structure[[1]]$Values,
+              "Selected" = results_json$Object$Structure$Head$Structure[[1]]$Selected,
+              "Structure" = results_json$Object$Structure$Head$Structure[[1]]$Structure,
+              "Updated" = results_json$Object$Structure$Head$Structure[[1]]$Updated)
+
+      } else {
+
+       cbind("Code" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 1)),
+             "Content" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 2)),
+             "Type" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 3)),
+             "Values" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 4)),
+             "Selected" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 5)),
+             "Structure" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 6)),
+             "Updated" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 7)))
+
+      }
+
+      structure$Columns <- if (length(results_json$Object$Structure$Columns) == 1) {
+
+       cbind("Code" = results_json$Object$Structure$Columns[[1]]$Code,
+             "Content" = results_json$Object$Structure$Columns[[1]]$Content,
+             "Type" = results_json$Object$Structure$Columns[[1]]$Type,
+             "Unit" = results_json$Object$Structure$Columns[[1]]$Unit,
+             "Values" = results_json$Object$Structure$Columns[[1]]$Values,
+             "Updated" = results_json$Object$Structure$Columns[[1]]$Updated)
+
+      } else {
+
+       cbind("Code" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 1)),
+             "Content" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 2)),
+             "Type" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 3)),
+             "Unit" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 4)),
+             "Values" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 5)),
+             "Updated" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 6)))
+
+      }
+
+      structure$Rows <- if (length(results_json$Object$Structure$Rows) == 1) {
+
+       cbind("Code" = results_json$Object$Structure$Rows[[1]]$Code,
+             "Content" = results_json$Object$Structure$Rows[[1]]$Content,
+             "Type" = results_json$Object$Structure$Rows[[1]]$Type,
+             "Unit" = results_json$Object$Structure$Rows[[1]]$Unit,
+             "Values" = results_json$Object$Structure$Rows[[1]]$Values,
+             "Updated" = results_json$Object$Structure$Rows[[1]]$Updated)
+
+      } else {
+
+       cbind("Code" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 1)),
+             "Content" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 2)),
+             "Type" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 3)),
+             "Unit" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 4)),
+             "Values" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 5)),
+             "Updated" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 6)))
+
+      }
+
+    }
+
+  } # End of empty_object == "DONE"
+
+    if (isFALSE(raw)) {
+
+      list_resp <- list("General" = char,
+                        "Structure" = structure,
+                        "Embedded_in" = embedded)
+
+    } else {
+
+      list_resp <- results_json$Object
+
+    }
+
+    attr(list_resp, "Code") <- results_json$Parameter$name
+    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Method") <- results_json$Ident$Method
+    attr(list_resp, "Updated") <- results_json$Object$Updated
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Copyright") <- results_json$Copyright
+
+    return(list_resp)
+
+  })
+
+  #-----------------------------------------------------------------------------
+
+  res <- check_results(res)
+
+  return(res)
+
+}
+
+#-------------------------------------------------------------------------------
+
+#' gen_metadata_cube
+#'
+#' @description Function to search for meta information for a specific cube. Usable only for GENESIS and regionalstatistik.de.
+#'
+#' @param code A character string with a maximum length of 15 characters. Code from a GENESIS or regionalstatistik.de object. Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
+#' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param raw Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.
+#' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#'
+#' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
+
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Find meta-information of the cube with the code "11111KE001"
+#' object <- gen_metadata_cube(code = "11111KE001")
+#' }
+#'
+gen_metadata_cube <- function(code = NULL,
+                              database = c("all", "genesis", "regio"),
+                              area = c("all", "public", "user"),
+                              error.ignore = FALSE,
+                              verbose = TRUE,
+                              raw = FALSE,
+                              ...) {
+
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
+
+  check_function_input(code = code,
+                       error.ignore = error.ignore,
+                       database = gen_fun,
+                       caller = caller,
+                       verbose = verbose,
+                       raw = raw)
+
+  area <- match.arg(area)
+
+  area <- switch(area, all = "all", public = "\u00F6ffentlich", user = "benutzer")
+
+  #-----------------------------------------------------------------------------
+
+  res <- lapply(gen_fun, function(db){
+
+    if (isTRUE(verbose)) {
+
+      info <- paste("Started the processing of", rev_database_function(db), "database.")
+
+      message(info)
+
+    }
+
+    par_list <-  list(endpoint = "metadata/cube",
+                      username = gen_auth_get(database = rev_database_function(db))$username,
+                      password = gen_auth_get(database = rev_database_function(db))$password,
+                      name = code,
+                      area = area,
+                      ...)
+
+    results_raw <- do.call(db, par_list)
+
+    results_json <- test_if_json(results_raw)
+
+    empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
+
+    #---------------------------------------------------------------------------
+
+    if (isTRUE(empty_object)) {
+
+      char <- "No 'meta_information' object found for your request."
+      time <- NULL
+      stat <- NULL
+      structure <- NULL
+
+    } else if (isFALSE(empty_object)) {
+
+      char <- results_json$Status$Content
+      time <- NULL
+      stat <- NULL
+      structure <- NULL
+
+    } else if (empty_object == "DONE") {
+
+      if (isFALSE(raw)) {
+
+      char <-cbind("Code" = results_json$Object$Code,
+                   "Content" = results_json$Object$Content,
+                   "State" = results_json$Object$State,
+                   "Values" = results_json$Object$Values)
+
+      time <-cbind(unlist(results_json$Object$Timeslices))
+
+      stat <-cbind("Code" = results_json$Object$Statistic$Code,
+                   "Content" = results_json$Object$Statistic$Content,
+                   "Updated" = results_json$Object$Statistic$Updated)
+
+      structure <- list()
+
+      structure$Axis <- if (length(results_json$Object$Structure$Axis) == 1) {
+
+       cbind("Code" = results_json$Object$Structure$Axis[[1]]$Code,
+             "Content" = results_json$Object$Structure$Axis[[1]]$Content,
+             "Type" = results_json$Object$Structure$Axis[[1]]$Type,
+             "Updated" = results_json$Object$Structure$Axis[[1]]$Updated)
+
+      } else {
+
+       cbind("Code" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 1)),
+             "Content" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 2)),
+             "Type" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 3)),
+             "Updated" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 4)))
+      }
+
+      structure$Content <- if (length(results_json$Object$Structure$Contents) == 1) {
+
+       cbind("Code" = results_json$Object$Structure$Contents[[1]]$Code,
+             "Content" = results_json$Object$Structure$Contents[[1]]$Content,
+             "Type" = results_json$Object$Structure$Contents[[1]]$Type,
+             "Unit" = results_json$Object$Structure$Contents[[1]]$Unit,
+             "Values" = results_json$Object$Structure$Contents[[1]]$Values,
+             "Updated" = results_json$Object$Structure$Contents[[1]]$Updated,
+             "Timeslices" = results_json$Object$Structure$Contents[[1]]$Timeslices)
+
+      } else {
+
+       cbind("Code" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 1)),
+             "Content" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 2)),
+             "Type" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 3)),
+             "Unit" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 4)),
+             "Values" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 5)),
+             "Updated" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 7)),
+             "Timeslices" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 6)))
+      }
+      }
+    }
+
+    if (isFALSE(raw)) {
+
+      list_resp <- list("General" = char,
+                        "Timespan" = time,
+                        "Statistic_used" = stat,
+                        "Structure" = structure)
+
+    } else {
+
+      list_resp <- results_json$Object
+
+    }
+
+    attr(list_resp, "Code") <- results_json$Parameter$name
+    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Method") <- results_json$Ident$Method
+    attr(list_resp, "Updated") <- results_json$Object$Updated
+    attr(list_resp, "Language") <- results_json$Parameter$language
+    attr(list_resp, "Copyright") <- results_json$Copyright
+
+    return(list_resp)
+
+  })
+
+  #-----------------------------------------------------------------------------
+
+  res <- check_results(res)
+
+  return(res)
+
+}
+
+#-------------------------------------------------------------------------------
+
+#' gen_metadata
+#'
+#' @description Search For Meta-Information For All Types Of Objects
+#'
+#' @param code String with a maximum length of 15 characters for a database object (GENESIS, regionalstatistik.de, Zensus 2022). Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param category Character string. Specifying the specific object type of the object that you want meta data for. No default option - you need to specify the object type. Hint: The functions in 'restatis' often return information on object 'Type'.
+#' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
+#' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param raw Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.
+#' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
+#'
+#' @return A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Find meta-information of the table with the code "11111"
+#' object <- gen_metadata(code = "11111", category = "table")
+#' }
+#'
+gen_metadata <- function(code = NULL,
+                         database = c("all", "genesis", "zensus", "regio"),
+                         category = c("cube", "statistic", "table", "variable", "value"),
+                         area = c("all", "public", "user"),
+                         error.ignore = FALSE,
+                         verbose = TRUE,
+                         raw = FALSE,
+                         ...) {
+
+  caller <- as.character(match.call()[1])
+
+  gen_fun <- test_database_function(database,
+                                    error.input = error.ignore,
+                                    text = verbose)
+
+  check_function_input(code = code,
+                       error.ignore = error.ignore,
+                       category = category,
+                       database = gen_fun,
+                       caller = caller,
+                       verbose = verbose)
+
+  #-----------------------------------------------------------------------------
+
+  res <- lapply(gen_fun, function(odb){
+
+    if (category == "cube") {
+
+      gen_metadata_cube(code = code,
+                        database = rev_database_function(odb),
+                        error.ignore = error.ignore,
+                        verbose = verbose,
+                        raw = raw,
+                        ...)
+
+    } else if (category == "value") {
+
+      gen_metadata_value(code = code,
+                         database = rev_database_function(odb),
+                         area = area,
+                         error.ignore = error.ignore,
+                         verbose = verbose,
+                         raw = raw,
+                         ...)
+
+    } else if (category == "variable") {
+
+      gen_metadata_variable(code = code,
+                            database = rev_database_function(odb),
+                            area = area,
+                            error.ignore = error.ignore,
+                            verbose = verbose,
+                            raw = raw,
+                            ...)
+
+    } else if (category == "table") {
+
+      gen_metadata_table(code = code,
+                         database = rev_database_function(odb),
+                         area = area,
+                         error.ignore = error.ignore,
+                         verbose = verbose,
+                         raw = raw,
+                         ...)
+
+    } else if (category == "statistic") {
+
+      gen_metadata_statistic(code = code,
+                             database = rev_database_function(odb),
+                             area = area,
+                             error.ignore = error.ignore,
+                             verbose = verbose,
+                             raw = raw,
+                             ...)
+
+    } else {
+
+      stop("Category is not found, please select a correct category.
+         Available categories for data base GENESIS & Regionalstatistik: 'cube', 'statistic', 'table', 'variable', 'value'.
+         \n Available categories for Zensus data base: 'statistic', 'table', 'variable', 'value'. \n
+         Please choose one of them.", call. = TRUE)
+    }
+
+  })
+
+  res <- check_results(res)
+
+  return(res)
+
+}
