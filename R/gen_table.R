@@ -78,6 +78,13 @@ gen_table_ <- function(name,
   #-----------------------------------------------------------------------------
   # Parameter processing
 
+  if (missing(database)) {
+
+    stop("It is mandatory to specifiy the 'database' parameter for 'gen_table()'.",
+         call. = FALSE)
+
+  }
+
   database <- match.arg(database)
 
   area <- match.arg(area)
