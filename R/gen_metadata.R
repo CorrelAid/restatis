@@ -784,7 +784,7 @@ gen_metadata_cube <- function(code = NULL,
 #' @examples
 #' \dontrun{
 #' # Find meta-information of the table with the code "11111"
-#' object <- gen_metadata(code = "11111", category = "table")
+#' object <- gen_metadata(code = "11111", category = "table", database = "genesis")
 #' }
 #'
 gen_metadata <- function(code = NULL,
