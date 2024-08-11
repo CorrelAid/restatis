@@ -276,21 +276,29 @@ return_table_object <- function(response,
                               "Consider making a range of smaller requests or use the \n",
                               "option to create a job by setting the 'job' parameter \n",
                               "of 'gen_table()' to TRUE. You can then download the job \n",
-                              "later (use the function 'gen_list_jobs()' to check its status).")
+                              "later (use the function 'gen_list_jobs()' to check its status) \n",
+                              "and download it using gen_download_job().")
 
       stop(error_message, call. = FALSE)
 
     } else if (response_parsed$Status$Code == 99) {
 
-      message <- paste0("You have requested successfully created a job with \n",
+      message <- paste0("You have successfully created a job with \n",
                         "your request. Use the function 'gen_list_jobs()' ",
                         "to check its status and download it once completed.")
 
       message(message)
 
+    } else if (response_parsed$Status$Code == 104) {
+
+      stop("There are no results for your request. Please check if the requested table code is valid for the database selected.",
+           call. = FALSE)
+
     } else {
 
-      stop("There has been an error with your request (not parseable response type 'application/json').\n Please try again later or contact the package maintainer.",
+      stop(paste0("There has been an error with your request (API error code: '",
+                  response_parsed$Status$Code,
+                  "').\n Please try again later or contact the package maintainer."),
            call. = FALSE)
 
     }

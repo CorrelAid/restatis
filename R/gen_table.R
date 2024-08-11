@@ -110,7 +110,7 @@ gen_table_ <- function(name,
   #-----------------------------------------------------------------------------
   # Data download
 
-  if(database == "zensus"){
+  if (database == "zensus"){
 
     response <- gen_zensus_api("data/tablefile",
                                name = name,

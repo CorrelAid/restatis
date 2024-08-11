@@ -72,7 +72,7 @@ In a short overview, there are functions divided in two main parts, searching fo
 
 #### Other functions
 - **gen_logincheck()**: Perform a logincheck to test your credentials
-- **gen_qualitysigns()**: Get a list of quality signs (special characters) found in the API's tables
+- **gen_signs()**: Get a list of quality signs (special characters) found in the API's tables
 - **gen_update_evas()**: Manually scrape a newer version of the EVAS numbers (official statistic IDs)
 
 ### Caching
