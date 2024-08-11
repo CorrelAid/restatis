@@ -15,8 +15,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-# restatis
-
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/restatis)](https://CRAN.R-project.org/package=restatis)
 [![R-CMD-check](https://github.com/CorrelAid/restatis/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CorrelAid/restatis/actions/workflows/R-CMD-check.yaml)
