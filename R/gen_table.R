@@ -50,7 +50,9 @@
 #' }
 #'
 gen_table <- function(name, ...) {
+
   gen_table_(name, ...)
+
 }
 
 #-------------------------------------------------------------------------------
@@ -73,7 +75,8 @@ gen_table_ <- function(name,
                        stand = NULL,
                        language = Sys.getenv("GENESIS_LANG"),
                        job = FALSE,
-                       all_character = TRUE) {
+                       all_character = TRUE,
+                       overwrite_url = NULL) {
 
   #-----------------------------------------------------------------------------
   # Parameter processing
@@ -81,6 +84,14 @@ gen_table_ <- function(name,
   if (missing(database)) {
 
     stop("It is mandatory to specifiy the 'database' parameter for 'gen_table()'.",
+         call. = FALSE)
+
+  }
+
+  if (!is.null(overwrite_url) &
+      (!is.character(overwrite_url) | length(overwrite_url) != 1)) {
+
+    stop("The parameter 'overwrite_url' has to be of type 'character' and of length 1.",
          call. = FALSE)
 
   }
@@ -130,7 +141,8 @@ gen_table_ <- function(name,
                                stand = stand,
                                language = language,
                                format = "ffcsv",
-                               job = FALSE)
+                               job = FALSE,
+                               overwrite_url = overwrite_url)
 
   #-----------------------------------------------------------------------------
 
@@ -154,7 +166,8 @@ gen_table_ <- function(name,
                                 stand = stand,
                                 language = language,
                                 format = "ffcsv",
-                                job = job)
+                                job = job,
+                                overwrite_url = overwrite_url)
 
   #-----------------------------------------------------------------------------
 
@@ -178,7 +191,8 @@ gen_table_ <- function(name,
                               stand = stand,
                               language = language,
                               format = "ffcsv",
-                              job = job)
+                              job = job,
+                              overwrite_url = overwrite_url)
 
   #-----------------------------------------------------------------------------
 
