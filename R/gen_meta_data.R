@@ -25,7 +25,7 @@ gen_metadata_stats <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  results_raw <- gen_api("metadata/statistic",
+  results_raw <- gen_genesis_api("metadata/statistic",
     name = code,
     ...
   )
@@ -91,7 +91,7 @@ gen_metadata_var <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  results_raw <- gen_api("metadata/variable",
+  results_raw <- gen_genesis_api("metadata/variable",
     name = code,
     ...
   )
@@ -160,7 +160,7 @@ gen_metadata_val <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  results_raw <- gen_api("metadata/value",
+  results_raw <- gen_genesis_api("metadata/value",
     name = code,
     ...
   )
@@ -226,7 +226,7 @@ gen_metadata_tab <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  results_raw <- gen_api("metadata/table",
+  results_raw <- gen_genesis_api("metadata/table",
     name = code,
     ...
   )
@@ -372,7 +372,7 @@ gen_metadata_cube <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  results_raw <- gen_api("metadata/cube",
+  results_raw <- gen_genesis_api("metadata/cube",
     name = code,
     ...
   )

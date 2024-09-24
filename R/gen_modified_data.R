@@ -116,7 +116,7 @@ gen_modified_data <- function(code = "",
 
     if (type == "statisticsUpdates") {
 
-      if (db == "gen_api" | db == "gen_api_regio") {
+      if (db == "gen_genesis_api" | db == "gen_regio_api") {
 
         par_list <- list(endpoint = "catalogue/modifieddata",
                          username = gen_auth_get(database = rev_database_function(db))$username,

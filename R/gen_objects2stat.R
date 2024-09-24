@@ -181,7 +181,7 @@ gen_objects2stat <- function(code = NULL,
 
       return(df_cubes)
 
-    } else if ("cubes" %in% category && (db == "gen_api" || db == "gen_regio_api")) {
+    } else if ("cubes" %in% category && (db == "gen_genesis_api" || db == "gen_regio_api")) {
 
       results_raw <- do.call(db, list(endpoint = "catalogue/cubes2statistic",
                                       username = gen_auth_get(database = rev_database_function(db))$username,

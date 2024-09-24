@@ -49,7 +49,7 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
 
   #-----------------------------------------------------------------------------
 
-  if (gen_fun == "gen_api"){
+  if (gen_fun == "gen_genesis_api"){
 
     par_list <-  list(endpoint = "catalogue/jobs",
                       sortcriterion = sortcriterion,
@@ -169,12 +169,12 @@ gen_download_job <- function(name,
 
   if (database == "genesis") {
 
-    response <- gen_api("data/resultfile",
-                        name = name,
-                        area = area,
-                        compress = compress,
-                        format = "ffcsv",
-                        language = language)
+    response <- gen_genesis_api("data/resultfile",
+                                name = name,
+                                area = area,
+                                compress = compress,
+                                format = "ffcsv",
+                                language = language)
 
     response_type <- resp_check_data(response)
 

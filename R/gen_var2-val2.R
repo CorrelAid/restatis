@@ -71,7 +71,7 @@ gen_var2stat <- function(code = NULL,
                      name = code,
                      ...)
 
-    if (db == "gen_api" | db == "gen_regio_api") {
+    if (db == "gen_genesis_api" | db == "gen_regio_api") {
 
       par_list <- append(par_list, list(area = area))
 
@@ -209,7 +209,7 @@ gen_val2var <- function(code = NULL,
                      name = code,
                      ...)
 
-    if (db == "gen_api" | db == "gen_regio_api") {
+    if (db == "gen_genesis_api" | db == "gen_regio_api") {
 
       par_list <- append(par_list, list(area = area))
 
@@ -456,7 +456,7 @@ gen_search_vars <- function(code = NULL,
                      area = area,
                      ...)
 
-    if (db == "gen_api" | db == "gen_regio_api") {
+    if (db == "gen_genesis_api" | db == "gen_regio_api") {
 
       par_list <- append(par_list, list(area = area))
 
