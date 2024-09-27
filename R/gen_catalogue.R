@@ -36,6 +36,7 @@ gen_catalogue <- function(code = NULL,
                           error.ignore = FALSE,
                           verbose = TRUE,
                           ...) {
+
   caller <- as.character(match.call()[1])
 
   gen_fun <- test_database_function(database,
