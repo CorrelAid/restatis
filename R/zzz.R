@@ -6,7 +6,7 @@
   gen_regio_api <<- memoise::memoise(gen_regio_api)
 
   # Set the default language of the package
-  if (!nzchar(Sys.getenv("RESTATIS_LANG"))) Sys.setenv(GENESIS_LANG = "en")
+  if (!nzchar(Sys.getenv("RESTATIS_LANG"))) Sys.setenv(RESTATIS_LANG = "en")
 
   # Set the default URL for the GENESIS database
   if (!nzchar(Sys.getenv("RESTATIS_GENESIS_URL"))) {
