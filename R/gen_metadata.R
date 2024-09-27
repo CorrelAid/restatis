@@ -62,7 +62,7 @@ gen_metadata_statistic <- function(code = NULL,
                       name = code,
                       ...)
 
-    if (db == "gen_api" | db == "gen_regio_api") {
+    if (db == "gen_genesis_api" | db == "gen_regio_api") {
 
       par_list <- append(par_list, list(area = area))
 
@@ -187,7 +187,7 @@ gen_metadata_variable <- function(code = NULL,
                       name = code,
                       ...)
 
-    if (db == "gen_api" | db == "gen_regio_api") {
+    if (db == "gen_genesis_api" | db == "gen_regio_api") {
 
       par_list <- append(par_list, list(area = area))
 
@@ -320,7 +320,7 @@ gen_metadata_value <- function(code = NULL,
                       name = code,
                       ...)
 
-    if (db == "gen_api" | db == "gen_regio_api") {
+    if (db == "gen_genesis_api" | db == "gen_regio_api") {
 
       par_list <- append(par_list, list(area = area))
 
@@ -865,9 +865,9 @@ gen_metadata <- function(code = NULL,
     } else {
 
       stop("Category is not found, please select a correct category.
-         Available categories for data base GENESIS & Regionalstatistik: 'cube', 'statistic', 'table', 'variable', 'value'.
-         \n Available categories for Zensus data base: 'statistic', 'table', 'variable', 'value'. \n
-         Please choose one of them.", call. = TRUE)
+           Available categories for data base GENESIS & Regionalstatistik: 'cube', 'statistic', 'table', 'variable', 'value'.
+           \n Available categories for Zensus data base: 'statistic', 'table', 'variable', 'value'. \n
+           Please choose one of them.", call. = TRUE)
     }
 
   })
