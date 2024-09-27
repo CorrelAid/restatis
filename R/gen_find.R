@@ -439,7 +439,7 @@ gen_find <- function(term = NULL,
 
       if("cubes" %in% category) {
 
-        if (db == "gen_api" | db == "gen_regio_api") {
+        if (db == "gen_genesis_api" | db == "gen_regio_api") {
 
           if(!is.null(results_json$Cubes)) {
 

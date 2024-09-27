@@ -50,7 +50,9 @@
 #' }
 #'
 gen_table <- function(name, ...) {
+
   gen_table_(name, ...)
+
 }
 
 #-------------------------------------------------------------------------------
@@ -73,7 +75,8 @@ gen_table_ <- function(name,
                        stand = NULL,
                        language = Sys.getenv("GENESIS_LANG"),
                        job = FALSE,
-                       all_character = TRUE) {
+                       all_character = TRUE,
+                       overwrite_url = NULL) {
 
   #-----------------------------------------------------------------------------
   # Parameter processing
@@ -81,6 +84,14 @@ gen_table_ <- function(name,
   if (missing(database)) {
 
     stop("It is mandatory to specifiy the 'database' parameter for 'gen_table()'.",
+         call. = FALSE)
+
+  }
+
+  if (!is.null(overwrite_url) &
+      (!is.character(overwrite_url) | length(overwrite_url) != 1)) {
+
+    stop("The parameter 'overwrite_url' has to be of type 'character' and of length 1.",
          call. = FALSE)
 
   }
@@ -130,31 +141,33 @@ gen_table_ <- function(name,
                                stand = stand,
                                language = language,
                                format = "ffcsv",
-                               job = FALSE)
+                               job = FALSE,
+                               overwrite_url = overwrite_url)
 
   #-----------------------------------------------------------------------------
 
   } else if (database == "genesis"){
 
-    response <- gen_api("data/tablefile",
-                        name = name,
-                        area = area,
-                        compress = compress,
-                        transpose = transpose,
-                        startyear = startyear,
-                        endyear = endyear,
-                        regionalvariable = regionalvariable,
-                        regionalkey = regionalkey,
-                        classifyingvariable1 = classifyingvariable1,
-                        classifyingkey1 = classifyingkey1,
-                        classifyingvariable2 = classifyingvariable2,
-                        classifyingkey2 = classifyingkey2,
-                        classifyingvariable3 = classifyingvariable3,
-                        classifyingkey3 = classifyingkey3,
-                        stand = stand,
-                        language = language,
-                        format = "ffcsv",
-                        job = job)
+    response <- gen_genesis_api("data/tablefile",
+                                name = name,
+                                area = area,
+                                compress = compress,
+                                transpose = transpose,
+                                startyear = startyear,
+                                endyear = endyear,
+                                regionalvariable = regionalvariable,
+                                regionalkey = regionalkey,
+                                classifyingvariable1 = classifyingvariable1,
+                                classifyingkey1 = classifyingkey1,
+                                classifyingvariable2 = classifyingvariable2,
+                                classifyingkey2 = classifyingkey2,
+                                classifyingvariable3 = classifyingvariable3,
+                                classifyingkey3 = classifyingkey3,
+                                stand = stand,
+                                language = language,
+                                format = "ffcsv",
+                                job = job,
+                                overwrite_url = overwrite_url)
 
   #-----------------------------------------------------------------------------
 
@@ -178,7 +191,8 @@ gen_table_ <- function(name,
                               stand = stand,
                               language = language,
                               format = "ffcsv",
-                              job = job)
+                              job = job,
+                              overwrite_url = overwrite_url)
 
   #-----------------------------------------------------------------------------
 

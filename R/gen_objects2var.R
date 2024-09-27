@@ -177,7 +177,7 @@ gen_objects2var <- function(code = NULL,
 
       df_cubes <- "There are generally no 'cubes' objects available for the 'zensus' database."
 
-    } else if ("cubes" %in% category && (db == "gen_api" || db == "gen_regio_api")) {
+    } else if ("cubes" %in% category && (db == "gen_genesis_api" || db == "gen_regio_api")) {
 
       results_raw <- do.call(db, list(endpoint = "catalogue/timeseries2variable",
                                       username = gen_auth_get(database = rev_database_function(db))$username,

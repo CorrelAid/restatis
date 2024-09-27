@@ -509,7 +509,7 @@ check_function_input <- function(code = NULL,
 
     #-------------------------------------------------------------------------------
 
-      if("gen_api" %in% database){
+      if("gen_genesis_api" %in% database){
 
         if (!all(category %in% c("tables", "cubes", "statistics"))) {
 
@@ -589,7 +589,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if("gen_api" %in% database){
+      if("gen_genesis_api" %in% database){
 
         if (!all(category %in% c("tables", "cubes", "variables"))) {
 
@@ -612,7 +612,7 @@ check_function_input <- function(code = NULL,
 
           #---------------------------------------------------------------------
 
-          if("gen_api" %in% database){
+          if("gen_genesis_api" %in% database){
 
             stop("Available categories for parameter 'category' for 'genesis' database are 'all', 'tables', 'statistics', 'variables', and 'cubes'.",
                  call. = FALSE)
@@ -680,7 +680,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if("gen_api" %in% database){
+      if("gen_genesis_api" %in% database){
 
         #-----------------------------------------------------------------------
 
@@ -740,7 +740,7 @@ check_function_input <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if ("gen_api" %in% database){
+    if ("gen_genesis_api" %in% database){
 
       #-------------------------------------------------------------------------
 
@@ -1129,7 +1129,7 @@ test_database_function <- function(input, error.input, text){
 
   if ("genesis" %in% input) {
 
-    res <- c(res, "genesis" = "gen_api")
+    res <- c(res, "genesis" = "gen_genesis_api")
 
   }
 
@@ -1153,7 +1153,7 @@ test_database_function <- function(input, error.input, text){
 
     }
 
-    res <- c("genesis" = "gen_api", "zensus" = "gen_zensus_api", "regio" = "gen_regio_api")
+    res <- c("genesis" = "gen_genesis_api", "zensus" = "gen_zensus_api", "regio" = "gen_regio_api")
 
   } else if (length(res) != length(input)) {
 
@@ -1257,7 +1257,7 @@ test_database_function <- function(input, error.input, text){
 #'
 rev_database_function <- function(input){
 
-  input[which(input == "gen_api")] <- "genesis"
+  input[which(input == "gen_genesis_api")] <- "genesis"
   input[which(input == "gen_zensus_api")] <- "zensus"
   input[which(input == "gen_regio_api")] <- "regio"
 

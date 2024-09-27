@@ -1,8 +1,10 @@
-#' gen_api
+#' gen_genesis_api
 #'
 #' @description Low-level function to interact with the GENESIS API
 #'
 #' @param endpoint Character string. The endpoint of the API that is to be queried.
+#' @param overwrite_url Character string. In certain cases it is required to set a custom URL for the respective API. By specifying the URL in this parameter, the API calls will be directed to this custom URL. But be aware, the URL has to lead to the same database (in this case: GENESIS), else there will be errors. Hence, use with caution.
+#' @param ... Further parameters passed on to the final API call.
 #'
 #' @importFrom httr2 `%>%`
 #'
@@ -10,24 +12,18 @@
 #'
 #' @examples
 #' \dontrun{
-#' gen_api("helloworld/logincheck") %>%
-#'   httr2::resp_body_json()
+#' gen_genesis_api("helloworld/logincheck") %>%
+#'  httr2::resp_body_json()
 #' }
 #'
-# gen_api <- function(endpoint, ...) {
-#
-#   httr2::request("https://www-genesis.destatis.de/genesisWS/rest/2020") %>%
-#     httr2::req_user_agent("https://github.com/CorrelAid/restatis") %>%
-#     httr2::req_url_path_append(endpoint) %>%
-#     httr2::req_url_query(!!!gen_auth_get(database = "genesis"), ...) %>%
-#     httr2::req_retry(max_tries = 3) %>%
-#     httr2::req_perform()
-#
-# }
+gen_genesis_api <- function(endpoint,
+                            overwrite_url,
+                            ...) {
 
-gen_api <- function(endpoint, ...) {
+  url <- ifelse(is.null(overwrite_url),
+                "https://www-genesis.destatis.de/genesisWS/rest/2020",
+                overwrite_url)
 
-  url <- "https://www-genesis.destatis.de/genesisWS/rest/2020"
   user_agent <- "https://github.com/CorrelAid/restatis"
 
   body_parameters <- list(...)
@@ -62,6 +58,8 @@ gen_api <- function(endpoint, ...) {
 #' @description Low-level function to interact with the regionalstatistik.de API
 #'
 #' @param endpoint Character string. The endpoint of the API that is to be queried.
+#' @param overwrite_url Character string. In certain cases it is required to set a custom URL for the respective API. By specifying the URL in this parameter, the API calls will be directed to this custom URL. But be aware, the URL has to lead to the same database (in this case: www.regionalstatistik.de), else there will be errors. Hence, use with caution.
+#' @param ... Further parameters passed on to the final API call.
 #'
 #' @importFrom httr2 `%>%`
 #'
@@ -73,9 +71,15 @@ gen_api <- function(endpoint, ...) {
 #'   httr2::resp_body_json()
 #' }
 #'
-gen_regio_api <- function(endpoint, ...) {
+gen_regio_api <- function(endpoint,
+                          overwrite_url,
+                          ...) {
 
-  httr2::request("https://www.regionalstatistik.de/genesisws/rest/2020/") %>%
+  url <- ifelse(is.null(overwrite),
+                "https://www.regionalstatistik.de/genesisws/rest/2020/",
+                overwrite_url)
+
+  httr2::request(url) %>%
     httr2::req_user_agent("https://github.com/CorrelAid/restatis") %>%
     httr2::req_url_path_append(endpoint) %>%
     httr2::req_url_query(!!!gen_auth_get(database = "regio"), ...) %>%
@@ -91,6 +95,8 @@ gen_regio_api <- function(endpoint, ...) {
 #' @description Low-level function to interact with the Zensus 2022 database
 #'
 #' @param endpoint Character string. The endpoint of the API that is to be queried.
+#' @param overwrite_url Character string. In certain cases it is required to set a custom URL for the respective API. By specifying the URL in this parameter, the API calls will be directed to this custom URL. But be aware, the URL has to lead to the same database (in this case: Zensus 2022), else there will be errors. Hence, use with caution.
+#' @param ... Further parameters passed on to the final API call.
 #'
 #' @importFrom httr2 `%>%`
 #'
@@ -102,12 +108,36 @@ gen_regio_api <- function(endpoint, ...) {
 #'   httr2::resp_body_json()
 #' }
 #'
-gen_zensus_api <- function(endpoint, ...) {
+gen_zensus_api <- function(endpoint,
+                           overwrite_url,
+                           ...) {
 
-  httr2::request("https://ergebnisse.zensus2022.de/api/rest/2020") %>%
-    httr2::req_user_agent("https://github.com/CorrelAid/restatis") %>%
+  url <- ifelse(is.null(overwrite_url),
+                "https://ergebnisse.zensus2022.de/api/rest/2020",
+                overwrite_url)
+
+  user_agent <- "https://github.com/CorrelAid/restatis"
+
+  body_parameters <- list(...)
+
+  if (length(body_parameters) > 0) {
+
+    req <- httr2::request(url) %>%
+      httr2::req_body_form(!!!body_parameters)
+
+  } else {
+
+    req <- httr2::request(url) %>%
+      httr2::req_body_form(!!!list("foo" = "bar"))
+
+  }
+
+  req %>%
+    httr2::req_user_agent(user_agent) %>%
     httr2::req_url_path_append(endpoint) %>%
-    httr2::req_url_query(!!!gen_auth_get(database = "zensus"), ...) %>%
+    httr2::req_headers("Content-Type" = "application/x-www-form-urlencoded",
+                       "username" = gen_auth_get(database = "zensus")$username,
+                       "password" = gen_auth_get(database = "zensus")$password) %>%
     httr2::req_retry(max_tries = 3) %>%
     httr2::req_perform()
 

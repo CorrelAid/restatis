@@ -76,7 +76,7 @@ gen_catalogue <- function(code = NULL,
 
       list_of_cubes <- "There are generally no 'cubes' objects available for the 'zensus' database."
 
-    } else if ("cubes" %in% category && (db == "gen_api" | db == "gen_regio_api")) {
+    } else if ("cubes" %in% category && (db == "gen_genesis_api" | db == "gen_regio_api")) {
 
       results_raw <- do.call(db,
                              list(endpoint = "catalogue/cubes",
