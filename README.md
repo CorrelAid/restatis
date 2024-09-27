@@ -1,8 +1,7 @@
 
+# restatis <img src="man/figures/hexsticker_restatis.png" width="160px" align="right" />
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# restatis
-
 <!-- badges: start -->
 
 [![CRAN

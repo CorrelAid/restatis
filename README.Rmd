@@ -2,6 +2,8 @@
 output: github_document
 ---
 
+# restatis <img src="man/figures/hexsticker_restatis.png" width="160px" align="right" />
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
@@ -12,8 +14,6 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-
-# restatis
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/restatis)](https://CRAN.R-project.org/package=restatis)
