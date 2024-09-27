@@ -62,7 +62,7 @@ gen_metadata_statistic <- function(code = NULL,
                       name = code,
                       ...)
 
-    if (db == "gen_genesis_api" | db == "gen_regio_api") {
+    if (db == "gen_api" | db == "gen_regio_api") {
 
       par_list <- append(par_list, list(area = area))
 
@@ -88,14 +88,14 @@ gen_metadata_statistic <- function(code = NULL,
 
       if (isFALSE(raw)) {
 
-      df_stats <-cbind("Code" = results_json$Object$Code,
-                       "Content" = results_json$Object$Content,
-                       "Cubes" = results_json$Object$Cubes,
-                       "Variables" = results_json$Object$Variables,
-                       "Information" = results_json$Object$Information,
-                       "Time_from" = results_json$Object$Frequency[[1]]$From,
-                       "Time_to" = results_json$Object$Frequency[[1]]$To,
-                       "Time_type" = results_json$Object$Frequency[[1]]$Type)
+        df_stats <-cbind("Code" = results_json$Object$Code,
+                         "Content" = results_json$Object$Content,
+                         "Cubes" = results_json$Object$Cubes,
+                         "Variables" = results_json$Object$Variables,
+                         "Information" = results_json$Object$Information,
+                         "Time_from" = results_json$Object$Frequency[[1]]$From,
+                         "Time_to" = results_json$Object$Frequency[[1]]$To,
+                         "Time_type" = results_json$Object$Frequency[[1]]$Type)
       } else {
 
         df_stats <- results_json$Object
@@ -187,7 +187,7 @@ gen_metadata_variable <- function(code = NULL,
                       name = code,
                       ...)
 
-    if (db == "gen_genesis_api" | db == "gen_regio_api") {
+    if (db == "gen_api" | db == "gen_regio_api") {
 
       par_list <- append(par_list, list(area = area))
 
@@ -213,12 +213,12 @@ gen_metadata_variable <- function(code = NULL,
 
       if (isFALSE(raw)) {
 
-      df_var <-cbind("Code" = results_json$Object$Code,
-                  "Content" = results_json$Object$Content,
-                  "Values" = results_json$Object$Values,
-                  "Type" = results_json$Object$Type,
-                  "Validity_from" = results_json$Object$Validity$From,
-                  "Validity_to" = results_json$Object$Validity$To)
+        df_var <-cbind("Code" = results_json$Object$Code,
+                       "Content" = results_json$Object$Content,
+                       "Values" = results_json$Object$Values,
+                       "Type" = results_json$Object$Type,
+                       "Validity_from" = results_json$Object$Validity$From,
+                       "Validity_to" = results_json$Object$Validity$To)
 
       }
 
@@ -320,7 +320,7 @@ gen_metadata_value <- function(code = NULL,
                       name = code,
                       ...)
 
-    if (db == "gen_genesis_api" | db == "gen_regio_api") {
+    if (db == "gen_api" | db == "gen_regio_api") {
 
       par_list <- append(par_list, list(area = area))
 
@@ -346,9 +346,9 @@ gen_metadata_value <- function(code = NULL,
 
       if (isFALSE(raw)) {
 
-      df_value <-cbind("Code" = results_json$Object$Code,
-                       "Content" = results_json$Object$Content,
-                       "Variables" = results_json$Object$Variables)
+        df_value <-cbind("Code" = results_json$Object$Code,
+                         "Content" = results_json$Object$Content,
+                         "Variables" = results_json$Object$Variables)
 
       }
 
@@ -474,86 +474,86 @@ gen_metadata_table <- function(code = NULL,
 
       if (isFALSE(raw)) {
 
-      char <- cbind("Code" = results_json$Object$Code,
-                    "Content" = results_json$Object$Content,
-                    "Time_From" = results_json$Object$Time$From,
-                    "Time_To" = results_json$Object$Time$To,
-                    "Valid" = results_json$Object$Valid)
+        char <- cbind("Code" = results_json$Object$Code,
+                      "Content" = results_json$Object$Content,
+                      "Time_From" = results_json$Object$Time$From,
+                      "Time_To" = results_json$Object$Time$To,
+                      "Valid" = results_json$Object$Valid)
 
-      embedded <- cbind("Code" = results_json$Object$Structure$Head$Code,
-                        "Content" = results_json$Object$Structure$Head$Content,
-                        "Type" = results_json$Object$Structure$Head$Type,
-                        "Values" = results_json$Object$Structure$Head$Values,
-                        "Selection" = results_json$Object$Structure$Head$Selected,
-                        "Updated" = results_json$Object$Structure$Head$Updated)
+        embedded <- cbind("Code" = results_json$Object$Structure$Head$Code,
+                          "Content" = results_json$Object$Structure$Head$Content,
+                          "Type" = results_json$Object$Structure$Head$Type,
+                          "Values" = results_json$Object$Structure$Head$Values,
+                          "Selection" = results_json$Object$Structure$Head$Selected,
+                          "Updated" = results_json$Object$Structure$Head$Updated)
 
-      structure <- list()
+        structure <- list()
 
-      structure$Head <- if (length(results_json$Object$Structure$Head$Structure) == 1) {
+        structure$Head <- if (length(results_json$Object$Structure$Head$Structure) == 1) {
 
-        cbind("Code" = results_json$Object$Structure$Head$Structure[[1]]$Code,
-              "Content" = results_json$Object$Structure$Head$Structure[[1]]$Content,
-              "Type" = results_json$Object$Structure$Head$Structure[[1]]$Type,
-              "Values" = results_json$Object$Structure$Head$Structure[[1]]$Values,
-              "Selected" = results_json$Object$Structure$Head$Structure[[1]]$Selected,
-              "Structure" = results_json$Object$Structure$Head$Structure[[1]]$Structure,
-              "Updated" = results_json$Object$Structure$Head$Structure[[1]]$Updated)
+          cbind("Code" = results_json$Object$Structure$Head$Structure[[1]]$Code,
+                "Content" = results_json$Object$Structure$Head$Structure[[1]]$Content,
+                "Type" = results_json$Object$Structure$Head$Structure[[1]]$Type,
+                "Values" = results_json$Object$Structure$Head$Structure[[1]]$Values,
+                "Selected" = results_json$Object$Structure$Head$Structure[[1]]$Selected,
+                "Structure" = results_json$Object$Structure$Head$Structure[[1]]$Structure,
+                "Updated" = results_json$Object$Structure$Head$Structure[[1]]$Updated)
 
-      } else {
+        } else {
 
-       cbind("Code" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 1)),
-             "Content" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 2)),
-             "Type" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 3)),
-             "Values" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 4)),
-             "Selected" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 5)),
-             "Structure" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 6)),
-             "Updated" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 7)))
+          cbind("Code" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 1)),
+                "Content" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 2)),
+                "Type" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 3)),
+                "Values" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 4)),
+                "Selected" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 5)),
+                "Structure" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 6)),
+                "Updated" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 7)))
+
+        }
+
+        structure$Columns <- if (length(results_json$Object$Structure$Columns) == 1) {
+
+          cbind("Code" = results_json$Object$Structure$Columns[[1]]$Code,
+                "Content" = results_json$Object$Structure$Columns[[1]]$Content,
+                "Type" = results_json$Object$Structure$Columns[[1]]$Type,
+                "Unit" = results_json$Object$Structure$Columns[[1]]$Unit,
+                "Values" = results_json$Object$Structure$Columns[[1]]$Values,
+                "Updated" = results_json$Object$Structure$Columns[[1]]$Updated)
+
+        } else {
+
+          cbind("Code" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 1)),
+                "Content" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 2)),
+                "Type" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 3)),
+                "Unit" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 4)),
+                "Values" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 5)),
+                "Updated" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 6)))
+
+        }
+
+        structure$Rows <- if (length(results_json$Object$Structure$Rows) == 1) {
+
+          cbind("Code" = results_json$Object$Structure$Rows[[1]]$Code,
+                "Content" = results_json$Object$Structure$Rows[[1]]$Content,
+                "Type" = results_json$Object$Structure$Rows[[1]]$Type,
+                "Unit" = results_json$Object$Structure$Rows[[1]]$Unit,
+                "Values" = results_json$Object$Structure$Rows[[1]]$Values,
+                "Updated" = results_json$Object$Structure$Rows[[1]]$Updated)
+
+        } else {
+
+          cbind("Code" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 1)),
+                "Content" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 2)),
+                "Type" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 3)),
+                "Unit" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 4)),
+                "Values" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 5)),
+                "Updated" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 6)))
+
+        }
 
       }
 
-      structure$Columns <- if (length(results_json$Object$Structure$Columns) == 1) {
-
-       cbind("Code" = results_json$Object$Structure$Columns[[1]]$Code,
-             "Content" = results_json$Object$Structure$Columns[[1]]$Content,
-             "Type" = results_json$Object$Structure$Columns[[1]]$Type,
-             "Unit" = results_json$Object$Structure$Columns[[1]]$Unit,
-             "Values" = results_json$Object$Structure$Columns[[1]]$Values,
-             "Updated" = results_json$Object$Structure$Columns[[1]]$Updated)
-
-      } else {
-
-       cbind("Code" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 1)),
-             "Content" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 2)),
-             "Type" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 3)),
-             "Unit" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 4)),
-             "Values" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 5)),
-             "Updated" = unlist(lapply(results_json$Object$Structure$Columns, `[[`, 6)))
-
-      }
-
-      structure$Rows <- if (length(results_json$Object$Structure$Rows) == 1) {
-
-       cbind("Code" = results_json$Object$Structure$Rows[[1]]$Code,
-             "Content" = results_json$Object$Structure$Rows[[1]]$Content,
-             "Type" = results_json$Object$Structure$Rows[[1]]$Type,
-             "Unit" = results_json$Object$Structure$Rows[[1]]$Unit,
-             "Values" = results_json$Object$Structure$Rows[[1]]$Values,
-             "Updated" = results_json$Object$Structure$Rows[[1]]$Updated)
-
-      } else {
-
-       cbind("Code" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 1)),
-             "Content" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 2)),
-             "Type" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 3)),
-             "Unit" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 4)),
-             "Values" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 5)),
-             "Updated" = unlist(lapply(results_json$Object$Structure$Rows, `[[`, 6)))
-
-      }
-
-    }
-
-  } # End of empty_object == "DONE"
+    } # End of empty_object == "DONE"
 
     if (isFALSE(raw)) {
 
@@ -680,54 +680,54 @@ gen_metadata_cube <- function(code = NULL,
 
       if (isFALSE(raw)) {
 
-      char <-cbind("Code" = results_json$Object$Code,
-                   "Content" = results_json$Object$Content,
-                   "State" = results_json$Object$State,
-                   "Values" = results_json$Object$Values)
+        char <-cbind("Code" = results_json$Object$Code,
+                     "Content" = results_json$Object$Content,
+                     "State" = results_json$Object$State,
+                     "Values" = results_json$Object$Values)
 
-      time <-cbind(unlist(results_json$Object$Timeslices))
+        time <-cbind(unlist(results_json$Object$Timeslices))
 
-      stat <-cbind("Code" = results_json$Object$Statistic$Code,
-                   "Content" = results_json$Object$Statistic$Content,
-                   "Updated" = results_json$Object$Statistic$Updated)
+        stat <-cbind("Code" = results_json$Object$Statistic$Code,
+                     "Content" = results_json$Object$Statistic$Content,
+                     "Updated" = results_json$Object$Statistic$Updated)
 
-      structure <- list()
+        structure <- list()
 
-      structure$Axis <- if (length(results_json$Object$Structure$Axis) == 1) {
+        structure$Axis <- if (length(results_json$Object$Structure$Axis) == 1) {
 
-       cbind("Code" = results_json$Object$Structure$Axis[[1]]$Code,
-             "Content" = results_json$Object$Structure$Axis[[1]]$Content,
-             "Type" = results_json$Object$Structure$Axis[[1]]$Type,
-             "Updated" = results_json$Object$Structure$Axis[[1]]$Updated)
+          cbind("Code" = results_json$Object$Structure$Axis[[1]]$Code,
+                "Content" = results_json$Object$Structure$Axis[[1]]$Content,
+                "Type" = results_json$Object$Structure$Axis[[1]]$Type,
+                "Updated" = results_json$Object$Structure$Axis[[1]]$Updated)
 
-      } else {
+        } else {
 
-       cbind("Code" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 1)),
-             "Content" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 2)),
-             "Type" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 3)),
-             "Updated" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 4)))
-      }
+          cbind("Code" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 1)),
+                "Content" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 2)),
+                "Type" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 3)),
+                "Updated" = unlist(lapply(results_json$Object$Structure$Axis, `[[`, 4)))
+        }
 
-      structure$Content <- if (length(results_json$Object$Structure$Contents) == 1) {
+        structure$Content <- if (length(results_json$Object$Structure$Contents) == 1) {
 
-       cbind("Code" = results_json$Object$Structure$Contents[[1]]$Code,
-             "Content" = results_json$Object$Structure$Contents[[1]]$Content,
-             "Type" = results_json$Object$Structure$Contents[[1]]$Type,
-             "Unit" = results_json$Object$Structure$Contents[[1]]$Unit,
-             "Values" = results_json$Object$Structure$Contents[[1]]$Values,
-             "Updated" = results_json$Object$Structure$Contents[[1]]$Updated,
-             "Timeslices" = results_json$Object$Structure$Contents[[1]]$Timeslices)
+          cbind("Code" = results_json$Object$Structure$Contents[[1]]$Code,
+                "Content" = results_json$Object$Structure$Contents[[1]]$Content,
+                "Type" = results_json$Object$Structure$Contents[[1]]$Type,
+                "Unit" = results_json$Object$Structure$Contents[[1]]$Unit,
+                "Values" = results_json$Object$Structure$Contents[[1]]$Values,
+                "Updated" = results_json$Object$Structure$Contents[[1]]$Updated,
+                "Timeslices" = results_json$Object$Structure$Contents[[1]]$Timeslices)
 
-      } else {
+        } else {
 
-       cbind("Code" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 1)),
-             "Content" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 2)),
-             "Type" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 3)),
-             "Unit" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 4)),
-             "Values" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 5)),
-             "Updated" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 7)),
-             "Timeslices" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 6)))
-      }
+          cbind("Code" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 1)),
+                "Content" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 2)),
+                "Type" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 3)),
+                "Unit" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 4)),
+                "Values" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 5)),
+                "Updated" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 7)),
+                "Timeslices" = unlist(lapply(results_json$Object$Structure$Contents, `[[`, 6)))
+        }
       }
     }
 
