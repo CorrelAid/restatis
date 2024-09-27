@@ -3,7 +3,6 @@
 #' @description Low-level function to interact with the GENESIS API
 #'
 #' @param endpoint Character string. The endpoint of the API that is to be queried.
-#' @param overwrite_url Character string. In certain cases it is required to set a custom URL for the respective API. By specifying the URL in this parameter, the API calls will be directed to this custom URL. But be aware, the URL has to lead to the same database (in this case: GENESIS), else there will be errors. Hence, use with caution.
 #' @param ... Further parameters passed on to the final API call.
 #'
 #' @importFrom httr2 `%>%`
@@ -17,7 +16,6 @@
 #' }
 #'
 gen_genesis_api <- function(endpoint,
-                            overwrite_url,
                             ...) {
 
   url <- "https://www-genesis.destatis.de/genesisWS/rest/2020"
@@ -56,7 +54,6 @@ gen_genesis_api <- function(endpoint,
 #' @description Low-level function to interact with the regionalstatistik.de API
 #'
 #' @param endpoint Character string. The endpoint of the API that is to be queried.
-#' @param overwrite_url Character string. In certain cases it is required to set a custom URL for the respective API. By specifying the URL in this parameter, the API calls will be directed to this custom URL. But be aware, the URL has to lead to the same database (in this case: www.regionalstatistik.de), else there will be errors. Hence, use with caution.
 #' @param ... Further parameters passed on to the final API call.
 #'
 #' @importFrom httr2 `%>%`
@@ -70,7 +67,6 @@ gen_genesis_api <- function(endpoint,
 #' }
 #'
 gen_regio_api <- function(endpoint,
-                          overwrite_url,
                           ...) {
 
   url <- "https://www.regionalstatistik.de/genesisws/rest/2020/"
@@ -91,7 +87,6 @@ gen_regio_api <- function(endpoint,
 #' @description Low-level function to interact with the Zensus 2022 database
 #'
 #' @param endpoint Character string. The endpoint of the API that is to be queried.
-#' @param overwrite_url Character string. In certain cases it is required to set a custom URL for the respective API. By specifying the URL in this parameter, the API calls will be directed to this custom URL. But be aware, the URL has to lead to the same database (in this case: Zensus 2022), else there will be errors. Hence, use with caution.
 #' @param ... Further parameters passed on to the final API call.
 #'
 #' @importFrom httr2 `%>%`
@@ -105,7 +100,6 @@ gen_regio_api <- function(endpoint,
 #' }
 #'
 gen_zensus_api <- function(endpoint,
-                           overwrite_url,
                            ...) {
 
   url <- "https://ergebnisse.zensus2022.de/api/rest/2020"
