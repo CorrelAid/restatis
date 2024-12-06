@@ -73,7 +73,7 @@ gen_table_ <- function(name,
                        classifyingvariable3 = NULL,
                        classifyingkey3 = NULL,
                        stand = NULL,
-                       language = Sys.getenv("GENESIS_LANG"),
+                       language = Sys.getenv("RESTATIS_LANG"),
                        job = FALSE,
                        all_character = TRUE) {
 

@@ -133,7 +133,7 @@ gen_download_job <- function(name,
                              database = c("genesis", "regio"),
                              area = c("all", "public", "user"),
                              compress = FALSE,
-                             language = Sys.getenv("GENESIS_LANG"),
+                             language = Sys.getenv("RESTATIS_LANG"),
                              all_character = TRUE) {
 
   #-----------------------------------------------------------------------------
