@@ -39,6 +39,7 @@ gen_find <- function(term = NULL,
                      error.ignore = TRUE,
                      verbose = TRUE,
                      ...) {
+
   caller <- as.character(match.call()[1])
 
   gen_fun <- test_database_function(database,

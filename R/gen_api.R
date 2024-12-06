@@ -18,7 +18,7 @@
 gen_genesis_api <- function(endpoint,
                             ...) {
 
-  url <- "https://www-genesis.destatis.de/genesisWS/rest/2020"
+  url <- Sys.getenv("RESTATIS_GENESIS_URL")
 
   user_agent <- "https://github.com/CorrelAid/restatis"
 
@@ -69,7 +69,7 @@ gen_genesis_api <- function(endpoint,
 gen_regio_api <- function(endpoint,
                           ...) {
 
-  url <- "https://www.regionalstatistik.de/genesisws/rest/2020/"
+  url <- Sys.getenv("RESTATIS_REGIO_URL")
 
   httr2::request(url) %>%
     httr2::req_user_agent("https://github.com/CorrelAid/restatis") %>%
@@ -102,7 +102,7 @@ gen_regio_api <- function(endpoint,
 gen_zensus_api <- function(endpoint,
                            ...) {
 
-  url <- "https://ergebnisse.zensus2022.de/api/rest/2020"
+  url <- Sys.getenv("RESTATIS_ZENSUS_URL")
 
   user_agent <- "https://github.com/CorrelAid/restatis"
 

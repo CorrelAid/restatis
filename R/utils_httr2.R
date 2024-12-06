@@ -223,12 +223,12 @@ resp_check_data <- function(resp) {
 
   if (!(httr2::resp_content_type(resp) %in% c("application/zip", "text/csv", "application/json"))) {
 
-    stop("Encountered an invalid response type.",
+    stop(paste0("Encountered an invalid response type (", httr2::resp_content_type(resp), ")."),
          call. = FALSE)
 
   }
 
-  return <- httr2::resp_content_type(resp)
+  return(httr2::resp_content_type(resp))
 
 }
 
