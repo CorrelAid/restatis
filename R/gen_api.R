@@ -67,7 +67,6 @@ gen_genesis_api <- function(endpoint,
 #' }
 #'
 gen_regio_api <- function(endpoint,
-                          overwrite_url,
                           ...) {
 
   url <- Sys.getenv("RESTATIS_REGIO_URL")
