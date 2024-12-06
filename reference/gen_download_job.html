@@ -34,7 +34,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>gen_download_job</h1>
-      <small class="dont-index">Source: <a href="https://github.com/CorrelAid/restatis/blob/main/R/gen_jobs.R" class="external-link"><code>R/gen_jobs.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/CorrelAid/restatis/blob/dev/R/gen_jobs.R" class="external-link"><code>R/gen_jobs.R</code></a></small>
       <div class="d-none name"><code>gen_download_job.Rd</code></div>
     </div>
 
@@ -49,7 +49,7 @@
 <span>  database <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"genesis"</span>, <span class="st">"regio"</span><span class="op">)</span>,</span>
 <span>  area <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"public"</span>, <span class="st">"user"</span><span class="op">)</span>,</span>
 <span>  compress <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GENESIS_LANG"</span><span class="op">)</span>,</span>
+<span>  language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"RESTATIS_LANG"</span><span class="op">)</span>,</span>
 <span>  all_character <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -75,7 +75,7 @@
 
 
 <dt id="arg-language">language<a class="anchor" aria-label="anchor" href="#arg-language"></a></dt>
-<dd><p>Character string. Defines if the decimal mark and grouping mark of integers should be represented based on the European (e.g.: '100,5', '200.000,5') or American ('100.5', '200,000.5') system. Defaults to 'Sys.getenv("GENESIS_LANG")'.</p></dd>
+<dd><p>Character string. Defines if the decimal mark and grouping mark of integers should be represented based on the European (e.g.: '100,5', '200.000,5') or American ('100.5', '200,000.5') system. Defaults to 'Sys.getenv("RESTATIS_LANG")'.</p></dd>
 
 
 <dt id="arg-all-character">all_character<a class="anchor" aria-label="anchor" href="#arg-all-character"></a></dt>
