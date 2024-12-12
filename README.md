@@ -11,10 +11,11 @@ status](https://www.r-pkg.org/badges/version/restatis)](https://CRAN.R-project.o
 coverage](https://codecov.io/gh/CorrelAid/restatis/branch/main/graph/badge.svg)](https://app.codecov.io/gh/CorrelAid/restatis?branch=main)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 <!-- badges: end -->
 
-restatis is a wrapper around the RESTful API that provides access to the
-three main databases of German official statistics:
+**restatis** is a wrapper around the RESTful API that provides access to
+the three main databases of German official statistics:
 
 - The [**GENESIS database** of the Federal Statistical Office of Germany
   (Destatis)](https://www-genesis.destatis.de/genesis/online).
@@ -85,8 +86,8 @@ searching for (meta)data and retrieving data:
 #### Other functions
 
 - **gen_logincheck()**: Perform a logincheck to test your credentials
-- **gen_qualitysigns()**: Get a list of quality signs (special
-  characters) found in the API’s tables
+- **gen_signs()**: Get a list of quality signs (special characters)
+  found in the API’s tables
 - **gen_update_evas()**: Manually scrape a newer version of the EVAS
   numbers (official statistic IDs)
 
