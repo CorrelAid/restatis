@@ -4,10 +4,12 @@
 \alias{insert_and_save_credentials}
 \title{insert_and_save_credentials}
 \usage{
-insert_and_save_credentials(database)
+insert_and_save_credentials(database, use_token)
 }
 \arguments{
 \item{database}{The database to specify credentials for}
+
+\item{use_token}{Boolean. Do you want to (if possible) set an API token instead of password + username? Defaults to FALSE.}
 }
 \description{
 insert_and_save_credentials

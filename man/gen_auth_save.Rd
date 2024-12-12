@@ -4,10 +4,15 @@
 \alias{gen_auth_save}
 \title{gen_auth_save}
 \usage{
-gen_auth_save(database = c("all", "genesis", "zensus", "regio"))
+gen_auth_save(
+  database = c("all", "genesis", "zensus", "regio"),
+  use_token = FALSE
+)
 }
 \arguments{
 \item{database}{Character string. The database to store credentials for ('all', 'genesis', 'zensus' or 'regio').}
+
+\item{use_token}{Boolean. Do you want to (if possible) set an API token instead of password + username? Note: This is not supported by regionalstatistik.de. Defaults to FALSE.}
 }
 \value{
 Path to the RDS file in which credentials are saved, invisibly.
