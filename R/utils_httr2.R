@@ -438,9 +438,8 @@ logincheck_http_error <- function(database,
 
     #---------------------------------------------------------------------------
 
-    if (database == "genesis") response <- gen_genesis_api("helloworld/logincheck")
-    if (database == "zensus") response <- gen_zensus_api("helloworld/logincheck")
-    if (database == "regio") response <- gen_regio_api("helloworld/logincheck")
+    response <- gen_api(endpoint = "helloworld/logincheck",
+                        database = database)
 
     logincheck_stop_or_warn(response = response,
                             error = TRUE,
@@ -453,9 +452,9 @@ logincheck_http_error <- function(database,
 
     databases <- list("genesis", "zensus", "regio")
 
-    response_list <- list(response_genesis = gen_genesis_api("helloworld/logincheck"),
-                          response_zensus = gen_zensus_api("helloworld/logincheck"),
-                          response_regio = gen_regio_api("helloworld/logincheck"))
+    response_list <- list(response_genesis = gen_api(endpoint = "helloworld/logincheck", database = "genesis"),
+                          response_zensus = gen_api(endpoint = "helloworld/logincheck", database = "zensus"),
+                          response_regio = gen_api(endpoint = "helloworld/logincheck", database = "regio"))
 
     purrr::walk2(.x = response_list,
                  .y = databases,
@@ -479,7 +478,7 @@ logincheck_http_error <- function(database,
 
     if ("genesis" %in% database) {
 
-      logincheck_stop_or_warn(response = gen_genesis_api("helloworld/logincheck"),
+      logincheck_stop_or_warn(response = gen_api(endpoint = "helloworld/logincheck", database = "genesis"),
                               error = FALSE,
                               verbose = verbose,
                               database = "genesis")
@@ -490,7 +489,7 @@ logincheck_http_error <- function(database,
 
     if ("zensus" %in% database) {
 
-      logincheck_stop_or_warn(response = gen_zensus_api("helloworld/logincheck"),
+      logincheck_stop_or_warn(response = gen_api(endpoint = "helloworld/logincheck", database = "zensus"),
                               error = FALSE,
                               verbose = verbose,
                               database = "zensus")
@@ -501,7 +500,7 @@ logincheck_http_error <- function(database,
 
     if ("regio" %in% database) {
 
-      logincheck_stop_or_warn(response = gen_regio_api("helloworld/logincheck"),
+      logincheck_stop_or_warn(response = gen_api(endpoint = "helloworld/logincheck", database = "regio"),
                               error = FALSE,
                               verbose = verbose,
                               database = "regio")

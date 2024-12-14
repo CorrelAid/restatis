@@ -289,6 +289,7 @@ check_function_input <- function(code = NULL,
                                  similarity = NULL,
                                  error.ignore = NULL,
                                  ordering = NULL,
+                                 pagelength = NULL,
                                  database = NULL,
                                  area = NULL,
                                  caller = NULL,
@@ -313,6 +314,16 @@ check_function_input <- function(code = NULL,
       }
 
     }
+
+  }
+
+  #-------------------------------------------------------------------------------
+  # Pagelength
+
+  if (!is.null(pagelength) && (!(pagelength %in% c(1:25000)) || length(pagelength) != 1)) {
+
+    stop("Parameter 'pagelength' must have a value between 1 and 25,000 and a length of 1.",
+         call. = FALSE)
 
   }
 
@@ -1098,7 +1109,7 @@ titel_search <- function(x, term, text) {
 #'
 test_database_function <- function(input, error.input, text){
 
-    #-------------------------------------------------------------------------
+  #-----------------------------------------------------------------------------
 
   if (!is.logical(text) || length(text) != 1) {
 
@@ -1106,6 +1117,8 @@ test_database_function <- function(input, error.input, text){
            call. = FALSE)
 
   }
+
+  #-----------------------------------------------------------------------------
 
   if (!is.logical(error.input) || length(error.input) != 1) {
 
@@ -1129,31 +1142,35 @@ test_database_function <- function(input, error.input, text){
 
   if ("genesis" %in% input) {
 
-    res <- c(res, "genesis" = "gen_genesis_api")
+    res <- c(res, "genesis")
 
   }
 
   if ("zensus" %in% input) {
 
-    res <- c(res, "zensus" = "gen_zensus_api")
+    res <- c(res, "zensus")
 
   }
 
   if ("regio" %in% input) {
 
-    res <- c(res, "regio" = "gen_regio_api")
+    res <- c(res, "regio")
 
   }
+
+  #-----------------------------------------------------------------------------
 
   if ("all" %in% input) {
 
     if (isTRUE(text)) {
 
-      message("All databases accessible to you are selected. Additional databases specified in the 'database'-parameter are ignored.")
+      message("All databases accessible to you are selected. Additional databases specified in the 'database' parameter are ignored.")
 
     }
 
-    res <- c("genesis" = "gen_genesis_api", "zensus" = "gen_zensus_api", "regio" = "gen_regio_api")
+    res <- c("genesis",
+             "zensus",
+             "regio")
 
   } else if (length(res) != length(input)) {
 
@@ -1176,13 +1193,13 @@ test_database_function <- function(input, error.input, text){
 
   #-----------------------------------------------------------------------------
 
-  check <- sapply(res, function(y) {
+  # Check if credentials are available for the selected databases
 
-    nam <- rev_database_function(y)
+  check <- sapply(res, function(y) {
 
     result <- tryCatch({
 
-        user <- gen_auth_get(nam)$username
+        user <- gen_auth_get(y)$username
 
       }, error = function(e) {
 
@@ -1239,7 +1256,7 @@ test_database_function <- function(input, error.input, text){
 
   if (identical(res, c())) {
 
-    stop("You have to correctly specifiy a 'database' parameter. Please refer to the documentation for further information.",
+    stop("You have to correctly specify a 'database' parameter. Please refer to the documentation for further information.",
          call. = FALSE)
 
   } else {
@@ -1247,21 +1264,6 @@ test_database_function <- function(input, error.input, text){
     return(res)
 
   }
-
-}
-
-#-------------------------------------------------------------------------------
-#' rev_database_function
-#'
-#' @param input Input to test for database name
-#'
-rev_database_function <- function(input){
-
-  input[which(input == "gen_genesis_api")] <- "genesis"
-  input[which(input == "gen_zensus_api")] <- "zensus"
-  input[which(input == "gen_regio_api")] <- "regio"
-
-  return(input)
 
 }
 

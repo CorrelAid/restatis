@@ -49,24 +49,9 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
 
   #-----------------------------------------------------------------------------
 
-  if (gen_fun == "gen_genesis_api"){
-
-    par_list <-  list(endpoint = "catalogue/jobs",
-                      sortcriterion = sortcriterion,
-                      ...)
-
-  } else if (gen_fun == "gen_regio_api") {
-
-    par_list <-  list(endpoint = "catalogue/jobs",
-                      sortcriterion = sortcriterion,
-                      ...)
-
-  } else {
-
-    stop("Misspecification of the parameter 'database': Only 'genesis' and 'regio' allowed.",
-         call. = FALSE)
-
-  }
+  par_list <-  list(endpoint = "catalogue/jobs",
+                    sortcriterion = sortcriterion,
+                    ...)
 
   results_raw <- do.call(gen_fun, par_list)
 
@@ -167,34 +152,15 @@ gen_download_job <- function(name,
 
   #-----------------------------------------------------------------------------
 
-  if (database == "genesis") {
+  response <- gen_api(endpoint = "data/resultfile",
+                      database = database,
+                      name = name,
+                      area = area,
+                      compress = compress,
+                      format = "ffcsv",
+                      language = language)
 
-    response <- gen_genesis_api("data/resultfile",
-                                name = name,
-                                area = area,
-                                compress = compress,
-                                format = "ffcsv",
-                                language = language)
-
-    response_type <- resp_check_data(response)
-
-  } else if (database == "regio"){
-
-    response <- gen_regio_api("data/resultfile",
-                              name = name,
-                              area = area,
-                              compress = compress,
-                              format = "ffcsv",
-                              language = language)
-
-    response_type <- resp_check_data(response)
-
-  } else {
-
-    stop("Misspecification of parameter 'database': Can only be 'genesis' or 'regio'.",
-         call. = FALSE)
-
-  }
+  response_type <- resp_check_data(response)
 
   #-----------------------------------------------------------------------------
 

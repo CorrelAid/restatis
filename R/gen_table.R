@@ -112,84 +112,26 @@ gen_table_ <- function(name,
   #-----------------------------------------------------------------------------
   # Data download
 
-  if (database == "zensus"){
-
-    response <- gen_zensus_api("data/tablefile",
-                               name = name,
-                               area = area,
-                               compress = compress,
-                               transpose = transpose,
-                               startyear = startyear,
-                               endyear = endyear,
-                               regionalvariable = regionalvariable,
-                               regionalkey = regionalkey,
-                               classifyingvariable1 = classifyingvariable1,
-                               classifyingkey1 = classifyingkey1,
-                               classifyingvariable2 = classifyingvariable2,
-                               classifyingkey2 = classifyingkey2,
-                               classifyingvariable3 = classifyingvariable3,
-                               classifyingkey3 = classifyingkey3,
-                               stand = stand,
-                               language = language,
-                               format = "ffcsv",
-                               job = FALSE)
-
-  #-----------------------------------------------------------------------------
-
-  } else if (database == "genesis"){
-
-    response <- gen_genesis_api("data/tablefile",
-                                name = name,
-                                area = area,
-                                compress = compress,
-                                transpose = transpose,
-                                startyear = startyear,
-                                endyear = endyear,
-                                regionalvariable = regionalvariable,
-                                regionalkey = regionalkey,
-                                classifyingvariable1 = classifyingvariable1,
-                                classifyingkey1 = classifyingkey1,
-                                classifyingvariable2 = classifyingvariable2,
-                                classifyingkey2 = classifyingkey2,
-                                classifyingvariable3 = classifyingvariable3,
-                                classifyingkey3 = classifyingkey3,
-                                stand = stand,
-                                language = language,
-                                format = "ffcsv",
-                                job = job)
-
-  #-----------------------------------------------------------------------------
-
-  } else if (database == "regio") {
-
-    response <- gen_regio_api("data/tablefile",
-                              name = name,
-                              area = area,
-                              compress = compress,
-                              transpose = transpose,
-                              startyear = startyear,
-                              endyear = endyear,
-                              regionalvariable = regionalvariable,
-                              regionalkey = regionalkey,
-                              classifyingvariable1 = classifyingvariable1,
-                              classifyingkey1 = classifyingkey1,
-                              classifyingvariable2 = classifyingvariable2,
-                              classifyingkey2 = classifyingkey2,
-                              classifyingvariable3 = classifyingvariable3,
-                              classifyingkey3 = classifyingkey3,
-                              stand = stand,
-                              language = language,
-                              format = "ffcsv",
-                              job = job)
-
-  #-----------------------------------------------------------------------------
-
-  } else {
-
-    stop("Parameter 'database' has to be 'zensus', 'regio' or 'genesis'.",
-         call. = FALSE)
-
-  }
+  response <- gen_api(endpoint = "data/tablefile",
+                      database = database,
+                      name = name,
+                      area = area,
+                      compress = compress,
+                      transpose = transpose,
+                      startyear = startyear,
+                      endyear = endyear,
+                      regionalvariable = regionalvariable,
+                      regionalkey = regionalkey,
+                      classifyingvariable1 = classifyingvariable1,
+                      classifyingkey1 = classifyingkey1,
+                      classifyingvariable2 = classifyingvariable2,
+                      classifyingkey2 = classifyingkey2,
+                      classifyingvariable3 = classifyingvariable3,
+                      classifyingkey3 = classifyingkey3,
+                      stand = stand,
+                      language = language,
+                      format = "ffcsv",
+                      job = FALSE)
 
   #-----------------------------------------------------------------------------
   # Data processing
