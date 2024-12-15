@@ -32,40 +32,47 @@ gen_modified_data <- function(code = "",
                               verbose = TRUE,
                               ...) {
 
-  gen_fun <- test_database_function(database,
-                                    error.input = TRUE,
-                                    text = verbose)
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(database,
+                                            error.input = TRUE,
+                                            text = verbose)
 
   type <- match.arg(type)
 
   date <- check_function_input(code = code,
                                type = type,
                                date = date,
-                               database = gen_fun,
+                               database = database_vector,
                                verbose = verbose)
 
   #-----------------------------------------------------------------------------
 
   if (date == "now") {
+
     date <- format(Sys.Date(), format = "%d.%m.%Y")
+
   } else if (date == "week_before") {
+
     date <- format(Sys.Date() - 7, format = "%d.%m.%Y")
+
   } else if (date == "month_before") {
+
     date <- format(Sys.Date() - as.difftime(4, units = "weeks"),
-      format = "%d.%m.%Y"
-    )
+                   format = "%d.%m.%Y")
+
   } else if (date == "year_before") {
+
     date <- format(as.difftime(52, units = "weeks"), format = "%d.%m.%Y")
   }
 
   #-----------------------------------------------------------------------------
 
   # Processing #
-  res <- lapply(gen_fun, function(db){
+  res <- lapply(database_vector, function(db){
 
     if (isTRUE(verbose)) {
 
-      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      info <- paste("Started the processing of", db, "database.")
 
       message(info)
 
@@ -75,15 +82,14 @@ gen_modified_data <- function(code = "",
 
     if (type == "tables") {
 
-      par_list <- list(endpoint = "catalogue/modifieddata",
-                       username = gen_auth_get(database = rev_database_function(db))$username,
-                       password = gen_auth_get(database = rev_database_function(db))$password,
-                       selection = code,
-                       type = "Neue Tabellen",
-                       date = date,
-                       ...)
-
-      results_raw <- do.call(db, par_list)
+      results_raw <- gen_api(endpoint = "catalogue/modifieddata",
+                             database = db,
+                             username = gen_auth_get(database = db)$username,
+                             password = gen_auth_get(database = db)$password,
+                             selection = code,
+                             type = "Neue Tabellen",
+                             date = date,
+                             ...)
 
       results_json <- test_if_json(results_raw)
 
@@ -95,15 +101,14 @@ gen_modified_data <- function(code = "",
 
     if (type == "statistics") {
 
-      par_list <- list(endpoint = "catalogue/modifieddata",
-                       username = gen_auth_get(database = rev_database_function(db))$username,
-                       password = gen_auth_get(database = rev_database_function(db))$password,
-                       selection = code,
-                       type = "Neue Statistiken",
-                       date = date,
-                       ...)
-
-      results_raw <- do.call(db, par_list)
+      results_raw <- gen_api(endpoint = "catalogue/modifieddata",
+                             database = db,
+                             username = gen_auth_get(database = db)$username,
+                             password = gen_auth_get(database = db)$password,
+                             selection = code,
+                             type = "Neue Statistiken",
+                             date = date,
+                             ...)
 
       results_json <- test_if_json(results_raw)
 
@@ -116,19 +121,18 @@ gen_modified_data <- function(code = "",
 
     if (type == "statisticsUpdates") {
 
-      if (db == "gen_genesis_api" | db == "gen_regio_api") {
+      if (db == "genesis" | db == "regio") {
 
-        par_list <- list(endpoint = "catalogue/modifieddata",
-                         username = gen_auth_get(database = rev_database_function(db))$username,
-                         password = gen_auth_get(database = rev_database_function(db))$password,
-                         selection = code,
-                         type = "Aktualisierte Statistiken",
-                         date = date,
-                         ...)
+        results_raw <- gen_api(endpoint = "catalogue/modifieddata",
+                               database = db,
+                               username = gen_auth_get(database = db)$username,
+                               password = gen_auth_get(database = db)$password,
+                               selection = code,
+                               type = "Aktualisierte Statistiken",
+                               date = date,
+                               ...)
 
       }
-
-      results_raw <- do.call(db, par_list)
 
       results_json <- test_if_json(results_raw)
 
@@ -140,15 +144,14 @@ gen_modified_data <- function(code = "",
 
     if (type == "all") {
 
-      par_list <- list(endpoint = "catalogue/modifieddata",
-                       username = gen_auth_get(database = rev_database_function(db))$username,
-                       password = gen_auth_get(database = rev_database_function(db))$password,
-                       selection = code,
-                       type = "all",
-                       date = date,
-                       ...)
-
-      results_raw <- do.call(db, par_list)
+      results_raw <- gen_api(endpoint = "catalogue/modifieddata",
+                             database = db,
+                             username = gen_auth_get(database = db)$username,
+                             password = gen_auth_get(database = db)$password,
+                             selection = code,
+                             type = "all",
+                             date = date,
+                             ...)
 
       results_json <- test_if_json(results_raw)
 
@@ -160,7 +163,7 @@ gen_modified_data <- function(code = "",
 
       if (isTRUE(verbose)) {
 
-      message(paste0("No modified objects found for your code and date in ", rev_database_function(db)))
+      message(paste0("No modified objects found for your code and date in ", db))
 
       }
 
@@ -184,7 +187,7 @@ gen_modified_data <- function(code = "",
       list_resp <- list("Modified" = table)
 
       attr(list_resp, "Code") <- results_json$Parameter$selection
-      attr(list_resp, "Database") <- rev_database_function(db)
+      attr(list_resp, "Database") <- db
       attr(list_resp, "Type") <- results_json$Parameter$type
       attr(list_resp, "Date") <- results_json$Parameter$date
       attr(list_resp, "Language") <- results_json$Parameter$language

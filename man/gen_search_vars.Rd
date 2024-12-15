@@ -9,6 +9,7 @@ gen_search_vars(
   database = c("all", "genesis", "zensus", "regio"),
   area = c("all", "public", "user"),
   sortcriterion = c("code", "content"),
+  pagelength = 500,
   error.ignore = FALSE,
   verbose = TRUE,
   ...
@@ -22,6 +23,8 @@ gen_search_vars(
 \item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
 
 \item{sortcriterion}{Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.}
+
+\item{pagelength}{Integer. Maximum length of results (e.g., number of tables). Defaults to 500.}
 
 \item{error.ignore}{Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.}
 

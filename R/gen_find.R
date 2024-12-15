@@ -44,7 +44,8 @@ gen_find <- function(term = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database,
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(database,
                                     error.input = error.ignore,
                                     text = verbose)
 
@@ -54,7 +55,7 @@ gen_find <- function(term = NULL,
                        ordering = ordering,
                        pagelength = pagelength,
                        error.ignore = error.ignore,
-                       database = gen_fun,
+                       database = database_vector,
                        caller = caller,
                        verbose = verbose)
 
@@ -62,11 +63,11 @@ gen_find <- function(term = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(gen_fun, function(db){
+  res <- lapply(database_vector, function(db){
 
     if (verbose) {
 
-      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      info <- paste("Started the processing of", db, "database.")
 
       message(info)
 
@@ -74,20 +75,19 @@ gen_find <- function(term = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (db == "gen_zensus_api" && category == "cubes") {
+    if (db == "zensus" && category == "cubes") {
 
       empty_object <- "FAIL"
 
     } else {
 
-      par_list <-  list(endpoint = "find/find",
-                        username = gen_auth_get(database = rev_database_function(db))$username,
-                        password = gen_auth_get(database = rev_database_function(db))$password,
-                        term = term,
-                        category = category,
-                        ...)
-
-      results_raw <- do.call(db, par_list)
+      results_raw <- gen_api(endpoint = "find/find",
+                             database = db,
+                             username = gen_auth_get(database = db)$username,
+                             password = gen_auth_get(database = db)$password,
+                             term = term,
+                             category = category,
+                             ...)
 
       results_json <- test_if_json(results_raw)
 
@@ -104,19 +104,19 @@ gen_find <- function(term = NULL,
       list_resp <- list("Output" = "No object found for your request.")
 
       attr(list_resp, "Term") <- results_json$Parameter$term
-      attr(list_resp, "Database") <- rev_database_function(db)
+      attr(list_resp, "Database") <- db
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyright") <- results_json$Copyright
 
       return(list_resp)
 
-    } else if (empty_object == "FAIL" & db == "gen_zensus_api" ){
+    } else if (empty_object == "FAIL" & db == "zensus" ){
 
       list_resp <- list("Output" = "There are generally no 'cubes' objects available for the 'zensus' database.")
 
       attr(list_resp, "Term") <- term
-      attr(list_resp, "Database") <- rev_database_function(db)
+      attr(list_resp, "Database") <- db
       attr(list_resp, "Category") <- category
 
       return(list_resp)
@@ -126,7 +126,7 @@ gen_find <- function(term = NULL,
       list_resp <- list("Output" = results_json$Status$Content)
 
       attr(list_resp, "Term") <- results_json$Parameter$term
-      attr(list_resp, "Database") <- rev_database_function(db)
+      attr(list_resp, "Database") <- db
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyright") <- results_json$Copyright
@@ -431,9 +431,9 @@ gen_find <- function(term = NULL,
         } else {
 
           df_variables <- find_token(results_json$Variables,
-                                 error.input = error.ignore,
-                                 text = verbose,
-                                 sub_category = "Variables")
+                                     error.input = error.ignore,
+                                     text = verbose,
+                                     sub_category = "Variables")
 
         }
 
@@ -443,7 +443,7 @@ gen_find <- function(term = NULL,
 
       if("cubes" %in% category) {
 
-        if (db == "gen_genesis_api" | db == "gen_regio_api") {
+        if (db == "genesis" | db == "regio") {
 
           if(!is.null(results_json$Cubes)) {
 
@@ -546,7 +546,7 @@ gen_find <- function(term = NULL,
           }
 
 
-        } else if (db == "gen_zensus_api") {
+        } else if (db == "zensus") {
 
           df_cubes <- "There are generally no 'cubes' objects available for the 'zensus' database."
 
@@ -563,7 +563,7 @@ gen_find <- function(term = NULL,
         if("cubes" %in% category) {list_resp$Cubes <- tibble::as_tibble(df_cubes) }
 
         attr(list_resp, "Term") <- results_json$Parameter$term
-        attr(list_resp, "Database") <- rev_database_function(db)
+        attr(list_resp, "Database") <- db
         attr(list_resp, "Language") <- results_json$Parameter$language
         attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
         attr(list_resp, "Copyright") <- results_json$Copyright
@@ -571,6 +571,7 @@ gen_find <- function(term = NULL,
         return(list_resp)
 
     }
+
   })
 
   res <- check_results(res)

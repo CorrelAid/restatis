@@ -29,13 +29,14 @@ gen_metadata_statistic <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database,
-                                    error.input = error.ignore,
-                                    text = verbose)
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
-                       database = gen_fun,
+                       database = database_vector,
                        caller = caller,
                        verbose = verbose,
                        raw = raw)
@@ -46,29 +47,36 @@ gen_metadata_statistic <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(gen_fun, function(db){
+  res <- lapply(database_vector, function(db){
 
     if (isTRUE(verbose)) {
 
-      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      info <- paste("Started the processing of", db, "database.")
 
       message(info)
 
     }
 
-    par_list <-  list(endpoint = "metadata/statistic",
-                      username = gen_auth_get(database = rev_database_function(db))$username,
-                      password = gen_auth_get(database = rev_database_function(db))$password,
-                      name = code,
-                      ...)
+    if (db == "genesis" | db == "regio") {
 
-    if (db == "gen_genesis_api" | db == "gen_regio_api") {
+      results_raw <- gen_api(endpoint = "metadata/statistic",
+                             database = db,
+                             username = gen_auth_get(database = db)$username,
+                             password = gen_auth_get(database = db)$password,
+                             name = code,
+                             area = area,
+                             ...)
 
-      par_list <- append(par_list, list(area = area))
+    } else {
+
+      results_raw <- gen_api(endpoint = "metadata/statistic",
+                             database = db,
+                             username = gen_auth_get(database = db)$username,
+                             password = gen_auth_get(database = db)$password,
+                             name = code,
+                             ...)
 
     }
-
-    results_raw <- do.call(db, par_list)
 
     results_json <- test_if_json(results_raw)
 
@@ -105,7 +113,7 @@ gen_metadata_statistic <- function(code = NULL,
     }
 
     attr(df_stats, "Code") <- results_json$Parameter$name
-    attr(df_stats, "Database") <- rev_database_function(db)
+    attr(df_stats, "Database") <- db
     attr(df_stats, "Method") <- results_json$Ident$Method
     attr(df_stats, "Updated") <- results_json$Object$Updated
     attr(df_stats, "Language") <- results_json$Parameter$language
@@ -154,13 +162,14 @@ gen_metadata_variable <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database,
-                                    error.input = error.ignore,
-                                    text = verbose)
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
-                       database = gen_fun,
+                       database = database_vector,
                        caller = caller,
                        verbose = verbose,
                        raw = raw)
@@ -171,29 +180,36 @@ gen_metadata_variable <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(gen_fun, function(db){
+  res <- lapply(database_vector, function(db){
 
     if (isTRUE(verbose)) {
 
-      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      info <- paste("Started the processing of", db, "database.")
 
       message(info)
 
     }
 
-    par_list <-  list(endpoint = "metadata/variable",
-                      username = gen_auth_get(database = rev_database_function(db))$username,
-                      password = gen_auth_get(database = rev_database_function(db))$password,
-                      name = code,
-                      ...)
+    if (db == "genesis" | db == "regio") {
 
-    if (db == "gen_genesis_api" | db == "gen_regio_api") {
+      results_raw <- gen_api(endpoint = "metadata/variable",
+                             database = db,
+                             username = gen_auth_get(database = db)$username,
+                             password = gen_auth_get(database = db)$password,
+                             name = code,
+                             area = area,
+                             ...)
 
-      par_list <- append(par_list, list(area = area))
+    } else {
+
+      results_raw <- gen_api(endpoint = "metadata/variable",
+                             database = db,
+                             username = gen_auth_get(database = db)$username,
+                             password = gen_auth_get(database = db)$password,
+                             name = code,
+                             ...)
 
     }
-
-    results_raw <- do.call(db, par_list)
 
     results_json <- test_if_json(results_raw)
 
@@ -236,7 +252,7 @@ gen_metadata_variable <- function(code = NULL,
     }
 
     attr(list_resp, "Code") <- results_json$Parameter$name
-    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Database") <- db
     attr(list_resp, "Method") <- results_json$Ident$Method
     attr(list_resp, "Updated") <- results_json$Object$Updated
     attr(list_resp, "Language") <- results_json$Parameter$language
@@ -287,13 +303,14 @@ gen_metadata_value <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database,
-                                    error.input = error.ignore,
-                                    text = verbose)
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
-                       database = gen_fun,
+                       database = database_vector,
                        caller = caller,
                        verbose = verbose,
                        raw = raw)
@@ -304,29 +321,36 @@ gen_metadata_value <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(gen_fun, function(db){
+  res <- lapply(database_vector, function(db){
 
     if (isTRUE(verbose)) {
 
-      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      info <- paste("Started the processing of", db, "database.")
 
       message(info)
 
     }
 
-    par_list <-  list(endpoint = "metadata/value",
-                      username = gen_auth_get(database = rev_database_function(db))$username,
-                      password = gen_auth_get(database = rev_database_function(db))$password,
-                      name = code,
-                      ...)
+    if (db == "genesis" | db == "regio") {
 
-    if (db == "gen_genesis_api" | db == "gen_regio_api") {
+      results_raw <- gen_api(endpoint = "metadata/value",
+                             database = db,
+                             username = gen_auth_get(database = db)$username,
+                             password = gen_auth_get(database = db)$password,
+                             name = code,
+                             area = area,
+                             ...)
 
-      par_list <- append(par_list, list(area = area))
+    } else {
+
+      results_raw <- gen_api(endpoint = "metadata/value",
+                             database = db,
+                             username = gen_auth_get(database = db)$username,
+                             password = gen_auth_get(database = db)$password,
+                             name = code,
+                             ...)
 
     }
-
-    results_raw <- do.call(db, par_list)
 
     results_json <- test_if_json(results_raw)
 
@@ -366,7 +390,7 @@ gen_metadata_value <- function(code = NULL,
     }
 
     attr(list_resp, "Code") <- results_json$Parameter$name
-    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Database") <- db
     attr(list_resp, "Method") <- results_json$Ident$Method
     attr(list_resp, "Updated") <- results_json$Object$Updated
     attr(list_resp, "Language") <- results_json$Parameter$language
@@ -417,13 +441,14 @@ gen_metadata_table <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database,
-                                    error.input = error.ignore,
-                                    text = verbose)
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
-                       database = gen_fun,
+                       database = database_vector,
                        caller = caller,
                        verbose = verbose,
                        raw = raw)
@@ -434,24 +459,23 @@ gen_metadata_table <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(gen_fun, function(db){
+  res <- lapply(database_vector, function(db){
 
     if (isTRUE(verbose)) {
 
-      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      info <- paste("Started the processing of", db, "database.")
 
       message(info)
 
     }
 
-    par_list <-  list(endpoint = "metadata/table",
-                      username = gen_auth_get(database = rev_database_function(db))$username,
-                      password = gen_auth_get(database = rev_database_function(db))$password,
-                      name = code,
-                      area = area,
-                      ...)
-
-    results_raw <- do.call(db, par_list)
+    results_raw <- gen_api(endpoint = "metadata/table",
+                           database = db,
+                           username = gen_auth_get(database = db)$username,
+                           password = gen_auth_get(database = db)$password,
+                           name = code,
+                           area = area,
+                           ...)
 
     results_json <- test_if_json(results_raw)
 
@@ -568,7 +592,7 @@ gen_metadata_table <- function(code = NULL,
     }
 
     attr(list_resp, "Code") <- results_json$Parameter$name
-    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Database") <- db
     attr(list_resp, "Method") <- results_json$Ident$Method
     attr(list_resp, "Updated") <- results_json$Object$Updated
     attr(list_resp, "Language") <- results_json$Parameter$language
@@ -620,13 +644,14 @@ gen_metadata_cube <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database,
-                                    error.input = error.ignore,
-                                    text = verbose)
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
-                       database = gen_fun,
+                       database = database_vector,
                        caller = caller,
                        verbose = verbose,
                        raw = raw)
@@ -637,24 +662,23 @@ gen_metadata_cube <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(gen_fun, function(db){
+  res <- lapply(database_vector, function(db){
 
     if (isTRUE(verbose)) {
 
-      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      info <- paste("Started the processing of", db, "database.")
 
       message(info)
 
     }
 
-    par_list <-  list(endpoint = "metadata/cube",
-                      username = gen_auth_get(database = rev_database_function(db))$username,
-                      password = gen_auth_get(database = rev_database_function(db))$password,
-                      name = code,
-                      area = area,
-                      ...)
-
-    results_raw <- do.call(db, par_list)
+    results_raw <- gen_api(endpoint = "metadata/cube",
+                           database = db,
+                           username = gen_auth_get(database = db)$username,
+                           password = gen_auth_get(database = db)$password,
+                           name = code,
+                           area = area,
+                           ...)
 
     results_json <- test_if_json(results_raw)
 
@@ -745,7 +769,7 @@ gen_metadata_cube <- function(code = NULL,
     }
 
     attr(list_resp, "Code") <- results_json$Parameter$name
-    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Database") <- db
     attr(list_resp, "Method") <- results_json$Ident$Method
     attr(list_resp, "Updated") <- results_json$Object$Updated
     attr(list_resp, "Language") <- results_json$Parameter$language
@@ -798,25 +822,26 @@ gen_metadata <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database,
-                                    error.input = error.ignore,
-                                    text = verbose)
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   check_function_input(code = code,
                        error.ignore = error.ignore,
                        category = category,
-                       database = gen_fun,
+                       database = database_vector,
                        caller = caller,
                        verbose = verbose)
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(gen_fun, function(odb){
+  res <- lapply(database_vector, function(odb){
 
     if (category == "cube") {
 
       gen_metadata_cube(code = code,
-                        database = rev_database_function(odb),
+                        database = odb,
                         error.ignore = error.ignore,
                         verbose = verbose,
                         raw = raw,
@@ -825,7 +850,7 @@ gen_metadata <- function(code = NULL,
     } else if (category == "value") {
 
       gen_metadata_value(code = code,
-                         database = rev_database_function(odb),
+                         database = odb,
                          area = area,
                          error.ignore = error.ignore,
                          verbose = verbose,
@@ -835,7 +860,7 @@ gen_metadata <- function(code = NULL,
     } else if (category == "variable") {
 
       gen_metadata_variable(code = code,
-                            database = rev_database_function(odb),
+                            database = odb,
                             area = area,
                             error.ignore = error.ignore,
                             verbose = verbose,
@@ -845,7 +870,7 @@ gen_metadata <- function(code = NULL,
     } else if (category == "table") {
 
       gen_metadata_table(code = code,
-                         database = rev_database_function(odb),
+                         database = odb,
                          area = area,
                          error.ignore = error.ignore,
                          verbose = verbose,
@@ -855,7 +880,7 @@ gen_metadata <- function(code = NULL,
     } else if (category == "statistic") {
 
       gen_metadata_statistic(code = code,
-                             database = rev_database_function(odb),
+                             database = odb,
                              area = area,
                              error.ignore = error.ignore,
                              verbose = verbose,

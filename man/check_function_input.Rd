@@ -15,6 +15,7 @@ check_function_input(
   similarity = NULL,
   error.ignore = NULL,
   ordering = NULL,
+  pagelength = NULL,
   database = NULL,
   area = NULL,
   caller = NULL,

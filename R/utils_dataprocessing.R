@@ -469,7 +469,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if("gen_zensus_api" %in% database){
+      if("zensus" %in% database){
 
         #-----------------------------------------------------------------------
 
@@ -520,7 +520,7 @@ check_function_input <- function(code = NULL,
 
     #-------------------------------------------------------------------------------
 
-      if("gen_genesis_api" %in% database){
+      if("genesis" %in% database){
 
         if (!all(category %in% c("tables", "cubes", "statistics"))) {
 
@@ -540,7 +540,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if("gen_zensus_api" %in% database){
+      if("zensus" %in% database){
 
         #-----------------------------------------------------------------------
 
@@ -600,7 +600,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if("gen_genesis_api" %in% database){
+      if("genesis" %in% database){
 
         if (!all(category %in% c("tables", "cubes", "variables"))) {
 
@@ -623,7 +623,7 @@ check_function_input <- function(code = NULL,
 
           #---------------------------------------------------------------------
 
-          if("gen_genesis_api" %in% database){
+          if("genesis" %in% database){
 
             stop("Available categories for parameter 'category' for 'genesis' database are 'all', 'tables', 'statistics', 'variables', and 'cubes'.",
                  call. = FALSE)
@@ -632,7 +632,7 @@ check_function_input <- function(code = NULL,
 
           #---------------------------------------------------------------------
 
-          if("gen_zensus_api" %in% database){
+          if("zensus" %in% database){
 
             stop("Available categories for parameter 'category' for 'zensus' database are 'all', 'tables', 'statistics', and 'variables'.",
                  call. = FALSE)
@@ -649,7 +649,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if("gen_zensus_api" %in% database){
+      if("zensus" %in% database){
 
         #-----------------------------------------------------------------------
 
@@ -691,7 +691,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if("gen_genesis_api" %in% database){
+      if("genesis" %in% database){
 
         #-----------------------------------------------------------------------
 
@@ -706,7 +706,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      else if("gen_zensus_api" %in% database) {
+      else if("zensus" %in% database) {
 
         if (!all(category %in% c("statistic", "table", "variable", "value"))) {
 
@@ -751,7 +751,7 @@ check_function_input <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if ("gen_genesis_api" %in% database){
+    if ("genesis" %in% database){
 
       #-------------------------------------------------------------------------
 
@@ -766,7 +766,7 @@ check_function_input <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if ("gen_zensus_api" %in% database){
+    if ("zensus" %in% database){
 
       if (!all(type %in% c("all", "tables", "statistics"))) {
 

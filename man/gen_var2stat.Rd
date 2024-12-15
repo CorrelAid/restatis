@@ -10,6 +10,7 @@ gen_var2stat(
   area = c("all", "public", "user"),
   detailed = FALSE,
   sortcriterion = c("code", "content"),
+  pagelength = 500,
   error.ignore = FALSE,
   verbose = TRUE,
   ...
@@ -25,6 +26,8 @@ gen_var2stat(
 \item{detailed}{Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.}
 
 \item{sortcriterion}{Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.}
+
+\item{pagelength}{Integer. Maximum length of results (e.g., number of tables). Defaults to 500.}
 
 \item{error.ignore}{Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.}
 

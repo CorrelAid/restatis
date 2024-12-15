@@ -10,6 +10,7 @@ gen_find(
   category = c("all", "tables", "statistics", "variables", "cubes"),
   detailed = FALSE,
   ordering = TRUE,
+  pagelength = 500,
   error.ignore = TRUE,
   verbose = TRUE,
   ...
@@ -25,6 +26,8 @@ gen_find(
 \item{detailed}{Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.}
 
 \item{ordering}{A logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and secondly on an estimator of the number of variables in this object. Default option is 'TRUE'.}
+
+\item{pagelength}{Integer. Maximum length of results (e.g., number of tables). Defaults to 500.}
 
 \item{error.ignore}{Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'TRUE'.}
 
