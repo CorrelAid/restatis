@@ -56,6 +56,7 @@ Important note: Time-series are treated as cubes in GENESIS and regionalstatisti
 <span>  category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"tables"</span>, <span class="st">"statistics"</span>, <span class="st">"variables"</span>, <span class="st">"cubes"</span><span class="op">)</span>,</span>
 <span>  detailed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ordering <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  pagelength <span class="op">=</span> <span class="fl">500</span>,</span>
 <span>  error.ignore <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -84,6 +85,10 @@ Important note: Time-series are treated as cubes in GENESIS and regionalstatisti
 
 <dt id="arg-ordering">ordering<a class="anchor" aria-label="anchor" href="#arg-ordering"></a></dt>
 <dd><p>A logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and secondly on an estimator of the number of variables in this object. Default option is 'TRUE'.</p></dd>
+
+
+<dt id="arg-pagelength">pagelength<a class="anchor" aria-label="anchor" href="#arg-pagelength"></a></dt>
+<dd><p>Integer. Maximum length of results (e.g., number of tables). Defaults to 500.</p></dd>
 
 
 <dt id="arg-error-ignore">error.ignore<a class="anchor" aria-label="anchor" href="#arg-error-ignore"></a></dt>
