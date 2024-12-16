@@ -38,15 +38,16 @@ gen_objects2stat <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database,
-                                    error.input = error.ignore,
-                                    text = verbose)
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   check_function_input(code = code,
                        category = category,
                        detailed = detailed,
                        error.ignore = error.ignore,
-                       database = gen_fun,
+                       database = database_vector,
                        sortcriterion = sortcriterion,
                        caller = caller,
                        verbose = verbose)
@@ -59,11 +60,11 @@ gen_objects2stat <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(gen_fun, function(db){
+  res <- lapply(database_vector, function(db){
 
     if (isTRUE(verbose)) {
 
-      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      info <- paste("Started the processing of", db, "database.")
 
       message(info)
 
@@ -73,15 +74,14 @@ gen_objects2stat <- function(code = NULL,
 
     if ("tables" %in% category) {
 
-      par_list <- list(endpoint = "catalogue/tables2statistic",
-                       username = gen_auth_get(database = rev_database_function(db))$username,
-                       password = gen_auth_get(database = rev_database_function(db))$password,
-                       name = code,
-                       area = area,
-                       sortcriterion = sortcriterion,
-                       ...)
-
-      results_raw <- do.call(db, par_list)
+      results_raw <- gen_api(endpoint = "catalogue/tables2statistic",
+                             database = db,
+                             username = gen_auth_get(database = db)$username,
+                             password = gen_auth_get(database = db)$password,
+                             name = code,
+                             area = area,
+                             sortcriterion = sortcriterion,
+                             ...)
 
       results_json <- test_if_json(results_raw)
 
@@ -124,15 +124,14 @@ gen_objects2stat <- function(code = NULL,
 
     if ("variables" %in% category) {
 
-      par_list <- list(endpoint = "catalogue/variables2statistic",
-                       username = gen_auth_get(database = rev_database_function(db))$username,
-                       password = gen_auth_get(database = rev_database_function(db))$password,
-                       name = code,
-                       area = area,
-                       sortcriterion = sortcriterion,
-                       ...)
-
-      results_raw <- do.call(db, par_list)
+      results_raw <- gen_api(endpoint = "catalogue/variables2statistic",
+                             database = db,
+                             username = gen_auth_get(database = db)$username,
+                             password = gen_auth_get(database = db)$password,
+                             name = code,
+                             area = area,
+                             sortcriterion = sortcriterion,
+                             ...)
 
       results_json <- test_if_json(results_raw)
 
@@ -175,21 +174,22 @@ gen_objects2stat <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if ("cubes" %in% category && "gen_zensus_api" == db) {
+    if ("cubes" %in% category && db == "zensus") {
 
       df_cubes <- "There are generally no 'cubes' objects available for the 'zensus' database."
 
       return(df_cubes)
 
-    } else if ("cubes" %in% category && (db == "gen_genesis_api" || db == "gen_regio_api")) {
+    } else if ("cubes" %in% category && (db == "genesis" || db == "regio")) {
 
-      results_raw <- do.call(db, list(endpoint = "catalogue/cubes2statistic",
-                                      username = gen_auth_get(database = rev_database_function(db))$username,
-                                      password = gen_auth_get(database = rev_database_function(db))$password,
-                                      name = code,
-                                      area = area,
-                                      sortcriterion = sortcriterion,
-                                      ...))
+      results_raw <- gen_api(endpoint = "catalogue/cubes2statistic",
+                             database = db,
+                             username = gen_auth_get(database = db)$username,
+                             password = gen_auth_get(database = db)$password,
+                             name = code,
+                             area = area,
+                             sortcriterion = sortcriterion,
+                             ...)
 
       results_json <- test_if_json(results_raw)
 
@@ -255,7 +255,7 @@ gen_objects2stat <- function(code = NULL,
     }
 
     attr(list_resp, "Code") <- results_json$Parameter$term
-    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Database") <- db
     attr(list_resp, "Category") <- category
     attr(list_resp, "Language") <- results_json$Parameter$language
     attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
