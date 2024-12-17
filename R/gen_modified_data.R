@@ -6,6 +6,7 @@
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
 #' @param type Character string. Specific GENESIS and regionalstatistik.de object types: 'tables', 'statistics', and 'statisticsUpdates'. Specific Zensus 2022 object types: 'tables' and 'statistics'. All types that are specific for one database can be used together through 'all', which is the default.
 #' @param date Character string. Specific date that is used as the last update or upload time to include an object in return. Default option is 'now', which uses the current date of your system. Alternative options are 'week_before', using the current date of your system minus 7 days, 'month_before', using the current date of your system minus 4 weeks, and 'year_before', using the current date of your system minus 52 weeks. Additionally, it is possible to fill in a specific date of format 'DD.MM.YYYY'.
+#' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
@@ -29,6 +30,7 @@ gen_modified_data <- function(code = "",
                               database = c("all", "genesis", "zensus", "regio"),
                               type = c("all", "tables", "statistics", "statisticsUpdates"),
                               date = c("now", "week_before", "month_before", "year_before"),
+                              pagelength = 500,
                               verbose = TRUE,
                               ...) {
 
@@ -42,6 +44,7 @@ gen_modified_data <- function(code = "",
   date <- check_function_input(code = code,
                                type = type,
                                date = date,
+                               pagelength = pagelength,
                                database = database_vector,
                                verbose = verbose)
 

@@ -20,9 +20,10 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
                           flat = FALSE,
                           ...) {
 
-  gen_fun <- test_database_function(database,
-                                    error.input = TRUE,
-                                    text = TRUE)
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   if (length(database) != 1) {
 
@@ -49,11 +50,9 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
 
   #-----------------------------------------------------------------------------
 
-  par_list <-  list(endpoint = "catalogue/jobs",
-                    sortcriterion = sortcriterion,
-                    ...)
-
-  results_raw <- do.call(gen_fun, par_list)
+  results_raw <- gen_api(endpoint = "catalogue/jobs",
+                         sortcriterion = sortcriterion,
+                         ...)
 
   results_json <- test_if_json(results_raw)
 

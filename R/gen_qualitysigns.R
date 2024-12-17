@@ -11,16 +11,16 @@
 gen_signs <- function(database = c("all", "genesis", "zensus", "regio"),
                       ...) {
 
-  gen_fun <- test_database_function(database,
-                                    error.input = TRUE,
-                                    text = TRUE)
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
-  res <- lapply(gen_fun, function(db){
+  res <- lapply(database_vector, function(db){
 
-    par_list <-  list(endpoint = "catalogue/qualitysigns",
-                      ...)
-
-    results_raw <- do.call(db, par_list)
+    results_raw <- gen_api(endpoint = "catalogue/qualitysigns",
+                           database = db,
+                           ...)
 
     results_json <- test_if_json(results_raw)
 
@@ -28,7 +28,7 @@ gen_signs <- function(database = c("all", "genesis", "zensus", "regio"),
                                                                 characteristics = c("Code",
                                                                                     "Content"))))
 
-    attr(mid_res, "Database") <- rev_database_function(db)
+    attr(mid_res, "Database") <- db
     attr(mid_res, "Language") <- results_json$Parameter$language
     attr(mid_res, "Copyright") <- results_json$Copyright
 

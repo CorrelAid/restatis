@@ -5,6 +5,7 @@
 #' @param term Character string. Maximum length of 15 characters. Term or word for which you are searching for alternative or related terms. Use of '*' as a placeholder is possible to generate broader search areas.
 #' @param similarity Boolean. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function. Default is 'TRUE'.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
@@ -27,49 +28,50 @@
 gen_alternative_terms <- function(term = NULL,
                                   similarity = TRUE,
                                   database = c("all", "genesis", "zensus", "regio"),
+                                  pagelength = 500,
                                   verbose = TRUE,
                                   ...) {
 
   caller <- as.character(match.call()[1])
 
-  gen_fun <- test_database_function(database,
-                                    error.input = TRUE,
-                                    text = verbose)
+  database_vector <- test_database_function(database,
+                                            error.input = TRUE,
+                                            text = verbose)
 
   check_function_input(term = term,
                        similarity = similarity,
+                       pagelength = pagelength,
                        caller = caller,
                        verbose = verbose)
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(gen_fun, function(db){
+  res <- lapply(database_vector, function(db){
 
     if (verbose) {
 
-      info <- paste("Started the processing of", rev_database_function(db), "database.")
+      info <- paste("Started the processing of", db, "database.")
 
       message(info)
 
     }
 
-    par_list <-  list(endpoint = "catalogue/terms",
-                      username = gen_auth_get(database = rev_database_function(db))$username,
-                      password = gen_auth_get(database = rev_database_function(db))$password,
-                      selection = term,
-                      ...)
-
-    results_raw <- do.call(db, par_list)
+    results_raw <- gen_api(endpoint = "catalogue/terms",
+                           database = db,
+                           username = gen_auth_get(database = db)$username,
+                           password = gen_auth_get(database = db)$password,
+                           selection = term,
+                           ...)
 
     #---------------------------------------------------------------------------
 
     results_json <- test_if_json(results_raw)
 
-    if (length(results_json$List) == 0  & length(gen_fun) == 1) {
+    if (length(results_json$List) == 0  & length(database_vector) == 1) {
 
       stop("No related terms found for your code.", call. = FALSE)
 
-    } else if (length(results_json$List) == 0  & length(gen_fun) > 1) {
+    } else if (length(results_json$List) == 0  & length(database_vector) > 1) {
 
       termslist <- "No related terms found for your code."
 
@@ -115,7 +117,7 @@ gen_alternative_terms <- function(term = NULL,
     }
 
     attr(list_resp, "Term") <- term
-    attr(list_resp, "Database") <- rev_database_function(db)
+    attr(list_resp, "Database") <- db
     attr(list_resp, "Language") <- results_json$Parameter$language
     attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
     attr(list_resp, "Copyright") <- results_json$Copyright
