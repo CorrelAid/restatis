@@ -42,7 +42,7 @@ gen_catalogue <- function(code = NULL,
   caller <- as.character(match.call()[1])
 
   # database_vector will hold a vector of the specified databases to query
-  database_vector <- test_database_function(database,
+  database_vector <- test_database_function(input = database,
                                             error.input = error.ignore,
                                             text = verbose)
 

@@ -1,7 +1,10 @@
 .onLoad <- function(libname, pkgname) {
 
-  # Set the functions whose results are to be cached
-  gen_api <<- memoise::memoise(gen_api)
+  # Set a function whose results are to be cached
+  .gen_api_cached <<- memoise::memoise(.gen_api_core)
+
+  # Set the option of use_cache for the gen_api function
+  options(restatis.use_cache = TRUE)
 
   # Set the default language of the package
   if (!nzchar(Sys.getenv("RESTATIS_LANG"))) Sys.setenv(RESTATIS_LANG = "en")

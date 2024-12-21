@@ -1,12 +1,9 @@
 #' gen_api
 #'
-#' @description Low-level function to interact with the one of the APIs
+#' @description Wrapper function to either use cached version of gen_api or un-cached version
 #'
-#' @param endpoint Character string. The endpoint of the API that is to be queried.
-#' @param database The database the query should be sent to.
-#' @param ... Further parameters passed on to the final API call.
-#'
-#' @importFrom httr2 `%>%`
+#' @param ... Parameters passed on to the API call
+#' @param use_cache Get the option value on whether the call should be cached or not
 #'
 #' @noRd
 #'
@@ -16,9 +13,36 @@
 #'  httr2::resp_body_json()
 #' }
 #'
-gen_api <- function(endpoint,
-                    database,
-                    ...) {
+gen_api <- function(...,
+                    use_cache = getOption("restatis.use_cache", TRUE)) {
+
+  if (isTRUE(use_cache)) {
+
+    return(.gen_api_cached(...))
+
+  } else {
+
+    return(.gen_api_core(...))
+
+  }
+
+}
+
+#-------------------------------------------------------------------------------
+
+#' .gen_api_core
+#'
+#' @description Low-level function to interact with the one of the APIs
+#'
+#' @param endpoint Character string. The endpoint of the API that is to be queried.
+#' @param database The database the query should be sent to.
+#' @param ... Further parameters passed on to the final API call.
+#'
+#' @importFrom httr2 `%>%`
+#'
+.gen_api_core <- function(endpoint,
+                          database,
+                          ...) {
 
   #-----------------------------------------------------------------------------
 

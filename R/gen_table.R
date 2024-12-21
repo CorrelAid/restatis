@@ -46,7 +46,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' gen_table("21311-0001")
+#' gen_table("21311-0001", database = "genesis")
 #' }
 #'
 gen_table <- function(name, ...) {
