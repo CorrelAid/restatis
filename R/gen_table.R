@@ -75,7 +75,8 @@ gen_table_ <- function(name,
                        stand = NULL,
                        language = Sys.getenv("RESTATIS_LANG"),
                        job = FALSE,
-                       all_character = TRUE) {
+                       all_character = TRUE,
+                       ...) {
 
   #-----------------------------------------------------------------------------
   # Parameter processing
@@ -131,7 +132,8 @@ gen_table_ <- function(name,
                       stand = stand,
                       language = language,
                       format = "ffcsv",
-                      job = FALSE)
+                      job = FALSE,
+                      ...)
 
   #-----------------------------------------------------------------------------
   # Data processing
