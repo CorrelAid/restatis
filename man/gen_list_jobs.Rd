@@ -8,15 +8,21 @@ gen_list_jobs(
   database = c("genesis", "regio"),
   sortcriterion = c("type", "time", "status", "code"),
   flat = FALSE,
+  error.ignore = FALSE,
+  verbose = TRUE,
   ...
 )
 }
 \arguments{
-\item{database}{Character string. Indicator if 'genesis' or 'regionalstatistik.de' database is called. Default option is 'genesis'.}
+\item{database}{Character string. Indicator if 'genesis' or 'regionalstatistik.de' database is called.}
 
 \item{sortcriterion}{Character string. Indicator if the output should be sorted by 'type','time','status' or 'code'. This is a parameter of the API call itself. The default is 'type'.}
 
 \item{flat}{Boolean. Should the function return a list with jobs and metadata ('FALSE') or just a flat data.frame ('TRUE')? Defaults to FALSE.}
+
+\item{error.ignore}{Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.}
+
+\item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
 
 \item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }

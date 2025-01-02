@@ -38,6 +38,9 @@
 #'     \item{\code{all_character}}{Boolean. Should all variables be imported as
 #'        'character' variables? Avoids fuzzy data type conversions if there are
 #'        leading zeros or other special characters. Defaults to TRUE.}
+#'     \item{\code{...}}{Additional parameters for the API call (see respective API documentation).
+#'       A valid specification of these will not be checked by the function, so wrongful specification
+#'       may lead to errors.}
 #'   }
 #'
 #' @return A [tibble][tibble::tibble()].

@@ -35,6 +35,9 @@
 #'       updated after this date.}
 #'     \item{\code{language}}{Character string. Search terms, returned messages and data
 #'       descriptions in German (`"de"`) or English (`"en"`)?}
+#'     \item{\code{...}}{Additional parameters for the API call (see respective API documentation).
+#'       A valid specification of these will not be checked by the function, so wrongful specification
+#'       may lead to errors.}
 #'   }
 #'
 #' @return A [tibble][tibble::tibble()]. Non-data contents of the data cube object are saved in

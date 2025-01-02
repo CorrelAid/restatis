@@ -44,6 +44,9 @@ descriptions in German (\code{"de"}) or English (\code{"en"})?}
 \item{\code{all_character}}{Boolean. Should all variables be imported as
 'character' variables? Avoids fuzzy data type conversions if there are
 leading zeros or other special characters. Defaults to TRUE.}
+\item{\code{...}}{Additional parameters for the API call (see respective API documentation).
+A valid specification of these will not be checked by the function, so wrongful specification
+may lead to errors.}
 }}
 }
 \value{
@@ -54,7 +57,7 @@ Download a table with data from GENESIS, Zensus 2022 or regionalstatistik.de dat
 }
 \examples{
 \dontrun{
-gen_table("21311-0001")
+gen_table("21311-0001", database = "genesis")
 }
 
 }
