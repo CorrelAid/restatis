@@ -48,6 +48,8 @@
 <span>  database <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"genesis"</span>, <span class="st">"regio"</span><span class="op">)</span>,</span>
 <span>  sortcriterion <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"time"</span>, <span class="st">"status"</span>, <span class="st">"code"</span><span class="op">)</span>,</span>
 <span>  flat <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  error.ignore <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -57,7 +59,7 @@
 
 
 <dl><dt id="arg-database">database<a class="anchor" aria-label="anchor" href="#arg-database"></a></dt>
-<dd><p>Character string. Indicator if 'genesis' or 'regionalstatistik.de' database is called. Default option is 'genesis'.</p></dd>
+<dd><p>Character string. Indicator if 'genesis' or 'regionalstatistik.de' database is called.</p></dd>
 
 
 <dt id="arg-sortcriterion">sortcriterion<a class="anchor" aria-label="anchor" href="#arg-sortcriterion"></a></dt>
@@ -66,6 +68,14 @@
 
 <dt id="arg-flat">flat<a class="anchor" aria-label="anchor" href="#arg-flat"></a></dt>
 <dd><p>Boolean. Should the function return a list with jobs and metadata ('FALSE') or just a flat data.frame ('TRUE')? Defaults to FALSE.</p></dd>
+
+
+<dt id="arg-error-ignore">error.ignore<a class="anchor" aria-label="anchor" href="#arg-error-ignore"></a></dt>
+<dd><p>Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.</p></dd>
+
+
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
+<dd><p>Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>

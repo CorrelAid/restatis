@@ -48,6 +48,7 @@
 <span>  term <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  similarity <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  database <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"genesis"</span>, <span class="st">"zensus"</span>, <span class="st">"regio"</span><span class="op">)</span>,</span>
+<span>  pagelength <span class="op">=</span> <span class="fl">500</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -67,6 +68,10 @@
 
 <dt id="arg-database">database<a class="anchor" aria-label="anchor" href="#arg-database"></a></dt>
 <dd><p>Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.</p></dd>
+
+
+<dt id="arg-pagelength">pagelength<a class="anchor" aria-label="anchor" href="#arg-pagelength"></a></dt>
+<dd><p>Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
