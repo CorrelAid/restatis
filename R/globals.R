@@ -1,4 +1,5 @@
 utils::globalVariables(c("evas_list",
                          "verbose",
                          "menu",
-                         "setNames"))
+                         "setNames",
+                         "error.ignore"))

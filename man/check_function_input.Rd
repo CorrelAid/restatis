@@ -44,6 +44,8 @@ check_function_input(
 
 \item{ordering}{Parameter to be checked}
 
+\item{pagelength}{Parameter to be checked}
+
 \item{database}{Parameter to be checked}
 
 \item{area}{Parameter to be checked}
