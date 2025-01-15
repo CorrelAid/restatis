@@ -13,7 +13,7 @@ library(restatis)
 
 ## Information
 
-This is a brief overview of the additional parameters for an API call via {restatis}. These parameters are offered by some of the API endpoints of the three databases, but {restatis} does not explicitly offer them as function parameters. We do, however, provide the possibility of passing additional parameters to most functions via the '...' notation. These parameters are then added to the API call and affect it in the -hopefully- intended way. However, they have no other effect (e.g., on data processing) and there is no error handling implemented for them. It is the user's responsibility to provide correct parameter names and parameter values. Be aware: Not all parameters are available for all functions.
+This is a brief overview of the additional parameters for an API call via {restatis}. These parameters are offered by some of the API endpoints of the three databases, but {restatis} does not explicitly offer them as function parameters. We do, however, provide the possibility of passing additional parameters to most functions via the '...' notation. These parameters are then added to the API call and should affect it in the intended way. However, they have no other effect (e.g., on data processing) and there is no error handling implemented for them. It is the user's responsibility to provide correct parameter names and parameter values. Be aware: Not all parameters are available for all functions.
 
 Especially `gen_table()` and `gen_cube()` have a lot of different additional parameters to specify the API call. For a detailed overview, see the following official documents:
 
@@ -44,7 +44,7 @@ The `sortcriterion` parameter is a string that specifies whether the raw output 
 Examples:
 ```{r eval=FALSE}
 # Get the values of the variable "WAM8" sorted based on their codes
-gen_val2var("WAM8", sortcriterion = "code")
+gen_val2var("WAM8", sortcriterion = "code", database = "genesis")
 ```
 
 ### Parameter: Language
@@ -53,10 +53,10 @@ The `language` parameter is a string. It indicates if the API call output is in 
 Examples:
 ```{r eval=FALSE}
 # Get the values of the variable "WAM8" in German
-gen_val2var("WAM8", language = "de")
+gen_val2var("WAM8", language = "de", database = "genesis")
 
 # Get the values of the variable "WAM8" in English
-gen_val2var("WAM8", language = "en")
+gen_val2var("WAM8", language = "en", database = "genesis")
 ```
 
 ## Explicit Overview of Additional Parameters per Function

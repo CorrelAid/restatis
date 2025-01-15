@@ -1,7 +1,6 @@
 ## Resubmission / update info
 
-* This is a larger update to the package adding support for further databases 
-* Changed the maintainer
+* This is a larger update to the package adding new features
 
 ## R CMD check results
 
