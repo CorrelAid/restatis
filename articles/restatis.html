@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">restatis</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,14 +79,15 @@ the API call, see <code><a href="../articles/additional_parameter.html">vignette
 <p>For the scenario in this vignette, we are going to be a researcher
 trying to find data on the income of bus drivers, called “Busfahrer” in
 German. The following example focuses on the GENESIS database, however,
-it works practically identical for regionalstatistik.de. For the Zensus
-2022 database, the functions also work almost similarly to GENESIS and
-regionalstatistik.de, but have a few quirks (such as that there are no
-cubes for Zensus 2022 or that you can also authenticate using an API
-token).</p>
+it works practically identically for regionalstatistik.de. For the
+Zensus 2022 database, the functions also work almost similarly to
+GENESIS and regionalstatistik.de, but have a few quirks (such as that
+there are no cubes for Zensus 2022 or that you can also authenticate
+using an API token, the latter being available for GENESIS now as
+well).</p>
 </div>
 <div class="section level2">
-<h2 id="premilinary-finding-relevant-search-terms">Premilinary: finding relevant search terms<a class="anchor" aria-label="anchor" href="#premilinary-finding-relevant-search-terms"></a>
+<h2 id="step-one-finding-relevant-search-terms">Step one: finding relevant search terms<a class="anchor" aria-label="anchor" href="#step-one-finding-relevant-search-terms"></a>
 </h2>
 <p>First, we can and should explore if and how our keyword is
 represented in the GENESIS database. We want to see if our keywords are
@@ -103,9 +104,9 @@ wildcard at the beginning and end of the search term:</p>
 specific enough, and no additional specifications are necessary.</p>
 <p>Had we started with the keyword “bus” - the vehicle itself - we can
 see that the database has several related terms that might be helpful to
-narrow our search radius further. In this example, it might be helpful
-to see that there are at least three different types of buses that are
-searchable: “fernbus”, “schienenbus” and “kraftomnibusse”.</p>
+narrow down our search radius further. In this example, it might be
+helpful to see that there are at least three different types of buses
+that are searchable: “fernbus”, “schienenbus” and “kraftomnibusse”.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/gen_alternative_terms.html">gen_alternative_terms</a></span><span class="op">(</span>term <span class="op">=</span> <span class="st">"*bus*"</span>, database <span class="op">=</span> <span class="st">"genesis"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -185,7 +186,7 @@ enter it as a string in the format “DD.MM.YYYY”.</p>
 published about our collected cube object. So we use only the first part
 of the code “62361*“:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/gen_modified_data.html">gen_modified_data</a></span><span class="op">(</span>code <span class="op">=</span> <span class="st">"62361"</span>, date <span class="op">=</span> <span class="st">"week_before"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gen_modified_data.html">gen_modified_data</a></span><span class="op">(</span>code <span class="op">=</span> <span class="st">"62361"</span>, date <span class="op">=</span> <span class="st">"week_before"</span>, database <span class="op">=</span> <span class="st">"genesis"</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

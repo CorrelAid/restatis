@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">restatis</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,12 +74,12 @@ via {restatis}. These parameters are offered by some of the API
 endpoints of the three databases, but {restatis} does not explicitly
 offer them as function parameters. We do, however, provide the
 possibility of passing additional parameters to most functions via the
-‘…’ notation. These parameters are then added to the API call and affect
-it in the -hopefully- intended way. However, they have no other effect
-(e.g., on data processing) and there is no error handling implemented
-for them. It is the user’s responsibility to provide correct parameter
-names and parameter values. Be aware: Not all parameters are available
-for all functions.</p>
+‘…’ notation. These parameters are then added to the API call and should
+affect it in the intended way. However, they have no other effect (e.g.,
+on data processing) and there is no error handling implemented for them.
+It is the user’s responsibility to provide correct parameter names and
+parameter values. Be aware: Not all parameters are available for all
+functions.</p>
 <p>Especially <code><a href="../reference/gen_table.html">gen_table()</a></code> and <code><a href="../reference/gen_cube.html">gen_cube()</a></code> have
 a lot of different additional parameters to specify the API call. For a
 detailed overview, see the following official documents:</p>
@@ -133,7 +133,7 @@ based on the content description are possible. The default is
 <p>Examples:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get the values of the variable "WAM8" sorted based on their codes</span></span>
-<span><span class="fu"><a href="../reference/gen_val2var.html">gen_val2var</a></span><span class="op">(</span><span class="st">"WAM8"</span>, sortcriterion <span class="op">=</span> <span class="st">"code"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/gen_val2var.html">gen_val2var</a></span><span class="op">(</span><span class="st">"WAM8"</span>, sortcriterion <span class="op">=</span> <span class="st">"code"</span>, database <span class="op">=</span> <span class="st">"genesis"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="parameter-language">Parameter: Language<a class="anchor" aria-label="anchor" href="#parameter-language"></a>
@@ -146,10 +146,10 @@ is explicitly implemented in many functions.</em></p>
 <p>Examples:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get the values of the variable "WAM8" in German</span></span>
-<span><span class="fu"><a href="../reference/gen_val2var.html">gen_val2var</a></span><span class="op">(</span><span class="st">"WAM8"</span>, language <span class="op">=</span> <span class="st">"de"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/gen_val2var.html">gen_val2var</a></span><span class="op">(</span><span class="st">"WAM8"</span>, language <span class="op">=</span> <span class="st">"de"</span>, database <span class="op">=</span> <span class="st">"genesis"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get the values of the variable "WAM8" in English</span></span>
-<span><span class="fu"><a href="../reference/gen_val2var.html">gen_val2var</a></span><span class="op">(</span><span class="st">"WAM8"</span>, language <span class="op">=</span> <span class="st">"en"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/gen_val2var.html">gen_val2var</a></span><span class="op">(</span><span class="st">"WAM8"</span>, language <span class="op">=</span> <span class="st">"en"</span>, database <span class="op">=</span> <span class="st">"genesis"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

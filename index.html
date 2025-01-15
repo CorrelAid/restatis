@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">restatis</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,21 +59,21 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-<p><strong>restatis</strong> is a wrapper around the RESTful API that provides access to the three main databases of German official statistics:</p>
+<p><strong>restatis</strong> is a wrapper around the RESTful APIs that provide access to the three main databases of German official statistics:</p>
 <ul>
 <li>The <a href="https://www-genesis.destatis.de/genesis/online" class="external-link"><strong>GENESIS database</strong> of the Federal Statistical Office of Germany (Destatis)</a>.</li>
 <li>
 <a href="https://www.regionalstatistik.de/genesis/online/" class="external-link"><strong>regionalstatistik.de</strong> which is the database of the German Länder (Regionaldatenbank)</a>.</li>
 <li>The <a href="https://ergebnisse.zensus2022.de/datenbank/online/" class="external-link">database of the <strong>German 2022 Census</strong> (Zensus 2022)</a>.</li>
 </ul>
-<p>All functions work on either one of them, on all of them or just on a selection.</p>
+<p>Almost all functions work on either one of them, on all of them or just on a selection.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the released version of {restatis} from CRAN:</p>
+<p>You can install the released version of <a href="https://correlaid.github.io/restatis/">restatis</a> from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"restatis"</span><span class="op">)</span></span></code></pre></div>
-<p>Or install the development version of {restatis} from <a href="https://github.com/CorrelAid/restatis" class="external-link">GitHub</a> with:</p>
+<p>Or install the development version of <a href="https://correlaid.github.io/restatis/">restatis</a> from <a href="https://github.com/CorrelAid/restatis" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"CorrelAid/restatis"</span><span class="op">)</span></span></code></pre></div>
@@ -90,7 +90,7 @@
 <h3 id="main-features">Main features<a class="anchor" aria-label="anchor" href="#main-features"></a>
 </h3>
 <p>{restatis} provides functions (prefixed with <code>gen_</code>) for finding, exploring, and retrieving data from the three supported APIs. See the <a href="https://correlaid.github.io/restatis/articles/restatis.html">“Basic restatis workflow” vignette</a> for an overview of the main features of the package.</p>
-<p>In a short overview, there are functions divided in two main parts, searching for (meta)data and retrieving data:</p>
+<p>In short, there are functions divided in two main parts, searching for (meta)data and retrieving data:</p>
 <div class="section level4">
 <h4 id="searching-for-metadata">Searching for (meta)data<a class="anchor" aria-label="anchor" href="#searching-for-metadata"></a>
 </h4>
@@ -137,14 +137,13 @@
 <div class="section level3">
 <h3 id="caching">Caching<a class="anchor" aria-label="anchor" href="#caching"></a>
 </h3>
-<p>{restatis} uses <a href="https://github.com/r-lib/memoise" class="external-link"><strong>memoisation</strong></a> to cache query results. This means that if you call a function multiple times with the same input, the values returned the first time are stored and reused from the second time.</p>
-<p>Cached objects are stored in the memory and do not persist across R sessions.</p>
+<p><a href="https://correlaid.github.io/restatis/">restatis</a> uses <a href="https://github.com/r-lib/memoise" class="external-link"><strong>memoisation</strong></a> to cache query results. This means that if you call a function multiple times with the same input, the values returned the first time are stored and reused from the second time. Cached objects are stored in the memory and do not persist across R sessions. With version 0.3.0, we have enabled users to turn off caching, this is especially useful for working with jobs (so that the list of jobs from <code><a href="reference/gen_list_jobs.html">gen_list_jobs()</a></code> won’t get cached). The caching option is set to TRUE by default and can be changed by setting <code>options(restatis.use_cache = TRUE)</code> (or <code>FALSE</code>, respectively). You can get the current state of the option by using <code>getOption("restatis.use_cache")</code>.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="disclaimer">Disclaimer<a class="anchor" aria-label="anchor" href="#disclaimer"></a>
 </h2>
-<p>This package is in no way affiliated with the German Federal Statistical Office (Destatis) or the ‘Verbund Statistische Ämter des Bundes und der Länder’. It is a simple wrapper providing R functions to access Destatis’ API. The package authors are in no way responsible for the data that can be retrieved using its functions. The license of this package solely applies to its source code.</p>
+<p>This package is in no way affiliated with the German Federal Statistical Office (Destatis) or the ‘Verbund Statistische Ämter des Bundes und der Länder’. It is a simple wrapper providing R functions to access Destatis’ API. The package authors are in no way responsible for the data that can be retrieved using its functions and do not provide support for any problems arising from the APIs’ functionality itself. Conversely, support for problems related to this package is <strong>only</strong> provided by the package authors. The license of this package solely applies to its source code.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
