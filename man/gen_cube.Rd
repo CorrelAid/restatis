@@ -41,6 +41,9 @@ with the keys separated by commas. Use of wildcard (\code{*}) allowed.}
 updated after this date.}
 \item{\code{language}}{Character string. Search terms, returned messages and data
 descriptions in German (\code{"de"}) or English (\code{"en"})?}
+\item{\code{...}}{Additional parameters for the API call (see respective API documentation).
+A valid specification of these will not be checked by the function, so wrongful specification
+may lead to errors.}
 }}
 }
 \value{

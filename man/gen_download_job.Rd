@@ -9,7 +9,7 @@ gen_download_job(
   database = c("genesis", "regio"),
   area = c("all", "public", "user"),
   compress = FALSE,
-  language = Sys.getenv("GENESIS_LANG"),
+  language = Sys.getenv("RESTATIS_LANG"),
   all_character = TRUE
 )
 }
@@ -22,7 +22,7 @@ gen_download_job(
 
 \item{compress}{Boolean. Should empty rows and columns be discarded? Default is FALSE.}
 
-\item{language}{Character string. Defines if the decimal mark and grouping mark of integers should be represented based on the European (e.g.: '100,5', '200.000,5') or American ('100.5', '200,000.5') system. Defaults to 'Sys.getenv("GENESIS_LANG")'.}
+\item{language}{Character string. Defines if the decimal mark and grouping mark of integers should be represented based on the European (e.g.: '100,5', '200.000,5') or American ('100.5', '200,000.5') system. Defaults to 'Sys.getenv("RESTATIS_LANG")'.}
 
 \item{all_character}{Boolean. Should all variables be imported as 'character' variables? Avoids fuzzy data type conversions if there are leading zeros or other special characters. Defaults to TRUE.}
 }

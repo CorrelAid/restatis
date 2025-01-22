@@ -35,6 +35,9 @@
 #'       updated after this date.}
 #'     \item{\code{language}}{Character string. Search terms, returned messages and data
 #'       descriptions in German (`"de"`) or English (`"en"`)?}
+#'     \item{\code{...}}{Additional parameters for the API call (see respective API documentation).
+#'       A valid specification of these will not be checked by the function, so wrongful specification
+#'       may lead to errors.}
 #'   }
 #'
 #' @return A [tibble][tibble::tibble()]. Non-data contents of the data cube object are saved in
@@ -72,7 +75,8 @@ gen_cube_ <- function(name,
                       classifyingvariable3 = NULL,
                       classifyingkey3 = NULL,
                       stand = NULL,
-                      language = Sys.getenv("GENESIS_LANG")) {
+                      language = Sys.getenv("RESTATIS_LANG"),
+                      ...) {
 
   area <- match.arg(area)
   database <- match.arg(database)
@@ -95,62 +99,29 @@ gen_cube_ <- function(name,
 
   #-----------------------------------------------------------------------------
 
-  if (database == "genesis") {
-
-  cube_raw <- gen_genesis_api("data/cubefile",
-                              name = name,
-                              area = area,
-                              values = values,
-                              metadata = metadata,
-                              additionals = additionals,
-                              startyear = startyear,
-                              endyear = endyear,
-                              timeslices = timeslices,
-                              contents = contents,
-                              regionalvariable = regionalvariable,
-                              regionalkey = regionalkey,
-                              classifyingvariable1 = classifyingvariable1,
-                              classifyingkey1 = classifyingkey1,
-                              classifyingvariable2 = classifyingvariable2,
-                              classifyingkey2 = classifyingkey2,
-                              classifyingvariable3 = classifyingvariable3,
-                              classifyingkey3 = classifyingkey3,
-                              stand = stand,
-                              language = language,
-                              job = FALSE)
-
-  #-----------------------------------------------------------------------------
-
-  } else if (database == "regio") {
-
-    cube_raw <- gen_regio_api("data/cubefile",
-                              name = name,
-                              area = area,
-                              values = values,
-                              metadata = metadata,
-                              additionals = additionals,
-                              startyear = startyear,
-                              endyear = endyear,
-                              timeslices = timeslices,
-                              contents = contents,
-                              regionalvariable = regionalvariable,
-                              regionalkey = regionalkey,
-                              classifyingvariable1 = classifyingvariable1,
-                              classifyingkey1 = classifyingkey1,
-                              classifyingvariable2 = classifyingvariable2,
-                              classifyingkey2 = classifyingkey2,
-                              classifyingvariable3 = classifyingvariable3,
-                              classifyingkey3 = classifyingkey3,
-                              stand = stand,
-                              language = language,
-                              job = FALSE)
-
-  } else {
-
-    stop("Wrong specification of parameter 'database' (must only be 'regio' or 'genesis').",
-         call. = FALSE)
-
-  }
+  cube_raw <- gen_api(endpoint = "data/cubefile",
+                      database = database,
+                      name = name,
+                      area = area,
+                      values = values,
+                      metadata = metadata,
+                      additionals = additionals,
+                      startyear = startyear,
+                      endyear = endyear,
+                      timeslices = timeslices,
+                      contents = contents,
+                      regionalvariable = regionalvariable,
+                      regionalkey = regionalkey,
+                      classifyingvariable1 = classifyingvariable1,
+                      classifyingkey1 = classifyingkey1,
+                      classifyingvariable2 = classifyingvariable2,
+                      classifyingkey2 = classifyingkey2,
+                      classifyingvariable3 = classifyingvariable3,
+                      classifyingkey3 = classifyingkey3,
+                      stand = stand,
+                      language = language,
+                      job = FALSE,
+                      ...)
 
   #-------------------------------------------------------------------------------
 

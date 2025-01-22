@@ -1,132 +1,113 @@
-#' gen_genesis_api
+#' gen_api
 #'
-#' @description Low-level function to interact with the GENESIS API
+#' @description Wrapper function to either use cached version of gen_api or un-cached version
 #'
-#' @param endpoint Character string. The endpoint of the API that is to be queried.
-#' @param ... Further parameters passed on to the final API call.
-#'
-#' @importFrom httr2 `%>%`
+#' @param ... Parameters passed on to the API call
+#' @param use_cache Get the option value on whether the call should be cached or not
 #'
 #' @noRd
 #'
 #' @examples
 #' \dontrun{
-#' gen_genesis_api("helloworld/logincheck") %>%
+#' gen_api(endpoint = "helloworld/logincheck", database = "genesis") %>%
 #'  httr2::resp_body_json()
 #' }
 #'
-gen_genesis_api <- function(endpoint,
-                            ...) {
+gen_api <- function(...,
+                    use_cache = getOption("restatis.use_cache", TRUE)) {
 
-  url <- Sys.getenv("RESTATIS_GENESIS_URL")
+  if (isTRUE(use_cache)) {
 
-  user_agent <- "https://github.com/CorrelAid/restatis"
-
-  body_parameters <- list(...)
-
-  if (length(body_parameters) > 0) {
-
-    req <- httr2::request(url) %>%
-      httr2::req_body_form(!!!body_parameters)
+    return(.gen_api_cached(...))
 
   } else {
 
-    req <- httr2::request(url) %>%
-      httr2::req_body_form(!!!list("foo" = "bar"))
+    return(.gen_api_core(...))
 
   }
-
-  req %>%
-    httr2::req_user_agent(user_agent) %>%
-    httr2::req_url_path_append(endpoint) %>%
-    httr2::req_headers("Content-Type" = "application/x-www-form-urlencoded",
-                       "username" = gen_auth_get(database = "genesis")$username,
-                       "password" = gen_auth_get(database = "genesis")$password) %>%
-    httr2::req_retry(max_tries = 3) %>%
-    httr2::req_perform()
 
 }
 
 #-------------------------------------------------------------------------------
 
-#' gen_regio_api
+#' .gen_api_core
 #'
-#' @description Low-level function to interact with the regionalstatistik.de API
+#' @description Low-level function to interact with the one of the APIs
 #'
 #' @param endpoint Character string. The endpoint of the API that is to be queried.
+#' @param database The database the query should be sent to.
 #' @param ... Further parameters passed on to the final API call.
 #'
 #' @importFrom httr2 `%>%`
 #'
-#' @noRd
-#'
-#' @examples
-#' \dontrun{
-#' gen_regio_api("helloworld/logincheck") %>%
-#'   httr2::resp_body_json()
-#' }
-#'
-gen_regio_api <- function(endpoint,
+.gen_api_core <- function(endpoint,
+                          database,
                           ...) {
 
-  url <- Sys.getenv("RESTATIS_REGIO_URL")
+  #-----------------------------------------------------------------------------
 
-  httr2::request(url) %>%
-    httr2::req_user_agent("https://github.com/CorrelAid/restatis") %>%
-    httr2::req_url_path_append(endpoint) %>%
-    httr2::req_url_query(!!!gen_auth_get(database = "regio"), ...) %>%
-    httr2::req_retry(max_tries = 3) %>%
-    httr2::req_perform()
+  # Define URLs
 
-}
+  if (database == "genesis") {
 
-#-------------------------------------------------------------------------------
+    url <- Sys.getenv("RESTATIS_GENESIS_URL")
 
-#' gen_zensus_api
-#'
-#' @description Low-level function to interact with the Zensus 2022 database
-#'
-#' @param endpoint Character string. The endpoint of the API that is to be queried.
-#' @param ... Further parameters passed on to the final API call.
-#'
-#' @importFrom httr2 `%>%`
-#'
-#' @noRd
-#'
-#' @examples
-#' \dontrun{
-#' gen_zensus_api("helloworld/logincheck") %>%
-#'   httr2::resp_body_json()
-#' }
-#'
-gen_zensus_api <- function(endpoint,
-                           ...) {
+  } else if (database == "zensus") {
 
-  url <- Sys.getenv("RESTATIS_ZENSUS_URL")
+    url <- Sys.getenv("RESTATIS_ZENSUS_URL")
 
-  user_agent <- "https://github.com/CorrelAid/restatis"
+  } else if (database == "regio") {
 
-  body_parameters <- list(...)
-
-  if (length(body_parameters) > 0) {
-
-    req <- httr2::request(url) %>%
-      httr2::req_body_form(!!!body_parameters)
-
-  } else {
-
-    req <- httr2::request(url) %>%
-      httr2::req_body_form(!!!list("foo" = "bar"))
+    url <- Sys.getenv("RESTATIS_REGIO_URL")
 
   }
 
-  req %>%
-    httr2::req_user_agent(user_agent) %>%
-    httr2::req_url_path_append(endpoint) %>%
-    httr2::req_headers("Content-Type" = "application/x-www-form-urlencoded",
-                       "username" = gen_auth_get(database = "zensus")$username,
-                       "password" = gen_auth_get(database = "zensus")$password) %>%
-    httr2::req_retry(max_tries = 3) %>%
-    httr2::req_perform()
+  user_agent <- "https://github.com/CorrelAid/restatis"
+
+  #-----------------------------------------------------------------------------
+
+  # First try to request with POST
+  # If POST errors, try GET
+
+  tryCatch(
+
+    error = function(cnd) {
+
+      httr2::request(url) %>%
+        httr2::req_user_agent("https://github.com/CorrelAid/restatis") %>%
+        httr2::req_url_path_append(endpoint) %>%
+        httr2::req_url_query(!!!gen_auth_get(database = database), ...) %>%
+        httr2::req_retry(max_tries = 3) %>%
+        httr2::req_perform()
+
+    }, {
+
+      body_parameters <- list(...)
+
+      if (length(body_parameters) > 0) {
+
+        req <- httr2::request(url) %>%
+          httr2::req_body_form(!!!body_parameters)
+
+      } else {
+
+        req <- httr2::request(url) %>%
+          httr2::req_body_form(!!!list("foo" = "bar"))
+
+      }
+
+      req %>%
+        httr2::req_user_agent(user_agent) %>%
+        httr2::req_url_path_append(endpoint) %>%
+        httr2::req_headers("Content-Type" = "application/x-www-form-urlencoded",
+                           "username" = gen_auth_get(database = database)$username,
+                           "password" = gen_auth_get(database = database)$password) %>%
+        httr2::req_retry(max_tries = 3) %>%
+        httr2::req_perform()
+
+    })
+
+  #-----------------------------------------------------------------------------
+
 
 }

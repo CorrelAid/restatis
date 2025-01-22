@@ -10,7 +10,4 @@
 ^pkgdown$
 ^codecov\.yml$
 ^cran-comments\.md$
-<<<<<<< HEAD
-=======
 ^CRAN-SUBMISSION$
->>>>>>> main

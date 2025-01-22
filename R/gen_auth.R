@@ -3,6 +3,7 @@
 #' @description Save credentials of the different databases for further convenient use
 #'
 #' @param database Character string. The database to store credentials for ('all', 'genesis', 'zensus' or 'regio').
+#' @param use_token Boolean. Do you want to (if possible) set an API token instead of password + username? Note: This is not supported by regionalstatistik.de. Defaults to FALSE.
 #'
 #' @details Username and password are encrypted and saved as RDS in the
 #'   package config directory. A random string is generated and stored in the
@@ -21,52 +22,56 @@
 #' gen_auth_save("zensus")
 #' }
 #'
-gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio")) {
+gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio"),
+                          use_token = FALSE) {
 
   if (missing(database)) stop("You have to specify a value for parameter 'database'.",
                               call. = FALSE)
 
+  if (database == "regio" & isTRUE(use_token)) {
+
+    warning("regionalstatistik.de does not support API tokens. Defaulting to username and password.",
+            call. = FALSE)
+
+  }
+
   #-----------------------------------------------------------------------------
 
-  if (database %in% c("genesis", "regio")) {
+  if (database == "regio") {
 
-    insert_and_save_credentials(database)
+    insert_and_save_credentials(database, use_token)
 
     gen_logincheck(database = database)
 
   #-----------------------------------------------------------------------------
 
-  } else if (database == "zensus"){
+  } else if (database %in% c("zensus", "genesis")) {
 
-    insert_and_save_credentials("zensus")
+    insert_and_save_credentials(database, use_token)
 
-    gen_logincheck(database = "zensus")
+    gen_logincheck(database = database)
 
   } else if (database == "all"){
 
     #---------------------------------------------------------------------------
 
-    message("~~ Saving credentials for the 'genesis' database.")
+    walk_arguments <- list(ui_menu_database = c("GENESIS", "Zensus 2022", "regionalstatistik.de"),
+                           db_names = c("genesis", "zensus", "regio"),
+                           use_token = use_token)
 
-    insert_and_save_credentials("genesis")
+    purrr::pwalk(.l = walk_arguments,
+                 .f = function(ui_menu_database,
+                               db_names,
+                               use_token) {
 
-    gen_logincheck(database = "genesis")
+                   message("~~ Saving credentials for the ", ui_menu_database, " database.")
 
-    #-------------------------------------------------------------------------
+                   insert_and_save_credentials(database = db_names,
+                                               use_token = use_token)
 
-    message("~~ Saving credentials for the Zensus 2022 database.\n")
+                   gen_logincheck(database = db_names)
 
-    insert_and_save_credentials("zensus")
-
-    gen_logincheck(database = "zensus")
-
-    #-------------------------------------------------------------------------
-
-    message("~~ Saving credentials for regionalstatistik.de database.")
-
-    insert_and_save_credentials("regio")
-
-    gen_logincheck(database = "regio")
+                 })
 
   #-----------------------------------------------------------------------------
 
@@ -192,14 +197,16 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
       if (!(file.exists(auth_path) && nzchar(Sys.getenv("GENESIS_KEY")))) {
 
-        stop(paste0("GENESIS database credentials not found. ",
-                    "Please run 'gen_auth_save()' to store GENESIS database username and password."),
-             call. = FALSE)
+        warning(paste0("GENESIS database credentials not found. ",
+                       "Please run 'gen_auth_save()' to store GENESIS database username and password."),
+                call. = FALSE)
+
+      } else {
+
+        message("Credentials for database GENESIS:\n")
+        print(httr2::secret_read_rds(auth_path, "GENESIS_KEY"))
 
       }
-
-      message("Credentials for database GENESIS:\n")
-      print(httr2::secret_read_rds(auth_path, "GENESIS_KEY"))
 
       #---------------------------------------------------------------------------
 
@@ -207,14 +214,16 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
       if (!(file.exists(auth_path) && nzchar(Sys.getenv("ZENSUS_KEY")))) {
 
-        stop(paste0("Zensus 2022 database credentials not found. ",
+        warning(paste0("Zensus 2022 database credentials not found. ",
                     "Please run 'gen_auth_save()' to store Zensus 2022 database username and password."),
-             call. = FALSE)
+                call. = FALSE)
+
+      } else {
+
+        message("Credentials for database Zensus 2022:\n")
+        print(httr2::secret_read_rds(auth_path, "ZENSUS_KEY"))
 
       }
-
-      message("Credentials for database Zensus 2022:\n")
-      print(httr2::secret_read_rds(auth_path, "ZENSUS_KEY"))
 
       #---------------------------------------------------------------------------
 
@@ -222,14 +231,16 @@ gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
 
       if (!(file.exists(auth_path) && nzchar(Sys.getenv("REGIO_KEY")))) {
 
-        stop(paste0("regionalstatistik.de database credentials not found. ",
+        warning(paste0("regionalstatistik.de database credentials not found. ",
                     "Please run 'gen_auth_save()' to store regionalstatistik.de database username and password."),
-             call. = FALSE)
+                call. = FALSE)
+
+      } else {
+
+        message("Credentials for database regionalstatistik.de:\n")
+        print(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
 
       }
-
-      message("Credentials for database regionalstatistik.de:\n")
-      print(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
 
     } # End of 'else if (database == "all")'
 

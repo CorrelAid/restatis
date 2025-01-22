@@ -1,3 +1,12 @@
+# restatis 0.3.0
+
+* Added the feature that users can now adjust the API URLs via environment variables 
+* Added the feature of turning on and off caching via options()
+* Added pagelength as a function parameter where available
+* Added the "..." parameter to gen_table() and gen_cube()
+* Refactored some of the internal functions 
+* Bugfixes
+
 # restatis 0.2.0
 
 * Added support for regionalstatistik.de and the Zensus 2022 database

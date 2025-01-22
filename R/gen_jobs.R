@@ -2,9 +2,11 @@
 #'
 #' @description Function to list all current jobs connected to the given user in the GENESIS or regionalstatistik.de database. Important note: For this function it is also possible to use `searchcriterion` parameter and `selection` parameter, making it possible to filter the job list based on 'type','time','status' or 'code'. For more details see `vignette("additional_parameter")`.
 #'
-#' @param database Character string. Indicator if 'genesis' or 'regionalstatistik.de' database is called. Default option is 'genesis'.
+#' @param database Character string. Indicator if 'genesis' or 'regionalstatistik.de' database is called.
 #' @param sortcriterion Character string. Indicator if the output should be sorted by 'type','time','status' or 'code'. This is a parameter of the API call itself. The default is 'type'.
 #' @param flat Boolean. Should the function return a list with jobs and metadata ('FALSE') or just a flat data.frame ('TRUE')? Defaults to FALSE.
+#' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list or data.frame (see parameter 'flat') of all current jobs of the user.
@@ -18,13 +20,16 @@
 gen_list_jobs <- function(database = c("genesis", "regio"),
                           sortcriterion = c("type", "time", "status", "code"),
                           flat = FALSE,
+                          error.ignore = FALSE,
+                          verbose = TRUE,
                           ...) {
 
-  gen_fun <- test_database_function(database,
-                                    error.input = TRUE,
-                                    text = TRUE)
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(input = database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
-  if (length(database) != 1) {
+  if (any(!(database_vector %in% c("genesis", "regio")))) {
 
     stop("This function allows only two values of  'database': 'genesis' or 'regio'.",
          call. = FALSE)
@@ -49,64 +54,56 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
 
   #-----------------------------------------------------------------------------
 
-  if (gen_fun == "gen_genesis_api"){
+  res_list <- purrr::map(.x = database_vector,
+                         .f = function(x,
+                                       ...) {
 
-    par_list <-  list(endpoint = "catalogue/jobs",
-                      sortcriterion = sortcriterion,
-                      ...)
+    results_raw <- gen_api(endpoint = "catalogue/jobs",
+                           database = x,
+                           sortcriterion = sortcriterion,
+                           ...)
 
-  } else if (gen_fun == "gen_regio_api") {
+    results_json <- test_if_json(results_raw)
 
-    par_list <-  list(endpoint = "catalogue/jobs",
-                      sortcriterion = sortcriterion,
-                      ...)
+    #-----------------------------------------------------------------------------
 
-  } else {
+    if (flat == FALSE) {
 
-    stop("Misspecification of the parameter 'database': Only 'genesis' and 'regio' allowed.",
-         call. = FALSE)
+      res <- list("Output" = tibble::as_tibble(binding_lapply(results_json$List,
+                                               characteristics = c("State",
+                                                                   "Code",
+                                                                   "Date",
+                                                                   "Time",
+                                                                   "Content"))))
 
-  }
+      attr(res, "Database") <- database[1]
+      attr(res, "Sortcriterion") <- results_json$Parameter$sortcriterion
+      attr(res, "Language") <- results_json$Parameter$language
+      attr(res, "Copyright") <- results_json$Copyright
 
-  results_raw <- do.call(gen_fun, par_list)
+      return(res)
 
-  results_json <- test_if_json(results_raw)
+    } else if (flat == TRUE) {
 
-  #-----------------------------------------------------------------------------
+      res <- tibble::as_tibble(binding_lapply(results_json$List,
+                                              characteristics = c("State",
+                                                                  "Code",
+                                                                  "Date",
+                                                                  "Time",
+                                                                  "Content")))
 
-  if (flat == FALSE) {
+      return(res)
 
-    res <- list("Output" = tibble::as_tibble(binding_lapply(results_json$List,
-                                             characteristics = c("State",
-                                                                 "Code",
-                                                                 "Date",
-                                                                 "Time",
-                                                                 "Content"))))
+    } else {
 
-    attr(res, "Database") <- database[1]
-    attr(res, "Sortcriterion") <- results_json$Parameter$sortcriterion
-    attr(res, "Language") <- results_json$Parameter$language
-    attr(res, "Copyright") <- results_json$Copyright
+      stop("Misspecification of the parameter 'flat': Only TRUE or FALSE allowed.",
+           call. = FALSE)
 
-    return(res)
+    }
 
-  } else if (flat == TRUE) {
+  })
 
-    res <- tibble::as_tibble(binding_lapply(results_json$List,
-                                            characteristics = c("State",
-                                                                "Code",
-                                                                "Date",
-                                                                "Time",
-                                                                "Content")))
-
-    return(res)
-
-  } else {
-
-    stop("Misspecification of the parameter 'flat': Only TRUE or FALSE allowed.",
-         call. = FALSE)
-
-  }
+  return(res_list)
 
 }
 
@@ -133,7 +130,7 @@ gen_download_job <- function(name,
                              database = c("genesis", "regio"),
                              area = c("all", "public", "user"),
                              compress = FALSE,
-                             language = Sys.getenv("GENESIS_LANG"),
+                             language = Sys.getenv("RESTATIS_LANG"),
                              all_character = TRUE) {
 
   #-----------------------------------------------------------------------------
@@ -167,34 +164,15 @@ gen_download_job <- function(name,
 
   #-----------------------------------------------------------------------------
 
-  if (database == "genesis") {
+  response <- gen_api(endpoint = "data/resultfile",
+                      database = database,
+                      name = name,
+                      area = area,
+                      compress = compress,
+                      format = "ffcsv",
+                      language = language)
 
-    response <- gen_genesis_api("data/resultfile",
-                                name = name,
-                                area = area,
-                                compress = compress,
-                                format = "ffcsv",
-                                language = language)
-
-    response_type <- resp_check_data(response)
-
-  } else if (database == "regio"){
-
-    response <- gen_regio_api("data/resultfile",
-                              name = name,
-                              area = area,
-                              compress = compress,
-                              format = "ffcsv",
-                              language = language)
-
-    response_type <- resp_check_data(response)
-
-  } else {
-
-    stop("Misspecification of parameter 'database': Can only be 'genesis' or 'regio'.",
-         call. = FALSE)
-
-  }
+  response_type <- resp_check_data(response)
 
   #-----------------------------------------------------------------------------
 

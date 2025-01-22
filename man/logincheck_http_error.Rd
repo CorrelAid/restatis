@@ -4,12 +4,14 @@
 \alias{logincheck_http_error}
 \title{logincheck_http_error}
 \usage{
-logincheck_http_error(database, verbose)
+logincheck_http_error(database, verbose, ...)
 }
 \arguments{
 \item{database}{The user input to 'gen_logincheck'}
 
 \item{verbose}{Boolean. Should the function message in case of success?}
+
+\item{...}{Additional parameters (unchecked)}
 }
 \value{
 Informative error/warning messages + invisibly TRUE/FALSE

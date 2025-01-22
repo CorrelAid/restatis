@@ -7,7 +7,8 @@ without_internet({
     skip_on_cran()
     skip_on_ci()
 
-    expect_GET(restatis:::gen_api(endpoint = "helloworld/whoami"),
+    expect_GET(restatis:::gen_api(endpoint = "helloworld/whoami",
+                                  database = "genesis"),
                "https://www-genesis.destatis.de/genesisWS/rest/2020/helloworld/whoami")
 
   })

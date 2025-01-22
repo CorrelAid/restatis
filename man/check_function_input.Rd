@@ -15,6 +15,7 @@ check_function_input(
   similarity = NULL,
   error.ignore = NULL,
   ordering = NULL,
+  pagelength = NULL,
   database = NULL,
   area = NULL,
   caller = NULL,
@@ -42,6 +43,8 @@ check_function_input(
 \item{error.ignore}{Parameter to be checked}
 
 \item{ordering}{Parameter to be checked}
+
+\item{pagelength}{Parameter to be checked}
 
 \item{database}{Parameter to be checked}
 
