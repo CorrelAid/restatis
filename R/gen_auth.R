@@ -22,7 +22,7 @@
 #' gen_auth_save("zensus")
 #' }
 #'
-gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio"),
+gen_auth_save <- function(database,
                           use_token = FALSE) {
 
   if (missing(database)) stop("You have to specify a value for parameter 'database'.",
@@ -100,7 +100,7 @@ gen_auth_save <- function(database = c("all", "genesis", "zensus", "regio"),
 #' gen_auth_get("all")
 #' }
 #'
-gen_auth_get <- function(database = c("all", "genesis", "zensus", "regio")) {
+gen_auth_get <- function(database) {
 
   #-----------------------------------------------------------------------------
 
