@@ -14,8 +14,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 <!-- badges: end -->
 
-**restatis** is a wrapper around the RESTful APIs that provide access to
-the three main databases of German official statistics:
+**{restatis}** is a wrapper around the RESTful APIs that provide access
+to the three main databases of German official statistics:
 
 - The [**GENESIS database** of the Federal Statistical Office of Germany
   (Destatis)](https://www-genesis.destatis.de/genesis/online).
@@ -50,8 +50,10 @@ devtools::install_github("CorrelAid/restatis")
 To access each one of the APIs, you need to have an account that you can
 create on the homepage (see links to them above) and store your username
 and password for use in R with `restatis::gen_auth_save()` (see
-`?gen_auth_save` for more details). The Zensus 2022 database does
-support authentication with an API token as well.
+`?gen_auth_save` for more details). The GENESIS and Zensus 2022
+databases do support authentication with an API token as well. You can
+set the token as credential by using setting the parameter
+`use_token = TRUE` for `restatis::gen_auth_save()`.
 
 ### Main features
 
