@@ -59,7 +59,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-<p><strong>restatis</strong> is a wrapper around the RESTful APIs that provide access to the three main databases of German official statistics:</p>
+<p><strong>{restatis}</strong> is a wrapper around the RESTful APIs that provide access to the three main databases of German official statistics:</p>
 <ul>
 <li>The <a href="https://www-genesis.destatis.de/genesis/online" class="external-link"><strong>GENESIS database</strong> of the Federal Statistical Office of Germany (Destatis)</a>.</li>
 <li>
@@ -84,7 +84,7 @@
 <div class="section level3">
 <h3 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
 </h3>
-<p>To access each one of the APIs, you need to have an account that you can create on the homepage (see links to them above) and store your username and password for use in R with <code><a href="reference/gen_auth_save.html">restatis::gen_auth_save()</a></code> (see <code><a href="reference/gen_auth_save.html">?gen_auth_save</a></code> for more details). The Zensus 2022 database does support authentication with an API token as well.</p>
+<p>To access each one of the APIs, you need to have an account that you can create on the homepage (see links to them above) and store your username and password for use in R with <code><a href="reference/gen_auth_save.html">restatis::gen_auth_save()</a></code> (see <code><a href="reference/gen_auth_save.html">?gen_auth_save</a></code> for more details). The GENESIS and Zensus 2022 databases do support authentication with an API token as well. You can set the token as credential by using setting the parameter <code>use_token = TRUE</code> for <code><a href="reference/gen_auth_save.html">restatis::gen_auth_save()</a></code>.</p>
 </div>
 <div class="section level3">
 <h3 id="main-features">Main features<a class="anchor" aria-label="anchor" href="#main-features"></a>
