@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_api.R
 \name{.gen_api_core}
 \alias{.gen_api_core}
-\title{.gen_api_core}
+\title{Basic API request function of {restatis}}
 \usage{
 .gen_api_core(endpoint, database, ...)
 }
@@ -14,5 +14,5 @@
 \item{...}{Further parameters passed on to the final API call.}
 }
 \description{
-Low-level function to interact with the one of the APIs
+(Uncached) Low-level function to interact with the one of the APIs
 }

@@ -1,6 +1,6 @@
-#' gen_api
+#' Upper level basic API request function of {restatis}
 #'
-#' @description Wrapper function to either use cached version of gen_api or un-cached version
+#' @description Upper-level function to interact with the one of the APIs
 #'
 #' @param ... Parameters passed on to the API call
 #' @param use_cache Get the option value on whether the call should be cached or not
@@ -16,6 +16,7 @@
 gen_api <- function(...,
                     use_cache = getOption("restatis.use_cache", TRUE)) {
 
+  # Choose executing function based on cache option
   if (isTRUE(use_cache)) {
 
     return(.gen_api_cached(...))
@@ -30,9 +31,9 @@ gen_api <- function(...,
 
 #-------------------------------------------------------------------------------
 
-#' .gen_api_core
+#' Basic API request function of {restatis}
 #'
-#' @description Low-level function to interact with the one of the APIs
+#' @description (Uncached) Low-level function to interact with the one of the APIs
 #'
 #' @param endpoint Character string. The endpoint of the API that is to be queried.
 #' @param database The database the query should be sent to.
@@ -46,7 +47,7 @@ gen_api <- function(...,
 
   #-----------------------------------------------------------------------------
 
-  # Define URLs
+  # Define URLs depending on database chosen
 
   if (database == "genesis") {
 
@@ -62,28 +63,23 @@ gen_api <- function(...,
 
   }
 
+  # Set user agent
   user_agent <- "https://github.com/CorrelAid/restatis"
 
   #-----------------------------------------------------------------------------
 
   # First try to request with POST
   # If POST errors, try GET
+  # This allows flexibility across different database instances
 
-  tryCatch(
+  tryCatch( # tryCatch to try POST
 
-    error = function(cnd) {
+    expr = {
 
-      httr2::request(url) %>%
-        httr2::req_user_agent("https://github.com/CorrelAid/restatis") %>%
-        httr2::req_url_path_append(endpoint) %>%
-        httr2::req_url_query(!!!gen_auth_get(database = database), ...) %>%
-        httr2::req_retry(max_tries = 3) %>%
-        httr2::req_perform()
-
-    }, {
-
+      # Catch API parameter values for ...
       body_parameters <- list(...)
 
+      # Check if there are any items in ...
       if (length(body_parameters) > 0) {
 
         req <- httr2::request(url) %>%
@@ -91,11 +87,13 @@ gen_api <- function(...,
 
       } else {
 
+        # To make a request work with empty ... we need a fake body
         req <- httr2::request(url) %>%
           httr2::req_body_form(!!!list("foo" = "bar"))
 
       }
 
+      # Perform API call with POST
       req %>%
         httr2::req_user_agent(user_agent) %>%
         httr2::req_url_path_append(endpoint) %>%
@@ -105,9 +103,29 @@ gen_api <- function(...,
         httr2::req_retry(max_tries = 3) %>%
         httr2::req_perform()
 
+    }, error = function(e) {
+
+      tryCatch( # tryCatch to try GET
+
+        expr = {
+
+          # Perform API call with GET (deprecated in GENESIS and Zensus 2022)
+          httr2::request(url) %>%
+            httr2::req_user_agent("https://github.com/CorrelAid/restatis") %>%
+            httr2::req_url_path_append(endpoint) %>%
+            httr2::req_url_query(!!!gen_auth_get(database = database), ...) %>%
+            httr2::req_retry(max_tries = 3) %>%
+            httr2::req_perform()
+
+        }, error = function(e) {
+
+          stop(paste0("The API call(s) have been tried with GET and POST methods, but were unsuccessful (error message: '", e$message, "'). Check your specifications or try again later."),
+               call. = FALSE)
+
+      })
+
     })
 
   #-----------------------------------------------------------------------------
-
 
 }

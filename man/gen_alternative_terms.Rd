@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_alternative_terms.R
 \name{gen_alternative_terms}
 \alias{gen_alternative_terms}
-\title{gen_alternative_terms}
+\title{Find similar search terms}
 \usage{
 gen_alternative_terms(
   term = NULL,
