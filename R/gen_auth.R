@@ -1,4 +1,4 @@
-#' gen_auth_save
+#' Save database credentials
 #'
 #' @description Save credentials of the different databases for further convenient use
 #'
@@ -8,9 +8,9 @@
 #' @details Username and password are encrypted and saved as RDS in the
 #'   package config directory. A random string is generated and stored in the
 #'   session environment variable `GENESIS_KEY`. This string is used as the key
-#'   to encrypt and decrypt the entered credentials. To avoid havding to save
+#'   to encrypt and decrypt the entered credentials. To avoid having to save
 #'   authentication in future sessions, `GENESIS_KEY` can be added to .Renviron.
-#'   The usethis package includes a helper function for editing .Renviron files
+#'   The `{usethis}` package includes a helper function for editing .Renviron files
 #'   from an R session with [usethis::edit_r_environ()].
 #'
 #' @return Path to the RDS file in which credentials are saved, invisibly.
@@ -86,7 +86,7 @@ gen_auth_save <- function(database,
 
 #-------------------------------------------------------------------------------
 
-#' gen_auth_get
+#' Retrieve database credentials
 #'
 #' @description Function to retrieve the credentials stored via \code{gen_auth_save()}
 #'
@@ -313,7 +313,7 @@ gen_auth_get <- function(database) {
 
 #-------------------------------------------------------------------------------
 
-#' gen_auth_ask
+#' Helper function for authentication purposes
 #'
 #' @param credential_type Character string. Type of credential to ask for
 #'
@@ -335,7 +335,7 @@ gen_auth_ask <- function(credential_type) {
 
 #-------------------------------------------------------------------------------
 
-#' gen_auth_path
+#' Helper function for authentication purposes
 #'
 #' @param ... Optional arguments for file.path()
 #'

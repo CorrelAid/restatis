@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_auth.R
 \name{gen_auth_ask}
 \alias{gen_auth_ask}
-\title{gen_auth_ask}
+\title{Helper function for authentication purposes}
 \usage{
 gen_auth_ask(credential_type)
 }
@@ -13,5 +13,5 @@ gen_auth_ask(credential_type)
 The user response
 }
 \description{
-gen_auth_ask
+Helper function for authentication purposes
 }

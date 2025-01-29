@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_auth.R
 \name{gen_auth_path}
 \alias{gen_auth_path}
-\title{gen_auth_path}
+\title{Helper function for authentication purposes}
 \usage{
 gen_auth_path(...)
 }
@@ -13,5 +13,5 @@ gen_auth_path(...)
 A file path for the storage of config files
 }
 \description{
-gen_auth_path
+Helper function for authentication purposes
 }

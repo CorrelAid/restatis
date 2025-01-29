@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_auth.R
 \name{gen_auth_get}
 \alias{gen_auth_get}
-\title{gen_auth_get}
+\title{Retrieve database credentials}
 \usage{
 gen_auth_get(database)
 }
