@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_catalogue.R
 \name{gen_catalogue}
 \alias{gen_catalogue}
-\title{gen_catalogue}
+\title{Search for tables, statistics and cubes}
 \usage{
 gen_catalogue(
   code = NULL,
@@ -39,10 +39,10 @@ gen_catalogue(
 \item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
 \value{
-A list with all recalled elements from the API. Based on the 'detailed' parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
+A list with all recalled elements from the API. Based on the 'detailed' parameter, it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to search for tables, statistics, and cubes from GENESIS, Zensus 2022 or regionalstatistik.de. Additionally, it structures the output based on the internal tree structure based on the EVAS-numbers. Time-series are represented as cubes with a specified time span. Important note: To be useful in searching for objects it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
+Function to search for tables, statistics and cubes from GENESIS, Zensus 2022 or regionalstatistik.de. Additionally, it structures the output based on the internal tree structure based on the EVAS numbers. Time-series are represented as cubes with a specified time span. Important note: To be useful in searching for objects it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
 }
 \examples{
 \dontrun{

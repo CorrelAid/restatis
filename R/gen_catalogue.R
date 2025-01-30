@@ -1,6 +1,6 @@
-#' gen_catalogue
+#' Search for tables, statistics and cubes
 #'
-#' @description Function to search for tables, statistics, and cubes from GENESIS, Zensus 2022 or regionalstatistik.de. Additionally, it structures the output based on the internal tree structure based on the EVAS-numbers. Time-series are represented as cubes with a specified time span. Important note: To be useful in searching for objects it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
+#' @description Function to search for tables, statistics and cubes from GENESIS, Zensus 2022 or regionalstatistik.de. Additionally, it structures the output based on the internal tree structure based on the EVAS numbers. Time-series are represented as cubes with a specified time span. Important note: To be useful in searching for objects it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
 #'
 #' @param code String with a maximum length of 15 characters for a database object (GENESIS and regionalstatistik.de) and 15 characters for a Zensus 2022 object. Only one code per iteration. "*" notations are possible.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
@@ -13,7 +13,7 @@
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
-#' @return A list with all recalled elements from the API. Based on the 'detailed' parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
+#' @return A list with all recalled elements from the API. Based on the 'detailed' parameter, it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 #' @export
 #'
 #' @examples
@@ -39,6 +39,7 @@ gen_catalogue <- function(code = NULL,
                           verbose = TRUE,
                           ...) {
 
+  # Determine calling function; important for checking parameter values
   caller <- as.character(match.call()[1])
 
   # database_vector will hold a vector of the specified databases to query
@@ -46,6 +47,7 @@ gen_catalogue <- function(code = NULL,
                                             error.input = error.ignore,
                                             text = verbose)
 
+  # Check parameter values
   check_function_input(code = code,
                        category = category,
                        detailed = detailed,
@@ -64,7 +66,7 @@ gen_catalogue <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  # Processing #
+  # Loop over databases in database_vector and make respective API calls
   res <- lapply(database_vector, function(db){
 
     if (isTRUE(verbose)) {
@@ -83,6 +85,7 @@ gen_catalogue <- function(code = NULL,
 
     } else if ("cubes" %in% category && (db == "genesis" | db == "regio")) {
 
+      # Make API call
       results_raw <- gen_api(endpoint = "catalogue/cubes",
                              database = db,
                              username = gen_auth_get(database = db)$username,
@@ -92,6 +95,7 @@ gen_catalogue <- function(code = NULL,
                              area = area,
                              ...)
 
+      # Test validity of JSON results
       results_json <- test_if_json(results_raw)
 
       empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
@@ -136,6 +140,7 @@ gen_catalogue <- function(code = NULL,
 
     if ("statistics" %in% category) {
 
+      # Make API call
       results_raw <- gen_api(endpoint = "catalogue/statistics",
                              database = db,
                              username = gen_auth_get(database = db)$username,
@@ -185,6 +190,7 @@ gen_catalogue <- function(code = NULL,
 
     if ("tables" %in% category) {
 
+      # Make API call
       results_raw <- gen_api(endpoint = "catalogue/tables",
                              database = db,
                              username = gen_auth_get(database = db)$username,
@@ -233,7 +239,7 @@ gen_catalogue <- function(code = NULL,
     }
 
     #---------------------------------------------------------------------------
-    # Summary #
+    # Summary
 
     if (all(c("tables", "statistics", "cubes") %in% category)) {
 
@@ -290,6 +296,7 @@ gen_catalogue <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
+    # Append attributes to the result object(s)
     attr(list_resp, "Code") <- code
     attr(list_resp, "Database") <- db
     attr(list_resp, "Category") <- category
@@ -312,6 +319,7 @@ gen_catalogue <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
+  # Check validity of results
   res <- check_results(res)
 
   return(res)
