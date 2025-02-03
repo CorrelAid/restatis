@@ -61,9 +61,9 @@
 
 <p><strong>{restatis}</strong> is a wrapper around the RESTful APIs that provide access to the three main databases of German official statistics:</p>
 <ul>
-<li>The <a href="https://www-genesis.destatis.de/genesis/online" class="external-link"><strong>GENESIS database</strong> of the Federal Statistical Office of Germany (Destatis)</a>.</li>
+<li>The <a href="https://www-genesis.destatis.de/genesis/online" class="external-link"><strong>GENESIS database</strong> of the Federal Statistical Office of Germany (Destatis)</a>,</li>
 <li>
-<a href="https://www.regionalstatistik.de/genesis/online/" class="external-link"><strong>regionalstatistik.de</strong> which is the database of the German Länder (Regionaldatenbank)</a>.</li>
+<a href="https://www.regionalstatistik.de/genesis/online/" class="external-link"><strong>regionalstatistik.de</strong> which is the database of the German Länder (Regionaldatenbank)</a>,</li>
 <li>The <a href="https://ergebnisse.zensus2022.de/datenbank/online/" class="external-link">database of the <strong>German 2022 Census</strong> (Zensus 2022)</a>.</li>
 </ul>
 <p>Almost all functions work on either one of them, on all of them or just on a selection.</p>
@@ -73,7 +73,7 @@
 <p>You can install the released version of <a href="https://correlaid.github.io/restatis/">restatis</a> from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"restatis"</span><span class="op">)</span></span></code></pre></div>
-<p>Or install the development version of <a href="https://correlaid.github.io/restatis/">restatis</a> from <a href="https://github.com/CorrelAid/restatis" class="external-link">GitHub</a> with:</p>
+<p>Or install a development version of <a href="https://correlaid.github.io/restatis/">restatis</a> from <a href="https://github.com/CorrelAid/restatis" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"CorrelAid/restatis"</span><span class="op">)</span></span></code></pre></div>
@@ -84,7 +84,8 @@
 <div class="section level3">
 <h3 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
 </h3>
-<p>To access each one of the APIs, you need to have an account that you can create on the homepage (see links to them above) and store your username and password for use in R with <code><a href="reference/gen_auth_save.html">restatis::gen_auth_save()</a></code> (see <code><a href="reference/gen_auth_save.html">?gen_auth_save</a></code> for more details). The GENESIS and Zensus 2022 databases do support authentication with an API token as well. You can set the token as credential by using setting the parameter <code>use_token = TRUE</code> for <code><a href="reference/gen_auth_save.html">restatis::gen_auth_save()</a></code>.</p>
+<p>To access each one of the APIs, you need to have an account that you can create on the homepage (see links to them above) and store your username and password for use in R with <code><a href="reference/gen_auth_save.html">restatis::gen_auth_save()</a></code> (see <code><a href="reference/gen_auth_save.html">?gen_auth_save</a></code> for more details).</p>
+<p><strong>Note:</strong> The GENESIS and Zensus 2022 databases do support authentication with an API token as well. You can set the token as credential by using setting the parameter <code>use_token = TRUE</code> for <code><a href="reference/gen_auth_save.html">restatis::gen_auth_save()</a></code>. The token itself can be found when logging into the respective webpage with your account and by clicking on <em>Webservice (API)</em> (EN) or <em>Webservice-Schnittstelle (API)</em> (DE) in the bottom left corner. <strong>Important:</strong> Both GENESIS and Zensus 2022 databases will not let you create jobs when using API tokens to authenticate. This is why <a href="https://correlaid.github.io/restatis/">restatis</a> will check your credential type once you set <code>job = TRUE</code> for <code><a href="reference/gen_table.html">gen_table()</a></code> or <code><a href="reference/gen_cube.html">gen_cube()</a></code> and error in case a token is used. To enable the use of jobs, use <code><a href="reference/gen_auth_save.html">gen_auth_save()</a></code> and input your username and password (by setting <code>use_token = FALSE</code>).</p>
 </div>
 <div class="section level3">
 <h3 id="main-features">Main features<a class="anchor" aria-label="anchor" href="#main-features"></a>
@@ -143,7 +144,7 @@
 <div class="section level2">
 <h2 id="disclaimer">Disclaimer<a class="anchor" aria-label="anchor" href="#disclaimer"></a>
 </h2>
-<p>This package is in no way affiliated with the German Federal Statistical Office (Destatis) or the ‘Verbund Statistische Ämter des Bundes und der Länder’. It is a simple wrapper providing R functions to access Destatis’ API. The package authors are in no way responsible for the data that can be retrieved using its functions and do not provide support for any problems arising from the APIs’ functionality itself. Conversely, support for problems related to this package is <strong>only</strong> provided by the package authors. The license of this package solely applies to its source code.</p>
+<p>This package is in no way affiliated with the German Federal Statistical Office (Destatis) or the ‘Verbund Statistische Ämter des Bundes und der Länder’. It is a simple wrapper providing R functions to access Destatis’ API. The package authors are in no way responsible for the data that can be retrieved using its functions and do not provide support for any problems arising from the APIs’ functionality itself. Conversely, support for problems related to this package is <strong>exclusively</strong> provided by the package authors. The license of this package solely applies to its source code.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

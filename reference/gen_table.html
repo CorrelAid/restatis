@@ -104,7 +104,9 @@ descriptions in German (<code>"de"</code>) or English (<code>"en"</code>)?</p></
 
 <dt><code>job</code></dt>
 <dd><p>Boolean. Indicate as to whether a job should be created
-(not available with the 'Zensus' database).)</p></dd>
+(not available with the 'Zensus' database). In order to set job = TRUE
+you have to have username and password saved with gen_auth_save(),
+using API tokens with job = TRUE will result in an error.</p></dd>
 
 <dt><code>all_character</code></dt>
 <dd><p>Boolean. Should all variables be imported as
