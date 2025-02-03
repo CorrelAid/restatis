@@ -18,9 +18,9 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 to the three main databases of German official statistics:
 
 - The [**GENESIS database** of the Federal Statistical Office of Germany
-  (Destatis)](https://www-genesis.destatis.de/genesis/online).
+  (Destatis)](https://www-genesis.destatis.de/genesis/online),
 - [**regionalstatistik.de** which is the database of the German Länder
-  (Regionaldatenbank)](https://www.regionalstatistik.de/genesis/online/).
+  (Regionaldatenbank)](https://www.regionalstatistik.de/genesis/online/),
 - The [database of the **German 2022 Census** (Zensus
   2022)](https://ergebnisse.zensus2022.de/datenbank/online/).
 
@@ -35,7 +35,7 @@ You can install the released version of `{restatis}` from CRAN:
 install.packages("restatis")
 ```
 
-Or install the development version of `{restatis}` from
+Or install a development version of `{restatis}` from
 [GitHub](https://github.com/CorrelAid/restatis) with:
 
 ``` r
@@ -50,10 +50,20 @@ devtools::install_github("CorrelAid/restatis")
 To access each one of the APIs, you need to have an account that you can
 create on the homepage (see links to them above) and store your username
 and password for use in R with `restatis::gen_auth_save()` (see
-`?gen_auth_save` for more details). The GENESIS and Zensus 2022
-databases do support authentication with an API token as well. You can
-set the token as credential by using setting the parameter
-`use_token = TRUE` for `restatis::gen_auth_save()`.
+`?gen_auth_save` for more details).
+
+**Note:** The GENESIS and Zensus 2022 databases do support
+authentication with an API token as well. You can set the token as
+credential by using setting the parameter `use_token = TRUE` for
+`restatis::gen_auth_save()`. The token itself can be found when logging
+into the respective webpage with your account and by clicking on
+*Webservice (API)* (EN) or *Webservice-Schnittstelle (API)* (DE) in the
+bottom left corner. **Important:** Both GENESIS and Zensus 2022
+databases will not let you create jobs when using API tokens to
+authenticate. This is why `{restatis}` will check your credential type
+once you set `job = TRUE` for `gen_table()` or `gen_cube()` and error in
+case a token is used. To enable the use of jobs, use `gen_auth_save()`
+and input your username and password (by setting `use_token = FALSE`).
 
 ### Main features
 
@@ -115,6 +125,6 @@ Länder’. It is a simple wrapper providing R functions to access
 Destatis’ API. The package authors are in no way responsible for the
 data that can be retrieved using its functions and do not provide
 support for any problems arising from the APIs’ functionality itself.
-Conversely, support for problems related to this package is **only**
-provided by the package authors. The license of this package solely
-applies to its source code.
+Conversely, support for problems related to this package is
+**exclusively** provided by the package authors. The license of this
+package solely applies to its source code.

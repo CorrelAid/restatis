@@ -34,7 +34,9 @@
 #'     \item{\code{language}}{Search terms, returned messages and data
 #'       descriptions in German (`"de"`) or English (`"en"`)?}
 #'     \item{\code{job}}{Boolean. Indicate as to whether a job should be created
-#'        (not available with the 'Zensus' database).)}
+#'        (not available with the 'Zensus' database). In order to set job = TRUE
+#'        you have to have username and password saved with gen_auth_save(),
+#'        using API tokens with job = TRUE will result in an error.}
 #'     \item{\code{all_character}}{Boolean. Should all variables be imported as
 #'        'character' variables? Avoids fuzzy data type conversions if there are
 #'        leading zeros or other special characters. Defaults to TRUE.}
@@ -112,6 +114,17 @@ gen_table_ <- function(name,
   classifyingkey1 <- param_collapse_vec(classifyingkey1)
   classifyingkey2 <- param_collapse_vec(classifyingkey2)
   classifyingkey3 <- param_collapse_vec(classifyingkey3)
+
+  credentials <- gen_auth_get(database)
+
+  if (isTRUE(job) & attr(credentials, "credential_type") == "token" & database == "genesis") {
+
+    stop(paste0("It is not possible to set 'job = TRUE' when an API token is used for authentication.\n",
+                "Use 'gen_auth_save(\"", database, "\", use_token = FALSE)' and input username and password to enable creating jobs.\n",
+                "See README for more information."),
+         call. = FALSE)
+
+  }
 
   #-----------------------------------------------------------------------------
   # Data download

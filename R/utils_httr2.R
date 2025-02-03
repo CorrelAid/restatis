@@ -678,7 +678,19 @@ set_credentials_auth <- function(path,
 
   dir.create(gen_auth_path(), showWarnings = FALSE, recursive = TRUE)
 
-  httr2::secret_write_rds(list(username = username, password = password),
+  credentials_list <- list(username = username, password = password)
+
+  if (isTRUE(use_token)) {
+
+    attr(credentials_list, "credential_type") <- "token"
+
+  } else {
+
+    attr(credentials_list, "credential_type") <- "username_password"
+
+  }
+
+  httr2::secret_write_rds(credentials_list,
                           path = auth_path,
                           key = sys_env)
 
