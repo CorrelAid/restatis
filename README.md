@@ -115,7 +115,10 @@ with jobs (so that the list of jobs from `gen_list_jobs()` won’t get
 cached). The caching option is set to TRUE by default and can be changed
 by setting `options(restatis.use_cache = TRUE)` (or `FALSE`,
 respectively). You can get the current state of the option by using
-`getOption("restatis.use_cache")`.
+`getOption("restatis.use_cache")`. **Note:** Memoisation is *never* used
+for the function `gen_list_jobs()` because there is no use-case for a
+cached version of the jobs list (users would always want a refreshed
+list of the jobs and their status on each function call).
 
 ## Disclaimer
 

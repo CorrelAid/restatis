@@ -32,6 +32,9 @@ A list or data.frame (see parameter 'flat') of all current jobs of the user.
 \description{
 Function to list all current jobs connected to the given user in the GENESIS or regionalstatistik.de database. Important note: For this function it is also possible to use \code{searchcriterion} parameter and \code{selection} parameter, making it possible to filter the job list based on 'type','time','status' or 'code'. For more details see \code{vignette("additional_parameter")}.
 }
+\details{
+Important information concerning the caching of results: This function's results are \emph{never} cached because there is no use-case for a cached list of jobs (users would always want a refreshed list of jobs and their respective status).
+}
 \examples{
 \dontrun{
 gen_list_jobs("regio", flat = TRUE)

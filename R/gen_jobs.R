@@ -9,6 +9,8 @@
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
+#' @details Important information concerning the caching of results: This function's results are *never* cached because there is no use-case for a cached list of jobs (users would always want a refreshed list of jobs and their respective status).
+#'
 #' @return A list or data.frame (see parameter 'flat') of all current jobs of the user.
 #' @export
 #'
@@ -58,10 +60,10 @@ gen_list_jobs <- function(database = c("genesis", "regio"),
                          .f = function(x,
                                        ...) {
 
-    results_raw <- gen_api(endpoint = "catalogue/jobs",
-                           database = x,
-                           sortcriterion = sortcriterion,
-                           ...)
+    results_raw <- .gen_api_core(endpoint = "catalogue/jobs",
+                                 database = x,
+                                 sortcriterion = sortcriterion,
+                                 ...)
 
     results_json <- test_if_json(results_raw)
 
