@@ -5,7 +5,7 @@
 #' @param term Character string. Maximum length of 15 characters. Term or word for which you are searching for alternative or related terms. Use of '*' as a placeholder is possible to generate broader search areas.
 #' @param similarity Boolean. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function. Default is 'TRUE'.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
-#' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500.
+#' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
@@ -66,6 +66,7 @@ gen_alternative_terms <- function(term = NULL,
                            username = gen_auth_get(database = db)$username,
                            password = gen_auth_get(database = db)$password,
                            selection = term,
+                           pagelength = pagelength,
                            ...)
 
     #---------------------------------------------------------------------------

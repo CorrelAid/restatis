@@ -7,7 +7,7 @@
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param detailed Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
 #' @param sortcriterion Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.
-#' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500.
+#' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
@@ -43,6 +43,7 @@ gen_var2stat <- function(code = NULL,
                        detailed = detailed,
                        error.ignore = error.ignore,
                        sortcriterion = sortcriterion,
+                       pagelength = pagelength,
                        database = database_vector,
                        caller = caller,
                        verbose = verbose)
@@ -76,6 +77,7 @@ gen_var2stat <- function(code = NULL,
                              password = gen_auth_get(database = db)$password,
                              name = code,
                              area = area,
+                             pagelength = pagelength,
                              ...)
 
     } else {
@@ -85,6 +87,7 @@ gen_var2stat <- function(code = NULL,
                              username = gen_auth_get(database = db)$username,
                              password = gen_auth_get(database = db)$password,
                              name = code,
+                             pagelength = pagelength,
                              ...)
 
     }
@@ -159,7 +162,7 @@ gen_var2stat <- function(code = NULL,
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param sortcriterion Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.
-#' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500.
+#' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.
 #' @param error.ignore Boolean. Indicator for values if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'TRUE', this prevents the function to stop even if a variable has no further explanation (often the case for numerical variables).
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
@@ -192,6 +195,7 @@ gen_val2var <- function(code = NULL,
   check_function_input(code = code,
                        error.ignore = error.ignore,
                        sortcriterion = sortcriterion,
+                       pagelength = pagelength,
                        database = database_vector,
                        caller = caller,
                        verbose = verbose)
@@ -224,6 +228,7 @@ gen_val2var <- function(code = NULL,
                              password = gen_auth_get(database = db)$password,
                              name = code,
                              area = area,
+                             pagelength = pagelength,
                              ...)
 
     } else {
@@ -233,6 +238,7 @@ gen_val2var <- function(code = NULL,
                              username = gen_auth_get(database = db)$username,
                              password = gen_auth_get(database = db)$password,
                              name = code,
+                             pagelength = pagelength,
                              ...)
 
     }
@@ -304,7 +310,7 @@ gen_val2var <- function(code = NULL,
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param detailed Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
 #' @param sortcriterion Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.
-#' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500.
+#' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.
 #' @param error.ignore.var Boolean. Indicator for variables if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param error.ignore.val Boolean. Indicator for values if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'TRUE', this prevents the function to stop even if a variable has no further explanation (often the case for numerical variables).
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
@@ -341,6 +347,7 @@ gen_val2var2stat <- function(code = NULL,
   check_function_input(code = code,
                        error.ignore = error.ignore.var,
                        sortcriterion = sortcriterion,
+                       pagelength = pagelength,
                        database = database_vector,
                        caller = caller,
                        verbose = verbose)
@@ -417,7 +424,7 @@ gen_val2var2stat <- function(code = NULL,
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param sortcriterion Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.
-#' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500.
+#' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
@@ -450,6 +457,7 @@ gen_search_vars <- function(code = NULL,
   check_function_input(code = code,
                        error.ignore = error.ignore,
                        sortcriterion = sortcriterion,
+                       pagelength = pagelength,
                        database = database_vector,
                        caller = caller,
                        verbose = verbose)
@@ -483,6 +491,7 @@ gen_search_vars <- function(code = NULL,
                              name = code,
                              sortcriterion = sortcriterion,
                              area = area,
+                             pagelength = pagelength,
                              ...)
 
     } else {
@@ -493,6 +502,7 @@ gen_search_vars <- function(code = NULL,
                              password = gen_auth_get(database = db)$password,
                              sortcriterion = sortcriterion,
                              name = code,
+                             pagelength = pagelength,
                              ...)
 
     }

@@ -9,7 +9,7 @@
 #' @param category Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.
 #' @param detailed Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
 #' @param ordering A logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and secondly on an estimator of the number of variables in this object. Default option is 'TRUE'.
-#' @param pagelength Integer. Maximum length of results (e.g., number of tables). Defaults to 500.
+#' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.
 #' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'TRUE'.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
@@ -87,6 +87,7 @@ gen_find <- function(term = NULL,
                              password = gen_auth_get(database = db)$password,
                              term = term,
                              category = category,
+                             pagelength = pagelength,
                              ...)
 
       results_json <- test_if_json(results_raw)

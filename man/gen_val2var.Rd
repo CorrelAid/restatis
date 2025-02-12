@@ -24,7 +24,7 @@ gen_val2var(
 
 \item{sortcriterion}{Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.}
 
-\item{pagelength}{Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500.}
+\item{pagelength}{Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.}
 
 \item{error.ignore}{Boolean. Indicator for values if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'TRUE', this prevents the function to stop even if a variable has no further explanation (often the case for numerical variables).}
 

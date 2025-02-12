@@ -23,7 +23,7 @@ gen_modified_data(
 
 \item{date}{Character string. Specific date that is used as the last update or upload time to include an object in return. Default option is 'now', which uses the current date of your system. Alternative options are 'week_before', using the current date of your system minus 7 days, 'month_before', using the current date of your system minus 4 weeks, and 'year_before', using the current date of your system minus 52 weeks. Additionally, it is possible to fill in a specific date of format 'DD.MM.YYYY'.}
 
-\item{pagelength}{Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500.}
+\item{pagelength}{Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.}
 
 \item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
 
