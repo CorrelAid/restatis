@@ -111,7 +111,7 @@ gen_api <- function(...,
 
           # Perform API call with GET (deprecated in GENESIS and Zensus 2022)
           httr2::request(url) %>%
-            httr2::req_user_agent("https://github.com/CorrelAid/restatis") %>%
+            httr2::req_user_agent(user_agent) %>%
             httr2::req_url_path_append(endpoint) %>%
             httr2::req_url_query(!!!gen_auth_get(database = database), ...) %>%
             httr2::req_retry(max_tries = 3) %>%
