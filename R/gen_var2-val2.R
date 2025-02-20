@@ -341,7 +341,7 @@ gen_val2var2stat <- function(code = NULL,
 
   # database_vector will hold a vector of the specified databases to query
   database_vector <- test_database_function(database,
-                                            error.input = error.ignore,
+                                            error.input = error.ignore.var,
                                             text = verbose)
 
   check_function_input(code = code,
@@ -354,18 +354,12 @@ gen_val2var2stat <- function(code = NULL,
 
   sortcriterion <- match.arg(sortcriterion)
 
-  if ("all" %in% database) {
-
-    database <- c("genesis", "zensus", "regio")
-
-  }
-
   #-----------------------------------------------------------------------------
 
-  res <- lapply(database, function(db){
+  res <- lapply(database_vector, function(db){
 
     variables <- suppressMessages(suppressWarnings(gen_var2stat(code = code,
-                                                                database = db,
+                                                                database = database_vector,
                                                                 area = area,
                                                                 detailed = detailed,
                                                                 sortcriterion = sortcriterion,
@@ -388,7 +382,7 @@ gen_val2var2stat <- function(code = NULL,
       lapply(variables$Variables$Code, function(x) {
 
         zwisch <- suppressMessages(suppressWarnings(gen_val2var(code = x,
-                                                                database = db,
+                                                                database = database_vector,
                                                                 area = area,
                                                                 sortcriterion = sortcriterion,
                                                                 error.ignore = error.ignore.val,

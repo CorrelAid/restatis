@@ -100,7 +100,13 @@ gen_auth_save <- function(database,
 #' gen_auth_get("all")
 #' }
 #'
-gen_auth_get <- function(database) {
+gen_auth_get <- function(database = NULL) {
+
+  if(is.null(database)){
+
+    database <- "all"
+
+  }
 
   #-----------------------------------------------------------------------------
 

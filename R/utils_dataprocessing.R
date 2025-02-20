@@ -1233,7 +1233,7 @@ test_database_function <- function(input, error.input, text){
 
       if (isTRUE(text)) {
 
-        mess <- paste("The following databases are not accessible to you:", names(res[!check]))
+        mess <- paste("The following databases are not accessible to you:", paste(res[!check], collapse = ", "))
 
         message(mess)
 
@@ -1245,7 +1245,7 @@ test_database_function <- function(input, error.input, text){
 
     } else {
 
-      mess <- paste("The following databases are not accessible to you:", names(res[!check]), "\nPlease check your credentials.")
+      mess <- paste("The following databases are not accessible to you:", paste(res[!check], collapse = ", "), "\nPlease check your credentials.")
 
       stop(mess, call. = FALSE)
 

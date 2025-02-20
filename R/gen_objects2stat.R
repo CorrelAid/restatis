@@ -183,8 +183,6 @@ gen_objects2stat <- function(code = NULL,
 
       df_cubes <- "There are generally no 'cubes' objects available for the 'zensus' database."
 
-      return(df_cubes)
-
     } else if ("cubes" %in% category && (db == "genesis" || db == "regio")) {
 
       results_raw <- gen_api(endpoint = "catalogue/cubes2statistic",
