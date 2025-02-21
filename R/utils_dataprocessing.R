@@ -811,7 +811,7 @@ check_function_input <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (isTRUE(error.ignore) && isTRUE(verbose)) {
+    if (isTRUE(error.ignore) && isTRUE(verbose) && !(caller %in% c("gen_metadata", "restatis::gen_metadata"))) {
 
       message("Use 'error.ignore = FALSE' to stop the function at the point where no object could be found.")
 
@@ -1165,7 +1165,7 @@ test_database_function <- function(input, error.input, text){
 
     if (isTRUE(text)) {
 
-      message("All databases accessible to you are selected. Additional databases specified in the 'database' parameter are ignored.")
+      message("All databases accessible to you are preselected. Additional databases specified in the 'database' parameter are ignored.")
 
     }
 

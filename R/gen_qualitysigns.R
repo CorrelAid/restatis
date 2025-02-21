@@ -3,18 +3,28 @@
 #' @description Function to list all currently used special signs (e.g., 0, *, X, (), p, ...) and their meaning in GENESIS, Zensus 2022 and/or regionalstatistik.de.
 #'
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param error.ignore Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.
+#' @param verbose Boolean. In case of success, should a message be printed? Defaults to 'TRUE'.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list of all current used special signs.
 #' @export
 #'
 gen_signs <- function(database = c("all", "genesis", "zensus", "regio"),
+                      error.ignore = FALSE,
+                      verbose = TRUE,
                       ...) {
+
+  caller <- as.character(match.call()[1])
 
   # database_vector will hold a vector of the specified databases to query
   database_vector <- test_database_function(database,
                                             error.input = error.ignore,
                                             text = verbose)
+
+  check_function_input(error.ignore = error.ignore,
+                       database = database_vector,
+                       verbose = verbose)
 
   res <- lapply(database_vector, function(db){
 
