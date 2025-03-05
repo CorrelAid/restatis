@@ -42,21 +42,21 @@ gen_catalogue <- function(code = NULL,
   # Determine calling function; important for checking parameter values
   caller <- as.character(match.call()[1])
 
-  # database_vector will hold a vector of the specified databases to query
-  database_vector <- test_database_function(input = database,
-                                            error.input = error.ignore,
-                                            text = verbose)
-
   # Check parameter values
   check_function_input(code = code,
                        category = category,
                        detailed = detailed,
                        error.ignore = error.ignore,
-                       database = database_vector,
+                       database = database,
                        sortcriterion = sortcriterion,
                        pagelength = pagelength,
                        caller = caller,
                        verbose = verbose)
+
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(input = database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   area <- match.arg(area)
 

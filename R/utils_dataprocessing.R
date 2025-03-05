@@ -298,6 +298,14 @@ check_function_input <- function(code = NULL,
                                  raw = NULL) {
 
   #-----------------------------------------------------------------------------
+
+  if (database == "all") {
+
+    database <- c("regio", "zensus", "genesis")
+
+  }
+
+  #-----------------------------------------------------------------------------
   # verbose ----
   if (!is.null(verbose)) {
 
@@ -335,14 +343,13 @@ check_function_input <- function(code = NULL,
 
     if (!(caller %in% c("gen_search_vars", "restatis::gen_search_vars"))) {
 
-      stop("Parameter 'code' or 'term' must NOT be NULL.",
+      stop("Parameter 'code' or 'term' must not be NULL, missing or unspecified.",
            call. = FALSE)
 
     }
 
   }
 
-  #-----------------------------------------------------------------------------
   # Code ----
 
   if (!is.null(code)) {
@@ -470,16 +477,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if("zensus" %in% database){
-
-        #-----------------------------------------------------------------------
-
-        if (!all(category %in% c("tables", "cubes", "statistics"))) {
-
-          stop("Available categories are 'tables' and 'statistics'.",
-               call. = FALSE)
-
-        }
+      if ("zensus" %in% database) {
 
         #-----------------------------------------------------------------------
 
@@ -490,7 +488,6 @@ check_function_input <- function(code = NULL,
 
           stop("Available categories for 'zensus' database are: 'tables' and 'statistics'.",
                call. = FALSE)
-
 
         #-----------------------------------------------------------------------
 
@@ -506,13 +503,14 @@ check_function_input <- function(code = NULL,
                    isFALSE(error.ignore) &&
                    isTRUE(verbose)) {
 
-          warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'.",
-                  call. = FALSE)
+          stop("Available categories for 'zensus' database are: 'tables' and 'statistics'.",
+               call. = FALSE)
 
         } else if ("cubes" %in% category &&
-                   isTRUE(error.ignore) && isTRUE(verbose)) {
+                   isTRUE(error.ignore) &&
+                   isTRUE(verbose)) {
 
-          warning("Available categories for 'zensus'-database are: 'tables' and 'statistics'.\nFunction is continued with specified 'category'-parameter excluding 'cubes'.",
+          warning("Available categories for 'zensus' database are: 'tables' and 'statistics'.\nFunction is continued with specified 'category'-parameter excluding 'cubes'.",
                   call. = FALSE)
 
         }
