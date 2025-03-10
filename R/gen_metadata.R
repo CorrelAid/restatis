@@ -29,17 +29,17 @@ gen_metadata_statistic <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
+  check_function_input(code = code,
+                       error.ignore = error.ignore,
+                       database = database,
+                       caller = caller,
+                       verbose = verbose,
+                       raw = raw)
+
   # database_vector will hold a vector of the specified databases to query
   database_vector <- test_database_function(database,
                                             error.input = error.ignore,
                                             text = verbose)
-
-  check_function_input(code = code,
-                       error.ignore = error.ignore,
-                       database = database_vector,
-                       caller = caller,
-                       verbose = verbose,
-                       raw = raw)
 
   area <- match.arg(area)
 
@@ -162,17 +162,17 @@ gen_metadata_variable <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
+  check_function_input(code = code,
+                       error.ignore = error.ignore,
+                       database = database,
+                       caller = caller,
+                       verbose = verbose,
+                       raw = raw)
+
   # database_vector will hold a vector of the specified databases to query
   database_vector <- test_database_function(database,
                                             error.input = error.ignore,
                                             text = verbose)
-
-  check_function_input(code = code,
-                       error.ignore = error.ignore,
-                       database = database_vector,
-                       caller = caller,
-                       verbose = verbose,
-                       raw = raw)
 
   area <- match.arg(area)
 
@@ -303,17 +303,17 @@ gen_metadata_value <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
+  check_function_input(code = code,
+                       error.ignore = error.ignore,
+                       database = database,
+                       caller = caller,
+                       verbose = verbose,
+                       raw = raw)
+
   # database_vector will hold a vector of the specified databases to query
   database_vector <- test_database_function(database,
                                             error.input = error.ignore,
                                             text = verbose)
-
-  check_function_input(code = code,
-                       error.ignore = error.ignore,
-                       database = database_vector,
-                       caller = caller,
-                       verbose = verbose,
-                       raw = raw)
 
   area <- match.arg(area)
 
@@ -441,17 +441,17 @@ gen_metadata_table <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
+  check_function_input(code = code,
+                       error.ignore = error.ignore,
+                       database = database,
+                       caller = caller,
+                       verbose = verbose,
+                       raw = raw)
+
   # database_vector will hold a vector of the specified databases to query
   database_vector <- test_database_function(database,
                                             error.input = error.ignore,
                                             text = verbose)
-
-  check_function_input(code = code,
-                       error.ignore = error.ignore,
-                       database = database_vector,
-                       caller = caller,
-                       verbose = verbose,
-                       raw = raw)
 
   area <- match.arg(area)
 
@@ -644,17 +644,17 @@ gen_metadata_cube <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
+  check_function_input(code = code,
+                       error.ignore = error.ignore,
+                       database = database,
+                       caller = caller,
+                       verbose = verbose,
+                       raw = raw)
+
   # database_vector will hold a vector of the specified databases to query
   database_vector <- test_database_function(database,
                                             error.input = error.ignore,
                                             text = verbose)
-
-  check_function_input(code = code,
-                       error.ignore = error.ignore,
-                       database = database_vector,
-                       caller = caller,
-                       verbose = verbose,
-                       raw = raw)
 
   area <- match.arg(area)
 
@@ -789,9 +789,9 @@ gen_metadata_cube <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_metadata
+#' Search For Meta-Information For All Types Of Objects
 #'
-#' @description Search For Meta-Information For All Types Of Objects
+#' @description Search for metadata-information for all types of objects and databases and have them returned as a list.
 #'
 #' @param code String with a maximum length of 15 characters for a database object (GENESIS, regionalstatistik.de, Zensus 2022). Only one code per iteration.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
@@ -822,17 +822,17 @@ gen_metadata <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
+  check_function_input(code = code,
+                       error.ignore = error.ignore,
+                       category = category,
+                       database = database,
+                       caller = caller,
+                       verbose = verbose)
+
   # database_vector will hold a vector of the specified databases to query
   database_vector <- test_database_function(database,
                                             error.input = error.ignore,
                                             text = verbose)
-
-  check_function_input(code = code,
-                       error.ignore = error.ignore,
-                       category = category,
-                       database = database_vector,
-                       caller = caller,
-                       verbose = verbose)
 
   #-----------------------------------------------------------------------------
 

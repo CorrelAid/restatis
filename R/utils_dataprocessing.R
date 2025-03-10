@@ -299,7 +299,8 @@ check_function_input <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  if (!is.null(database) && database == "all") {
+  if ((length(database) == 1 && !is.null(database) && database == "all") |
+      (length(database) > 1 && "all" %in% database)) {
 
     database <- c("regio", "zensus", "genesis")
 
@@ -622,7 +623,7 @@ check_function_input <- function(code = NULL,
 
           #---------------------------------------------------------------------
 
-          if("genesis" %in% database){
+          if ("genesis" %in% database){
 
             stop("Available categories for parameter 'category' for 'genesis' database are 'all', 'tables', 'statistics', 'variables', and 'cubes'.",
                  call. = FALSE)
@@ -874,7 +875,7 @@ check_function_input <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
   # raw ----
-  if(!is.null(raw)){
+  if (!is.null(raw)){
 
     if (!is.logical(raw) || length(raw) != 1) {
 
@@ -906,7 +907,7 @@ check_function_input <- function(code = NULL,
 
     if (identical(date, c("now", "week_before", "month_before", "year_before"))) {
 
-      if(isTRUE(verbose)){
+      if (isTRUE(verbose)){
 
       message("Please note that per default the current system date is used.\nThis date is calculated automatically and may differ from manually entered data.\nManually entered data must have the format DD.MM.YYYY.")
 
@@ -1170,6 +1171,11 @@ test_database_function <- function(input, error.input, text){
     res <- c("genesis",
              "zensus",
              "regio")
+
+  } else if (length(res) == 0 || is.null(res)) {
+
+    stop("All the databases you have specified are not part of this package.\nPlease enter valid database names ('regio', 'zensus', 'genesis' or 'all').",
+         call. = FALSE)
 
   } else if (length(res) != length(input)) {
 

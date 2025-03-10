@@ -34,19 +34,19 @@ gen_modified_data <- function(code = "",
                               verbose = TRUE,
                               ...) {
 
-  # database_vector will hold a vector of the specified databases to query
-  database_vector <- test_database_function(database,
-                                            error.input = TRUE,
-                                            text = verbose)
-
   type <- match.arg(type)
 
   date <- check_function_input(code = code,
                                type = type,
                                date = date,
                                pagelength = pagelength,
-                               database = database_vector,
+                               database = database,
                                verbose = verbose)
+
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(database,
+                                            error.input = TRUE,
+                                            text = verbose)
 
   #-----------------------------------------------------------------------------
 
