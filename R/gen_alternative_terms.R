@@ -35,17 +35,17 @@ gen_alternative_terms <- function(term = NULL,
   # Determine calling function; important for checking parameter values
   caller <- as.character(match.call()[1])
 
-  # Check availability of credentials for the database(s) selected
-  database_vector <- test_database_function(database,
-                                            error.input = TRUE,
-                                            text = verbose)
-
   # Check parameter values
   check_function_input(term = term,
                        similarity = similarity,
                        pagelength = pagelength,
                        caller = caller,
                        verbose = verbose)
+
+  # Check availability of credentials for the database(s) selected
+  database_vector <- test_database_function(database,
+                                            error.input = TRUE,
+                                            text = verbose)
 
   #-----------------------------------------------------------------------------
 

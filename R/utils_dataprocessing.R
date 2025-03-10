@@ -299,7 +299,7 @@ check_function_input <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  if (database == "all") {
+  if (!is.null(database) && database == "all") {
 
     database <- c("regio", "zensus", "genesis")
 
