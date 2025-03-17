@@ -4,7 +4,7 @@
   .gen_api_cached <<- memoise::memoise(.gen_api_core)
 
   # Set the option of use_cache for the gen_api function
-  options(options(restatis.use_cache = TRUE))
+  options(restatis.use_cache = TRUE)
   message("Default option of 'restatis.use_cache' has been set to TRUE, that means all API calls will be cached.\nTo disable caching altogether use 'options(restatis.use_cache = FALSE)'. See README for more information.")
 
   # Set the default language of the package

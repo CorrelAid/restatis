@@ -40,20 +40,20 @@ gen_objects2var <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  # database_vector will hold a vector of the specified databases to query
-  database_vector <- test_database_function(database,
-                                            error.input = error.ignore,
-                                            text = verbose)
-
   check_function_input(code = code,
                        category = category,
                        detailed = detailed,
                        error.ignore = error.ignore,
                        pagelength = pagelength,
-                       database = database_vector,
+                       database = database,
                        sortcriterion = sortcriterion,
                        caller = caller,
                        verbose = verbose)
+
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(input = database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   area <- match.arg(area)
 
@@ -178,7 +178,7 @@ gen_objects2var <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if ("cubes" %in% category && db == "gen_zensus_api") {
+    if ("cubes" %in% category && db == "zensus") {
 
       df_cubes <- "There are generally no 'cubes' objects available for the 'zensus' database."
 

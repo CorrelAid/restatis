@@ -17,14 +17,15 @@ gen_signs <- function(database = c("all", "genesis", "zensus", "regio"),
 
   caller <- as.character(match.call()[1])
 
+  check_function_input(error.ignore = error.ignore,
+                       database = database,
+                       caller = caller,
+                       verbose = verbose)
+
   # database_vector will hold a vector of the specified databases to query
   database_vector <- test_database_function(database,
                                             error.input = error.ignore,
                                             text = verbose)
-
-  check_function_input(error.ignore = error.ignore,
-                       database = database_vector,
-                       verbose = verbose)
 
   res <- lapply(database_vector, function(db){
 
