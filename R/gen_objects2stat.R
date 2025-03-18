@@ -40,20 +40,20 @@ gen_objects2stat <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  # database_vector will hold a vector of the specified databases to query
-  database_vector <- test_database_function(database,
-                                            error.input = error.ignore,
-                                            text = verbose)
-
   check_function_input(code = code,
                        category = category,
                        detailed = detailed,
                        error.ignore = error.ignore,
-                       database = database_vector,
+                       database = database,
                        pagelength = pagelength,
                        sortcriterion = sortcriterion,
                        caller = caller,
                        verbose = verbose)
+
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(input = database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   area <- match.arg(area)
 

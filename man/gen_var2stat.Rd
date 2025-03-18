@@ -45,7 +45,7 @@ Function to generate variables from statistics
 \dontrun{
 # Find the variables of the statistic with the code "12411"
 # with a detailed output
-object <- gen_var2stat(code = "12411", detailed = T)
+object <- gen_var2stat(code = "12411", detailed = TRUE)
 }
 
 }

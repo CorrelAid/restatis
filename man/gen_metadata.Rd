@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_metadata.R
 \name{gen_metadata}
 \alias{gen_metadata}
-\title{gen_metadata}
+\title{Search For Meta-Information For All Types Of Objects}
 \usage{
 gen_metadata(
   code = NULL,
@@ -36,7 +36,7 @@ gen_metadata(
 A list with all recalled elements from the API. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Search For Meta-Information For All Types Of Objects
+Search for metadata-information for all types of objects and databases and have them returned as a list.
 }
 \examples{
 \dontrun{

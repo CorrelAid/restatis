@@ -1,4 +1,4 @@
-#' Upper level basic API request function of {restatis}
+#' Upper level basic API request function
 #'
 #' @description Upper-level function to interact with the one of the APIs
 #'
@@ -31,7 +31,7 @@ gen_api <- function(...,
 
 #-------------------------------------------------------------------------------
 
-#' Basic API request function of {restatis}
+#' Basic API request function
 #'
 #' @description (Uncached) Low-level function to interact with the one of the APIs
 #'

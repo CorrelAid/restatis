@@ -23,7 +23,7 @@
 #' # with a detailed output
 #' object <- gen_catalogue(code = "12*", detailed = TRUE)
 #'
-#' # Search tables under the topic "12*" which is "Bevölkerung"
+#' # Search tables under the topic "12*" which is "Bevoelkerung"
 #' # without a detailed output
 #' object <- gen_catalogue(code = "12*", category = "tables")
 #' }

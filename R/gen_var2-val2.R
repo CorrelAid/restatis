@@ -19,7 +19,7 @@
 #' \dontrun{
 #' # Find the variables of the statistic with the code "12411"
 #' # with a detailed output
-#' object <- gen_var2stat(code = "12411", detailed = T)
+#' object <- gen_var2stat(code = "12411", detailed = TRUE)
 #' }
 #'
 gen_var2stat <- function(code = NULL,
@@ -34,19 +34,19 @@ gen_var2stat <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  # database_vector will hold a vector of the specified databases to query
-  database_vector <- test_database_function(database,
-                                            error.input = error.ignore,
-                                            text = verbose)
-
   check_function_input(code = code,
                        detailed = detailed,
                        error.ignore = error.ignore,
                        sortcriterion = sortcriterion,
                        pagelength = pagelength,
-                       database = database_vector,
+                       database = database,
                        caller = caller,
                        verbose = verbose)
+
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(input = database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   sortcriterion <- match.arg(sortcriterion)
 
@@ -187,18 +187,18 @@ gen_val2var <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  # database_vector will hold a vector of the specified databases to query
-  database_vector <- test_database_function(database,
-                                            error.input = error.ignore,
-                                            text = verbose)
-
   check_function_input(code = code,
                        error.ignore = error.ignore,
                        sortcriterion = sortcriterion,
                        pagelength = pagelength,
-                       database = database_vector,
+                       database = database,
                        caller = caller,
                        verbose = verbose)
+
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(input = database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   sortcriterion <- match.arg(sortcriterion)
 
@@ -339,18 +339,18 @@ gen_val2var2stat <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  # database_vector will hold a vector of the specified databases to query
-  database_vector <- test_database_function(database,
-                                            error.input = error.ignore.var,
-                                            text = verbose)
-
   check_function_input(code = code,
                        error.ignore = error.ignore.var,
                        sortcriterion = sortcriterion,
                        pagelength = pagelength,
-                       database = database_vector,
+                       database = database,
                        caller = caller,
                        verbose = verbose)
+
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(input = database,
+                                            error.input = error.ignore.var,
+                                            text = verbose)
 
   sortcriterion <- match.arg(sortcriterion)
 
@@ -443,18 +443,18 @@ gen_search_vars <- function(code = NULL,
 
   caller <- as.character(match.call()[1])
 
-  # database_vector will hold a vector of the specified databases to query
-  database_vector <- test_database_function(database,
-                                            error.input = error.ignore,
-                                            text = verbose)
-
   check_function_input(code = code,
                        error.ignore = error.ignore,
                        sortcriterion = sortcriterion,
                        pagelength = pagelength,
-                       database = database_vector,
+                       database = database,
                        caller = caller,
                        verbose = verbose)
+
+  # database_vector will hold a vector of the specified databases to query
+  database_vector <- test_database_function(input = database,
+                                            error.input = error.ignore,
+                                            text = verbose)
 
   sortcriterion <- match.arg(sortcriterion)
 

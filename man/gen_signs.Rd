@@ -4,10 +4,19 @@
 \alias{gen_signs}
 \title{gen_signs}
 \usage{
-gen_signs(database = c("all", "genesis", "zensus", "regio"), ...)
+gen_signs(
+  database = c("all", "genesis", "zensus", "regio"),
+  error.ignore = FALSE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
+
+\item{error.ignore}{Boolean. Indicator if the function should stop if an error occurs or no object for the request is found or if it should produce a token as response. Default option is 'FALSE'.}
+
+\item{verbose}{Boolean. In case of success, should a message be printed? Defaults to 'TRUE'.}
 
 \item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }

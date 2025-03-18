@@ -22,7 +22,7 @@
 #' # Find tables that were new from 31.03.2020
 #' object <- gen_modified_data(type = "tables", date = "31.03.2020")
 #'
-#' # Find objects related to the topic "Bevölkerung" (Code: '12*') which were new today
+#' # Find objects related to the topic "Bevoelkerung" (Code: '12*') which were new today
 #' object <- gen_modified_data(code = "12*")
 #' }
 #'

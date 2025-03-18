@@ -4,7 +4,7 @@
 \alias{gen_auth_get}
 \title{Retrieve database credentials}
 \usage{
-gen_auth_get(database)
+gen_auth_get(database = NULL)
 }
 \arguments{
 \item{database}{Character string. The database to get the credentials for ('all', 'genesis', 'zensus' and 'regio').}

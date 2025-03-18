@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_api.R
 \name{.gen_api_core}
 \alias{.gen_api_core}
-\title{Basic API request function of {restatis}}
+\title{Basic API request function}
 \usage{
 .gen_api_core(endpoint, database, ...)
 }

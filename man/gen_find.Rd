@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_find.R
 \name{gen_find}
 \alias{gen_find}
-\title{General Search for Objects Through GENESIS}
+\title{General Search for Objects Through A Database}
 \usage{
 gen_find(
   term = NULL,

@@ -4,12 +4,12 @@
 \alias{gen_logincheck}
 \title{gen_logincheck}
 \usage{
-gen_logincheck(database, verbose = FALSE, ...)
+gen_logincheck(database = "all", verbose = TRUE, ...)
 }
 \arguments{
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
 
-\item{verbose}{Boolean. In case of success, should a message be printed? Defaults to FALSE.}
+\item{verbose}{Boolean. In case of success, should a message be printed? Defaults to 'TRUE'.}
 
 \item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
