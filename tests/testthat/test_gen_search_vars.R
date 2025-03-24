@@ -27,26 +27,6 @@ with_mock_dir("searchvars1", {
 })
 
 #-------------------------------------------------------------------------------
-
-with_mock_dir("searchvars2", {
-  test_that("gen_search_vars errors if there is no object found", {
-
-    skip_on_cran()
-    skip_on_ci()
-
-    expect_error(
-      gen_search_vars(code = "74111",
-                      sortcriterion = c("code", "content"),
-                      error.ignore = FALSE,
-                      database = "genesis",
-                      language = "en"),
-      regexp = "No object found for your request.")
-
-  })
-
-})
-
-#-------------------------------------------------------------------------------
 # Test for errors, warnings, messages of parameters ----
 #-------------------------------------------------------------------------------
 

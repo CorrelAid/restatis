@@ -29,6 +29,7 @@ with_mock_dir("variables1", {
 #-------------------------------------------------------------------------------
 
 with_mock_dir("variables2_fake", {
+
   test_that("gen_var2stat function errors if there is a problem (fake response)", {
 
     # Here, it is necessary to change the mockfile:
@@ -38,9 +39,8 @@ with_mock_dir("variables2_fake", {
     skip_on_cran()
     skip_on_ci()
 
-    expect_error(
-      gen_var2stat(code = "74111", database = "genesis"),
-      regexp = "test error message")
+    expect_error(object = gen_var2stat(code = "74111", database = "genesis"),
+                 regexp = "test error message")
 
   })
 

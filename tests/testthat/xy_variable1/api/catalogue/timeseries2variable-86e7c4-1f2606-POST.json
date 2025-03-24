@@ -1,0 +1,4023 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "timeseries2variable"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "name": "DLAND",
+        "selection": "",
+        "area": "Alle",
+        "pagelength": "500",
+        "language": "de"
+    },
+    "List": [
+        {
+            "Code": "11111LJ001",
+            "Content": "Feststellung des Gebietsstands, Gebietsfläche, Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2022",
+            "LatestUpdate": "14.12.2023 10:12:15h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ001",
+            "Content": "Mikrozensus, Bevölkerung, Erwerbspersonen, Erwerbstätige, Erwerbslose, Nichterwerbspersonen, Bundesländer, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1991-03/2004",
+            "LatestUpdate": "22.03.2005 11:46:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ002",
+            "Content": "Mikrozensus, Privathaushalte, Bundesländer, Stichmonat",
+            "State": "undefiniert",
+            "Time": "05/1970-03/2004",
+            "LatestUpdate": "09.11.2020 11:43:47h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ003",
+            "Content": "Mikrozensus, Privathaushalte, Bundesländer, Haushaltsgröße, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1991-03/2004",
+            "LatestUpdate": "09.11.2020 11:44:19h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ004",
+            "Content": "Mikrozensus, Bevölkerung in Familien/Lebensformen, Bundesländer, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "09.11.2020 11:46:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ005",
+            "Content": "Mikrozensus, Bevölkerung in Familien/Lebensformen, Bundesländer, Lebensformen, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "09.11.2020 11:46:47h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ006",
+            "Content": "Mikrozensus, Familien, Bundesländer, Vorhandensein von Kindern, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "09.11.2020 11:47:04h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ007",
+            "Content": "Mikrozensus, Paare, Bundesländer, Vorhandensein von Kindern, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "09.11.2020 11:47:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ008",
+            "Content": "Mikrozensus, Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche Lebensgemeinschaften, Bundesländer, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "09.11.2020 11:47:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ009",
+            "Content": "Mikrozensus, Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche Lebensgemeinschaften, Bundesländer, Vorhandensein von Kindern, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "09.11.2020 11:48:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ010",
+            "Content": "Mikrozensus, Alleinerziehende, Bundesländer, Vorhandensein von Kindern, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "09.11.2020 11:49:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ011",
+            "Content": "Mikrozensus, Alleinerziehende, Bundesländer, Vorhandensein von Kindern, Geschlecht, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "17.06.2021 16:45:09h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ012",
+            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "09.11.2020 11:50:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ013",
+            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Geschlecht, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "09.11.2020 11:51:03h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ014",
+            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Haushaltsgröße, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "09.11.2020 11:52:36h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ015",
+            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Haushaltsgröße, Geschlecht, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "09.11.2020 11:52:53h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ016",
+            "Content": "Mikrozensus, Ledige Kinder in der Familie, Ledige Kinder unter 18 Jahren in der Familie, Bundesländer, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "09.11.2020 11:53:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ017",
+            "Content": "Mikrozensus, Ledige Kinder in der Familie, Ledige Kinder unter 18 Jahren in der Familie, Bundesländer, Familienformen, Stichmonat",
+            "State": "undefiniert",
+            "Time": "04/1996-03/2004",
+            "LatestUpdate": "09.11.2020 11:53:34h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ018",
+            "Content": "Mikrozensus, Bevölkerung, Erwerbspersonen, Erwerbstätige, Erwerbslose, Nichterwerbspersonen, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:32:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ019",
+            "Content": "Mikrozensus, Bevölkerung (ab 15 Jahren), Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "25.11.2020 16:54:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ020",
+            "Content": "Mikrozensus, Bevölkerung (ab 15 Jahren), Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "25.11.2020 16:54:15h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ021",
+            "Content": "Mikrozensus, Bevölkerung (ab 15 Jahren), Bundesländer, Allgemeine Schulausbildung, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "25.11.2020 16:54:16h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ022",
+            "Content": "Mikrozensus, Bevölkerung (ab 15 Jahren), Bundesländer, Geschlecht, Allgemeine Schulausbildung, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "25.11.2020 16:54:11h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ023",
+            "Content": "Mikrozensus, Bevölkerung (ab 15 Jahren), Bundesländer, Beruflicher Bildungsabschluss, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "25.11.2020 16:54:14h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ024",
+            "Content": "Mikrozensus, Bevölkerung (ab 15 Jahren), Bundesländer, Geschlecht, Beruflicher Bildungsabschluss, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "25.11.2020 16:54:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ025",
+            "Content": "Mikrozensus, Privathaushalte, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:44:43h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ026",
+            "Content": "Mikrozensus, Privathaushalte, Bundesländer, Haushaltsgröße, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:45:05h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ027",
+            "Content": "Mikrozensus, Bevölkerung in Familien/Lebensformen, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:53:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ028",
+            "Content": "Mikrozensus, Bevölkerung in Familien/Lebensformen, Bundesländer, Lebensformen, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:54:40h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ029",
+            "Content": "Mikrozensus, Familien, Bundesländer, Vorhandensein von Kindern, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:54:54h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ030",
+            "Content": "Mikrozensus, Paare, Bundesländer, Vorhandensein von Kindern, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:55:15h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ031",
+            "Content": "Mikrozensus, Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche Lebensgemeinschaften, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:55:36h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ032",
+            "Content": "Mikrozensus, Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche Lebensgemeinschaften, Bundesländer, Vorhandensein von Kindern, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:56:00h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ033",
+            "Content": "Mikrozensus, Alleinerziehende, Bundesländer, Vorhandensein von Kindern, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:56:14h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ034",
+            "Content": "Mikrozensus, Alleinerziehende, Bundesländer, Vorhandensein von Kindern, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:56:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ035",
+            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:57:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ036",
+            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:58:56h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ037",
+            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Haushaltsgröße, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 11:59:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ038",
+            "Content": "Mikrozensus, Alleinstehende, Bundesländer, Haushaltsgröße, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 12:00:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ039",
+            "Content": "Mikrozensus, Ledige Kinder in der Familie, Ledige Kinder unter 18 Jahren in der Familie, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 12:00:56h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ040",
+            "Content": "Mikrozensus, Ledige Kinder in der Familie, Ledige Kinder unter 18 Jahren in der Familie, Bundesländer, Familienformen, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2019",
+            "LatestUpdate": "09.11.2020 12:01:10h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ041",
+            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "28.03.2024 15:20:37h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ042",
+            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "28.03.2024 15:20:34h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ043",
+            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Altersgruppen (u25-65m), Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "28.03.2024 15:20:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ044",
+            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Art der Gemeinschaftsunterkunft, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "28.03.2024 15:20:24h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ045",
+            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Hauptstatus, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "28.03.2024 15:20:31h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ046",
+            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Geschlecht, Altersgruppen (u25-65m), Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "28.03.2024 15:20:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ047",
+            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Geschlecht, Art der Gemeinschaftsunterkunft, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "28.03.2024 15:20:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ048",
+            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Geschlecht, Hauptstatus, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "28.03.2024 15:21:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ049",
+            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Altersgruppen (u25-65m), Hauptstatus, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "28.03.2024 15:21:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ050",
+            "Content": "Mikrozensus, Bevölkerung in Gemeinschaftsunterkünften, Bundesländer, Geschlecht, Altersgruppen (u25-65m), Hauptstatus, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "28.03.2024 15:21:25h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ240",
+            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:27:30h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ241",
+            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:27:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ242",
+            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (u15-75m), Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:27:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ243",
+            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Altersgruppen (u15-75m), Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:27:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ244",
+            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (u15-65m), Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:27:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ245",
+            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Überwiegender Lebensunterhalt (bis 2022), Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2022",
+            "LatestUpdate": "16.02.2024 14:18:02h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ246",
+            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (u15-65m), Überwiegender Lebensunterhalt (bis 2022), Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2022",
+            "LatestUpdate": "16.02.2024 14:19:03h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ247",
+            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Größenklassen des persönl. monatl. Nettoeinkommens, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:27:09h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ248",
+            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Größenklassen des persönl. monatl. Nettoeinkommens, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:27:04h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ249",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (15-75m), Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:26:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ250",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Altersgruppen (15-75m), Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:09:03h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ251",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:09:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ252",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:26:07h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ253",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (15-75m), Stellung im Beruf, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:26:22h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ254",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Altersgruppen (15-75m), Stellung im Beruf, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:26:15h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ255",
+            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Überwiegender Lebensunterhalt, Jahr",
+            "State": "undefiniert",
+            "Time": "2023",
+            "LatestUpdate": "11.04.2024 16:34:01h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ256",
+            "Content": "Mikrozensus, Bevölkerung in Hauptwohnsitzhaushalten, Erwerbspersonen aus Hauptwohnsitzhaushalten, Erwerbstätige aus Hauptwohnsitzhaushalten, Erwerbslose aus Hauptwohnsitzhaushalten, Nichterwerbspersonen aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (u15-65m), Überwiegender Lebensunterhalt, Jahr",
+            "State": "undefiniert",
+            "Time": "2023",
+            "LatestUpdate": "11.04.2024 16:34:01h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ257",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Größenkl. der in der Arbeitsstätte tätigen Pers., Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.07.2024 10:42:05h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ258",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Größenkl. der in der Arbeitsstätte tätigen Pers., Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.07.2024 10:42:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ259",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Größenkl. der in der Arbeitsstätte tätigen Pers., Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.07.2024 10:42:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ260",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Größenkl. der in der Arbeitsstätte tätigen Pers., Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.07.2024 10:42:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ261",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Größenklassen des persönl. monatl. Nettoeinkommens, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:07h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ262",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Größenklassen des persönl. monatl. Nettoeinkommens, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ263",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Berufsbereiche (KB2010), 1-Steller, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ264",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Berufsbereiche (KB2010), 1-Steller, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ265",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Berufsbereiche (KB2010), 1-Steller, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:09h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ266",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Berufsbereiche (KB2010), 1-Steller, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:09h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ267",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Berufshauptgruppen (KB2010), 2-Steller, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:09h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ268",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Berufshauptgruppen (KB2010), 2-Steller, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:10h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ269",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Berufshauptgruppen (KB2010), 2-Steller, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:10h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ270",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Berufshauptgruppen (KB2010), 2-Steller, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:11h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ275",
+            "Content": "Mikrozensus, Geleistete Arbeitsstunden, Geleistete Arbeitsstunden je Person, Bundesländer, Art der geleisteten Arbeitsstunden, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:11h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ276",
+            "Content": "Mikrozensus, Geleistete Arbeitsstunden, Geleistete Arbeitsstunden je Person, Bundesländer, Geschlecht, Art der geleisteten Arbeitsstunden, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:11h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ277",
+            "Content": "Mikrozensus, Geleistete Arbeitsstunden, Geleistete Arbeitsstunden je Person, Bundesländer, Stellung im Beruf, Art der geleisteten Arbeitsstunden, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:12h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ278",
+            "Content": "Mikrozensus, Geleistete Arbeitsstunden, Geleistete Arbeitsstunden je Person, Bundesländer, Geschlecht, Stellung im Beruf, Art der geleisteten Arbeitsstunden, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ279",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Art der geleisteten Arbeitsstunden, Größenkl. der geleisteten Arbeitsstunden je Woche, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ280",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Art der geleisteten Arbeitsstunden, Größenkl. der geleisteten Arbeitsstunden je Woche, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:14h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ281",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Art der geleisteten Arbeitsstunden, Größenkl. der geleisteten Arbeitsstunden je Woche, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:14h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ282",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Art der geleisteten Arbeitsstunden, Größenkl. der geleisteten Arbeitsstunden je Woche, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:15h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ283",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (15-65m), Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:15h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ284",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Altersgruppen (15-65m), Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:15h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ285",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Erwerbsformen, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:16h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ286",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Erwerbsformen, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ287",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (15-65m), Erwerbsformen, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ288",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Altersgruppen (15-65m), Erwerbsformen, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:19h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ297",
+            "Content": "Mikrozensus, Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Beschäftigungsumfang, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:20h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ298",
+            "Content": "Mikrozensus, Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Beschäftigungsumfang, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ299",
+            "Content": "Mikrozensus, Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (15-75m), Beschäftigungsumfang, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ300",
+            "Content": "Mikrozensus, Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Altersgruppen (15-75m), Beschäftigungsumfang, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:22h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ301",
+            "Content": "Mikrozensus, Erwerbslose aus Hauptwohnsitzhaushalten, Bundesländer, Dauer der Erwerbslosigkeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:22h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ302",
+            "Content": "Mikrozensus, Erwerbslose aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Dauer der Erwerbslosigkeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:23h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ303",
+            "Content": "Mikrozensus, Erwerbslose aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (15-65m), Dauer der Erwerbslosigkeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:23h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ304",
+            "Content": "Mikrozensus, Erwerbslose aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Altersgruppen (15-65m), Dauer der Erwerbslosigkeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:23h",
+            "Information": "false"
+        },
+        {
+            "Code": "12231L2001",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Art der Computer- und Internetkenntnisse, Jahr",
+            "State": "undefiniert",
+            "Time": "2023",
+            "LatestUpdate": "06.12.2023 16:08:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "12231L2002",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Altersgruppen (16-u75), Art der Computer- und Internetkenntnisse, Jahr",
+            "State": "undefiniert",
+            "Time": "2023",
+            "LatestUpdate": "06.12.2023 16:08:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "12231LJ030",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2022-2024",
+            "LatestUpdate": "28.11.2024 08:01:02h",
+            "Information": "false"
+        },
+        {
+            "Code": "12231LJ031",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Altersgruppen (16-u75), Jahr",
+            "State": "undefiniert",
+            "Time": "2022-2024",
+            "LatestUpdate": "28.11.2024 08:00:40h",
+            "Information": "false"
+        },
+        {
+            "Code": "12231LJ032",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Priv. Internetaktivitäten i.d.letzten drei Monaten, Jahr",
+            "State": "undefiniert",
+            "Time": "2022-2024",
+            "LatestUpdate": "28.11.2024 08:00:59h",
+            "Information": "false"
+        },
+        {
+            "Code": "12231LJ033",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Altersgruppen (16-u75), Priv. Internetaktivitäten i.d.letzten drei Monaten, Jahr",
+            "State": "undefiniert",
+            "Time": "2022-2024",
+            "LatestUpdate": "28.11.2024 08:00:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "12231LJ034",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Private Internetkäufe in den letzten drei Monaten, Jahr",
+            "State": "undefiniert",
+            "Time": "2022-2024",
+            "LatestUpdate": "28.11.2024 08:00:44h",
+            "Information": "false"
+        },
+        {
+            "Code": "12231LJ035",
+            "Content": "IKT-Nutzung in privaten Haushalten, Bevölkerung von 16-u75 J. in Hauptwohnsitzhaush., Bundesländer, Altersgruppen (16-u75), Private Internetkäufe in den letzten drei Monaten, Jahr",
+            "State": "undefiniert",
+            "Time": "2022-2024",
+            "LatestUpdate": "28.11.2024 08:00:37h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ001",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:33:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ002",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:33:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ003",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:33:10h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ004",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:33:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ009",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Wochenend- und Feiertagsarbeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:34:19h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ010",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Wochenend- und Feiertagsarbeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:35:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ011",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Wochenend- und Feiertagsarbeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:36:04h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ012",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Wochenend- und Feiertagsarbeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:35:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ013",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Abend-, Nacht- und Schichtarbeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:35:10h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ014",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Abend-, Nacht- und Schichtarbeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:35:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ015",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Abend-, Nacht- und Schichtarbeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:36:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ016",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Abend-, Nacht- und Schichtarbeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:36:12h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ017",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Erwerbsarbeit zu Hause, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:36:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ018",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Erwerbsarbeit zu Hause, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:36:24h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ019",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Erwerbsarbeit zu Hause, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:36:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ020",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Erwerbsarbeit zu Hause, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:37:15h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ021",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:38:02h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ022",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:37:05h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ023",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (15-75m), Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:37:09h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ024",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Altersgruppen (15-75m), Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:37:20h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ025",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Art des Arbeitsvertrages, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:37:02h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ026",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Art des Arbeitsvertrages, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:38:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ027",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Altersgruppen (15-75m), Art des Arbeitsvertrages, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:38:11h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251LJ028",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Altersgruppen (15-75m), Art des Arbeitsvertrages, Jahr",
+            "State": "undefiniert",
+            "Time": "2021-2023",
+            "LatestUpdate": "11.04.2024 15:38:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "12411LJ001",
+            "Content": "Fortschreibung des Bevölkerungsstandes, Bevölkerungsstand, Bundesländer, Altersjahre (u1-90m), Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1967-31.12.2023",
+            "LatestUpdate": "22.01.2025 16:01:53h",
+            "Information": "false"
+        },
+        {
+            "Code": "12411LJ002",
+            "Content": "Fortschreibung des Bevölkerungsstandes, Bevölkerungsstand, Bundesländer, Altersjahre (u1-90m), Nationalität, Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2000-31.12.2023",
+            "LatestUpdate": "22.01.2025 16:04:11h",
+            "Information": "false"
+        },
+        {
+            "Code": "12411LJ003",
+            "Content": "Fortschreibung des Bevölkerungsstandes, Bevölkerungsstand, Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1958-31.12.2023",
+            "LatestUpdate": "22.01.2025 15:59:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "12411LJ004",
+            "Content": "Fortschreibung des Bevölkerungsstandes, Durchschnittliche Bevölkerung, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "22.01.2025 15:58:52h",
+            "Information": "false"
+        },
+        {
+            "Code": "12411LJ005",
+            "Content": "Fortschreibung des Bevölkerungsstandes, Durchschnittliche Bevölkerung, Bundesländer, Nationalität, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "22.01.2025 15:55:44h",
+            "Information": "false"
+        },
+        {
+            "Code": "12411LJ006",
+            "Content": "Fortschreibung des Bevölkerungsstandes, Durchschnittliche Bevölkerung, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "22.01.2025 15:58:56h",
+            "Information": "false"
+        },
+        {
+            "Code": "12411LJ007",
+            "Content": "Fortschreibung des Bevölkerungsstandes, Durchschnittliche Bevölkerung, Bundesländer, Nationalität, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "22.01.2025 15:57:44h",
+            "Information": "false"
+        },
+        {
+            "Code": "12411LJ050",
+            "Content": "Fortschreibung des Bevölkerungsstandes, Bevölkerungsdichte, Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2022",
+            "LatestUpdate": "14.12.2023 10:11:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "12411LV001",
+            "Content": "Fortschreibung des Bevölkerungsstandes, Bevölkerungsstand, Bundesländer, Geschlecht, Stichtag zum Quartalsende",
+            "State": "undefiniert",
+            "Time": "31.03.1991-30.09.2024",
+            "LatestUpdate": "26.02.2025 18:00:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "12411LV002",
+            "Content": "Fortschreibung des Bevölkerungsstandes, Bevölkerungsstand, Bundesländer, Stichtag zum Quartalsende",
+            "State": "undefiniert",
+            "Time": "31.03.1991-30.09.2024",
+            "LatestUpdate": "26.02.2025 18:00:02h",
+            "Information": "false"
+        },
+        {
+            "Code": "12421LJ001",
+            "Content": "Bevölkerungsvorausberechnungen, Vorausberechneter Bevölkerungsstand, Bundesländer, Varianten der Bevölkerungsvorausberechnung, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2022-31.12.2070",
+            "LatestUpdate": "02.12.2022 15:05:11h",
+            "Information": "false"
+        },
+        {
+            "Code": "12421LJ002",
+            "Content": "Bevölkerungsvorausberechnungen, Vorausberechneter Bevölkerungsstand, Bundesländer, Varianten der Bevölkerungsvorausberechnung, Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2022-31.12.2070",
+            "LatestUpdate": "02.12.2022 15:05:24h",
+            "Information": "false"
+        },
+        {
+            "Code": "12421LJ003",
+            "Content": "Bevölkerungsvorausberechnungen, Vorausberechneter Bevölkerungsstand, Bundesländer, Varianten der Bevölkerungsvorausberechnung, Altersjahre (u1-100m), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2022-31.12.2070",
+            "LatestUpdate": "02.12.2022 15:05:34h",
+            "Information": "false"
+        },
+        {
+            "Code": "12421LJ004",
+            "Content": "Bevölkerungsvorausberechnungen, Vorausberechneter Bevölkerungsstand, Bundesländer, Varianten der Bevölkerungsvorausberechnung, Altersjahre (u1-100m), Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2022-31.12.2070",
+            "LatestUpdate": "02.12.2022 15:05:43h",
+            "Information": "false"
+        },
+        {
+            "Code": "12421LJ100",
+            "Content": "Bevölkerungsvorausberechnungen, Vorausberechnete Privathaushalte, Bundesländer, Varianten der Haushaltsvorausberechnung, Jahr",
+            "State": "undefiniert",
+            "Time": "2019-2040",
+            "LatestUpdate": "28.02.2020 16:37:25h",
+            "Information": "false"
+        },
+        {
+            "Code": "12421LJ101",
+            "Content": "Bevölkerungsvorausberechnungen, Vorausberechnete Privathaushalte, Bundesländer, Varianten der Haushaltsvorausberechnung, Haushaltsgröße, Jahr",
+            "State": "undefiniert",
+            "Time": "2019-2040",
+            "LatestUpdate": "28.02.2020 16:37:25h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ001",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:14:52h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ002",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:43:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ003",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:45:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ004",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Migrantengeneration, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 15:48:57h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ005",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Migrantengeneration, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 15:54:43h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ006",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Migrantengeneration, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:45:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ007",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Aufenthaltsdauer, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:49:15h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ008",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Aufenthaltsdauer, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:47:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ009",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Aufenthaltsdauer, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:46:41h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ010",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Aufenthaltsdauer (Abgrenzung Einbürgerungen), Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:44:35h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ011",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Aufenthaltsdauer (Abgrenzung Einbürgerungen), Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:39:26h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ012",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Aufenthaltsdauer (Abgrenzung Einbürgerungen), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:44:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ013",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Ländergruppierungen, Ausgewählte Aufenthaltstitel, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:39:07h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ014",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Familienstand, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:46:34h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ015",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Familienstand, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:45:01h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ016",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Familienstand, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:46:37h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ017",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Registerbewegungen (regional), Staatsangehörigkeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2013-2023",
+            "LatestUpdate": "08.07.2024 12:10:56h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ018",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Registerbewegungen (regional), Ländergruppierungen, Jahr",
+            "State": "undefiniert",
+            "Time": "2013-2023",
+            "LatestUpdate": "08.07.2024 12:00:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ019",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Registerbewegungen (regional), Jahr",
+            "State": "undefiniert",
+            "Time": "2013-2023",
+            "LatestUpdate": "08.07.2024 12:00:48h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ020",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Registerzu- und abgänge (regional), Staatsangehörigkeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2013-2023",
+            "LatestUpdate": "08.07.2024 12:05:31h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ021",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Registerzu- und abgänge (regional), Ländergruppierungen, Jahr",
+            "State": "undefiniert",
+            "Time": "2013-2023",
+            "LatestUpdate": "08.07.2024 14:43:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ022",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Registerzu- und abgänge (regional), Jahr",
+            "State": "undefiniert",
+            "Time": "2013-2023",
+            "LatestUpdate": "08.07.2024 12:11:59h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ023",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Aufenthaltsdauer, Registerabgänge (regional), Staatsangehörigkeit, Jahr",
+            "State": "undefiniert",
+            "Time": "2013-2023",
+            "LatestUpdate": "08.07.2024 12:04:15h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ024",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Aufenthaltsdauer, Registerabgänge (regional), Ländergruppierungen, Jahr",
+            "State": "undefiniert",
+            "Time": "2013-2023",
+            "LatestUpdate": "08.07.2024 12:08:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ025",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Aufenthaltsdauer, Registerabgänge (regional), Jahr",
+            "State": "undefiniert",
+            "Time": "2013-2023",
+            "LatestUpdate": "08.07.2024 12:08:26h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ026",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "30.09.1980-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:58:03h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ027",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "30.09.1980-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:59:43h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ028",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "30.09.1980-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:57:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ029",
+            "Content": "Ausländerstatistik, Durchschnittsalter der Ausländer, Durchschnittliche Aufenthaltsdauer der Ausländer, Bundesländer, Geschlecht, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:59:37h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ030",
+            "Content": "Ausländerstatistik, Durchschnittsalter der Ausländer, Durchschnittliche Aufenthaltsdauer der Ausländer, Bundesländer, Geschlecht, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:49:31h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ031",
+            "Content": "Ausländerstatistik, Durchschnittsalter der Ausländer, Durchschnittliche Aufenthaltsdauer der Ausländer, Bundesländer, Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:49:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ032",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "30.09.1980-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:51:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ033",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "30.09.1980-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:51:30h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ034",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "30.09.1980-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:57:46h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ035",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Altersjahre (u1-95m, unbekannt), Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:55:50h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ036",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Altersjahre (u1-95m, unbekannt), Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:57:43h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ037",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Altersjahre (u1-95m, unbekannt), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:58:10h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ038",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Familienstand, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 15:00:12h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ039",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Familienstand, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:58:23h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ040",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Familienstand, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:49:22h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ041",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Staatsangehörigkeit, Aufenthaltstitel, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2019",
+            "LatestUpdate": "22.04.2020 14:43:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ042",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Ländergruppierungen, Aufenthaltstitel, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2019",
+            "LatestUpdate": "16.02.2021 18:31:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "12521LJ043",
+            "Content": "Ausländerstatistik, Ausländer, Bundesländer, Geschlecht, Staatsangehörigkeit, Ausgewählte Aufenthaltstitel, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1998-31.12.2023",
+            "LatestUpdate": "30.04.2024 14:51:25h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ001",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:32:29h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ002",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:34:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ003",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:32:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ004",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Migrantengeneration, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:25:43h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ005",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Migrantengeneration, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:29:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ006",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Altersjahre (u1-95m, unbekannt), Migrantengeneration, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:26:53h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ007",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Aufenthaltsdauer, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:26:41h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ008",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Aufenthaltsdauer, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:37:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ009",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Aufenthaltsdauer, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:38:11h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ010",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Aufenthaltsdauer (Abgrenzung Einbürgerungen), Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:36:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ011",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Aufenthaltsdauer (Abgrenzung Einbürgerungen), Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:35:31h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ012",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Aufenthaltsdauer (Abgrenzung Einbürgerungen), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:37:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ013",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Ländergruppierungen, Schutzstatuskategorie, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:37:01h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ014",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Familienstand, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:38:36h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ015",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Familienstand, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:35:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ016",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Familienstand, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:35:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ026",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:37:30h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ027",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:38:04h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ028",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:38:07h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ029",
+            "Content": "Statistik über Schutzsuchende, Durchschnittsalter der Schutzsuchenden, Durchschnittl. Aufenthaltsdauer d. Schutzsuchenden, Bundesländer, Geschlecht, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:35:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ030",
+            "Content": "Statistik über Schutzsuchende, Durchschnittsalter der Schutzsuchenden, Durchschnittl. Aufenthaltsdauer d. Schutzsuchenden, Bundesländer, Geschlecht, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:43:51h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ031",
+            "Content": "Statistik über Schutzsuchende, Durchschnittsalter der Schutzsuchenden, Durchschnittl. Aufenthaltsdauer d. Schutzsuchenden, Bundesländer, Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:43:34h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ032",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:43:31h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ033",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:43:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ034",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:41:02h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ035",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Altersjahre (u1-95m, unbekannt), Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:40:59h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ036",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Altersjahre (u1-95m, unbekannt), Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:43:26h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ037",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Altersjahre (u1-95m, unbekannt), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:43:45h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ038",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Familienstand, Staatsangehörigkeit, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:41:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ039",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Familienstand, Ländergruppierungen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:37:14h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ040",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Familienstand, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:45:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ041",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Staatsangehörigkeit, Schutzstatus, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:44:54h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ042",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Ländergruppierungen, Schutzstatus, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:45:46h",
+            "Information": "false"
+        },
+        {
+            "Code": "12531LJ043",
+            "Content": "Statistik über Schutzsuchende, Schutzsuchende, Bundesländer, Geschlecht, Staatsangehörigkeit, Schutzstatuskategorie, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2007-31.12.2023",
+            "LatestUpdate": "22.05.2024 14:42:04h",
+            "Information": "false"
+        },
+        {
+            "Code": "12611LJ002",
+            "Content": "Statistik der Eheschließungen, Eheschließungen, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "1990-2023",
+            "LatestUpdate": "27.06.2024 08:07:25h",
+            "Information": "false"
+        },
+        {
+            "Code": "12611LM001",
+            "Content": "Statistik der Eheschließungen, Eheschließungen, Bundesländer, Monate, Jahr",
+            "State": "undefiniert",
+            "Time": "Januar 1990-November 2024",
+            "LatestUpdate": "19.02.2025 18:00:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "12612LJ001",
+            "Content": "Statistik der Geburten, Lebendgeborene, Totgeborene, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "1990-2023",
+            "LatestUpdate": "03.07.2024 08:00:09h",
+            "Information": "false"
+        },
+        {
+            "Code": "12612LJ002",
+            "Content": "Statistik der Geburten, Lebendgeborene, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "1990-2023",
+            "LatestUpdate": "03.07.2024 08:00:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "12612LJ003",
+            "Content": "Statistik der Geburten, Lebendgeborene, Bundesländer, Familienstand der Eltern, Jahr",
+            "State": "undefiniert",
+            "Time": "1991-2023",
+            "LatestUpdate": "03.07.2024 08:01:02h",
+            "Information": "false"
+        },
+        {
+            "Code": "12612LJ004",
+            "Content": "Statistik der Geburten, Lebendgeborene, Bundesländer, Staatsangehörigkeit des Kindes und der Eltern, Jahr",
+            "State": "undefiniert",
+            "Time": "1990-2023",
+            "LatestUpdate": "03.07.2024 08:00:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "12612LJ005",
+            "Content": "Statistik der Geburten, Zusammengefasste Geburtenziffer (je Frau), Bundesländer, Altersgruppen (15-u45, 15-u50), Jahr",
+            "State": "undefiniert",
+            "Time": "1991-2023",
+            "LatestUpdate": "23.01.2025 08:01:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "12612LJ006",
+            "Content": "Statistik der Geburten, Nettoreproduktionsrate, Bundesländer, Altersgruppen (15-u45, 15-u50), Jahr",
+            "State": "undefiniert",
+            "Time": "2004-2010",
+            "LatestUpdate": "24.04.2017 15:27:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12612LM001",
+            "Content": "Statistik der Geburten, Lebendgeborene, Bundesländer, Monate, Jahr",
+            "State": "undefiniert",
+            "Time": "Januar 1990-November 2024",
+            "LatestUpdate": "19.02.2025 18:01:23h",
+            "Information": "false"
+        },
+        {
+            "Code": "12612LM002",
+            "Content": "Statistik der Geburten, Lebendgeborene, Bundesländer, Geschlecht, Monate, Jahr",
+            "State": "undefiniert",
+            "Time": "Januar 1990-November 2024",
+            "LatestUpdate": "19.02.2025 18:00:54h",
+            "Information": "false"
+        },
+        {
+            "Code": "12613LJ001",
+            "Content": "Statistik der Sterbefälle, Gestorbene, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "1990-2024",
+            "LatestUpdate": "18.03.2025 11:35:30h",
+            "Information": "false"
+        },
+        {
+            "Code": "12613LJ002",
+            "Content": "Statistik der Sterbefälle, Gestorbene, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "1990-2024",
+            "LatestUpdate": "18.03.2025 11:35:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "12613LM001",
+            "Content": "Statistik der Sterbefälle, Gestorbene, Bundesländer, Monate, Jahr",
+            "State": "undefiniert",
+            "Time": "Januar 1990-Januar 2025",
+            "LatestUpdate": "18.03.2025 11:40:35h",
+            "Information": "false"
+        },
+        {
+            "Code": "12613LM002",
+            "Content": "Statistik der Sterbefälle, Gestorbene, Bundesländer, Geschlecht, Monate, Jahr",
+            "State": "undefiniert",
+            "Time": "Januar 1990-Januar 2025",
+            "LatestUpdate": "18.03.2025 11:40:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "12621LJ001",
+            "Content": "Sterbetafeln, Durchschnittliche Lebenserwartung bei Geburt, Bundesländer, Geschlecht, Jahre (Zeitraum)",
+            "State": "undefiniert",
+            "Time": "2002/04-2021/23",
+            "LatestUpdate": "21.08.2024 08:02:50h",
+            "Information": "false"
+        },
+        {
+            "Code": "12631LJ001",
+            "Content": "Statistik rechtskräftiger Urteile in Ehesachen, Ehescheidungen, Ehedauer, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "1997-2023",
+            "LatestUpdate": "27.06.2024 08:06:36h",
+            "Information": "false"
+        },
+        {
+            "Code": "12631LJ002",
+            "Content": "Statistik rechtskräftiger Urteile in Ehesachen, Ehescheidungen, Gemeinsame minderjährige Kinder, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "1997-2023",
+            "LatestUpdate": "27.06.2024 08:06:25h",
+            "Information": "false"
+        },
+        {
+            "Code": "12631LJ003",
+            "Content": "Statistik rechtskräftiger Urteile in Ehesachen, Ehescheidungen, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "1990-2023",
+            "LatestUpdate": "27.06.2024 08:06:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "12651LJ001",
+            "Content": "Begründung von Lebenspartnerschaften, Begründungen von Lebenspartnerschaften, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2014-2017",
+            "LatestUpdate": "29.08.2018 11:37:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "12661LJ001",
+            "Content": "Aufhebung von Lebenspartnerschaften, Aufhebungen von Lebenspartnerschaften, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2014-2023",
+            "LatestUpdate": "27.06.2024 08:07:10h",
+            "Information": "false"
+        },
+        {
+            "Code": "12661LJ002",
+            "Content": "Aufhebung von Lebenspartnerschaften, Aufhebungen von Lebenspartnerschaften, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2014-2023",
+            "LatestUpdate": "27.06.2024 08:07:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "12711LJ001",
+            "Content": "Wanderungsstatistik, Zuzüge aus dem Ausland, Fortzüge in das Ausland, Wanderungssaldo Ausland, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "27.06.2024 08:04:29h",
+            "Information": "false"
+        },
+        {
+            "Code": "12711LJ002",
+            "Content": "Wanderungsstatistik, Zuzüge aus dem Ausland, Fortzüge in das Ausland, Wanderungssaldo Ausland, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "27.06.2024 08:05:07h",
+            "Information": "false"
+        },
+        {
+            "Code": "12711LJ003",
+            "Content": "Wanderungsstatistik, Zuzüge aus dem Ausland, Fortzüge in das Ausland, Wanderungssaldo Ausland, Bundesländer, Nationalität, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "27.06.2024 08:04:19h",
+            "Information": "false"
+        },
+        {
+            "Code": "12711LJ004",
+            "Content": "Wanderungsstatistik, Zuzüge aus dem Ausland, Fortzüge in das Ausland, Wanderungssaldo Ausland, Bundesländer, Geschlecht, Nationalität, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "27.06.2024 08:05:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "12711LJ100",
+            "Content": "Wanderungsstatistik, Zuzüge aus einem anderen Bundesland, Fortzüge in ein anderes Bundesland, Wanderungssaldo Bundesländer, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "27.06.2024 08:04:22h",
+            "Information": "false"
+        },
+        {
+            "Code": "12711LJ101",
+            "Content": "Wanderungsstatistik, Zuzüge aus einem anderen Bundesland, Fortzüge in ein anderes Bundesland, Wanderungssaldo Bundesländer, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "27.06.2024 08:05:11h",
+            "Information": "false"
+        },
+        {
+            "Code": "12711LJ102",
+            "Content": "Wanderungsstatistik, Zuzüge aus einem anderen Bundesland, Fortzüge in ein anderes Bundesland, Wanderungssaldo Bundesländer, Bundesländer, Nationalität, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "27.06.2024 08:05:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "12711LJ103",
+            "Content": "Wanderungsstatistik, Zuzüge aus einem anderen Bundesland, Fortzüge in ein anderes Bundesland, Wanderungssaldo Bundesländer, Bundesländer, Geschlecht, Nationalität, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "27.06.2024 08:05:23h",
+            "Information": "false"
+        },
+        {
+            "Code": "12711LJ200",
+            "Content": "Wanderungsstatistik, Zuzüge, Fortzüge, Wanderungssaldo, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "27.06.2024 08:05:14h",
+            "Information": "false"
+        },
+        {
+            "Code": "12711LJ201",
+            "Content": "Wanderungsstatistik, Zuzüge, Fortzüge, Wanderungssaldo, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "27.06.2024 08:05:20h",
+            "Information": "false"
+        },
+        {
+            "Code": "12711LJ202",
+            "Content": "Wanderungsstatistik, Zuzüge, Fortzüge, Wanderungssaldo, Bundesländer, Nationalität, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "27.06.2024 08:05:30h",
+            "Information": "false"
+        },
+        {
+            "Code": "12711LJ203",
+            "Content": "Wanderungsstatistik, Zuzüge, Fortzüge, Wanderungssaldo, Bundesländer, Geschlecht, Nationalität, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "27.06.2024 08:05:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "13111LV001",
+            "Content": "Statistik d. sozialversicherungspfl. Beschäftigten, Sozialvers.pflichtig Beschäftigte am Arbeitsort, Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.03.2008-30.06.2024",
+            "LatestUpdate": "22.01.2025 14:00:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "13111LV002",
+            "Content": "Statistik d. sozialversicherungspfl. Beschäftigten, Sozialvers.pflichtig Beschäftigte am Arbeitsort, Bundesländer, Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.03.2008-30.06.2024",
+            "LatestUpdate": "22.01.2025 14:00:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "13111LV003",
+            "Content": "Statistik d. sozialversicherungspfl. Beschäftigten, Sozialvers.pflichtig Beschäftigte am Arbeitsort, Bundesländer, WZ2008 (Abschnitte): Sozialvers.pfl. Beschäftigte, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.03.2008-30.06.2024",
+            "LatestUpdate": "22.01.2025 14:00:45h",
+            "Information": "false"
+        },
+        {
+            "Code": "13211LJ001",
+            "Content": "Arbeitsmarktstatistik der Bundesagentur für Arbeit, Arbeitslose, Arbeitslosenquote aller zivilen Erwerbspersonen, Arbeitslosenquote d. abhängigen ziv. Erwerbspers., Gemeldete Arbeitsstellen, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "1991-2024",
+            "LatestUpdate": "08.01.2025 08:01:36h",
+            "Information": "false"
+        },
+        {
+            "Code": "13211LJ002",
+            "Content": "Arbeitsmarktstatistik der Bundesagentur für Arbeit, Arbeitslose, Arbeitslosenquote aller zivilen Erwerbspersonen, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "1991-2024",
+            "LatestUpdate": "08.01.2025 08:01:23h",
+            "Information": "false"
+        },
+        {
+            "Code": "13211LM001",
+            "Content": "Arbeitsmarktstatistik der Bundesagentur für Arbeit, Arbeitslose, Arbeitslosenquote aller zivilen Erwerbspersonen, Arbeitslosenquote d. abhängigen ziv. Erwerbspers., Gemeldete Arbeitsstellen, Bundesländer, Monate, Jahr",
+            "State": "undefiniert",
+            "Time": "Januar 2005-Februar 2025",
+            "LatestUpdate": "05.03.2025 11:31:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "13211LM002",
+            "Content": "Arbeitsmarktstatistik der Bundesagentur für Arbeit, Arbeitslose, Arbeitslosenquote aller zivilen Erwerbspersonen, Bundesländer, Geschlecht, Monate, Jahr",
+            "State": "undefiniert",
+            "Time": "Januar 2005-Februar 2025",
+            "LatestUpdate": "28.02.2025 14:26:02h",
+            "Information": "false"
+        },
+        {
+            "Code": "13311LJ001",
+            "Content": "Länderberechnung Erwerbstätige, Erwerbstätige (Inlandskonzept), Arbeitnehmer (Inlandskonzept), Selbständige u.mithelf.Familienangehörige (Inland), Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "1991-2023",
+            "LatestUpdate": "26.03.2024 14:46:25h",
+            "Information": "false"
+        },
+        {
+            "Code": "13311LJ002",
+            "Content": "Länderberechnung Erwerbstätige, Erwerbstätige (Inlandskonzept), Arbeitnehmer (Inlandskonzept), Selbständige u.mithelf.Familienangehörige (Inland), Bundesländer, WZ2008 (Abschnitte, Zusammenfass.): VGR der Länder, Jahr",
+            "State": "undefiniert",
+            "Time": "1991-2023",
+            "LatestUpdate": "26.03.2024 14:46:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "14111LW001",
+            "Content": "Allgemeine Bundestagswahlstatistik, Wahlberechtigte, Wähler, Wahlbeteiligung, Gültige Erststimmen, Anteil gültiger Erststimmen, Gültige Zweitstimmen, Anteil gültiger Zweitstimmen, Ungültige Erststimmen, Anteil ungültiger Erststimmen, Ungültige Zweitstimmen, Anteil ungültiger Zweitstimmen, Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "22.09.2013-23.02.2025",
+            "LatestUpdate": "19.03.2025 08:43:34h",
+            "Information": "false"
+        },
+        {
+            "Code": "14111LW002",
+            "Content": "Allgemeine Bundestagswahlstatistik, Gültige Erststimmen, Anteil gültiger Erststimmen, Gültige Zweitstimmen, Anteil gültiger Zweitstimmen, Bundesländer, Parteien (Allgemeine Bundestagswahlstatistik), Stichtag",
+            "State": "undefiniert",
+            "Time": "22.09.2013-23.02.2025",
+            "LatestUpdate": "19.03.2025 08:43:37h",
+            "Information": "false"
+        },
+        {
+            "Code": "14121LW001",
+            "Content": "Repräsentative Bundestagswahlstatistik, Anteil gültiger Zweitstimmen, Gültige Zweitstimmen, Bundesländer, Parteien, Altersgruppen (18-60m), Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "22.09.2002-27.09.2009",
+            "LatestUpdate": "10.10.2017 14:58:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "14121LW002",
+            "Content": "Repräsentative Bundestagswahlstatistik, Anteil gültiger Zweitstimmen, Gültige Zweitstimmen, Bundesländer, Parteien, Altersgruppen (18-60m), Stichtag",
+            "State": "undefiniert",
+            "Time": "22.09.2002-27.09.2009",
+            "LatestUpdate": "10.10.2017 14:58:20h",
+            "Information": "false"
+        },
+        {
+            "Code": "14121LW003",
+            "Content": "Repräsentative Bundestagswahlstatistik, Anteil gültiger Zweitstimmen, Gültige Zweitstimmen, Bundesländer, Parteien, Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "22.09.2002-26.09.2021",
+            "LatestUpdate": "28.01.2022 13:42:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "14121LW004",
+            "Content": "Repräsentative Bundestagswahlstatistik, Anteil gültiger Zweitstimmen, Gültige Zweitstimmen, Bundesländer, Parteien, Altersgruppen (18-70m), Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "22.09.2013-26.09.2021",
+            "LatestUpdate": "28.01.2022 13:42:10h",
+            "Information": "false"
+        },
+        {
+            "Code": "14121LW005",
+            "Content": "Repräsentative Bundestagswahlstatistik, Anteil gültiger Zweitstimmen, Gültige Zweitstimmen, Bundesländer, Parteien, Altersgruppen (18-70m), Stichtag",
+            "State": "undefiniert",
+            "Time": "22.09.2013-26.09.2021",
+            "LatestUpdate": "28.01.2022 13:43:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "14211LW001",
+            "Content": "Allgemeine Europawahlstatistik, Gültige Stimmen, Anteil gültiger Stimmen, Parteien (Allgemeine Europawahlstatistik), Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "12.06.1994-09.06.2024",
+            "LatestUpdate": "05.07.2024 12:03:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "14221LW001",
+            "Content": "Repräsentative Europawahlstatistik, Anteil gültiger Stimmen, Bundesländer, Geschlecht, Altersgruppen (18-60m), Parteien, Stichtag",
+            "State": "undefiniert",
+            "Time": "13.06.1999-07.06.2009",
+            "LatestUpdate": "30.09.2019 15:26:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "14221LW002",
+            "Content": "Repräsentative Europawahlstatistik, Anteil gültiger Stimmen, Bundesländer, Geschlecht, Altersgruppen (18-70m), Parteien, Stichtag",
+            "State": "undefiniert",
+            "Time": "25.05.2014-26.05.2019",
+            "LatestUpdate": "02.10.2019 10:00:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ001",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:13:40h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ002",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler, Geschlecht, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:12:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ003",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler, Jahrgangsstufen, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:12:50h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ004",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler, Schulart, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:13:51h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ005",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler, Geschlecht, Jahrgangsstufen, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:13:55h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ006",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler, Geschlecht, Schulart, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:13:48h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ007",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler, Jahrgangsstufen, Schulart, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:13:25h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ008",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler, Geschlecht, Jahrgangsstufen, Schulart, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:12:41h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ009",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schulanfänger, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1999/00-2023/24",
+            "LatestUpdate": "11.10.2024 08:12:30h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ010",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schulanfänger, Bundesländer, Geschlecht, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1999/00-2023/24",
+            "LatestUpdate": "11.10.2024 08:13:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ011",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schulanfänger, Bundesländer, Einschulungsart, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1999/00-2023/24",
+            "LatestUpdate": "11.10.2024 08:13:37h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ012",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schulanfänger, Bundesländer, Schulart (Einschulung), Schuljahr",
+            "State": "undefiniert",
+            "Time": "1999/00-2023/24",
+            "LatestUpdate": "11.10.2024 08:13:34h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ013",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schulanfänger, Bundesländer, Geschlecht, Einschulungsart, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1999/00-2023/24",
+            "LatestUpdate": "11.10.2024 08:12:57h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ014",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schulanfänger, Bundesländer, Geschlecht, Schulart (Einschulung), Schuljahr",
+            "State": "undefiniert",
+            "Time": "1999/00-2023/24",
+            "LatestUpdate": "11.10.2024 08:12:54h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ015",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schulanfänger, Bundesländer, Einschulungsart, Schulart (Einschulung), Schuljahr",
+            "State": "undefiniert",
+            "Time": "1999/00-2023/24",
+            "LatestUpdate": "11.10.2024 08:13:31h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ016",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schulanfänger, Bundesländer, Geschlecht, Einschulungsart, Schulart (Einschulung), Schuljahr",
+            "State": "undefiniert",
+            "Time": "1999/00-2023/24",
+            "LatestUpdate": "11.10.2024 08:13:44h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ017",
+            "Content": "Statistik der allgemeinbildenden Schulen, Absolventen und Abgänger, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1997/98-2022/23",
+            "LatestUpdate": "11.10.2024 08:14:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ018",
+            "Content": "Statistik der allgemeinbildenden Schulen, Absolventen und Abgänger, Geschlecht, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1997/98-2022/23",
+            "LatestUpdate": "11.10.2024 08:14:26h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ019",
+            "Content": "Statistik der allgemeinbildenden Schulen, Absolventen und Abgänger, Schulabschlüsse, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1997/98-2022/23",
+            "LatestUpdate": "11.10.2024 08:14:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ020",
+            "Content": "Statistik der allgemeinbildenden Schulen, Absolventen und Abgänger, Schulart (mit Abschlussmöglichkeit), Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1997/98-2022/23",
+            "LatestUpdate": "11.10.2024 08:14:22h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ021",
+            "Content": "Statistik der allgemeinbildenden Schulen, Absolventen und Abgänger, Geschlecht, Schulabschlüsse, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1997/98-2022/23",
+            "LatestUpdate": "11.10.2024 08:14:56h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ022",
+            "Content": "Statistik der allgemeinbildenden Schulen, Absolventen und Abgänger, Geschlecht, Schulart (mit Abschlussmöglichkeit), Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1997/98-2022/23",
+            "LatestUpdate": "11.10.2024 08:14:52h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ023",
+            "Content": "Statistik der allgemeinbildenden Schulen, Absolventen und Abgänger, Schulabschlüsse, Schulart (mit Abschlussmöglichkeit), Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1997/98-2022/23",
+            "LatestUpdate": "11.10.2024 08:14:30h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ024",
+            "Content": "Statistik der allgemeinbildenden Schulen, Absolventen und Abgänger, Geschlecht, Schulabschlüsse, Schulart (mit Abschlussmöglichkeit), Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1997/98-2022/23",
+            "LatestUpdate": "11.10.2024 08:14:35h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ025",
+            "Content": "Statistik der allgemeinbildenden Schulen, Wiederholer, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:14:46h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ026",
+            "Content": "Statistik der allgemeinbildenden Schulen, Wiederholer, Bundesländer, Geschlecht, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:16:29h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ027",
+            "Content": "Statistik der allgemeinbildenden Schulen, Wiederholer, Bundesländer, Jahrgangsstufen, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:16:26h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ028",
+            "Content": "Statistik der allgemeinbildenden Schulen, Wiederholer, Bundesländer, Schulart, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:15:44h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ029",
+            "Content": "Statistik der allgemeinbildenden Schulen, Wiederholer, Bundesländer, Geschlecht, Jahrgangsstufen, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:15:37h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ030",
+            "Content": "Statistik der allgemeinbildenden Schulen, Wiederholer, Bundesländer, Geschlecht, Schulart, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:16:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ031",
+            "Content": "Statistik der allgemeinbildenden Schulen, Wiederholer, Bundesländer, Jahrgangsstufen, Schulart, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:16:55h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ032",
+            "Content": "Statistik der allgemeinbildenden Schulen, Wiederholer, Bundesländer, Geschlecht, Jahrgangsstufen, Schulart, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:16:46h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ033",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit Fremdsprachen-Unterricht, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:15:29h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ034",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit Fremdsprachen-Unterricht, Bundesländer, Jahrgangsstufen, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:15:23h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ035",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit Fremdsprachen-Unterricht, Bundesländer, Schulart, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:15:26h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ036",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit Fremdsprachen-Unterricht, Bundesländer, Fremdsprachen, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:15:41h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ037",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit Fremdsprachen-Unterricht, Bundesländer, Jahrgangsstufen, Schulart, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:16:51h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ038",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit Fremdsprachen-Unterricht, Bundesländer, Jahrgangsstufen, Fremdsprachen, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:17:05h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ039",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit Fremdsprachen-Unterricht, Bundesländer, Schulart, Fremdsprachen, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:15:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ040",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit Fremdsprachen-Unterricht, Bundesländer, Jahrgangsstufen, Schulart, Fremdsprachen, Schuljahr",
+            "State": "undefiniert",
+            "Time": "1998/99-2023/24",
+            "LatestUpdate": "11.10.2024 08:17:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ041",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit sonderpädagogischer Förderung, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2000/01-2023/24",
+            "LatestUpdate": "11.10.2024 08:16:37h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ042",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit sonderpädagogischer Förderung, Bundesländer, Geschlecht, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2014/15-2023/24",
+            "LatestUpdate": "11.10.2024 08:16:40h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ043",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit sonderpädagogischer Förderung, Bundesländer, Schulart, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2000/01-2023/24",
+            "LatestUpdate": "11.10.2024 08:16:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ044",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit sonderpädagogischer Förderung, Bundesländer, Förderschwerpunkte, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2000/01-2023/24",
+            "LatestUpdate": "11.10.2024 08:15:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ045",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit sonderpädagogischer Förderung, Bundesländer, Geschlecht, Schulart, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2014/15-2023/24",
+            "LatestUpdate": "11.10.2024 08:15:57h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ046",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit sonderpädagogischer Förderung, Bundesländer, Geschlecht, Förderschwerpunkte, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2014/15-2023/24",
+            "LatestUpdate": "11.10.2024 08:15:53h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ047",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit sonderpädagogischer Förderung, Bundesländer, Schulart, Förderschwerpunkte, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2000/01-2023/24",
+            "LatestUpdate": "11.10.2024 08:14:43h",
+            "Information": "false"
+        },
+        {
+            "Code": "21111LJ048",
+            "Content": "Statistik der allgemeinbildenden Schulen, Schüler mit sonderpädagogischer Förderung, Bundesländer, Geschlecht, Schulart, Förderschwerpunkte, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2014/15-2023/24",
+            "LatestUpdate": "11.10.2024 08:17:26h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ001",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:02:25h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ002",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Schulart (beruflich), Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:03:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ003",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Geschlecht, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:03:25h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ004",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Zeitform des Unterrichts, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:02:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ005",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Nationalität, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:03:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ006",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Schulart (beruflich), Geschlecht, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:03:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ007",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Schulart (beruflich), Zeitform des Unterrichts, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:03:35h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ008",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Schulart (beruflich), Nationalität, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:02:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ009",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Geschlecht, Zeitform des Unterrichts, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:03:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ010",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Geschlecht, Nationalität, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:01:29h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ011",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Zeitform des Unterrichts, Nationalität, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:01:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ012",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Schulart (beruflich), Geschlecht, Zeitform des Unterrichts, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:02:22h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ013",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Schulart (beruflich), Geschlecht, Nationalität, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:02:36h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ014",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Schulart (beruflich), Zeitform des Unterrichts, Nationalität, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:02:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ015",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Geschlecht, Zeitform des Unterrichts, Nationalität, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:02:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ016",
+            "Content": "Statistik der beruflichen Schulen, Schüler, Schulart (beruflich), Geschlecht, Zeitform des Unterrichts, Nationalität, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2001/02-2023/24",
+            "LatestUpdate": "29.10.2024 08:02:41h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ017",
+            "Content": "Statistik der beruflichen Schulen, Schüler mit Fremdsprachen-Unterricht, Fremdsprachen, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2009/10-2023/24",
+            "LatestUpdate": "29.10.2024 08:02:52h",
+            "Information": "false"
+        },
+        {
+            "Code": "21121LJ018",
+            "Content": "Statistik der beruflichen Schulen, Schüler mit Fremdsprachen-Unterricht, Schulart (beruflich), Fremdsprachen, Bundesländer, Schuljahr",
+            "State": "undefiniert",
+            "Time": "2009/10-2023/24",
+            "LatestUpdate": "29.10.2024 08:02:45h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ001",
+            "Content": "Berufsbildungsstatistik, Auszubildende, Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2008-31.12.2023",
+            "LatestUpdate": "28.08.2024 18:01:44h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ002",
+            "Content": "Berufsbildungsstatistik, Auszubildende, Bundesländer, Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2008-31.12.2023",
+            "LatestUpdate": "28.08.2024 18:02:03h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ003",
+            "Content": "Berufsbildungsstatistik, Auszubildende, Bundesländer, Nationalität, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2008-31.12.2023",
+            "LatestUpdate": "28.08.2024 18:02:44h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ004",
+            "Content": "Berufsbildungsstatistik, Auszubildende, Bundesländer, Geschlecht, Nationalität, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2008-31.12.2023",
+            "LatestUpdate": "28.08.2024 18:02:41h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ005",
+            "Content": "Berufsbildungsstatistik, Auszubildende, Bundesländer, Ausbildungsbereich, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2008-31.12.2023",
+            "LatestUpdate": "28.08.2024 18:01:54h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ006",
+            "Content": "Berufsbildungsstatistik, Auszubildende, Bundesländer, Geschlecht, Ausbildungsbereich, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2008-31.12.2023",
+            "LatestUpdate": "28.08.2024 18:00:59h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ007",
+            "Content": "Berufsbildungsstatistik, Auszubildende, Bundesländer, Nationalität, Ausbildungsbereich, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2008-31.12.2023",
+            "LatestUpdate": "28.08.2024 18:01:41h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ008",
+            "Content": "Berufsbildungsstatistik, Auszubildende, Bundesländer, Geschlecht, Nationalität, Ausbildungsbereich, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2008-31.12.2023",
+            "LatestUpdate": "28.08.2024 18:01:51h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ009",
+            "Content": "Berufsbildungsstatistik, Auszubildende, Bundesländer, Altersjahre (u17-24m), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2008-31.12.2023",
+            "LatestUpdate": "28.08.2024 18:00:56h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ010",
+            "Content": "Berufsbildungsstatistik, Auszubildende, Bundesländer, Geschlecht, Altersjahre (u17-24m), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2008-31.12.2023",
+            "LatestUpdate": "28.08.2024 18:02:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ011",
+            "Content": "Berufsbildungsstatistik, Auszubildende, Bundesländer, Schulabschluss, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2008-31.12.2023",
+            "LatestUpdate": "28.08.2024 18:02:47h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ012",
+            "Content": "Berufsbildungsstatistik, Auszubildende, Bundesländer, Geschlecht, Schulabschluss, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2008-31.12.2023",
+            "LatestUpdate": "28.08.2024 18:02:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ101",
+            "Content": "Berufsbildungsstatistik, Neu abgeschlossene Ausbildungsverträge, Vorzeitig gelöste Ausbildungsverträge, Bestandene Abschlussprüfung, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2008-2023",
+            "LatestUpdate": "28.08.2024 18:16:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ102",
+            "Content": "Berufsbildungsstatistik, Neu abgeschlossene Ausbildungsverträge, Vorzeitig gelöste Ausbildungsverträge, Bestandene Abschlussprüfung, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2008-2023",
+            "LatestUpdate": "28.08.2024 18:17:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ103",
+            "Content": "Berufsbildungsstatistik, Neu abgeschlossene Ausbildungsverträge, Vorzeitig gelöste Ausbildungsverträge, Bestandene Abschlussprüfung, Bundesländer, Nationalität, Jahr",
+            "State": "undefiniert",
+            "Time": "2008-2023",
+            "LatestUpdate": "28.08.2024 18:17:45h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ104",
+            "Content": "Berufsbildungsstatistik, Neu abgeschlossene Ausbildungsverträge, Vorzeitig gelöste Ausbildungsverträge, Bestandene Abschlussprüfung, Bundesländer, Geschlecht, Nationalität, Jahr",
+            "State": "undefiniert",
+            "Time": "2008-2023",
+            "LatestUpdate": "28.08.2024 18:16:55h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ105",
+            "Content": "Berufsbildungsstatistik, Neu abgeschlossene Ausbildungsverträge, Vorzeitig gelöste Ausbildungsverträge, Bestandene Abschlussprüfung, Bundesländer, Ausbildungsbereich, Jahr",
+            "State": "undefiniert",
+            "Time": "2008-2023",
+            "LatestUpdate": "28.08.2024 18:16:07h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ106",
+            "Content": "Berufsbildungsstatistik, Neu abgeschlossene Ausbildungsverträge, Vorzeitig gelöste Ausbildungsverträge, Bestandene Abschlussprüfung, Bundesländer, Geschlecht, Ausbildungsbereich, Jahr",
+            "State": "undefiniert",
+            "Time": "2008-2023",
+            "LatestUpdate": "28.08.2024 18:16:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ107",
+            "Content": "Berufsbildungsstatistik, Neu abgeschlossene Ausbildungsverträge, Vorzeitig gelöste Ausbildungsverträge, Bestandene Abschlussprüfung, Bundesländer, Nationalität, Ausbildungsbereich, Jahr",
+            "State": "undefiniert",
+            "Time": "2008-2023",
+            "LatestUpdate": "28.08.2024 18:16:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ108",
+            "Content": "Berufsbildungsstatistik, Neu abgeschlossene Ausbildungsverträge, Vorzeitig gelöste Ausbildungsverträge, Bestandene Abschlussprüfung, Bundesländer, Geschlecht, Nationalität, Ausbildungsbereich, Jahr",
+            "State": "undefiniert",
+            "Time": "2008-2023",
+            "LatestUpdate": "28.08.2024 18:15:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ109",
+            "Content": "Berufsbildungsstatistik, Neu abgeschlossene Ausbildungsverträge, Vorzeitig gelöste Ausbildungsverträge, Bestandene Abschlussprüfung, Bundesländer, Altersjahre (u17-24m), Jahr",
+            "State": "undefiniert",
+            "Time": "2008-2023",
+            "LatestUpdate": "28.08.2024 18:15:47h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ110",
+            "Content": "Berufsbildungsstatistik, Neu abgeschlossene Ausbildungsverträge, Vorzeitig gelöste Ausbildungsverträge, Bestandene Abschlussprüfung, Bundesländer, Geschlecht, Altersjahre (u17-24m), Jahr",
+            "State": "undefiniert",
+            "Time": "2008-2023",
+            "LatestUpdate": "28.08.2024 18:17:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ111",
+            "Content": "Berufsbildungsstatistik, Neu abgeschlossene Ausbildungsverträge, Vorzeitig gelöste Ausbildungsverträge, Bestandene Abschlussprüfung, Bundesländer, Schulabschluss, Jahr",
+            "State": "undefiniert",
+            "Time": "2008-2023",
+            "LatestUpdate": "28.08.2024 18:16:46h",
+            "Information": "false"
+        },
+        {
+            "Code": "21211LJ112",
+            "Content": "Berufsbildungsstatistik, Neu abgeschlossene Ausbildungsverträge, Vorzeitig gelöste Ausbildungsverträge, Bestandene Abschlussprüfung, Bundesländer, Geschlecht, Schulabschluss, Jahr",
+            "State": "undefiniert",
+            "Time": "2008-2023",
+            "LatestUpdate": "28.08.2024 18:17:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "21241LJ001",
+            "Content": "Pflegeausbildungsstatistik, Auszubildende m.neu abgeschloss.Ausbildungsvertrag, Beendete Ausbildungen, Ausbildungseintritte (inkl. vorzeitige Lösungen), Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2020-31.12.2023",
+            "LatestUpdate": "23.07.2024 11:17:36h",
+            "Information": "false"
+        },
+        {
+            "Code": "21241LJ002",
+            "Content": "Pflegeausbildungsstatistik, Auszubildende m.neu abgeschloss.Ausbildungsvertrag, Bundesländer, Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2020-31.12.2023",
+            "LatestUpdate": "23.07.2024 11:17:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "21241LJ003",
+            "Content": "Pflegeausbildungsstatistik, Auszubildende m.neu abgeschloss.Ausbildungsvertrag, Bundesländer, Altersgruppen (u17-50m), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2020-31.12.2023",
+            "LatestUpdate": "23.07.2024 11:18:37h",
+            "Information": "false"
+        },
+        {
+            "Code": "21241LJ004",
+            "Content": "Pflegeausbildungsstatistik, Auszubildende m.neu abgeschloss.Ausbildungsvertrag, Bundesländer, Ausbildungsumfang, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2020-31.12.2023",
+            "LatestUpdate": "23.07.2024 11:17:45h",
+            "Information": "false"
+        },
+        {
+            "Code": "21241LJ005",
+            "Content": "Pflegeausbildungsstatistik, Auszubildende m.neu abgeschloss.Ausbildungsvertrag, Bundesländer, Erhalt von Fördermitteln, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2020-31.12.2023",
+            "LatestUpdate": "23.07.2024 11:18:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "21241LJ006",
+            "Content": "Pflegeausbildungsstatistik, Auszubildende m.neu abgeschloss.Ausbildungsvertrag, Bundesländer, Art der Trägerschaft der Pflegeschulen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2020-31.12.2023",
+            "LatestUpdate": "23.07.2024 11:17:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "21241LJ007",
+            "Content": "Pflegeausbildungsstatistik, Beendete Ausbildungen, Bundesländer, Prüfungsergebnis, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2020-31.12.2023",
+            "LatestUpdate": "23.07.2024 11:17:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "21241LJ008",
+            "Content": "Pflegeausbildungsstatistik, Pflegeschulen, Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2020-31.12.2023",
+            "LatestUpdate": "23.07.2024 11:16:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "21241LJ009",
+            "Content": "Pflegeausbildungsstatistik, Pflegeschulen, Bundesländer, Art der Trägerschaft der Pflegeschulen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2020-31.12.2023",
+            "LatestUpdate": "23.07.2024 11:18:40h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS001",
+            "Content": "Statistik der Studenten, Studierende, Bundesländer, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:08:45h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS002",
+            "Content": "Statistik der Studenten, Studierende, Bundesländer, Geschlecht, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:09:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS003",
+            "Content": "Statistik der Studenten, Studierende, Bundesländer, Nationalität, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:09:03h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS004",
+            "Content": "Statistik der Studenten, Studierende, Bundesländer, Nationalität, Geschlecht, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:08:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS005",
+            "Content": "Statistik der Studenten, Studierende, Bundesländer, Studienfach, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:09:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS006",
+            "Content": "Statistik der Studenten, Studierende, Bundesländer, Studienfach, Geschlecht, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:08:59h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS007",
+            "Content": "Statistik der Studenten, Studierende, Bundesländer, Studienfach, Nationalität, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:10:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS008",
+            "Content": "Statistik der Studenten, Studierende, Bundesländer, Studienfach, Nationalität, Geschlecht, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:08:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS101",
+            "Content": "Statistik der Studenten, Studienanfänger, Bundesländer, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:10:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS102",
+            "Content": "Statistik der Studenten, Studienanfänger, Geschlecht, Bundesländer, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:09:09h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS103",
+            "Content": "Statistik der Studenten, Studienanfänger, Nationalität, Bundesländer, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:09:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS104",
+            "Content": "Statistik der Studenten, Studienanfänger, Geschlecht, Nationalität, Bundesländer, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:11:16h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS105",
+            "Content": "Statistik der Studenten, Studienanfänger, Studienfach, Bundesländer, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:11:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS106",
+            "Content": "Statistik der Studenten, Studienanfänger, Geschlecht, Studienfach, Bundesländer, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:11:05h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS107",
+            "Content": "Statistik der Studenten, Studienanfänger, Nationalität, Studienfach, Bundesländer, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:10:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "21311LS108",
+            "Content": "Statistik der Studenten, Studienanfänger, Geschlecht, Nationalität, Studienfach, Bundesländer, Semester",
+            "State": "undefiniert",
+            "Time": "WS 1998/99-WS 2023/24",
+            "LatestUpdate": "09.08.2024 08:10:52h",
+            "Information": "false"
+        },
+        {
+            "Code": "21321LJ004",
+            "Content": "Statistik der Prüfungen, Prüfungen, Bundesländer, Studienfach, Nationalität, Geschlecht, Prüfungsergebnis, Jahr",
+            "State": "undefiniert",
+            "Time": "1999-2023",
+            "LatestUpdate": "16.09.2024 08:02:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "21321LJ006",
+            "Content": "Statistik der Prüfungen, Prüfungen, Bundesländer, Nationalität, Geschlecht, Prüfungsergebnis, Abgelegte Abschlussprüfung, Jahr",
+            "State": "undefiniert",
+            "Time": "1999-2023",
+            "LatestUpdate": "16.09.2024 08:01:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "21351LJ001",
+            "Content": "Statistik der Habilitationen, Habilitationen, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "1992-2023",
+            "LatestUpdate": "02.07.2024 08:00:12h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352LJ001",
+            "Content": "Statistik der Promovierenden, Promovierende, Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:03:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352LJ002",
+            "Content": "Statistik der Promovierenden, Promovierende, Bundesländer, Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:03:43h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352LJ003",
+            "Content": "Statistik der Promovierenden, Promovierende, Bundesländer, Nationalität, Stichtag",
+            "State": "undefiniert",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:03:47h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352LJ004",
+            "Content": "Statistik der Promovierenden, Promovierende, Bundesländer, Hochschulart, Stichtag",
+            "State": "undefiniert",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:02:59h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352LJ005",
+            "Content": "Statistik der Promovierenden, Promovierende, Bundesländer, Geschlecht, Nationalität, Stichtag",
+            "State": "undefiniert",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:03:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352LJ006",
+            "Content": "Statistik der Promovierenden, Promovierende, Bundesländer, Geschlecht, Hochschulart, Stichtag",
+            "State": "undefiniert",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:03:40h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352LJ007",
+            "Content": "Statistik der Promovierenden, Promovierende, Bundesländer, Nationalität, Hochschulart, Stichtag",
+            "State": "undefiniert",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:03:37h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352LJ008",
+            "Content": "Statistik der Promovierenden, Promovierende, Bundesländer, Geschlecht, Nationalität, Hochschulart, Stichtag",
+            "State": "undefiniert",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:03:03h",
+            "Information": "false"
+        },
+        {
+            "Code": "21353LJ001",
+            "Content": "Statistik der Hochschulräte, Hochschulräte, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "12.03.2024 08:02:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "21353LJ002",
+            "Content": "Statistik der Hochschulräte, Hochschulräte, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "12.03.2024 08:02:14h",
+            "Information": "false"
+        },
+        {
+            "Code": "21353LJ003",
+            "Content": "Statistik der Hochschulräte, Hochschulräte, Bundesländer, Hochschulart, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "12.03.2024 08:02:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "21353LJ004",
+            "Content": "Statistik der Hochschulräte, Hochschulräte, Bundesländer, Geschlecht, Hochschulart, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "12.03.2024 08:02:05h",
+            "Information": "false"
+        },
+        {
+            "Code": "21354LJ001",
+            "Content": "Statistik der Berufsakademien, Studierende, Studienanfänger, Bundesländer, Geschlecht, Nationalität, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "23.05.2024 08:00:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "21354LJ002",
+            "Content": "Statistik der Berufsakademien, Bestandene Prüfungen, Bundesländer, Geschlecht, Art der Prüfung, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "23.05.2024 08:00:41h",
+            "Information": "false"
+        },
+        {
+            "Code": "21354LJ003",
+            "Content": "Statistik der Berufsakademien, Personal, Bundesländer, Geschlecht, Art des Personals, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "23.05.2024 08:00:53h",
+            "Information": "false"
+        },
+        {
+            "Code": "21354LJ004",
+            "Content": "Statistik der Berufsakademien, Studierende je Lehrperson (Betreuungsrelation), Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "23.05.2024 08:00:37h",
+            "Information": "false"
+        },
+        {
+            "Code": "21354LJ005",
+            "Content": "Statistik der Berufsakademien, Studierende je Lehrperson (Betreuungsrelation), Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2017-2023",
+            "LatestUpdate": "23.05.2024 08:00:25h",
+            "Information": "false"
+        },
+        {
+            "Code": "21371LJ001",
+            "Content": "Hochschulfinanzstatistik, Ausgaben der Hochschulen, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2006-2022",
+            "LatestUpdate": "19.03.2024 08:00:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "21371LJ002",
+            "Content": "Hochschulfinanzstatistik, Ausgaben der Hochschulen, Bundesländer, Hochschulart, Jahr",
+            "State": "undefiniert",
+            "Time": "2006-2022",
+            "LatestUpdate": "19.03.2024 08:00:50h",
+            "Information": "false"
+        },
+        {
+            "Code": "21371LJ003",
+            "Content": "Hochschulfinanzstatistik, Ausgaben der Hochschulen, Bundesländer, Fächergruppen, Jahr",
+            "State": "undefiniert",
+            "Time": "2006-2022",
+            "LatestUpdate": "19.03.2024 08:00:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "21371LJ004",
+            "Content": "Hochschulfinanzstatistik, Ausgaben der Hochschulen, Bundesländer, Hochschulart, Fächergruppen, Jahr",
+            "State": "undefiniert",
+            "Time": "2006-2022",
+            "LatestUpdate": "19.03.2024 08:00:54h",
+            "Information": "false"
+        },
+        {
+            "Code": "21381LJ001",
+            "Content": "Hochschulstatistische Kennzahlen, Absolventenquote, Studienanfängerquote (Hochschulzugangsberechtig.), Studienanfängerquote, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "22.01.2025 14:33:45h",
+            "Information": "false"
+        },
+        {
+            "Code": "21381LJ002",
+            "Content": "Hochschulstatistische Kennzahlen, Absolventenquote, Studienanfängerquote (Hochschulzugangsberechtig.), Studienanfängerquote, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "22.01.2025 14:31:46h",
+            "Information": "false"
+        },
+        {
+            "Code": "21381LJ003",
+            "Content": "Hochschulstatistische Kennzahlen, Studienberechtigtenquote, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2006-2023",
+            "LatestUpdate": "22.01.2025 14:30:45h",
+            "Information": "false"
+        },
+        {
+            "Code": "21381LJ004",
+            "Content": "Hochschulstatistische Kennzahlen, Studienberechtigtenquote, Bundesländer, Schulabschluss, Jahr",
+            "State": "undefiniert",
+            "Time": "2006-2023",
+            "LatestUpdate": "22.01.2025 14:33:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "21381LJ101",
+            "Content": "Hochschulstatistische Kennzahlen, Laufende Ausgaben der Hochschulen je Studierenden, Laufende Ausgaben d. Hochschulen je Wiss. Personal, Laufende Ausgaben der Hochschulen je Professor, Drittmittel der Hochschulen je Wiss. Personal, Drittmittel der Hochschulen je Professor, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2011-2022",
+            "LatestUpdate": "17.09.2024 08:01:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "21411LJ001",
+            "Content": "Statistik der Bundesausbildungsförderung (BAföG), Geförderte Personen, Personen mit Vollförderung, Personen mit Teilförderung, Geförderte Personen (durchschnittl. Monatsbestand), Finanzieller Aufwand, Durchschnittl. monatl. Förderungsbetrag pro Person, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "1991-2023",
+            "LatestUpdate": "05.08.2024 08:05:11h",
+            "Information": "false"
+        },
+        {
+            "Code": "21411LJ002",
+            "Content": "Statistik der Bundesausbildungsförderung (BAföG), Geförderte Personen, Personen mit Vollförderung, Personen mit Teilförderung, Geförderte Personen (durchschnittl. Monatsbestand), Finanzieller Aufwand, Durchschnittl. monatl. Förderungsbetrag pro Person, Bundesländer, Personenkreis, Jahr",
+            "State": "undefiniert",
+            "Time": "1991-2023",
+            "LatestUpdate": "05.08.2024 08:05:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "21421LJ001",
+            "Content": "Statistik der Aufstiegsfortbildungsförderung, Geförderte Personen, Bundesländer, Bewilligung/Inanspruchnahme, Form der Fortbildungsmaßnahme, Fortbildungsstätten, Jahr",
+            "State": "undefiniert",
+            "Time": "2003-2023",
+            "LatestUpdate": "28.06.2024 08:04:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "21421LJ002",
+            "Content": "Statistik der Aufstiegsfortbildungsförderung, Geförderte Personen, Bundesländer, Bewilligung/Inanspruchnahme, Form der Fortbildungsmaßnahme, Fortbildungsziele, Jahr",
+            "State": "undefiniert",
+            "Time": "2003-2023",
+            "LatestUpdate": "28.06.2024 08:04:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "21421LJ003",
+            "Content": "Statistik der Aufstiegsfortbildungsförderung, Geförderte Personen, Bundesländer, Bewilligung/Inanspruchnahme, Form der Fortbildungsmaßnahme, Fortbildungsstätten, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2003-2023",
+            "LatestUpdate": "28.06.2024 08:04:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "21421LJ004",
+            "Content": "Statistik der Aufstiegsfortbildungsförderung, Geförderte Personen, Bundesländer, Bewilligung/Inanspruchnahme, Form der Fortbildungsmaßnahme, Einkommensgrößenklassen, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2003-2023",
+            "LatestUpdate": "28.06.2024 08:03:40h",
+            "Information": "false"
+        },
+        {
+            "Code": "21421LJ005",
+            "Content": "Statistik der Aufstiegsfortbildungsförderung, Finanzieller Aufwand, Bundesländer, Bewilligung/Inanspruchnahme, Jahr",
+            "State": "undefiniert",
+            "Time": "2003-2023",
+            "LatestUpdate": "28.06.2024 08:03:52h",
+            "Information": "false"
+        },
+        {
+            "Code": "21421LJ006",
+            "Content": "Statistik der Aufstiegsfortbildungsförderung, Finanzieller Aufwand, Bundesländer, Bewilligung/Inanspruchnahme, Art des finanziellen Aufwandes, Jahr",
+            "State": "undefiniert",
+            "Time": "2003-2023",
+            "LatestUpdate": "28.06.2024 08:02:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "21421LJ007",
+            "Content": "Statistik der Aufstiegsfortbildungsförderung, Finanzieller Aufwand, Bundesländer, Bewilligung/Inanspruchnahme, Fortbildungsstätten, Jahr",
+            "State": "undefiniert",
+            "Time": "2003-2023",
+            "LatestUpdate": "28.06.2024 08:02:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "21421LJ008",
+            "Content": "Statistik der Aufstiegsfortbildungsförderung, Finanzieller Aufwand, Bundesländer, Bewilligung/Inanspruchnahme, Fortbildungsziele, Jahr",
+            "State": "undefiniert",
+            "Time": "2003-2023",
+            "LatestUpdate": "28.06.2024 08:04:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "21421LJ009",
+            "Content": "Statistik der Aufstiegsfortbildungsförderung, Finanzieller Aufwand, Bundesländer, Bewilligung/Inanspruchnahme, Art des finanziellen Aufwandes, Fortbildungsstätten, Jahr",
+            "State": "undefiniert",
+            "Time": "2003-2023",
+            "LatestUpdate": "28.06.2024 08:03:36h",
+            "Information": "false"
+        },
+        {
+            "Code": "21421LJ010",
+            "Content": "Statistik der Aufstiegsfortbildungsförderung, Finanzieller Aufwand, Bundesländer, Bewilligung/Inanspruchnahme, Art des finanziellen Aufwandes, Fortbildungsziele, Jahr",
+            "State": "undefiniert",
+            "Time": "2003-2023",
+            "LatestUpdate": "28.06.2024 08:04:23h",
+            "Information": "false"
+        },
+        {
+            "Code": "21421LJ011",
+            "Content": "Statistik der Aufstiegsfortbildungsförderung, Geförderte Personen (durchschnittl. Monatsbestand), Durchschnittl. monatl. Förderungsbetrag pro Person, Bundesländer, Bewilligung/Inanspruchnahme, Art der Förderung, Jahr",
+            "State": "undefiniert",
+            "Time": "2003-2023",
+            "LatestUpdate": "28.06.2024 08:03:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "21421LJ012",
+            "Content": "Statistik der Aufstiegsfortbildungsförderung, Geförderte Personen (durchschnittl. Monatsbestand), Durchschnittl. monatl. Förderungsbetrag pro Person, Bundesländer, Bewilligung/Inanspruchnahme, Fortbildungsstätten, Art der Förderung, Jahr",
+            "State": "undefiniert",
+            "Time": "2003-2023",
+            "LatestUpdate": "28.06.2024 08:03:45h",
+            "Information": "false"
+        },
+        {
+            "Code": "21431LJ001",
+            "Content": "Förderung nach dem Stipendienprogramm-Gesetz, Stipendiaten, Mittelgeber, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2011-2023",
+            "LatestUpdate": "07.05.2024 08:04:29h",
+            "Information": "false"
+        },
+        {
+            "Code": "21431LJ002",
+            "Content": "Förderung nach dem Stipendienprogramm-Gesetz, Stipendiaten, Bundesländer, Geschlecht, Jahr",
+            "State": "undefiniert",
+            "Time": "2011-2023",
+            "LatestUpdate": "07.05.2024 08:04:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "21431LJ003",
+            "Content": "Förderung nach dem Stipendienprogramm-Gesetz, Stipendiaten, Mittelgeber, Bundesländer, Hochschulart, Jahr",
+            "State": "undefiniert",
+            "Time": "2011-2023",
+            "LatestUpdate": "07.05.2024 08:04:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "21431LJ004",
+            "Content": "Förderung nach dem Stipendienprogramm-Gesetz, Stipendiaten, Bundesländer, Geschlecht, Hochschulart, Jahr",
+            "State": "undefiniert",
+            "Time": "2011-2023",
+            "LatestUpdate": "07.05.2024 08:04:35h",
+            "Information": "false"
+        },
+        {
+            "Code": "21611LJ001",
+            "Content": "Kulturstatistik, Leinwände, Kinos, Sitzplätze der Kinos, Filmbesuche, Filmbesuche je Einwohner, Durchschnittlicher Kino-Eintrittspreis, Bruttoeinnahmen aus dem Filmbesuch, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "27.08.2024 16:29:24h",
+            "Information": "false"
+        },
+        {
+            "Code": "21611LJ100",
+            "Content": "Kulturstatistik, Museen, Ausstellungen, Museumsbesuche, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2002-2022",
+            "LatestUpdate": "16.07.2024 11:43:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "21611LJ110",
+            "Content": "Kulturstatistik, Öffentlich geförderte Theaterunternehmen, Spielstätten, Veranstaltungen am Ort, Theaterbesuche, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2022",
+            "LatestUpdate": "07.02.2024 12:44:12h",
+            "Information": "false"
+        },
+        {
+            "Code": "21611LJ120",
+            "Content": "Kulturstatistik, Öffentlich geförderte Musikschulen, Lehrer in öffentlich geförderten Musikschulen, Schüler in öffentlich geförderten Musikschulen, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2022",
+            "LatestUpdate": "27.08.2024 16:30:19h",
+            "Information": "false"
+        },
+        {
+            "Code": "21611LJ121",
+            "Content": "Kulturstatistik, Schüler in öffentlich geförderten Musikschulen, Bundesländer, Altersgruppen (u6-61m, unbekannt), Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2022",
+            "LatestUpdate": "27.08.2024 16:30:22h",
+            "Information": "false"
+        },
+        {
+            "Code": "21611LJ200",
+            "Content": "Kulturstatistik, Haupt- und Zweigstellen der Bibliotheken, Meldende Bibliotheken, Bestand, Entleiher, Bibliotheksbesuche, Bundesländer, Bibliotheksarten, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "17.07.2024 08:02:51h",
+            "Information": "false"
+        },
+        {
+            "Code": "21621LJ001",
+            "Content": "Berichterstattung über öffentliche Kulturausgaben, Öffentliche Ausgaben für Kultur, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2021",
+            "LatestUpdate": "10.12.2024 08:02:40h",
+            "Information": "false"
+        },
+        {
+            "Code": "21621LJ002",
+            "Content": "Berichterstattung über öffentliche Kulturausgaben, Öffentliche Ausgaben für Kultur, Bundesländer, Kulturbereiche, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2021",
+            "LatestUpdate": "10.12.2024 08:02:03h",
+            "Information": "false"
+        },
+        {
+            "Code": "21711LJ001",
+            "Content": "Bildungsberichterstattung für nationale Zwecke, Ausgaben der öffentlichen Haushalte für Bildung, Ausgaben der öff. Haushalte für Bildung je Einw., Anteil d.Ausgaben d. öff. Haushalte f.Bild. am BIP, Anteil d.Ausgaben d. öff. HH f.Bild. am GesamtHH, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "1995-2024",
+            "LatestUpdate": "27.01.2025 08:03:04h",
+            "Information": "false"
+        },
+        {
+            "Code": "21711LJ002",
+            "Content": "Bildungsberichterstattung für nationale Zwecke, Ausgaben der öffentlichen Haushalte für Bildung, Ausgaben der öff. Haushalte für Bildung je Einw., Anteil d.Ausgaben d. öff. Haushalte f.Bild. am BIP, Anteil d.Ausgaben d. öff. HH f.Bild. am GesamtHH, Bundesländer, Aufgabenbereiche der öffentlichen Haushalte, Jahr",
+            "State": "undefiniert",
+            "Time": "1995-2024",
+            "LatestUpdate": "27.01.2025 08:02:52h",
+            "Information": "false"
+        },
+        {
+            "Code": "21711LJ003",
+            "Content": "Bildungsberichterstattung für nationale Zwecke, Ausgaben der öffentlichen Haushalte für Bildung, Ausgaben der öff. Haushalte für Bildung je Einw., Anteil d.Ausgaben d. öff. Haushalte f.Bild. am BIP, Anteil d.Ausgaben d. öff. HH f.Bild. am GesamtHH, Bundesländer, Körperschaftsgruppen, Jahr",
+            "State": "undefiniert",
+            "Time": "1995-2024",
+            "LatestUpdate": "27.01.2025 08:02:56h",
+            "Information": "false"
+        },
+        {
+            "Code": "21711LJ004",
+            "Content": "Bildungsberichterstattung für nationale Zwecke, Ausgaben der öffentlichen Haushalte für Bildung, Ausgaben der öff. Haushalte für Bildung je Einw., Anteil d.Ausgaben d. öff. Haushalte f.Bild. am BIP, Anteil d.Ausgaben d. öff. HH f.Bild. am GesamtHH, Bundesländer, Aufgabenbereiche der öffentlichen Haushalte, Körperschaftsgruppen, Jahr",
+            "State": "undefiniert",
+            "Time": "1995-2024",
+            "LatestUpdate": "27.01.2025 08:03:01h",
+            "Information": "false"
+        },
+        {
+            "Code": "21711LJ005",
+            "Content": "Bildungsberichterstattung für nationale Zwecke, Ausgaben für öffentliche Schulen je Schüler, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2010-2023",
+            "LatestUpdate": "21.03.2025 18:00:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "21821LJ001",
+            "Content": "Berichterstattung über Forschung und Entwicklung, Interne Ausgaben für Forschung und Entwicklung, Anteil der internen Ausgaben für FuE am BIP, Personal für FuE (Vollzeitäquivalente), Ausgaben je Beschäftigten in FuE, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "1995-2022",
+            "LatestUpdate": "27.05.2024 12:52:19h",
+            "Information": "false"
+        },
+        {
+            "Code": "21821LJ002",
+            "Content": "Berichterstattung über Forschung und Entwicklung, Interne Ausgaben für Forschung und Entwicklung, Anteil der internen Ausgaben für FuE am BIP, Personal für FuE (Vollzeitäquivalente), Ausgaben je Beschäftigten in FuE, Bundesländer, Sektoren, Jahr",
+            "State": "undefiniert",
+            "Time": "1995-2022",
+            "LatestUpdate": "27.05.2024 12:53:18h",
+            "Information": "false"
+        },
+        {
+            "Code": "21821LJ100",
+            "Content": "Berichterstattung über Forschung und Entwicklung, Patentanmeldungen, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2000-2023",
+            "LatestUpdate": "31.10.2024 09:06:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "22111LJ001",
+            "Content": "Statistik d. Ausgaben u. Einnahmen der Sozialhilfe, Bruttoausgaben, Bruttoausgaben je Einwohner, Einnahmen, Nettoausgaben, Nettoausgaben je Einwohner, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "1994-2023",
+            "LatestUpdate": "02.08.2024 08:00:23h",
+            "Information": "false"
+        },
+        {
+            "Code": "22111LJ002",
+            "Content": "Statistik d. Ausgaben u. Einnahmen der Sozialhilfe, Bruttoausgaben, Einnahmen, Nettoausgaben, Bundesländer, Ort der Leistungserbringung, Jahr",
+            "State": "undefiniert",
+            "Time": "1994-2023",
+            "LatestUpdate": "02.08.2024 08:00:26h",
+            "Information": "false"
+        },
+        {
+            "Code": "22111LJ003",
+            "Content": "Statistik d. Ausgaben u. Einnahmen der Sozialhilfe, Bruttoausgaben, Bundesländer, Sozialhilfeträger, Jahr",
+            "State": "undefiniert",
+            "Time": "1994-2004",
+            "LatestUpdate": "30.01.2015 10:29:16h",
+            "Information": "false"
+        },
+        {
+            "Code": "22111LJ004",
+            "Content": "Statistik d. Ausgaben u. Einnahmen der Sozialhilfe, Bruttoausgaben, Bundesländer, Sozialhilfearten (1994-2004), Jahr",
+            "State": "undefiniert",
+            "Time": "1994-2004",
+            "LatestUpdate": "30.01.2015 10:29:19h",
+            "Information": "false"
+        },
+        {
+            "Code": "22111LJ005",
+            "Content": "Statistik d. Ausgaben u. Einnahmen der Sozialhilfe, Bruttoausgaben, Einnahmen, Nettoausgaben, Bundesländer, Sozialhilfearten, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2023",
+            "LatestUpdate": "02.08.2024 08:00:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "22111LJ006",
+            "Content": "Statistik d. Ausgaben u. Einnahmen der Sozialhilfe, Bruttoausgaben, Bundesländer, Ort der Leistungserbringung, Sozialhilfeträger, Jahr",
+            "State": "undefiniert",
+            "Time": "1994-2004",
+            "LatestUpdate": "30.01.2015 10:29:23h",
+            "Information": "false"
+        },
+        {
+            "Code": "22111LJ007",
+            "Content": "Statistik d. Ausgaben u. Einnahmen der Sozialhilfe, Bruttoausgaben, Bundesländer, Ort der Leistungserbringung, Sozialhilfearten (1994-2004), Jahr",
+            "State": "undefiniert",
+            "Time": "1994-2004",
+            "LatestUpdate": "30.01.2015 10:29:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "22111LJ008",
+            "Content": "Statistik d. Ausgaben u. Einnahmen der Sozialhilfe, Bruttoausgaben, Bundesländer, Sozialhilfeträger, Sozialhilfearten (1994-2004), Jahr",
+            "State": "undefiniert",
+            "Time": "1994-2004",
+            "LatestUpdate": "30.01.2015 10:29:31h",
+            "Information": "false"
+        },
+        {
+            "Code": "22111LJ009",
+            "Content": "Statistik d. Ausgaben u. Einnahmen der Sozialhilfe, Bruttoausgaben, Bundesländer, Ort der Leistungserbringung, Sozialhilfeträger, Sozialhilfearten (1994-2004), Jahr",
+            "State": "undefiniert",
+            "Time": "1994-2004",
+            "LatestUpdate": "30.01.2015 10:29:35h",
+            "Information": "false"
+        },
+        {
+            "Code": "22121LJ001",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt, Empfänger von Hilfe zum Lebensunterhalt, Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2023",
+            "LatestUpdate": "08.08.2024 08:03:34h",
+            "Information": "false"
+        },
+        {
+            "Code": "22121LJ002",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt, Empfänger von Hilfe zum Lebensunterhalt, Bundesländer, Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2023",
+            "LatestUpdate": "08.08.2024 08:02:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "22121LJ003",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt, Empfänger von Hilfe zum Lebensunterhalt, Bundesländer, Nationalität, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2023",
+            "LatestUpdate": "08.08.2024 08:02:35h",
+            "Information": "false"
+        },
+        {
+            "Code": "22121LJ004",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt, Empfänger von Hilfe zum Lebensunterhalt, Bundesländer, Ort der Leistungserbringung, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2023",
+            "LatestUpdate": "08.08.2024 08:02:46h",
+            "Information": "false"
+        },
+        {
+            "Code": "22121LJ005",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt, Empfänger von Hilfe zum Lebensunterhalt, Bundesländer, Altersgruppen (u18-65m), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2023",
+            "LatestUpdate": "08.08.2024 08:03:24h",
+            "Information": "false"
+        },
+        {
+            "Code": "22121LJ006",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt, Empfänger von Hilfe zum Lebensunterhalt, Bundesländer, Geschlecht, Nationalität, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2023",
+            "LatestUpdate": "08.08.2024 08:03:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "22121LJ007",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt, Empfänger von Hilfe zum Lebensunterhalt, Bundesländer, Geschlecht, Ort der Leistungserbringung, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2023",
+            "LatestUpdate": "08.08.2024 08:02:53h",
+            "Information": "false"
+        },
+        {
+            "Code": "22121LJ008",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt, Empfänger von Hilfe zum Lebensunterhalt, Bundesländer, Geschlecht, Altersgruppen (u18-65m), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2023",
+            "LatestUpdate": "08.08.2024 08:03:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "22121LJ009",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt, Empfänger von Hilfe zum Lebensunterhalt, Bundesländer, Nationalität, Ort der Leistungserbringung, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2023",
+            "LatestUpdate": "08.08.2024 08:02:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "22121LJ010",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt, Empfänger von Hilfe zum Lebensunterhalt, Bundesländer, Ort der Leistungserbringung, Altersgruppen (u18-65m), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2023",
+            "LatestUpdate": "08.08.2024 08:02:50h",
+            "Information": "false"
+        },
+        {
+            "Code": "22121LJ011",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt, Empfänger von Hilfe zum Lebensunterhalt, Bundesländer, Geschlecht, Nationalität, Ort der Leistungserbringung, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2023",
+            "LatestUpdate": "08.08.2024 08:02:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "22121LJ012",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt, Empfänger von Hilfe zum Lebensunterhalt, Bundesländer, Geschlecht, Ort der Leistungserbringung, Altersgruppen (u18-65m), Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.1995-31.12.2023",
+            "LatestUpdate": "08.08.2024 08:03:31h",
+            "Information": "false"
+        },
+        {
+            "Code": "22121LJ013",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt, Personengemeinschaften von Hilfeempfängern, Bundesländer, Ort der Leistungserbringung, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2005-31.12.2023",
+            "LatestUpdate": "08.08.2024 08:03:17h",
+            "Information": "false"
+        },
+        {
+            "Code": "22131LJ001",
+            "Content": "Statistik d. Empfänger v. Leist.(5.-9.Kap.SGB XII), Empfänger von Hilfeleistungen, Bundesländer, Art der Hilfe (1994-2004), Jahr",
+            "State": "undefiniert",
+            "Time": "1994-2004",
+            "LatestUpdate": "24.08.2016 16:18:48h",
+            "Information": "false"
+        },
+        {
+            "Code": "22131LJ002",
+            "Content": "Statistik d. Empfänger v. Leist.(5.-9.Kap.SGB XII), Empfänger von Hilfeleistungen, Bundesländer, Geschlecht, Art der Hilfe (1994-2004), Jahr",
+            "State": "undefiniert",
+            "Time": "1994-2004",
+            "LatestUpdate": "25.08.2016 15:53:16h",
+            "Information": "false"
+        },
+        {
+            "Code": "22131LJ003",
+            "Content": "Statistik d. Empfänger v. Leist.(5.-9.Kap.SGB XII), Empfänger von Hilfeleistungen, Bundesländer, Art der Hilfe, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2023",
+            "LatestUpdate": "09.10.2024 08:02:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "22131LJ004",
+            "Content": "Statistik d. Empfänger v. Leist.(5.-9.Kap.SGB XII), Empfänger von Hilfeleistungen, Bundesländer, Geschlecht, Art der Hilfe, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2023",
+            "LatestUpdate": "09.10.2024 08:03:19h",
+            "Information": "false"
+        },
+        {
+            "Code": "22131LJ005",
+            "Content": "Statistik d. Empfänger v. Leist.(5.-9.Kap.SGB XII), Empfänger von Hilfeleistungen, Bundesländer, Art der Hilfe, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2005-31.12.2023",
+            "LatestUpdate": "09.10.2024 08:03:35h",
+            "Information": "false"
+        },
+        {
+            "Code": "22131LJ006",
+            "Content": "Statistik d. Empfänger v. Leist.(5.-9.Kap.SGB XII), Empfänger von Hilfeleistungen, Bundesländer, Geschlecht, Art der Hilfe, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2005-31.12.2023",
+            "LatestUpdate": "09.10.2024 08:03:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "22131LJ007",
+            "Content": "Statistik d. Empfänger v. Leist.(5.-9.Kap.SGB XII), Empfänger von Hilfeleistungen, Bundesländer, Art der Hilfe, Ort der Leistungserbringung, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2023",
+            "LatestUpdate": "09.10.2024 08:03:16h",
+            "Information": "false"
+        },
+        {
+            "Code": "22131LJ008",
+            "Content": "Statistik d. Empfänger v. Leist.(5.-9.Kap.SGB XII), Empfänger von Leistungen für Bestattungskosten, Bruttoausgaben für Bestattungskosten, Bundesländer, Jahr",
+            "State": "undefiniert",
+            "Time": "2005-2023",
+            "LatestUpdate": "09.10.2024 08:02:45h",
+            "Information": "false"
+        },
+        {
+            "Code": "22151LJ001",
+            "Content": "Grundsicherung im Alter und bei Erwerbsminderung, Empfänger von Grundsicherung, Quote der Empfänger von Grundsicherung, Bundesländer, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2003-31.12.2014",
+            "LatestUpdate": "31.05.2016 12:08:12h",
+            "Information": "false"
+        },
+        {
+            "Code": "22151LJ002",
+            "Content": "Grundsicherung im Alter und bei Erwerbsminderung, Empfänger von Grundsicherung, Quote der Empfänger von Grundsicherung, Bundesländer, Geschlecht, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2003-31.12.2014",
+            "LatestUpdate": "31.05.2016 12:08:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "22151LJ003",
+            "Content": "Grundsicherung im Alter und bei Erwerbsminderung, Empfänger von Grundsicherung, Quote der Empfänger von Grundsicherung, Bundesländer, Nationalität, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2003-31.12.2014",
+            "LatestUpdate": "31.05.2016 12:08:15h",
+            "Information": "false"
+        },
+        {
+            "Code": "22151LJ004",
+            "Content": "Grundsicherung im Alter und bei Erwerbsminderung, Empfänger von Grundsicherung, Quote der Empfänger von Grundsicherung, Bundesländer, Altersgruppen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2003-31.12.2014",
+            "LatestUpdate": "31.05.2016 12:08:16h",
+            "Information": "false"
+        },
+        {
+            "Code": "22151LJ005",
+            "Content": "Grundsicherung im Alter und bei Erwerbsminderung, Empfänger von Grundsicherung, Quote der Empfänger von Grundsicherung, Bundesländer, Geschlecht, Nationalität, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2003-31.12.2014",
+            "LatestUpdate": "31.05.2016 12:06:47h",
+            "Information": "false"
+        },
+        {
+            "Code": "22151LJ006",
+            "Content": "Grundsicherung im Alter und bei Erwerbsminderung, Empfänger von Grundsicherung, Quote der Empfänger von Grundsicherung, Bundesländer, Geschlecht, Altersgruppen, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2003-31.12.2014",
+            "LatestUpdate": "31.05.2016 12:06:51h",
+            "Information": "false"
+        },
+        {
+            "Code": "22151LJ007",
+            "Content": "Grundsicherung im Alter und bei Erwerbsminderung, Empfänger von Grundsicherung, Quote der Empfänger von Grundsicherung, Bundesländer, Altersgruppen, Nationalität, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2003-31.12.2014",
+            "LatestUpdate": "31.05.2016 12:06:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "22151LJ008",
+            "Content": "Grundsicherung im Alter und bei Erwerbsminderung, Empfänger von Grundsicherung, Quote der Empfänger von Grundsicherung, Bundesländer, Geschlecht, Altersgruppen, Nationalität, Stichtag",
+            "State": "undefiniert",
+            "Time": "31.12.2003-31.12.2014",
+            "LatestUpdate": "31.05.2016 12:08:22h",
+            "Information": "false"
+        },
+        {
+            "Code": "22151LV001",
+            "Content": "Grundsicherung im Alter und bei Erwerbsminderung, Empfänger von Grundsicherung, Quote der Empfänger von Grundsicherung, Durchschnittlicher Bruttobedarf, Durchschnittlicher Nettobedarf, Durch.angerechn.Eink.(Leist.-ber.m.angerech.Eink.), Bundesländer, Berichtsmonat im Quartal, Jahr",
+            "State": "undefiniert",
+            "Time": "März 2015-September 2024",
+            "LatestUpdate": "03.01.2025 08:08:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "22151LV002",
+            "Content": "Grundsicherung im Alter und bei Erwerbsminderung, Empfänger von Grundsicherung, Quote der Empfänger von Grundsicherung, Bundesländer, Geschlecht, Berichtsmonat im Quartal, Jahr",
+            "State": "undefiniert",
+            "Time": "März 2015-September 2024",
+            "LatestUpdate": "03.01.2025 08:08:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "22151LV003",
+            "Content": "Grundsicherung im Alter und bei Erwerbsminderung, Quote der Empfänger von Grundsicherung, Bundesländer, Nationalität, Berichtsmonat im Quartal, Jahr",
+            "State": "undefiniert",
+            "Time": "Dezember 2015-Dezember 2023",
+            "LatestUpdate": "21.08.2024 08:01:02h",
+            "Information": "false"
+        }
+    ],
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2025"
+}

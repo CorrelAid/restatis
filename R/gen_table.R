@@ -115,7 +115,7 @@ gen_table_ <- function(name,
   classifyingkey2 <- param_collapse_vec(classifyingkey2)
   classifyingkey3 <- param_collapse_vec(classifyingkey3)
 
-  credentials <- gen_auth_get(database)
+  credentials <- gen_auth_get(database = database)
 
   if (isTRUE(job) & attr(credentials, "credential_type") == "token" & database == "genesis") {
 

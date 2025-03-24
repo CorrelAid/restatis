@@ -1,0 +1,1117 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "statistics2variable"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "name": "DLAND",
+        "selection": "",
+        "area": "Alle",
+        "searchcriterion": "Code",
+        "sortcriterion": "Code",
+        "pagelength": "500",
+        "language": "de"
+    },
+    "List": [
+        {
+            "Code": "11111",
+            "Content": "Feststellung des Gebietsstands",
+            "Cubes": "3",
+            "Information": "true"
+        },
+        {
+            "Code": "12211",
+            "Content": "Mikrozensus",
+            "Cubes": "523",
+            "Information": "true"
+        },
+        {
+            "Code": "12231",
+            "Content": "IKT-Nutzung in privaten Haushalten",
+            "Cubes": "44",
+            "Information": "true"
+        },
+        {
+            "Code": "12251",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus",
+            "Cubes": "60",
+            "Information": "false"
+        },
+        {
+            "Code": "12411",
+            "Content": "Fortschreibung des Bevölkerungsstandes",
+            "Cubes": "28",
+            "Information": "true"
+        },
+        {
+            "Code": "12421",
+            "Content": "Bevölkerungsvorausberechnungen",
+            "Cubes": "16",
+            "Information": "true"
+        },
+        {
+            "Code": "12521",
+            "Content": "Ausländerstatistik",
+            "Cubes": "98",
+            "Information": "true"
+        },
+        {
+            "Code": "12531",
+            "Content": "Statistik über Schutzsuchende",
+            "Cubes": "78",
+            "Information": "true"
+        },
+        {
+            "Code": "12611",
+            "Content": "Statistik der Eheschließungen",
+            "Cubes": "7",
+            "Information": "true"
+        },
+        {
+            "Code": "12612",
+            "Content": "Statistik der Geburten",
+            "Cubes": "37",
+            "Information": "true"
+        },
+        {
+            "Code": "12613",
+            "Content": "Statistik der Sterbefälle",
+            "Cubes": "17",
+            "Information": "true"
+        },
+        {
+            "Code": "12621",
+            "Content": "Sterbetafeln",
+            "Cubes": "3",
+            "Information": "true"
+        },
+        {
+            "Code": "12631",
+            "Content": "Statistik rechtskräftiger Urteile in Ehesachen",
+            "Cubes": "6",
+            "Information": "true"
+        },
+        {
+            "Code": "12651",
+            "Content": "Begründung von Lebenspartnerschaften",
+            "Cubes": "3",
+            "Information": "true"
+        },
+        {
+            "Code": "12661",
+            "Content": "Aufhebung von Lebenspartnerschaften",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "12711",
+            "Content": "Wanderungsstatistik",
+            "Cubes": "65",
+            "Information": "true"
+        },
+        {
+            "Code": "13111",
+            "Content": "Statistik d. sozialversicherungspfl. Beschäftigten",
+            "Cubes": "13",
+            "Information": "true"
+        },
+        {
+            "Code": "13211",
+            "Content": "Arbeitsmarktstatistik der Bundesagentur für Arbeit",
+            "Cubes": "16",
+            "Information": "true"
+        },
+        {
+            "Code": "13311",
+            "Content": "Länderberechnung Erwerbstätige",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "14111",
+            "Content": "Allgemeine Bundestagswahlstatistik",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "14121",
+            "Content": "Repräsentative Bundestagswahlstatistik",
+            "Cubes": "10",
+            "Information": "true"
+        },
+        {
+            "Code": "14211",
+            "Content": "Allgemeine Europawahlstatistik",
+            "Cubes": "2",
+            "Information": "true"
+        },
+        {
+            "Code": "14221",
+            "Content": "Repräsentative Europawahlstatistik",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "21111",
+            "Content": "Statistik der allgemeinbildenden Schulen",
+            "Cubes": "96",
+            "Information": "true"
+        },
+        {
+            "Code": "21121",
+            "Content": "Statistik der beruflichen Schulen",
+            "Cubes": "36",
+            "Information": "true"
+        },
+        {
+            "Code": "21211",
+            "Content": "Berufsbildungsstatistik",
+            "Cubes": "48",
+            "Information": "true"
+        },
+        {
+            "Code": "21241",
+            "Content": "Pflegeausbildungsstatistik",
+            "Cubes": "18",
+            "Information": "true"
+        },
+        {
+            "Code": "21311",
+            "Content": "Statistik der Studenten",
+            "Cubes": "48",
+            "Information": "true"
+        },
+        {
+            "Code": "21321",
+            "Content": "Statistik der Prüfungen",
+            "Cubes": "5",
+            "Information": "true"
+        },
+        {
+            "Code": "21351",
+            "Content": "Statistik der Habilitationen",
+            "Cubes": "6",
+            "Information": "true"
+        },
+        {
+            "Code": "21352",
+            "Content": "Statistik der Promovierenden",
+            "Cubes": "28",
+            "Information": "true"
+        },
+        {
+            "Code": "21353",
+            "Content": "Statistik der Hochschulräte",
+            "Cubes": "8",
+            "Information": "true"
+        },
+        {
+            "Code": "21354",
+            "Content": "Statistik der Berufsakademien",
+            "Cubes": "10",
+            "Information": "true"
+        },
+        {
+            "Code": "21371",
+            "Content": "Hochschulfinanzstatistik",
+            "Cubes": "8",
+            "Information": "true"
+        },
+        {
+            "Code": "21381",
+            "Content": "Hochschulstatistische Kennzahlen",
+            "Cubes": "11",
+            "Information": "false"
+        },
+        {
+            "Code": "21411",
+            "Content": "Statistik der Bundesausbildungsförderung (BAföG)",
+            "Cubes": "51",
+            "Information": "true"
+        },
+        {
+            "Code": "21421",
+            "Content": "Statistik der Aufstiegsfortbildungsförderung",
+            "Cubes": "30",
+            "Information": "true"
+        },
+        {
+            "Code": "21431",
+            "Content": "Förderung nach dem Stipendienprogramm-Gesetz",
+            "Cubes": "37",
+            "Information": "true"
+        },
+        {
+            "Code": "21611",
+            "Content": "Kulturstatistik",
+            "Cubes": "24",
+            "Information": "true"
+        },
+        {
+            "Code": "21621",
+            "Content": "Berichterstattung über öffentliche Kulturausgaben",
+            "Cubes": "6",
+            "Information": "true"
+        },
+        {
+            "Code": "21711",
+            "Content": "Bildungsberichterstattung für nationale Zwecke",
+            "Cubes": "13",
+            "Information": "false"
+        },
+        {
+            "Code": "21821",
+            "Content": "Berichterstattung über Forschung und Entwicklung",
+            "Cubes": "5",
+            "Information": "true"
+        },
+        {
+            "Code": "22111",
+            "Content": "Statistik d. Ausgaben u. Einnahmen der Sozialhilfe",
+            "Cubes": "36",
+            "Information": "true"
+        },
+        {
+            "Code": "22121",
+            "Content": "Statistik d. Empfänger v. Hilfe z. Lebensunterhalt",
+            "Cubes": "26",
+            "Information": "true"
+        },
+        {
+            "Code": "22131",
+            "Content": "Statistik d. Empfänger v. Leist.(5.-9.Kap.SGB XII)",
+            "Cubes": "20",
+            "Information": "true"
+        },
+        {
+            "Code": "22151",
+            "Content": "Grundsicherung im Alter und bei Erwerbsminderung",
+            "Cubes": "98",
+            "Information": "true"
+        },
+        {
+            "Code": "22161",
+            "Content": "Statistik der Empf. v.Eingliederungshilfe (SGB IX)",
+            "Cubes": "24",
+            "Information": "true"
+        },
+        {
+            "Code": "22162",
+            "Content": "Stat.d.Ausg.u.Einn.d.Eingliederungshilfe (SGB IX)",
+            "Cubes": "3",
+            "Information": "true"
+        },
+        {
+            "Code": "22211",
+            "Content": "Ausgaben und Einnahmen für Asylbewerberleistungen",
+            "Cubes": "12",
+            "Information": "true"
+        },
+        {
+            "Code": "22221",
+            "Content": "Statistik der Empfänger von Asylbewerberleistungen",
+            "Cubes": "91",
+            "Information": "true"
+        },
+        {
+            "Code": "22231",
+            "Content": "Stat.d. Empfänger von besonderen Asylbewerberlstg.",
+            "Cubes": "6",
+            "Information": "true"
+        },
+        {
+            "Code": "22311",
+            "Content": "Wohngeld zum 31.12.",
+            "Cubes": "23",
+            "Information": "true"
+        },
+        {
+            "Code": "22411",
+            "Content": "Statistik über ambulante Pflegeeinrichtungen",
+            "Cubes": "22",
+            "Information": "true"
+        },
+        {
+            "Code": "22412",
+            "Content": "Statistik über stationäre Pflegeeinrichtungen",
+            "Cubes": "24",
+            "Information": "true"
+        },
+        {
+            "Code": "22421",
+            "Content": "Statistik über d. Empfänger v.Pflegegeldleistungen",
+            "Cubes": "20",
+            "Information": "true"
+        },
+        {
+            "Code": "22517",
+            "Content": "Statistik der erzieherischen Hilfen",
+            "Cubes": "12",
+            "Information": "true"
+        },
+        {
+            "Code": "22518",
+            "Content": "Stat. ü. d. Schutzauftrag bei Kindeswohlgefährdung",
+            "Cubes": "26",
+            "Information": "true"
+        },
+        {
+            "Code": "22521",
+            "Content": "Statistik der Adoptionen",
+            "Cubes": "36",
+            "Information": "true"
+        },
+        {
+            "Code": "22522",
+            "Content": "Statistik der Pflegeerlaubnis, Vormundschaften etc",
+            "Cubes": "13",
+            "Information": "true"
+        },
+        {
+            "Code": "22523",
+            "Content": "Statistik der vorläufigen Schutzmaßnahmen",
+            "Cubes": "31",
+            "Information": "true"
+        },
+        {
+            "Code": "22541",
+            "Content": "Kinder und tätige Personen in Tageseinrichtungen",
+            "Cubes": "67",
+            "Information": "true"
+        },
+        {
+            "Code": "22542",
+            "Content": "Statistik der Träger der Jugendhilfe",
+            "Cubes": "29",
+            "Information": "true"
+        },
+        {
+            "Code": "22543",
+            "Content": "Kinder und tätige Personen in Kindertagespflege",
+            "Cubes": "29",
+            "Information": "true"
+        },
+        {
+            "Code": "22551",
+            "Content": "Ausgaben und Einnahmen der Kinder- und Jugendhilfe",
+            "Cubes": "20",
+            "Information": "true"
+        },
+        {
+            "Code": "22922",
+            "Content": "Statistik zum Elterngeld",
+            "Cubes": "98",
+            "Information": "true"
+        },
+        {
+            "Code": "22923",
+            "Content": "Statistik zum Betreuungsgeld",
+            "Cubes": "3",
+            "Information": "true"
+        },
+        {
+            "Code": "22971",
+            "Content": "Statistik untergebrachter wohnungsloser Personen",
+            "Cubes": "107",
+            "Information": "true"
+        },
+        {
+            "Code": "23131",
+            "Content": "Diagnosen der Krankenhauspatienten",
+            "Cubes": "70",
+            "Information": "true"
+        },
+        {
+            "Code": "23141",
+            "Content": "Fallpauschalenbezogene Krankenhausstatistik (DRG)",
+            "Cubes": "88",
+            "Information": "true"
+        },
+        {
+            "Code": "23311",
+            "Content": "Statistik der Schwangerschaftsabbrüche",
+            "Cubes": "12",
+            "Information": "true"
+        },
+        {
+            "Code": "24111",
+            "Content": "Statistik der Zahl der Gerichte",
+            "Cubes": "1",
+            "Information": "true"
+        },
+        {
+            "Code": "24211",
+            "Content": "Statistik bei den Staats- und Amtsanwaltschaften",
+            "Cubes": "6",
+            "Information": "true"
+        },
+        {
+            "Code": "24221",
+            "Content": "Statistik über Straf- und Bußgeldverfahren",
+            "Cubes": "6",
+            "Information": "true"
+        },
+        {
+            "Code": "24231",
+            "Content": "Statistik über Zivilsachen",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "24241",
+            "Content": "Statistik über Familiensachen",
+            "Cubes": "6",
+            "Information": "true"
+        },
+        {
+            "Code": "24251",
+            "Content": "Statistik in der Verwaltungsgerichtsbarkeit",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "24261",
+            "Content": "Statistik in der Finanzgerichtsbarkeit",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "24271",
+            "Content": "Statistik in der Sozialgerichtsbarkeit",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "24281",
+            "Content": "Statistik in der Arbeitsgerichtsbarkeit",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "24321",
+            "Content": "Strafvollzugsstatistik",
+            "Cubes": "3",
+            "Information": "true"
+        },
+        {
+            "Code": "31111",
+            "Content": "Statistik der Baugenehmigungen",
+            "Cubes": "29",
+            "Information": "true"
+        },
+        {
+            "Code": "31121",
+            "Content": "Statistik der Baufertigstellungen",
+            "Cubes": "22",
+            "Information": "true"
+        },
+        {
+            "Code": "31131",
+            "Content": "Statistik des Bauüberhangs",
+            "Cubes": "8",
+            "Information": "true"
+        },
+        {
+            "Code": "31141",
+            "Content": "Statistik des Bauabgangs",
+            "Cubes": "8",
+            "Information": "true"
+        },
+        {
+            "Code": "31231",
+            "Content": "Fortschreibung Wohngebäude- und Wohnungsbestand",
+            "Cubes": "25",
+            "Information": "true"
+        },
+        {
+            "Code": "32111",
+            "Content": "Erhebung der Abfallentsorgung",
+            "Cubes": "8",
+            "Information": "true"
+        },
+        {
+            "Code": "32121",
+            "Content": "Erhebung der öffentlich-rechtl. Abfallentsorgung",
+            "Cubes": "5",
+            "Information": "true"
+        },
+        {
+            "Code": "32131",
+            "Content": "Erh. d. Einsammlung v. Transport- u.Umverpackungen",
+            "Cubes": "6",
+            "Information": "true"
+        },
+        {
+            "Code": "32136",
+            "Content": "Erhebung über zurückgenommene Verkaufsverpackungen",
+            "Cubes": "10",
+            "Information": "true"
+        },
+        {
+            "Code": "32137",
+            "Content": "Erhebung gewerblich eingesammelter Verpackungen",
+            "Cubes": "10",
+            "Information": "true"
+        },
+        {
+            "Code": "32141",
+            "Content": "Aufbereitung,Verwertung v. Bau- u. Abbruchabfällen",
+            "Cubes": "7",
+            "Information": "true"
+        },
+        {
+            "Code": "32151",
+            "Content": "Erhebung der gefährlichen Abfälle",
+            "Cubes": "12",
+            "Information": "true"
+        },
+        {
+            "Code": "32161",
+            "Content": "Erhebung über die Abfallerzeugung",
+            "Cubes": "6",
+            "Information": "true"
+        },
+        {
+            "Code": "32211",
+            "Content": "Erhebung der öffentlichen Wasserversorgung",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "32212",
+            "Content": "Erhebung der öffentlichen Abwasserentsorgung",
+            "Cubes": "2",
+            "Information": "true"
+        },
+        {
+            "Code": "32213",
+            "Content": "Erhebung der öffentlichen Abwasserbehandlung",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "32214",
+            "Content": "Erhebung der öff. Abwasserentsorgung - Klärschlamm",
+            "Cubes": "1",
+            "Information": "true"
+        },
+        {
+            "Code": "32221",
+            "Content": "Erh. nichtöff. Wasserversorgung,Abwasserentsorgung",
+            "Cubes": "12",
+            "Information": "true"
+        },
+        {
+            "Code": "32251",
+            "Content": "Wassereigenversorgung u.-entsorgung priv.Haushalte",
+            "Cubes": "1",
+            "Information": "true"
+        },
+        {
+            "Code": "32331",
+            "Content": "Erh. der Anlagen zum Umgang mit wassergef. Stoffen",
+            "Cubes": "40",
+            "Information": "true"
+        },
+        {
+            "Code": "32421",
+            "Content": "Erhebung bestimmter klimawirksamer Stoffe",
+            "Cubes": "16",
+            "Information": "true"
+        },
+        {
+            "Code": "32531",
+            "Content": "Erh. der Güter und Leistungen für den Umweltschutz",
+            "Cubes": "17",
+            "Information": "true"
+        },
+        {
+            "Code": "33111",
+            "Content": "Flächenerhebung nach Art der tatsächlichen Nutzung",
+            "Cubes": "12",
+            "Information": "true"
+        },
+        {
+            "Code": "41122",
+            "Content": "Repräsentative Agrarstrukturerhebung (ASE b. 2007)",
+            "Cubes": "40",
+            "Information": "true"
+        },
+        {
+            "Code": "41141",
+            "Content": "Landwirtschaftszählung: Haupterhebung",
+            "Cubes": "176",
+            "Information": "true"
+        },
+        {
+            "Code": "41145",
+            "Content": "Landwirtschaftszählung: Gartenbau",
+            "Cubes": "22",
+            "Information": "true"
+        },
+        {
+            "Code": "41161",
+            "Content": "Strukturerhebung der Forstbetriebe",
+            "Cubes": "9",
+            "Information": "true"
+        },
+        {
+            "Code": "41213",
+            "Content": "Allgemeine Zierpflanzenerhebung",
+            "Cubes": "25",
+            "Information": "true"
+        },
+        {
+            "Code": "41215",
+            "Content": "Gemüseerhebung",
+            "Cubes": "16",
+            "Information": "true"
+        },
+        {
+            "Code": "41221",
+            "Content": "Baumschulerhebung",
+            "Cubes": "8",
+            "Information": "true"
+        },
+        {
+            "Code": "41231",
+            "Content": "Baumobstanbauerhebung",
+            "Cubes": "12",
+            "Information": "true"
+        },
+        {
+            "Code": "41232",
+            "Content": "Erhebung über Strauchbeeren",
+            "Cubes": "14",
+            "Information": "true"
+        },
+        {
+            "Code": "41241",
+            "Content": "Ernte-u.Betriebsbericht: Feldfrüchte und Grünland",
+            "Cubes": "10",
+            "Information": "true"
+        },
+        {
+            "Code": "41243",
+            "Content": "Ernte- und Betriebsbericht: Baumobst",
+            "Cubes": "6",
+            "Information": "true"
+        },
+        {
+            "Code": "41244",
+            "Content": "Ernte- und Betriebsbericht: Reben und Weinmost",
+            "Cubes": "18",
+            "Information": "true"
+        },
+        {
+            "Code": "41252",
+            "Content": "Rebflächenerhebung (Weinbaukataster)",
+            "Cubes": "9",
+            "Information": "true"
+        },
+        {
+            "Code": "41253",
+            "Content": "Erhebung der Weinernte",
+            "Cubes": "18",
+            "Information": "true"
+        },
+        {
+            "Code": "41254",
+            "Content": "Erhebung der Weinerzeugung",
+            "Cubes": "12",
+            "Information": "true"
+        },
+        {
+            "Code": "41255",
+            "Content": "Erhebung der Weinbestände",
+            "Cubes": "42",
+            "Information": "true"
+        },
+        {
+            "Code": "41261",
+            "Content": "Holzeinschlagsstatistik (forstl. Erzeugerbetriebe)",
+            "Cubes": "40",
+            "Information": "true"
+        },
+        {
+            "Code": "41271",
+            "Content": "Bodennutzungshaupterhebung",
+            "Cubes": "17",
+            "Information": "true"
+        },
+        {
+            "Code": "41311",
+            "Content": "Allg. und Repräs. Erhebung über die Viehbestände",
+            "Cubes": "6",
+            "Information": "true"
+        },
+        {
+            "Code": "41312",
+            "Content": "Viehbestandserhebung Rinder",
+            "Cubes": "18",
+            "Information": "true"
+        },
+        {
+            "Code": "41313",
+            "Content": "Viehbestandserhebung Schweine",
+            "Cubes": "10",
+            "Information": "true"
+        },
+        {
+            "Code": "41314",
+            "Content": "Viehbestandserhebung Schafe",
+            "Cubes": "6",
+            "Information": "true"
+        },
+        {
+            "Code": "41321",
+            "Content": "Geflügelstatistik: Erhebung in Brütereien",
+            "Cubes": "10",
+            "Information": "true"
+        },
+        {
+            "Code": "41322",
+            "Content": "Geflügelstatistik: Erh. in Geflügelschlachtereien",
+            "Cubes": "16",
+            "Information": "true"
+        },
+        {
+            "Code": "41323",
+            "Content": "Geflügelstatistik: Untern. mit Legehennenhaltung",
+            "Cubes": "14",
+            "Information": "true"
+        },
+        {
+            "Code": "41331",
+            "Content": "Schlachtungs- und Schlachtgewichtsstatistik",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "41362",
+            "Content": "Erhebung über die Erzeugung in Aquakulturbetrieben",
+            "Cubes": "10",
+            "Information": "true"
+        },
+        {
+            "Code": "42111",
+            "Content": "Monatsbericht im Verarbeitenden Gewerbe",
+            "Cubes": "28",
+            "Information": "true"
+        },
+        {
+            "Code": "42191",
+            "Content": "Indizes aus der Lkw-Mauterhebung",
+            "Cubes": "4",
+            "Information": "false"
+        },
+        {
+            "Code": "42271",
+            "Content": "Jahresbericht für Betriebe im Verarb. Gewerbe",
+            "Cubes": "14",
+            "Information": "true"
+        },
+        {
+            "Code": "42321",
+            "Content": "Düngemittelstatistik",
+            "Cubes": "12",
+            "Information": "true"
+        },
+        {
+            "Code": "42341",
+            "Content": "Holzbearbeitungsstatistik",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "44111",
+            "Content": "Monatsbericht im Bauhauptgewerbe",
+            "Cubes": "12",
+            "Information": "true"
+        },
+        {
+            "Code": "44141",
+            "Content": "Statistik über den Auftragsbestand im Bauhauptgew.",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "44231",
+            "Content": "Ergänzungserhebung im Bauhauptgewerbe",
+            "Cubes": "12",
+            "Information": "true"
+        },
+        {
+            "Code": "44241",
+            "Content": "Jährl. Erhebung im Ausbaugewerbe u.bei Bauträgern",
+            "Cubes": "5",
+            "Information": "true"
+        },
+        {
+            "Code": "45211",
+            "Content": "Monatsstatistik Großhandel und Handelsvermittlung",
+            "Cubes": "17",
+            "Information": "true"
+        },
+        {
+            "Code": "45212",
+            "Content": "Monatsstatistik im Einzelhandel",
+            "Cubes": "17",
+            "Information": "true"
+        },
+        {
+            "Code": "45213",
+            "Content": "Monatsstatistik im Gastgewerbe",
+            "Cubes": "17",
+            "Information": "true"
+        },
+        {
+            "Code": "45214",
+            "Content": "Monatsstatistik im Kfz-Handel,Instandh.,Reparatur",
+            "Cubes": "17",
+            "Information": "true"
+        },
+        {
+            "Code": "45341",
+            "Content": "Jahresstatistik im Handel",
+            "Cubes": "16",
+            "Information": "true"
+        },
+        {
+            "Code": "45412",
+            "Content": "Monatserhebung im Tourismus",
+            "Cubes": "20",
+            "Information": "true"
+        },
+        {
+            "Code": "46161",
+            "Content": "Schieneninfrastrukturstatistik",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "46181",
+            "Content": "Personenverkehr mit Bussen und Bahnen",
+            "Cubes": "14",
+            "Information": "true"
+        },
+        {
+            "Code": "46241",
+            "Content": "Statistik der Straßenverkehrsunfälle",
+            "Cubes": "19",
+            "Information": "true"
+        },
+        {
+            "Code": "46251",
+            "Content": "Statistik des Kraftfahrzeug- und Anhängerbestandes",
+            "Cubes": "20",
+            "Information": "true"
+        },
+        {
+            "Code": "46271",
+            "Content": "Statistik der Straßen des überörtlichen Verkehrs",
+            "Cubes": "1",
+            "Information": "true"
+        },
+        {
+            "Code": "47415",
+            "Content": "Strukturerhebung im Dienstleistungsbereich",
+            "Cubes": "161",
+            "Information": "true"
+        },
+        {
+            "Code": "49911",
+            "Content": "Fleischuntersuchungsstatistik",
+            "Cubes": "21",
+            "Information": "true"
+        },
+        {
+            "Code": "52111",
+            "Content": "Unternehmensregister-System (URS)",
+            "Cubes": "18",
+            "Information": "true"
+        },
+        {
+            "Code": "52311",
+            "Content": "Gewerbeanzeigenstatistik",
+            "Cubes": "116",
+            "Information": "true"
+        },
+        {
+            "Code": "52411",
+            "Content": "Statistik über beantragte Insolvenzverfahren",
+            "Cubes": "49",
+            "Information": "true"
+        },
+        {
+            "Code": "53111",
+            "Content": "Handwerkszählung",
+            "Cubes": "19",
+            "Information": "true"
+        },
+        {
+            "Code": "61111",
+            "Content": "Verbraucherpreisindex für Deutschland",
+            "Cubes": "22",
+            "Information": "true"
+        },
+        {
+            "Code": "61511",
+            "Content": "Statistik der Kaufwerte für Bauland",
+            "Cubes": "65",
+            "Information": "true"
+        },
+        {
+            "Code": "61521",
+            "Content": "Kaufwerte für landwirtschaftliche Grundstücke",
+            "Cubes": "14",
+            "Information": "true"
+        },
+        {
+            "Code": "62111",
+            "Content": "Verdienststrukturerhebung",
+            "Cubes": "56",
+            "Information": "true"
+        },
+        {
+            "Code": "62361",
+            "Content": "Verdiensterhebung",
+            "Cubes": "152",
+            "Information": "true"
+        },
+        {
+            "Code": "62411",
+            "Content": "Arbeitskostenerhebung",
+            "Cubes": "24",
+            "Information": "true"
+        },
+        {
+            "Code": "71141",
+            "Content": "Rechnungsergebnisse d.öffentlichen Gesamthaushalts",
+            "Cubes": "10",
+            "Information": "true"
+        },
+        {
+            "Code": "71211",
+            "Content": "Statistik über das Steueraufkommen",
+            "Cubes": "11",
+            "Information": "true"
+        },
+        {
+            "Code": "71231",
+            "Content": "Realsteuervergleich",
+            "Cubes": "8",
+            "Information": "true"
+        },
+        {
+            "Code": "71311",
+            "Content": "Vierteljährl. Schulden d. öffentl. Gesamthaushalts",
+            "Cubes": "18",
+            "Information": "true"
+        },
+        {
+            "Code": "71321",
+            "Content": "Jährliche Schulden d. öffentlichen Gesamthaushalts",
+            "Cubes": "21",
+            "Information": "true"
+        },
+        {
+            "Code": "71329",
+            "Content": "Jährl. Schulden der sonst. öff. Fonds, Einr., Unt.",
+            "Cubes": "8",
+            "Information": "true"
+        },
+        {
+            "Code": "71411",
+            "Content": "Finanzvermögen des öffentlichen Gesamthaushalts",
+            "Cubes": "17",
+            "Information": "true"
+        },
+        {
+            "Code": "71811",
+            "Content": "Jahresabschlüsse kfm. b. Extrahh., sonst. öff. FEU",
+            "Cubes": "72",
+            "Information": "true"
+        },
+        {
+            "Code": "73121",
+            "Content": "Statistik ü. Personengesellschaften,Gemeinschaften",
+            "Cubes": "10",
+            "Information": "true"
+        },
+        {
+            "Code": "73151",
+            "Content": "Lohnsteuerstatistik (Anmeldungen)",
+            "Cubes": "8",
+            "Information": "true"
+        },
+        {
+            "Code": "73311",
+            "Content": "Umsatzsteuerstatistik (Voranmeldungen)",
+            "Cubes": "36",
+            "Information": "true"
+        },
+        {
+            "Code": "73321",
+            "Content": "Umsatzsteuerstatistik (Veranlagungen)",
+            "Cubes": "42",
+            "Information": "true"
+        },
+        {
+            "Code": "73511",
+            "Content": "Gewerbesteuerstatistik",
+            "Cubes": "8",
+            "Information": "true"
+        },
+        {
+            "Code": "74111",
+            "Content": "Personalstandstatistik des öffentlichen Dienstes",
+            "Cubes": "20",
+            "Information": "true"
+        },
+        {
+            "Code": "79994",
+            "Content": "Vergabestatistik",
+            "Cubes": "112",
+            "Information": "true"
+        },
+        {
+            "Code": "82111",
+            "Content": "VGR der Länder: Entstehungsrechnung",
+            "Cubes": "4",
+            "Information": "true"
+        },
+        {
+            "Code": "82411",
+            "Content": "VGR der Länder: Umverteilungsrechnung",
+            "Cubes": "2",
+            "Information": "true"
+        },
+        {
+            "Code": "85221",
+            "Content": "Ausmaß der Ökosysteme",
+            "Cubes": "8",
+            "Information": "true"
+        },
+        {
+            "Code": "91211",
+            "Content": "Wissenschafts- und Technologieindikatoren",
+            "Cubes": "2",
+            "Information": "true"
+        },
+        {
+            "Code": "91311",
+            "Content": "Kulturindikatoren",
+            "Cubes": "2",
+            "Information": "true"
+        }
+    ],
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2025"
+}

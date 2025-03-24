@@ -1,0 +1,78 @@
+{
+    "Ident": {
+        "Service": "metadata",
+        "Method": "table"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "name": "11111-0001",
+        "area": "Alle",
+        "language": "de"
+    },
+    "Object": {
+        "Code": "11111-0001",
+        "Content": "Gebietsfläche: Bundesländer, Stichtag",
+        "Time": {
+            "From": "31.12.1995",
+            "To": "31.12.2022"
+        },
+        "Valid": "false",
+        "Structure": {
+            "Head": {
+                "Code": "11111",
+                "Content": "Feststellung des Gebietsstands",
+                "Type": "Statistik",
+                "Values": null,
+                "Selected": null,
+                "Functions": null,
+                "Structure": [
+                    {
+                        "Code": "FLC006",
+                        "Content": "Gebietsfläche",
+                        "Type": "Merkmal",
+                        "Values": null,
+                        "Selected": null,
+                        "Functions": null,
+                        "Structure": null,
+                        "Updated": "see parent"
+                    }
+                ],
+                "Updated": "see parent"
+            },
+            "Columns": [
+                {
+                    "Code": "STAG",
+                    "Content": "Stichtag",
+                    "Type": "Merkmal",
+                    "Values": "1",
+                    "Selected": "1",
+                    "Functions": null,
+                    "Structure": null,
+                    "Updated": "see parent"
+                }
+            ],
+            "Rows": [
+                {
+                    "Code": "DLAND",
+                    "Content": "Bundesländer",
+                    "Type": "Merkmal",
+                    "Values": null,
+                    "Selected": null,
+                    "Functions": null,
+                    "Structure": null,
+                    "Updated": "see parent"
+                }
+            ],
+            "Subtitel": null,
+            "Subheading": null
+        },
+        "Updated": "28.12.2022 09:24:14h"
+    },
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2025"
+}

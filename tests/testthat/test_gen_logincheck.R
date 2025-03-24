@@ -2,7 +2,7 @@
 # Test for expected output & API calls ----
 #-------------------------------------------------------------------------------
 
-with_mock_dir("logincheck1", {
+with_mock_dir("logincheck1_fake", {
 
   test_that("gen_logincheck errors when the login failed (fake response)", {
 
@@ -13,7 +13,7 @@ with_mock_dir("logincheck1", {
     skip_on_cran()
     skip_on_ci()
 
-    expect_error(gen_logincheck("genesis"),
+    expect_error(object = gen_logincheck("genesis"),
                  regexp = "There seems to be an issue with the authentication process")
 
   })
