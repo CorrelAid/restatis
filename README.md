@@ -107,14 +107,13 @@ In short, there are functions divided in two main parts, searching for
 
 `{restatis}` uses [**memoisation**](https://github.com/r-lib/memoise) to
 cache query results. This means that if you call a function multiple
-times with the same input, the values returned the first time are stored
-and reused from the second time. Cached objects are stored in the memory
-and do not persist across R sessions. With version 0.3.0, we have
-enabled users to turn off caching, this is especially useful for working
-with jobs (so that the list of jobs from `gen_list_jobs()` won’t get
-cached). The caching option is set to TRUE by default and can be changed
-by setting `options(restatis.use_cache = TRUE)` (or `FALSE`,
-respectively). You can get the current state of the option by using
+times with the same exact input, the values returned the first time are
+stored and reused from the second time on. Cached objects are stored in
+memory and do not persist across R sessions. With version 0.3.0, we have
+enabled users to turn off caching. The caching option is set to TRUE by
+default and can be changed by setting
+`options(restatis.use_cache = TRUE)` (or `FALSE`, respectively). You can
+get the current state of the option by using
 `getOption("restatis.use_cache")`. **Note:** Memoisation is *never* used
 for the function `gen_list_jobs()` because there is no use-case for a
 cached version of the jobs list (users would always want a refreshed
@@ -125,9 +124,9 @@ list of the jobs and their status on each function call).
 This package is in no way affiliated with the German Federal Statistical
 Office (Destatis) or the ‘Verbund Statistische Ämter des Bundes und der
 Länder’. It is a simple wrapper providing R functions to access
-Destatis’ API. The package authors are in no way responsible for the
-data that can be retrieved using its functions and do not provide
-support for any problems arising from the APIs’ functionality itself.
-Conversely, support for problems related to this package is
-**exclusively** provided by the package authors. The license of this
-package solely applies to its source code.
+different official statistics APIs. The package authors are in no way
+responsible for the data that can be retrieved using its functions and
+do not provide support for any problems arising from the APIs’
+functionality itself. Conversely, support for problems related to this
+package is **exclusively** provided by the package authors. The license
+of this package solely applies to its source code.
