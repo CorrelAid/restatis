@@ -115,7 +115,19 @@ gen_table_ <- function(name,
   classifyingkey2 <- param_collapse_vec(classifyingkey2)
   classifyingkey3 <- param_collapse_vec(classifyingkey3)
 
+  #-----------------------------------------------------------------------------
+  # Manage credentials related to jobs
+
   credentials <- gen_auth_get(database = database)
+
+  cred_attr <- credentials %>% attributes %>% names
+
+  if (!("credential_type" %in% cred_attr)) {
+
+    stop("There has been an error specifying your credentials (missing credential type attribute). Please try again using 'gen_auth_save()'.",
+         call. = FALSE)
+
+  }
 
   if (isTRUE(job) & attr(credentials, "credential_type") == "token" & database == "genesis") {
 

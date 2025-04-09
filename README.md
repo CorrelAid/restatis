@@ -58,12 +58,12 @@ credential by using setting the parameter `use_token = TRUE` for
 `restatis::gen_auth_save()`. The token itself can be found when logging
 into the respective webpage with your account and by clicking on
 *Webservice (API)* (EN) or *Webservice-Schnittstelle (API)* (DE) in the
-bottom left corner. **Important:** Both GENESIS and Zensus 2022
-databases will not let you create jobs when using API tokens to
-authenticate. This is why `{restatis}` will check your credential type
-once you set `job = TRUE` for `gen_table()` or `gen_cube()` and error in
-case a token is used. To enable the use of jobs, use `gen_auth_save()`
-and input your username and password (by setting `use_token = FALSE`).
+bottom left corner. **Important:** The GENESIS database will not let you
+create jobs when using API tokens to authenticate. This is why
+`{restatis}` will check your credential type once you set `job = TRUE`
+for `gen_table()` and error in case a token is used. To enable the use
+of jobs, use `gen_auth_save()` and input your username and password (by
+setting `use_token = FALSE`).
 
 ### Main features
 
@@ -115,9 +115,9 @@ default and can be changed by setting
 `options(restatis.use_cache = TRUE)` (or `FALSE`, respectively). You can
 get the current state of the option by using
 `getOption("restatis.use_cache")`. **Note:** Memoisation is *never* used
-for the function `gen_list_jobs()` because there is no use-case for a
-cached version of the jobs list (users would always want a refreshed
-list of the jobs and their status on each function call).
+for the functions `gen_list_jobs()` and `gen_logincheck()` because there
+is no use-case for a cached version of the results of these functions
+(e.g., login checks should always be executed when called).
 
 ## Disclaimer
 
