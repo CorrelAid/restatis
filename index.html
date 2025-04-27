@@ -71,7 +71,8 @@
 <h4 id="current-known-performance-issues">Current (known) performance issues<a class="anchor" aria-label="anchor" href="#current-known-performance-issues"></a>
 </h4>
 <ul>
-<li>The function <code>gen_download_job</code> currently does not work in the CRAN release version for the GENESIS database. This is because the mode of downloading the tables has changed. A fix is underway to the development version and will be coming with the next CRAN update.</li>
+<li>The function <code>gen_download_job</code> currently does not work in the CRAN release version for the GENESIS database. This is because the mode of downloading the tables has changed. A fix has been deployed to the development version and will be coming with the next CRAN update.</li>
+<li>It might be that the creation of jobs with <code>gen_table</code> is currently buggy in the release version (jobs not being created despite of <code>job = TRUE</code>). A fix has been deployed to the development version and will be coming with the next CRAN update.</li>
 </ul>
 </div>
 <div class="section level2">
