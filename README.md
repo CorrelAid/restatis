@@ -31,8 +31,12 @@ on a selection.
 
 - The function `gen_download_job` currently does not work in the CRAN
   release version for the GENESIS database. This is because the mode of
-  downloading the tables has changed. A fix is underway to the
+  downloading the tables has changed. A fix has been deployed to the
   development version and will be coming with the next CRAN update.
+- It might be that the creation of jobs with `gen_table` is currently
+  buggy in the release version (jobs not being created despite of
+  `job = TRUE`). A fix has been deployed to the development version and
+  will be coming with the next CRAN update.
 
 ## Installation
 
