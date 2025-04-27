@@ -5,7 +5,7 @@
 \title{gen_list_jobs}
 \usage{
 gen_list_jobs(
-  database = c("genesis", "regio"),
+  database,
   sortcriterion = c("type", "time", "status", "code"),
   flat = FALSE,
   error.ignore = FALSE,
@@ -14,7 +14,7 @@ gen_list_jobs(
 )
 }
 \arguments{
-\item{database}{Character string. Indicator if 'genesis' or 'regionalstatistik.de' database is called.}
+\item{database}{Character string. Indicator if GENESIS or regionalstatistik.de database is called. Accepts only one database ('regio' or 'genesis').}
 
 \item{sortcriterion}{Character string. Indicator if the output should be sorted by 'type','time','status' or 'code'. This is a parameter of the API call itself. The default is 'type'.}
 
