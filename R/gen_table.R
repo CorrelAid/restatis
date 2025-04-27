@@ -160,7 +160,7 @@ gen_table_ <- function(name,
                       stand = stand,
                       language = language,
                       format = "ffcsv",
-                      job = FALSE,
+                      job = job,
                       ...)
 
   #-----------------------------------------------------------------------------

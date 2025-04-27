@@ -307,7 +307,7 @@ return_table_object <- function(response,
 
   #-----------------------------------------------------------------------------
 
-  } else if (response_type == "text/csv"){
+  } else if (response_type == "text/csv") {
 
     # There has to be a check on language to display correct decimal marks
     # For German results, there needs to be a decimal mark set

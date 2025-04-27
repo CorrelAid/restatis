@@ -27,6 +27,13 @@ to the three main databases of German official statistics:
 Almost all functions work on either one of them, on all of them or just
 on a selection.
 
+#### Current (known) performance issues
+
+- The function `gen_download_job` currently does not work in the CRAN
+  release version for the GENESIS database. This is because the mode of
+  downloading the tables has changed. A fix is underway to the
+  development version and will be coming with the next CRAN update.
+
 ## Installation
 
 You can install the released version of `{restatis}` from CRAN:
