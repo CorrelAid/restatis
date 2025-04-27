@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   additional_parameter: additional_parameter.html
   restatis: restatis.html
-last_built: 2025-04-09T19:34Z
+last_built: 2025-04-27T14:07Z
 urls:
   reference: https://correlaid.github.io/restatis/reference
   article: https://correlaid.github.io/restatis/articles
