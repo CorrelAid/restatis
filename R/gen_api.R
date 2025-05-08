@@ -61,6 +61,10 @@ gen_api <- function(...,
 
     url <- Sys.getenv("RESTATIS_REGIO_URL")
 
+  } else if (database == "bayern") {
+
+    url <- Sys.getenv("RESTATIS_BAYERN_URL")
+
   }
 
   # Set user agent

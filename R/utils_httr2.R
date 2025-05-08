@@ -32,7 +32,7 @@ test_if_okay <- function(input) {
   results_json <- ifelse(input$`User-Agent` == "https://github.com/CorrelAid/restatis",
                          "Yes",
                          "No"
-                         )
+  )
 
   return(results_json)
 
@@ -305,7 +305,7 @@ return_table_object <- function(response,
 
     }
 
-  #-----------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------
 
   } else if (response_type == "text/csv") {
 
@@ -315,22 +315,22 @@ return_table_object <- function(response,
     if (language == "de") {
 
       result <- response %>%
-                  httr2::resp_body_string() %>%
-                  readr::read_delim(delim = ";",
-                                    show_col_types = FALSE,
-                                    locale = readr::locale(decimal_mark = ",",
-                                                           grouping_mark = "."),
-                                    name_repair = "minimal",
-                                    col_types = eval(all_character))
+        httr2::resp_body_string() %>%
+        readr::read_delim(delim = ";",
+                          show_col_types = FALSE,
+                          locale = readr::locale(decimal_mark = ",",
+                                                 grouping_mark = "."),
+                          name_repair = "minimal",
+                          col_types = eval(all_character))
 
     } else if (language == "en") {
 
       result <- response %>%
-                  httr2::resp_body_string() %>%
-                  readr::read_delim(delim = ";",
-                                    show_col_types = FALSE,
-                                    name_repair = "minimal",
-                                    col_types = eval(all_character))
+        httr2::resp_body_string() %>%
+        readr::read_delim(delim = ";",
+                          show_col_types = FALSE,
+                          name_repair = "minimal",
+                          col_types = eval(all_character))
 
     } else {
 
@@ -341,9 +341,9 @@ return_table_object <- function(response,
 
     return(result)
 
-  #-----------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------
 
-  # If the API response is a ZIP file, we need to temporarily save it
+    # If the API response is a ZIP file, we need to temporarily save it
 
   } else if (response_type == "application/zip") {
 
@@ -404,7 +404,7 @@ return_table_object <- function(response,
 
     return(result)
 
-  #-----------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------
 
   } else {
 
@@ -433,7 +433,7 @@ logincheck_http_error <- function(database,
 
   if (length(database) == 1 && database != "all") {
 
-    if (!(database %in% c("genesis", "zensus", "regio"))) {
+    if (!(database %in% c("genesis", "zensus", "regio", "bayern"))) {
 
       stop("Misspecified parameter 'database' (can only be 'all', 'genesis', 'zensus' or 'regio').",
            call. = FALSE)
@@ -451,15 +451,16 @@ logincheck_http_error <- function(database,
                             verbose = verbose,
                             database = database)
 
-  #-----------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------
 
   } else if (length(database) == 1 && database == "all") {
 
-    databases <- list("genesis", "zensus", "regio")
+    databases <- list("genesis", "zensus", "regio", "bayern")
 
     response_list <- list(response_genesis = .gen_api_core(endpoint = "helloworld/logincheck", database = "genesis", ...),
                           response_zensus = .gen_api_core(endpoint = "helloworld/logincheck", database = "zensus", ...),
-                          response_regio = .gen_api_core(endpoint = "helloworld/logincheck", database = "regio", ...))
+                          response_regio = .gen_api_core(endpoint = "helloworld/logincheck", database = "regio", ...),
+                          response_bayern = .gen_api_core(endpoint = "helloworld/logincheck", database = "bayern", ...))
 
     purrr::walk2(.x = response_list,
                  .y = databases,
@@ -468,13 +469,13 @@ logincheck_http_error <- function(database,
                                                 error = FALSE,
                                                 verbose = verbose))
 
-  #-----------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------
 
   } else if (length(database) > 1 & !("all" %in% database)) {
 
-    if (!(all(database %in% c("genesis", "zensus", "regio")))) {
+    if (!(all(database %in% c("genesis", "zensus", "regio", "bayern")))) {
 
-      stop("You can only specify 'all', 'genesis', 'zensus' or 'regio' inside of the parameter 'database'.",
+      stop("You can only specify 'all', 'genesis', 'zensus', 'regio', 'bayern' inside of the parameter 'database'.",
            call. = FALSE)
 
     }
@@ -512,7 +513,18 @@ logincheck_http_error <- function(database,
 
     }
 
-  #-----------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------
+
+    if ("bayern" %in% database) {
+
+      logincheck_stop_or_warn(response = .gen_api_core(endpoint = "helloworld/logincheck", database = "bayern", ...),
+                              error = FALSE,
+                              verbose = verbose,
+                              database = "bayern")
+
+    }
+
+    #-----------------------------------------------------------------------------
 
   } else {
 
@@ -553,7 +565,7 @@ logincheck_stop_or_warn <- function(response,
 
     invisible(FALSE)
 
-  #-----------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------
 
   } else if (isTRUE(request_failed) & isFALSE(error)) {
 
@@ -565,7 +577,7 @@ logincheck_stop_or_warn <- function(response,
 
     invisible(FALSE)
 
-  #-----------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------
 
   } else if (isFALSE(request_failed)) {
 
@@ -577,7 +589,7 @@ logincheck_stop_or_warn <- function(response,
 
     invisible(TRUE)
 
-  #-----------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------
 
   } else {
 
@@ -607,7 +619,18 @@ insert_and_save_credentials <- function(database,
                          ui_menu_database = "regionalstatistik.de",
                          use_token = use_token)
 
-  #-----------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------
+
+  } else if(database == "bayern") {
+
+    if (isTRUE(use_token)) use_token <- FALSE
+
+    set_credentials_auth(path = "auth_bayern.rds",
+                         sys_env = "BAYERN_KEY",
+                         ui_menu_database = "statistikdaten.bayern.de",
+                         use_token = use_token)
+
+    #-----------------------------------------------------------------------------
 
   } else if (database == "zensus") {
 
@@ -616,7 +639,7 @@ insert_and_save_credentials <- function(database,
                          ui_menu_database = "Zensus 2022",
                          use_token = use_token)
 
-  #-----------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------
 
   } else if (database == "genesis") {
 

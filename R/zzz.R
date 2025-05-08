@@ -29,6 +29,13 @@
 
   }
 
+  # Set the default URL for the www.statistikdaten.bayern.de database
+  if (!nzchar(Sys.getenv("RESTATIS_BAYERN_URL"))) {
+
+    Sys.setenv(RESTATIS_BAYERN_URL = "https://www.statistikdaten.bayern.de/genesisWS/rest/2020/")
+
+  }
+
   # Set the default URL for the ZENSUS 2022 database
   if (!nzchar(Sys.getenv("RESTATIS_ZENSUS_URL"))) {
 

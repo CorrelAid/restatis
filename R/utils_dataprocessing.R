@@ -1159,6 +1159,12 @@ test_database_function <- function(input, error.input, text){
 
   }
 
+  if ("bayern" %in% input) {
+
+    res <- c(res, "bayern")
+
+  }
+
   #-----------------------------------------------------------------------------
 
   if ("all" %in% input) {
@@ -1171,7 +1177,8 @@ test_database_function <- function(input, error.input, text){
 
     res <- c("genesis",
              "zensus",
-             "regio")
+             "regio",
+             "bayern")
 
   } else if (length(res) == 0 || is.null(res)) {
 

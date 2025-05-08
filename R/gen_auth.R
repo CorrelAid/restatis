@@ -35,9 +35,16 @@ gen_auth_save <- function(database,
 
   }
 
+  if (database == "bayern" & isTRUE(use_token)) {
+
+    warning("statistikdaten.bayern.de does not support API tokens. Defaulting to username and password.",
+            call. = FALSE)
+
+  }
+
   #-----------------------------------------------------------------------------
 
-  if (database == "regio") {
+  if (database %in% c("regio", "bayern")) {
 
     insert_and_save_credentials(database, use_token)
 
@@ -112,7 +119,7 @@ gen_auth_get <- function(database = NULL) {
 
   if (length(database) == 1) {
 
-    if (!(database %in% c("all", "genesis", "zensus", "regio"))) {
+    if (!(database %in% c("all", "genesis", "zensus", "regio", "bayern"))) {
 
       stop("Misspecification of parameter 'database': Must only be 'all', 'genesis', 'zensus' or 'regio'.",
            call. = FALSE)
@@ -134,7 +141,7 @@ gen_auth_get <- function(database = NULL) {
 
     #---------------------------------------------------------------------------
 
-    if (!all(database %in% c("genesis", "zensus", "regio"))) {
+    if (!all(database %in% c("genesis", "zensus", "regio", "bayern"))) {
 
       stop("Misspecification of parameter 'database': Must only be 'genesis', 'zensus' or 'regio'.",
            call. = FALSE)
@@ -197,6 +204,20 @@ gen_auth_get <- function(database = NULL) {
 
   #-----------------------------------------------------------------------------
 
+  } else if(database == "bayern") {
+
+    auth_path <- gen_auth_path("auth_bayern.rds")
+
+    if (!(file.exists(auth_path) && nzchar(Sys.getenv("BAYERN_KEY")))) {
+
+      stop(paste0("statistikdaten.bayern.de database credentials not found. ",
+                  "Please run 'gen_auth_save()' to store statistikdaten.bayern.de database username and password."),
+           call. = FALSE)
+
+    }
+
+    return(httr2::secret_read_rds(auth_path, "BAYERN_KEY"))
+
   } else if (database == "all") {
 
       auth_path <- gen_auth_path("auth_genesis.rds")
@@ -245,6 +266,23 @@ gen_auth_get <- function(database = NULL) {
 
         message("Credentials for database regionalstatistik.de:\n")
         print(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
+
+      }
+
+      #---------------------------------------------------------------------------
+
+      auth_path <- gen_auth_path("auth_bayern.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("BAYERN_KEY")))) {
+
+        warning(paste0("statistikdaten.bayern.de database credentials not found. ",
+                       "Please run 'gen_auth_save()' to store statistikdaten.bayern.de database username and password."),
+                call. = FALSE)
+
+      } else {
+
+        message("Credentials for database statistikdaten.bayern.de:\n")
+        print(httr2::secret_read_rds(auth_path, "BAYERN_KEY"))
 
       }
 
@@ -308,6 +346,25 @@ gen_auth_get <- function(database = NULL) {
 
       message("Credentials for database regionalstatistik.de:\n")
       print(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if ("bayern" %in% database) {
+
+      auth_path <- gen_auth_path("auth_bayern.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("BAYERN_KEY")))) {
+
+        stop(paste0("statistikdaten.bayern.de database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store statistikdaten.bayern.de database username and password."),
+             call. = FALSE)
+
+      }
+
+      message("Credentials for database statistikdaten.bayern.de:\n")
+      print(httr2::secret_read_rds(auth_path, "BAYERN_KEY"))
 
     }
 
