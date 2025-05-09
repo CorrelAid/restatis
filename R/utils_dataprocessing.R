@@ -302,7 +302,7 @@ check_function_input <- function(code = NULL,
   if ((length(database) == 1 && !is.null(database) && database == "all") |
       (length(database) > 1 && "all" %in% database)) {
 
-    database <- c("regio", "zensus", "genesis")
+    database <- c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa")
 
   }
 
@@ -1165,6 +1165,24 @@ test_database_function <- function(input, error.input, text){
 
   }
 
+  if ("nrw" %in% input) {
+
+    res <- c(res, "nrw")
+
+  }
+
+  if ("bildung" %in% input) {
+
+    res <- c(res, "bildung")
+
+  }
+
+  if ("sa" %in% input) {
+
+    res <- c(res, "sa")
+
+  }
+
   #-----------------------------------------------------------------------------
 
   if ("all" %in% input) {
@@ -1178,7 +1196,10 @@ test_database_function <- function(input, error.input, text){
     res <- c("genesis",
              "zensus",
              "regio",
-             "bayern")
+             "bayern",
+             "nrw",
+             "bildung",
+             "sa")
 
   } else if (length(res) == 0 || is.null(res)) {
 

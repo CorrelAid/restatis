@@ -65,6 +65,23 @@ gen_api <- function(...,
 
     url <- Sys.getenv("RESTATIS_BAYERN_URL")
 
+  } else if (database == "nrw") {
+
+    url <- Sys.getenv("RESTATIS_NRW_URL")
+
+  } else if (database == "bildung") {
+
+    url <- Sys.getenv("RESTATIS_BILDUNG_URL")
+
+  } else if (database == "sa") {
+
+    url <- Sys.getenv("RESTATIS_SA_URL")
+
+  } else {
+
+    stop(paste0("The database '", database, "' is not supported. Please check the documentation."),
+         call. = FALSE)
+
   }
 
   # Set user agent

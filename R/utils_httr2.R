@@ -433,9 +433,9 @@ logincheck_http_error <- function(database,
 
   if (length(database) == 1 && database != "all") {
 
-    if (!(database %in% c("genesis", "zensus", "regio", "bayern"))) {
+    if (!(database %in% c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"))) {
 
-      stop("Misspecified parameter 'database' (can only be 'all', 'genesis', 'zensus' or 'regio').",
+      stop("Misspecified parameter 'database' (can only be 'all', 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung' or 'sa').",
            call. = FALSE)
 
     }
@@ -455,12 +455,17 @@ logincheck_http_error <- function(database,
 
   } else if (length(database) == 1 && database == "all") {
 
-    databases <- list("genesis", "zensus", "regio", "bayern")
+    databases <- list("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa")
 
-    response_list <- list(response_genesis = .gen_api_core(endpoint = "helloworld/logincheck", database = "genesis", ...),
-                          response_zensus = .gen_api_core(endpoint = "helloworld/logincheck", database = "zensus", ...),
-                          response_regio = .gen_api_core(endpoint = "helloworld/logincheck", database = "regio", ...),
-                          response_bayern = .gen_api_core(endpoint = "helloworld/logincheck", database = "bayern", ...))
+    response_list <- list(
+      response_genesis = .gen_api_core(endpoint = "helloworld/logincheck", database = "genesis", ...),
+      response_zensus = .gen_api_core(endpoint = "helloworld/logincheck", database = "zensus", ...),
+      response_regio = .gen_api_core(endpoint = "helloworld/logincheck", database = "regio", ...),
+      response_bayern = .gen_api_core(endpoint = "helloworld/logincheck", database = "bayern", ...),
+      response_nrw = .gen_api_core(endpoint = "helloworld/logincheck", database = "nrw", ...),
+      response_bildung = .gen_api_core(endpoint = "helloworld/logincheck", database = "bildung", ...),
+      response_sa = .gen_api_core(endpoint = "helloworld/logincheck", database = "sa", ...)
+    )
 
     purrr::walk2(.x = response_list,
                  .y = databases,
@@ -473,9 +478,9 @@ logincheck_http_error <- function(database,
 
   } else if (length(database) > 1 & !("all" %in% database)) {
 
-    if (!(all(database %in% c("genesis", "zensus", "regio", "bayern")))) {
+    if (!(all(database %in% c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa")))) {
 
-      stop("You can only specify 'all', 'genesis', 'zensus', 'regio', 'bayern' inside of the parameter 'database'.",
+      stop("You can only specify 'all', 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung', 'sa' inside of the parameter 'database'.",
            call. = FALSE)
 
     }
@@ -525,6 +530,37 @@ logincheck_http_error <- function(database,
     }
 
     #-----------------------------------------------------------------------------
+
+    if ("nrw" %in% database) {
+
+      logincheck_stop_or_warn(response = .gen_api_core(endpoint = "helloworld/logincheck", database = "nrw", ...),
+                              error = FALSE,
+                              verbose = verbose,
+                              database = "nrw")
+
+    }
+
+    #-----------------------------------------------------------------------------
+
+    if ("bildung" %in% database) {
+
+      logincheck_stop_or_warn(response = .gen_api_core(endpoint = "helloworld/logincheck", database = "bildung", ...),
+                              error = FALSE,
+                              verbose = verbose,
+                              database = "bildung")
+
+    }
+
+    #-----------------------------------------------------------------------------
+
+    if ("sa" %in% database) {
+
+      logincheck_stop_or_warn(response = .gen_api_core(endpoint = "helloworld/logincheck", database = "sa", ...),
+                              error = FALSE,
+                              verbose = verbose,
+                              database = "sa")
+
+    }
 
   } else {
 
@@ -628,6 +664,39 @@ insert_and_save_credentials <- function(database,
     set_credentials_auth(path = "auth_bayern.rds",
                          sys_env = "BAYERN_KEY",
                          ui_menu_database = "statistikdaten.bayern.de",
+                         use_token = use_token)
+
+    #-----------------------------------------------------------------------------
+
+  } else if(database == "nrw") {
+
+    if (isTRUE(use_token)) use_token <- FALSE
+
+    set_credentials_auth(path = "auth_nrw.rds",
+                         sys_env = "NRW_KEY",
+                         ui_menu_database = "landesdatenbank.nrw.de",
+                         use_token = use_token)
+
+    #-----------------------------------------------------------------------------
+
+  } else if(database == "bildung") {
+
+    if (isTRUE(use_token)) use_token <- FALSE
+
+    set_credentials_auth(path = "auth_bildung.rds",
+                         sys_env = "BILDUNG_KEY",
+                         ui_menu_database = "bildungsmonitoring.de",
+                         use_token = use_token)
+
+    #-----------------------------------------------------------------------------
+
+  } else if(database == "sa") {
+
+    if (isTRUE(use_token)) use_token <- FALSE
+
+    set_credentials_auth(path = "auth_sa.rds",
+                         sys_env = "SA_KEY",
+                         ui_menu_database = "genesis.sachsen-anhalt.de",
                          use_token = use_token)
 
     #-----------------------------------------------------------------------------
