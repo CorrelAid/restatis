@@ -778,6 +778,8 @@ check_function_input <- function(code = NULL,
 
     }
 
+    # HUHU: Check for other databases missing
+
   }
 
   #-----------------------------------------------------------------------------
@@ -1203,14 +1205,14 @@ test_database_function <- function(input, error.input, text){
 
   } else if (length(res) == 0 || is.null(res)) {
 
-    stop("All the databases you have specified are not part of this package.\nPlease enter valid database names ('regio', 'zensus', 'genesis' or 'all').",
+    stop("All the databases you have specified are not part of this package.\nPlease enter valid database names ('regio', 'zensus', 'genesis','bayern', 'nrw', 'bildung', 'sa' or 'all').",
          call. = FALSE)
 
   } else if (length(res) != length(input)) {
 
     if (isFALSE(error.input)) {
 
-      stop("One or more of the specified databases are not part of this package. Currently only 'genesis', 'zensus', and 'regio' are implemented.",
+      stop("One or more of the specified databases are not part of this package. Currently only 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung', and 'sa' are implemented.",
            call. = FALSE)
 
     } else {

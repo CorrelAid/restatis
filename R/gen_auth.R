@@ -2,7 +2,7 @@
 #'
 #' @description Save credentials of the different databases for further convenient use
 #'
-#' @param database Character string. The database to store credentials for ('all', 'genesis', 'zensus' or 'regio').
+#' @param database Character string. The database to store credentials for ('all', 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung' or 'sa').
 #' @param use_token Boolean. Do you want to (if possible) set an API token instead of password + username? Note: This is not supported by regionalstatistik.de. Defaults to FALSE.
 #'
 #' @details Username and password are encrypted and saved as RDS in the
@@ -35,7 +35,8 @@ gen_auth_save <- function(database,
 
   }
 
-  # HUHU: double check
+  # HUHU: double check if use of token really doesn't work
+
   if (database == "bayern" & isTRUE(use_token)) {
 
     warning("statistikdaten.bayern.de does not support API tokens. Defaulting to username and password.",

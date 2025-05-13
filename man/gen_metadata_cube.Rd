@@ -6,7 +6,7 @@
 \usage{
 gen_metadata_cube(
   code = NULL,
-  database = c("all", "genesis", "regio"),
+  database = c("all", "genesis", "regio", "nrw", "bildung"),
   area = c("all", "public", "user"),
   error.ignore = FALSE,
   verbose = TRUE,
@@ -15,9 +15,9 @@ gen_metadata_cube(
 )
 }
 \arguments{
-\item{code}{A character string with a maximum length of 15 characters. Code from a GENESIS or regionalstatistik.de object. Only one code per iteration.}
+\item{code}{A character string with a maximum length of 15 characters. Code from a database object. Only one code per iteration.}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), regionalstatistik.de ('regio'), landesdatenbank.nrw.de ('nrw') or bildungsmonitoring.de ('bildung') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
 
 \item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
 

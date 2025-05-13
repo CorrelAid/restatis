@@ -2,8 +2,8 @@
 #'
 #' @description Function to check for updates, changes, or new objects based on a specific date.
 #'
-#' @param code A character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param code A character string with a maximum length of 15 characters. Code from a database object. Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
 #' @param type Character string. Specific GENESIS and regionalstatistik.de object types: 'tables', 'statistics', and 'statisticsUpdates'. Specific Zensus 2022 object types: 'tables' and 'statistics'. All types that are specific for one database can be used together through 'all', which is the default.
 #' @param date Character string. Specific date that is used as the last update or upload time to include an object in return. Default option is 'now', which uses the current date of your system. Alternative options are 'week_before', using the current date of your system minus 7 days, 'month_before', using the current date of your system minus 4 weeks, and 'year_before', using the current date of your system minus 52 weeks. Additionally, it is possible to fill in a specific date of format 'DD.MM.YYYY'.
 #' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.
@@ -27,7 +27,7 @@
 #' }
 #'
 gen_modified_data <- function(code = "",
-                              database = c("all", "genesis", "zensus", "regio"),
+                              database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
                               type = c("all", "tables", "statistics", "statisticsUpdates"),
                               date = c("now", "week_before", "month_before", "year_before"),
                               pagelength = 500,
@@ -126,7 +126,7 @@ gen_modified_data <- function(code = "",
 
     if (type == "statisticsUpdates") {
 
-      if (db == "genesis" | db == "regio") {
+      if (db == "genesis" | db == "regio" | db == "bayern" | db == "nrw" | db == "bildung" | db == "sa") {
 
         results_raw <- gen_api(endpoint = "catalogue/modifieddata",
                                database = db,

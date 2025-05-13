@@ -1,11 +1,11 @@
 #' General Search for Objects Through A Database
 #'
-#' @description Function to search through the databases GENESIS, Zensus 2022 and regionalstatistik.de. It is similar in usage as the search function on the GENESIS main page (https://www-genesis.destatis.de/genesis/online).
+#' @description Function to search through the databases. It is similar in usage as the search function on the GENESIS main page (https://www-genesis.destatis.de/genesis/online).
 #' In the search query, "UND" (German word for 'and', also written "und" or "&") as well as "ODER" (German word for 'or', also written "oder" or "|") can be included and logically combined. Furthermore, wildcards are possible by including "*". If more then one word is included in the term string, 'and' is used automatically to combine the different words.
 #' Important note: Time-series are treated as cubes in GENESIS and regionalstatistik.de, they are not longer distinguished. If you want to find a specific object with a clear code with this find function, you need to specify the object type or search for all object types.
 #'
 #' @param term A character string with no maximum character length, but a word limit of five words.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
 #' @param category Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.
 #' @param detailed Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
 #' @param ordering A logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and secondly on an estimator of the number of variables in this object. Default option is 'TRUE'.
@@ -33,7 +33,7 @@
 #' }
 #'
 gen_find <- function(term = NULL,
-                     database = c("all", "genesis", "zensus", "regio"),
+                     database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
                      category = c("all", "tables", "statistics", "variables", "cubes"),
                      detailed = FALSE,
                      ordering = TRUE,
@@ -75,7 +75,8 @@ gen_find <- function(term = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (db == "zensus" && category == "cubes") {
+    # HUHU: Does it work also for 'bayern' & 'sa'?
+    if (db %in% c("zensus", "bayern", "sa") && category == "cubes") {
 
       empty_object <- "FAIL"
 
@@ -112,9 +113,9 @@ gen_find <- function(term = NULL,
 
       return(list_resp)
 
-    } else if (empty_object == "FAIL" & db == "zensus" ){
+    } else if (empty_object == "FAIL" & db %in% c("zensus", "bayern", "sa") ){
 
-      list_resp <- list("Output" = "There are generally no 'cubes' objects available for the 'zensus' database.")
+      list_resp <- list("Output" = paste("There are generally no 'cubes' objects available for the '", db, "' database."))
 
       attr(list_resp, "Term") <- term
       attr(list_resp, "Database") <- db
@@ -136,7 +137,7 @@ gen_find <- function(term = NULL,
 
     } else if (empty_object == "DONE") {
 
-    #---------------------------------------------------------------------------
+      #---------------------------------------------------------------------------
 
       if (category == "all") {
 
@@ -144,7 +145,7 @@ gen_find <- function(term = NULL,
 
       }
 
-    #---------------------------------------------------------------------------
+      #---------------------------------------------------------------------------
 
       if("tables" %in% category) {
 
@@ -240,7 +241,7 @@ gen_find <- function(term = NULL,
 
       }
 
-    #---------------------------------------------------------------------------
+      #---------------------------------------------------------------------------
 
       if("statistics" %in% category) {
 
@@ -339,7 +340,7 @@ gen_find <- function(term = NULL,
 
       }
 
-    #---------------------------------------------------------------------------
+      #---------------------------------------------------------------------------
 
       if("variables" %in% category) {
 
@@ -440,11 +441,11 @@ gen_find <- function(term = NULL,
 
       }
 
-    #---------------------------------------------------------------------------
+      #---------------------------------------------------------------------------
 
       if("cubes" %in% category) {
 
-        if (db == "genesis" | db == "regio") {
+        if (db == "genesis" | db == "regio" | db == "nrw" | db == "bildung") {
 
           if(!is.null(results_json$Cubes)) {
 
@@ -547,29 +548,29 @@ gen_find <- function(term = NULL,
           }
 
 
-        } else if (db == "zensus") {
+        } else if (db %in% c("zensus", "bayern", "sa")) {
 
-          df_cubes <- "There are generally no 'cubes' objects available for the 'zensus' database."
+          df_cubes <- paste("There are generally no 'cubes' objects available for the '", db, "' database.")
 
         }
       }
 
-    #---------------------------------------------------------------------------
+      #---------------------------------------------------------------------------
 
-        list_resp <- list()
+      list_resp <- list()
 
-        if("tables" %in% category) {list_resp$Tables <- tibble::as_tibble(df_table) }
-        if("statistics" %in% category) {list_resp$Statistics <- tibble::as_tibble(df_stats) }
-        if("variables" %in% category) {list_resp$Variables <- tibble::as_tibble(df_variables) }
-        if("cubes" %in% category) {list_resp$Cubes <- tibble::as_tibble(df_cubes) }
+      if("tables" %in% category) {list_resp$Tables <- tibble::as_tibble(df_table) }
+      if("statistics" %in% category) {list_resp$Statistics <- tibble::as_tibble(df_stats) }
+      if("variables" %in% category) {list_resp$Variables <- tibble::as_tibble(df_variables) }
+      if("cubes" %in% category) {list_resp$Cubes <- tibble::as_tibble(df_cubes) }
 
-        attr(list_resp, "Term") <- results_json$Parameter$term
-        attr(list_resp, "Database") <- db
-        attr(list_resp, "Language") <- results_json$Parameter$language
-        attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-        attr(list_resp, "Copyright") <- results_json$Copyright
+      attr(list_resp, "Term") <- results_json$Parameter$term
+      attr(list_resp, "Database") <- db
+      attr(list_resp, "Language") <- results_json$Parameter$language
+      attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+      attr(list_resp, "Copyright") <- results_json$Copyright
 
-        return(list_resp)
+      return(list_resp)
 
     }
 
