@@ -6,7 +6,7 @@
 \usage{
 gen_modified_data(
   code = "",
-  database = c("all", "genesis", "zensus", "regio"),
+  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
   type = c("all", "tables", "statistics", "statisticsUpdates"),
   date = c("now", "week_before", "month_before", "year_before"),
   pagelength = 500,
@@ -15,9 +15,9 @@ gen_modified_data(
 )
 }
 \arguments{
-\item{code}{A character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.}
+\item{code}{A character string with a maximum length of 15 characters. Code from a database object. Only one code per iteration.}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
 
 \item{type}{Character string. Specific GENESIS and regionalstatistik.de object types: 'tables', 'statistics', and 'statisticsUpdates'. Specific Zensus 2022 object types: 'tables' and 'statistics'. All types that are specific for one database can be used together through 'all', which is the default.}
 

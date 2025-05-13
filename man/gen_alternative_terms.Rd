@@ -7,7 +7,7 @@
 gen_alternative_terms(
   term = NULL,
   similarity = TRUE,
-  database = c("all", "genesis", "zensus", "regio"),
+  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
   pagelength = 500,
   verbose = TRUE,
   ...
@@ -18,7 +18,7 @@ gen_alternative_terms(
 
 \item{similarity}{Boolean. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function. Default is 'TRUE'.}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
 
 \item{pagelength}{Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.}
 
@@ -30,7 +30,7 @@ gen_alternative_terms(
 A list with all recollected elements from the respective database. Attributes are added to the data.frame, describing the search configuration for the returned output.
 }
 \description{
-Function to find search terms that are similar or related to one another in spelling and also represented in the GENESIS, Zensus 2022 or regionalstatistik.de databases. Important note: The API call is searching for terms with the same characters. To be useful in searching for related terms it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
+Function to find search terms that are similar or related to one another in spelling and also represented in the databases. Important note: The API call is searching for terms with the same characters. To be useful in searching for related terms it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
 }
 \examples{
 \dontrun{

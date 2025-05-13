@@ -6,7 +6,7 @@
 \usage{
 gen_metadata(
   code = NULL,
-  database = c("all", "genesis", "zensus", "regio"),
+  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
   category = c("cube", "statistic", "table", "variable", "value"),
   area = c("all", "public", "user"),
   error.ignore = FALSE,
@@ -16,9 +16,9 @@ gen_metadata(
 )
 }
 \arguments{
-\item{code}{String with a maximum length of 15 characters for a database object (GENESIS, regionalstatistik.de, Zensus 2022). Only one code per iteration.}
+\item{code}{String with a maximum length of 15 characters for a database object. Only one code per iteration.}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
 
 \item{category}{Character string. Specifying the specific object type of the object that you want meta data for. No default option - you need to specify the object type. Hint: The functions in 'restatis' often return information on object 'Type'.}
 

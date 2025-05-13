@@ -29,6 +29,34 @@
 
   }
 
+  # Set the default URL for the www.statistikdaten.bayern.de database
+  if (!nzchar(Sys.getenv("RESTATIS_BAYERN_URL"))) {
+
+    Sys.setenv(RESTATIS_BAYERN_URL = "https://www.statistikdaten.bayern.de/genesisWS/rest/2020/")
+
+  }
+
+  # Set the default URL for the www.landesdatenbank.nrw.de database
+  if (!nzchar(Sys.getenv("RESTATIS_NRW_URL"))) {
+
+    Sys.setenv(RESTATIS_NRW_URL = "https://www.landesdatenbank.nrw.de/ldbnrwws/rest/2020/")
+
+  }
+
+  # Set the default URL for the www.bildungsmonitoring.de database
+  if (!nzchar(Sys.getenv("RESTATIS_BILDUNG_URL"))) {
+
+    Sys.setenv(RESTATIS_BILDUNG_URL = "https://www.bildungsmonitoring.de/bildungws/rest/2020/")
+
+  }
+
+  # Set the default URL for the genesis.sachsen-anhalt.de database
+  if (!nzchar(Sys.getenv("RESTATIS_SA_URL"))) {
+
+    Sys.setenv(RESTATIS_SA_URL = "https://genesis.sachsen-anhalt.de/webservice/rest/2020/")
+
+  }
+
   # Set the default URL for the ZENSUS 2022 database
   if (!nzchar(Sys.getenv("RESTATIS_ZENSUS_URL"))) {
 

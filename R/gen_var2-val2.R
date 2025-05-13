@@ -2,8 +2,8 @@
 #'
 #' @description Function to generate variables from statistics
 #'
-#' @param code Character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param code Character string with a maximum length of 15 characters. Code from a database object. Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param detailed Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
 #' @param sortcriterion Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.
@@ -23,7 +23,7 @@
 #' }
 #'
 gen_var2stat <- function(code = NULL,
-                         database = c("all", "genesis", "zensus", "regio"),
+                         database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
                          area = c("all", "public", "user"),
                          detailed = FALSE,
                          sortcriterion = c("code", "content"),
@@ -69,7 +69,7 @@ gen_var2stat <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (db == "genesis" | db == "regio") {
+    if (db == "genesis" | db == "regio" | db == "bayern" | db == "nrw" | db == "bildung" | db == "sa") {
 
       results_raw <- gen_api(endpoint = "catalogue/variables2statistic",
                              database = db,
@@ -158,8 +158,8 @@ gen_var2stat <- function(code = NULL,
 #'
 #' @description Function to extract the possible values from a variable. Values for continuous variables are not extractable, which is why the function returns a warning message in this case.
 #'
-#' @param code Character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param code Character string with a maximum length of 15 characters. Code from a database object. Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param sortcriterion Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.
 #' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.
@@ -177,7 +177,7 @@ gen_var2stat <- function(code = NULL,
 #' }
 #'
 gen_val2var <- function(code = NULL,
-                        database = c("all", "genesis", "zensus", "regio"),
+                        database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
                         area = c("all", "public", "user"),
                         sortcriterion = c("code", "content"),
                         pagelength = 500,
@@ -220,7 +220,7 @@ gen_val2var <- function(code = NULL,
 
     }
 
-    if (db == "genesis" | db == "regio") {
+    if (db == "genesis" | db == "regio" | db == "bayern" | db == "nrw" | db == "bildung" | db == "sa") {
 
       results_raw <- gen_api(endpoint = "catalogue/values2variable",
                              database = db,
@@ -305,8 +305,8 @@ gen_val2var <- function(code = NULL,
 #'
 #' @description Get values from variables from a statistic. Values for continuous variables cannot be extracted, so the function returns a warning message.
 #'
-#' @param code Character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param code Character string with a maximum length of 15 characters. Code from a database object. Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param detailed Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
 #' @param sortcriterion Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.
@@ -327,7 +327,7 @@ gen_val2var <- function(code = NULL,
 #' }
 #'
 gen_val2var2stat <- function(code = NULL,
-                             database = c("all", "genesis", "zensus", "regio"),
+                             database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
                              area = c("all", "public", "user"),
                              detailed = FALSE,
                              sortcriterion = c("code", "content"),
@@ -414,8 +414,8 @@ gen_val2var2stat <- function(code = NULL,
 #'
 #' @description Function to search for specific variables
 #'
-#' @param code Character string with a maximum length of 6 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param code Character string with a maximum length of 6 characters. Code from a database object. Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param sortcriterion Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.
 #' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.
@@ -433,7 +433,7 @@ gen_val2var2stat <- function(code = NULL,
 #' }
 #'
 gen_search_vars <- function(code = NULL,
-                            database = c("all", "genesis", "zensus", "regio"),
+                            database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
                             area = c("all", "public", "user"),
                             sortcriterion = c("code", "content"),
                             pagelength = 500,
@@ -476,7 +476,7 @@ gen_search_vars <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (db == "genesis" | db == "regio") {
+    if (db == "genesis" | db == "regio" | db == "bayern" | db == "nrw" | db == "bildung" | db == "sa") {
 
       results_raw <- gen_api(endpoint = "catalogue/variables",
                              database = db,
