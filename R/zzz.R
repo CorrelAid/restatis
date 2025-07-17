@@ -1,3 +1,9 @@
+.onAttach <- function(libname, pkgname) {
+
+  packageStartupMessage("Default option of 'restatis.use_cache' has been set to TRUE, that means all API calls will be cached.\nTo disable caching altogether use 'options(restatis.use_cache = FALSE)'. See README for more information.")
+
+}
+
 .onLoad <- function(libname, pkgname) {
 
   # Set a function whose results are to be cached

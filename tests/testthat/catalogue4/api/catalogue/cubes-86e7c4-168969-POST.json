@@ -1,0 +1,310 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "cubes"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "selection": "611*",
+        "area": "Alle",
+        "pagelength": "500",
+        "language": "de"
+    },
+    "List": [
+        {
+            "Code": "61111B5001",
+            "Content": "Verbraucherpreisindex für Deutschland, Gewichtung, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 2-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020",
+            "LatestUpdate": "18.04.2024 13:34:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111B5002",
+            "Content": "Verbraucherpreisindex für Deutschland, Gewichtung, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 3-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020",
+            "LatestUpdate": "18.04.2024 13:35:14h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111B5003",
+            "Content": "Verbraucherpreisindex für Deutschland, Gewichtung, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 4-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020",
+            "LatestUpdate": "18.04.2024 13:35:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111B5004",
+            "Content": "Verbraucherpreisindex für Deutschland, Gewichtung, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 5-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020",
+            "LatestUpdate": "18.04.2024 13:36:07h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ001",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1991-2024",
+            "LatestUpdate": "16.01.2025 08:00:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ002",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 2-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1991-2024",
+            "LatestUpdate": "16.01.2025 08:01:37h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ003",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 3-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1991-2024",
+            "LatestUpdate": "16.01.2025 08:01:43h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ004",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 4-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1991-2024",
+            "LatestUpdate": "16.01.2025 08:02:02h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ005",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 5-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1991-2024",
+            "LatestUpdate": "16.01.2025 08:01:12h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ006",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszw.d.Individualkonsums,Sonderpositionen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1991-2024",
+            "LatestUpdate": "16.01.2025 08:01:48h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BJ007",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums,10-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020-2024",
+            "LatestUpdate": "16.01.2025 08:01:55h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM001",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1991-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:00:46h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM002",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 2-Steller, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1991-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:00:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM003",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 3-Steller, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1991-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:00:56h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM004",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 4-Steller, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1991-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:00:50h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM005",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 5-Steller, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1991-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:00:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM006",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszw.d.Individualkonsums,Sonderpositionen, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1991-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:00:36h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111BM007",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums,10-Steller, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2020-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:00:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111LJ001",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Bundesländer, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1995-2024",
+            "LatestUpdate": "16.01.2025 08:01:51h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111LJ100",
+            "Content": "Verbraucherpreisindex für Deutschland, Index der Nettokaltmieten, Bundesländer, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2005-2024",
+            "LatestUpdate": "16.01.2025 08:03:40h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111LM001",
+            "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Bundesländer, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1995-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:00:43h",
+            "Information": "false"
+        },
+        {
+            "Code": "61111LM100",
+            "Content": "Verbraucherpreisindex für Deutschland, Index der Nettokaltmieten, Bundesländer, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2005-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:00:53h",
+            "Information": "false"
+        },
+        {
+            "Code": "61121BJ001",
+            "Content": "Harmonisierter Verbraucherpreisindex, Harmonisierter Verbraucherpreisindex, Veränderungsrate zum Vorjahr, Deutschland insgesamt, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1996-2024",
+            "LatestUpdate": "16.01.2025 08:03:01h",
+            "Information": "false"
+        },
+        {
+            "Code": "61121BJ002",
+            "Content": "Harmonisierter Verbraucherpreisindex, Harmonisierter Verbraucherpreisindex, Deutschland insgesamt, ECOICOP: Harmon. Verbraucherpreisindex, 2-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1996-2024",
+            "LatestUpdate": "16.01.2025 08:02:54h",
+            "Information": "false"
+        },
+        {
+            "Code": "61121BJ003",
+            "Content": "Harmonisierter Verbraucherpreisindex, Harmonisierter Verbraucherpreisindex, Deutschland insgesamt, ECOICOP: Harmon. Verbraucherpreisindex, 3-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1996-2024",
+            "LatestUpdate": "16.01.2025 08:02:47h",
+            "Information": "false"
+        },
+        {
+            "Code": "61121BJ004",
+            "Content": "Harmonisierter Verbraucherpreisindex, Harmonisierter Verbraucherpreisindex, Deutschland insgesamt, ECOICOP: Harmon. Verbraucherpreisindex, 4-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1996-2024",
+            "LatestUpdate": "16.01.2025 08:02:57h",
+            "Information": "false"
+        },
+        {
+            "Code": "61121BJ005",
+            "Content": "Harmonisierter Verbraucherpreisindex, Harmonisierter Verbraucherpreisindex, Deutschland insgesamt, ECOICOP: Harmon. Verbraucherpreisindex, 5-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1996-2024",
+            "LatestUpdate": "16.01.2025 08:02:41h",
+            "Information": "false"
+        },
+        {
+            "Code": "61121BJ006",
+            "Content": "Harmonisierter Verbraucherpreisindex, Harmonisierter Verbraucherpreisindex, Deutschland insgesamt, ECOICOP: Harmon. Verbraucherpreisindex, Sonderpos., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1996-2024",
+            "LatestUpdate": "16.01.2025 08:02:44h",
+            "Information": "false"
+        },
+        {
+            "Code": "61121BM001",
+            "Content": "Harmonisierter Verbraucherpreisindex, Harmonisierter Verbraucherpreisindex, Veränderungsrate zum Vorjahresmonat, Veränderungsrate zum Vormonat, Deutschland insgesamt, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1996-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:01:00h",
+            "Information": "false"
+        },
+        {
+            "Code": "61121BM002",
+            "Content": "Harmonisierter Verbraucherpreisindex, Harmonisierter Verbraucherpreisindex, Deutschland insgesamt, ECOICOP: Harmon. Verbraucherpreisindex, 2-Steller, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1996-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:01:35h",
+            "Information": "false"
+        },
+        {
+            "Code": "61121BM003",
+            "Content": "Harmonisierter Verbraucherpreisindex, Harmonisierter Verbraucherpreisindex, Deutschland insgesamt, ECOICOP: Harmon. Verbraucherpreisindex, 3-Steller, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1996-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:01:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "61121BM004",
+            "Content": "Harmonisierter Verbraucherpreisindex, Harmonisierter Verbraucherpreisindex, Deutschland insgesamt, ECOICOP: Harmon. Verbraucherpreisindex, 4-Steller, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1996-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:01:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "61121BM005",
+            "Content": "Harmonisierter Verbraucherpreisindex, Harmonisierter Verbraucherpreisindex, Deutschland insgesamt, ECOICOP: Harmon. Verbraucherpreisindex, 5-Steller, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1996-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:01:47h",
+            "Information": "false"
+        },
+        {
+            "Code": "61121BM006",
+            "Content": "Harmonisierter Verbraucherpreisindex, Harmonisierter Verbraucherpreisindex, Deutschland insgesamt, ECOICOP: Harmon. Verbraucherpreisindex, Sonderpos., Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1996-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:01:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "61131BJ001",
+            "Content": "Index der Einzelhandelspreise, Index der Einzelhandelspreise, WZ2008 (ausgewählte Pos.): Einzelhandelspreise, Mehrwertsteuer, Deutschland insgesamt, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1991-2024",
+            "LatestUpdate": "16.01.2025 08:03:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "61131BM001",
+            "Content": "Index der Einzelhandelspreise, Index der Einzelhandelspreise, WZ2008 (ausgewählte Pos.): Einzelhandelspreise, Mehrwertsteuer, Deutschland insgesamt, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 1991-Februar 2025",
+            "LatestUpdate": "13.03.2025 18:01:43h",
+            "Information": "false"
+        }
+    ],
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2025"
+}

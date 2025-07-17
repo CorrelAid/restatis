@@ -1,0 +1,119 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "tables"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "selection": "611*",
+        "area": "Alle",
+        "searchcriterion": "Code",
+        "sortcriterion": "Code",
+        "pagelength": "500",
+        "language": "de"
+    },
+    "List": [
+        {
+            "Code": "61111-0001",
+            "Content": "Verbraucherpreisindex: Deutschland, Jahre",
+            "Time": "1991 - 2024"
+        },
+        {
+            "Code": "61111-0002",
+            "Content": "Verbraucherpreisindex: Deutschland, Monate",
+            "Time": "Januar 1991 - Februar 2025"
+        },
+        {
+            "Code": "61111-0003",
+            "Content": "Verbraucherpreisindex: Deutschland, Jahre,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP 2-5-Steller Hierarchie)",
+            "Time": "1991 - 2024"
+        },
+        {
+            "Code": "61111-0004",
+            "Content": "Verbraucherpreisindex: Deutschland, Monate,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP 2-5-Steller Hierarchie)",
+            "Time": "Januar 1991 - Februar 2025"
+        },
+        {
+            "Code": "61111-0005",
+            "Content": "Verbraucherpreisindex: Deutschland, Jahre,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP 2-/3-/4-/5-/10-Steller/Sonderpositionen)",
+            "Time": "1991 - 2024"
+        },
+        {
+            "Code": "61111-0006",
+            "Content": "Verbraucherpreisindex: Deutschland, Monate,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP 2-/3-/4-/5-/10-Steller/Sonderpositionen)",
+            "Time": "Januar 1991 - Februar 2025"
+        },
+        {
+            "Code": "61111-0007",
+            "Content": "Wägungsschema des Verbraucherpreisindex: Deutschland, Jahre,\nKlassifikation der Verwendungszwecke des Individualkonsums\n(COICOP 2-5-Steller Hierarchie)",
+            "Time": "2020 - 2020"
+        },
+        {
+            "Code": "61111-0010",
+            "Content": "Verbraucherpreisindex: Bundesländer, Jahre",
+            "Time": "1995 - 2024"
+        },
+        {
+            "Code": "61111-0011",
+            "Content": "Verbraucherpreisindex: Bundesländer, Monate",
+            "Time": "Januar 1995 - Februar 2025"
+        },
+        {
+            "Code": "61111-0020",
+            "Content": "Index der Nettokaltmieten: Bundesländer, Jahre",
+            "Time": "2005 - 2024"
+        },
+        {
+            "Code": "61111-0021",
+            "Content": "Index der Nettokaltmieten: Bundesländer, Monate",
+            "Time": "Januar 2005 - Februar 2025"
+        },
+        {
+            "Code": "61121-0001",
+            "Content": "Harmonisierter Verbraucherpreisindex: Deutschland, Jahre",
+            "Time": "1996 - 2024"
+        },
+        {
+            "Code": "61121-0002",
+            "Content": "Harmonisierter Verbraucherpreisindex: Deutschland, Monate",
+            "Time": "Januar 1996 - Februar 2025"
+        },
+        {
+            "Code": "61121-0003",
+            "Content": "Harmonisierter Verbraucherpreisindex: Deutschland, Jahre, Europäische Klassifikation der Verwendungszwecke des Individualkonsums (ECOICOP 2-5-Steller Hierarchie)",
+            "Time": "1996 - 2024"
+        },
+        {
+            "Code": "61121-0004",
+            "Content": "Harmonisierter Verbraucherpreisindex: Deutschland, Monate,\nEuropäische Klassifikation der Verwendungszwecke des\nIndividualkonsums (ECOICOP 2-5-Steller Hierarchie)",
+            "Time": "Januar 1996 - Februar 2025"
+        },
+        {
+            "Code": "61121-0005",
+            "Content": "Harmonisierter Verbraucherpreisindex: Deutschland, Jahre, Europäische Klassifikation der Verwendungszwecke des Individualkonsums (ECOICOP 2-/3-/4-/5-Steller/Sonderpositionen)",
+            "Time": "1996 - 2024"
+        },
+        {
+            "Code": "61121-0006",
+            "Content": "Harmonisierter Verbraucherpreisindex: Deutschland, Monate, Europäische Klassifikation der Verwendungszwecke des Individualkonsums (ECOICOP 2-/3-/4-/5-Steller/Sonderpositionen)",
+            "Time": "Januar 1996 - Februar 2025"
+        },
+        {
+            "Code": "61131-0001",
+            "Content": "Index der Einzelhandelspreise: Deutschland, Jahre,\nMehrwertsteuer, Wirtschaftszweige",
+            "Time": "1991 - 2024"
+        },
+        {
+            "Code": "61131-0002",
+            "Content": "Index der Einzelhandelspreise: Deutschland, Monate,\nMehrwertsteuer, Wirtschaftszweige",
+            "Time": "Januar 1991 - Februar 2025"
+        }
+    ],
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2025"
+}

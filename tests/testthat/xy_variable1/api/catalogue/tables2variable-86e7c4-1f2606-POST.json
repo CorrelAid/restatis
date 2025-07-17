@@ -1,0 +1,2523 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "tables2variable"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "name": "DLAND",
+        "selection": "",
+        "area": "Alle",
+        "pagelength": "500",
+        "language": "de"
+    },
+    "List": [
+        {
+            "Code": "11111-0001",
+            "Content": "Gebietsfläche: Bundesländer, Stichtag",
+            "Time": "31.12.1995 - 31.12.2022"
+        },
+        {
+            "Code": "12211-0902",
+            "Content": "Bevölkerung in Gemeinschaftsunterkünften: Bundesländer,\nJahre, Hauptstatus, Geschlecht, Altersgruppen",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "12211-0903",
+            "Content": "Bevölkerung in Gemeinschaftsunterkünften: Bundesländer,\nJahre, Art der Gemeinschaftsunterkunft, Geschlecht",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "12211-1001",
+            "Content": "Bevölkerung, Erwerbstätige, Erwerbslose, Erwerbspersonen, Nichterwerbspersonen aus Hauptwohnsitzhaushalten: Bundesländer, Jahre, Geschlecht, Altersgruppen",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12211-1002",
+            "Content": "Bevölkerung, Erwerbstätige, Erwerbslose, Erwerbspersonen, Nichterwerbspersonen aus Hauptwohnsitzhaushalten: Bundesländer, Jahre, Überwiegender Lebensunterhalt, Altersgruppen",
+            "Time": "2023 - 2023"
+        },
+        {
+            "Code": "12211-1003",
+            "Content": "Bevölkerung, Erwerbstätige, Erwerbslose, Erwerbspersonen,\nNichterwerbspersonen aus Hauptwohnsitzhaush.: Bundesländer,\nJahre, Geschlecht, Größenkl. persönl. monatl. Nettoeinkommen",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12211-1004",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Altersgruppen, Stellung im Beruf",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12211-1005",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Stellung im Beruf, Art der geleisteten\nArbeitsstunden, Größenkl. d.geleisteten Arbeitsstd. je Woche",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12211-1006",
+            "Content": "Geleistete Arbeitsstunden je Woche von Erwerbstätigen aus\nHauptwohnsitzhaushalten: Bundesländer, Jahre, Geschlecht,\nStellung im Beruf, Art der geleisteten Arbeitsstunden",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12211-1007",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Altersgruppen, Erwerbsformen",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12211-1008",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Stellung im Beruf, Größenklassen des\npersönlichen monatlichen Nettoeinkommens",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12211-1009",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Stellung im Beruf, Berufe",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12211-1010",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Stellung im Beruf, Größenklassen der in\nder Arbeitsstätte tätigen Personen",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12211-1011",
+            "Content": "Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten:\nBundesländer, Jahre, Geschlecht, Altersgruppen,\nBeschäftigungsumfang",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12211-1012",
+            "Content": "Erwerbslose aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Altersgruppen, Dauer der Erwerbslosigkeit",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12211-9004",
+            "Content": "Bevölkerung, Erwerbstätige, Erwerbslose, Erwerbspersonen,\nNichterwerbspersonen: Bundesländer, Jahre (bis 2019)",
+            "Time": "04/1991 - 2019"
+        },
+        {
+            "Code": "12211-9014",
+            "Content": "Bevölkerung (ab 15 Jahren): Bundesländer, Jahre (bis 2019),\nGeschlecht, Allgemeine Schulausbildung",
+            "Time": "2005 - 2019"
+        },
+        {
+            "Code": "12211-9015",
+            "Content": "Bevölkerung (ab 15 Jahren): Bundesländer, Jahre (bis 2019),\nGeschlecht, Beruflicher Bildungsabschluss",
+            "Time": "2005 - 2019"
+        },
+        {
+            "Code": "12211-9033",
+            "Content": "Privathaushalte: Bundesländer, Jahre (bis 2019)",
+            "Time": "05/1970 - 2019"
+        },
+        {
+            "Code": "12211-9034",
+            "Content": "Privathaushalte: Bundesländer, Jahre (bis 2019), Haushaltsgröße",
+            "Time": "04/1991 - 2019"
+        },
+        {
+            "Code": "12211-9041",
+            "Content": "Bevölkerung in Familien/Lebensformen: Bundesländer, Jahre (bis 2019), Lebensformen",
+            "Time": "04/1996 - 2019"
+        },
+        {
+            "Code": "12211-9044",
+            "Content": "Familien, Paare, Alleinerziehende: Bundesländer, Jahre (bis 2019), Vorhandensein von Kindern",
+            "Time": "04/1996 - 2019"
+        },
+        {
+            "Code": "12211-9047",
+            "Content": "Ehepaare, Lebensgemeinschaften, Gemischtgeschlechtliche\nLebensgemeinschaften: Bundesländer, Jahre (bis 2019),\nVorhandensein von Kindern",
+            "Time": "04/1996 - 2019"
+        },
+        {
+            "Code": "12211-9051",
+            "Content": "Alleinerziehende: Bundesländer, Jahre (bis 2019),\nGeschlecht, Vorhandensein von Kindern",
+            "Time": "04/1996 - 2019"
+        },
+        {
+            "Code": "12211-9053",
+            "Content": "Alleinstehende: Bundesländer, Jahre (bis 2019), Geschlecht,\nHaushaltsgröße",
+            "Time": "04/1996 - 2019"
+        },
+        {
+            "Code": "12211-9056",
+            "Content": "Ledige Kinder in Familien: Bundesländer, Jahre (bis 2019),\nFamilienformen",
+            "Time": "04/1996 - 2019"
+        },
+        {
+            "Code": "12231-0101",
+            "Content": "Bevölkerung von 16 bis unter 75 Jahren in\nHauptwohnsitzhaushalten: Bundesländer, Jahre, Altersgruppen,\nPrivate Internetaktivitäten in den letzten drei Monaten",
+            "Time": "2022 - 2024"
+        },
+        {
+            "Code": "12231-0102",
+            "Content": "Bevölkerung von 16 bis unter 75 Jahren in\nHauptwohnsitzhaushalten: Bundesländer, Jahre, Altersgruppen,\nPrivate Internetkäufe in den letzten drei Monaten",
+            "Time": "2022 - 2024"
+        },
+        {
+            "Code": "12231-0103",
+            "Content": "Bevölkerung von 16 bis unter 75 Jahren in\nHauptwohnsitzhaushalten: Bundesländer, Jahre, Altersgruppen,\nArt der Computer- und Internetkenntnisse",
+            "Time": "2023 - 2023"
+        },
+        {
+            "Code": "12251-0101",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Stellung im Beruf, Wochenend- und\nFeiertagsarbeit",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12251-0102",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Stellung im Beruf, Abend-, Nacht- und\nSchichtarbeit",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12251-0103",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Stellung im Beruf, Erwerbsarbeit zu\nHause",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12251-0107",
+            "Content": "Abhängig Erwerbstätige aus Hauptwohnsitzhaushalten:\nBundesländer, Jahre, Geschlecht, Altersgruppen, Art des\nArbeitsvertrages",
+            "Time": "2021 - 2023"
+        },
+        {
+            "Code": "12411-0010",
+            "Content": "Bevölkerung: Bundesländer, Stichtag",
+            "Time": "31.12.1958 - 31.12.2023"
+        },
+        {
+            "Code": "12411-0011",
+            "Content": "Bevölkerung: Bundesländer, Stichtag, Geschlecht",
+            "Time": "31.12.1967 - 31.12.2023"
+        },
+        {
+            "Code": "12411-0012",
+            "Content": "Bevölkerung: Bundesländer, Stichtag, Altersjahre",
+            "Time": "31.12.1967 - 31.12.2023"
+        },
+        {
+            "Code": "12411-0013",
+            "Content": "Bevölkerung: Bundesländer, Stichtag, Geschlecht, Altersjahre",
+            "Time": "31.12.1967 - 31.12.2023"
+        },
+        {
+            "Code": "12411-0014",
+            "Content": "Bevölkerung: Bundesländer, Stichtag, Nationalität,\nGeschlecht, Altersjahre",
+            "Time": "31.12.2000 - 31.12.2023"
+        },
+        {
+            "Code": "12411-0021",
+            "Content": "Bevölkerung: Bundesländer, Stichtag zum Quartalsende,\nGeschlecht",
+            "Time": "31.03.1991 - 30.09.2024"
+        },
+        {
+            "Code": "12411-0042",
+            "Content": "Durchschnittliche Bevölkerung: Bundesländer, Jahre,\nNationalität, Geschlecht",
+            "Time": "2000 - 2023"
+        },
+        {
+            "Code": "12411-0050",
+            "Content": "Bevölkerungsdichte: Bundesländer, Stichtag",
+            "Time": "31.12.1995 - 31.12.2022"
+        },
+        {
+            "Code": "12421-0003",
+            "Content": "Vorausberechneter Bevölkerungsstand: Bundesländer, Stichtag,\nVarianten der Bevölkerungsvorausberechnung",
+            "Time": "31.12.2022 - 31.12.2070"
+        },
+        {
+            "Code": "12421-0004",
+            "Content": "Vorausberechneter Bevölkerungsstand: Bundesländer, Stichtag,\nVarianten der Bevölkerungsvorausberechnung, Geschlecht,\nAltersjahre",
+            "Time": "31.12.2022 - 31.12.2070"
+        },
+        {
+            "Code": "12421-0101",
+            "Content": "Vorausberechnete Privathaushalte: Bundesländer, Jahre,\nVarianten der Haushaltsvorausberechnung, Haushaltsgröße",
+            "Time": "2019 - 2040"
+        },
+        {
+            "Code": "12521-0020",
+            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht/Altersjahre/\nFamilienstand",
+            "Time": "30.09.1980 - 31.12.2023"
+        },
+        {
+            "Code": "12521-0021",
+            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht/Altersjahre/\nFamilienstand, Ländergruppierungen/Staatsangehörigkeit",
+            "Time": "30.09.1980 - 31.12.2023"
+        },
+        {
+            "Code": "12521-0022",
+            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht, Altersjahre,\nLändergruppierungen/Staatsangehörigkeit",
+            "Time": "31.12.1998 - 31.12.2023"
+        },
+        {
+            "Code": "12521-0023",
+            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht, Altersjahre,\nMigrantengeneration, Ländergruppierungen/Staatsangehörigkeit",
+            "Time": "31.12.1998 - 31.12.2023"
+        },
+        {
+            "Code": "12521-0024",
+            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht,\nFamilienstand, Ländergruppierungen/Staatsangehörigkeit",
+            "Time": "31.12.1998 - 31.12.2023"
+        },
+        {
+            "Code": "12521-0025",
+            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht,\nAufenthaltsdauer/Aufenthaltsdauer (Abgrenzung\nEinbürgerungen), Ländergruppierungen/Staatsangehörigkeit",
+            "Time": "31.12.1998 - 31.12.2023"
+        },
+        {
+            "Code": "12521-0026",
+            "Content": "Ausländer: Bundesländer, Stichtag, Geschlecht,\nAufenthaltstitel/Ausgewählte Aufenthaltstitel,\nLändergruppierungen/Staatsangehörigkeit",
+            "Time": "31.12.1998 - 31.12.2023"
+        },
+        {
+            "Code": "12521-0027",
+            "Content": "Ausländer: Bundesländer, Jahre, Geschlecht,\nRegisterbewegungen (regional), Ländergruppierungen/\nStaatsangehörigkeit",
+            "Time": "2013 - 2023"
+        },
+        {
+            "Code": "12521-0028",
+            "Content": "Ausländer: Bundesländer, Jahre, Geschlecht, Altersjahre,\nRegisterzu- und abgänge (regional), Ländergruppierungen/\nStaatsangehörigkeit",
+            "Time": "2013 - 2023"
+        },
+        {
+            "Code": "12521-0029",
+            "Content": "Ausländer: Bundesländer, Jahre, Geschlecht,\nAufenthaltsdauer, Registerabgänge (regional),\nLändergruppierungen/Staatsangehörigkeit",
+            "Time": "2013 - 2023"
+        },
+        {
+            "Code": "12521-0030",
+            "Content": "Durchschnittsalter der Ausländer: Bundesländer, Stichtag,\nGeschlecht, Ländergruppierungen/Staatsangehörigkeit",
+            "Time": "31.12.1998 - 31.12.2023"
+        },
+        {
+            "Code": "12521-0031",
+            "Content": "Durchschnittliche Aufenthaltsdauer der Ausländer:\nBundesländer, Stichtag, Geschlecht, Ländergruppierungen/\nStaatsangehörigkeit",
+            "Time": "31.12.1998 - 31.12.2023"
+        },
+        {
+            "Code": "12531-0020",
+            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht/\nAltersjahre/Familienstand",
+            "Time": "31.12.2007 - 31.12.2023"
+        },
+        {
+            "Code": "12531-0021",
+            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht/\nAltersjahre/Familienstand, Ländergruppierungen/\nStaatsangehörigkeit",
+            "Time": "31.12.2007 - 31.12.2023"
+        },
+        {
+            "Code": "12531-0022",
+            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht,\nAltersjahre, Ländergruppierungen/Staatsangehörigkeit",
+            "Time": "31.12.2007 - 31.12.2023"
+        },
+        {
+            "Code": "12531-0023",
+            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht,\nAltersjahre, Migrantengeneration, Ländergruppierungen\n/Staatsangehörigkeit",
+            "Time": "31.12.2007 - 31.12.2023"
+        },
+        {
+            "Code": "12531-0024",
+            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht,\nFamilienstand, Ländergruppierungen/Staatsangehörigkeit",
+            "Time": "31.12.2007 - 31.12.2023"
+        },
+        {
+            "Code": "12531-0025",
+            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht,\nAufenthaltsdauer/Aufenthaltsdauer (Abgrenzung\nEinbürgerungen), Ländergruppierungen/Staatsangehörigkeit",
+            "Time": "31.12.2007 - 31.12.2023"
+        },
+        {
+            "Code": "12531-0026",
+            "Content": "Schutzsuchende: Bundesländer, Stichtag, Geschlecht,\nSchutzstatus/Schutzstatuskategorie, Ländergruppierungen/\nStaatsangehörigkeit",
+            "Time": "31.12.2007 - 31.12.2023"
+        },
+        {
+            "Code": "12531-0027",
+            "Content": "Durchschnittsalter der Schutzsuchenden: Bundesländer,\nStichtag, Geschlecht, Ländergruppierungen/\nStaatsangehörigkeit",
+            "Time": "31.12.2007 - 31.12.2023"
+        },
+        {
+            "Code": "12531-0028",
+            "Content": "Durchschnittliche Aufenthaltsdauer der Schutzsuchenden:\nBundesländer, Stichtag, Geschlecht, Ländergruppierungen/\nStaatsangehörigkeit",
+            "Time": "31.12.2007 - 31.12.2023"
+        },
+        {
+            "Code": "12611-0010",
+            "Content": "Eheschließungen: Bundesländer, Jahre",
+            "Time": "1990 - 2023"
+        },
+        {
+            "Code": "12611-0011",
+            "Content": "Eheschließungen: Bundesländer, Monate",
+            "Time": "Januar 1990 - November 2024"
+        },
+        {
+            "Code": "12612-0100",
+            "Content": "Lebendgeborene: Bundesländer, Jahre, Geschlecht",
+            "Time": "1990 - 2023"
+        },
+        {
+            "Code": "12612-0101",
+            "Content": "Lebendgeborene: Bundesländer, Monate, Geschlecht",
+            "Time": "Januar 1990 - November 2024"
+        },
+        {
+            "Code": "12612-0102",
+            "Content": "Lebendgeborene: Bundesländer, Jahre, Familienstand der\nEltern",
+            "Time": "1991 - 2023"
+        },
+        {
+            "Code": "12612-0103",
+            "Content": "Lebendgeborene: Bundesländer, Jahre, Staatsangehörigkeit des\nKindes und der Eltern",
+            "Time": "1990 - 2023"
+        },
+        {
+            "Code": "12612-0104",
+            "Content": "Zusammengefasste Geburtenziffern (je Frau): Bundesländer,\nJahre, Altersgruppen",
+            "Time": "1991 - 2023"
+        },
+        {
+            "Code": "12612-0105",
+            "Content": "Nettoreproduktionsrate: Bundesländer, Jahre (bis 2010),\nAltersgruppen",
+            "Time": "2004 - 2010"
+        },
+        {
+            "Code": "12612-0106",
+            "Content": "Totgeborene: Bundesländer, Jahre",
+            "Time": "1990 - 2023"
+        },
+        {
+            "Code": "12613-0010",
+            "Content": "Gestorbene: Bundesländer, Jahre",
+            "Time": "1990 - 2024"
+        },
+        {
+            "Code": "12613-0011",
+            "Content": "Gestorbene: Bundesländer, Jahre, Geschlecht",
+            "Time": "1990 - 2024"
+        },
+        {
+            "Code": "12613-0012",
+            "Content": "Gestorbene: Bundesländer, Monate",
+            "Time": "Januar 1990 - Januar 2025"
+        },
+        {
+            "Code": "12613-0013",
+            "Content": "Gestorbene: Bundesländer, Monate, Geschlecht",
+            "Time": "Januar 1990 - Januar 2025"
+        },
+        {
+            "Code": "12621-0004",
+            "Content": "Durchschnittliche Lebenserwartung bei Geburt\n(Periodensterbetafel): Bundesländer, Jahre, Geschlecht",
+            "Time": "2002/04 - 2021/23"
+        },
+        {
+            "Code": "12631-0010",
+            "Content": "Ehescheidungen: Bundesländer, Jahre",
+            "Time": "1990 - 2023"
+        },
+        {
+            "Code": "12631-0011",
+            "Content": "Ehescheidungen: Bundesländer, Jahre, Ehedauer",
+            "Time": "1997 - 2023"
+        },
+        {
+            "Code": "12631-0012",
+            "Content": "Ehescheidungen: Bundesländer, Jahre, Gemeinsame\nminderjährige Kinder",
+            "Time": "1997 - 2023"
+        },
+        {
+            "Code": "12651-0003",
+            "Content": "Begründungen von Lebenspartnerschaften: Bundesländer, Jahre (bis 2017), Geschlecht",
+            "Time": "2014 - 2017"
+        },
+        {
+            "Code": "12661-0002",
+            "Content": "Aufhebungen von Lebenspartnerschaften: Bundesländer, Jahre,\nGeschlecht",
+            "Time": "2014 - 2023"
+        },
+        {
+            "Code": "12711-0020",
+            "Content": "Gesamtwanderungen über die Grenzen der Bundesländer: Bundesländer, Jahre, Nationalität, Geschlecht",
+            "Time": "2000 - 2023"
+        },
+        {
+            "Code": "12711-0021",
+            "Content": "Wanderungen zwischen den Bundesländern: Bundesländer, Jahre, Nationalität, Geschlecht",
+            "Time": "2000 - 2023"
+        },
+        {
+            "Code": "12711-0023",
+            "Content": "Wanderungen zwischen Deutschland und dem Ausland:\nBundesländer, Jahre, Nationalität, Geschlecht",
+            "Time": "2000 - 2023"
+        },
+        {
+            "Code": "13111-0005",
+            "Content": "Sozialversicherungspflichtig Beschäftigte am Arbeitsort:\nBundesländer, Stichtag, Geschlecht",
+            "Time": "31.03.2008 - 30.06.2024"
+        },
+        {
+            "Code": "13111-0006",
+            "Content": "Sozialversicherungspflichtig Beschäftigte am Arbeitsort:\nBundesländer, Stichtag, Wirtschaftsabschnitte",
+            "Time": "31.03.2008 - 30.06.2024"
+        },
+        {
+            "Code": "13211-0007",
+            "Content": "Arbeitslose, Arbeitslosenquoten, Gemeldete Arbeitsstellen:\nBundesländer, Jahre",
+            "Time": "1991 - 2024"
+        },
+        {
+            "Code": "13211-0008",
+            "Content": "Arbeitslose, Arbeitslosenquoten, Gemeldete Arbeitsstellen:\nBundesländer, Monate",
+            "Time": "Januar 2005 - Februar 2025"
+        },
+        {
+            "Code": "13211-0009",
+            "Content": "Arbeitslose: Bundesländer, Jahre, Geschlecht",
+            "Time": "1991 - 2024"
+        },
+        {
+            "Code": "13211-0010",
+            "Content": "Arbeitslose: Bundesländer, Monate, Geschlecht",
+            "Time": "Januar 2005 - Februar 2025"
+        },
+        {
+            "Code": "13211-0011",
+            "Content": "Arbeitslosenquote aller zivilen Erwerbspersonen:\nBundesländer, Jahre, Geschlecht",
+            "Time": "1991 - 2024"
+        },
+        {
+            "Code": "13211-0012",
+            "Content": "Arbeitslosenquote aller zivilen Erwerbspersonen:\nBundesländer, Monate, Geschlecht",
+            "Time": "Januar 2005 - Februar 2025"
+        },
+        {
+            "Code": "13311-0002",
+            "Content": "Erwerbstätige, Arbeitnehmer, Selbständige und mithelfende\nFamilienangehörige (im Inland): Bundesländer, Jahre,\nWirtschaftszweige",
+            "Time": "1991 - 2023"
+        },
+        {
+            "Code": "14111-0003",
+            "Content": "Wahlberechtigte, Wähler, Wahlbeteiligung, Erststimmen,\nZweitstimmen (Allgemeine Bundestagswahlstatistik):\nBundesländer, Stichtag",
+            "Time": "22.09.2013 - 23.02.2025"
+        },
+        {
+            "Code": "14111-0004",
+            "Content": "Gültige Erststimmen, gültige Zweitstimmen (Allgemeine\nBundestagswahlstatistik): Bundesländer, Stichtag, Parteien",
+            "Time": "22.09.2013 - 23.02.2025"
+        },
+        {
+            "Code": "14121-0004",
+            "Content": "Gültige Zweitstimmen (Repräsentative\nBundestagswahlstatistik): Bundesländer, Stichtag, Parteien,\nGeschlecht",
+            "Time": "22.09.2002 - 26.09.2021"
+        },
+        {
+            "Code": "14121-0005",
+            "Content": "Gültige Zweitstimmen (Repräsentative\nBundestagswahlstatistik): Bundesländer, Stichtag, Parteien,\nAltersgruppen",
+            "Time": "22.09.2013 - 26.09.2021"
+        },
+        {
+            "Code": "14121-0006",
+            "Content": "Gültige Zweitstimmen (Repräsentative\nBundestagswahlstatistik): Bundesländer, Stichtag, Parteien,\nGeschlecht, Altersgruppen",
+            "Time": "22.09.2013 - 26.09.2021"
+        },
+        {
+            "Code": "14211-0002",
+            "Content": "Gültige Stimmen (Allgemeine Europawahlstatistik):\nBundesländer, Stichtag, Parteien",
+            "Time": "12.06.1994 - 09.06.2024"
+        },
+        {
+            "Code": "14221-0002",
+            "Content": "Anteil gültiger Stimmen (Repräsentative\nEuropawahlstatistik): Bundesländer, Stichtag, Parteien,\nGeschlecht, Altersgruppen",
+            "Time": "25.05.2014 - 26.05.2019"
+        },
+        {
+            "Code": "21111-0010",
+            "Content": "Schüler, Schulanfänger, Absolventen und Abgänger:\nBundesländer, Schuljahr, Geschlecht",
+            "Time": "1997/98 - 2023/24"
+        },
+        {
+            "Code": "21111-0011",
+            "Content": "Schüler: Bundesländer, Schuljahr, Geschlecht, Schulart,\nJahrgangsstufen",
+            "Time": "1998/99 - 2023/24"
+        },
+        {
+            "Code": "21111-0012",
+            "Content": "Schulanfänger: Bundesländer, Schuljahr, Geschlecht, Schulart, Einschulungsart",
+            "Time": "1999/00 - 2023/24"
+        },
+        {
+            "Code": "21111-0013",
+            "Content": "Absolventen und Abgänger: Bundesländer, Schuljahr,\nGeschlecht, Schulart, Schulabschlüsse",
+            "Time": "1997/98 - 2022/23"
+        },
+        {
+            "Code": "21111-0014",
+            "Content": "Wiederholer: Bundesländer, Schuljahr, Geschlecht, Schulart,\nJahrgangsstufen",
+            "Time": "1998/99 - 2023/24"
+        },
+        {
+            "Code": "21111-0015",
+            "Content": "Schüler mit Fremdsprachen-Unterricht: Bundesländer,\nSchuljahr, Fremdsprachen, Schulart, Jahrgangsstufen",
+            "Time": "1998/99 - 2023/24"
+        },
+        {
+            "Code": "21111-0016",
+            "Content": "Schüler mit sonderpädagogischer Förderung: Bundesländer,\nSchuljahr, Schulart, Förderschwerpunkte",
+            "Time": "2000/01 - 2023/24"
+        },
+        {
+            "Code": "21111-0017",
+            "Content": "Schüler mit sonderpädagogischer Förderung: Bundesländer, Schuljahr, Geschlecht, Schulart, Förderschwerpunkte",
+            "Time": "2014/15 - 2023/24"
+        },
+        {
+            "Code": "21121-0010",
+            "Content": "Schüler in beruflichen Schulen: Bundesländer, Schuljahr,\nSchulart",
+            "Time": "2001/02 - 2023/24"
+        },
+        {
+            "Code": "21121-0011",
+            "Content": "Schüler in beruflichen Schulen: Bundesländer, Schuljahr,\nGeschlecht, Schulart",
+            "Time": "2001/02 - 2023/24"
+        },
+        {
+            "Code": "21121-0012",
+            "Content": "Schüler in beruflichen Schulen: Bundesländer, Schuljahr,\nNationalität, Geschlecht, Schulart, Zeitform des Unterrichts",
+            "Time": "2001/02 - 2023/24"
+        },
+        {
+            "Code": "21121-0013",
+            "Content": "Schüler mit Fremdsprachen-Unterricht: Bundesländer,\nSchuljahr, Schulart, Fremdsprachen",
+            "Time": "2009/10 - 2023/24"
+        },
+        {
+            "Code": "21211-0101",
+            "Content": "Auszubildende: Bundesländer, Stichtag, Nationalität, Geschlecht, Ausbildungsbereich",
+            "Time": "31.12.2008 - 31.12.2023"
+        },
+        {
+            "Code": "21211-0102",
+            "Content": "Auszubildende: Bundesländer, Stichtag, Geschlecht, Altersjahre",
+            "Time": "31.12.2008 - 31.12.2023"
+        },
+        {
+            "Code": "21211-0103",
+            "Content": "Auszubildende: Bundesländer, Stichtag, Geschlecht, Schulabschluss",
+            "Time": "31.12.2008 - 31.12.2023"
+        },
+        {
+            "Code": "21211-0104",
+            "Content": "Ausbildungsverträge: Bundesländer, Jahre, Nationalität, Geschlecht, Ausbildungsbereich",
+            "Time": "2008 - 2023"
+        },
+        {
+            "Code": "21211-0105",
+            "Content": "Ausbildungsverträge: Bundesländer, Jahre, Geschlecht, Altersjahre",
+            "Time": "2008 - 2023"
+        },
+        {
+            "Code": "21211-0106",
+            "Content": "Ausbildungsverträge: Bundesländer, Jahre, Geschlecht, Schulabschluss",
+            "Time": "2008 - 2023"
+        },
+        {
+            "Code": "21211-0107",
+            "Content": "Bestandene Abschlussprüfung: Bundesländer, Jahre, Nationalität, Geschlecht, Ausbildungsbereich",
+            "Time": "2008 - 2023"
+        },
+        {
+            "Code": "21211-0108",
+            "Content": "Bestandene Abschlussprüfung: Bundesländer, Jahre, Geschlecht, Altersjahre",
+            "Time": "2008 - 2023"
+        },
+        {
+            "Code": "21211-0109",
+            "Content": "Bestandene Abschlussprüfung: Bundesländer, Jahre, Geschlecht, Schulabschluss",
+            "Time": "2008 - 2023"
+        },
+        {
+            "Code": "21241-0020",
+            "Content": "Auszubildende in Pflegeberufen mit neu abgeschlossenem Ausbildungsvertrag, beendete Ausbildungen, Ausbildungseintritte (inkl. vorzeitige Lösungen): Bundesländer, Stichtag",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "21241-0021",
+            "Content": "Auszubildende in Pflegeberufen mit neu abgeschlossenem Ausbildungsvertrag: Bundesländer, Stichtag, Geschlecht",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "21241-0022",
+            "Content": "Auszubildende in Pflegeberufen mit neu abgeschlossenem Ausbildungsvertrag: Bundesländer, Stichtag, Altersgruppen",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "21241-0023",
+            "Content": "Auszubildende in Pflegeberufen mit neu abgeschlossenem Ausbildungsvertrag: Bundesländer, Stichtag, Ausbildungsumfang",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "21241-0024",
+            "Content": "Auszubildende in Pflegeberufen mit neu abgeschlossenem\nAusbildungsvertrag: Bundesländer, Stichtag, Erhalt von\nFördermitteln",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "21241-0025",
+            "Content": "Auszubildende in Pflegeberufen mit neu abgeschlossenem Ausbildungsvertrag: Bundesländer, Stichtag, Art der Trägerschaft der Pflegeschulen",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "21241-0026",
+            "Content": "Beendete Ausbildungen in Pflegeberufen: Bundesländer, Stichtag, Prüfungsergebnis",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "21241-0027",
+            "Content": "Pflegeschulen: Bundesländer, Stichtag, Art der Trägerschaft\nder Pflegeschulen",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "21311-0005",
+            "Content": "Studierende: Bundesländer, Semester, Nationalität,\nGeschlecht",
+            "Time": "WS 1998/99 - WS 2023/24"
+        },
+        {
+            "Code": "21311-0006",
+            "Content": "Studierende: Bundesländer, Semester, Nationalität,\nGeschlecht, Studienfach",
+            "Time": "WS 1998/99 - WS 2023/24"
+        },
+        {
+            "Code": "21311-0014",
+            "Content": "Studienanfänger: Bundesländer, Semester, Nationalität,\nGeschlecht",
+            "Time": "WS 1998/99 - WS 2023/24"
+        },
+        {
+            "Code": "21311-0015",
+            "Content": "Studienanfänger: Bundesländer, Semester, Nationalität,\nGeschlecht, Studienfach",
+            "Time": "WS 1998/99 - WS 2023/24"
+        },
+        {
+            "Code": "21321-0005",
+            "Content": "Prüfungen an Hochschulen: Bundesländer, Jahre, Nationalität,\nGeschlecht, Prüfungsergebnis",
+            "Time": "1999 - 2023"
+        },
+        {
+            "Code": "21321-0006",
+            "Content": "Prüfungen an Hochschulen: Bundesländer, Jahre, Nationalität,\nGeschlecht, Prüfungsergebnis, Studienfach",
+            "Time": "1999 - 2023"
+        },
+        {
+            "Code": "21321-0007",
+            "Content": "Prüfungen an Hochschulen: Bundesländer, Jahre, Nationalität,\nGeschlecht, Prüfungsergebnis, Abgelegte Abschlussprüfung",
+            "Time": "1999 - 2023"
+        },
+        {
+            "Code": "21351-0003",
+            "Content": "Habilitationen: Bundesländer, Jahre, Geschlecht",
+            "Time": "1992 - 2023"
+        },
+        {
+            "Code": "21352-0005",
+            "Content": "Promovierende: Bundesländer, Stichtag, Nationalität,\nGeschlecht, Hochschulart",
+            "Time": "01.12.2019 - 01.12.2023"
+        },
+        {
+            "Code": "21353-0002",
+            "Content": "Hochschulräte: Bundesländer, Jahre, Hochschulart, Geschlecht",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "21354-0001",
+            "Content": "Studierende, Studienanfänger an Berufsakademien:\nBundesländer, Jahre, Nationalität, Geschlecht",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "21354-0002",
+            "Content": "Bestandene Prüfungen an Berufsakademien: Bundesländer,\nJahre, Art der Prüfung, Geschlecht",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "21354-0003",
+            "Content": "Personal an Berufsakademien: Bundesländer, Jahre, Art des\nPersonals, Geschlecht",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "21354-0004",
+            "Content": "Studierende je Lehrperson (Betreuungsrelation) an\nBerufsakademien: Bundesländer, Jahre, Geschlecht",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "21371-0002",
+            "Content": "Ausgaben der Hochschulen: Bundesländer, Jahre, Hochschulart,\nFächergruppen",
+            "Time": "2006 - 2022"
+        },
+        {
+            "Code": "21381-0010",
+            "Content": "Absolventenquote: Bundesländer, Jahre, Geschlecht",
+            "Time": "2000 - 2023"
+        },
+        {
+            "Code": "21381-0011",
+            "Content": "Studienanfängerquote (Hochschulzugangsberechtigung):\nBundesländer, Jahre, Geschlecht",
+            "Time": "2000 - 2023"
+        },
+        {
+            "Code": "21381-0012",
+            "Content": "Studienanfängerquote: Bundesländer, Jahre, Geschlecht",
+            "Time": "2000 - 2023"
+        },
+        {
+            "Code": "21381-0013",
+            "Content": "Studienberechtigtenquote: Bundesländer, Jahre,\nSchulabschluss",
+            "Time": "2006 - 2023"
+        },
+        {
+            "Code": "21381-0014",
+            "Content": "Laufende Ausgaben der Hochschulen, Drittmittel der\nHochschulen: Bundesländer, Jahre",
+            "Time": "2011 - 2022"
+        },
+        {
+            "Code": "21411-0020",
+            "Content": "BAföG - Geförderte Personen und finanzieller Aufwand:\nBundesländer, Jahre, Personenkreis",
+            "Time": "1991 - 2023"
+        },
+        {
+            "Code": "21421-0021",
+            "Content": "Aufstiegs-BAföG - Geförderte Personen, finanzieller Aufwand:\nBundesländer, Jahre, Bewilligung/Inanspruchnahme,\nVoll-/Teilzeit, Art des finanziellen Aufwandes",
+            "Time": "2003 - 2023"
+        },
+        {
+            "Code": "21421-0022",
+            "Content": "Aufstiegs-BAföG - Geförderte Personen, finanzieller Aufwand:\nBundesländer, Jahre, Bewilligung/Inanspr., Voll-/Teilzeit,\nArt des finanziellen Aufwandes, Fortbildungsstätten",
+            "Time": "2003 - 2023"
+        },
+        {
+            "Code": "21421-0023",
+            "Content": "Aufstiegs-BAföG - Geförderte Personen, finanzieller Aufwand:\nBundesländer, Jahre, Bewilligung/Inanspr., Voll-/Teilzeit,\nArt des finanziellen Aufwandes, Fortbildungsziele",
+            "Time": "2003 - 2023"
+        },
+        {
+            "Code": "21421-0024",
+            "Content": "Aufstiegs-BAföG - Geförderte Personen (Bewilligung):\nBundesländer, Jahre, Voll-/Teilzeit, Geschlecht,\nFortbildungsstätten",
+            "Time": "2003 - 2023"
+        },
+        {
+            "Code": "21421-0025",
+            "Content": "Aufstiegs-BAföG - Geförderte Personen (Bewilligung)\n(Vollzeit): Bundesländer, Jahre, Geschlecht,\nEinkommensgrößenklassen",
+            "Time": "2003 - 2023"
+        },
+        {
+            "Code": "21421-0026",
+            "Content": "Aufstiegs-BAföG - Geförderte Personen, monatlicher\nFörderungsbetrag: Bundesländer, Jahre, Bewilligung/\nInanspruchnahme, Art der Förderung, Fortbildungsstätten",
+            "Time": "2003 - 2023"
+        },
+        {
+            "Code": "21431-0020",
+            "Content": "Stipendiaten, Mittelgeber: Bundesländer, Jahre, Hochschulart",
+            "Time": "2011 - 2023"
+        },
+        {
+            "Code": "21431-0021",
+            "Content": "Stipendiaten: Bundesländer, Jahre, Geschlecht, Hochschulart",
+            "Time": "2011 - 2023"
+        },
+        {
+            "Code": "21611-0003",
+            "Content": "Kinos, Leinwände, Sitzplätze der Kinos, Filmbesuche,\nDurchschnittlicher Kino-Eintrittspreis, Einnahmen:\nBundesländer, Jahre",
+            "Time": "2000 - 2023"
+        },
+        {
+            "Code": "21611-0102",
+            "Content": "Museen, Ausstellungen, Museumsbesuche: Bundesländer, Jahre",
+            "Time": "2002 - 2022"
+        },
+        {
+            "Code": "21611-0111",
+            "Content": "Öffentlich geförderte Theaterunternehmen, Spielstätten,\nVeranstaltungen am Ort, Theaterbesuche: Bundesländer, Jahre",
+            "Time": "2000 - 2022"
+        },
+        {
+            "Code": "21611-0122",
+            "Content": "Öffentlich geförderte Musikschulen, Lehrer, Schüler:\nBundesländer, Jahre",
+            "Time": "2000 - 2022"
+        },
+        {
+            "Code": "21611-0123",
+            "Content": "Schüler in öffentlich geförderten Musikschulen:\nBundesländer, Jahre, Altersgruppen",
+            "Time": "2000 - 2022"
+        },
+        {
+            "Code": "21611-0201",
+            "Content": "Haupt- und Zweigstellen der Bibliotheken, Meldende\nBibliotheken, Bestand, Entleiher, Bibliotheksbesuche:\nBundesländer, Jahre, Bibliotheksarten",
+            "Time": "2000 - 2023"
+        },
+        {
+            "Code": "21621-0003",
+            "Content": "Öffentliche Ausgaben für Kultur: Bundesländer, Jahre,\nKulturbereiche",
+            "Time": "2005 - 2021"
+        },
+        {
+            "Code": "21711-0010",
+            "Content": "Ausgaben der öffentlichen Haushalte für Bildung:\nBundesländer, Jahre, Körperschaftsgruppen, Aufgabenbereiche\nder öffentlichen Haushalte",
+            "Time": "1995 - 2024"
+        },
+        {
+            "Code": "21711-0011",
+            "Content": "Ausgaben für öffentliche Schulen je Schüler: Bundesländer,\nJahre",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "21821-0002",
+            "Content": "Interne Ausgaben und Personal für Forschung und Entwicklung:\nBundesländer, Jahre, Sektoren",
+            "Time": "1995 - 2022"
+        },
+        {
+            "Code": "21821-0100",
+            "Content": "Patentanmeldungen: Bundesländer, Jahre",
+            "Time": "2000 - 2023"
+        },
+        {
+            "Code": "22111-0020",
+            "Content": "Bruttoausgaben, Einnahmen, Nettoausgaben der Sozialhilfe:\nBundesländer, Jahre",
+            "Time": "1994 - 2023"
+        },
+        {
+            "Code": "22111-0021",
+            "Content": "Bruttoausgaben, Einnahmen, Nettoausgaben der Sozialhilfe:\nBundesländer, Jahre, Ort der Leistungserbringung",
+            "Time": "1994 - 2023"
+        },
+        {
+            "Code": "22111-0022",
+            "Content": "Bruttoausgaben, Einnahmen, Nettoausgaben der Sozialhilfe:\nBundesländer, Jahre, Sozialhilfearten",
+            "Time": "2005 - 2023"
+        },
+        {
+            "Code": "22111-0023",
+            "Content": "Bruttoausgaben der Sozialhilfe: Bundesländer, Jahre (bis\n2004), Sozialhilfearten, Sozialhilfeträger, Ort der\nLeistungserbringung",
+            "Time": "1994 - 2004"
+        },
+        {
+            "Code": "22121-0010",
+            "Content": "Empfänger von Hilfe zum Lebensunterhalt: Bundesländer,\nStichtag, Ort der Leistungserbringung, Geschlecht,\nAltersgruppen",
+            "Time": "31.12.1995 - 31.12.2023"
+        },
+        {
+            "Code": "22121-0011",
+            "Content": "Empfänger von Hilfe zum Lebensunterhalt: Bundesländer,\nStichtag, Ort der Leistungserbringung, Geschlecht,\nNationalität",
+            "Time": "31.12.1995 - 31.12.2023"
+        },
+        {
+            "Code": "22121-0012",
+            "Content": "Personengemeinschaften von Empfängern von Hilfe zum Lebensunterhalt: Bundesländer, Stichtag, Ort der Leistungserbringung",
+            "Time": "31.12.2005 - 31.12.2023"
+        },
+        {
+            "Code": "22131-0010",
+            "Content": "Empfänger von Leistungen nach dem 5. bis 9. Kapitel SGB XII:\nBundesländer, Jahre, Art der Hilfe, Geschlecht",
+            "Time": "2005 - 2023"
+        },
+        {
+            "Code": "22131-0011",
+            "Content": "Empfänger von Leistungen nach dem 5. bis 9. Kapitel SGB XII:\nBundesländer, Stichtag, Art der Hilfe, Geschlecht",
+            "Time": "31.12.2005 - 31.12.2023"
+        },
+        {
+            "Code": "22131-0012",
+            "Content": "Empfänger von Leistungen nach dem 5. bis 9. Kapitel SGB XII:\nBundesländer, Jahre, Art der Hilfe,\nOrt der Leistungserbringung",
+            "Time": "2005 - 2023"
+        },
+        {
+            "Code": "22131-0013",
+            "Content": "Empfänger von Leistungen für Bestattungskosten,\nBruttoausgaben für Bestattungskosten: Bundesländer, Jahre",
+            "Time": "2005 - 2023"
+        },
+        {
+            "Code": "22151-0030",
+            "Content": "Empfänger von Grundsicherung: Bundesländer, Stichtag\n(bis 31.12.2014), Nationalität, Geschlecht, Altersgruppen",
+            "Time": "31.12.2003 - 31.12.2014"
+        },
+        {
+            "Code": "22151-0031",
+            "Content": "Quote der Empfänger von Grundsicherung: Bundesländer,\nStichtag (bis 31.12.2014), Nationalität, Geschlecht,\nAltersgruppen",
+            "Time": "31.12.2003 - 31.12.2014"
+        },
+        {
+            "Code": "22151-0032",
+            "Content": "Empfänger von Grundsicherung: Bundesländer, Berichtsmonat\nim Quartal, Geschlecht/Altersgruppen/Ort der\nLeistungserbringung/Sozialhilfeträger",
+            "Time": "März 2015 - September 2024"
+        },
+        {
+            "Code": "22151-0033",
+            "Content": "Empfänger von Grundsicherung: Bundesländer, Berichtsmonat im\nQuartal, Ort der Leistungserbringung, Geschlecht,\nAltersgruppen",
+            "Time": "März 2015 - September 2024"
+        },
+        {
+            "Code": "22151-0034",
+            "Content": "Durchschnittlicher Nettobedarf, Bruttobedarf, angerechnetes\nEinkommen: Bundesländer, Berichtsmonat im Quartal",
+            "Time": "März 2015 - September 2024"
+        },
+        {
+            "Code": "22151-0035",
+            "Content": "Quote der Empfänger von Grundsicherung: Bundesländer,\nBerichtsmonat im Quartal, Nationalität, Geschlecht,\nAltersgruppen",
+            "Time": "Dezember 2015 - Dezember 2023"
+        },
+        {
+            "Code": "22161-0010",
+            "Content": "Empfänger von Eingliederungshilfe: Bundesländer, Jahre,\nGeschlecht, Altersgruppen",
+            "Time": "2020 - 2023"
+        },
+        {
+            "Code": "22161-0011",
+            "Content": "Empfänger von Eingliederungshilfe: Bundesländer, Stichtag,\nGeschlecht, Altersgruppen",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "22162-0010",
+            "Content": "Bruttoausgaben, Einnahmen, Nettoausgaben der Eingliederungshilfe: Bundesländer, Jahre",
+            "Time": "2020 - 2023"
+        },
+        {
+            "Code": "22211-0010",
+            "Content": "Bruttoausgaben nach dem Asylbewerberleistungsgesetz:\nBundesländer, Jahre, Ort der Leistungserbringung",
+            "Time": "1994 - 2023"
+        },
+        {
+            "Code": "22211-0011",
+            "Content": "Bruttoausgaben nach dem Asylbewerberleistungsgesetz:\nBundesländer, Jahre, Leistungsart",
+            "Time": "1994 - 2023"
+        },
+        {
+            "Code": "22211-0012",
+            "Content": "Bruttoausgaben nach dem Asylbewerberleistungsgesetz:\nBundesländer, Jahre, Art des Trägers",
+            "Time": "1994 - 2023"
+        },
+        {
+            "Code": "22211-0013",
+            "Content": "Bruttoausgaben nach dem Asylbewerberleistungsgesetz:\nBundesländer, Jahre, Ausgabenart",
+            "Time": "1994 - 2023"
+        },
+        {
+            "Code": "22211-0014",
+            "Content": "Bruttoausgaben nach dem Asylbewerberleistungsgesetz:\nBundesländer, Jahre, Hilfearten",
+            "Time": "1994 - 2023"
+        },
+        {
+            "Code": "22221-0100",
+            "Content": "Empfänger von Regelleistungen nach dem\nAsylbewerberleistungsgesetz: Bundesländer, Stichtag (bis\n31.12.2019), Geschlecht",
+            "Time": "31.12.1994 - 31.12.2019"
+        },
+        {
+            "Code": "22221-0101",
+            "Content": "Empfänger von Regelleistungen nach dem Asylbewerberleistungsgesetz: Bundesländer, Stichtag (bis 31.12.2019), Art der Unterbringung",
+            "Time": "31.12.1994 - 31.12.2019"
+        },
+        {
+            "Code": "22221-0110",
+            "Content": "Empfänger von Grundleistungen bzw. Hilfe zum Lebensunterhalt (AsylbLG): Bundesländer, Stichtag, Geschlecht, Altersgruppen",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "22221-0111",
+            "Content": "Empfänger von Grundleistungen bzw. Hilfe zum Lebensunterhalt (AsylbLG): Bundesländer, Stichtag, Geschlecht, Art der Unterbringung",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "22221-0112",
+            "Content": "Empfänger von Grundleistungen bzw. Hilfe zum Lebensunterhalt (AsylbLG): Bundesländer, Stichtag, Geschlecht, Leistungsart",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "22221-0113",
+            "Content": "Empfänger von Grundleistungen bzw. Hilfe zum Lebensunterhalt (AsylbLG): Bundesländer, Stichtag, Geschlecht, Staatsangehörigkeit nach Kontinenten",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "22221-0114",
+            "Content": "Empfänger von Grundleistungen bzw. Hilfe zum Lebensunterhalt\n(AsylbLG): Bundesländer, Stichtag, Altersgruppen,\nLeistungsart",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "22221-0115",
+            "Content": "Empfänger von Grundleistungen bzw. Hilfe zum Lebensunterhalt (AsylbLG): Bundesländer, Stichtag, Erwerbsstatus",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "22221-0116",
+            "Content": "Empfänger von besonderen Asylbewerberleistungen: Bundesländer, Stichtag, Geschlecht, Altersgruppen",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "22221-0117",
+            "Content": "Empfänger von besonderen Asylbewerberleistungen: Bundesländer, Stichtag, Altersgruppen, Hilfearten",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "22221-0118",
+            "Content": "Empfänger von besonderen Asylbewerberleistungen: Bundesländer, Stichtag, Aufenthaltsrechtlicher Status",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "22221-0119",
+            "Content": "Empfänger von Asylbewerberleistungen: Bundesländer, Stichtag, Geschlecht, Altersgruppen",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "22221-0120",
+            "Content": "Empfänger von Asylbewerberleistungen: Bundesländer, Stichtag, Geschlecht, Art der Unterbringung",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "22221-0121",
+            "Content": "Empfänger von Asylbewerberleistungen: Bundesländer,\nStichtag, Geschlecht, Staatsangehörigkeit nach Kontinenten",
+            "Time": "31.12.2020 - 31.12.2023"
+        },
+        {
+            "Code": "22231-0010",
+            "Content": "Empfänger von besonderen Asylbewerberleistungen: Bundesländer, Stichtag (bis 31.12.2019), Altersgruppen",
+            "Time": "31.12.1994 - 31.12.2019"
+        },
+        {
+            "Code": "22231-0011",
+            "Content": "Empfänger von besonderen Asylbewerberleistungen: Bundesländer, Stichtag (bis 31.12.2019), Hilfearten",
+            "Time": "31.12.1994 - 31.12.2019"
+        },
+        {
+            "Code": "22311-0010",
+            "Content": "Haushalte mit Wohngeld, Anteil an den Privathaushalten:\nBundesländer, Stichtag, Wohngeldart",
+            "Time": "31.12.2005 - 31.12.2023"
+        },
+        {
+            "Code": "22311-0011",
+            "Content": "Haushalte mit Wohngeld: Bundesländer, Stichtag, Wohngeldart, Art des Zuschusses",
+            "Time": "31.12.2005 - 31.12.2023"
+        },
+        {
+            "Code": "22311-0012",
+            "Content": "Haushalte mit Wohngeld: Bundesländer, Stichtag, Wohngeldart, Geschlecht der Antragsteller",
+            "Time": "31.12.2005 - 31.12.2023"
+        },
+        {
+            "Code": "22311-0013",
+            "Content": "Haushalte mit Wohngeld: Bundesländer, Stichtag, Wohngeldart, Haushaltsgröße",
+            "Time": "31.12.2005 - 31.12.2023"
+        },
+        {
+            "Code": "22411-0010",
+            "Content": "Ambulante Dienste, Pflegebedürftige: Bundesländer, Stichtag,\nTräger",
+            "Time": "15.12.1999 - 15.12.2023"
+        },
+        {
+            "Code": "22411-0011",
+            "Content": "Pflegebedürftige (ambulant): Bundesländer, Stichtag, Pflegestufe/Pflegegrad",
+            "Time": "15.12.2017 - 15.12.2023"
+        },
+        {
+            "Code": "22411-0012",
+            "Content": "Pflegebedürftige (ambulant): Bundesländer, Stichtag, Geschlecht, Altersgruppen",
+            "Time": "15.12.1999 - 15.12.2023"
+        },
+        {
+            "Code": "22411-0013",
+            "Content": "Personal in ambulanten Pflegeeinrichtungen: Bundesländer,\nStichtag, Beschäftigungsverhältnis",
+            "Time": "15.12.1999 - 15.12.2023"
+        },
+        {
+            "Code": "22411-0014",
+            "Content": "Personal in ambulanten Pflegeeinrichtungen: Bundesländer,\nStichtag, Geschlecht, Überwiegender Tätigkeitsbereich",
+            "Time": "15.12.1999 - 15.12.2023"
+        },
+        {
+            "Code": "22411-0015",
+            "Content": "Personal in ambulanten Pflegeeinrichtungen: Bundesländer, Stichtag, Altersgruppen",
+            "Time": "15.12.2013 - 15.12.2023"
+        },
+        {
+            "Code": "22412-0010",
+            "Content": "Pflegeheime, Verfügbare Plätze, Pflegebedürftige:\nBundesländer, Stichtag, Art der Pflegeleistung",
+            "Time": "15.12.1999 - 15.12.2023"
+        },
+        {
+            "Code": "22412-0011",
+            "Content": "Pflegeheime, Verfügbare Plätze: Bundesländer, Stichtag,\nTräger",
+            "Time": "15.12.1999 - 15.12.2023"
+        },
+        {
+            "Code": "22412-0012",
+            "Content": "Pflegebedürftige (stationär): Bundesländer, Stichtag,\nPflegestufe/Pflegegrad",
+            "Time": "15.12.2017 - 15.12.2023"
+        },
+        {
+            "Code": "22412-0013",
+            "Content": "Pflegebedürftige (stationär): Bundesländer, Stichtag,\nGeschlecht, Altersgruppen",
+            "Time": "15.12.1999 - 15.12.2023"
+        },
+        {
+            "Code": "22412-0014",
+            "Content": "Personal der stationären Pflegeeinrichtungen: Bundesländer,\nStichtag, Beschäftigungsverhältnis",
+            "Time": "15.12.1999 - 15.12.2023"
+        },
+        {
+            "Code": "22412-0015",
+            "Content": "Personal der stationären Pflegeeinrichtungen: Bundesländer,\nStichtag, Geschlecht, Überwiegender Tätigkeitsbereich",
+            "Time": "15.12.1999 - 15.12.2023"
+        },
+        {
+            "Code": "22412-0016",
+            "Content": "Personal der stationären Pflegeeinrichtungen: Bundesländer,\nStichtag, Altersgruppen",
+            "Time": "15.12.2013 - 15.12.2023"
+        },
+        {
+            "Code": "22421-0010",
+            "Content": "Pflegebedürftige: Bundesländer, Stichtag, Geschlecht,\nAltersgruppen, Art der Versorgung von Pflegebedürftigen",
+            "Time": "31.12.1999 - 31.12.2023"
+        },
+        {
+            "Code": "22421-0011",
+            "Content": "Pflegebedürftige: Bundesländer, Stichtag, Pflegestufe/Pflegegrad",
+            "Time": "31.12.2017 - 31.12.2023"
+        },
+        {
+            "Code": "22421-0012",
+            "Content": "Pflegequote: Bundesländer, Stichtag, Geschlecht,\nAltersgruppen",
+            "Time": "31.12.1999 - 31.12.2023"
+        },
+        {
+            "Code": "22517-0005",
+            "Content": "Erzieherische Hilfen/Beratungen: Bundesländer, Jahre,\nGeschlecht, Altersjahre, Art der Hilfe",
+            "Time": "2008 - 2017"
+        },
+        {
+            "Code": "22517-0006",
+            "Content": "Erzieherische Hilfen/Beratungen: Bundesländer, Jahre,\nGeschlecht, Migrationshintergrund, Art der Hilfe",
+            "Time": "2008 - 2017"
+        },
+        {
+            "Code": "22518-0010",
+            "Content": "Verfahren zur Einschätzung der Kindeswohlgefährdung:\nBundesländer, Jahre, Gefährdungseinschätzung",
+            "Time": "2012 - 2023"
+        },
+        {
+            "Code": "22518-0011",
+            "Content": "Verfahren zur Einschätzung der Kindeswohlgefährdung:\nBundesländer, Jahre, Gefährdungseinschätzung, Art der\nKindeswohlgefährdung",
+            "Time": "2012 - 2023"
+        },
+        {
+            "Code": "22521-0020",
+            "Content": "Adoptierte Kinder und Jugendliche: Bundesländer, Jahre,\nGeschlecht",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "22521-0021",
+            "Content": "Adoptierte Kinder und Jugendliche: Bundesländer, Jahre (bis\n2017), Altersgruppen",
+            "Time": "2010 - 2017"
+        },
+        {
+            "Code": "22521-0022",
+            "Content": "Adoptierte Kinder und Jugendliche: Bundesländer, Jahre (bis\n2017), Nationalität, Art der Unterbringung vor der Adoption",
+            "Time": "2010 - 2017"
+        },
+        {
+            "Code": "22522-0010",
+            "Content": "Kinder und Jugendliche: Bundesländer, Stichtag, Maßnahmen für Kinder und Jugendliche",
+            "Time": "31.12.2012 - 31.12.2023"
+        },
+        {
+            "Code": "22522-0011",
+            "Content": "Tagespflegepersonen mit Pflegeerlaubnis: Bundesländer, Stichtag",
+            "Time": "31.12.2012 - 31.12.2023"
+        },
+        {
+            "Code": "22522-0012",
+            "Content": "Sorgeerklärungen: Bundesländer, Jahre",
+            "Time": "2013 - 2023"
+        },
+        {
+            "Code": "22522-0013",
+            "Content": "Maßnahmen des Familiengerichts bei Kindeswohlgefährdung:\nBundesländer, Jahre, Art der eingeleiteten Maßnahmen",
+            "Time": "2012 - 2023"
+        },
+        {
+            "Code": "22523-0030",
+            "Content": "Vorläufige Schutzmaßnahmen für Kinder und Jugendliche:\nBundesländer, Jahre, Anlass der Maßnahme",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "22523-0031",
+            "Content": "Vorläufige Schutzmaßnahmen für Kinder und Jugendliche:\nBundesländer, Jahre, Anregung der Maßnahme",
+            "Time": "2010 - 2022"
+        },
+        {
+            "Code": "22541-0100",
+            "Content": "Tageseinrichtungen, Kinder, Genehmigte Plätze: Bundesländer,\nStichtag",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0101",
+            "Content": "Tageseinrichtungen: Bundesländer, Stichtag, Art des Trägers",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0102",
+            "Content": "Tageseinrichtungen: Bundesländer, Stichtag, Öffnungszeiten\nder Tageseinrichtung",
+            "Time": "01.03.2019 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0103",
+            "Content": "Tageseinrichtungen: Bundesländer, Stichtag, Altersgruppen\nder Kinder",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0104",
+            "Content": "Tätige Personen: Bundesländer, Stichtag, Arbeitsbereich",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0105",
+            "Content": "Pädagogisches, Leitungs- und Verwaltungspersonal:\nBundesländer, Stichtag, Geschlecht",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0106",
+            "Content": "Pädagogisches, Leitungs- und Verwaltungspersonal:\nBundesländer, Stichtag, Altersgruppen",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0107",
+            "Content": "Pädagogisches, Leitungs- und Verwaltungspersonal:\nBundesländer, Stichtag, Höchster Berufsausbildungsabschluss",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0108",
+            "Content": "Pädagogisches, Leitungs- und Verwaltungspersonal:\nBundesländer, Stichtag, Stellung im Beruf",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0109",
+            "Content": "Kinder in Tageseinrichtungen: Bundesländer, Stichtag, Art\ndes Trägers",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0110",
+            "Content": "Kinder in Tageseinrichtungen: Bundesländer, Stichtag,\nVertraglich vereinbarte Betreuungszeit",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0111",
+            "Content": "Kinder in Tageseinrichtungen: Bundesländer, Stichtag,\nGeschlecht",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0112",
+            "Content": "Kinder in Tageseinrichtungen: Bundesländer, Stichtag, Alter\nder Nichtschul- und Schulkinder",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0113",
+            "Content": "Kinder in Tageseinrichtungen: Bundesländer, Stichtag,\nHerkunft der Eltern",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22541-0114",
+            "Content": "Kinder in Tageseinrichtungen: Bundesländer, Stichtag, In der\nFamilie vorrangig gesprochene Sprache",
+            "Time": "01.03.2014 - 01.03.2024"
+        },
+        {
+            "Code": "22542-0003",
+            "Content": "Einrichtungen der Kinder- und Jugendhilfe, Genehmigte\nPlätze, Tätige Personen, Pädagogisches und\nVerwaltungspersonal: Bundesländer, Stichtag (bis 31.12.2020)",
+            "Time": "31.12.2010 - 31.12.2020"
+        },
+        {
+            "Code": "22542-0004",
+            "Content": "Einrichtungen der Kinder- und Jugendhilfe: Bundesländer,\nStichtag (bis 31.12.2020), Art der Einrichtung",
+            "Time": "31.12.2010 - 31.12.2020"
+        },
+        {
+            "Code": "22542-0019",
+            "Content": "Einrichtungen der Jugendhilfe, Gruppen, Soll-Stellen,\ngenehmigte Plätze, belegte Plätze: Bundesländer, Stichtag",
+            "Time": "15.12.2022 - 15.12.2022"
+        },
+        {
+            "Code": "22543-0020",
+            "Content": "Kinder in öffentlich geförderter Kindertagespflege:\nBundesländer, Stichtag, Altersgruppen",
+            "Time": "01.03.2008 - 01.03.2024"
+        },
+        {
+            "Code": "22543-0021",
+            "Content": "Kinder in öffentlich geförderter Kindertagespflege:\nBundesländer, Stichtag, Geschlecht, Migrationshintergrund",
+            "Time": "01.03.2012 - 01.03.2024"
+        },
+        {
+            "Code": "22543-0022",
+            "Content": "Kinder in öffentlich geförderter Kindertagespflege:\nBundesländer, Stichtag, In der Familie vorrangig\ngesprochene Sprache",
+            "Time": "01.03.2012 - 01.03.2024"
+        },
+        {
+            "Code": "22543-0023",
+            "Content": "Tagespflegepersonen: Bundesländer, Stichtag, Geschlecht",
+            "Time": "01.03.2012 - 01.03.2024"
+        },
+        {
+            "Code": "22543-0024",
+            "Content": "Tagespflegepersonen: Bundesländer, Stichtag, Altersgruppen",
+            "Time": "01.03.2012 - 01.03.2024"
+        },
+        {
+            "Code": "22551-0003",
+            "Content": "Ausgaben (Auszahlungen) der Kinder- und Jugendhilfe: Bundesländer, Jahre, Ausgabenbereiche, Art der Hilfe, Art der Ausgaben",
+            "Time": "2009 - 2023"
+        },
+        {
+            "Code": "22551-0004",
+            "Content": "Einnahmen (Einzahlungen) der Kinder- und Jugendhilfe:\nBundesländer, Jahre, Art der Hilfe, Art der Einnahmen",
+            "Time": "2009 - 2023"
+        },
+        {
+            "Code": "22922-0020",
+            "Content": "Elterngeldempfänger nach Geburtszeiträumen: Bundesländer,\nJahre, Geschlecht",
+            "Time": "2009 - 2021"
+        },
+        {
+            "Code": "22922-0021",
+            "Content": "Elterngeldempfänger nach Geburtszeiträumen: Bundesländer,\nQuartale, Geschlecht",
+            "Time": "1. Quartal 2009 - 3. Quartal 2022"
+        },
+        {
+            "Code": "22922-0022",
+            "Content": "Elterngeldempfänger nach Geburtszeiträumen: Bundesländer,\nJahre, Geschlecht, Erwerbstätigkeit",
+            "Time": "2009 - 2021"
+        },
+        {
+            "Code": "22922-0023",
+            "Content": "Elterngeldempfänger nach Geburtszeiträumen: Bundesländer,\nQuartale, Geschlecht, Erwerbstätigkeit",
+            "Time": "1. Quartal 2009 - 3. Quartal 2022"
+        },
+        {
+            "Code": "22922-0024",
+            "Content": "Elterngeldempfänger nach Geburtszeiträumen: Bundesländer,\nJahre, Geschlecht, Grundlage der Berechnung des\nElterngeldanspruchs",
+            "Time": "2009 - 2021"
+        },
+        {
+            "Code": "22922-0025",
+            "Content": "Elterngeldempfänger nach Geburtszeiträumen: Bundesländer,\nQuartale, Geschlecht, Grundlage der Berechnung des\nElterngeldanspruchs",
+            "Time": "1. Quartal 2009 - 3. Quartal 2022"
+        },
+        {
+            "Code": "22922-0026",
+            "Content": "Elterngeldempfänger nach Geburtszeiträumen: Bundesländer,\nJahre, Geschlecht, Höhe des monatlichen Elterngeldanspruchs",
+            "Time": "2009 - 2021"
+        },
+        {
+            "Code": "22922-0027",
+            "Content": "Elterngeldempfänger nach Geburtszeiträumen: Bundesländer,\nQuartale, Geschlecht, Höhe des monatlichen\nElterngeldanspruchs",
+            "Time": "1. Quartal 2009 - 3. Quartal 2022"
+        },
+        {
+            "Code": "22922-0028",
+            "Content": "Elterngeldempfänger nach Geburtszeiträumen: Bundesländer,\nJahre (bis 2014), Geschlecht, Bezugsdauer des Elterngeldes",
+            "Time": "2009 - 2014"
+        },
+        {
+            "Code": "22922-0029",
+            "Content": "Elterngeldempfänger nach Geburtszeiträumen: Bundesländer,\nQuartale (bis 2.Q. 2015), Geschlecht, Bezugsdauer des\nElterngeldes",
+            "Time": "1. Quartal 2009 - 2. Quartal 2015"
+        },
+        {
+            "Code": "22922-0030",
+            "Content": "Väterbeteiligung: Bundesländer, Jahre",
+            "Time": "2008 - 2021"
+        },
+        {
+            "Code": "22922-0031",
+            "Content": "Väterbeteiligung: Bundesländer, Quartale",
+            "Time": "1. Quartal 2016 - 3. Quartal 2022"
+        },
+        {
+            "Code": "22922-0111",
+            "Content": "Elterngeldempfänger: Bundesländer, Jahre, Geschlecht,\nErwerbstätigkeit",
+            "Time": "2016 - 2024"
+        },
+        {
+            "Code": "22922-0112",
+            "Content": "Elterngeldempfänger: Bundesländer, Quartale, Geschlecht,\nErwerbstätigkeit",
+            "Time": "1. Quartal 2017 - 4. Quartal 2024"
+        },
+        {
+            "Code": "22922-0113",
+            "Content": "Elterngeldempfänger: Bundesländer, Jahre, Geschlecht,\nArt der Inanspruchnahme",
+            "Time": "2016 - 2024"
+        },
+        {
+            "Code": "22922-0114",
+            "Content": "Elterngeldempfänger: Bundesländer, Quartale, Geschlecht,\nArt der Inanspruchnahme",
+            "Time": "1. Quartal 2017 - 4. Quartal 2024"
+        },
+        {
+            "Code": "22922-0115",
+            "Content": "Elterngeldempfänger: Bundesländer, Jahre, Geschlecht,\nArt der Inanspruchnahme, Höhe des monatlichen\nElterngeldanspruchs",
+            "Time": "2016 - 2024"
+        },
+        {
+            "Code": "22922-0116",
+            "Content": "Elterngeldempfänger: Bundesländer, Quartale, Geschlecht,\nArt der Inanspruchnahme, Höhe des monatlichen\nElterngeldanspruchs",
+            "Time": "1. Quartal 2017 - 4. Quartal 2024"
+        },
+        {
+            "Code": "22922-0117",
+            "Content": "Durchschnittliche Höhe des Elterngeldanspruchs:\nBundesländer, Jahre, Geschlecht, Art der Inanspruchnahme,\nErwerbstätigkeit",
+            "Time": "2016 - 2024"
+        },
+        {
+            "Code": "22922-0118",
+            "Content": "Durchschnittliche Höhe des Elterngeldanspruchs:\nBundesländer, Quartale, Geschlecht, Art der Inanspruchnahme,\nErwerbstätigkeit",
+            "Time": "1. Quartal 2017 - 4. Quartal 2024"
+        },
+        {
+            "Code": "22922-0119",
+            "Content": "Durchschnittliche voraussichtliche Elterngeld-Bezugsdauer:\nBundesländer, Jahre, Geschlecht, Art der Inanspruchnahme",
+            "Time": "2016 - 2024"
+        },
+        {
+            "Code": "22922-0120",
+            "Content": "Durchschnittliche voraussichtliche Elterngeld-Bezugsdauer:\nBundesländer, Quartale, Geschlecht, Art der Inanspruchnahme",
+            "Time": "1. Quartal 2017 - 4. Quartal 2024"
+        },
+        {
+            "Code": "22923-0003",
+            "Content": "Betreuungsgeldempfänger: Bundesländer, Quartale (bis 4.Q. 2017), Nationalität",
+            "Time": "1. Quartal 2014 - 4. Quartal 2017"
+        },
+        {
+            "Code": "22971-0050",
+            "Content": "Untergebrachte wohnungslose Personen: Bundesländer, Stichtag, Nationalität, Geschlecht, Altersgruppen",
+            "Time": "31.01.2022 - 31.01.2024"
+        },
+        {
+            "Code": "22971-0051",
+            "Content": "Untergebrachte wohnungslose Personen: Bundesländer, Stichtag, Nationalität, Geschlecht, Altersgruppen, Haushaltstyp",
+            "Time": "31.01.2022 - 31.01.2024"
+        },
+        {
+            "Code": "22971-0052",
+            "Content": "Untergebrachte wohnungslose Personen: Bundesländer, Stichtag, Nationalität, Geschlecht, Altersgruppen, Haushaltsgröße",
+            "Time": "31.01.2022 - 31.01.2024"
+        },
+        {
+            "Code": "22971-0053",
+            "Content": "Untergebrachte wohnungslose Personen: Bundesländer, Stichtag, Nationalität, Geschlecht, Altersgruppen, Anbieter",
+            "Time": "31.01.2022 - 31.01.2024"
+        },
+        {
+            "Code": "22971-0054",
+            "Content": "Untergebrachte wohnungslose Personen: Bundesländer, Stichtag, Nationalität, Geschlecht, Altersgruppen, Art der Überlassung",
+            "Time": "31.01.2022 - 31.01.2024"
+        },
+        {
+            "Code": "22971-0055",
+            "Content": "Untergebrachte wohnungslose Personen: Bundesländer, Stichtag, Nationalität, Geschlecht, Altersgruppen, Dauer der Unterbringung",
+            "Time": "31.01.2022 - 31.01.2024"
+        },
+        {
+            "Code": "23131-0010",
+            "Content": "Krankenhauspatienten: Bundesländer, Jahre,\nHauptdiagnose ICD-10 (1-3-Steller Hierarchie)",
+            "Time": "2000 - 2023"
+        },
+        {
+            "Code": "23131-0011",
+            "Content": "Krankenhauspatienten: Bundesländer, Jahre, Geschlecht,\nAltersgruppen, Hauptdiagnose ICD-10 (1-3-Steller Hierarchie)",
+            "Time": "2000 - 2023"
+        },
+        {
+            "Code": "23131-0012",
+            "Content": "Krankenhauspatienten: Bundesländer, Jahre, Geschlecht,\nWohnort des Patienten",
+            "Time": "2000 - 2023"
+        },
+        {
+            "Code": "23141-0010",
+            "Content": "Nebendiagnosen der vollstationären Patienten: Bundesländer,\nJahre, Nebendiagnosen ICD-10 (1-3-Steller Hierarchie)",
+            "Time": "2005 - 2023"
+        },
+        {
+            "Code": "23141-0011",
+            "Content": "Nebendiagnosen der vollstationären Patienten: Bundesländer,\nJahre, Geschlecht, Altersgruppen, Nebendiagnosen ICD-10\n(1-3-Steller Hierarchie)",
+            "Time": "2005 - 2023"
+        },
+        {
+            "Code": "23141-0110",
+            "Content": "Operationen und Prozeduren an vollstationären Patienten:\nBundesländer, Jahre, Operationen und Prozeduren\n(1-4-Steller Hierarchie)",
+            "Time": "2005 - 2023"
+        },
+        {
+            "Code": "23141-0111",
+            "Content": "Operationen und Prozeduren an vollstationären Patienten:\nBundesländer, Jahre, Geschlecht, Altersgruppen, Operationen\nund Prozeduren (1-4-Steller Hierarchie)",
+            "Time": "2005 - 2023"
+        },
+        {
+            "Code": "23311-0005",
+            "Content": "Schwangerschaftsabbrüche: Bundesländer, Jahre",
+            "Time": "1996 - 2023"
+        },
+        {
+            "Code": "23311-0006",
+            "Content": "Schwangerschaftsabbrüche: Bundesländer, Jahre,\nFamilienstand/Herkunfts-Bundesland oder Ausland",
+            "Time": "1996 - 2023"
+        },
+        {
+            "Code": "23311-0007",
+            "Content": "Schwangerschaftsabbrüche: Bundesländer, Jahre,\nFamilienstand, Herkunfts-Bundesland oder Ausland",
+            "Time": "1996 - 2023"
+        },
+        {
+            "Code": "23311-0008",
+            "Content": "Schwangerschaftsabbrüche: Bundesländer, Quartale",
+            "Time": "1. Quartal 1996 - 3. Quartal 2024"
+        },
+        {
+            "Code": "23311-0009",
+            "Content": "Schwangerschaftsabbrüche: Bundesländer, Quartale,\nFamilienstand/Herkunfts-Bundesland oder Ausland",
+            "Time": "1. Quartal 1996 - 3. Quartal 2024"
+        },
+        {
+            "Code": "23311-0010",
+            "Content": "Schwangerschaftsabbrüche: Bundesländer, Quartale,\nFamilienstand, Herkunfts-Bundesland oder Ausland",
+            "Time": "1. Quartal 1996 - 3. Quartal 2024"
+        },
+        {
+            "Code": "24111-0001",
+            "Content": "Gerichte: Bundesländer, Stichtag (bis 31.12.2012), Gerichtsart",
+            "Time": "31.12.2000 - 31.12.2012"
+        },
+        {
+            "Code": "24211-0010",
+            "Content": "Von der Staats- und Amtsanwaltschaft erledigte\nErmittlungsverfahren: Bundesländer, Jahre, Sachgebiete",
+            "Time": "2018 - 2023"
+        },
+        {
+            "Code": "24211-0011",
+            "Content": "Von der Staats- und Amtsanwaltschaft erledigte\nErmittlungsverfahren: Bundesländer, Jahre,\nEinleitungsbehörde",
+            "Time": "2018 - 2023"
+        },
+        {
+            "Code": "24211-0012",
+            "Content": "Ermittlungsverfahren: Bundesländer, Jahre, Zuständigkeit,\nStand der Erledigung",
+            "Time": "2018 - 2023"
+        },
+        {
+            "Code": "24221-0010",
+            "Content": "Vor dem Amtsgericht erledigte Strafverfahren: Bundesländer,\nJahre, Sachgebiete",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "24221-0011",
+            "Content": "Strafverfahren vor dem Amtsgericht: Bundesländer, Jahre, Stand der Erledigung",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "24231-0010",
+            "Content": "Vor dem Amtsgericht erledigte Verfahren in Zivilsachen:\nBundesländer, Jahre, Art der Erledigung, Sachgebiete",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "24231-0011",
+            "Content": "Zivilsachen vor dem Amtsgericht: Bundesländer, Jahre, Stand\nder Erledigung",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "24241-0010",
+            "Content": "Vor dem Amtsgericht erledigte Verfahren in Familiensachen:\nBundesländer, Jahre, Art der Erledigung",
+            "Time": "2014 - 2023"
+        },
+        {
+            "Code": "24241-0011",
+            "Content": "Familiensachen vor dem Amtsgericht: Bundesländer, Jahre,\nStand der Erledigung",
+            "Time": "2014 - 2023"
+        },
+        {
+            "Code": "24251-0010",
+            "Content": "Vor dem Verwaltungsgericht erledigte Hauptverfahren:\nBundesländer, Jahre, Art der Erledigung",
+            "Time": "2018 - 2023"
+        },
+        {
+            "Code": "24251-0011",
+            "Content": "Hauptverfahren vor dem Verwaltungsgericht: Bundesländer,\nJahre, Stand der Erledigung",
+            "Time": "2018 - 2023"
+        },
+        {
+            "Code": "24251-0012",
+            "Content": "Eilverfahren vor dem Verwaltungsgericht: Bundesländer,\nJahre, Stand der Erledigung",
+            "Time": "2018 - 2023"
+        },
+        {
+            "Code": "24261-0010",
+            "Content": "Vor dem Finanzgericht erledigte Klagen: Bundesländer, Jahre,\nArt der Erledigung",
+            "Time": "2018 - 2023"
+        },
+        {
+            "Code": "24261-0011",
+            "Content": "Klagen vor dem Finanzgericht: Bundesländer, Jahre, Stand der\nErledigung",
+            "Time": "2018 - 2023"
+        },
+        {
+            "Code": "24271-0010",
+            "Content": "Vor dem Sozialgericht erledigte Klageverfahren:\nBundesländer, Jahre, Art der Erledigung, Sachgebiete",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "24271-0011",
+            "Content": "Klageverfahren vor dem Sozialgericht: Bundesländer, Jahre, Stand der Erledigung",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "24271-0012",
+            "Content": "Eilverfahren vor dem Sozialgericht: Bundesländer, Jahre, Stand der Erledigung",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "24281-0010",
+            "Content": "Vor dem Arbeitsgericht erledigte Urteilsverfahren:\nBundesländer, Jahre, Art der Erledigung",
+            "Time": "2018 - 2023"
+        },
+        {
+            "Code": "24281-0011",
+            "Content": "Urteilsverfahren vor dem Arbeitsgericht: Bundesländer,\nJahre, Stand der Erledigung",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "24281-0012",
+            "Content": "Beschlussverfahren vor dem Arbeitsgericht: Deutschland,\nJahre, Stand der Erledigung",
+            "Time": "2017 - 2023"
+        },
+        {
+            "Code": "24321-0002",
+            "Content": "Strafgefangene und Sicherungsverwahrte: Bundesländer,\nStichtag, Nationalität, Geschlecht, Altersgruppen, Art des\nVollzugs",
+            "Time": "31.03.2017 - 31.03.2024"
+        },
+        {
+            "Code": "24321-0003",
+            "Content": "Justizvollzugsanstalten, Belegungskapazität, Belegung:\nBundesländer, Stichtag",
+            "Time": "31.12.1999 - 30.11.2015"
+        },
+        {
+            "Code": "31111-0100",
+            "Content": "Baugenehmigungen im Hochbau: Bundesländer, Jahre,\nBautätigkeiten, Gebäudeart",
+            "Time": "2008 - 2024"
+        },
+        {
+            "Code": "31111-0101",
+            "Content": "Baugenehmigungen im Hochbau: Bundesländer, Jahre,\nBautätigkeiten, Bauherr",
+            "Time": "2008 - 2024"
+        },
+        {
+            "Code": "31111-0102",
+            "Content": "Baugenehmigungen im Fertigteilbau (Neubau): Bundesländer,\nJahre, Gebäudeart",
+            "Time": "2015 - 2024"
+        },
+        {
+            "Code": "31111-0103",
+            "Content": "Baugenehmigungen im Fertigteilbau (Neubau): Bundesländer,\nJahre, Bauherr",
+            "Time": "2015 - 2024"
+        },
+        {
+            "Code": "31111-0104",
+            "Content": "Baugenehmigungen neuer Gebäude: Bundesländer, Jahre,\nGebäudeart, Energieverwendung, Energieart",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31111-0105",
+            "Content": "Baugenehmigungen neuer Gebäude: Bundesländer, Jahre,\nGebäudeart, Überwiegend verwendeter Baustoff",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31111-0106",
+            "Content": "Baugenehmigungen neuer Gebäude: Bundesländer, Jahre,\nGebäudeart, Art der Beheizung",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31111-0107",
+            "Content": "Baugenehmigungen neuer Gebäude: Bundesländer, Jahre,\nGebäudeart, Geschosszahl",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31111-0108",
+            "Content": "Baugenehmigungen neuer Gebäude: Bundesländer, Jahre,\nGebäudeart, Haustyp",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31111-0109",
+            "Content": "Baugenehmigungen von Wohnungen in neuen Gebäuden:\nBundesländer, Jahre, Gebäudeart, Anzahl der Räume",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31111-0110",
+            "Content": "Baugenehmigungen von Wohnungen in neuen Gebäuden:\nBundesländer, Jahre, Bauherr, Anzahl der Räume",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31111-0120",
+            "Content": "Baugenehmigungen im Hochbau: Bundesländer, Monate,\nBautätigkeiten, Gebäudeart",
+            "Time": "Januar 2003 - Januar 2025"
+        },
+        {
+            "Code": "31111-0121",
+            "Content": "Baugenehmigungen im Hochbau: Bundesländer, Monate,\nBautätigkeiten, Bauherr",
+            "Time": "Januar 2003 - Januar 2025"
+        },
+        {
+            "Code": "31111-0122",
+            "Content": "Baugenehmigungen im Fertigteilbau (Neubau): Bundesländer,\nMonate, Gebäudeart",
+            "Time": "Januar 2003 - Januar 2025"
+        },
+        {
+            "Code": "31121-0100",
+            "Content": "Baufertigstellungen im Hochbau: Bundesländer, Jahre,\nBautätigkeiten, Gebäudeart",
+            "Time": "2008 - 2023"
+        },
+        {
+            "Code": "31121-0101",
+            "Content": "Baufertigstellungen im Hochbau: Bundesländer, Jahre,\nBautätigkeiten, Bauherr",
+            "Time": "2008 - 2023"
+        },
+        {
+            "Code": "31121-0102",
+            "Content": "Baufertigstellungen im Fertigteilbau (Neubau): Bundesländer,\nJahre, Gebäudeart",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31121-0103",
+            "Content": "Baufertigstellungen im Fertigteilbau (Neubau): Bundesländer,\nJahre, Bauherr",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31121-0104",
+            "Content": "Baufertigstellungen neuer Gebäude: Bundesländer, Jahre,\nGebäudeart, Energieverwendung, Energieart",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31121-0105",
+            "Content": "Baufertigstellungen neuer Gebäude: Bundesländer, Jahre,\nGebäudeart, Überwiegend verwendeter Baustoff",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31121-0106",
+            "Content": "Baufertigstellungen neuer Gebäude: Bundesländer, Jahre,\nGebäudeart, Art der Beheizung",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31121-0107",
+            "Content": "Baufertigstellungen neuer Gebäude: Bundesländer, Jahre,\nGebäudeart, Geschosszahl",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31121-0108",
+            "Content": "Baufertigstellungen neuer Gebäude: Bundesländer, Jahre,\nGebäudeart, Haustyp",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31121-0109",
+            "Content": "Baufertigstellungen von Wohnungen in neuen Gebäuden:\nBundesländer, Jahre, Gebäudeart, Anzahl der Räume",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31121-0110",
+            "Content": "Baufertigstellungen von Wohnungen in neuen Gebäuden:\nBundesländer, Jahre, Bauherr, Anzahl der Räume",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31131-0004",
+            "Content": "Bauüberhang an genehmigten Bauvorhaben im Hochbau: Bundesländer, Stichtag",
+            "Time": "31.12.2015 - 31.12.2023"
+        },
+        {
+            "Code": "31131-0005",
+            "Content": "Bauüberhang an genehmigten Bauvorhaben im Hochbau: Bundesländer, Stichtag, Gebäudeart",
+            "Time": "31.12.2015 - 31.12.2023"
+        },
+        {
+            "Code": "31131-0006",
+            "Content": "Bauüberhang an genehmigten Bauvorhaben im Hochbau: Bundesländer, Stichtag, Gebäudeart, Bauherr",
+            "Time": "31.12.2015 - 31.12.2023"
+        },
+        {
+            "Code": "31141-0004",
+            "Content": "Abgang von Gebäuden/Gebäudeteilen im Hochbau: Bundesländer, Jahre",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31141-0005",
+            "Content": "Abgang von Gebäuden/Gebäudeteilen im Hochbau: Bundesländer, Jahre, Gebäudeart",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31141-0006",
+            "Content": "Abgang von Gebäuden/Gebäudeteilen im Hochbau: Bundesländer, Jahre, Gebäudeart, Eigentümer",
+            "Time": "2015 - 2023"
+        },
+        {
+            "Code": "31231-0010",
+            "Content": "Wohnungen in Wohn- und Nichtwohngebäuden, Wohnfläche, Räume:\nBundesländer, Stichtag",
+            "Time": "31.12.2015 - 31.12.2023"
+        },
+        {
+            "Code": "31231-0011",
+            "Content": "Wohnungen in Wohn- und Nichtwohngebäuden, Wohnfläche, Räume:\nBundesländer, Stichtag, Bestandsveränderungen",
+            "Time": "31.12.2015 - 31.12.2023"
+        },
+        {
+            "Code": "31231-0012",
+            "Content": "Wohnungen in Wohn- und Nichtwohngebäuden: Bundesländer,\nStichtag, Anzahl der Räume",
+            "Time": "31.12.1995 - 31.12.2023"
+        },
+        {
+            "Code": "31231-0013",
+            "Content": "Wohnungen in Wohn- und Nichtwohngebäuden: Bundesländer,\nStichtag, Anzahl der Räume, Bestandsveränderungen",
+            "Time": "31.12.2015 - 31.12.2023"
+        },
+        {
+            "Code": "31231-0014",
+            "Content": "Wohngebäude, Wohnungen, Wohnfläche: Bundesländer, Stichtag,\nAnzahl der Wohnungen",
+            "Time": "31.12.1995 - 31.12.2023"
+        },
+        {
+            "Code": "31231-0015",
+            "Content": "Wohngebäude, Wohnungen, Wohnfläche: Bundesländer, Stichtag,\nAnzahl der Wohnungen, Bestandsveränderungen",
+            "Time": "31.12.2015 - 31.12.2023"
+        },
+        {
+            "Code": "31231-0016",
+            "Content": "Wohnungen in Nichtwohngebäuden, Wohnfläche: Bundesländer,\nStichtag, Bestandsveränderungen",
+            "Time": "31.12.2015 - 31.12.2023"
+        },
+        {
+            "Code": "32111-0010",
+            "Content": "Abfallentsorgung: Bundesländer, Jahre",
+            "Time": "2018 - 2022"
+        },
+        {
+            "Code": "32111-0011",
+            "Content": "Abfallentsorgung: Bundesländer, Jahre, Anlagenart",
+            "Time": "2006 - 2022"
+        },
+        {
+            "Code": "32121-0002",
+            "Content": "Aufkommen an Haushaltsabfällen: Bundesländer, Jahre",
+            "Time": "2004 - 2023"
+        },
+        {
+            "Code": "32121-0003",
+            "Content": "Aufkommen an Haushaltsabfällen: Bundesländer, Jahre,\nAbfallarten",
+            "Time": "2004 - 2023"
+        },
+        {
+            "Code": "32131-0003",
+            "Content": "Eingesammelte Transport- und Umverpackungen: Bundesländer,\nJahre, Verbleib der Verpackungen",
+            "Time": "2001 - 2020"
+        },
+        {
+            "Code": "32136-0010",
+            "Content": "Unternehmen, Erfasste Verkaufsverpackungen von privaten\nEndverbrauchern: Bundesländer, Jahre",
+            "Time": "2010 - 2020"
+        },
+        {
+            "Code": "32136-0011",
+            "Content": "Erfasste Verkaufsverpackungen von privaten Endverbrauchern:\nBundesländer, Jahre, Art der Verkaufsverpackungen",
+            "Time": "2010 - 2020"
+        },
+        {
+            "Code": "32137-0010",
+            "Content": "Verkaufs-, Transport- und Umverpackungen, Pfandpflichtige\nEinweggetränkeverpackungen: Bundesländer, Jahre,\nVerwertungsarten, Art des Verpackungsmaterials",
+            "Time": "2022 - 2022"
+        },
+        {
+            "Code": "32137-0011",
+            "Content": "Ausgesonderte Mehrwegverpackungen: Bundesländer, Jahre",
+            "Time": "2022 - 2022"
+        },
+        {
+            "Code": "32141-0004",
+            "Content": "Bauschuttaufbereitungsanlagen, Asphaltmischanlagen:\nBundesländer, Jahre",
+            "Time": "2006 - 2022"
+        },
+        {
+            "Code": "32151-0003",
+            "Content": "Abfallerzeuger, Abfallmengen (gefährliche Abfälle):\nBundesländer, Jahre",
+            "Time": "2006 - 2022"
+        },
+        {
+            "Code": "32151-0005",
+            "Content": "Erzeuger von primär nachgewiesenen Abfallmengen,\nAbgegebene Abfallmenge an Entsorger (gefährliche Abfälle):\nBundesländer, Jahre (bis 2008)",
+            "Time": "2005 - 2008"
+        },
+        {
+            "Code": "32161-0004",
+            "Content": "Betriebe, erzeugte Abfallmenge: Bundesländer, Jahre",
+            "Time": "2010 - 2022"
+        },
+        {
+            "Code": "32211-0001",
+            "Content": "Wassergewinnung, Einwohner mit Anschluss an die öffentliche\nWasserversorgung, Wasserabgabe: Bundesländer, Jahre",
+            "Time": "2007 - 2022"
+        },
+        {
+            "Code": "32211-0002",
+            "Content": "Wassergewinnung: Bundesländer, Jahre, Wasserarten",
+            "Time": "2007 - 2022"
+        },
+        {
+            "Code": "32212-0001",
+            "Content": "An öffentliche Kanalisation angeschlossene Einwohner,\nSchmutzwasser: Bundesländer, Jahre, Art der\nAbwasserentsorgung",
+            "Time": "2013 - 2019"
+        },
+        {
+            "Code": "32213-0001",
+            "Content": "Länge des Kanalnetzes, Abwasserbehandlungsanlagen,\nAngeschlossene Einwohnerwerte, Jahresabwassermenge,\nSchmutzwasser: Bundesländer, Jahre",
+            "Time": "2007 - 2022"
+        },
+        {
+            "Code": "32213-0002",
+            "Content": "Abwasserbehandlungsanlagen, Angeschlossene Einwohnerwerte,\nJahresabwassermenge, Schmutzwasser: Bundesländer, Jahre,\nArt der Abwasserbehandlung",
+            "Time": "2007 - 2022"
+        },
+        {
+            "Code": "32214-0001",
+            "Content": "Trockenmasse des aus Abwasserbehandlungsanlagen direkt\nentsorgten Klärschlamms: Bundesländer, Jahre,\nEntsorgungsarten des Klärschlamms",
+            "Time": "2006 - 2023"
+        },
+        {
+            "Code": "32221-0001",
+            "Content": "Wasseraufkommen, Betriebe mit Wasseraufkommen: Bundesländer,\nJahre (bis 2019), Wassergewinnung und -bezug",
+            "Time": "2007 - 2019"
+        },
+        {
+            "Code": "32221-0002",
+            "Content": "Wasseraufkommen: Bundesländer, Jahre (bis 2019),\nEigengewinnung und Fremdbezug",
+            "Time": "2007 - 2019"
+        },
+        {
+            "Code": "32221-0003",
+            "Content": "Wasseraufkommen: Bundesländer, Jahre, Verwendungsarten",
+            "Time": "2007 - 2022"
+        },
+        {
+            "Code": "32221-0004",
+            "Content": "Frischwassereinsatz: Bundesländer, Jahre, Wassernutzung",
+            "Time": "2007 - 2022"
+        },
+        {
+            "Code": "32221-0005",
+            "Content": "Unbehandeltes Abwasser: Bundesländer, Jahre (bis 2019),\nAbwassereinleitungsarten",
+            "Time": "2007 - 2019"
+        },
+        {
+            "Code": "32251-0001",
+            "Content": "Einwohner mit Anschluss an die öffentliche Kanalisation,\nEinwohner mit Anschluss an zentrale\nAbwasserbehandlungsanlagen: Bundesländer, Jahre",
+            "Time": "2007 - 2022"
+        },
+        {
+            "Code": "32331-0020",
+            "Content": "Geprüfte Anlagen zum Umgang mit wassergefährdenden Stoffen:\nBundesländer, Jahre, Art der Prüfung",
+            "Time": "2018 - 2023"
+        },
+        {
+            "Code": "32331-0021",
+            "Content": "Geprüfte Anlagen zum Umgang mit wassergefährdenden Stoffen:\nBundesländer, Jahre, Standort",
+            "Time": "2018 - 2023"
+        },
+        {
+            "Code": "32331-0022",
+            "Content": "Geprüfte Anlagen zum Umgang mit wassergefährdenden Stoffen:\nBundesländer, Jahre, Ergebnis der Prüfung",
+            "Time": "2018 - 2023"
+        },
+        {
+            "Code": "32421-0010",
+            "Content": "Verwendung, Einfuhr und Ausfuhr klimawirksamer Stoffe:\nBundesländer, Jahre, Stoffgruppen",
+            "Time": "2022 - 2023"
+        },
+        {
+            "Code": "32421-0011",
+            "Content": "Verwendung, Einfuhr und Ausfuhr klimawirksamer Stoffe: Bundesländer, Jahre, Wirtschaftszweig des Unternehmens, Stoffgruppen",
+            "Time": "2022 - 2023"
+        },
+        {
+            "Code": "32421-0012",
+            "Content": "Verwendung klimawirksamer Stoffe: Bundesländer, Jahre,\nStoffgruppen, Einsatzbereiche",
+            "Time": "2022 - 2023"
+        },
+        {
+            "Code": "32421-0013",
+            "Content": "Verwendung klimawirksamer Stoffe: Bundesländer, Jahre,\nWirtschaftszweig des Unternehmens, Einsatzbereiche",
+            "Time": "2022 - 2023"
+        },
+        {
+            "Code": "32531-0010",
+            "Content": "Einheiten, Beschäftigte, Umsatz im Bereich Umweltschutz:\nBundesländer, Jahre",
+            "Time": "2006 - 2022"
+        },
+        {
+            "Code": "32531-0011",
+            "Content": "Umweltschutzbezogener Umsatz: Bundesländer, Jahre (bis\n2010), Umsatzarten",
+            "Time": "2006 - 2010"
+        },
+        {
+            "Code": "32531-0012",
+            "Content": "Umweltschutzbezogener Umsatz: Bundesländer, Jahre,\nUmweltbereiche",
+            "Time": "2022 - 2022"
+        },
+        {
+            "Code": "33111-0002",
+            "Content": "Bodenfläche (tatsächliche Nutzung): Bundesländer, Stichtag (bis 31.12.2015), Nutzungsarten (AdV-Nutzungsartenverzeichnis 1991)",
+            "Time": "31.12.1992 - 31.12.2015"
+        },
+        {
+            "Code": "33111-0004",
+            "Content": "Siedlungs- und Verkehrsfläche: Bundesländer, Stichtag\n(bis 31.12.2015), Nutzungsarten\n(AdV-Nutzungsartenverzeichnis 1991)",
+            "Time": "31.12.1992 - 31.12.2015"
+        },
+        {
+            "Code": "33111-0006",
+            "Content": "Bodenfläche (tatsächliche Nutzung): Bundesländer, Stichtag (bis 31.12.2022), Nutzungsarten (AdV-Nutzungsartenkatalog 2009)",
+            "Time": "31.12.2016 - 31.12.2022"
+        },
+        {
+            "Code": "33111-0008",
+            "Content": "Bodenfläche: Bundesländer, Stichtag, Nutzungsarten\n(tatsächliche Nutzung) (AdV-TN 2023)",
+            "Time": "31.12.2023 - 31.12.2023"
+        },
+        {
+            "Code": "41122-0005",
+            "Content": "Landwirtschaftliche Betriebe, Landwirtsch. genutzte Fläche\n(Rep. ASE): Bundesländer, Jahre (bis 2007), Rechtsform,\nGrößenklassen der landwirtschaftlich genutzten Fläche",
+            "Time": "1979 - 2007"
+        },
+        {
+            "Code": "41122-0006",
+            "Content": "Arbeitskräfte (Rep. ASE): Bundesländer, Jahre (bis 2007),\nArbeitskräftegruppen, Geschlecht, Rechtsform, Größenklassen\nder landwirtschaftlich genutzten Fläche",
+            "Time": "1979 - 2007"
+        },
+        {
+            "Code": "41122-0007",
+            "Content": "Betriebliche Arbeitsleistung (Rep. ASE): Bundesländer,\nJahre (bis 2007), Arbeitskräftegruppen, Rechtsform,\nGrößenklassen der landwirtschaftlich genutzten Fläche",
+            "Time": "1979 - 2007"
+        },
+        {
+            "Code": "41122-0008",
+            "Content": "Betriebliche Arbeitsleistung (Rep. ASE): Bundesländer,\nJahre (bis 1995), Arbeitskräftegruppen, Geschlecht,\nRechtsform, Größenklassen der landwirtsch. genutzten Fläche",
+            "Time": "1979 - 1995"
+        },
+        {
+            "Code": "41141-0101",
+            "Content": "Landwirtschaftliche Betriebe, Fläche: Bundesländer, Jahre,\nBodennutzungsarten",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "41141-0102",
+            "Content": "Landwirtschaftliche Betriebe, Fläche: Bundesländer, Jahre,\nBodennutzungsarten, Größenklassen der landwirtschaftlich\ngenutzten Fläche",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "41141-0103",
+            "Content": "Landwirtschaftliche Betriebe mit Ackerland, Fläche:\nBundesländer, Jahre, Ackerkulturen, Größenklassen des\nAckerlandes",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "41141-0104",
+            "Content": "Landwirtschaftliche Betriebe mit Viehhaltung, Viehbestand:\nBundesländer, Stichtag, Tierarten",
+            "Time": "01.03.2010 - 01.03.2023"
+        },
+        {
+            "Code": "41141-0105",
+            "Content": "Landwirtschaftliche Betriebe mit ökologischem Landbau,\nLandwirtschaftlich genutzte Fläche: Bundesländer, Jahre,\nGrößenklassen der landwirtschaftlich genutzten Fläche",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "41141-0106",
+            "Content": "Landwirtschaftliche Betriebe mit ökologischem Landbau,\nLandwirtschaftlich genutzte Fläche (LF): Bundesländer,\nJahre, Betriebswirtschaftliche Ausrichtung",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "41141-0107",
+            "Content": "Landwirtschaftliche Betriebe mit ökologischem Landbau,\nFläche, Ökologisch bewirtschaftete Fläche: Bundesländer,\nJahre, Bodennutzungsarten",
+            "Time": "2020 - 2023"
+        },
+        {
+            "Code": "41141-0108",
+            "Content": "Landwirtschaftliche Betriebe mit ökologischem Landbau,\nTiere in Betrieben mit ökologischem Landbau, Tiere in\nökologischer Haltung: Bundesländer, Stichtag, Tierarten",
+            "Time": "01.03.2010 - 01.03.2023"
+        },
+        {
+            "Code": "41141-0109",
+            "Content": "Landwirtschaftliche Betriebe, Landwirtsch. genutzte Fläche,\nFläche im jew. Eigentumsverhältnis: Bundesländer, Jahre,\nEigentumsverhältnisse, Rechtsformen, Größenklassen der LF",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "41141-0110",
+            "Content": "Landwirtschaftliche Betriebe mit gepachteten Flächen, Pachtentgelt: Bundesländer, Jahre, Bodennutzungsarten, Rechtsformen, Größenklassen der landw. genutzten Fläche",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "41141-0111",
+            "Content": "Landwirtschaftliche Betriebe, Fläche: Bundesländer, Jahre,\nBodennutzungsarten, Rechtsformen, Größenklassen der\nlandwirtschaftlich genutzten Fläche",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "41141-0112",
+            "Content": "Landwirtschaftliche Betriebe, Tiere: Bundesländer, Stichtag,\nTierarten, Rechtsformen, Größenklassen der\nlandwirtschaftlich genutzten Fläche",
+            "Time": "01.03.2010 - 01.03.2023"
+        },
+        {
+            "Code": "41141-0113",
+            "Content": "Landwirtschaftliche Betriebe, Landwirtschaftlich genutzte\nFläche, Arbeitskräfte, Arbeitsleistung: Bundesländer, Jahre,\nRechtsformen, Größenklassen der landwirt. genutzten Fläche",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "41141-0114",
+            "Content": "Landwirtschaftliche Betriebe: Bundesländer, Jahre,\nGrößenklassen des Standardoutputs, Rechtsformen,\nBetriebswirtschaftliche Ausrichtung",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "41141-0115",
+            "Content": "Landwirtschaftliche Betriebe mit Bewässerung, Bewässerte\nFläche: Bundesländer, Jahre, Größenklassen der\nlandwirtschaftlich genutzten Fläche",
+            "Time": "2010 - 2023"
+        },
+        {
+            "Code": "41141-0116",
+            "Content": "Landwirtschaftliche Betriebe mit Dauerkulturen,\nDauerkulturfläche: Bundesländer, Jahre, Dauerkulturarten,\nGrößenklassen der Dauerkulturen",
+            "Time": "2020 - 2023"
+        },
+        {
+            "Code": "41141-0117",
+            "Content": "Landwirtschaftliche Betriebe mit Dauergrünland, Dauergrünlandfläche: Bundesländer, Jahre, Dauergrünlandarten, Größenklassen der Dauergrünlandfläche",
+            "Time": "2020 - 2023"
+        },
+        {
+            "Code": "41141-0118",
+            "Content": "Landwirtschaftliche Betriebe mit Viehhaltung, Viehbestand,\nLandwirtschaftlich genutzte Fläche: Bundesländer, Stichtag,\nTierarten, Bestandsgrößenklassen",
+            "Time": "01.03.2020 - 01.03.2023"
+        },
+        {
+            "Code": "41141-0119",
+            "Content": "Landwirtschaftliche Betriebe mit ökologischem Landbau, LF:\nBundesländer, Jahre, Umfang der ökologischen\nBewirtschaftung, Größenklassen der LF",
+            "Time": "2020 - 2023"
+        },
+        {
+            "Code": "41141-0120",
+            "Content": "Landwirtschaftliche Betriebe mit ökologischem Landbau, LF:\nBundesländer, Jahre, Umfang der ökologischen\nBewirtschaftung, Betriebswirtschaftliche Ausrichtung",
+            "Time": "2020 - 2023"
+        },
+        {
+            "Code": "41141-0121",
+            "Content": "Landwirtschaftliche Betriebe mit ökologischer Viehhaltung:\nBundesländer, Stichtag, Größenklassen der LF",
+            "Time": "01.03.2020 - 01.03.2023"
+        },
+        {
+            "Code": "41141-0122",
+            "Content": "Landwirtschaftliche Betriebe mit ökologischer Viehhaltung:\nBundesländer, Stichtag, Betriebswirtschaftliche Ausrichtung",
+            "Time": "01.03.2020 - 01.03.2023"
+        },
+        {
+            "Code": "41141-0123",
+            "Content": "Landwirtschaftliche Betriebe mit ökologischem Landbau und\nPacht, Gepachtete LF, Pachtentgelt: Bundesländer, Jahre,\nGrößenklassen der LF",
+            "Time": "2020 - 2023"
+        },
+        {
+            "Code": "41141-0124",
+            "Content": "Landwirtschaftliche Betriebe mit ökologischem Landbau und\nPacht, Gepachtete LF, Pachtentgelt: Bundesländer, Jahre,\nBetriebswirtschaftliche Ausrichtung",
+            "Time": "2020 - 2023"
+        },
+        {
+            "Code": "41141-0125",
+            "Content": "Landwirtschaftliche Betriebe mit ökologischem Landbau, LF,\nArbeitskräfte, Arbeitsleistung: Bundesländer, Jahre,\nRechtsformen, Größenklassen der LF",
+            "Time": "2020 - 2023"
+        },
+        {
+            "Code": "41141-0126",
+            "Content": "Landw. Betriebe mit Angabe des Jahrespachtentgeltes,\nGepachtete LF: Bundesländer, Jahre, Bodennutzungsarten,\nRechtsformen, Größenklassen des durch. Jahrespachtentgeltes",
+            "Time": "2020 - 2023"
+        },
+        {
+            "Code": "41141-0127",
+            "Content": "Arbeitskräfte: Bundesländer, Jahre, Geschlecht,\nAltersgruppen, Rechtsformen, Art der Arbeitskräfte,\nBeschäftigungsumfang",
+            "Time": "2020 - 2023"
+        },
+        {
+            "Code": "41145-0011",
+            "Content": "Betriebe, Nutzfläche (Gartenbau): Bundesländer, Jahre,\nBetriebsarten, Größenklassen der gärtnerischen Nutzfläche",
+            "Time": "2005 - 2005"
+        },
+        {
+            "Code": "41145-0012",
+            "Content": "Gartenbaubetriebe, Nutzfläche: Bundesländer, Jahre,\nBetrieblicher Schwerpunkt der Gartenbaubetriebe,\nGrößenklassen der gärtnerischen Nutzfläche",
+            "Time": "2005 - 2005"
+        },
+        {
+            "Code": "41145-0013",
+            "Content": "Gartenbaubetriebe mit Schwerpunkt Erzeugung, Nutzfläche:\nBundesländer, Jahre, Betriebstypen, Größenklassen der\ngärtnerischen Nutzfläche",
+            "Time": "2005 - 2005"
+        },
+        {
+            "Code": "41145-0014",
+            "Content": "Gartenbaubetriebe mit Schwerpunkt Handel u.Dienstleistungen:\nBundesländer, Jahre, Betriebstypen, Größenklassen der\ngärtnerischen Nutzfläche",
+            "Time": "2005 - 2005"
+        },
+        {
+            "Code": "41145-0015",
+            "Content": "Arbeitskräfte in Gartenbaubetrieben: Bundesländer, Jahre,\nBetriebl. Schwerpunkt der Gartenbaubetriebe, Beschäftigungs-\numfang, Größenklassen der gärtnerischen Nutzfläche",
+            "Time": "2005 - 2005"
+        },
+        {
+            "Code": "41145-0016",
+            "Content": "Familienarbeitskräfte, Betriebliche Arbeitsleistung in\nGartenbaubetrieben:Bundesländer, Jahre, Betriebl.Schwerpunkt\nder Gartenbaubetriebe, Größenklassen der gärtn. Nutzfläche",
+            "Time": "2005 - 2005"
+        },
+        {
+            "Code": "41145-0017",
+            "Content": "Arbeitskräfte in Gartenbaubetrieben mit Schwerpunkt\nErzeugung: Bundesländer, Jahre, Betriebstypen, Größenklassen\nder gärtnerischen Nutzfläche",
+            "Time": "2005 - 2005"
+        },
+        {
+            "Code": "41145-0018",
+            "Content": "Betriebe mit Anbau von Gartenbauerzeugnissen, Anbauflächen:\nBundesländer, Jahre, Größenklassen der gärtnerischen\nNutzfläche",
+            "Time": "2005 - 2005"
+        },
+        {
+            "Code": "41145-0019",
+            "Content": "Betriebe mit Anbau v.Gartenbauerzeugnissen und Flächen unter\nGlas und/oder abgedeckten Freilandflächen: Bundesländer,\nJahre, Größenklassen der gärtnerischen Nutzfläche",
+            "Time": "2005 - 2005"
+        },
+        {
+            "Code": "41145-0020",
+            "Content": "Betriebe (Einzelunternehmen) mit Anbau von Gartenbau-\nerzeugnissen: Bundesländer, Jahre, Betriebsform,\nGrößenklassen der gärtnerischen Nutzfläche",
+            "Time": "2005 - 2005"
+        },
+        {
+            "Code": "41161-0010",
+            "Content": "Waldfläche: Bundesländer, Jahre, Waldeigentumsarten",
+            "Time": "2022 - 2022"
+        },
+        {
+            "Code": "41161-0011",
+            "Content": "Forsteinheiten, Waldfläche: Bundesländer, Jahre,\nWaldeigentumsarten, Größenklassen der Waldfläche",
+            "Time": "2022 - 2022"
+        },
+        {
+            "Code": "41213-0008",
+            "Content": "Betriebe mit Grundflächen des Zierpflanzenanbaus:\nBundesländer, Jahre, Anbauform, Verwendungszweck",
+            "Time": "2008 - 2021"
+        },
+        {
+            "Code": "41213-0009",
+            "Content": "Betriebe mit Erzeugung von Zimmerpflanzen: Bundesländer,\nJahre, Verwendungszweck, Pflanzenarten",
+            "Time": "2008 - 2021"
+        },
+        {
+            "Code": "41213-0010",
+            "Content": "Betriebe mit Erzeugung von Beet- und Balkonpflanzen und\nStauden: Bundesländer, Jahre, Verwendungszweck,\nPflanzenarten",
+            "Time": "2008 - 2021"
+        },
+        {
+            "Code": "41213-0011",
+            "Content": "Betriebe mit Anbauflächen von Schnittblumen: Bundesländer,\nJahre, Anbauform, Pflanzenarten",
+            "Time": "2008 - 2021"
+        },
+        {
+            "Code": "41215-0010",
+            "Content": "Betriebe mit Gemüseanbau, Anbaufläche, Erntemenge:\nBundesländer, Jahre",
+            "Time": "2010 - 2024"
+        },
+        {
+            "Code": "41215-0011",
+            "Content": "Betriebe mit Gemüseanbau im Freiland, Anbaufläche, Erntemenge: Bundesländer, Jahre, Gemüsearten",
+            "Time": "2010 - 2024"
+        },
+        {
+            "Code": "41215-0012",
+            "Content": "Betriebe mit Gemüseanbau unter Schutzabdeckungen, Anbaufläche, Erntemenge: Bundesländer, Jahre, Gemüsearten",
+            "Time": "2010 - 2024"
+        },
+        {
+            "Code": "41215-0013",
+            "Content": "Betriebe mit Gemüseanbau (vollständig ökologisch), Anbaufläche, Erntemenge: Bundesländer, Jahre",
+            "Time": "2023 - 2024"
+        },
+        {
+            "Code": "41215-0014",
+            "Content": "Betriebe mit Erdbeeranbau, Anbaufläche, Erntemenge:\nBundesländer, Jahre, Anbauform",
+            "Time": "2006 - 2024"
+        },
+        {
+            "Code": "41215-0015",
+            "Content": "Betriebe mit Erdbeeranbau (vollständig ökologisch), Anbaufläche, Erntemenge: Bundesländer, Jahre, Anbauform",
+            "Time": "2012 - 2024"
+        },
+        {
+            "Code": "41221-0010",
+            "Content": "Betriebe mit Baumschulen, Baumschulfläche: Bundesländer,\nJahre, Art der Anbaufläche, Nutzungsarten",
+            "Time": "2017 - 2021"
+        },
+        {
+            "Code": "41231-0010",
+            "Content": "Betriebe mit Baumobstflächen: Bundesländer, Jahre, Baumobstarten",
+            "Time": "1972 - 2022"
+        },
+        {
+            "Code": "41231-0011",
+            "Content": "Betriebe mit Baumobstflächen, Anbaufläche: Bundesländer,\nJahre, Tafel-Kernobstarten, Pflanzdichteklassen",
+            "Time": "2022 - 2022"
+        },
+        {
+            "Code": "41231-0012",
+            "Content": "Betriebe mit Baumobstflächen, Anbaufläche: Bundesländer,\nJahre, Verwertungs-Kernobstarten, Pflanzdichteklassen",
+            "Time": "2022 - 2022"
+        },
+        {
+            "Code": "41231-0013",
+            "Content": "Betriebe mit Baumobstflächen, Anbaufläche: Bundesländer,\nJahre, Kernobstarten, Alter der Bäume",
+            "Time": "2022 - 2022"
+        },
+        {
+            "Code": "41231-0014",
+            "Content": "Anbaufläche, Bäume (Baumobstanbau): Bundesländer, Jahre,\nBaumobstarten",
+            "Time": "1972 - 2022"
+        },
+        {
+            "Code": "41232-0010",
+            "Content": "Betriebe mit Strauchbeerenanbau, Anbaufläche, Erntemenge:\nBundesländer, Jahre",
+            "Time": "2012 - 2024"
+        },
+        {
+            "Code": "41232-0011",
+            "Content": "Betriebe mit Strauchbeerenanbau, Anbaufläche, Erntemenge:\nBundesländer, Jahre, Anbauform, Strauchbeerenart",
+            "Time": "2012 - 2024"
+        },
+        {
+            "Code": "41232-0012",
+            "Content": "Erntemenge (Strauchbeeren): Bundesländer, Jahre, Art der\nVerwendung",
+            "Time": "2012 - 2024"
+        },
+        {
+            "Code": "41232-0013",
+            "Content": "Betriebe mit ökologischem Strauchbeerenanbau, Ökologische Anbaufläche, Ökologisch erzeugte Erntemenge: Bundesländer, Jahre",
+            "Time": "2012 - 2024"
+        },
+        {
+            "Code": "41232-0014",
+            "Content": "Betriebe mit ökologischem Strauchbeerenanbau, Ökologische\nAnbaufläche, Ökologisch erzeugte Erntemenge: Bundesländer,\nJahre, Anbauform, Strauchbeerenart",
+            "Time": "2012 - 2024"
+        },
+        {
+            "Code": "41241-0010",
+            "Content": "Anbaufläche, Erntemenge, Ertrag je Hektar (Feldfrüchte und\nGrünland): Bundesländer, Jahre, Fruchtarten",
+            "Time": "2010 - 2024"
+        },
+        {
+            "Code": "41241-0011",
+            "Content": "Erntemenge von Raufutter: Bundesländer, Jahre, Fruchtarten,\nVerwendungszweck",
+            "Time": "2010 - 2024"
+        },
+        {
+            "Code": "41243-0010",
+            "Content": "Anbaufläche, Erntemenge (Baumobst): Bundesländer, Jahre,\nBaumobstarten",
+            "Time": "2005 - 2024"
+        },
+        {
+            "Code": "41243-0011",
+            "Content": "Erntemenge (Baumobst): Bundesländer, Jahre, Baumobstarten,\nArt der Verwendung",
+            "Time": "2007 - 2024"
+        },
+        {
+            "Code": "41243-0012",
+            "Content": "Anbaufläche, Erntemenge (Baumobst): Bundesländer, Jahre,\nApfelsorten",
+            "Time": "2007 - 2024"
+        },
+        {
+            "Code": "41244-0010",
+            "Content": "Rebfläche im Ertrag, Weinmostertrag je Hektar, Erntemenge an Weinmost: Bundesländer, Jahre, Art des Weinmosts",
+            "Time": "2019 - 2024"
+        },
+        {
+            "Code": "41244-0011",
+            "Content": "Rebfläche im Ertrag, Weinmostertrag je Hektar, Erntemenge an Weinmost: Bundesländer, Jahre, Rebsorte",
+            "Time": "2019 - 2024"
+        },
+        {
+            "Code": "41244-0012",
+            "Content": "Erntemenge an Weinmost, Durchschnittliches Mostgewicht:\nBundesländer, Jahre, Art des Weinmosts, Mostqualität",
+            "Time": "2019 - 2024"
+        },
+        {
+            "Code": "41244-0013",
+            "Content": "Erntemenge an Weinmost, Durchschnittliches Mostgewicht:\nBundesländer, Jahre, Rebsorte, Mostqualität",
+            "Time": "2019 - 2024"
+        },
+        {
+            "Code": "41252-0010",
+            "Content": "Mit Keltertrauben bestockte Rebfläche: Bundesländer, Jahre,\nRebsorte",
+            "Time": "1991 - 2024"
+        },
+        {
+            "Code": "41253-0010",
+            "Content": "Erntemenge an Weinmost, Weinmostertrag je Hektar, Rebfläche\nim Ertrag: Bundesländer, Jahre, Art des Weinmosts",
+            "Time": "1991 - 2024"
+        },
+        {
+            "Code": "41253-0011",
+            "Content": "Erntemenge an Weinmost, Weinmostertrag je Hektar, Rebfläche\nim Ertrag: Bundesländer, Jahre, Rebsorte",
+            "Time": "2022 - 2024"
+        },
+        {
+            "Code": "41253-0012",
+            "Content": "Erntemenge an Weinmost: Bundesländer, Jahre, Mostqualität,\nArt des Weinmosts",
+            "Time": "2022 - 2024"
+        },
+        {
+            "Code": "41253-0013",
+            "Content": "Erntemenge an Weinmost: Bundesländer, Jahre, Mostqualität,\nRebsorte",
+            "Time": "2022 - 2024"
+        },
+        {
+            "Code": "41254-0003",
+            "Content": "Erzeugter Wein: Bundesländer, Jahre, Rebsorte,\nWeinkategorien",
+            "Time": "2010 - 2024"
+        },
+        {
+            "Code": "41255-0010",
+            "Content": "Weinbestand: Bundesländer, Jahre, Rebsorte",
+            "Time": "1991 - 2024"
+        },
+        {
+            "Code": "41255-0011",
+            "Content": "Weinbestand: Bundesländer, Jahre, Rebsorte, Bestandsort,\nHerkunft des Weins",
+            "Time": "2021 - 2024"
+        },
+        {
+            "Code": "41255-0012",
+            "Content": "Weinbestand: Bundesländer, Jahre, Rebsorte, Bestandsort,\nKategorien des Bezeichnungsschutzes",
+            "Time": "2021 - 2024"
+        },
+        {
+            "Code": "41255-0013",
+            "Content": "Bestand an Schaumwein: Bundesländer, Jahre, Bestandsort, Herkunft des Weins",
+            "Time": "2021 - 2024"
+        },
+        {
+            "Code": "41255-0014",
+            "Content": "Bestand an Traubenmost: Bundesländer, Jahre, Bestandsort,\nRebsorte",
+            "Time": "2023 - 2024"
+        },
+        {
+            "Code": "41261-0010",
+            "Content": "Holzeinschlag: Bundesländer, Jahre, Holzartengruppen",
+            "Time": "1998 - 2023"
+        },
+        {
+            "Code": "41261-0011",
+            "Content": "Holzeinschlag: Bundesländer, Jahre, Holzsorten, Holzartengruppen, Waldeigentumsarten",
+            "Time": "2006 - 2023"
+        },
+        {
+            "Code": "41261-0012",
+            "Content": "Schadholzeinschlag: Bundesländer, Jahre, Einschlagsursache,\nHolzartengruppen, Waldeigentumsarten",
+            "Time": "2006 - 2023"
+        }
+    ],
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2025"
+}

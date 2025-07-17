@@ -9,8 +9,8 @@ with_mock_dir("table1", {
     skip_on_cran()
     skip_on_ci()
 
-    result <- gen_table("61111-0001",
-                        startyear = 2019,
+    result <- gen_table(name = "61111-0001",
+                        startyear = 2023,
                         database = "genesis")
 
     expect_s3_class(result,

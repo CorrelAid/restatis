@@ -1,0 +1,24 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "values2variable"
+    },
+    "Status": {
+        "Code": 103,
+        "Content": "No objects found. (At least one parameter contains invalid values. It was changed to perform the service.: sortcriterion)",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "name": "61111",
+        "selection": "",
+        "area": "all",
+        "searchcriterion": "code",
+        "sortcriterion": "code",
+        "pagelength": "500",
+        "language": "en"
+    },
+    "List": null,
+    "Copyright": "© Federal Statistical Office, Wiesbaden 2025"
+}

@@ -1,0 +1,933 @@
+{
+    "Ident": {
+        "Service": "find",
+        "Method": "find"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "term": "forst",
+        "category": "Alle",
+        "pagelength": "500",
+        "language": "de"
+    },
+    "Cubes": [
+        {
+            "Code": "12211BJ263",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Berufsbereiche (KB2010), 1-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020-2023",
+            "LatestUpdate": "11.07.2024 14:20:10h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211BJ264",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Geschlecht, Berufsbereiche (KB2010), 1-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020-2023",
+            "LatestUpdate": "11.07.2024 14:20:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211BJ265",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Stellung im Beruf, Berufsbereiche (KB2010), 1-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020-2023",
+            "LatestUpdate": "11.07.2024 14:20:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211BJ266",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Geschlecht, Stellung im Beruf, Berufsbereiche (KB2010), 1-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020-2023",
+            "LatestUpdate": "11.07.2024 14:21:07h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ263",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Berufsbereiche (KB2010), 1-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ264",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Berufsbereiche (KB2010), 1-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ265",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Berufsbereiche (KB2010), 1-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:09h",
+            "Information": "false"
+        },
+        {
+            "Code": "12211LJ266",
+            "Content": "Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Berufsbereiche (KB2010), 1-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2021-2023",
+            "LatestUpdate": "02.09.2024 13:46:09h",
+            "Information": "false"
+        },
+        {
+            "Code": "21331BS002",
+            "Content": "Statistik der Gasthörer, Gasthörer, Deutschland insgesamt, Fächergruppen, Semester",
+            "State": "vollständig mit Werten",
+            "Time": "WS 1994/95-WS 2023/24",
+            "LatestUpdate": "05.06.2024 08:00:23h",
+            "Information": "false"
+        },
+        {
+            "Code": "21341BJ002",
+            "Content": "Statistik des Hochschulpersonals, Hauptberufl. wissenschaftl. u. künstler. Personal, Deutschland insgesamt, Geschlecht, Lehr- und Forschungsbereiche, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1997-2023",
+            "LatestUpdate": "13.09.2024 08:01:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "21341BJ003",
+            "Content": "Statistik des Hochschulpersonals, Professoren, Deutschland insgesamt, Geschlecht, Fächergruppen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1997-2023",
+            "LatestUpdate": "13.09.2024 08:01:57h",
+            "Information": "false"
+        },
+        {
+            "Code": "21351BJ001",
+            "Content": "Statistik der Habilitationen, Habilitationen, Deutschland insgesamt, Fächergruppen, Geschlecht, Nationalität, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1992-2023",
+            "LatestUpdate": "02.07.2024 08:00:09h",
+            "Information": "false"
+        },
+        {
+            "Code": "21351BJ003",
+            "Content": "Statistik der Habilitationen, Durchschnittsalter der habilitierten Personen, Deutschland insgesamt, Fächergruppen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1992-2023",
+            "LatestUpdate": "02.07.2024 08:00:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "21351BJ005",
+            "Content": "Statistik der Habilitationen, Durchschnittsalter der habilitierten Personen, Deutschland insgesamt, Fächergruppen, Geschlecht, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1992-2023",
+            "LatestUpdate": "02.07.2024 08:00:03h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352BJ011",
+            "Content": "Statistik der Promovierenden, Promovierende, Deutschland insgesamt, Fächergruppen, Altersgruppen (u24-40m, unbekannt), Stichtag",
+            "State": "vollständig mit Werten",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:02:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352BJ012",
+            "Content": "Statistik der Promovierenden, Promovierende, Deutschland insgesamt, Geschlecht, Fächergruppen, Altersgruppen (u24-40m, unbekannt), Stichtag",
+            "State": "vollständig mit Werten",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:01:59h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352BJ013",
+            "Content": "Statistik der Promovierenden, Promovierende, Durchschnittsalter der Promovierenden, Deutschland insgesamt, Fächergruppen, Stichtag",
+            "State": "vollständig mit Werten",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:02:52h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352BJ014",
+            "Content": "Statistik der Promovierenden, Promovierende, Durchschnittsalter der Promovierenden, Deutschland insgesamt, Geschlecht, Fächergruppen, Stichtag",
+            "State": "vollständig mit Werten",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:02:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352BJ015",
+            "Content": "Statistik der Promovierenden, Promovierende, Deutschland insgesamt, Nationalität, Fächergruppen, Stichtag",
+            "State": "vollständig mit Werten",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:02:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "21352BJ016",
+            "Content": "Statistik der Promovierenden, Promovierende, Deutschland insgesamt, Geschlecht, Nationalität, Fächergruppen, Stichtag",
+            "State": "vollständig mit Werten",
+            "Time": "01.12.2019-01.12.2023",
+            "LatestUpdate": "16.08.2024 08:01:20h",
+            "Information": "false"
+        },
+        {
+            "Code": "21371BJ003",
+            "Content": "Hochschulfinanzstatistik, Ausgaben der Hochschulen, Deutschland insgesamt, Fächergruppen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2006-2022",
+            "LatestUpdate": "19.03.2024 08:00:47h",
+            "Information": "false"
+        },
+        {
+            "Code": "21371BJ004",
+            "Content": "Hochschulfinanzstatistik, Ausgaben der Hochschulen, Deutschland insgesamt, Hochschulart, Fächergruppen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2006-2022",
+            "LatestUpdate": "19.03.2024 08:00:44h",
+            "Information": "false"
+        },
+        {
+            "Code": "21371LJ003",
+            "Content": "Hochschulfinanzstatistik, Ausgaben der Hochschulen, Bundesländer, Fächergruppen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2006-2022",
+            "LatestUpdate": "19.03.2024 08:00:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "21371LJ004",
+            "Content": "Hochschulfinanzstatistik, Ausgaben der Hochschulen, Bundesländer, Hochschulart, Fächergruppen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2006-2022",
+            "LatestUpdate": "19.03.2024 08:00:54h",
+            "Information": "false"
+        },
+        {
+            "Code": "21381BJ102",
+            "Content": "Hochschulstatistische Kennzahlen, Laufende Ausgaben der Hochschulen je Studierenden, Laufende Ausgaben d. Hochschulen je Wiss. Personal, Laufende Ausgaben der Hochschulen je Professor, Drittmittel der Hochschulen je Wiss. Personal, Drittmittel der Hochschulen je Professor, Deutschland insgesamt, Fächergruppen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2011-2022",
+            "LatestUpdate": "17.09.2024 08:01:24h",
+            "Information": "false"
+        },
+        {
+            "Code": "21431BJ009",
+            "Content": "Förderung nach dem Stipendienprogramm-Gesetz, Stipendiaten, Deutschland insgesamt, Fächergruppen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020-2023",
+            "LatestUpdate": "07.05.2024 08:01:35h",
+            "Information": "false"
+        },
+        {
+            "Code": "21431BJ010",
+            "Content": "Förderung nach dem Stipendienprogramm-Gesetz, Stipendiaten, Deutschland insgesamt, Geschlecht, Fächergruppen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020-2023",
+            "LatestUpdate": "07.05.2024 08:03:24h",
+            "Information": "false"
+        },
+        {
+            "Code": "21431BJ011",
+            "Content": "Förderung nach dem Stipendienprogramm-Gesetz, Stipendiaten, Deutschland insgesamt, Nationalität, Fächergruppen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020-2023",
+            "LatestUpdate": "07.05.2024 08:03:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "21431BJ012",
+            "Content": "Förderung nach dem Stipendienprogramm-Gesetz, Stipendiaten, Deutschland insgesamt, Geschlecht, Nationalität, Fächergruppen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020-2023",
+            "LatestUpdate": "07.05.2024 08:02:08h",
+            "Information": "false"
+        },
+        {
+            "Code": "21811BJ007",
+            "Content": "Ausgaben, Einnahmen, Personal öff. Forschungseinr., Interne Ausgaben für Forschung und Entwicklung, Personal für FuE (Vollzeitäquivalente), Deutschland insgesamt, Wissenschaftszweige, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2019-2023",
+            "LatestUpdate": "06.03.2025 15:06:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "21811BJ008",
+            "Content": "Ausgaben, Einnahmen, Personal öff. Forschungseinr., Interne Ausgaben für Forschung und Entwicklung, Personal für FuE (Vollzeitäquivalente), Deutschland insgesamt, Einrichtungsgruppe, Wissenschaftszweige, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2019-2023",
+            "LatestUpdate": "06.03.2025 15:06:30h",
+            "Information": "false"
+        },
+        {
+            "Code": "21811BJ009",
+            "Content": "Ausgaben, Einnahmen, Personal öff. Forschungseinr., Interne Ausgaben für Forschung und Entwicklung, Personal für FuE (Vollzeitäquivalente), Deutschland insgesamt, Einrichtungsart, Wissenschaftszweige, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2019-2023",
+            "LatestUpdate": "06.03.2025 15:08:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "21811BJ034",
+            "Content": "Ausgaben, Einnahmen, Personal öff. Forschungseinr., Personal für FuE (Vollzeitäquivalente), Deutschland insgesamt, Wissenschaftszweige, Personalgruppen, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2019-2023",
+            "LatestUpdate": "06.03.2025 15:13:36h",
+            "Information": "false"
+        },
+        {
+            "Code": "21811LJ003",
+            "Content": "Ausgaben, Einnahmen, Personal öff. Forschungseinr., Interne Ausgaben für Forschung und Entwicklung, Bundesländer und Ausland, Wissenschaftszweige, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2019-2023",
+            "LatestUpdate": "06.03.2025 15:15:34h",
+            "Information": "false"
+        },
+        {
+            "Code": "41161BJ001",
+            "Content": "Strukturerhebung der Forstbetriebe, Waldfläche, Deutschland insgesamt, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022",
+            "LatestUpdate": "07.10.2022 11:23:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "41161BJ002",
+            "Content": "Strukturerhebung der Forstbetriebe, Waldfläche, Deutschland insgesamt, Waldeigentumsarten, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022",
+            "LatestUpdate": "07.10.2022 11:23:33h",
+            "Information": "false"
+        },
+        {
+            "Code": "41161BJ003",
+            "Content": "Strukturerhebung der Forstbetriebe, Waldfläche, Forsteinheiten, Deutschland insgesamt, Größenklassen der Waldfläche, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022",
+            "LatestUpdate": "25.09.2022 16:01:54h",
+            "Information": "false"
+        },
+        {
+            "Code": "41161BJ004",
+            "Content": "Strukturerhebung der Forstbetriebe, Waldfläche, Forsteinheiten, Deutschland insgesamt, Waldeigentumsarten, Größenklassen der Waldfläche, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022",
+            "LatestUpdate": "25.09.2022 16:01:54h",
+            "Information": "false"
+        },
+        {
+            "Code": "41161BJ100",
+            "Content": "Strukturerhebung der Forstbetriebe, Waldfläche, Forstbetriebe, Deutschland insgesamt, Größenklassen der Waldfläche, Rechtsform, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1965-2007",
+            "LatestUpdate": "27.10.2020 14:52:54h",
+            "Information": "false"
+        },
+        {
+            "Code": "41161LJ001",
+            "Content": "Strukturerhebung der Forstbetriebe, Waldfläche, Bundesländer, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022",
+            "LatestUpdate": "07.10.2022 11:23:43h",
+            "Information": "false"
+        },
+        {
+            "Code": "41161LJ002",
+            "Content": "Strukturerhebung der Forstbetriebe, Waldfläche, Bundesländer, Waldeigentumsarten, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022",
+            "LatestUpdate": "07.10.2022 11:23:43h",
+            "Information": "false"
+        },
+        {
+            "Code": "41161LJ003",
+            "Content": "Strukturerhebung der Forstbetriebe, Waldfläche, Forsteinheiten, Bundesländer, Größenklassen der Waldfläche, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022",
+            "LatestUpdate": "25.09.2022 16:02:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "41161LJ004",
+            "Content": "Strukturerhebung der Forstbetriebe, Waldfläche, Forsteinheiten, Bundesländer, Waldeigentumsarten, Größenklassen der Waldfläche, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022",
+            "LatestUpdate": "25.09.2022 16:02:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BJ160",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2008-2024",
+            "LatestUpdate": "19.03.2025 18:45:36h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BJ161",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2008-2024",
+            "LatestUpdate": "19.03.2025 19:25:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BJ180",
+            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2006-2024",
+            "LatestUpdate": "19.03.2025 18:46:43h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BJ181",
+            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2006-2024",
+            "LatestUpdate": "19.03.2025 19:07:01h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BM160",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2008-Januar 2025",
+            "LatestUpdate": "19.03.2025 19:35:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BM161",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2008-Januar 2025",
+            "LatestUpdate": "19.03.2025 22:18:28h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BM180",
+            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2006-Januar 2025",
+            "LatestUpdate": "19.03.2025 19:40:42h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BM181",
+            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2006-Januar 2025",
+            "LatestUpdate": "20.03.2025 02:17:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "62361BJ009",
+            "Content": "Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonatsverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Berufsgruppen (KB2010), 3-Steller, Stichmonat",
+            "State": "vollständig mit Werten",
+            "Time": "04/2022-04/2024",
+            "LatestUpdate": "06.02.2025 08:00:13h",
+            "Information": "false"
+        },
+        {
+            "Code": "62361BJ010",
+            "Content": "Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonatsverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Berufsgattungen (KB2010), 5-Steller, Stichmonat",
+            "State": "vollständig mit Werten",
+            "Time": "04/2022-04/2024",
+            "LatestUpdate": "06.02.2025 08:00:25h",
+            "Information": "false"
+        },
+        {
+            "Code": "62361BJ012",
+            "Content": "Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonatsverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Geschlecht, Berufsgruppen (KB2010), 3-Steller, Stichmonat",
+            "State": "vollständig mit Werten",
+            "Time": "04/2022-04/2024",
+            "LatestUpdate": "06.02.2025 08:00:10h",
+            "Information": "false"
+        },
+        {
+            "Code": "62361BJ013",
+            "Content": "Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonatsverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Geschlecht, Berufsgattungen (KB2010), 5-Steller, Stichmonat",
+            "State": "vollständig mit Werten",
+            "Time": "04/2022-04/2024",
+            "LatestUpdate": "06.02.2025 08:00:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "62361BJ015",
+            "Content": "Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. Sonderz., Mittlere Bruttojahresverdienste inkl. Sonderz., Deutschland insgesamt, Berufsgruppen (KB2010), 3-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022-2023",
+            "LatestUpdate": "28.03.2024 08:04:58h",
+            "Information": "false"
+        },
+        {
+            "Code": "62361BJ016",
+            "Content": "Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. Sonderz., Mittlere Bruttojahresverdienste inkl. Sonderz., Deutschland insgesamt, Berufsgattungen (KB2010), 5-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022-2023",
+            "LatestUpdate": "28.03.2024 08:04:39h",
+            "Information": "false"
+        },
+        {
+            "Code": "62361BJ018",
+            "Content": "Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. Sonderz., Mittlere Bruttojahresverdienste inkl. Sonderz., Deutschland insgesamt, Geschlecht, Berufsgruppen (KB2010), 3-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022-2023",
+            "LatestUpdate": "28.03.2024 08:04:55h",
+            "Information": "false"
+        },
+        {
+            "Code": "62361BJ019",
+            "Content": "Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. Sonderz., Mittlere Bruttojahresverdienste inkl. Sonderz., Deutschland insgesamt, Geschlecht, Berufsgattungen (KB2010), 5-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022-2023",
+            "LatestUpdate": "28.03.2024 08:04:51h",
+            "Information": "false"
+        },
+        {
+            "Code": "71141BJ006",
+            "Content": "Rechnungsergebnisse d.öffentlichen Gesamthaushalts, Nettoausgaben, Personalausgaben, Baumaßnahmen, Deutschland insgesamt, Körperschaftsgruppen, Aufgabenbereiche der öffentlichen Haushalte, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1992-2011",
+            "LatestUpdate": "26.02.2014 15:37:23h",
+            "Information": "false"
+        },
+        {
+            "Code": "79994BV061",
+            "Content": "Vergabestatistik, Genannte CPV-Codes i.vergeb. öff.Auftr. u.Konzess., Deutschland insgesamt, Auftraggeberebene, CPV-Codes (Abteilungen), Quartale, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1. Quartal 2021-4. Quartal 2023",
+            "LatestUpdate": "03.02.2025 17:14:38h",
+            "Information": "false"
+        },
+        {
+            "Code": "79994LV051",
+            "Content": "Vergabestatistik, Genannte CPV-Codes i.vergeb. öff.Auftr. u.Konzess., Bundesländer, Auftraggeberebene, CPV-Codes (Abteilungen), Quartale, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "1. Quartal 2021-4. Quartal 2023",
+            "LatestUpdate": "03.02.2025 17:14:54h",
+            "Information": "false"
+        }
+    ],
+    "Statistics": [
+        {
+            "Code": "12211",
+            "Content": "Mikrozensus",
+            "Cubes": "523",
+            "Information": "true"
+        },
+        {
+            "Code": "21331",
+            "Content": "Statistik der Gasthörer",
+            "Cubes": "2",
+            "Information": "true"
+        },
+        {
+            "Code": "21341",
+            "Content": "Statistik des Hochschulpersonals",
+            "Cubes": "3",
+            "Information": "true"
+        },
+        {
+            "Code": "21351",
+            "Content": "Statistik der Habilitationen",
+            "Cubes": "6",
+            "Information": "true"
+        },
+        {
+            "Code": "21352",
+            "Content": "Statistik der Promovierenden",
+            "Cubes": "28",
+            "Information": "true"
+        },
+        {
+            "Code": "21371",
+            "Content": "Hochschulfinanzstatistik",
+            "Cubes": "8",
+            "Information": "true"
+        },
+        {
+            "Code": "21381",
+            "Content": "Hochschulstatistische Kennzahlen",
+            "Cubes": "11",
+            "Information": "false"
+        },
+        {
+            "Code": "21431",
+            "Content": "Förderung nach dem Stipendienprogramm-Gesetz",
+            "Cubes": "37",
+            "Information": "true"
+        },
+        {
+            "Code": "21811",
+            "Content": "Ausgaben, Einnahmen, Personal öff. Forschungseinr.",
+            "Cubes": "47",
+            "Information": "true"
+        },
+        {
+            "Code": "41161",
+            "Content": "Strukturerhebung der Forstbetriebe",
+            "Cubes": "9",
+            "Information": "true"
+        },
+        {
+            "Code": "51000",
+            "Content": "Außenhandel",
+            "Cubes": "79",
+            "Information": "true"
+        },
+        {
+            "Code": "62361",
+            "Content": "Verdiensterhebung",
+            "Cubes": "152",
+            "Information": "true"
+        },
+        {
+            "Code": "71141",
+            "Content": "Rechnungsergebnisse d.öffentlichen Gesamthaushalts",
+            "Cubes": "10",
+            "Information": "true"
+        },
+        {
+            "Code": "79994",
+            "Content": "Vergabestatistik",
+            "Cubes": "112",
+            "Information": "true"
+        }
+    ],
+    "Tables": [
+        {
+            "Code": "12211-0009",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Deutschland,\nJahre, Geschlecht, Stellung im Beruf, Berufe",
+            "Time": ""
+        },
+        {
+            "Code": "12211-1009",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer,\nJahre, Geschlecht, Stellung im Beruf, Berufe",
+            "Time": ""
+        },
+        {
+            "Code": "21331-0002",
+            "Content": "Gasthörer: Deutschland, Semester, Fächergruppen",
+            "Time": ""
+        },
+        {
+            "Code": "21341-0002",
+            "Content": "Hauptberufliches wissenschaftliches und künstlerisches\nPersonal an Hochschulen: Deutschland, Jahre, Lehr- und\nForschungsbereiche nach Fächergruppen, Geschlecht",
+            "Time": ""
+        },
+        {
+            "Code": "21341-0003",
+            "Content": "Professoren: Deutschland, Jahre, Fächergruppen, Geschlecht",
+            "Time": ""
+        },
+        {
+            "Code": "21351-0001",
+            "Content": "Habilitationen: Deutschland, Jahre, Fächergruppen,\nNationalität, Geschlecht",
+            "Time": ""
+        },
+        {
+            "Code": "21351-0002",
+            "Content": "Durchschnittsalter der habilitierten Personen: Deutschland,\nJahre, Fächergruppen, Geschlecht",
+            "Time": ""
+        },
+        {
+            "Code": "21352-0002",
+            "Content": "Promovierende: Deutschland, Stichtag, Geschlecht,\nAltersgruppen, Fächergruppen",
+            "Time": ""
+        },
+        {
+            "Code": "21352-0003",
+            "Content": "Promovierende: Deutschland, Stichtag, Nationalität,\nGeschlecht, Fächergruppen und Studienbereiche",
+            "Time": ""
+        },
+        {
+            "Code": "21352-0004",
+            "Content": "Durchschnittsalter der Promovierenden: Deutschland,\nStichtag, Geschlecht, Fächergruppen",
+            "Time": ""
+        },
+        {
+            "Code": "21371-0001",
+            "Content": "Ausgaben der Hochschulen: Deutschland, Jahre, Hochschulart,\nFächergruppen",
+            "Time": ""
+        },
+        {
+            "Code": "21371-0002",
+            "Content": "Ausgaben der Hochschulen: Bundesländer, Jahre, Hochschulart,\nFächergruppen",
+            "Time": ""
+        },
+        {
+            "Code": "21381-0005",
+            "Content": "Laufende Ausgaben der Hochschulen, Drittmittel der\nHochschulen: Deutschland, Jahre, Fächergruppen",
+            "Time": ""
+        },
+        {
+            "Code": "21431-0004",
+            "Content": "Stipendiaten: Deutschland, Jahre, Nationalität, Geschlecht,\nFächergruppen",
+            "Time": ""
+        },
+        {
+            "Code": "21811-0003",
+            "Content": "Interne Ausgaben für Forschung und Entwicklung: Deutschland,\nJahre, Einrichtungsart, Wissenschaftszweige",
+            "Time": ""
+        },
+        {
+            "Code": "21811-0005",
+            "Content": "Personal für Forschung und Entwicklung (Vollzeitäquivalente): Deutschland, Jahre, Einrichtungsart, Wissenschaftszweige",
+            "Time": ""
+        },
+        {
+            "Code": "21811-0007",
+            "Content": "Personal für Forschung und Entwicklung (Vollzeitäquivalente): Deutschland, Jahre, Personalgruppen, Wissenschaftszweige",
+            "Time": ""
+        },
+        {
+            "Code": "21811-0022",
+            "Content": "Interne Ausgaben für Forschung und Entwicklung: Bundesländer\nund Ausland, Jahre, Wissenschaftszweige",
+            "Time": ""
+        },
+        {
+            "Code": "41161-0001",
+            "Content": "Waldfläche: Deutschland, Jahre, Waldeigentumsarten",
+            "Time": ""
+        },
+        {
+            "Code": "41161-0002",
+            "Content": "Forsteinheiten, Waldfläche: Deutschland, Jahre,\nWaldeigentumsarten, Größenklassen der Waldfläche",
+            "Time": ""
+        },
+        {
+            "Code": "41161-0010",
+            "Content": "Waldfläche: Bundesländer, Jahre, Waldeigentumsarten",
+            "Time": ""
+        },
+        {
+            "Code": "41161-0011",
+            "Content": "Forsteinheiten, Waldfläche: Bundesländer, Jahre,\nWaldeigentumsarten, Größenklassen der Waldfläche",
+            "Time": ""
+        },
+        {
+            "Code": "41161-0100",
+            "Content": "Forstbetriebe, Waldfläche: Deutschland, Jahre (bis 2007)",
+            "Time": ""
+        },
+        {
+            "Code": "41161-0101",
+            "Content": "Forstbetriebe, Waldfläche: Deutschland, Jahre (bis 2007),\nRechtsform, Größenklassen der Waldfläche",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0005",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWarensystematik",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0006",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWarensystematik",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0009",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre, Land,\nWarenverzeichnis (4-/6-Steller)",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0010",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWare (4-/6-Steller), Länder",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0011",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate, Land,\nWarenverzeichnis (4-/6-Steller)",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0012",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWare (4-/6-Steller), Länder",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0013",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWarenverzeichnis (8-Steller)",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0014",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWarenverzeichnis (8-Steller)",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0015",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre, Land,\nWarenverzeichnis (8-Steller)",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0016",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWare (8-Steller), Länder",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0017",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate, Land,\nWarenverzeichnis (8-Steller)",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0018",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWare (8-Steller), Länder",
+            "Time": ""
+        },
+        {
+            "Code": "62361-0030",
+            "Content": "Bruttostundenverdienste, Bruttomonatsverdienste: Deutschland, Stichmonat, Geschlecht, Berufe",
+            "Time": ""
+        },
+        {
+            "Code": "62361-0034",
+            "Content": "Bruttojahresverdienste: Deutschland, Jahre, Geschlecht, Berufe",
+            "Time": ""
+        },
+        {
+            "Code": "71141-0004",
+            "Content": "Rechnungsergebnisse des öffentlichen Gesamthaushalts\n(Nettoausgaben, Personalausgaben, Baumaßnahmen):\nDeutschland, Jahre, Körperschaftsgruppen, Aufgabenbereiche",
+            "Time": ""
+        },
+        {
+            "Code": "79994-0011",
+            "Content": "Genannte CPV-Codes in vergebenen öffentlichen Aufträgen und\nKonzessionen: Deutschland, Quartale, Auftraggeberebene,\nCPV-Codes (Abteilungen)",
+            "Time": ""
+        },
+        {
+            "Code": "79994-0109",
+            "Content": "Genannte CPV-Codes in vergebenen öffentlichen Aufträgen und Konzessionen: Bundesländer, Quartale, Auftraggeberebene, CPV-Codes (Abteilungen)",
+            "Time": ""
+        }
+    ],
+    "Timeseries": null,
+    "Variables": [
+        {
+            "Code": "AFGBE3",
+            "Content": "Aufgabenbereiche der öffentlichen Haushalte",
+            "Type": "sachlich",
+            "Values": "22",
+            "Information": "false"
+        },
+        {
+            "Code": "BERLF1",
+            "Content": "Lehr- und Forschungsbereiche",
+            "Type": "sachlich",
+            "Values": "84",
+            "Information": "false"
+        },
+        {
+            "Code": "BILFG1",
+            "Content": "Fächergruppen",
+            "Type": "sachlich",
+            "Values": "10",
+            "Information": "false"
+        },
+        {
+            "Code": "BILFG2",
+            "Content": "Fächergruppen",
+            "Type": "sachlich",
+            "Values": "10",
+            "Information": "false"
+        },
+        {
+            "Code": "BILFG3",
+            "Content": "Fächergruppen",
+            "Type": "sachlich",
+            "Values": "11",
+            "Information": "false"
+        },
+        {
+            "Code": "BILFG4",
+            "Content": "Fächergruppen",
+            "Type": "sachlich",
+            "Values": "9",
+            "Information": "false"
+        },
+        {
+            "Code": "BILFG5",
+            "Content": "Fächergruppen",
+            "Type": "sachlich",
+            "Values": "8",
+            "Information": "false"
+        },
+        {
+            "Code": "BILFG6",
+            "Content": "Fächergruppen",
+            "Type": "sachlich",
+            "Values": "12",
+            "Information": "false"
+        },
+        {
+            "Code": "BILFG7",
+            "Content": "Fächergruppen",
+            "Type": "sachlich",
+            "Values": "9",
+            "Information": "false"
+        },
+        {
+            "Code": "BTR009",
+            "Content": "Forsteinheiten",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "CPV08A",
+            "Content": "CPV-Codes (Abteilungen)",
+            "Type": "sachlich",
+            "Values": "45",
+            "Information": "true"
+        },
+        {
+            "Code": "KB10A1",
+            "Content": "Berufsbereiche (KB2010), 1-Steller",
+            "Type": "sachlich",
+            "Values": "10",
+            "Information": "false"
+        },
+        {
+            "Code": "KB10A3",
+            "Content": "Berufsgruppen (KB2010), 3-Steller",
+            "Type": "sachlich",
+            "Values": "144",
+            "Information": "true"
+        },
+        {
+            "Code": "KB10A5",
+            "Content": "Berufsgattungen (KB2010), 5-Steller",
+            "Type": "sachlich",
+            "Values": "1300",
+            "Information": "true"
+        },
+        {
+            "Code": "WAM6",
+            "Content": "Warenverzeichnis Außenhandelsstatistik (6-Steller)",
+            "Type": "sachlich",
+            "Values": "6438",
+            "Information": "true"
+        },
+        {
+            "Code": "WAM8",
+            "Content": "Warenverzeichnis Außenhandelsstatistik (8-Steller)",
+            "Type": "sachlich",
+            "Values": "14319",
+            "Information": "true"
+        },
+        {
+            "Code": "WISZW1",
+            "Content": "Wissenschaftszweige",
+            "Type": "sachlich",
+            "Values": "6",
+            "Information": "false"
+        }
+    ],
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2025"
+}

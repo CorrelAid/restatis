@@ -1,0 +1,25 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "modifieddata"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "selection": "61111",
+        "type": "Alle",
+        "date": "09.04.2025",
+        "pagelength": "500",
+        "language": "de",
+        "area": "Alle"
+    },
+    "List": [
+        null
+    ],
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2025"
+}

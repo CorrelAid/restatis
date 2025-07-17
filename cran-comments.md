@@ -7,7 +7,6 @@
 0 errors | 0 warnings | 0 note
 
 ## Test environments R CMD check
-* Local Kali Linux
 * Local Windows 11
-* r-lib/actions: MacOS latest, Windows latest, Ubuntu latest/devel/oldrel
+* r-lib/actions (GitHub): MacOS latest, Windows latest, Ubuntu latest/devel/oldrel
 * win-builder project

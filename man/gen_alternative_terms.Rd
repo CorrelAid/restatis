@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_alternative_terms.R
 \name{gen_alternative_terms}
 \alias{gen_alternative_terms}
-\title{gen_alternative_terms}
+\title{Find similar search terms}
 \usage{
 gen_alternative_terms(
   term = NULL,
@@ -20,7 +20,7 @@ gen_alternative_terms(
 
 \item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
 
-\item{pagelength}{Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500.}
+\item{pagelength}{Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.}
 
 \item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
 

@@ -1,0 +1,110 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "variables2statistic"
+    },
+    "Status": {
+        "Code": 999,
+        "Content": "test error message",
+        "Type": "Warnung"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "name": "74111",
+        "selection": "",
+        "area": "Alle",
+        "searchcriterion": "Code",
+        "sortcriterion": "Code",
+        "type": "Alle",
+        "pagelength": "500",
+        "language": "de"
+    },
+    "List": [
+        {
+            "Code": "BES003",
+            "Content": "Beschäftigte im öffentlichen Dienst",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "BES019",
+            "Content": "Beschäftigte im Aufgabenbereich Polizei",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "BES020",
+            "Content": "Besch. im Aufg.ber. Polizei (Vollzeitäquivalente)",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "BESBR2",
+            "Content": "Beschäftigungsbereich",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "BESBR3",
+            "Content": "Beschäftigungsbereich",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "BESUM4",
+            "Content": "Beschäftigungsumfang",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "DINSG",
+            "Content": "Deutschland insgesamt",
+            "Type": "räumlich insgesamt",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "DLAND",
+            "Content": "Bundesländer",
+            "Type": "räumlich",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
+            "Code": "DSTVS1",
+            "Content": "Dienstverhältnis (öffentlicher Dienst)",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "DSTVS2",
+            "Content": "Dienstverhältnis",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "GES",
+            "Content": "Geschlecht",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
+            "Code": "STAG",
+            "Content": "Stichtag",
+            "Type": "zeitidentifizierend",
+            "Values": "-1",
+            "Information": "false"
+        }
+    ],
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2025"
+}

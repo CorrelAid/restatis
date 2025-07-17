@@ -51,17 +51,17 @@ with_mock_dir("modified3", {
 
 })
 
-with_mock_dir("modified4_fake", {
-  test_that("gen_modified_data function warns if there is a non-zero status code (fake response)", {
+with_mock_dir("modified4", {
+
+  test_that("gen_modified_data function warns if there is a non-zero status code", {
 
     skip_on_cran()
     skip_on_ci()
 
-    expect_message(
-      gen_modified_data(code = "61234",
-                        date = "01.01.2022",
-                        database = "genesis"),
-    regexp = "No modified objects found for your code and date in genesis")
+    expect_message(object = gen_modified_data(code = "61234",
+                                              date = "01.01.2022",
+                                              database = "genesis"),
+                   regexp = "No modified objects found for your code and date in genesis")
 
   })
 
