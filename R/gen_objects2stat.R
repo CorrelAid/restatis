@@ -2,8 +2,8 @@
 #'
 #' Function to find objects related to a statistic
 #'
-#' @param code Character string with a maximum length of 6 characters (15 characters if 'cubes' are not used as a category). Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param code Character string with a maximum length of 6 characters (15 characters if 'cubes' are not used as a category). Code from a database object. Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
 #' @param category Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param detailed Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
@@ -28,7 +28,7 @@
 #' }
 #'
 gen_objects2stat <- function(code = NULL,
-                             database = c("all", "genesis", "zensus", "regio"),
+                             database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
                              category = c("tables", "variables", "cubes"),
                              area = c("all", "public", "user"),
                              detailed = FALSE,
@@ -179,11 +179,12 @@ gen_objects2stat <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if ("cubes" %in% category && db == "zensus") {
+    # HUHU: Does it work also for 'bayern' & 'sa'?
+    if ("cubes" %in% category && db %in% c("zensus", "bayern", "sa")) {
 
-      df_cubes <- "There are generally no 'cubes' objects available for the 'zensus' database."
+      df_cubes <- paste("There are generally no 'cubes' objects available for the '", db, "' database.")
 
-    } else if ("cubes" %in% category && (db == "genesis" || db == "regio")) {
+    } else if ("cubes" %in% category && (db == "genesis" | db == "regio" | db == "nrw" | db == "bildung")) {
 
       results_raw <- gen_api(endpoint = "catalogue/cubes2statistic",
                              database = db,

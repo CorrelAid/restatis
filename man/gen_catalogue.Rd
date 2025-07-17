@@ -6,7 +6,7 @@
 \usage{
 gen_catalogue(
   code = NULL,
-  database = c("all", "genesis", "zensus", "regio"),
+  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
   category = c("tables", "statistics", "cubes"),
   area = c("all", "public", "user"),
   detailed = FALSE,
@@ -18,9 +18,9 @@ gen_catalogue(
 )
 }
 \arguments{
-\item{code}{String with a maximum length of 15 characters for a database object (GENESIS and regionalstatistik.de) and 15 characters for a Zensus 2022 object. Only one code per iteration. "*" notations are possible.}
+\item{code}{String with a maximum length of 15 characters. Only one code per iteration. "*" notations are possible.}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
 
 \item{category}{Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.}
 
@@ -42,7 +42,7 @@ gen_catalogue(
 A list with all recalled elements from the API. Based on the 'detailed' parameter, it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to search for tables, statistics and cubes from GENESIS, Zensus 2022 or regionalstatistik.de. Additionally, it structures the output based on the internal tree structure based on the EVAS numbers. Time-series are represented as cubes with a specified time span. Important note: To be useful in searching for objects it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
+Function to search for tables, statistics and cubes from the respective database. Additionally, it structures the output based on the internal tree structure based on the EVAS numbers. Time-series are represented as cubes with a specified time span. Important note: To be useful in searching for objects it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
 }
 \examples{
 \dontrun{

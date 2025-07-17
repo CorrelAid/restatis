@@ -2,7 +2,7 @@
 #'
 #' @description Save credentials of the different databases for further convenient use
 #'
-#' @param database Character string. The database to store credentials for ('all', 'genesis', 'zensus' or 'regio').
+#' @param database Character string. The database to store credentials for ('all', 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung' or 'sa').
 #' @param use_token Boolean. Do you want to (if possible) set an API token instead of password + username? Note: This is not supported by regionalstatistik.de. Defaults to FALSE.
 #'
 #' @details Username and password are encrypted and saved as RDS in the
@@ -35,15 +35,45 @@ gen_auth_save <- function(database,
 
   }
 
+  # HUHU: double check if use of token really doesn't work
+
+  if (database == "bayern" & isTRUE(use_token)) {
+
+    warning("statistikdaten.bayern.de does not support API tokens. Defaulting to username and password.",
+            call. = FALSE)
+
+  }
+
+  if (database == "nrw" & isTRUE(use_token)) {
+
+    warning("landesdatenbank.nrw.de does not support API tokens. Defaulting to username and password.",
+            call. = FALSE)
+
+  }
+
+  if (database == "bildung" & isTRUE(use_token)) {
+
+    warning("bildungsmonitoring.de does not support API tokens. Defaulting to username and password.",
+            call. = FALSE)
+
+  }
+
+  if (database == "sa" & isTRUE(use_token)) {
+
+    warning("genesis.sachsen-anhalt.de does not support API tokens. Defaulting to username and password.",
+            call. = FALSE)
+
+  }
+
   #-----------------------------------------------------------------------------
 
-  if (database == "regio") {
+  if (database %in% c("regio", "bayern", "nrw", "bildung", "sa")) {
 
     insert_and_save_credentials(database, use_token)
 
     gen_logincheck(database = database)
 
-  #-----------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------
 
   } else if (database %in% c("zensus", "genesis")) {
 
@@ -55,9 +85,12 @@ gen_auth_save <- function(database,
 
     #---------------------------------------------------------------------------
 
-    walk_arguments <- list(ui_menu_database = c("GENESIS", "Zensus 2022", "regionalstatistik.de"),
-                           db_names = c("genesis", "zensus", "regio"),
-                           use_token = use_token)
+    walk_arguments <- list(
+      ui_menu_database = c("GENESIS", "Zensus 2022", "regionalstatistik.de", "statistikdaten.bayern.de",
+                           "landesdatenbank.nrw.de", "bildungsmonitoring.de", "genesis.sachsen-anhalt.de"),
+      db_names = c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
+      use_token = use_token
+    )
 
     purrr::pwalk(.l = walk_arguments,
                  .f = function(ui_menu_database,
@@ -73,11 +106,11 @@ gen_auth_save <- function(database,
 
                  })
 
-  #-----------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------
 
   } else {
 
-    stop("Invalid 'database' argument. Please choose 'all', 'genesis', 'zensus' or 'regio'.",
+    stop("Invalid 'database' argument. Please choose 'all', 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung' or 'sa'.",
          call. = FALSE)
 
   }
@@ -112,9 +145,9 @@ gen_auth_get <- function(database = NULL) {
 
   if (length(database) == 1) {
 
-    if (!(database %in% c("all", "genesis", "zensus", "regio"))) {
+    if (!(database %in% c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"))) {
 
-      stop("Misspecification of parameter 'database': Must only be 'all', 'genesis', 'zensus' or 'regio'.",
+      stop("Misspecification of parameter 'database': Must only be 'all', 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung' or 'sa'.",
            call. = FALSE)
 
     }
@@ -134,9 +167,9 @@ gen_auth_get <- function(database = NULL) {
 
     #---------------------------------------------------------------------------
 
-    if (!all(database %in% c("genesis", "zensus", "regio"))) {
+    if (!all(database %in% c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"))) {
 
-      stop("Misspecification of parameter 'database': Must only be 'genesis', 'zensus' or 'regio'.",
+      stop("Misspecification of parameter 'database': Must only be 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung' or 'sa'.",
            call. = FALSE)
 
     }
@@ -163,7 +196,7 @@ gen_auth_get <- function(database = NULL) {
 
       return(httr2::secret_read_rds(auth_path, "GENESIS_KEY"))
 
-    #---------------------------------------------------------------------------
+      #---------------------------------------------------------------------------
 
     } else if (database == "zensus") {
 
@@ -175,13 +208,13 @@ gen_auth_get <- function(database = NULL) {
                     "Please run 'gen_auth_save()' to store Zensus 2022 database username and password."),
              call. = FALSE)
 
-    }
+      }
 
-    return(httr2::secret_read_rds(auth_path, "ZENSUS_KEY"))
+      return(httr2::secret_read_rds(auth_path, "ZENSUS_KEY"))
 
-  #-------------------------------------------------------------------------------
+      #-------------------------------------------------------------------------------
 
-  } else if (database == "regio") {
+    } else if (database == "regio") {
 
       auth_path <- gen_auth_path("auth_regio.rds")
 
@@ -195,9 +228,65 @@ gen_auth_get <- function(database = NULL) {
 
       return(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
 
-  #-----------------------------------------------------------------------------
+      #-----------------------------------------------------------------------------
 
-  } else if (database == "all") {
+    } else if(database == "bayern") {
+
+      auth_path <- gen_auth_path("auth_bayern.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("BAYERN_KEY")))) {
+
+        stop(paste0("statistikdaten.bayern.de database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store statistikdaten.bayern.de database username and password."),
+             call. = FALSE)
+
+      }
+
+      return(httr2::secret_read_rds(auth_path, "BAYERN_KEY"))
+
+    } else if(database == "nrw") {
+
+      auth_path <- gen_auth_path("auth_nrw.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("NRW_KEY")))) {
+
+        stop(paste0("landesdatenbank.nrw.de database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store landesdatenbank.nrw.de database username and password."),
+             call. = FALSE)
+
+      }
+
+      return(httr2::secret_read_rds(auth_path, "NRW_KEY"))
+
+    } else if(database == "bildung") {
+
+      auth_path <- gen_auth_path("auth_bildung.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("BILDUNG_KEY")))) {
+
+        stop(paste0("bildungsmonitoring.de database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store bildungsmonitoring.de database username and password."),
+             call. = FALSE)
+
+      }
+
+      return(httr2::secret_read_rds(auth_path, "BILDUNG_KEY"))
+
+    } else if(database == "sa") {
+
+      auth_path <- gen_auth_path("auth_sa.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("SA_KEY")))) {
+
+        stop(paste0("genesis.sachsen-anhalt.de database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store genesis.sachsen-anhalt.de database username and password."),
+             call. = FALSE)
+
+      }
+
+      return(httr2::secret_read_rds(auth_path, "SA_KEY"))
+
+    } else if (database == "all") {
 
       auth_path <- gen_auth_path("auth_genesis.rds")
 
@@ -221,7 +310,7 @@ gen_auth_get <- function(database = NULL) {
       if (!(file.exists(auth_path) && nzchar(Sys.getenv("ZENSUS_KEY")))) {
 
         warning(paste0("Zensus 2022 database credentials not found. ",
-                    "Please run 'gen_auth_save()' to store Zensus 2022 database username and password."),
+                       "Please run 'gen_auth_save()' to store Zensus 2022 database username and password."),
                 call. = FALSE)
 
       } else {
@@ -238,7 +327,7 @@ gen_auth_get <- function(database = NULL) {
       if (!(file.exists(auth_path) && nzchar(Sys.getenv("REGIO_KEY")))) {
 
         warning(paste0("regionalstatistik.de database credentials not found. ",
-                    "Please run 'gen_auth_save()' to store regionalstatistik.de database username and password."),
+                       "Please run 'gen_auth_save()' to store regionalstatistik.de database username and password."),
                 call. = FALSE)
 
       } else {
@@ -247,6 +336,75 @@ gen_auth_get <- function(database = NULL) {
         print(httr2::secret_read_rds(auth_path, "REGIO_KEY"))
 
       }
+
+      #---------------------------------------------------------------------------
+
+      auth_path <- gen_auth_path("auth_bayern.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("BAYERN_KEY")))) {
+
+        warning(paste0("statistikdaten.bayern.de database credentials not found. ",
+                       "Please run 'gen_auth_save()' to store statistikdaten.bayern.de database username and password."),
+                call. = FALSE)
+
+      } else {
+
+        message("Credentials for database statistikdaten.bayern.de:\n")
+        print(httr2::secret_read_rds(auth_path, "BAYERN_KEY"))
+
+      }
+
+      #---------------------------------------------------------------------------
+
+      auth_path <- gen_auth_path("auth_nrw.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("NRW_KEY")))) {
+
+        warning(paste0("landesdatenbank.nrw.de database credentials not found. ",
+                       "Please run 'gen_auth_save()' to store landesdatenbank.nrw.de database username and password."),
+                call. = FALSE)
+
+      } else {
+
+        message("Credentials for database landesdatenbank.nrw.de:\n")
+        print(httr2::secret_read_rds(auth_path, "NRW_KEY"))
+
+      }
+
+      #---------------------------------------------------------------------------
+
+      auth_path <- gen_auth_path("auth_bildung.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("BILDUNG_KEY")))) {
+
+        warning(paste0("bildungsmonitoring.de database credentials not found. ",
+                       "Please run 'gen_auth_save()' to store bildungsmonitoring.de database username and password."),
+                call. = FALSE)
+
+      } else {
+
+        message("Credentials for database bildungsmonitoring.de:\n")
+        print(httr2::secret_read_rds(auth_path, "BILDUNG_KEY"))
+
+      }
+
+      #---------------------------------------------------------------------------
+
+      auth_path <- gen_auth_path("auth_sa.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("SA_KEY")))) {
+
+        warning(paste0("genesis.sachsen-anhalt.de database credentials not found. ",
+                       "Please run 'gen_auth_save()' to store genesis.sachsen-anhalt.de database username and password."),
+                call. = FALSE)
+
+      } else {
+
+        message("Credentials for database genesis.sachsen-anhalt.de:\n")
+        print(httr2::secret_read_rds(auth_path, "SA_KEY"))
+
+      }
+
 
     } # End of 'else if (database == "all")'
 
@@ -312,6 +470,80 @@ gen_auth_get <- function(database = NULL) {
     }
 
     #---------------------------------------------------------------------------
+
+    if ("bayern" %in% database) {
+
+      auth_path <- gen_auth_path("auth_bayern.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("BAYERN_KEY")))) {
+
+        stop(paste0("statistikdaten.bayern.de database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store statistikdaten.bayern.de database username and password."),
+             call. = FALSE)
+
+      }
+
+      message("Credentials for database statistikdaten.bayern.de:\n")
+      print(httr2::secret_read_rds(auth_path, "BAYERN_KEY"))
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if ("nrw" %in% database) {
+
+      auth_path <- gen_auth_path("auth_nrw.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("NRW_KEY")))) {
+
+        stop(paste0("landesdatenbank.nrw.de database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store landesdatenbank.nrw.de database username and password."),
+             call. = FALSE)
+
+      }
+
+      message("Credentials for database landesdatenbank.nrw.de:\n")
+      print(httr2::secret_read_rds(auth_path, "NRW_KEY"))
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if ("bildung" %in% database) {
+
+      auth_path <- gen_auth_path("auth_bildung.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("BILDUNG_KEY")))) {
+
+        stop(paste0("bildungsmonitoring.de database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store bildungsmonitoring.de database username and password."),
+             call. = FALSE)
+
+      }
+
+      message("Credentials for database bildungsmonitoring.de:\n")
+      print(httr2::secret_read_rds(auth_path, "BILDUNG_KEY"))
+
+    }
+
+    #---------------------------------------------------------------------------
+
+    if ("sa" %in% database) {
+
+      auth_path <- gen_auth_path("auth_sa.rds")
+
+      if (!(file.exists(auth_path) && nzchar(Sys.getenv("SA_KEY")))) {
+
+        stop(paste0("genesis.sachsen-anhalt.de database credentials not found. ",
+                    "Please run 'gen_auth_save()' to store genesis.sachsen-anhalt.de database username and password."),
+             call. = FALSE)
+
+      }
+
+      message("Credentials for database genesis.sachsen-anhalt.de:\n")
+      print(httr2::secret_read_rds(auth_path, "SA_KEY"))
+
+    }
 
   } # End of '(length(database) > 1)'
 

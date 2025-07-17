@@ -57,7 +57,7 @@ gen_cube <- function(name, ...) {
 #-------------------------------------------------------------------------------
 
 gen_cube_ <- function(name,
-                      database = c("genesis", "regio"),
+                      database = c("genesis", "regio", "nrw", "bildung"), # HUHU: Works for 'bayern' & 'sa'?
                       area = c("public", "user"),
                       values = TRUE,
                       metadata = TRUE,

@@ -6,7 +6,7 @@
 \usage{
 gen_objects2var(
   code = NULL,
-  database = c("all", "genesis", "zensus", "regio"),
+  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
   category = c("tables", "statistics", "cubes"),
   area = c("all", "public", "user"),
   detailed = FALSE,
@@ -18,9 +18,9 @@ gen_objects2var(
 )
 }
 \arguments{
-\item{code}{Character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.}
+\item{code}{Character string with a maximum length of 15 characters. Code from a database object. Only one code per iteration.}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
 
 \item{category}{Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.}
 
