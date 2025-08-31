@@ -15,6 +15,9 @@
   # Set the default language of the package
   if (!nzchar(Sys.getenv("RESTATIS_LANG"))) Sys.setenv(RESTATIS_LANG = "en")
 
+  #-----------------------------------------------------------------------------
+  # SETTING DEFAULT URLs FOR DIFFERENT DATABASES SUPPORTED BY THE PACKAGE
+
   # Set the default URL for the GENESIS database
   if (!nzchar(Sys.getenv("RESTATIS_GENESIS_URL"))) {
 
@@ -51,9 +54,9 @@
   }
 
   # Set the default URL for the genesis.sachsen-anhalt.de database
-  if (!nzchar(Sys.getenv("RESTATIS_SA_URL"))) {
+  if (!nzchar(Sys.getenv("RESTATIS_ST_URL"))) {
 
-    Sys.setenv(RESTATIS_SA_URL = "https://genesis.sachsen-anhalt.de/webservice/rest/2020/")
+    Sys.setenv(RESTATIS_ST_URL = "https://genesis.sachsen-anhalt.de/webservice/rest/2020/")
 
   }
 
