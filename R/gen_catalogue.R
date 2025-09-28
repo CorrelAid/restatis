@@ -3,7 +3,7 @@
 #' @description Function to search for tables, statistics and cubes from the respective database. Additionally, it structures the output based on the internal tree structure based on the EVAS numbers. Time-series are represented as cubes with a specified time span. Important note: To be useful in searching for objects it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
 #'
 #' @param code String with a maximum length of 15 characters. Only one code per iteration. "*" notations are possible.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
 #' @param category Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param detailed Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
@@ -29,7 +29,7 @@
 #' }
 #'
 gen_catalogue <- function(code = NULL,
-                          database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
+                          database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),
                           category = c("tables", "statistics", "cubes"),
                           area = c("all", "public", "user"),
                           detailed = FALSE,
@@ -79,8 +79,8 @@ gen_catalogue <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    # HUHU: Does it work also for 'bayern' & 'sa'?
-    if ("cubes" %in% category && db %in% c("zensus", "bayern", "sa")) {
+    # HUHU: Does it work also for 'bayern' & 'st'?
+    if ("cubes" %in% category && db %in% c("zensus", "bayern", "st")) {
 
       list_of_cubes <- paste("There are generally no 'cubes' objects available for the '", db, "' database.")
 

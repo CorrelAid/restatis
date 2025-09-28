@@ -433,9 +433,9 @@ logincheck_http_error <- function(database,
 
   if (length(database) == 1 && database != "all") {
 
-    if (!(database %in% c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"))) {
+    if (!(database %in% c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"))) {
 
-      stop("Misspecified parameter 'database' (can only be 'all', 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung' or 'sa').",
+      stop("Misspecified parameter 'database' (can only be 'all', 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung' or 'st').",
            call. = FALSE)
 
     }
@@ -455,7 +455,7 @@ logincheck_http_error <- function(database,
 
   } else if (length(database) == 1 && database == "all") {
 
-    databases <- list("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa")
+    databases <- list("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st")
 
     response_list <- list(
       response_genesis = .gen_api_core(endpoint = "helloworld/logincheck", database = "genesis", ...),
@@ -464,7 +464,7 @@ logincheck_http_error <- function(database,
       response_bayern = .gen_api_core(endpoint = "helloworld/logincheck", database = "bayern", ...),
       response_nrw = .gen_api_core(endpoint = "helloworld/logincheck", database = "nrw", ...),
       response_bildung = .gen_api_core(endpoint = "helloworld/logincheck", database = "bildung", ...),
-      response_sa = .gen_api_core(endpoint = "helloworld/logincheck", database = "sa", ...)
+      response_sa = .gen_api_core(endpoint = "helloworld/logincheck", database = "st", ...)
     )
 
     purrr::walk2(.x = response_list,
@@ -478,9 +478,9 @@ logincheck_http_error <- function(database,
 
   } else if (length(database) > 1 & !("all" %in% database)) {
 
-    if (!(all(database %in% c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa")))) {
+    if (!(all(database %in% c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st")))) {
 
-      stop("You can only specify 'all', 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung', 'sa' inside of the parameter 'database'.",
+      stop("You can only specify 'all', 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung', 'st' inside of the parameter 'database'.",
            call. = FALSE)
 
     }
@@ -553,12 +553,12 @@ logincheck_http_error <- function(database,
 
     #-----------------------------------------------------------------------------
 
-    if ("sa" %in% database) {
+    if ("st" %in% database) {
 
-      logincheck_stop_or_warn(response = .gen_api_core(endpoint = "helloworld/logincheck", database = "sa", ...),
+      logincheck_stop_or_warn(response = .gen_api_core(endpoint = "helloworld/logincheck", database = "st", ...),
                               error = FALSE,
                               verbose = verbose,
-                              database = "sa")
+                              database = "st")
 
     }
 
@@ -657,7 +657,7 @@ insert_and_save_credentials <- function(database,
 
     #-----------------------------------------------------------------------------
 
-  } else if(database == "bayern") {
+  } else if (database == "bayern") {
 
     if (isTRUE(use_token)) use_token <- FALSE
 
@@ -668,7 +668,7 @@ insert_and_save_credentials <- function(database,
 
     #-----------------------------------------------------------------------------
 
-  } else if(database == "nrw") {
+  } else if (database == "nrw") {
 
     if (isTRUE(use_token)) use_token <- FALSE
 
@@ -679,7 +679,7 @@ insert_and_save_credentials <- function(database,
 
     #-----------------------------------------------------------------------------
 
-  } else if(database == "bildung") {
+  } else if (database == "bildung") {
 
     if (isTRUE(use_token)) use_token <- FALSE
 
@@ -690,12 +690,12 @@ insert_and_save_credentials <- function(database,
 
     #-----------------------------------------------------------------------------
 
-  } else if(database == "sa") {
+  } else if (database == "st") {
 
     if (isTRUE(use_token)) use_token <- FALSE
 
     set_credentials_auth(path = "auth_sa.rds",
-                         sys_env = "SA_KEY",
+                         sys_env = "ST_KEY",
                          ui_menu_database = "genesis.sachsen-anhalt.de",
                          use_token = use_token)
 

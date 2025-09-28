@@ -302,7 +302,7 @@ check_function_input <- function(code = NULL,
   if ((length(database) == 1 && !is.null(database) && database == "all") |
       (length(database) > 1 && "all" %in% database)) {
 
-    database <- c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa")
+    database <- c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st")
 
   }
 
@@ -1179,9 +1179,9 @@ test_database_function <- function(input, error.input, text){
 
   }
 
-  if ("sa" %in% input) {
+  if ("st" %in% input) {
 
-    res <- c(res, "sa")
+    res <- c(res, "st")
 
   }
 
@@ -1201,18 +1201,18 @@ test_database_function <- function(input, error.input, text){
              "bayern",
              "nrw",
              "bildung",
-             "sa")
+             "st")
 
   } else if (length(res) == 0 || is.null(res)) {
 
-    stop("All the databases you have specified are not part of this package.\nPlease enter valid database names ('regio', 'zensus', 'genesis','bayern', 'nrw', 'bildung', 'sa' or 'all').",
+    stop("All the databases you have specified are not part of this package.\nPlease enter valid database names ('regio', 'zensus', 'genesis','bayern', 'nrw', 'bildung', 'st' or 'all').",
          call. = FALSE)
 
   } else if (length(res) != length(input)) {
 
     if (isFALSE(error.input)) {
 
-      stop("One or more of the specified databases are not part of this package. Currently only 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung', and 'sa' are implemented.",
+      stop("One or more of the specified databases are not part of this package. Currently only 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung', and 'st' are implemented.",
            call. = FALSE)
 
     } else {

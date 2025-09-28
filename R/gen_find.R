@@ -5,7 +5,7 @@
 #' Important note: Time-series are treated as cubes in GENESIS and regionalstatistik.de, they are not longer distinguished. If you want to find a specific object with a clear code with this find function, you need to specify the object type or search for all object types.
 #'
 #' @param term A character string with no maximum character length, but a word limit of five words.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
 #' @param category Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.
 #' @param detailed Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
 #' @param ordering A logical. Indicator if the function should return the output of the iteration ordered first based on the fact if the searched term is appearing in the title of the object and secondly on an estimator of the number of variables in this object. Default option is 'TRUE'.
@@ -33,7 +33,7 @@
 #' }
 #'
 gen_find <- function(term = NULL,
-                     database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
+                     database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),
                      category = c("all", "tables", "statistics", "variables", "cubes"),
                      detailed = FALSE,
                      ordering = TRUE,
@@ -75,8 +75,8 @@ gen_find <- function(term = NULL,
 
     #---------------------------------------------------------------------------
 
-    # HUHU: Does it work also for 'bayern' & 'sa'?
-    if (db %in% c("zensus", "bayern", "sa") && category == "cubes") {
+    # HUHU: Does it work also for 'bayern' & 'st'?
+    if (db %in% c("zensus", "bayern", "st") && category == "cubes") {
 
       empty_object <- "FAIL"
 
@@ -113,7 +113,7 @@ gen_find <- function(term = NULL,
 
       return(list_resp)
 
-    } else if (empty_object == "FAIL" & db %in% c("zensus", "bayern", "sa") ){
+    } else if (empty_object == "FAIL" & db %in% c("zensus", "bayern", "st") ){
 
       list_resp <- list("Output" = paste("There are generally no 'cubes' objects available for the '", db, "' database."))
 
@@ -548,7 +548,7 @@ gen_find <- function(term = NULL,
           }
 
 
-        } else if (db %in% c("zensus", "bayern", "sa")) {
+        } else if (db %in% c("zensus", "bayern", "st")) {
 
           df_cubes <- paste("There are generally no 'cubes' objects available for the '", db, "' database.")
 

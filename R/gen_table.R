@@ -63,7 +63,7 @@ gen_table <- function(name, ...) {
 #-------------------------------------------------------------------------------
 
 gen_table_ <- function(name,
-                       database = c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
+                       database = c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),
                        area = c("all", "public", "user"),
                        compress = FALSE,
                        transpose = FALSE,

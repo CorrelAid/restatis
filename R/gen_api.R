@@ -73,9 +73,9 @@ gen_api <- function(...,
 
     url <- Sys.getenv("RESTATIS_BILDUNG_URL")
 
-  } else if (database == "sa") {
+  } else if (database == "st") {
 
-    url <- Sys.getenv("RESTATIS_SA_URL")
+    url <- Sys.getenv("RESTATIS_ST_URL")
 
   } else {
 

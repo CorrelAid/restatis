@@ -1,8 +1,8 @@
 #' gen_cube
 #'
-#' @description Download a cube with data from GENESIS or regionalstatistik.de database
+#' @description Download a cube with data from GENESIS, regionalstatistik.de, landesdatenbank.nrw.de or bildungsmonitoring.de database
 #'
-#' @param name Character string for a cube object (only GENESIS and regionalstatistik.de)
+#' @param name Character string for a cube object (only GENESIS, regionalstatistik.de, landesdatenbank.nrw.de or bildungsmonitoring.de)
 #' @param ... Further (optional) parameters passed on to the API call:
 #'   \describe{
 #'     \item{\code{area}}{Character string. The area in which the table is stored. Possible values:
@@ -57,7 +57,7 @@ gen_cube <- function(name, ...) {
 #-------------------------------------------------------------------------------
 
 gen_cube_ <- function(name,
-                      database = c("genesis", "regio", "nrw", "bildung"), # HUHU: Works for 'bayern' & 'sa'?
+                      database = c("genesis", "regio", "nrw", "bildung"), # HUHU: Works for 'bayern' & 'st'?
                       area = c("public", "user"),
                       values = TRUE,
                       metadata = TRUE,
