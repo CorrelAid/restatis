@@ -694,7 +694,7 @@ insert_and_save_credentials <- function(database,
 
     if (isTRUE(use_token)) use_token <- FALSE
 
-    set_credentials_auth(path = "auth_sa.rds",
+    set_credentials_auth(path = "auth_st.rds",
                          sys_env = "ST_KEY",
                          ui_menu_database = "genesis.sachsen-anhalt.de",
                          use_token = use_token)

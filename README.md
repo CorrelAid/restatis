@@ -2,6 +2,7 @@
 # restatis <img src="man/figures/hexsticker_restatis.png" width="160px" align="right" />
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <!-- badges: start -->
 
 [![CRAN
@@ -19,10 +20,17 @@ to the three main databases of German official statistics:
 
 - The [**GENESIS database** of the Federal Statistical Office of Germany
   (Destatis)](https://www-genesis.destatis.de/genesis/online),
-- [**regionalstatistik.de** which is the database of the German Länder
+- [**regionalstatistik.de**, which is the database of the German Länder
   (Regionaldatenbank)](https://www.regionalstatistik.de/genesis/online/),
 - The [database of the **German 2022 Census** (Zensus
   2022)](https://ergebnisse.zensus2022.de/datenbank/online/).
+- The [**Kommunale
+  Bildungsdatenbank**](https://www.bildungsmonitoring.de/bildung/online/)
+- The [**Landesdatenbank NRW**](https://www.landesdatenbank.nrw.de/)
+- The [Datenbank des **Bayerischen Landesamtes für
+  Statistik**](https://www.statistikdaten.bayern.de/genesis/online)
+- The [Datenbank des **Statistischen Landesamtes
+  Sachsen-Anhalt**](https://genesis.sachsen-anhalt.de/genesis/online)
 
 Almost all functions work on either one of them, on all of them or just
 on a selection.

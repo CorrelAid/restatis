@@ -130,7 +130,7 @@ gen_api <- function(...,
 
         expr = {
 
-          # Perform API call with GET (deprecated in GENESIS and Zensus 2022)
+          # Perform API call with GET (deprecated in many GENESIS instances as of autumn 2025)
           httr2::request(url) %>%
             httr2::req_user_agent(user_agent) %>%
             httr2::req_url_path_append(endpoint) %>%

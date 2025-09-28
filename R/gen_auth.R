@@ -35,8 +35,6 @@ gen_auth_save <- function(database,
 
   }
 
-  # HUHU: double check if use of token really doesn't work
-
   if (database == "bayern" & isTRUE(use_token)) {
 
     warning("statistikdaten.bayern.de does not support API tokens. Defaulting to username and password.",

@@ -115,7 +115,7 @@ gen_find <- function(term = NULL,
 
     } else if (empty_object == "FAIL" & db %in% c("zensus", "bayern", "st") ){
 
-      list_resp <- list("Output" = paste("There are generally no 'cubes' objects available for the '", db, "' database."))
+      list_resp <- list("Output" = paste0("There are generally no 'cubes' objects available for the '", db, "' database."))
 
       attr(list_resp, "Term") <- term
       attr(list_resp, "Database") <- db
