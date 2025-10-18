@@ -76,6 +76,7 @@ gen_find <- function(term = NULL,
     #---------------------------------------------------------------------------
 
     # HUHU: Does it work also for 'bayern' & 'st'?
+    # Definitely no cubes for ST, BY is unclear
     if (db %in% c("zensus", "bayern", "st") && category == "cubes") {
 
       empty_object <- "FAIL"
@@ -113,6 +114,7 @@ gen_find <- function(term = NULL,
 
       return(list_resp)
 
+      # HUHU: It is still unclear as to whether BY provides cubes
     } else if (empty_object == "FAIL" & db %in% c("zensus", "bayern", "st") ){
 
       list_resp <- list("Output" = paste0("There are generally no 'cubes' objects available for the '", db, "' database."))
@@ -548,6 +550,7 @@ gen_find <- function(term = NULL,
           }
 
 
+          # HUHU: It is still unclear as to whether BY provides cubes
         } else if (db %in% c("zensus", "bayern", "st")) {
 
           df_cubes <- paste("There are generally no 'cubes' objects available for the '", db, "' database.")

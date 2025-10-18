@@ -80,6 +80,7 @@ gen_catalogue <- function(code = NULL,
     #---------------------------------------------------------------------------
 
     # HUHU: Does it work also for 'bayern' & 'st'?
+    # There are definitely no cubes for ST, BY is still unclear
     if ("cubes" %in% category && db %in% c("zensus", "bayern", "st")) {
 
       list_of_cubes <- paste("There are generally no 'cubes' objects available for the '", db, "' database.")
