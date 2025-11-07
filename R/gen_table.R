@@ -38,6 +38,8 @@
 #'        (not available with the 'Zensus' database). In order to set job = TRUE
 #'        you have to have username and password saved with gen_auth_save(),
 #'        using API tokens with job = TRUE will result in an error.}
+#'     \item{\code{credential_type}}{}
+#'     \item{\code{credential_list}}{}
 #'     \item{\code{all_character}}{Boolean. Should all variables be imported as
 #'        'character' variables? Avoids fuzzy data type conversions if there are
 #'        leading zeros or other special characters. Defaults to TRUE.}
@@ -81,6 +83,8 @@ gen_table_ <- function(name,
                        stand = NULL,
                        language = Sys.getenv("RESTATIS_LANG"),
                        job = FALSE,
+                       credential_type = c("general", "custom", "multiple"),
+                       credential_list = NULL,
                        all_character = TRUE,
                        ...) {
 
@@ -115,6 +119,13 @@ gen_table_ <- function(name,
   classifyingkey1 <- param_collapse_vec(classifyingkey1)
   classifyingkey2 <- param_collapse_vec(classifyingkey2)
   classifyingkey3 <- param_collapse_vec(classifyingkey3)
+
+  # Check credentials
+  creds <- check_credentials(database,
+                             credential_type,
+                             credential_list,
+                             verbose)
+
 
   #-----------------------------------------------------------------------------
   # Manage credentials related to jobs
@@ -162,6 +173,8 @@ gen_table_ <- function(name,
                       language = language,
                       format = "ffcsv",
                       job = job,
+                      username = creds[[db]]["username"], #gen_auth_get(database = db)$username,
+                      password = creds[[db]]["password"], #gen_auth_get(database = db)$password,
                       ...)
 
   #-----------------------------------------------------------------------------

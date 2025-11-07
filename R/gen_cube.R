@@ -34,6 +34,8 @@
 #'       with the keys separated by commas. Use of wildcard (`*`) allowed.}
 #'     \item{\code{stand}}{Character string, format: \code{"DD.MM.YYYY"}. Only retrieve data
 #'       updated after this date.}
+#'     \item{\code{credential_type}}{}
+#'     \item{\code{credential_list}}{}
 #'     \item{\code{language}}{Character string. Search terms, returned messages and data
 #'       descriptions in German (`"de"`) or English (`"en"`)?}
 #'     \item{\code{...}}{Additional parameters for the API call (see respective API documentation).
@@ -76,6 +78,8 @@ gen_cube_ <- function(name,
                       classifyingvariable3 = NULL,
                       classifyingkey3 = NULL,
                       stand = NULL,
+                      credential_type = c("general", "custom", "multiple"),
+                      credential_list = NULL,
                       language = Sys.getenv("RESTATIS_LANG"),
                       ...) {
 
@@ -97,6 +101,12 @@ gen_cube_ <- function(name,
   classifyingkey1 <- param_collapse_vec(classifyingkey1)
   classifyingkey2 <- param_collapse_vec(classifyingkey2)
   classifyingkey3 <- param_collapse_vec(classifyingkey3)
+
+  # Check credentials
+  creds <- check_credentials(database,
+                             credential_type,
+                             credential_list,
+                             verbose)
 
   #-----------------------------------------------------------------------------
 
@@ -121,6 +131,8 @@ gen_cube_ <- function(name,
                       classifyingkey3 = classifyingkey3,
                       stand = stand,
                       language = language,
+                      username = creds[[db]]["username"], #gen_auth_get(database = db)$username,
+                      password = creds[[db]]["password"], #gen_auth_get(database = db)$password,
                       ...)
 
   #-------------------------------------------------------------------------------
