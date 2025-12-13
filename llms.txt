@@ -1,0 +1,284 @@
+# restatis ![](reference/figures/hexsticker_restatis.png)
+
+**{restatis}** is a wrapper around the RESTful APIs that provide access
+to the three main databases of German official statistics:
+
+- The [**GENESIS database** of the Federal Statistical Office of Germany
+  (Destatis)](https://www-genesis.destatis.de/genesis/online),
+- [**regionalstatistik.de**, which is the database of the German Länder
+  (Regionaldatenbank)](https://www.regionalstatistik.de/genesis/online/),
+- The [database of the **German 2022 Census** (Zensus
+  2022)](https://ergebnisse.zensus2022.de/datenbank/online/).
+- The [**Kommunale
+  Bildungsdatenbank**](https://www.bildungsmonitoring.de/bildung/online/)
+- The [**Landesdatenbank NRW**](https://www.landesdatenbank.nrw.de/)
+- The [Datenbank des **Bayerischen Landesamtes für
+  Statistik**](https://www.statistikdaten.bayern.de/genesis/online)
+- The [Datenbank des **Statistischen Landesamtes
+  Sachsen-Anhalt**](https://genesis.sachsen-anhalt.de/genesis/online)
+
+Almost all functions work on either one of them, on all of them or just
+on a selection.
+
+#### Current (known) performance issues
+
+- The function `gen_download_job` currently does not work in the CRAN
+  release version for the GENESIS database. This is because the mode of
+  downloading the tables has changed. A fix has been deployed to the
+  development version and will be coming with the next CRAN update.
+- It might be that the creation of jobs with `gen_table` is currently
+  buggy in the release version (jobs not being created despite of
+  `job = TRUE`). A fix has been deployed to the development version and
+  will be coming with the next CRAN update.
+
+## Installation
+
+You can install the released version of
+[restatis](https://correlaid.github.io/restatis/) from CRAN:
+
+``` r
+install.packages("restatis")
+```
+
+Or install a development version of
+[restatis](https://correlaid.github.io/restatis/) from
+[GitHub](https://github.com/CorrelAid/restatis) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("CorrelAid/restatis")
+```
+
+## Usage
+
+### Authentication
+
+To access each one of the APIs, you need to have an account that you can
+create on the homepage (see links to them above) and store your username
+and password for use in R with
+[`restatis::gen_auth_save()`](https://correlaid.github.io/restatis/reference/gen_auth_save.md)
+(see
+[`?gen_auth_save`](https://correlaid.github.io/restatis/reference/gen_auth_save.md)
+for more details).
+
+**Note:** The GENESIS and Zensus 2022 databases do support
+authentication with an API token as well. You can set the token as
+credential by using setting the parameter `use_token = TRUE` for
+[`restatis::gen_auth_save()`](https://correlaid.github.io/restatis/reference/gen_auth_save.md).
+The token itself can be found when logging into the respective webpage
+with your account and by clicking on *Webservice (API)* (EN) or
+*Webservice-Schnittstelle (API)* (DE) in the bottom left corner.
+**Important:** The GENESIS database will not let you create jobs when
+using API tokens to authenticate. This is why
+[restatis](https://correlaid.github.io/restatis/) will check your
+credential type once you set `job = TRUE` for
+[`gen_table()`](https://correlaid.github.io/restatis/reference/gen_table.md)
+and error in case a token is used. To enable the use of jobs, use
+[`gen_auth_save()`](https://correlaid.github.io/restatis/reference/gen_auth_save.md)
+and input your username and password (by setting `use_token = FALSE`).
+
+### Main features
+
+{restatis} provides functions (prefixed with `gen_`) for finding,
+exploring, and retrieving data from the three supported APIs. See the
+[“Basic restatis workflow”
+vignette](https://correlaid.github.io/restatis/articles/restatis.html)
+for an overview of the main features of the package.
+
+In short, there are functions divided in two main parts, searching for
+(meta)data and retrieving data:
+
+#### Searching for (meta)data
+
+- **gen_catalogue()**: Search the API’s catalogue of data
+- **gen_find()**: Find objects related to a search term
+- **gen_metadata()**: Find meta data to an objects
+- **gen_alternative_terms()**: Find alternative terms to a search term
+- **gen_modified_data()**: Find out when an object has last been
+  modified
+- **gen_objects2stat()**, **gen_objects2var()**, **gen_var2stat()**,
+  **gen_val2var()**, **gen_val2var2stat()** and **gen_search_vars()**:
+  Find objects, statistics, variables and values related to each other
+
+#### Retrieving data
+
+- **gen_cube()**: Using this function, you can download ‘cube’ objects
+- **gen_table()**: Using this function, you can download ‘table’ objects
+- **gen_list_jobs()** and **gen_download_job()**: Using this function,
+  you can find and download previously created jobs (large tables)
+
+#### Other functions
+
+- **gen_logincheck()**: Perform a logincheck to test your credentials
+- **gen_signs()**: Get a list of quality signs (special characters)
+  found in the API’s tables
+- **gen_update_evas()**: Manually scrape a newer version of the EVAS
+  numbers (official statistic IDs)
+
+### Caching
+
+[restatis](https://correlaid.github.io/restatis/) uses
+[**memoisation**](https://github.com/r-lib/memoise) to cache query
+results. This means that if you call a function multiple times with the
+same exact input, the values returned the first time are stored and
+reused from the second time on. Cached objects are stored in memory and
+do not persist across R sessions. With version 0.3.0, we have enabled
+users to turn off caching. The caching option is set to TRUE by default
+and can be changed by setting `options(restatis.use_cache = TRUE)` (or
+`FALSE`, respectively). You can get the current state of the option by
+using `getOption("restatis.use_cache")`. **Note:** Memoisation is
+*never* used for the functions
+[`gen_list_jobs()`](https://correlaid.github.io/restatis/reference/gen_list_jobs.md)
+and
+[`gen_logincheck()`](https://correlaid.github.io/restatis/reference/gen_logincheck.md)
+because there is no use-case for a cached version of the results of
+these functions (e.g., login checks should always be executed when
+called).
+
+## Disclaimer
+
+This package is in no way affiliated with the German Federal Statistical
+Office (Destatis) or the ‘Verbund Statistische Ämter des Bundes und der
+Länder’. It is a simple wrapper providing R functions to access
+different official statistics APIs. The package authors are in no way
+responsible for the data that can be retrieved using its functions and
+do not provide support for any problems arising from the APIs’
+functionality itself. Conversely, support for problems related to this
+package is **exclusively** provided by the package authors. The license
+of this package solely applies to its source code.
+
+# Package index
+
+## All functions
+
+- [`binding_lapply()`](https://correlaid.github.io/restatis/reference/binding_lapply.md)
+  : binding_lapply
+- [`check_function_input()`](https://correlaid.github.io/restatis/reference/check_function_input.md)
+  : check_function_input
+- [`check_results()`](https://correlaid.github.io/restatis/reference/check_results.md)
+  : check_results
+- [`.gen_api_core()`](https://correlaid.github.io/restatis/reference/dot-gen_api_core.md)
+  : Basic API request function
+- [`evas_list`](https://correlaid.github.io/restatis/reference/evas_list.md)
+  : List of EVAS Codes
+- [`find_token()`](https://correlaid.github.io/restatis/reference/find_token.md)
+  : find_token
+- [`forming_evas()`](https://correlaid.github.io/restatis/reference/forming_evas.md)
+  : forming_evas
+- [`gen_alternative_terms()`](https://correlaid.github.io/restatis/reference/gen_alternative_terms.md)
+  : Find similar search terms
+- [`gen_auth_ask()`](https://correlaid.github.io/restatis/reference/gen_auth_ask.md)
+  : Helper function for authentication purposes
+- [`gen_auth_get()`](https://correlaid.github.io/restatis/reference/gen_auth_get.md)
+  : Retrieve database credentials
+- [`gen_auth_path()`](https://correlaid.github.io/restatis/reference/gen_auth_path.md)
+  : Helper function for authentication purposes
+- [`gen_auth_save()`](https://correlaid.github.io/restatis/reference/gen_auth_save.md)
+  : Save database credentials
+- [`gen_catalogue()`](https://correlaid.github.io/restatis/reference/gen_catalogue.md)
+  : Search for tables, statistics and cubes
+- [`gen_cube()`](https://correlaid.github.io/restatis/reference/gen_cube.md)
+  : gen_cube
+- [`gen_download_job()`](https://correlaid.github.io/restatis/reference/gen_download_job.md)
+  : gen_download_job
+- [`gen_find()`](https://correlaid.github.io/restatis/reference/gen_find.md)
+  : General Search for Objects Through A Database
+- [`gen_list_jobs()`](https://correlaid.github.io/restatis/reference/gen_list_jobs.md)
+  : gen_list_jobs
+- [`gen_logincheck()`](https://correlaid.github.io/restatis/reference/gen_logincheck.md)
+  : gen_logincheck
+- [`gen_metadata()`](https://correlaid.github.io/restatis/reference/gen_metadata.md)
+  : Search For Meta-Information For All Types Of Objects
+- [`gen_metadata_cube()`](https://correlaid.github.io/restatis/reference/gen_metadata_cube.md)
+  : gen_metadata_cube
+- [`gen_metadata_statistic()`](https://correlaid.github.io/restatis/reference/gen_metadata_statistic.md)
+  : gen_metadata_statistic
+- [`gen_metadata_table()`](https://correlaid.github.io/restatis/reference/gen_metadata_table.md)
+  : gen_metadata_table
+- [`gen_metadata_value()`](https://correlaid.github.io/restatis/reference/gen_metadata_value.md)
+  : gen_metadata_value
+- [`gen_metadata_variable()`](https://correlaid.github.io/restatis/reference/gen_metadata_variable.md)
+  : gen_metadata_variable
+- [`gen_modified_data()`](https://correlaid.github.io/restatis/reference/gen_modified_data.md)
+  : gen_modified_data
+- [`gen_objects2stat()`](https://correlaid.github.io/restatis/reference/gen_objects2stat.md)
+  : gen_objects2stat
+- [`gen_objects2var()`](https://correlaid.github.io/restatis/reference/gen_objects2var.md)
+  : gen_objects2var
+- [`gen_search_vars()`](https://correlaid.github.io/restatis/reference/gen_search_vars.md)
+  : gen_search_vars
+- [`gen_signs()`](https://correlaid.github.io/restatis/reference/gen_signs.md)
+  : gen_signs
+- [`gen_table()`](https://correlaid.github.io/restatis/reference/gen_table.md)
+  : gen_table
+- [`gen_update_evas()`](https://correlaid.github.io/restatis/reference/gen_update_evas.md)
+  : gen_update_evas
+- [`gen_val2var()`](https://correlaid.github.io/restatis/reference/gen_val2var.md)
+  : gen_val2var
+- [`gen_val2var2stat()`](https://correlaid.github.io/restatis/reference/gen_val2var2stat.md)
+  : gen_val2var2stat
+- [`gen_var2stat()`](https://correlaid.github.io/restatis/reference/gen_var2stat.md)
+  : gen_var2stat
+- [`ggsub()`](https://correlaid.github.io/restatis/reference/ggsub.md) :
+  ggsub
+- [`insert_and_save_credentials()`](https://correlaid.github.io/restatis/reference/insert_and_save_credentials.md)
+  : insert_and_save_credentials
+- [`is_cube_metadata_header()`](https://correlaid.github.io/restatis/reference/is_cube_metadata_header.md)
+  : is_cube_metadata_header
+- [`logincheck_http_error()`](https://correlaid.github.io/restatis/reference/logincheck_http_error.md)
+  : logincheck_http_error
+- [`logincheck_stop_or_warn()`](https://correlaid.github.io/restatis/reference/logincheck_stop_or_warn.md)
+  : logincheck_stop_or_warn
+- [`param_check_regionalkey()`](https://correlaid.github.io/restatis/reference/param_check_regionalkey.md)
+  : param_check_regionalkey
+- [`param_check_year()`](https://correlaid.github.io/restatis/reference/param_check_year.md)
+  : param_check_year
+- [`param_collapse_vec()`](https://correlaid.github.io/restatis/reference/param_collapse_vec.md)
+  : param_collapse_vec
+- [`read_cube()`](https://correlaid.github.io/restatis/reference/read_cube.md)
+  : read_cube
+- [`read_cube_block()`](https://correlaid.github.io/restatis/reference/read_cube_block.md)
+  : read_cube_block
+- [`read_cube_data_lines()`](https://correlaid.github.io/restatis/reference/read_cube_data_lines.md)
+  : read_cube_data_lines
+- [`read_cube_metadata_header()`](https://correlaid.github.io/restatis/reference/read_cube_metadata_header.md)
+  : read_cube_metadata_header
+- [`rename_cube_data_columns()`](https://correlaid.github.io/restatis/reference/rename_cube_data_columns.md)
+  : rename_cube_data_columns
+- [`resp_check_data()`](https://correlaid.github.io/restatis/reference/resp_check_data.md)
+  : resp_check_data
+- [`return_table_object()`](https://correlaid.github.io/restatis/reference/return_table_object.md)
+  : return_table_object
+- [`set_credentials_auth()`](https://correlaid.github.io/restatis/reference/set_credentials_auth.md)
+  : set_credentials_auth
+- [`spezifisch_create()`](https://correlaid.github.io/restatis/reference/spezifisch_create.md)
+  : spezifisch_create
+- [`split_cube()`](https://correlaid.github.io/restatis/reference/split_cube.md)
+  : split_cube
+- [`test_database_function()`](https://correlaid.github.io/restatis/reference/test_database_function.md)
+  : test_database_function
+- [`test_if_error()`](https://correlaid.github.io/restatis/reference/test_if_error.md)
+  : test_if_error
+- [`test_if_error_find()`](https://correlaid.github.io/restatis/reference/test_if_error_find.md)
+  : test_if_error_find
+- [`test_if_error_light()`](https://correlaid.github.io/restatis/reference/test_if_error_light.md)
+  : test_if_error_light
+- [`test_if_error_variables()`](https://correlaid.github.io/restatis/reference/test_if_error_variables.md)
+  : test_if_error_variables
+- [`test_if_json()`](https://correlaid.github.io/restatis/reference/test_if_json.md)
+  : test_if_json
+- [`test_if_okay()`](https://correlaid.github.io/restatis/reference/test_if_okay.md)
+  : test_if_okay
+- [`test_if_process_further()`](https://correlaid.github.io/restatis/reference/test_if_process_further.md)
+  : test_if_process_further
+- [`titel_search()`](https://correlaid.github.io/restatis/reference/titel_search.md)
+  : titel_search
+
+# Articles
+
+### All vignettes
+
+- [Additional Parameters for API Calls with
+  {restatis}](https://correlaid.github.io/restatis/articles/additional_parameter.md):
+- [Basic restatis
+  Workflow](https://correlaid.github.io/restatis/articles/restatis.md):
