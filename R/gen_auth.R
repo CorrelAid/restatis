@@ -4,7 +4,7 @@
 #'
 #' @param database Character string. The database to store credentials for ('all', 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung' or 'st').
 #' @param use_token Boolean. Do you want to (if possible) set an API token instead of password + username? Note: This is only supported by 'genesis' and 'zensus'. Defaults to FALSE.
-#' @param multiple
+#' @param multiple Numeric value indicating how many credentials should be added for the specified database.
 #'
 #' @details Username and password are encrypted and saved as RDS in the
 #'   package config directory. A random string is generated and stored in the
@@ -65,16 +65,17 @@ gen_auth_save <- function(database,
 
   }
 
-  if(is.null(multiple)){
+  if (is.null(multiple)) {
 
     multiple <- 1
 
   }
 
-  if (!is.double(multiple) & length(multiple) == 1){
+  if (!is.double(multiple) & length(multiple) == 1) {
 
     stop("Parameter 'multiple' must be a numeric value indicating how many credentials should be added for the specified database.",
          call. = FALSE)
+
   }
 
   #-----------------------------------------------------------------------------
@@ -83,8 +84,10 @@ gen_auth_save <- function(database,
 
       insert_and_save_credentials(database, use_token, multiple)
 
-      for(i in 1:multiple){
+      for (i in 1:multiple) {
+
         gen_logincheck(database = database, id = i)
+
       }
 
 
@@ -94,11 +97,13 @@ gen_auth_save <- function(database,
 
       insert_and_save_credentials(database, use_token, multiple)
 
-      for(i in 1:multiple){
+      for (i in 1:multiple) {
+
         gen_logincheck(database = database, id = i)
+
       }
 
-  } else if (database == "all"){
+  } else if (database == "all") {
 
     #---------------------------------------------------------------------------
 
@@ -129,8 +134,10 @@ gen_auth_save <- function(database,
                                                  use_token = use_token,
                                                  multiple = multiple)
 
-                   for(i in 1:multiple){
+                   for (i in 1:multiple) {
+
                      gen_logincheck(database = db_names, id = i)
+
                    }
 
                  })
@@ -164,7 +171,7 @@ gen_auth_save <- function(database,
 #'
 gen_auth_get <- function(database = NULL) {
 
-  if(is.null(database)){
+  if (is.null(database)) {
 
     database <- "all"
 

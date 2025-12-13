@@ -753,25 +753,27 @@ set_credentials_auth <- function(path,
                                  use_token,
                                  multiple = NULL) {
 
-  if(isTRUE(use_token)) {
+  if (isTRUE(use_token)) {
 
-    if(multiple > 1){
+    if (multiple > 1) {
 
       credentials_list <- list()
 
-      for(i in 1:multiple){
+      for (i in 1:multiple) {
 
-        if(i == 1) {
+        if (i == 1) {
+
           i <- "general"
-          id_name  <- "general"
+          id_name <- "general"
+
         }
 
-        username <- gen_auth_ask(paste0("API token for ", ui_menu_database, " (Entry ", i, ")"))
+        username <- gen_auth_ask(paste0("API token for ", ui_menu_database, " (Entry ", i, ")."))
         password <- ""
 
-        if(i != "general") {
+        if (i != "general") {
 
-          id_name <- gen_auth_ask(paste0("ID for the specified credential for ", ui_menu_database, " (Entry ", i, ")"))
+          id_name <- gen_auth_ask(paste0("ID for the specified credential for ", ui_menu_database, " (Entry ", i, ")."))
 
         }
 
@@ -779,8 +781,10 @@ set_credentials_auth <- function(path,
 
         credentials_list[[i]] <- credential_vector
 
-        if(i != "general"){
+        if (i != "general") {
+
           names(credentials_list)[i] <- id_name
+
         }
 
       }
@@ -790,28 +794,29 @@ set_credentials_auth <- function(path,
       username <- gen_auth_ask(paste0("API token for ", ui_menu_database))
       password <- ""
 
-
     }
 
   } else {
 
-    if(multiple > 1){
+    if (multiple > 1) {
 
       credentials_list <- list()
 
-      for(i in 1:multiple){
+      for (i in 1:multiple) {
 
-        if(i == 1) {
+        if (i == 1) {
+
           i <- "general"
           id_name  <- "general"
+
         }
 
-        username <- gen_auth_ask(paste0("username for ", ui_menu_database, " (Entry ", i, ")"))
-        password <- gen_auth_ask(paste0("password for ", ui_menu_database, " (Entry ", i, ")"))
+        username <- gen_auth_ask(paste0("username for ", ui_menu_database, " (Entry ", i, ")."))
+        password <- gen_auth_ask(paste0("password for ", ui_menu_database, " (Entry ", i, ")."))
 
         if(i != "general") {
 
-          id_name <- gen_auth_ask(paste0("ID for the specified credential for ", ui_menu_database, " (Entry ", i, ")"))
+          id_name <- gen_auth_ask(paste0("ID for the specified credential for ", ui_menu_database, " (Entry ", i, ")."))
 
         }
 
@@ -819,8 +824,10 @@ set_credentials_auth <- function(path,
 
         credentials_list[[i]] <- credential_vector
 
-        if(i != "general"){
+        if (i != "general") {
+
           names(credentials_list)[i] <- id_name
+
         }
 
       }
@@ -830,8 +837,8 @@ set_credentials_auth <- function(path,
       username <- gen_auth_ask(paste0("username for ", ui_menu_database))
       password <- gen_auth_ask(paste0("password for ", ui_menu_database))
       ID <- "general"
-    }
 
+    }
 
   }
 
@@ -855,9 +862,10 @@ set_credentials_auth <- function(path,
 
   dir.create(gen_auth_path(), showWarnings = FALSE, recursive = TRUE)
 
-  if(multiple == 1) {
+  if (multiple == 1) {
 
     credentials_list <- list(c(username = username, password = password))
+
     names(credentials_list) <- ID
 
   }
@@ -883,10 +891,10 @@ set_credentials_auth <- function(path,
 
 #' check_credentials
 #'
-#' @param database
-#' @param credential_type
-#' @param credential_list
-#' @param verbose
+#' @param database Database to check credentials for
+#' @param credential_type Credential type
+#' @param credential_list List with credentials for DB
+#' @param verbose Turn verbose on or off
 #'
 check_credentials <- function(database,
                               credential_type,
@@ -894,14 +902,14 @@ check_credentials <- function(database,
                               verbose) {
 
   # Check Lenght and Values of credential_type
-  if(length(credential_type) != 1 & length(credential_type) != 3) {
+  if (length(credential_type) != 1 & length(credential_type) != 3) {
 
-    stop("Parameter 'credential_type' has to be of length 1 or the default vector.",
+    stop("Parameter 'credential_type' has to be of length 1 or use the default.",
          call. = FALSE)
 
   }
 
-  if(!is.character(credential_type)){
+  if (!is.character(credential_type)) {
 
     stop("Parameter 'credential_type' has to be of type character.",
          call. = FALSE)
@@ -910,35 +918,44 @@ check_credentials <- function(database,
 
   if (!all(credential_type %in% c("general", "custom", "multiple"))) {
 
-    stop("Parameter 'credential_type' has to be one of 'general', 'custom', 'multiple' or the default vector.",
+    stop("Parameter 'credential_type' has to be one of 'general', 'custom', 'multiple' or use default.",
          call. = FALSE)
 
   }
 
-  # -------------------------------------------------
-
   # Case: General -------------------------------------------------------------
-  if(identical(credential_type, c("general", "custom", "multiple")) || identical(credential_type, "general")){
+
+  if (identical(credential_type, c("general", "custom", "multiple")) || identical(credential_type, "general")) {
 
     credential_type <- "general"
     credential_list <- NULL
 
-    if(isTRUE(verbose)){
+    if (isTRUE(verbose)) {
+
       message("Parameter 'credential_type' set to 'general' by default. Ignoring all other inputs related to credentials.")
+
     }
 
     # Retrieve credentials for all specified databases
     creds_obj <- lapply(database, function(db) {
+
+      # TODO: Passe das Listenobjekt mit den Credentials pro DB an
+      # TODO: Gebe ihm ein Attribut auf oberster Ebene: credentials_list
+      # TODO: Gebe den einzelnen Elementen "Unterattribute"
+      # TODO: Checke die Länge der Liste um sicherzustellen, das erste Element zu erwischen
+
       temp_obj <- unlist(gen_auth_get(database = db)["general"], recursive = FALSE)
+
       names(temp_obj) <- c("username", "password")
 
       return(temp_obj)
+
     })
 
     names(creds_obj) <- database
 
+  # Case: Custom -------------------------------------------------------------
 
-    # Case: Custom -------------------------------------------------------------
   } else if ( identical(credential_type, "custom") ) {
 
     if(is.null(credential_list)){
@@ -973,37 +990,37 @@ check_credentials <- function(database,
 
 
     # Case: Multiple -----------------------------------------------------------
-  } else if ( identical(credential_type, "multiple") ) {
+  } else if (identical(credential_type, "multiple")) {
 
-    if(is.null(credential_list)){
+    if (is.null(credential_list)) {
 
       stop("Parameter 'credential_list' has to be specified if 'credential_type' is set to 'multiple'.",
            call. = FALSE)
 
     }
 
-    if(!is.list(credential_list)){
+    if (!is.list(credential_list)) {
 
       stop("Parameter 'credential_list' has to be of type list if 'credential_type' is set to 'multiple'.",
            call. = FALSE)
 
     }
 
-    if(!all(names(credential_list) %in% database)) {
+    if (!all(names(credential_list) %in% database)) {
 
       stop("Every database that is requested in the parameter 'database' needs its own list entry including the 'ID' of the aimed account for the specified database (e.g., list('genesis' = c(ID = 'acc2'))) - if 'credential_type' is set to 'multiple'.",
            call. = FALSE)
 
     }
 
-    if(!all(sapply(credential_list, length) == 1)) {
+    if (!all(sapply(credential_list, length) == 1)) {
 
       stop("Only one 'ID' is allowed per entry in the parameter 'database' - if 'credential_type' is set to 'multiple'.",
            call. = FALSE)
 
     }
 
-    if(!all(sapply(credential_list, is.character) == TRUE)) {
+    if (!all(sapply(credential_list, is.character) == TRUE)) {
 
       stop("Every entry needs to be of type 'character' - if 'credential_type' is set to 'multiple'.",
            call. = FALSE)
@@ -1011,19 +1028,22 @@ check_credentials <- function(database,
     }
 
     creds_obj <- lapply(names(credential_list), function(db) {
+
       temp_obj <- gen_auth_get(database = db)
       temp_obj <- temp_obj[credential_list[[db]]]
       temp_obj <- unlist(temp_obj, recursive = FALSE)
       names(temp_obj) <- c("username", "password")
 
       return(temp_obj)
+
     })
 
     names(creds_obj) <- names(credential_list)
+
   }
 
-  # Return
   return(creds_obj)
+
 }
 
 #-------------------------------------------------------------------------------
