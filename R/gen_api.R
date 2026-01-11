@@ -37,14 +37,12 @@ gen_api <- function(...,
 #'
 #' @param endpoint Character string. The endpoint of the API that is to be queried.
 #' @param database The database the query should be sent to.
-#' @param id
 #' @param ... Further parameters passed on to the final API call.
 #'
 #' @importFrom httr2 `%>%`
 #'
 .gen_api_core <- function(endpoint,
                           database,
-                          id = NULL,
                           ...) {
 
   #-----------------------------------------------------------------------------
@@ -89,19 +87,6 @@ gen_api <- function(...,
   # Set user agent
   user_agent <- "https://github.com/CorrelAid/restatis"
 
-  if(!is.null(id)){
-
-    creds <- gen_auth_get(database = database)
-
-    username <- creds[[id]]["username"]
-    password <- creds[[id]]["password"]
-  } else {
-
-    temp_body <- list(...)
-
-    username <- temp_body[["username"]]
-    password <- temp_body[["password"]]
-  }
   #-----------------------------------------------------------------------------
 
   # First try to request with POST
@@ -114,7 +99,6 @@ gen_api <- function(...,
 
       # Catch API parameter values for ...
       body_parameters <- list(...)
-      body_parameters <- body_parameters[-c(which(names(body_parameters) %in% c("username", "password")))]
 
       # Check if there are any items in ...
       if (length(body_parameters) > 0) {
@@ -135,8 +119,8 @@ gen_api <- function(...,
         httr2::req_user_agent(user_agent) %>%
         httr2::req_url_path_append(endpoint) %>%
         httr2::req_headers("Content-Type" = "application/x-www-form-urlencoded",
-                           "username" = username,
-                           "password" = password) %>%
+                           "username" = gen_auth_get(database = database)$username,
+                           "password" = gen_auth_get(database = database)$password) %>%
         httr2::req_retry(max_tries = 3) %>%
         httr2::req_perform()
 
@@ -150,7 +134,7 @@ gen_api <- function(...,
           httr2::request(url) %>%
             httr2::req_user_agent(user_agent) %>%
             httr2::req_url_path_append(endpoint) %>%
-            httr2::req_url_query(username, password, ...) %>%
+            httr2::req_url_query(!!!gen_auth_get(database = database), ...) %>%
             httr2::req_retry(max_tries = 3) %>%
             httr2::req_perform()
 
@@ -159,7 +143,7 @@ gen_api <- function(...,
           stop(paste0("The API call(s) have been tried with GET and POST methods, but were unsuccessful (error message: '", e$message, "'). Check your specifications or try again later."),
                call. = FALSE)
 
-        })
+      })
 
     })
 
