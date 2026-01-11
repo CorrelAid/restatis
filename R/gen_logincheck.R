@@ -20,6 +20,7 @@ gen_logincheck <- function(database = "all",
 
   # database_vector will hold a vector of the specified databases to query
   database_vector <- test_database_function(database,
+                                            credential_list = NULL,
                                             error.input = TRUE,
                                             text = verbose)
 

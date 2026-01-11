@@ -4,6 +4,7 @@
 #'
 #' @param name Character string for a cube object (only GENESIS, regionalstatistik.de, landesdatenbank.nrw.de or bildungsmonitoring.de)
 #' @param database Character string. Indicator if the GENESIS ('genesis'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw') or bildungsmonitoring.de ('bildung') database is called.
+#' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
 #' @param ... Further (optional) parameters passed on to the API call:
 #'   \describe{
 #'     \item{\code{area}}{Character string. The area in which the table is stored. Possible values:
@@ -59,6 +60,7 @@ gen_cube <- function(name, ...) {
 
 gen_cube_ <- function(name,
                       database = c("genesis", "regio", "nrw", "bildung", "bayern", "st"),
+                      credential_list = NULL,
                       area = c("public", "user"),
                       values = TRUE,
                       metadata = TRUE,
@@ -82,6 +84,29 @@ gen_cube_ <- function(name,
   area <- match.arg(area)
   database <- match.arg(database)
 
+  if(!is.null(credential_list)){
+    if(!is.list(credential_list)){
+
+      stop("Parameter 'credential_list' has to be of type list if 'credential_type'.",
+           call. = FALSE)
+
+    }
+
+    if(!all(sapply(credential_list, function(x) {all(c("username", "password") %in% names(x))}))) {
+
+      stop("The database that is requested in the parameter 'database' needs its own list entry including the entries 'username' and 'password' (e.g., list('genesis' = c(username = X, password = Y))).",
+           call. = FALSE)
+
+    }
+
+    if(!database %in% names(credential_list)) {
+
+      stop("The database that is requested in the parameter 'database' has no value in the 'credential_list'. Please check the parameters.",
+           call. = FALSE)
+
+    }
+  }
+
   if (!isTRUE(language == "en")) {
 
     area <- switch(area, public = "\u00F6ffentlich", user = "benutzer")
@@ -102,6 +127,7 @@ gen_cube_ <- function(name,
 
   cube_raw <- gen_api(endpoint = "data/cubefile",
                       database = database,
+                      credential_list = credential_list,
                       name = name,
                       area = area,
                       values = values,

@@ -5,6 +5,7 @@
 #' @param term Character string. Maximum length of 15 characters. Term or word for which you are searching for alternative or related terms. Use of '*' as a placeholder is possible to generate broader search areas.
 #' @param similarity Boolean. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function. Default is 'TRUE'.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
+#' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
 #' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
@@ -28,6 +29,7 @@
 gen_alternative_terms <- function(term = NULL,
                                   similarity = TRUE,
                                   database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),
+                                  credential_list = NULL,
                                   pagelength = 500,
                                   verbose = TRUE,
                                   ...) {
@@ -44,6 +46,7 @@ gen_alternative_terms <- function(term = NULL,
 
   # Check availability of credentials for the database(s) selected
   database_vector <- test_database_function(database,
+                                            credential_list = credential_list,
                                             error.input = TRUE,
                                             text = verbose)
 
@@ -63,8 +66,7 @@ gen_alternative_terms <- function(term = NULL,
     # Make API call
     results_raw <- gen_api(endpoint = "catalogue/terms",
                            database = db,
-                           username = gen_auth_get(database = db)$username,
-                           password = gen_auth_get(database = db)$password,
+                           credential_list = credential_list,
                            selection = term,
                            pagelength = pagelength,
                            ...)

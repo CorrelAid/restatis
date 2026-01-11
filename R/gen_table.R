@@ -4,6 +4,7 @@
 #'
 #' @param name Character string. Name/code of the table. Use of wildcards (`*`) is possible.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called.
+#' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
 #' @param ... Optional parameters passed on to the API call:
 #'   \describe{
 #'     \item{\code{area}}{Character string. The area in which the table is stored. Possible values:
@@ -65,6 +66,7 @@ gen_table <- function(name, ...) {
 
 gen_table_ <- function(name,
                        database = c("genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),
+                       credential_list = NULL,
                        area = c("all", "public", "user"),
                        compress = FALSE,
                        transpose = FALSE,
@@ -96,6 +98,29 @@ gen_table_ <- function(name,
 
   database <- match.arg(database)
 
+  if(!is.null(credential_list)){
+    if(!is.list(credential_list)){
+
+      stop("Parameter 'credential_list' has to be of type list if 'credential_type'.",
+           call. = FALSE)
+
+    }
+
+    if(!all(sapply(credential_list, function(x) {all(c("username", "password") %in% names(x))}))) {
+
+      stop("The database that is requested in the parameter 'database' needs its own list entry including the entries 'username' and 'password' (e.g., list('genesis' = c(username = X, password = Y))).",
+           call. = FALSE)
+
+    }
+
+    if(!database %in% names(credential_list)) {
+
+      stop("The database that is requested in the parameter 'database' has no value in the 'credential_list'. Please check the parameters.",
+           call. = FALSE)
+
+    }
+  }
+
   area <- match.arg(area)
 
   if (!isTRUE(language == "en")) {
@@ -119,23 +144,32 @@ gen_table_ <- function(name,
   #-----------------------------------------------------------------------------
   # Manage credentials related to jobs
 
-  credentials <- gen_auth_get(database = database)
+  if(!is.null(credential_list)){
 
-  cred_attr <- credentials %>% attributes %>% names
-
-  if (!("credential_type" %in% cred_attr)) {
-
-    stop("There has been an error specifying your credentials (missing credential type attribute). Please try again using 'gen_auth_save()'.",
+    stop("Please check if the jobs-related credentials are identical with your provided credentials - otherwise the function will fail.",
          call. = FALSE)
 
-  }
+  } else {
 
-  if (isTRUE(job) & attr(credentials, "credential_type") == "token" & database == "genesis") {
+    credentials <- gen_auth_get(database = database)
 
-    stop(paste0("It is not possible to set 'job = TRUE' when an API token is used for authentication.\n",
-                "Use 'gen_auth_save(\"", database, "\", use_token = FALSE)' and input username and password to enable creating jobs.\n",
-                "See README for more information."),
-         call. = FALSE)
+    cred_attr <- credentials %>% attributes %>% names
+
+    if (!("credential_type" %in% cred_attr)) {
+
+      stop("There has been an error specifying your credentials (missing credential type attribute). Please try again using 'gen_auth_save()'.",
+           call. = FALSE)
+
+    }
+
+    if (isTRUE(job) & attr(credentials, "credential_type") == "token" & database == "genesis") {
+
+      stop(paste0("It is not possible to set 'job = TRUE' when an API token is used for authentication.\n",
+                  "Use 'gen_auth_save(\"", database, "\", use_token = FALSE)' and input username and password to enable creating jobs.\n",
+                  "See README for more information."),
+           call. = FALSE)
+
+    }
 
   }
 
@@ -144,6 +178,7 @@ gen_table_ <- function(name,
 
   response <- gen_api(endpoint = "data/tablefile",
                       database = database,
+                      credential_list = credential_list,
                       name = name,
                       area = area,
                       compress = compress,
