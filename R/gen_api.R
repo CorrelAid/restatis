@@ -19,14 +19,6 @@ gen_api <- function(...,
   # Choose executing function based on cache option
   if (isTRUE(use_cache)) {
 
-    if (!exists(".gen_api_cached", envir = asNamespace("restatis"))) {
-
-      assign(x = ".gen_api_cached",
-             value = memoise::memoise(.gen_api_core),
-             envir = asNamespace("restatis"))
-
-    }
-
     return(.gen_api_cached(...))
 
   } else {
