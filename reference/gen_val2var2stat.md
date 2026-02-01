@@ -9,9 +9,10 @@ message.
 ``` r
 gen_val2var2stat(
   code = NULL,
-  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
+  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),
   area = c("all", "public", "user"),
   detailed = FALSE,
+  credential_list = NULL,
   sortcriterion = c("code", "content"),
   pagelength = 500,
   error.ignore.var = FALSE,
@@ -33,7 +34,7 @@ gen_val2var2stat(
   Character string. Indicator if the GENESIS ('genesis'), Zensus 2022
   ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de
   ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de
-  ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If
+  ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If
   all databases should be checked, use 'all'. Default option is 'all'.
 
 - area:
@@ -48,6 +49,12 @@ gen_val2var2stat(
   of the iteration including all object-related information or only a
   shortened output including only code and object title. Default option
   is 'FALSE'.
+
+- credential_list:
+
+  A list containing the credentials for the databases to be accessed. If
+  'NULL' (default), the function will use the stored credentials from
+  [`gen_auth_get()`](https://correlaid.github.io/restatis/reference/gen_auth_get.md).
 
 - sortcriterion:
 

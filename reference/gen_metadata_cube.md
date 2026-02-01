@@ -9,6 +9,7 @@ for GENESIS and regionalstatistik.de.
 gen_metadata_cube(
   code = NULL,
   database = c("all", "genesis", "regio", "nrw", "bildung"),
+  credential_list = NULL,
   area = c("all", "public", "user"),
   error.ignore = FALSE,
   verbose = TRUE,
@@ -30,6 +31,12 @@ gen_metadata_cube(
   regionalstatistik.de ('regio'), landesdatenbank.nrw.de ('nrw') or
   bildungsmonitoring.de ('bildung') database is called. If all databases
   should be checked, use 'all'. Default option is 'all'.
+
+- credential_list:
+
+  A list containing the credentials for the databases to be accessed. If
+  'NULL' (default), the function will use the stored credentials from
+  [`gen_auth_get()`](https://correlaid.github.io/restatis/reference/gen_auth_get.md).
 
 - area:
 

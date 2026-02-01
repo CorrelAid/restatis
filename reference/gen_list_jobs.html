@@ -48,6 +48,7 @@
 <span>  <span class="va">database</span>,</span>
 <span>  sortcriterion <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"time"</span>, <span class="st">"status"</span>, <span class="st">"code"</span><span class="op">)</span>,</span>
 <span>  flat <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  credential_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  error.ignore <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -68,6 +69,10 @@
 
 <dt id="arg-flat">flat<a class="anchor" aria-label="anchor" href="#arg-flat"></a></dt>
 <dd><p>Boolean. Should the function return a list with jobs and metadata ('FALSE') or just a flat data.frame ('TRUE')? Defaults to FALSE.</p></dd>
+
+
+<dt id="arg-credential-list">credential_list<a class="anchor" aria-label="anchor" href="#arg-credential-list"></a></dt>
+<dd><p>A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from <code><a href="gen_auth_get.html">gen_auth_get()</a></code>.</p></dd>
 
 
 <dt id="arg-error-ignore">error.ignore<a class="anchor" aria-label="anchor" href="#arg-error-ignore"></a></dt>

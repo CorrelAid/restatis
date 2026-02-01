@@ -47,6 +47,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gen_download_job</span><span class="op">(</span></span>
 <span>  <span class="va">name</span>,</span>
 <span>  database <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"genesis"</span>, <span class="st">"regio"</span><span class="op">)</span>,</span>
+<span>  credential_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  area <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"public"</span>, <span class="st">"user"</span><span class="op">)</span>,</span>
 <span>  compress <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"RESTATIS_LANG"</span><span class="op">)</span>,</span>
@@ -64,6 +65,10 @@
 
 <dt id="arg-database">database<a class="anchor" aria-label="anchor" href="#arg-database"></a></dt>
 <dd><p>Character string. Indicator if the GENESIS ('genesis') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.</p></dd>
+
+
+<dt id="arg-credential-list">credential_list<a class="anchor" aria-label="anchor" href="#arg-credential-list"></a></dt>
+<dd><p>A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from <code><a href="gen_auth_get.html">gen_auth_get()</a></code>.</p></dd>
 
 
 <dt id="arg-area">area<a class="anchor" aria-label="anchor" href="#arg-area"></a></dt>

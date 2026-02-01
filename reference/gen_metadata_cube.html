@@ -47,6 +47,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gen_metadata_cube</span><span class="op">(</span></span>
 <span>  code <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  database <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"genesis"</span>, <span class="st">"regio"</span>, <span class="st">"nrw"</span>, <span class="st">"bildung"</span><span class="op">)</span>,</span>
+<span>  credential_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  area <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"public"</span>, <span class="st">"user"</span><span class="op">)</span>,</span>
 <span>  error.ignore <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -65,6 +66,10 @@
 
 <dt id="arg-database">database<a class="anchor" aria-label="anchor" href="#arg-database"></a></dt>
 <dd><p>Character string. Indicator if the GENESIS ('genesis'), regionalstatistik.de ('regio'), landesdatenbank.nrw.de ('nrw') or bildungsmonitoring.de ('bildung') database is called. If all databases should be checked, use 'all'. Default option is 'all'.</p></dd>
+
+
+<dt id="arg-credential-list">credential_list<a class="anchor" aria-label="anchor" href="#arg-credential-list"></a></dt>
+<dd><p>A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from <code><a href="gen_auth_get.html">gen_auth_get()</a></code>.</p></dd>
 
 
 <dt id="arg-area">area<a class="anchor" aria-label="anchor" href="#arg-area"></a></dt>

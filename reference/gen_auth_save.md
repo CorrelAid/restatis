@@ -13,13 +13,13 @@ gen_auth_save(database, use_token = FALSE)
 - database:
 
   Character string. The database to store credentials for ('all',
-  'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung' or 'sa').
+  'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung' or 'st').
 
 - use_token:
 
   Boolean. Do you want to (if possible) set an API token instead of
-  password + username? Note: This is not supported by
-  regionalstatistik.de. Defaults to FALSE.
+  password + username? Note: This is only supported by 'genesis' and
+  'zensus'. Defaults to FALSE.
 
 ## Value
 

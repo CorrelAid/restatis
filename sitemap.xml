@@ -9,6 +9,7 @@
 <url><loc>https://correlaid.github.io/restatis/index.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/news/index.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/binding_lapply.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/check_credential_list_standalone.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/check_function_input.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/check_results.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/dot-gen_api_core.html</loc></url>
@@ -70,6 +71,6 @@
 <url><loc>https://correlaid.github.io/restatis/reference/test_if_json.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/test_if_okay.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/test_if_process_further.html</loc></url>
-<url><loc>https://correlaid.github.io/restatis/reference/titel_search.html</loc></url>
+<url><loc>https://correlaid.github.io/restatis/reference/title_search.html</loc></url>
 </urlset>
 

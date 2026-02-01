@@ -18,10 +18,11 @@ need to specify the object type or search for all object types.
 ``` r
 gen_find(
   term = NULL,
-  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
+  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),
   category = c("all", "tables", "statistics", "variables", "cubes"),
   detailed = FALSE,
   ordering = TRUE,
+  credential_list = NULL,
   pagelength = 500,
   error.ignore = TRUE,
   verbose = TRUE,
@@ -41,7 +42,7 @@ gen_find(
   Character string. Indicator if the GENESIS ('genesis'), Zensus 2022
   ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de
   ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de
-  ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If
+  ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If
   all databases should be checked, use 'all'. Default option is 'all'.
 
 - category:
@@ -65,6 +66,12 @@ gen_find(
   iteration ordered first based on the fact if the searched term is
   appearing in the title of the object and secondly on an estimator of
   the number of variables in this object. Default option is 'TRUE'.
+
+- credential_list:
+
+  A list containing the credentials for the databases to be accessed. If
+  'NULL' (default), the function will use the stored credentials from
+  [`gen_auth_get()`](https://correlaid.github.io/restatis/reference/gen_auth_get.md).
 
 - pagelength:
 

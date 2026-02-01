@@ -1,4 +1,4 @@
-# Basic restatis Workflow
+# Basic {restatis} workflow
 
 ``` r
 library(restatis)

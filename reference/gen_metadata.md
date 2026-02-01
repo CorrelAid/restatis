@@ -8,8 +8,9 @@ and have them returned as a list.
 ``` r
 gen_metadata(
   code = NULL,
-  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
+  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),
   category = c("cube", "statistic", "table", "variable", "value"),
+  credential_list = NULL,
   area = c("all", "public", "user"),
   error.ignore = FALSE,
   verbose = TRUE,
@@ -30,7 +31,7 @@ gen_metadata(
   Character string. Indicator if the GENESIS ('genesis'), Zensus 2022
   ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de
   ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de
-  ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If
+  ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If
   all databases should be checked, use 'all'. Default option is 'all'.
 
 - category:
@@ -39,6 +40,12 @@ gen_metadata(
   that you want meta data for. No default option - you need to specify
   the object type. Hint: The functions in 'restatis' often return
   information on object 'Type'.
+
+- credential_list:
+
+  A list containing the credentials for the databases to be accessed. If
+  'NULL' (default), the function will use the stored credentials from
+  [`gen_auth_get()`](https://correlaid.github.io/restatis/reference/gen_auth_get.md).
 
 - area:
 

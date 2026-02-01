@@ -4,6 +4,8 @@
 
 - [`binding_lapply()`](https://correlaid.github.io/restatis/reference/binding_lapply.md)
   : binding_lapply
+- [`check_credential_list_standalone()`](https://correlaid.github.io/restatis/reference/check_credential_list_standalone.md)
+  : Function to check if credential list provided is valid
 - [`check_function_input()`](https://correlaid.github.io/restatis/reference/check_function_input.md)
   : check_function_input
 - [`check_results()`](https://correlaid.github.io/restatis/reference/check_results.md)
@@ -122,5 +124,5 @@
   : test_if_okay
 - [`test_if_process_further()`](https://correlaid.github.io/restatis/reference/test_if_process_further.md)
   : test_if_process_further
-- [`titel_search()`](https://correlaid.github.io/restatis/reference/titel_search.md)
-  : titel_search
+- [`title_search()`](https://correlaid.github.io/restatis/reference/title_search.md)
+  : title_search

@@ -10,7 +10,9 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Additional Parameters for API Calls with {restatis}">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="additional_parameter_files/libs/quarto-html/popper.min.js"></script><script src="additional_parameter_files/libs/quarto-html/tippy.umd.min.js"></script><link href="additional_parameter_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="additional_parameter_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Additional Parameters for API Calls with {restatis}">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -49,118 +51,76 @@
 
 
   </div>
-</nav><div class="container template-article">
-
-
-
-
+</nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Additional Parameters for API Calls with {restatis}</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/CorrelAid/restatis/blob/dev/vignettes/additional_parameter.Rmd" class="external-link"><code>vignettes/additional_parameter.Rmd</code></a></small>
-      <div class="d-none name"><code>additional_parameter.Rmd</code></div>
+
+
+
+
+      <small class="dont-index">Source: <a href="https://github.com/CorrelAid/restatis/blob/dev/vignettes/additional_parameter.qmd" class="external-link"><code>vignettes/additional_parameter.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<div class="section level2">
-<h2 id="information">Information<a class="anchor" aria-label="anchor" href="#information"></a>
+
+
+
+
+
+    <section class="level2"><h2 id="information">Information<a class="anchor" aria-label="anchor" href="#information"></a>
 </h2>
-<p>This is a brief overview of the additional parameters for an API call
-via {restatis}. These parameters are offered by some of the API
-endpoints of the three databases, but {restatis} does not explicitly
-offer them as function parameters. We do, however, provide the
-possibility of passing additional parameters to most functions via the
-‘…’ notation. These parameters are then added to the API call and should
-affect it in the intended way. However, they have no other effect (e.g.,
-on data processing) and there is no error handling implemented for them.
-It is the user’s responsibility to provide correct parameter names and
-parameter values. Be aware: Not all parameters are available for all
-functions.</p>
-<p>Especially <code><a href="../reference/gen_table.html">gen_table()</a></code> and <code><a href="../reference/gen_cube.html">gen_cube()</a></code> have
-a lot of different additional parameters to specify the API call. For a
-detailed overview, see the following official documents:</p>
+<p>This is a brief overview of the additional parameters for an API call via {restatis}. These parameters are offered by some of the API endpoints of the three databases, but {restatis} does not explicitly offer them as function parameters. We do, however, provide the possibility of passing additional parameters to most functions via the ‘…’ notation. These parameters are then added to the API call and should affect it in the intended way. However, they have no other effect (e.g., on data processing) and there is no error handling implemented for them. It is the user’s responsibility to provide correct parameter names and parameter values. Be aware: Not all parameters are available for all functions.</p>
+<p>Especially <code><a href="../reference/gen_table.html">gen_table()</a></code> and <code><a href="../reference/gen_cube.html">gen_cube()</a></code> have a lot of different additional parameters to specify the API call. For a detailed overview, see the following official documents:</p>
 <ul>
-<li>The GENESIS database: <a href="https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
-<li>The Zensus 2022 database: <a href="https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf" class="external-link uri">https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf</a>
-</li>
-<li>regionalstatistik.de: <a href="https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="short-overview-of-the-most-used-additional-parameters">Short Overview of the Most Used Additional Parameters<a class="anchor" aria-label="anchor" href="#short-overview-of-the-most-used-additional-parameters"></a>
+<li>The GENESIS database: https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</li>
+<li>The Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf</li>
+<li>regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</li>
+</ul></section><section class="level2"><h2 id="short-overview-of-the-most-used-additional-parameters">Short Overview of the Most Used Additional Parameters<a class="anchor" aria-label="anchor" href="#short-overview-of-the-most-used-additional-parameters"></a>
 </h2>
-<div class="section level3">
-<h3 id="parameter-selection-searchcriterion">Parameter: Selection &amp; Searchcriterion<a class="anchor" aria-label="anchor" href="#parameter-selection-searchcriterion"></a>
+<section class="level3"><h3 id="parameter-selection-searchcriterion">Parameter: Selection &amp; Searchcriterion<a class="anchor" aria-label="anchor" href="#parameter-selection-searchcriterion"></a>
 </h3>
-<p>The <code>selection</code> parameter is a string that specifies the
-filter to use for filtering the API call. The criterion to which this
-parameter is applied to is defined by the <code>searchcriterion</code>
-parameter. The maximum length of the string depends on the function
-being used, but oftentimes varies between 10 and 15 characters. It is
-possible to use ‘*’ as a placeholder. The default for this parameter is
-<em>no</em> filtering.</p>
-<p>The <code>searchcriterion</code> parameter is a string that specifies
-the criterion to be used by the <code>selection</code> parameter.
-Possible values depend on the function being used, but are oftentimes
-“code” for filtering based on code or “content” for filtering based on
-the content description. The default for this parameter is <em>no</em>
-filter criterion. Oftentimes, the <code>searchcriterion</code> parameter
-and the <code>sortcriterion</code> parameter have the same possible
-values.</p>
+<p>The <code>selection</code> parameter is a string that specifies the filter to use for filtering the API call. The criterion to which this parameter is applied to is defined by the <code>searchcriterion</code> parameter. The maximum length of the string depends on the function being used, but oftentimes varies between 10 and 15 characters. It is possible to use ‘*’ as a placeholder. The default for this parameter is <em>no</em> filtering.</p>
+<p>The <code>searchcriterion</code> parameter is a string that specifies the criterion to be used by the <code>selection</code> parameter. Possible values depend on the function being used, but are oftentimes “code” for filtering based on code or “content” for filtering based on the content description. The default for this parameter is <em>no</em> filter criterion. Oftentimes, the <code>searchcriterion</code> parameter and the <code>sortcriterion</code> parameter have the same possible values.</p>
 <p>Examples:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get the values of the variable "WAM8" which code starts with "WA29"</span></span>
 <span><span class="fu"><a href="../reference/gen_val2var.html">gen_val2var</a></span><span class="op">(</span><span class="st">"WAM8"</span>, selection <span class="op">=</span> <span class="st">"WA29*"</span>, searchcriterion <span class="op">=</span> <span class="st">"code"</span>, database <span class="op">=</span> <span class="st">"genesis"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># The same result can be achieved by the following line due to the default of the "searchcriterion" parameter:</span></span>
 <span><span class="fu"><a href="../reference/gen_val2var.html">gen_val2var</a></span><span class="op">(</span><span class="st">"WAM8"</span>, selection <span class="op">=</span> <span class="st">"WA29*"</span>, database <span class="op">=</span> <span class="st">"genesis"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="parameter-sortcriterion">Parameter: Sortcriterion<a class="anchor" aria-label="anchor" href="#parameter-sortcriterion"></a>
+</section><section class="level3"><h3 id="parameter-sortcriterion">Parameter: Sortcriterion<a class="anchor" aria-label="anchor" href="#parameter-sortcriterion"></a>
 </h3>
-<p>The <code>sortcriterion</code> parameter is a string that specifies
-whether the raw output of the API call is sorted according to the
-specified input. Possible values depend on the function being used, but
-oftentimes “code” for sorting based on code and “content” for sorting
-based on the content description are possible. The default is
-<em>no</em> sorting.</p>
+<p>The <code>sortcriterion</code> parameter is a string that specifies whether the raw output of the API call is sorted according to the specified input. Possible values depend on the function being used, but oftentimes “code” for sorting based on code and “content” for sorting based on the content description are possible. The default is <em>no</em> sorting.</p>
 <p>Examples:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get the values of the variable "WAM8" sorted based on their codes</span></span>
 <span><span class="fu"><a href="../reference/gen_val2var.html">gen_val2var</a></span><span class="op">(</span><span class="st">"WAM8"</span>, sortcriterion <span class="op">=</span> <span class="st">"code"</span>, database <span class="op">=</span> <span class="st">"genesis"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="parameter-language">Parameter: Language<a class="anchor" aria-label="anchor" href="#parameter-language"></a>
+</section><section class="level3"><h3 id="parameter-language">Parameter: Language<a class="anchor" aria-label="anchor" href="#parameter-language"></a>
 </h3>
-<p>The <code>language</code> parameter is a string. It indicates if the
-API call output is in German by using “de” or in English by using “en”.
-Default is “en” (API default is “de” but it is overwritten by {restatis}
-to being “en”). <em>This is not a classical additional parameter as it
-is explicitly implemented in many functions.</em></p>
+<p>The <code>language</code> parameter is a string. It indicates if the API call output is in German by using “de” or in English by using “en”. Default is “en” (API default is “de” but it is overwritten by {restatis} to being “en”). <em>This is not a classical additional parameter as it is explicitly implemented in many functions.</em></p>
 <p>Examples:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get the values of the variable "WAM8" in German</span></span>
 <span><span class="fu"><a href="../reference/gen_val2var.html">gen_val2var</a></span><span class="op">(</span><span class="st">"WAM8"</span>, language <span class="op">=</span> <span class="st">"de"</span>, database <span class="op">=</span> <span class="st">"genesis"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get the values of the variable "WAM8" in English</span></span>
 <span><span class="fu"><a href="../reference/gen_val2var.html">gen_val2var</a></span><span class="op">(</span><span class="st">"WAM8"</span>, language <span class="op">=</span> <span class="st">"en"</span>, database <span class="op">=</span> <span class="st">"genesis"</span><span class="op">)</span></span></code></pre></div>
 </div>
-</div>
-<div class="section level2">
-<h2 id="explicit-overview-of-additional-parameters-per-function">Explicit Overview of Additional Parameters per Function<a class="anchor" aria-label="anchor" href="#explicit-overview-of-additional-parameters-per-function"></a>
+</section></section><section class="level2"><h2 id="explicit-overview-of-additional-parameters-per-function">Explicit Overview of Additional Parameters per Function<a class="anchor" aria-label="anchor" href="#explicit-overview-of-additional-parameters-per-function"></a>
 </h2>
 <details><summary>
 gen_alternative_terms
-</summary><table class="table">
+</summary><table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -169,8 +129,7 @@ gen_alternative_terms
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-15 characters; filtering based on “code” of the objects; “*”
-notations are possible</td>
+<td>1-15 characters; filtering based on “code” of the objects; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>language</td>
@@ -180,10 +139,10 @@ notations are possible</td>
 </table></details><details><summary>
 gen_catalogue
 </summary><p>For cubes: (only GENESIS and regionalstatistik.de)</p>
-<table class="table">
+<table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -192,8 +151,7 @@ gen_catalogue
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-10 characters; filtering based on “code” of the objects; “*”
-notations are possible</td>
+<td>1-10 characters; filtering based on “code” of the objects; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>language</td>
@@ -206,10 +164,10 @@ notations are possible</td>
 </tbody>
 </table>
 <p>For statistics:</p>
-<table class="table">
+<table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -218,8 +176,7 @@ notations are possible</td>
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-15 characters; filtering based on searchcriterion; “*” notations
-are possible</td>
+<td>1-15 characters; filtering based on searchcriterion; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>searchcriterion</td>
@@ -236,10 +193,10 @@ are possible</td>
 </tbody>
 </table>
 <p>For tables:</p>
-<table class="table">
+<table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -248,8 +205,7 @@ are possible</td>
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-15 characters; filtering based on searchcriterion; “*” notations
-are possible</td>
+<td>1-15 characters; filtering based on searchcriterion; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>searchcriterion</td>
@@ -270,12 +226,10 @@ are possible</td>
 </tbody>
 </table></details><details><summary>
 gen_cube
-</summary><p>see the following official documentation: <a href="https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</a>
-see the following official documentation: <a href="https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</a>
-Only available for GENESIS and regionalstatistik.de</p>
+</summary><p>see the following official documentation: https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf see the following official documentation: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf Only available for GENESIS and regionalstatistik.de</p>
 </details><details><summary>
 gen_find
-</summary><table class="table">
+</summary><table class="table caption-top">
 <thead><tr class="header">
 <th>Parameter</th>
 <th>Description</th>
@@ -286,10 +240,10 @@ gen_find
 </tr></tbody>
 </table></details><details><summary>
 gen_list_jobs
-</summary><table class="table">
+</summary><table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -298,8 +252,7 @@ gen_list_jobs
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-50 characters; filtering based on “code” of the objects or
-searchcriterion; “*” notations are possible</td>
+<td>1-50 characters; filtering based on “code” of the objects or searchcriterion; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>searchcriterion</td>
@@ -320,14 +273,11 @@ searchcriterion; “*” notations are possible</td>
 </tbody>
 </table>
 <ul>
-<li>See more in the following official documentation for GENESIS: <a href="https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
-<li>See more in the following official documentation for
-regionalstatistik.de: <a href="https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
+<li>See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</li>
+<li>See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</li>
 </ul></details><details><summary>
 gen_metadata
-</summary><table class="table">
+</summary><table class="table caption-top">
 <thead><tr class="header">
 <th>Parameter</th>
 <th>Description</th>
@@ -343,14 +293,13 @@ gen_metadata
 </tr>
 </tbody>
 </table>
-*1 for Zensus 2022 database only tables offer the additional parameter
-“area”.
+*1 for Zensus 2022 database only tables offer the additional parameter “area”.
 </details><details><summary>
 gen_modified_data
-</summary><table class="table">
+</summary><table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -359,8 +308,7 @@ gen_modified_data
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-15 characters; filtering based on “code” of the objects; “*”
-notations are possible</td>
+<td>1-15 characters; filtering based on “code” of the objects; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>language</td>
@@ -370,10 +318,10 @@ notations are possible</td>
 </table></details><details><summary>
 gen_objects2stat
 </summary><p>For cubes: (only GENESIS and regionalstatistik.de)</p>
-<table class="table">
+<table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -382,8 +330,7 @@ gen_objects2stat
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-10 characters; filtering based on “code” of the objects; “*”
-notations are possible</td>
+<td>1-10 characters; filtering based on “code” of the objects; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>area</td>
@@ -396,10 +343,10 @@ notations are possible</td>
 </tbody>
 </table>
 <p>For variables:</p>
-<table class="table">
+<table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -408,8 +355,7 @@ notations are possible</td>
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-6 characters; filtering based on searchcriterion; “*” notations
-are possible</td>
+<td>1-6 characters; filtering based on searchcriterion; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>searchcriterion</td>
@@ -434,20 +380,15 @@ are possible</td>
 </tbody>
 </table>
 <ul>
-<li>See more in the following official documentation for GENESIS: <a href="https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
-<li>See more in the following official documentation for the Zensus 2022
-database: <a href="https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf" class="external-link uri">https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf</a>
-</li>
-<li>See more in the following official documentation for
-regionalstatistik.de: <a href="https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
+<li>See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</li>
+<li>See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf</li>
+<li>See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</li>
 </ul>
 <p>For tables:</p>
-<table class="table">
+<table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -456,8 +397,7 @@ regionalstatistik.de: <a href="https://www.regionalstatistik.de/genesis/misc/GEN
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-15 characters; filtering based on “code” of the objects; “*”
-notations are possible</td>
+<td>1-15 characters; filtering based on “code” of the objects; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>language</td>
@@ -471,10 +411,10 @@ notations are possible</td>
 </table></details><details><summary>
 gen_objects2var
 </summary><p>For cubes: (only GENESIS and regionalstatistik.de)</p>
-<table class="table">
+<table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -483,8 +423,7 @@ gen_objects2var
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-15 characters; filtering based on “code” of the objects; “*”
-notations are possible</td>
+<td>1-15 characters; filtering based on “code” of the objects; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>language</td>
@@ -497,10 +436,10 @@ notations are possible</td>
 </tbody>
 </table>
 <p>For statistics:</p>
-<table class="table">
+<table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -509,8 +448,7 @@ notations are possible</td>
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-15 characters; filtering based on searchcriterion; “*” notations
-are possible</td>
+<td>1-15 characters; filtering based on searchcriterion; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>searchcriterion</td>
@@ -531,10 +469,10 @@ are possible</td>
 </tbody>
 </table>
 <p>For tables:</p>
-<table class="table">
+<table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -543,8 +481,7 @@ are possible</td>
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-15 characters; filtering based on “code” of the objects; “*”
-notations are possible</td>
+<td>1-15 characters; filtering based on “code” of the objects; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>language</td>
@@ -558,20 +495,15 @@ notations are possible</td>
 </table></details><details><summary>
 gen_table
 </summary><ul>
-<li>See more in the following official documentation for GENESIS: <a href="https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
-<li>See more in the following official documentation for the Zensus 2022
-database: <a href="https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf" class="external-link uri">https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf</a>
-</li>
-<li>See more in the following official documentation for
-regionalstatistik.de: <a href="https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
+<li>See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</li>
+<li>See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf</li>
+<li>See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</li>
 </ul></details><details><summary>
 gen_var2stat
-</summary><table class="table">
+</summary><table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -580,8 +512,7 @@ gen_var2stat
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-6 characters; filtering based on searchcriterion; “*” notations
-are possible</td>
+<td>1-6 characters; filtering based on searchcriterion; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>searchcriterion</td>
@@ -606,20 +537,15 @@ are possible</td>
 </tbody>
 </table>
 <ul>
-<li>See more in the following official documentation for GENESIS: <a href="https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
-<li>See more in the following official documentation for the Zensus 2022
-database: <a href="https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf" class="external-link uri">https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf</a>
-</li>
-<li>See more in the following official documentation for
-regionalstatistik.de: <a href="https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
+<li>See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</li>
+<li>See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf</li>
+<li>See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</li>
 </ul></details><details><summary>
 gen_val2var
-</summary><table class="table">
+</summary><table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -628,8 +554,7 @@ gen_val2var
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-15 characters; filtering based on searchcriterion; “*” notations
-are possible</td>
+<td>1-15 characters; filtering based on searchcriterion; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>searchcriterion</td>
@@ -646,10 +571,10 @@ are possible</td>
 </tbody>
 </table></details><details><summary>
 gen_val2var2stat
-</summary><table class="table">
+</summary><table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -658,8 +583,7 @@ gen_val2var2stat
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-6 characters; filtering based on searchcriterion; “*” notations
-are possible</td>
+<td>1-6 characters; filtering based on searchcriterion; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>searchcriterion</td>
@@ -684,20 +608,15 @@ are possible</td>
 </tbody>
 </table>
 <ul>
-<li>See more in the following official documentation for GENESIS: <a href="https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
-<li>See more in the following official documentation for the Zensus 2022
-database: <a href="https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf" class="external-link uri">https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf</a>
-</li>
-<li>See more in the following official documentation for
-regionalstatistik.de: <a href="https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
+<li>See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</li>
+<li>See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf</li>
+<li>See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</li>
 </ul></details><details><summary>
 gen_search_vars
-</summary><table class="table">
+</summary><table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -706,8 +625,7 @@ gen_search_vars
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-6 characters; filtering based on searchcriterion; “*” notations
-are possible</td>
+<td>1-6 characters; filtering based on searchcriterion; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>searchcriterion</td>
@@ -732,17 +650,12 @@ are possible</td>
 </tbody>
 </table>
 <ul>
-<li>See more in the following official documentation for GENESIS: <a href="https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
-<li>See more in the following official documentation for the Zensus 2022
-database: <a href="https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf" class="external-link uri">https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf</a>
-</li>
-<li>See more in the following official documentation for
-regionalstatistik.de: <a href="https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf" class="external-link uri">https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</a>
-</li>
+<li>See more in the following official documentation for GENESIS: https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf</li>
+<li>See more in the following official documentation for the Zensus 2022 database: https://ergebnisse.zensus2022.de/datenbank/online/docs/ZENSUS-Webservices_Einfuehrung.pdf</li>
+<li>See more in the following official documentation for regionalstatistik.de: https://www.regionalstatistik.de/genesis/misc/GENESIS-Webservices_Einfuehrung.pdf</li>
 </ul></details><details><summary>
 gen_signs
-</summary><table class="table">
+</summary><table class="table caption-top">
 <thead><tr class="header">
 <th>Parameter</th>
 <th>Description</th>
@@ -753,10 +666,10 @@ gen_signs
 </tr></tbody>
 </table></details><details><summary>
 gen_list_results
-</summary><table class="table">
+</summary><table class="table caption-top">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead><tr class="header">
 <th>Parameter</th>
@@ -765,8 +678,7 @@ gen_list_results
 <tbody>
 <tr class="odd">
 <td>selection</td>
-<td>1-15 characters; filtering based on “code”; “*” notations are
-possible</td>
+<td>1-15 characters; filtering based on “code”; “*” notations are possible</td>
 </tr>
 <tr class="even">
 <td>area</td>
@@ -777,12 +689,92 @@ possible</td>
 <td>“de” / “en”</td>
 </tr>
 </tbody>
-</table></details>
-</div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+</table></details></section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
     <footer><div class="pkgdown-footer-left">

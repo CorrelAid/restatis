@@ -15,7 +15,7 @@ gen_logincheck(database = "all", verbose = TRUE, ...)
   Character string. Indicator if the GENESIS ('genesis'), Zensus 2022
   ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de
   ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de
-  ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If
+  ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If
   all databases should be checked, use 'all'. Default option is 'all'.
 
 - verbose:

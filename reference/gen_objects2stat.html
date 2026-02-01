@@ -46,11 +46,12 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gen_objects2stat</span><span class="op">(</span></span>
 <span>  code <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  database <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"genesis"</span>, <span class="st">"zensus"</span>, <span class="st">"regio"</span>, <span class="st">"bayern"</span>, <span class="st">"nrw"</span>, <span class="st">"bildung"</span>, <span class="st">"sa"</span><span class="op">)</span>,</span>
+<span>  database <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"genesis"</span>, <span class="st">"zensus"</span>, <span class="st">"regio"</span>, <span class="st">"bayern"</span>, <span class="st">"nrw"</span>, <span class="st">"bildung"</span>, <span class="st">"st"</span><span class="op">)</span>,</span>
 <span>  category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tables"</span>, <span class="st">"variables"</span>, <span class="st">"cubes"</span><span class="op">)</span>,</span>
 <span>  area <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"public"</span>, <span class="st">"user"</span><span class="op">)</span>,</span>
 <span>  detailed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  sortcriterion <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"code"</span>, <span class="st">"content"</span><span class="op">)</span>,</span>
+<span>  credential_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  pagelength <span class="op">=</span> <span class="fl">500</span>,</span>
 <span>  error.ignore <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -67,7 +68,7 @@
 
 
 <dt id="arg-database">database<a class="anchor" aria-label="anchor" href="#arg-database"></a></dt>
-<dd><p>Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If all databases should be checked, use 'all'. Default option is 'all'.</p></dd>
+<dd><p>Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.</p></dd>
 
 
 <dt id="arg-category">category<a class="anchor" aria-label="anchor" href="#arg-category"></a></dt>
@@ -84,6 +85,10 @@
 
 <dt id="arg-sortcriterion">sortcriterion<a class="anchor" aria-label="anchor" href="#arg-sortcriterion"></a></dt>
 <dd><p>Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.</p></dd>
+
+
+<dt id="arg-credential-list">credential_list<a class="anchor" aria-label="anchor" href="#arg-credential-list"></a></dt>
+<dd><p>A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from <code><a href="gen_auth_get.html">gen_auth_get()</a></code>.</p></dd>
 
 
 <dt id="arg-pagelength">pagelength<a class="anchor" aria-label="anchor" href="#arg-pagelength"></a></dt>

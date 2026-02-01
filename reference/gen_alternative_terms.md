@@ -1,11 +1,11 @@
 # Find similar search terms
 
 Function to find search terms that are similar or related to one another
-in spelling and also represented in the databases. Important note: The
-API call is searching for terms with the same characters. To be useful
-in searching for related terms it is highly recommended to work with
-"\*" placeholders (see examples). The placeholder can be placed before
-and/or after the search term.
+in spelling and also represented in the databases supported by restatis.
+Important note: The API call is searching for terms with the same
+characters. To be useful in searching for related terms it is highly
+recommended to work with `*` placeholders (see examples). The
+placeholder can be placed before and/or after the search term.
 
 ## Usage
 
@@ -13,7 +13,8 @@ and/or after the search term.
 gen_alternative_terms(
   term = NULL,
   similarity = TRUE,
-  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
+  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),
+  credential_list = NULL,
   pagelength = 500,
   verbose = TRUE,
   ...
@@ -25,7 +26,7 @@ gen_alternative_terms(
 - term:
 
   Character string. Maximum length of 15 characters. Term or word for
-  which you are searching for alternative or related terms. Use of '\*'
+  which you are searching for alternative or related terms. Use of `*`
   as a placeholder is possible to generate broader search areas.
 
 - similarity:
@@ -40,8 +41,14 @@ gen_alternative_terms(
   Character string. Indicator if the GENESIS ('genesis'), Zensus 2022
   ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de
   ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de
-  ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If
+  ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If
   all databases should be checked, use 'all'. Default option is 'all'.
+
+- credential_list:
+
+  A list containing the credentials for the databases to be accessed. If
+  'NULL' (default), the function will use the stored credentials from
+  [`gen_auth_get()`](https://correlaid.github.io/restatis/reference/gen_auth_get.md).
 
 - pagelength:
 

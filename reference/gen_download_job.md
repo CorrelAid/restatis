@@ -8,6 +8,7 @@ gen_download_job
 gen_download_job(
   name,
   database = c("genesis", "regio"),
+  credential_list = NULL,
   area = c("all", "public", "user"),
   compress = FALSE,
   language = Sys.getenv("RESTATIS_LANG"),
@@ -26,6 +27,12 @@ gen_download_job(
   Character string. Indicator if the GENESIS ('genesis') or
   regionalstatistik.de ('regio') database is called. Only one database
   can be addressed per function call. Default option is 'genesis'.
+
+- credential_list:
+
+  A list containing the credentials for the databases to be accessed. If
+  'NULL' (default), the function will use the stored credentials from
+  [`gen_auth_get()`](https://correlaid.github.io/restatis/reference/gen_auth_get.md).
 
 - area:
 

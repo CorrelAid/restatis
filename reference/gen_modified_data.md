@@ -8,9 +8,10 @@ specific date.
 ``` r
 gen_modified_data(
   code = "",
-  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "sa"),
+  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),
   type = c("all", "tables", "statistics", "statisticsUpdates"),
   date = c("now", "week_before", "month_before", "year_before"),
+  credential_list = NULL,
   pagelength = 500,
   verbose = TRUE,
   ...
@@ -29,7 +30,7 @@ gen_modified_data(
   Character string. Indicator if the GENESIS ('genesis'), Zensus 2022
   ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de
   ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de
-  ('bildung') or genesis.sachsen-anhalt.de ('sa') database is called. If
+  ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If
   all databases should be checked, use 'all'. Default option is 'all'.
 
 - type:
@@ -50,6 +51,12 @@ gen_modified_data(
   and 'year_before', using the current date of your system minus 52
   weeks. Additionally, it is possible to fill in a specific date of
   format 'DD.MM.YYYY'.
+
+- credential_list:
+
+  A list containing the credentials for the databases to be accessed. If
+  'NULL' (default), the function will use the stored credentials from
+  [`gen_auth_get()`](https://correlaid.github.io/restatis/reference/gen_auth_get.md).
 
 - pagelength:
 

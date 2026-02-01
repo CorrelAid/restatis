@@ -44,7 +44,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.gen_api_core</span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">database</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.gen_api_core</span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">database</span>, credential_list <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -57,6 +57,10 @@
 
 <dt id="arg-database">database<a class="anchor" aria-label="anchor" href="#arg-database"></a></dt>
 <dd><p>The database the query should be sent to.</p></dd>
+
+
+<dt id="arg-credential-list">credential_list<a class="anchor" aria-label="anchor" href="#arg-credential-list"></a></dt>
+<dd><p>A named list including username and password for the database(s) to be queried. If NULL (default), the function will try to get credentials from the environment variables.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>

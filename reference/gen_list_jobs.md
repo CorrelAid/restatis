@@ -14,6 +14,7 @@ gen_list_jobs(
   database,
   sortcriterion = c("type", "time", "status", "code"),
   flat = FALSE,
+  credential_list = NULL,
   error.ignore = FALSE,
   verbose = TRUE,
   ...
@@ -37,6 +38,12 @@ gen_list_jobs(
 
   Boolean. Should the function return a list with jobs and metadata
   ('FALSE') or just a flat data.frame ('TRUE')? Defaults to FALSE.
+
+- credential_list:
+
+  A list containing the credentials for the databases to be accessed. If
+  'NULL' (default), the function will use the stored credentials from
+  [`gen_auth_get()`](https://correlaid.github.io/restatis/reference/gen_auth_get.md).
 
 - error.ignore:
 
