@@ -141,11 +141,12 @@ is no use-case for a cached version of the results of these functions
 ## Disclaimer
 
 This package is in no way affiliated with the German Federal Statistical
-Office (Destatis) or the ‘Verbund Statistische Ämter des Bundes und der
-Länder’. It is a simple wrapper providing R functions to access
-different official statistics APIs. The package authors are in no way
-responsible for the data that can be retrieved using its functions and
-do not provide support for any problems arising from the APIs’
-functionality itself. Conversely, support for problems related to this
-package is **exclusively** provided by the package authors. The license
-of this package solely applies to its source code.
+Office (Destatis), the ‘Verbund Statistische Ämter des Bundes und der
+Länder’ or any other API provider that the package offers services for.
+It is a simple wrapper providing R functions to access different
+official statistics APIs. The package authors are in no way responsible
+for the data that can be retrieved using its functions and do not
+provide support for any problems arising from the APIs’ functionality
+itself. Conversely, support for problems related to this package is
+**exclusively** provided by the package authors. The license of this
+package solely applies to its source code.

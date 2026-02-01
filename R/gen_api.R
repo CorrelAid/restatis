@@ -19,18 +19,6 @@ gen_api <- function(...,
   # Choose executing function based on cache option
   if (isTRUE(use_cache)) {
 
-    if (!exists(".gen_api_cached", envir = asNamespace("restatis"))) {
-
-      assign(x = ".gen_api_cached",
-
-
-             value = memoise::memoise(.gen_api_core),
-
-
-             envir = asNamespace("restatis"))
-
-    }
-
     return(.gen_api_cached(...))
 
   } else {
@@ -102,7 +90,7 @@ gen_api <- function(...,
   user_agent <- "https://github.com/CorrelAid/restatis"
 
   # Set custom credentials
-  if(!is.null(credential_list)){
+  if (!is.null(credential_list)) {
 
     username <- credential_list[[database]]["username"]
     password <- credential_list[[database]]["password"]
@@ -119,6 +107,7 @@ gen_api <- function(...,
   # First try to request with POST
   # If POST errors, try GET
   # This allows flexibility across different database instances
+  # However, GET is deprecated in many instances after V5
 
   tryCatch( # tryCatch to try POST
 
@@ -157,11 +146,11 @@ gen_api <- function(...,
 
         expr = {
 
-          # Perform API call with GET (deprecated in many GENESIS instances as of autumn 2025)
           httr2::request(url) %>%
             httr2::req_user_agent(user_agent) %>%
             httr2::req_url_path_append(endpoint) %>%
-            httr2::req_url_query("username" = username, "password" = password, ...) %>%
+            httr2::req_url_query("username" = username,
+                                 "password" = password, ...) %>%
             httr2::req_retry(max_tries = 3) %>%
             httr2::req_perform()
 

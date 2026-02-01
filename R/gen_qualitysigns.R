@@ -30,7 +30,7 @@ gen_signs <- function(database = c("all", "genesis", "zensus", "regio", "bayern"
                                             error.input = error.ignore,
                                             text = verbose)
 
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     results_raw <- gen_api(endpoint = "catalogue/qualitysigns",
                            database = db,

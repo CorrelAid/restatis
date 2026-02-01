@@ -145,28 +145,8 @@ gen_download_job <- function(name,
 
   database <- match.arg(database)
 
-  if(!is.null(credential_list)){
-    if(!is.list(credential_list)){
-
-      stop("Parameter 'credential_list' has to be of type list if 'credential_type'.",
-           call. = FALSE)
-
-    }
-
-    if(!all(sapply(credential_list, function(x) {all(c("username", "password") %in% names(x))}))) {
-
-      stop("The database that is requested in the parameter 'database' needs its own list entry including the entries 'username' and 'password' (e.g., list('genesis' = c(username = X, password = Y))).",
-           call. = FALSE)
-
-    }
-
-    if(!database %in% names(credential_list)) {
-
-      stop("The database that is requested in the parameter 'database' has no value in the 'credential_list'. Please check the parameters.",
-           call. = FALSE)
-
-    }
-  }
+  check_credential_list_standalone(credential_list = credential_list,
+                                   database = database)
 
   area <- match.arg(area)
 

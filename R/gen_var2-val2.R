@@ -60,7 +60,7 @@ gen_var2stat <- function(code = NULL,
   #-----------------------------------------------------------------------------
 
   # Processing #
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     if (isTRUE(verbose)) {
 
@@ -214,7 +214,7 @@ gen_val2var <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     if (isTRUE(verbose)) {
 
@@ -361,7 +361,7 @@ gen_val2var2stat <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     variables <- suppressMessages(suppressWarnings(gen_var2stat(code = code,
                                                                 database = database_vector,
@@ -474,7 +474,7 @@ gen_search_vars <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     if (isTRUE(verbose)) {
 

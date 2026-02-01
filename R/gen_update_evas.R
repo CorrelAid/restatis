@@ -5,7 +5,7 @@
 #' @return An updated .rda file containing the latest EVAS numbers
 #' @export
 #'
-gen_update_evas <- function(){
+gen_update_evas <- function() {
 
   # Check rvest package
   if (!requireNamespace("rvest", quietly = TRUE)) {
@@ -24,7 +24,7 @@ gen_update_evas <- function(){
   # Read the HTML content of the URL
   html <- rvest::read_html(url)
   html <- rvest::html_nodes(html, "table")
-  html <- purrr::map_dfr(html, function(table){ rvest::html_table(table, convert = FALSE) })
+  html <- purrr::map_dfr(html, function(table) { rvest::html_table(table, convert = FALSE) })
   html <- html[, c("EVAS", "Beschreibung")]
   html$Titel <- paste(html$EVAS, html$Beschreibung, sep = " - ")
   attr(html, "Update_Date") <- format(Sys.Date(), "%Y%m%d")

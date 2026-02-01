@@ -174,13 +174,13 @@ forming_evas <- function(list_of) {
 
           #---------------------------------------------------------------------
 
-          nestedlist <- lapply(nestedlist, function(d){
+          nestedlist <- lapply(nestedlist, function(d) {
 
-            lapply(d, function(y){
+            lapply(d, function(y) {
 
-              lapply(y, function(x){
+              lapply(y, function(x) {
 
-                lapply(x, function(r, remain){
+                lapply(x, function(r, remain) {
 
                   obj <- r[keep]
                   obj <- tibble::as_tibble(obj)
@@ -197,11 +197,11 @@ forming_evas <- function(list_of) {
 
         } else {
 
-          nestedlist <- lapply(nestedlist, function(d){
+          nestedlist <- lapply(nestedlist, function(d) {
 
-            lapply(d, function(y){
+            lapply(d, function(y) {
 
-              lapply(y, function(r, remain){
+              lapply(y, function(r, remain) {
 
                 obj <- r[keep]
                 obj <- tibble::as_tibble(obj)
@@ -220,9 +220,9 @@ forming_evas <- function(list_of) {
 
       } else {
 
-        nestedlist <- lapply(nestedlist, function(d){
+        nestedlist <- lapply(nestedlist, function(d) {
 
-          lapply(d, function(r, remain){
+          lapply(d, function(r, remain) {
 
             obj <- r[keep]
             obj <- tibble::as_tibble(obj)
@@ -238,7 +238,7 @@ forming_evas <- function(list_of) {
 
     } else {
 
-      nestedlist <- lapply(nestedlist, function(r, remain){
+      nestedlist <- lapply(nestedlist, function(r, remain) {
 
         obj <- r[keep]
         obj <- tibble::as_tibble(obj)
@@ -521,7 +521,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------------
 
-      if("genesis" %in% database){
+      if ("genesis" %in% database) {
 
         if (!all(category %in% c("tables", "cubes", "statistics"))) {
 
@@ -541,7 +541,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if("zensus" %in% database){
+      if ("zensus" %in% database) {
 
         #-----------------------------------------------------------------------
 
@@ -601,7 +601,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if("genesis" %in% database){
+      if ("genesis" %in% database) {
 
         if (!all(category %in% c("tables", "cubes", "variables"))) {
 
@@ -624,7 +624,7 @@ check_function_input <- function(code = NULL,
 
         #---------------------------------------------------------------------
 
-        if ("genesis" %in% database){
+        if ("genesis" %in% database) {
 
           stop("Available categories for parameter 'category' for 'genesis' database are 'all', 'tables', 'statistics', 'variables', and 'cubes'.",
                call. = FALSE)
@@ -633,7 +633,7 @@ check_function_input <- function(code = NULL,
 
         #---------------------------------------------------------------------
 
-        if("zensus" %in% database){
+        if ("zensus" %in% database) {
 
           stop("Available categories for parameter 'category' for 'zensus' database are 'all', 'tables', 'statistics', and 'variables'.",
                call. = FALSE)
@@ -650,7 +650,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if("zensus" %in% database){
+      if ("zensus" %in% database) {
 
         #-----------------------------------------------------------------------
 
@@ -692,7 +692,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      if("genesis" %in% database){
+      if ("genesis" %in% database) {
 
         #-----------------------------------------------------------------------
 
@@ -707,7 +707,7 @@ check_function_input <- function(code = NULL,
 
       #-------------------------------------------------------------------------
 
-      else if("zensus" %in% database) {
+      else if ("zensus" %in% database) {
 
         if (!all(category %in% c("statistic", "table", "variable", "value"))) {
 
@@ -752,7 +752,7 @@ check_function_input <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if ("genesis" %in% database){
+    if ("genesis" %in% database) {
 
       #-------------------------------------------------------------------------
 
@@ -767,7 +767,7 @@ check_function_input <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if ("zensus" %in% database){
+    if ("zensus" %in% database) {
 
       if (!all(type %in% c("all", "tables", "statistics"))) {
 
@@ -866,9 +866,9 @@ check_function_input <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
   # Recommendation ----
-  if(!is.null(verbose) && !is.null(error.ignore) && !is.null(database)){
+  if (!is.null(verbose) && !is.null(error.ignore) && !is.null(database)) {
 
-    if(isTRUE(verbose) && isFALSE(error.ignore) && length(database) > 1){
+    if (isTRUE(verbose) && isFALSE(error.ignore) && length(database) > 1) {
 
       message("If you want to search through all databases it is often useful to set the 'error.ignore' parameter to TRUE.\nThis will prevent the function from stopping if no object is found in one of the databases.")
 
@@ -878,7 +878,7 @@ check_function_input <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
   # raw ----
-  if (!is.null(raw)){
+  if (!is.null(raw)) {
 
     if (!is.logical(raw) || length(raw) != 1) {
 
@@ -910,7 +910,7 @@ check_function_input <- function(code = NULL,
 
     if (identical(date, c("now", "week_before", "month_before", "year_before"))) {
 
-      if (isTRUE(verbose)){
+      if (isTRUE(verbose)) {
 
         message("Please note that per default the current system date is used.\nThis date is calculated automatically and may differ from manually entered data.\nManually entered data must have the format DD.MM.YYYY.")
 
@@ -1038,13 +1038,13 @@ spezifisch_create <- function(x) {
 
 #-------------------------------------------------------------------------------
 
-#' titel_search
+#' title_search
 #'
 #' @param x Element to extract $Content from
 #' @param term Search term
 #' @param text Indicator verbose
 #'
-titel_search <- function(x, term, text) {
+title_search <- function(x, term, text) {
 
   split <- unlist(strsplit(gsub(" ", "\\bund\\b", term), c("\\bund\\b|\\bUND\\b|\\bUnd\\b|\\&|\\bODER\\b|\\boder\\b|\\bOder\\b|\\|")))
 
@@ -1103,300 +1103,14 @@ titel_search <- function(x, term, text) {
 
 }
 
-#-------------------------------------------------------------------------------
-#' test_database_function
-#'
-#' @param input Input to test for database name
-#' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
-#' @param error.input Indicator error.ignore
-#' @param text Indicator verbose
-#'
-test_database_function <- function(input,
-                                   credential_list,
-                                   error.input,
-                                   text){
 
-  #-----------------------------------------------------------------------------
-
-  if (!is.logical(text) || length(text) != 1) {
-
-    stop("Parameter 'verbose' has to be of type 'logical' and of length 1.",
-         call. = FALSE)
-
-  }
-
-  #-----------------------------------------------------------------------------
-
-  if (!is.logical(error.input) || length(error.input) != 1) {
-
-    stop("Parameter 'error.ignore' has to be of type 'logical' and of length 1.",
-         call. = FALSE)
-
-  }
-
-  #-----------------------------------------------------------------------------
-
-  if (sum(is.na(input)) == length(input)) {
-
-    stop("You have to correctly specifiy a 'database' parameter. Please refer to the documentation for further information.",
-         call. = FALSE)
-
-  }
-
-  #-----------------------------------------------------------------------------
-
-  res <- c()
-
-  if ("genesis" %in% input) {
-
-    res <- c(res, "genesis")
-
-  }
-
-  if ("zensus" %in% input) {
-
-    res <- c(res, "zensus")
-
-  }
-
-  if ("regio" %in% input) {
-
-    res <- c(res, "regio")
-
-  }
-
-  if ("bayern" %in% input) {
-
-    res <- c(res, "bayern")
-
-  }
-
-  if ("nrw" %in% input) {
-
-    res <- c(res, "nrw")
-
-  }
-
-  if ("bildung" %in% input) {
-
-    res <- c(res, "bildung")
-
-  }
-
-  if ("st" %in% input) {
-
-    res <- c(res, "st")
-
-  }
-
-  #-----------------------------------------------------------------------------
-
-  if ("all" %in% input) {
-
-    if (isTRUE(text)) {
-
-      message("All databases accessible to you are preselected. Additional databases specified in the 'database' parameter are ignored.")
-
-    }
-
-    res <- c("genesis",
-             "zensus",
-             "regio",
-             "bayern",
-             "nrw",
-             "bildung",
-             "st")
-
-  } else if (length(res) == 0 || is.null(res)) {
-
-    stop("All the databases you have specified are not part of this package.\nPlease enter valid database names ('regio', 'zensus', 'genesis','bayern', 'nrw', 'bildung', 'st' or 'all').",
-         call. = FALSE)
-
-  } else if (length(res) != length(input)) {
-
-    if (isFALSE(error.input)) {
-
-      stop("One or more of the specified databases are not part of this package. Currently only 'genesis', 'zensus', 'regio', 'bayern', 'nrw', 'bildung', and 'st' are implemented.",
-           call. = FALSE)
-
-    } else {
-
-      if (isTRUE(text)) {
-
-        message("One or more of the specified databases are not part of this package. The function is continued with the available databases that you specified.")
-
-      }
-
-    }
-
-  }
-
-  #-----------------------------------------------------------------------------
-
-  # Check if custom variables
-  if (!is.null(credential_list)) {
-
-    if(isTRUE(text)) {
-
-      message("Please be aware that using custom credentials is a potential security threat.")
-
-    }
-
-    if(!is.list(credential_list)){
-
-      stop("Parameter 'credential_list' has to be of type list if 'credential_type'.",
-           call. = FALSE)
-
-    }
-
-    check <- which(!res %in% names(credential_list))
-
-    if(length(check) != 0){
-
-      if (isTRUE(error.input)) {
-
-        if (isTRUE(text)) {
-
-          mess <- paste("The following databases are not accessible to you:", paste(res[check], collapse = ", "))
-
-          message(mess)
-
-          message("The function is continued with the available databases that you specified.")
-
-        }
-
-        res <- res[-check]
-
-      } else {
-
-        mess <- paste("The following databases are not accessible to you:", paste(res[check], collapse = ", "), "\nPlease check your credentials.")
-
-        stop(mess, call. = FALSE)
-
-      }
-
-    } else if(length(res) < length(credential_list)){
-
-      if (isTRUE(error.input)) {
-
-        if (isTRUE(text)) {
-
-          message("You defined more databases than you requested in the 'database'-parameter. The function is continued with all useable databases.")
-
-        } else {
-
-          mess <- paste("You defined more databases than you requested in the 'database'-parameter. Please evaluate your function parameter 'database' or 'credential_list'.")
-
-          stop(mess, call. = FALSE)
-
-        }
-
-      } else {
-
-        mess <- paste("None of the credentials in the 'credential_list' could be associated to the databases defined in 'database'. Please check your parameters.")
-
-        stop(mess, call. = FALSE)
-
-      }
-
-    }
-
-
-    if(!all(sapply(credential_list, function(x) {all(c("username", "password") %in% names(x))}))) {
-
-      stop("Every database that is requested in the parameter 'database' needs its own list entry including the entries 'username' and 'password' (e.g., list('genesis' = c(username = X, password = Y))).",
-           call. = FALSE)
-
-    }
-
-    return(res)
-
-  } else {
-
-    #-----------------------------------------------------------------------------
-
-    # Check if credentials are available for the selected databases
-
-    check <- sapply(res, function(y) {
-
-      result <- tryCatch({
-
-        user <- gen_auth_get(y)$username
-
-      }, error = function(e) {
-
-        return(FALSE)
-
-      })
-
-      if (isFALSE(result)) {
-
-        return(FALSE)
-
-      } else {
-
-        return(TRUE)
-
-      }
-
-    })
-
-    #-----------------------------------------------------------------------------
-
-    if (sum(check) == 0) {
-
-      stop("None of the specified databases are accessible to you. Please check your credentials.",
-           call. = FALSE)
-
-    } else if (any(check == FALSE)) {
-
-      if (isTRUE(error.input)) {
-
-        if (isTRUE(text)) {
-
-          mess <- paste("The following databases are not accessible to you:", paste(res[!check], collapse = ", "))
-
-          message(mess)
-
-          message("The function is continued with the available databases that you specified.")
-
-        }
-
-        res <- res[check]
-
-      } else {
-
-        mess <- paste("The following databases are not accessible to you:", paste(res[!check], collapse = ", "), "\nPlease check your credentials.")
-
-        stop(mess, call. = FALSE)
-
-      }
-
-    }
-
-    #-----------------------------------------------------------------------------
-
-    if (identical(res, c())) {
-
-      stop("You have to correctly specify a 'database' parameter. Please refer to the documentation for further information.",
-           call. = FALSE)
-
-    } else {
-
-      return(res)
-
-    }
-
-  }
-
-}
 
 #-------------------------------------------------------------------------------
 #' check_results
 #'
 #' @param input Input to test result structure
 #'
-check_results <- function(input){
+check_results <- function(input) {
 
   if (length(input) > 1) {
 

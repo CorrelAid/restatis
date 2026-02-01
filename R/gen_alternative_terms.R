@@ -1,8 +1,8 @@
 #' Find similar search terms
 #'
-#' @description Function to find search terms that are similar or related to one another in spelling and also represented in the databases supported by {restatis}. Important note: The API call is searching for terms with the same characters. To be useful in searching for related terms it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
+#' @description Function to find search terms that are similar or related to one another in spelling and also represented in the databases supported by \pkg{restatis}. Important note: The API call is searching for terms with the same characters. To be useful in searching for related terms it is highly recommended to work with \code{*} placeholders (see examples). The placeholder can be placed before and/or after the search term.
 #'
-#' @param term Character string. Maximum length of 15 characters. Term or word for which you are searching for alternative or related terms. Use of '*' as a placeholder is possible to generate broader search areas.
+#' @param term Character string. Maximum length of 15 characters. Term or word for which you are searching for alternative or related terms. Use of \code{*} as a placeholder is possible to generate broader search areas.
 #' @param similarity Boolean. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function. Default is 'TRUE'.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
 #' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
@@ -53,7 +53,7 @@ gen_alternative_terms <- function(term = NULL,
   #-----------------------------------------------------------------------------
 
   # Loop over databases in database_vector and make respective API calls
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     if (isTRUE(verbose)) {
 

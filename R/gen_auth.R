@@ -79,7 +79,7 @@ gen_auth_save <- function(database,
 
     gen_logincheck(database = database)
 
-  } else if (database == "all"){
+  } else if (database == "all") {
 
     #---------------------------------------------------------------------------
 
@@ -142,7 +142,7 @@ gen_auth_save <- function(database,
 #'
 gen_auth_get <- function(database = NULL) {
 
-  if(is.null(database)){
+  if (is.null(database)) {
 
     database <- "all"
 
@@ -237,7 +237,7 @@ gen_auth_get <- function(database = NULL) {
 
       #-------------------------------------------------------------------------
 
-    } else if(database == "bayern") {
+    } else if (database == "bayern") {
 
       auth_path <- gen_auth_path("auth_bayern.rds")
 
@@ -253,7 +253,7 @@ gen_auth_get <- function(database = NULL) {
 
       #-------------------------------------------------------------------------
 
-    } else if(database == "nrw") {
+    } else if (database == "nrw") {
 
       auth_path <- gen_auth_path("auth_nrw.rds")
 
@@ -269,7 +269,7 @@ gen_auth_get <- function(database = NULL) {
 
       #-------------------------------------------------------------------------
 
-    } else if(database == "bildung") {
+    } else if (database == "bildung") {
 
       auth_path <- gen_auth_path("auth_bildung.rds")
 
@@ -285,7 +285,7 @@ gen_auth_get <- function(database = NULL) {
 
       #-------------------------------------------------------------------------
 
-    } else if(database == "st") {
+    } else if (database == "st") {
 
       auth_path <- gen_auth_path("auth_st.rds")
 

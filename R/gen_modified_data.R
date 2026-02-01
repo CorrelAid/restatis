@@ -74,7 +74,7 @@ gen_modified_data <- function(code = "",
   #-----------------------------------------------------------------------------
 
   # Processing #
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     if (isTRUE(verbose)) {
 

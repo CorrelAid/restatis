@@ -70,7 +70,7 @@ gen_catalogue <- function(code = NULL,
   #-----------------------------------------------------------------------------
 
   # Loop over databases in database_vector and make respective API calls
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     if (isTRUE(verbose)) {
 
@@ -105,15 +105,15 @@ gen_catalogue <- function(code = NULL,
 
       empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
 
-      if (isTRUE(empty_object)){
+      if (isTRUE(empty_object)) {
 
         list_of_cubes <- "No 'cubes' object found for your request."
 
-      } else if (isFALSE(empty_object)){
+      } else if (isFALSE(empty_object)) {
 
         list_of_cubes <- results_json$Status$Content
 
-      } else if (empty_object == "DONE"){
+      } else if (empty_object == "DONE") {
 
         if (isTRUE(detailed)) {
 
@@ -158,15 +158,15 @@ gen_catalogue <- function(code = NULL,
 
       empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
 
-      if (isTRUE(empty_object)){
+      if (isTRUE(empty_object)) {
 
         list_of_stats <- "No 'statistics' object found for your request."
 
-      } else if (isFALSE(empty_object)){
+      } else if (isFALSE(empty_object)) {
 
         list_of_stats <- results_json$Status$Content
 
-      } else if (empty_object == "DONE"){
+      } else if (empty_object == "DONE") {
 
         if (isTRUE(detailed)) {
 
@@ -209,15 +209,15 @@ gen_catalogue <- function(code = NULL,
 
       empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
 
-      if (isTRUE(empty_object)){
+      if (isTRUE(empty_object)) {
 
         list_of_tabs <- "No 'tables' object found for your request."
 
-      } else if (isFALSE(empty_object)){
+      } else if (isFALSE(empty_object)) {
 
         list_of_tabs <- results_json$Status$Content
 
-      } else if (empty_object == "DONE"){
+      } else if (empty_object == "DONE") {
 
         if (isTRUE(detailed)) {
 
@@ -248,19 +248,19 @@ gen_catalogue <- function(code = NULL,
 
     if (all(c("tables", "statistics", "cubes") %in% category)) {
 
-      list_resp <- list("Cubes" = if(length(list_of_cubes) == 1){tibble::as_tibble(list_of_cubes)} else {forming_evas(list_of_cubes)},
-                        "Statistics" = if(length(list_of_stats) == 1){tibble::as_tibble(list_of_stats)} else {forming_evas(list_of_stats)},
-                        "Tables" = if(length(list_of_tabs) == 1){tibble::as_tibble(list_of_tabs)} else {forming_evas(list_of_tabs)})
+      list_resp <- list("Cubes" = if (length(list_of_cubes) == 1) {tibble::as_tibble(list_of_cubes)} else {forming_evas(list_of_cubes)},
+                        "Statistics" = if (length(list_of_stats) == 1) {tibble::as_tibble(list_of_stats)} else {forming_evas(list_of_stats)},
+                        "Tables" = if (length(list_of_tabs) == 1) {tibble::as_tibble(list_of_tabs)} else {forming_evas(list_of_tabs)})
 
 
       #---------------------------------------------------------------------------
     } else if ("cubes" %in% category) {
 
-      if (length(list_of_cubes) == 1 && db == "zensus"){
+      if (length(list_of_cubes) == 1 && db == "zensus") {
 
         list_resp <- list_of_cubes
 
-      } else if (length(list_of_cubes) == 1 ){
+      } else if (length(list_of_cubes) == 1) {
 
         list_resp <- list("Cubes" = tibble::as_tibble(list_of_cubes))
 
@@ -273,7 +273,7 @@ gen_catalogue <- function(code = NULL,
       #---------------------------------------------------------------------------
     } else if ("statistics" %in% category) {
 
-      if (length(list_of_stats) == 1 ){
+      if (length(list_of_stats) == 1) {
 
         list_resp <- list("Statistics" = tibble::as_tibble(list_of_stats))
 
@@ -287,7 +287,7 @@ gen_catalogue <- function(code = NULL,
       #---------------------------------------------------------------------------
     } else if ("tables" %in% category) {
 
-      if(length(list_of_tabs) == 1 ){
+      if (length(list_of_tabs) == 1) {
 
         list_resp <- list("Tables" = tibble::as_tibble(list_of_tabs))
 
@@ -306,7 +306,7 @@ gen_catalogue <- function(code = NULL,
     attr(list_resp, "Database") <- db
     attr(list_resp, "Category") <- category
 
-    if (length(category) == 1 && "cubes" %in% category && db == "zensus"){
+    if (length(category) == 1 && "cubes" %in% category && db == "zensus") {
 
       attr(list_resp, "Info") <- "No API call has been executed."
 

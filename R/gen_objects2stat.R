@@ -66,7 +66,7 @@ gen_objects2stat <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     if (isTRUE(verbose)) {
 

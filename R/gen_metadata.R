@@ -50,7 +50,7 @@ gen_metadata_statistic <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     if (isTRUE(verbose)) {
 
@@ -85,7 +85,7 @@ gen_metadata_statistic <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (isTRUE(empty_object)){
+    if (isTRUE(empty_object)) {
 
       df_stats <- "No 'meta_information' object found for your request."
 
@@ -184,7 +184,7 @@ gen_metadata_variable <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     if (isTRUE(verbose)) {
 
@@ -223,11 +223,11 @@ gen_metadata_variable <- function(code = NULL,
 
       df_var <- "No 'meta_information' object found for your request."
 
-    } else if (isFALSE(empty_object)){
+    } else if (isFALSE(empty_object)) {
 
       df_var <- results_json$Status$Content
 
-    } else if (empty_object == "DONE"){
+    } else if (empty_object == "DONE") {
 
       if (isFALSE(raw)) {
 
@@ -242,7 +242,7 @@ gen_metadata_variable <- function(code = NULL,
 
     }
 
-    if (isFALSE(raw)){
+    if (isFALSE(raw)) {
 
       list_resp <- list("General" = df_var,
                         "Information" = results_json$Object$Information)
@@ -326,7 +326,7 @@ gen_metadata_value <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     if (isTRUE(verbose)) {
 
@@ -465,7 +465,7 @@ gen_metadata_table <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     if (isTRUE(verbose)) {
 
@@ -670,7 +670,7 @@ gen_metadata_cube <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     if (isTRUE(verbose)) {
 
@@ -846,7 +846,7 @@ gen_metadata <- function(code = NULL,
 
   #-----------------------------------------------------------------------------
 
-  res <- lapply(database_vector, function(odb){
+  res <- lapply(database_vector, function(odb) {
 
     if (category == "cube") {
 

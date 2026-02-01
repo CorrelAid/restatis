@@ -7,7 +7,9 @@
 .onLoad <- function(libname, pkgname) {
 
   # Set a function whose results are to be cached
-  .gen_api_cached <<- memoise::memoise(.gen_api_core)
+  assign(".gen_api_cached",
+         memoise::memoise(.gen_api_core),
+         envir = asNamespace(pkgname))
 
   # Set the option of use_cache for the gen_api function
   options(restatis.use_cache = TRUE)

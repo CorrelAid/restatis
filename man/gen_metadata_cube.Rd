@@ -7,6 +7,7 @@
 gen_metadata_cube(
   code = NULL,
   database = c("all", "genesis", "regio", "nrw", "bildung"),
+  credential_list = NULL,
   area = c("all", "public", "user"),
   error.ignore = FALSE,
   verbose = TRUE,
@@ -18,6 +19,8 @@ gen_metadata_cube(
 \item{code}{A character string with a maximum length of 15 characters. Code from a database object. Only one code per iteration.}
 
 \item{database}{Character string. Indicator if the GENESIS ('genesis'), regionalstatistik.de ('regio'), landesdatenbank.nrw.de ('nrw') or bildungsmonitoring.de ('bildung') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
+
+\item{credential_list}{A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.}
 
 \item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
 
