@@ -61,9 +61,11 @@ and password for use in R with
 [`?gen_auth_save`](https://correlaid.github.io/restatis/reference/gen_auth_save.md)
 for more details).
 
-**Note:** The GENESIS and Zensus 2022 databases do support
-authentication with an API token as well. You can set the token as
-credential by using setting the parameter `use_token = TRUE` for
+#### API tokens
+
+The GENESIS and Zensus 2022 databases do support authentication with an
+API token as well. You can set the token as credential by using setting
+the parameter `use_token = TRUE` for
 [`restatis::gen_auth_save()`](https://correlaid.github.io/restatis/reference/gen_auth_save.md).
 The token itself can be found when logging into the respective webpage
 with your account and by clicking on *Webservice (API)* (EN) or
@@ -76,6 +78,49 @@ credential type once you set `job = TRUE` for
 and error in case a token is used. To enable the use of jobs, use
 [`gen_auth_save()`](https://correlaid.github.io/restatis/reference/gen_auth_save.md)
 and input your username and password (by setting `use_token = FALSE`).
+
+#### Credentials as parameters
+
+In the first versions of {restatis}, it was impossible to set the
+credentials as a parameter. This is because we wanted to emphasise the
+secure storage of credentials that is the default of the package.
+However, we became aware of certain use-cases (e.g., automated piplines
+via GitHub Actions and the like) that made it necessary to set the
+credentials as a parameter. For this reason, in version 0.4.0 we
+introduced the `credential_list` parameter for {restatis}’s functions.
+Using this parameter, users can provide their credentials independently
+of `gen_auth_save`. **Note:** We do only encourage this in very rare
+cases since it is advisable to safely store the credentials. In case you
+use `credential_list`, always make sure that the credentials do not
+appear anywhere in clear text!
+
+The `credentials_list` has to have the exact following structure:
+
+``` r
+custom_credentials <- list(genesis = c(username = 'abc123', password = 'qwerty1234'),
+                           regio = c(username = 'abc123', password = 'qwerty1234'))
+```
+
+Now when using the custom credentials, you pass the list to the
+respective function parameter:
+
+``` r
+# Example call with custom credentials
+res <- restatis::gen_find(term = "diagnosen", 
+                          database = "genesis", 
+                          credential_list = custom_credentials)
+                          
+# This also works with multiple databases in `databases`
+res2 <- restatis::gen_find(term = "krankenhäuser", 
+                           database = c("genesis", "regio"),
+                           credential_list = custom_credentials)                          
+```
+
+You have to make sure that the database(s) you specify in `database`
+is/are listed in `credential_list`, otherwise the function call fails.
+In some cases, you can specify the `error.ignore` parameter. If it is
+set to `TRUE`, the function will continue to execute for those databases
+that are available, even if some are not.
 
 ### Main features
 
