@@ -181,11 +181,22 @@ test_database_function <- function(input,
 
     #---------------------------------------------------------------------------
 
-    if (length(res) <= length(credential_list)) {
+    if (!all(res %in% names(credential_list))) {
 
-      if (!all(res %in% names(credential_list))) {
+      missing <- setdiff(res, names(credential_list))
+      common <- intersect(res, names(credential_list))
 
-        missing <- setdiff(res, names(credential_list))
+      if (isTRUE(error.input)) {
+
+        message(paste0("Not all databases you defined in 'database' are contained in your 'credential_list' (missing: '",
+                       paste(missing, collapse = "', '"),
+                       "'). Functions continues with those available ('",
+                       paste0(common, collapse = "', '"),
+                       "')."))
+
+        res <- common
+
+      } else if (isFALSE(error.input)) {
 
         stop(paste0("Not all databases you defined in 'database' are contained in your 'credential_list' (missing: '",
                     paste(missing, collapse = "', '"),
@@ -198,26 +209,8 @@ test_database_function <- function(input,
 
     #---------------------------------------------------------------------------
 
-    if (length(res) > length(credential_list) & isTRUE(error.input)) {
-
-      common <- intersect(res, names(credential_list))
-
-      message(paste0("You have defined more databases in 'database' than you have in your 'credential_list'. The function continues with those available (these are: '"),
-              paste(common, collapse = ", "),
-              "').")
-
-      res <- common
-
-    } else if (length(res) > length(credential_list) & isFALSE(error.input)) {
-
-      stop("You have defined more databases in 'database' than you have in your 'credential_list'. Please check your parameters.",
-           call. = FALSE)
-
-    }
-
-    #---------------------------------------------------------------------------
-
-    if (!all(sapply(credential_list, function(x) { all(c("username", "password") %in% names(x)) }))) {
+    if (!all(sapply(credential_list,
+                    function(x) { all(c("username", "password") %in% names(x)) }))) {
 
       stop("Every database that is requested in the parameter 'database' needs its own list entry including the entries 'username' and 'password' (e.g., list(genesis = c(username = 'X', password = 'Y'))).",
            call. = FALSE)
