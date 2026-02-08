@@ -312,7 +312,7 @@ check_function_input <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    if (length(verbose == 1)) {
+    if (length(verbose) == 1) {
 
       #-------------------------------------------------------------------------
 
@@ -777,8 +777,6 @@ check_function_input <- function(code = NULL,
       }
 
     }
-
-    # HUHU: Check for other databases missing
 
   }
 

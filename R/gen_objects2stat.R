@@ -180,8 +180,6 @@ gen_objects2stat <- function(code = NULL,
 
     #---------------------------------------------------------------------------
 
-    # HUHU: Does it work also for 'bayern' & 'st'?
-    # No cubes in ST, unclear for BY
     if ("cubes" %in% category && db %in% c("zensus", "bayern", "st")) {
 
       df_cubes <- paste("There are generally no 'cubes' objects available for the '", db, "' database.")

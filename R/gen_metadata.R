@@ -641,7 +641,7 @@ gen_metadata_table <- function(code = NULL,
 #' }
 #'
 gen_metadata_cube <- function(code = NULL,
-                              database = c("all", "genesis", "regio", "nrw", "bildung"), # HUHU: Works for 'bayern' & 'st'? Not for ST, BY unclear
+                              database = c("all", "genesis", "regio", "nrw", "bildung"),
                               credential_list = NULL,
                               area = c("all", "public", "user"),
                               error.ignore = FALSE,
