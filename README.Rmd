@@ -37,7 +37,7 @@ Almost all functions work on either one of them, on all of them or just on a sel
 
 #### Current (known) performance issues
 - The function `gen_download_job` currently does not work in the CRAN release version for the GENESIS database. This is because the mode of downloading the tables has changed. A fix has been deployed to the development version and will be coming with the next CRAN update.
-- It might be that the creation of jobs with `gen_table` is currently buggy in the release version (jobs not being created despite of `job = TRUE`). A fix has been deployed to the development version and will be coming with the next CRAN update.
+- The CSV files currently returned by the 'bayern' database (this affects `gen_table()`) appear to be slightly corrupted. This might cause warnings stemming from {vroom}. These can be ignored, but users have to carefully check the resulting `data.frames`. Use `vroom::problems()` to check the data objects for more information.
 
 ## Installation
 

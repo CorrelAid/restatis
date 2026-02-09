@@ -46,3 +46,122 @@ test_that("the 'nrw' database performs as expected", {
 })
 
 #-------------------------------------------------------------------------------
+
+test_that("the 'bayern' database performs as expected", {
+
+  skip_on_ci()
+  skip_on_cran()
+  skip_if_offline()
+
+  expect_type(
+
+    res1 <- gen_find(term = "bus*",
+                     database = "bayern",
+                     category = "tables"),
+    type = "list"
+
+  )
+
+  expect_s3_class(
+
+    res2 <- gen_table(name = "61111-301z",
+                      database = "bayern",
+                      startyear = 2021,
+                      endyear = 2022),
+    class = "data.frame"
+
+  )
+
+  expect_type(
+
+    res3 <- gen_catalogue(code = "23*",
+                          database = "bayern"),
+    type = "list"
+
+  )
+
+})
+
+#-------------------------------------------------------------------------------
+
+test_that("the 'st' database performs as expected", {
+
+  skip_on_ci()
+  skip_on_cran()
+  skip_if_offline()
+
+  expect_type(
+
+    res1 <- gen_find(term = "diagnose",
+                     database = "st",
+                     category = "tables"),
+    type = "list"
+
+  )
+
+  expect_s3_class(
+
+    res2 <- gen_table(name = "23211-0001",
+                      database = "st",
+                      startyear = 2021,
+                      endyear = 2022),
+    class = "data.frame"
+
+  )
+
+  expect_type(
+
+    res3 <- gen_catalogue(code = "23*",
+                          database = "st"),
+    type = "list"
+
+  )
+
+})
+
+#-------------------------------------------------------------------------------
+
+test_that("the 'bildung' database performs as expected", {
+
+  skip_on_ci()
+  skip_on_cran()
+  skip_if_offline()
+
+  expect_type(
+
+    res1 <- gen_find(term = "realschule",
+                     database = "bildung",
+                     category = "tables"),
+    type = "list"
+
+  )
+
+  expect_s3_class(
+
+    res2 <- gen_table(name = "BW-D07.1i",
+                      database = "bildung",
+                      startyear = 2024),
+    class = "data.frame"
+
+  )
+
+  expect_type(
+
+    res3 <- gen_catalogue(code = "",
+                          database = "bildung",
+                          category = "cubes"),
+    type = "list"
+
+  )
+
+  # This does not work yet, I can't get the cubes to be parsed
+  # expect_s3_class(
+  #
+  #   res4 <- gen_cube(name = "02--A014C",
+  #                    startyear = 2023,
+  #                    database = "nrw"),
+  #   class = "data.frame"
+  #
+  # )
+
+})
