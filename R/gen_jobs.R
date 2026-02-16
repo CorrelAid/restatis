@@ -2,7 +2,7 @@
 #'
 #' @description Function to list all current jobs connected to the given user in the GENESIS or regionalstatistik.de database. Important note: For this function it is also possible to use `searchcriterion` parameter and `selection` parameter, making it possible to filter the job list based on 'type','time','status' or 'code'. For more details see `vignette("additional_parameter")`.
 #'
-#' @param database Character string. Indicator if GENESIS or regionalstatistik.de database is called. Accepts only one database ('regio' or 'genesis').
+#' @param database Character string. Indicator which database should be called. Accepts only one database.
 #' @param sortcriterion Character string. Indicator if the output should be sorted by 'type','time','status' or 'code'. This is a parameter of the API call itself. The default is 'type'.
 #' @param flat Boolean. Should the function return a list with jobs and metadata ('FALSE') or just a flat data.frame ('TRUE')? Defaults to FALSE.
 #' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
@@ -31,7 +31,7 @@ gen_list_jobs <- function(database,
   # Input checks
   if (missing(database)) {
 
-    stop("You have to specify a value for 'database' ('regio' or 'genesis').",
+    stop("You have to specify a value for 'database' ('regio', 'genesis', 'bayern', 'st', 'nrw' or 'bildung').",
          call. = FALSE)
 
   }
@@ -42,7 +42,7 @@ gen_list_jobs <- function(database,
                                             error.input = error.ignore,
                                             text = verbose)
 
-  if (any(!(database_vector %in% c("genesis", "regio")))) {
+  if (any(!(database_vector %in% c("genesis", "regio", "bayern", "st", "nrw", "bildung")))) {
 
     stop("This function allows only two values of 'database': 'genesis' or 'regio'.",
          call. = FALSE)
@@ -118,7 +118,7 @@ gen_list_jobs <- function(database,
 #' gen_download_job
 #'
 #' @param name Character string. The job code retrieved by using gen_list_jobs().
-#' @param database Character string. Indicator if the GENESIS ('genesis') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param database Character string. Indicator which database should be called. Only one database can be addressed per function call. Default option is 'genesis'.
 #' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'.
 #' @param compress Boolean. Should empty rows and columns be discarded? Default is FALSE.
@@ -134,7 +134,7 @@ gen_list_jobs <- function(database,
 #' }
 #'
 gen_download_job <- function(name,
-                             database = c("genesis", "regio"),
+                             database = c("genesis", "regio", "bayern", "st", "nrw", "bildung"),
                              credential_list = NULL,
                              area = c("all", "public", "user"),
                              compress = FALSE,

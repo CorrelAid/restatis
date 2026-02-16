@@ -2,6 +2,8 @@
 # Test basic functionality for databases other than genesis, regio and zensus
 #-------------------------------------------------------------------------------
 
+# As of Feb. 2026 these are: "nrw", "bayern", "st", and "bildung"
+
 test_that("the 'nrw' database performs as expected", {
 
   skip_on_ci()
@@ -154,14 +156,13 @@ test_that("the 'bildung' database performs as expected", {
 
   )
 
-  # This does not work yet, I can't get the cubes to be parsed
-  # expect_s3_class(
-  #
-  #   res4 <- gen_cube(name = "02--A014C",
-  #                    startyear = 2023,
-  #                    database = "nrw"),
-  #   class = "data.frame"
-  #
-  # )
+  expect_s3_class(
+
+    res4 <- gen_cube(name = "02--A014C",
+                     startyear = 2023,
+                     database = "bildung"),
+    class = "data.frame"
+
+  )
 
 })

@@ -271,18 +271,18 @@ return_table_object <- function(response,
 
     if (response_parsed$Status$Code == 98) {
 
-      error_message <- paste0("You have requested a table too big for simple download. \n",
-                              "Consider making a range of smaller requests or use the \n",
-                              "option to create a job by setting the 'job' parameter \n",
-                              "of 'gen_table()' to TRUE. You can then download the job \n",
-                              "later (use the function 'gen_list_jobs()' to check its status) \n",
+      error_message <- paste0("You have requested a table too big for simple download. ",
+                              "Consider making a range of smaller requests or use the ",
+                              "option to create a job by setting the 'job' parameter ",
+                              "of 'gen_table()' to TRUE. You can then download the job ",
+                              "later (use the function 'gen_list_jobs()' to check its status) ",
                               "and download it using gen_download_job().")
 
       stop(error_message, call. = FALSE)
 
     } else if (response_parsed$Status$Code == 99) {
 
-      message <- paste0("You have successfully created a job with \n",
+      message <- paste0("You have successfully created a job with ",
                         "your request. Use the function 'gen_list_jobs()' ",
                         "to check its status and download it once completed.")
 

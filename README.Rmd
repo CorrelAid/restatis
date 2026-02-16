@@ -23,11 +23,11 @@ knitr::opts_chunk$set(
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 <!-- badges: end -->
 
-**{restatis}** is a wrapper around the RESTful APIs that provide access to the three main databases of German official statistics:
+**{restatis}** is a wrapper around the RESTful APIs that provide access to the main databases of German official statistics:
 
-- The [**GENESIS database** of the Federal Statistical Office of Germany (Destatis)](https://www-genesis.destatis.de/genesis/online),
-- [**regionalstatistik.de**, which is the database of the German Länder (Regionaldatenbank)](https://www.regionalstatistik.de/genesis/online/),
-- The [database of the **German 2022 Census** (Zensus 2022)](https://ergebnisse.zensus2022.de/datenbank/online/).
+- The [**GENESIS database** of the Federal Statistical Office of Germany (Destatis)](https://www-genesis.destatis.de/genesis/online)
+- [**regionalstatistik.de**, which is the database of the German Länder (Regionaldatenbank)](https://www.regionalstatistik.de/genesis/online/)
+- The [database of the **German 2022 Census** (Zensus 2022)](https://ergebnisse.zensus2022.de/datenbank/online/)
 - The [**Kommunale Bildungsdatenbank**](https://www.bildungsmonitoring.de/bildung/online/)
 - The [**Landesdatenbank NRW**](https://www.landesdatenbank.nrw.de/)
 - The [Datenbank des **Bayerischen Landesamtes für Statistik**](https://www.statistikdaten.bayern.de/genesis/online)
@@ -35,8 +35,20 @@ knitr::opts_chunk$set(
 
 Almost all functions work on either one of them, on all of them or just on a selection.
 
-#### Current (known) performance issues
-- The function `gen_download_job` currently does not work in the CRAN release version for the GENESIS database. This is because the mode of downloading the tables has changed. A fix has been deployed to the development version and will be coming with the next CRAN update.
+`{restatis}` uses shortcuts in its functions to specify the databases in the `database` parameter (e.g., `gen_table(name = "1234-0001", database = "regio")`). The respective shortcuts are the following:
+
+| Database | Shortcut |
+|----------|----------|
+| GENESIS (Federal Statistical Office of Germany)    | genesis    |
+| Regionaldatenbank (regionalstatistik.de)    | regio    |
+| German Census 2022    | zensus    |
+| Kommunale Bildungsdatenbank    | bildung    |
+| Landesdatenbank NRW    | nrw    |
+| Datenbank des Bayerischen Landesamtes für Statistik    | bayern    |
+| Datenbank des Statistischen Landesamtes Sachsen-Anhalt    | st    |
+
+#### Current information and (known) issues
+- It is unclear whether the databases of Sachsen-Anhalt ('st'), Bayern ('bayern'), Nordrhein-Westfalen ('nrw') and Kommunale sBildungsmonitoring ('bildung') support the creation of jobs. This is because it is sometimes hard to create large enough tables on a test basis. The package supports their creation and download for all databases mentioned, but there might be issues because of lack of tests.
 - The CSV files currently returned by the 'bayern' database (this affects `gen_table()`) appear to be slightly corrupted. This might cause warnings stemming from {vroom}. These can be ignored, but users have to carefully check the resulting `data.frames`. Use `vroom::problems()` to check the data objects for more information.
 
 ## Installation
@@ -88,7 +100,7 @@ res2 <- restatis::gen_find(term = "krankenhäuser",
 
 ```
 
-You have to make sure that the database(s) you specify in `database` is/are listed in `credential_list`, otherwise the function call fails. In some cases, you can specify the `error.ignore` parameter. If it is set to `TRUE`, the function will continue to execute for those databases that are available, even if some are not. 
+You have to make sure that the database(s) you specify in `database` is/are listed in `credential_list`, otherwise the function call fails. In some cases, you can specify the `error.ignore` parameter. If it is set to `TRUE`, the function will continue to execute for those databases that are available, even if some are not. *Note that `credentials_list` does (currently) not support the use of API tokens.*
 
 ### Main features
 
