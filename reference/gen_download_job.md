@@ -7,7 +7,7 @@ gen_download_job
 ``` r
 gen_download_job(
   name,
-  database = c("genesis", "regio"),
+  database = c("genesis", "regio", "bayern", "st", "nrw", "bildung"),
   credential_list = NULL,
   area = c("all", "public", "user"),
   compress = FALSE,
@@ -24,9 +24,9 @@ gen_download_job(
 
 - database:
 
-  Character string. Indicator if the GENESIS ('genesis') or
-  regionalstatistik.de ('regio') database is called. Only one database
-  can be addressed per function call. Default option is 'genesis'.
+  Character string. Indicator which database should be called. Only one
+  database can be addressed per function call. Default option is
+  'genesis'.
 
 - credential_list:
 

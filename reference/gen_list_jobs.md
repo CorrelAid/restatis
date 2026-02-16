@@ -25,8 +25,8 @@ gen_list_jobs(
 
 - database:
 
-  Character string. Indicator if GENESIS or regionalstatistik.de
-  database is called. Accepts only one database ('regio' or 'genesis').
+  Character string. Indicator which database should be called. Accepts
+  only one database.
 
 - sortcriterion:
 

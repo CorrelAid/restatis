@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="R Wrapper to Access a Wide Range of Germany's Federal Statistical System Databases Based on the GENESIS Web Service RESTful API of the German Federal Statistical Office (Statistisches Bundesamt/Destatis)">
-<meta name="description" content="A RESTful API wrapper for accessing the GENESIS database of the German Federal Statistical Office (Destatis) as well as its Census Database and the database of Germany's regional statistics. Supports data search functions, credential management, result caching, and handling remote background jobs for large datasets.">
-<meta property="og:description" content="A RESTful API wrapper for accessing the GENESIS database of the German Federal Statistical Office (Destatis) as well as its Census Database and the database of Germany's regional statistics. Supports data search functions, credential management, result caching, and handling remote background jobs for large datasets.">
+<meta name="description" content="A RESTful API wrapper for accessing the main databases of Germany's Federal Statistical System. Supports data search functions, credential management, result caching, and handling remote background jobs for large datasets.">
+<meta property="og:description" content="A RESTful API wrapper for accessing the main databases of Germany's Federal Statistical System. Supports data search functions, credential management, result caching, and handling remote background jobs for large datasets.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -59,12 +59,13 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-<p><strong>{restatis}</strong> is a wrapper around the RESTful APIs that provide access to the three main databases of German official statistics:</p>
+<p><strong>{restatis}</strong> is a wrapper around the RESTful APIs that provide access to the main databases of German official statistics:</p>
 <ul>
-<li>The <a href="https://www-genesis.destatis.de/genesis/online" class="external-link"><strong>GENESIS database</strong> of the Federal Statistical Office of Germany (Destatis)</a>,</li>
-<li>
-<a href="https://www.regionalstatistik.de/genesis/online/" class="external-link"><strong>regionalstatistik.de</strong>, which is the database of the German Länder (Regionaldatenbank)</a>,</li>
-<li>The <a href="https://ergebnisse.zensus2022.de/datenbank/online/" class="external-link">database of the <strong>German 2022 Census</strong> (Zensus 2022)</a>.</li>
+<li>The <a href="https://www-genesis.destatis.de/genesis/online" class="external-link"><strong>GENESIS database</strong> of the Federal Statistical Office of Germany (Destatis)</a>
+</li>
+<li><a href="https://www.regionalstatistik.de/genesis/online/" class="external-link"><strong>regionalstatistik.de</strong>, which is the database of the German Länder (Regionaldatenbank)</a></li>
+<li>The <a href="https://ergebnisse.zensus2022.de/datenbank/online/" class="external-link">database of the <strong>German 2022 Census</strong> (Zensus 2022)</a>
+</li>
 <li>The <a href="https://www.bildungsmonitoring.de/bildung/online/" class="external-link"><strong>Kommunale Bildungsdatenbank</strong></a>
 </li>
 <li>The <a href="https://www.landesdatenbank.nrw.de/" class="external-link"><strong>Landesdatenbank NRW</strong></a>
@@ -75,12 +76,49 @@
 </li>
 </ul>
 <p>Almost all functions work on either one of them, on all of them or just on a selection.</p>
+<p><a href="https://correlaid.github.io/restatis/">restatis</a> uses shortcuts in its functions to specify the databases in the <code>database</code> parameter (e.g., <code>gen_table(name = "1234-0001", database = "regio")</code>). The respective shortcuts are the following:</p>
+<table class="table">
+<thead><tr class="header">
+<th>Database</th>
+<th>Shortcut</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>GENESIS (Federal Statistical Office of Germany)</td>
+<td>genesis</td>
+</tr>
+<tr class="even">
+<td>Regionaldatenbank (regionalstatistik.de)</td>
+<td>regio</td>
+</tr>
+<tr class="odd">
+<td>German Census 2022</td>
+<td>zensus</td>
+</tr>
+<tr class="even">
+<td>Kommunale Bildungsdatenbank</td>
+<td>bildung</td>
+</tr>
+<tr class="odd">
+<td>Landesdatenbank NRW</td>
+<td>nrw</td>
+</tr>
+<tr class="even">
+<td>Datenbank des Bayerischen Landesamtes für Statistik</td>
+<td>bayern</td>
+</tr>
+<tr class="odd">
+<td>Datenbank des Statistischen Landesamtes Sachsen-Anhalt</td>
+<td>st</td>
+</tr>
+</tbody>
+</table>
 <div class="section level4">
-<h4 id="current-known-performance-issues">Current (known) performance issues<a class="anchor" aria-label="anchor" href="#current-known-performance-issues"></a>
+<h4 id="current-information-and-known-issues">Current information and (known) issues<a class="anchor" aria-label="anchor" href="#current-information-and-known-issues"></a>
 </h4>
 <ul>
-<li>The function <code>gen_download_job</code> currently does not work in the CRAN release version for the GENESIS database. This is because the mode of downloading the tables has changed. A fix has been deployed to the development version and will be coming with the next CRAN update.</li>
-<li>It might be that the creation of jobs with <code>gen_table</code> is currently buggy in the release version (jobs not being created despite of <code>job = TRUE</code>). A fix has been deployed to the development version and will be coming with the next CRAN update.</li>
+<li>It is unclear whether the databases of Sachsen-Anhalt (‘st’), Bayern (‘bayern’), Nordrhein-Westfalen (‘nrw’) and Kommunale sBildungsmonitoring (‘bildung’) support the creation of jobs. This is because it is sometimes hard to create large enough tables on a test basis. The package supports their creation and download for all databases mentioned, but there might be issues because of lack of tests.</li>
+<li>The CSV files currently returned by the ‘bayern’ database (this affects <code><a href="reference/gen_table.html">gen_table()</a></code>) appear to be slightly corrupted. This might cause warnings stemming from {vroom}. These can be ignored, but users have to carefully check the resulting <code>data.frames</code>. Use <code><a href="https://vroom.tidyverse.org/reference/problems.html" class="external-link">vroom::problems()</a></code> to check the data objects for more information.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -125,7 +163,7 @@
 <span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">restatis</span><span class="fu">::</span><span class="fu"><a href="reference/gen_find.html">gen_find</a></span><span class="op">(</span>term <span class="op">=</span> <span class="st">"krankenhäuser"</span>, </span>
 <span>                           database <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"genesis"</span>, <span class="st">"regio"</span><span class="op">)</span>,</span>
 <span>                           credential_list <span class="op">=</span> <span class="va">custom_credentials</span><span class="op">)</span>                          </span></code></pre></div>
-<p>You have to make sure that the database(s) you specify in <code>database</code> is/are listed in <code>credential_list</code>, otherwise the function call fails. In some cases, you can specify the <code>error.ignore</code> parameter. If it is set to <code>TRUE</code>, the function will continue to execute for those databases that are available, even if some are not.</p>
+<p>You have to make sure that the database(s) you specify in <code>database</code> is/are listed in <code>credential_list</code>, otherwise the function call fails. In some cases, you can specify the <code>error.ignore</code> parameter. If it is set to <code>TRUE</code>, the function will continue to execute for those databases that are available, even if some are not. <em>Note that <code>credentials_list</code> does (currently) not support the use of API tokens.</em></p>
 </div>
 </div>
 <div class="section level3">
