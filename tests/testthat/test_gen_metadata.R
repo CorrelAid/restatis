@@ -37,6 +37,10 @@ with_mock_dir("meta2_fake", {
     # Status$Code = 999
     # Status$Content = "test error message"
 
+    # First download correct file with:
+    # expect_type(object = gen_metadata(code = "1*", category = "cube", database = "genesis"),
+    #             type = "list")
+
     skip_on_cran()
     skip_on_ci()
 

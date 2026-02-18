@@ -1,0 +1,31 @@
+{
+    "Ident": {
+        "Service": "catalogue",
+        "Method": "modifieddata"
+    },
+    "Status": {
+        "Code": 0,
+        "Content": "erfolgreich",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "selection": "61111",
+        "type": "Alle",
+        "date": "01.01.2022",
+        "pagelength": "500",
+        "language": "de",
+        "area": "Alle"
+    },
+    "List": [
+        {
+            "Code": "61111",
+            "Content": "Verbraucherpreisindex für Deutschland",
+            "Type": "Aktualisierte Statistiken",
+            "Date": "17.02.2026",
+            "Added": "Jan 2026"
+        }
+    ],
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2026"
+}

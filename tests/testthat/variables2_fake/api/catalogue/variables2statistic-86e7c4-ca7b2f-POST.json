@@ -29,6 +29,13 @@
             "Information": "true"
         },
         {
+            "Code": "BES013",
+            "Content": "Durchschnittsalter d. Beschäftigten im öff. Dienst",
+            "Type": "Wert",
+            "Values": "-1",
+            "Information": "true"
+        },
+        {
             "Code": "BES019",
             "Content": "Beschäftigte im Aufgabenbereich Polizei",
             "Type": "Wert",
@@ -92,6 +99,13 @@
             "Information": "false"
         },
         {
+            "Code": "DSTVS3",
+            "Content": "Dienstverhältnis",
+            "Type": "sachlich",
+            "Values": "-1",
+            "Information": "false"
+        },
+        {
             "Code": "GES",
             "Content": "Geschlecht",
             "Type": "sachlich",
@@ -106,5 +120,5 @@
             "Information": "false"
         }
     ],
-    "Copyright": "© Statistisches Bundesamt (Destatis), 2025"
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2026"
 }

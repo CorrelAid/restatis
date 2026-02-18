@@ -152,19 +152,28 @@ test_that("caching works as intended", {
 
   start_time <- Sys.time()
 
-  result1 <- gen_catalogue(code = "12411-0001",
-                           database = "genesis",
-                           category = "tables")
+  result1 <- gen_table(name = "12411-0001",
+                       database = "genesis",
+                       startyear = 2024)
 
   end_time <- Sys.time()
 
   first_call <- end_time - start_time
 
+  #----------------------------------------------------------------------------
+
+  # Re-enable cache
+  options(restatis.use_cache = TRUE)
+
+  result2 <- gen_table(name = "12411-0001",
+                       database = "genesis",
+                       startyear = 2024)
+
   start_time <- Sys.time()
 
-  result2 <- gen_catalogue(code = "12411-0001",
-                           database = "genesis",
-                           category = "tables")
+  result3 <- gen_table(name = "12411-0001",
+                       database = "genesis",
+                       startyear = 2024)
 
   end_time <- Sys.time()
 
@@ -172,9 +181,6 @@ test_that("caching works as intended", {
 
   # Results should be identical
   expect_true(second_call < first_call)
-
-  # Re-enable cache
-  options(restatis.use_cache = TRUE)
 
 })
 

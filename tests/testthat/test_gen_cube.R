@@ -9,7 +9,7 @@ with_mock_dir("cube1", {
     skip_on_cran()
     skip_on_ci()
 
-    result <- gen_cube("47414BJ002")
+    result <- gen_cube("47414BJ002", database = "genesis", startyear = 2024)
 
     expect_s3_class(result,
                     class = "data.frame")
@@ -29,10 +29,10 @@ with_mock_dir("cube1", {
 
 test_that("gen_cube errors on wrong year parameters", {
 
-  expect_error(gen_cube("47414BJ002", startyear = 1893),
+  expect_error(gen_cube("47414BJ002", database = "genesis", startyear = 1893),
                regexp = "The parameter 'year' has been misspecified")
 
-  expect_error(gen_cube("47414BJ002", startyear = "1893"),
+  expect_error(gen_cube("47414BJ002", database = "genesis", startyear = "1893"),
                regexp = "The parameter 'year' has been misspecified")
 
 })

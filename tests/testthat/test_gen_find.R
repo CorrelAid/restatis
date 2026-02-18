@@ -37,6 +37,10 @@ with_mock_dir("find2_fake", {
     # The Status$Code needs, e.g., 999
     # The Status$Content needs to be "test error message"
 
+    # First download correct file with:
+    # expect_type(object = gen_find(term = "bus", error.ignore = TRUE, database = "genesis"),
+    #             type = "list")
+
     skip_on_cran()
     skip_on_ci()
 

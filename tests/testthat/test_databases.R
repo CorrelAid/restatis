@@ -49,40 +49,44 @@ test_that("the 'nrw' database performs as expected", {
 
 #-------------------------------------------------------------------------------
 
-test_that("the 'bayern' database performs as expected", {
+# This works, though it throws a warning due to the parsing errors
+# that are caused by broken files distributed by 'bayern'
+# Reactivate when the parsing errors are resolved
 
-  skip_on_ci()
-  skip_on_cran()
-  skip_if_offline()
-
-  expect_type(
-
-    res1 <- gen_find(term = "bus*",
-                     database = "bayern",
-                     category = "tables"),
-    type = "list"
-
-  )
-
-  expect_s3_class(
-
-    res2 <- gen_table(name = "61111-301z",
-                      database = "bayern",
-                      startyear = 2021,
-                      endyear = 2022),
-    class = "data.frame"
-
-  )
-
-  expect_type(
-
-    res3 <- gen_catalogue(code = "23*",
-                          database = "bayern"),
-    type = "list"
-
-  )
-
-})
+# test_that("the 'bayern' database performs as expected", {
+#
+#   skip_on_ci()
+#   skip_on_cran()
+#   skip_if_offline()
+#
+#   expect_type(
+#
+#     res1 <- gen_find(term = "bus*",
+#                      database = "bayern",
+#                      category = "tables"),
+#     type = "list"
+#
+#   )
+#
+#   expect_s3_class(
+#
+#     res2 <- gen_table(name = "61111-301z",
+#                       database = "bayern",
+#                       startyear = 2021,
+#                       endyear = 2022),
+#     class = "data.frame"
+#
+#   )
+#
+#   expect_type(
+#
+#     res3 <- gen_catalogue(code = "23*",
+#                           database = "bayern"),
+#     type = "list"
+#
+#   )
+#
+# })
 
 #-------------------------------------------------------------------------------
 

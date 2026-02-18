@@ -46,13 +46,14 @@
             "2020",
             "2021",
             "2022",
-            "2023"
+            "2023",
+            "2024"
         ],
         "Values": "0",
         "Statistic": {
             "Code": "12631",
             "Content": "Statistik rechtskräftiger Urteile in Ehesachen",
-            "Updated": "10.10.2023 13:47:12h"
+            "Updated": "01.12.2025 13:21:16h"
         },
         "Structure": {
             "Axis": [
@@ -93,7 +94,7 @@
                 }
             ]
         },
-        "Updated": "27.06.2024 08:06:32h"
+        "Updated": "25.06.2025 18:00:47h"
     },
-    "Copyright": "© Statistisches Bundesamt (Destatis), 2025"
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2026"
 }

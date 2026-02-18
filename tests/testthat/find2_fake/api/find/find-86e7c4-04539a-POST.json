@@ -1,0 +1,357 @@
+{
+    "Ident": {
+        "Service": "find",
+        "Method": "find"
+    },
+    "Status": {
+        "Code": 999,
+        "Content": "test error message",
+        "Type": "Information"
+    },
+    "Parameter": {
+        "username": "********************",
+        "password": "********************",
+        "term": "bus",
+        "category": "Alle",
+        "pagelength": "500",
+        "language": "de"
+    },
+    "Cubes": [
+        {
+            "Code": "12251B4005",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020-2024",
+            "LatestUpdate": "29.01.2026 19:59:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251B4006",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Geschlecht, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020-2024",
+            "LatestUpdate": "29.01.2026 19:58:14h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251B4007",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Stellung im Beruf, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020",
+            "LatestUpdate": "17.11.2022 12:13:19h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251B4008",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Geschlecht, Stellung im Beruf, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2020",
+            "LatestUpdate": "17.11.2022 12:13:40h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251B4015",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Stellung im Beruf, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2024",
+            "LatestUpdate": "29.01.2026 19:59:24h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251B4016",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Deutschland insgesamt, Geschlecht, Stellung im Beruf, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2024",
+            "LatestUpdate": "29.01.2026 19:59:06h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251L4005",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2024",
+            "LatestUpdate": "29.01.2026 19:59:10h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251L4006",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2024",
+            "LatestUpdate": "29.01.2026 19:58:29h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251L4007",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Stellung im Beruf, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2024",
+            "LatestUpdate": "29.01.2026 19:59:03h",
+            "Information": "false"
+        },
+        {
+            "Code": "12251L4008",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus, Erwerbstätige aus Hauptwohnsitzhaushalten, Bundesländer, Geschlecht, Stellung im Beruf, Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst., Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2024",
+            "LatestUpdate": "29.01.2026 19:59:21h",
+            "Information": "false"
+        },
+        {
+            "Code": "45413BJ008",
+            "Content": "Statistik über die touristische Nachfrage, Reisen, Deutschland insgesamt, Verkehrsmittel, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2012-2024",
+            "LatestUpdate": "26.06.2025 13:02:27h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BJ160",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2008-2024",
+            "LatestUpdate": "01.10.2025 15:02:15h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BJ161",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2008-2024",
+            "LatestUpdate": "01.10.2025 15:25:26h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BJ180",
+            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2006-2024",
+            "LatestUpdate": "01.10.2025 15:01:46h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BJ181",
+            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2006-2024",
+            "LatestUpdate": "01.10.2025 15:26:44h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BM160",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2008-November 2025",
+            "LatestUpdate": "19.01.2026 15:04:44h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BM161",
+            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2008-November 2025",
+            "LatestUpdate": "19.01.2026 18:09:55h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BM180",
+            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2006-November 2025",
+            "LatestUpdate": "19.01.2026 15:05:32h",
+            "Information": "false"
+        },
+        {
+            "Code": "51000BM181",
+            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Monate, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "Januar 2006-November 2025",
+            "LatestUpdate": "19.01.2026 20:45:56h",
+            "Information": "false"
+        },
+        {
+            "Code": "62361BJ010",
+            "Content": "Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonatsverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Berufsgattungen (KB2010), 5-Steller, Stichmonat",
+            "State": "vollständig mit Werten",
+            "Time": "04/2022-04/2025",
+            "LatestUpdate": "04.12.2025 19:46:30h",
+            "Information": "false"
+        },
+        {
+            "Code": "62361BJ013",
+            "Content": "Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonatsverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Geschlecht, Berufsgattungen (KB2010), 5-Steller, Stichmonat",
+            "State": "vollständig mit Werten",
+            "Time": "04/2022-04/2025",
+            "LatestUpdate": "04.12.2025 19:45:49h",
+            "Information": "false"
+        },
+        {
+            "Code": "62361BJ016",
+            "Content": "Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. Sonderz., Mittlere Bruttojahresverdienste inkl. Sonderz., Deutschland insgesamt, Berufsgattungen (KB2010), 5-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022-2024",
+            "LatestUpdate": "27.03.2025 08:05:31h",
+            "Information": "false"
+        },
+        {
+            "Code": "62361BJ019",
+            "Content": "Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. Sonderz., Mittlere Bruttojahresverdienste inkl. Sonderz., Deutschland insgesamt, Geschlecht, Berufsgattungen (KB2010), 5-Steller, Jahr",
+            "State": "vollständig mit Werten",
+            "Time": "2022-2024",
+            "LatestUpdate": "27.03.2025 08:05:41h",
+            "Information": "false"
+        }
+    ],
+    "Statistics": [
+        {
+            "Code": "12251",
+            "Content": "Arbeitsmarktstatistik des Mikrozensus",
+            "Cubes": "99",
+            "Information": "true"
+        },
+        {
+            "Code": "45413",
+            "Content": "Statistik über die touristische Nachfrage",
+            "Cubes": "10",
+            "Information": "true"
+        },
+        {
+            "Code": "51000",
+            "Content": "Außenhandel",
+            "Cubes": "79",
+            "Information": "true"
+        },
+        {
+            "Code": "62361",
+            "Content": "Verdiensterhebung",
+            "Cubes": "152",
+            "Information": "true"
+        }
+    ],
+    "Tables": [
+        {
+            "Code": "12251-0005",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Deutschland, Jahre, Geschlecht, Stellung im Beruf, Benutztes Verkehrsmittel für den Hinweg zur Arbeitsstätte",
+            "Time": ""
+        },
+        {
+            "Code": "12251-0105",
+            "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer, Jahre, Geschlecht, Stellung im Beruf, Benutztes Verkehrsmittel für den Hinweg zur Arbeitsstätte",
+            "Time": ""
+        },
+        {
+            "Code": "45413-0004",
+            "Content": "Reisen: Deutschland, Jahre,\nReisedauer/Reisegründe/Unterkünfte/Verkehrsmittel",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0005",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWarensystematik",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0006",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWarensystematik",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0009",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre, Land,\nWarenverzeichnis (4-/6-Steller)",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0010",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWare (4-/6-Steller), Länder",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0011",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate, Land,\nWarenverzeichnis (4-/6-Steller)",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0012",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWare (4-/6-Steller), Länder",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0013",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWarenverzeichnis (8-Steller)",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0014",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWarenverzeichnis (8-Steller)",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0015",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre, Land,\nWarenverzeichnis (8-Steller)",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0016",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWare (8-Steller), Länder",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0017",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate, Land,\nWarenverzeichnis (8-Steller)",
+            "Time": ""
+        },
+        {
+            "Code": "51000-0018",
+            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWare (8-Steller), Länder",
+            "Time": ""
+        },
+        {
+            "Code": "62361-0030",
+            "Content": "Bruttostundenverdienste, Bruttomonatsverdienste: Deutschland, Stichmonat, Geschlecht, Berufe",
+            "Time": ""
+        },
+        {
+            "Code": "62361-0034",
+            "Content": "Bruttojahresverdienste: Deutschland, Jahre, Geschlecht, Berufe",
+            "Time": ""
+        }
+    ],
+    "Timeseries": null,
+    "Variables": [
+        {
+            "Code": "ARBVK1",
+            "Content": "Benutztes Verkehrsmittel f.d. Hinweg z. Arbeitsst.",
+            "Type": "sachlich",
+            "Values": "10",
+            "Information": "true"
+        },
+        {
+            "Code": "KB10A5",
+            "Content": "Berufsgattungen (KB2010), 5-Steller",
+            "Type": "sachlich",
+            "Values": "1300",
+            "Information": "true"
+        },
+        {
+            "Code": "VERKM1",
+            "Content": "Verkehrsmittel",
+            "Type": "sachlich",
+            "Values": "6",
+            "Information": "false"
+        },
+        {
+            "Code": "WAM6",
+            "Content": "Warenverzeichnis Außenhandelsstatistik (6-Steller)",
+            "Type": "sachlich",
+            "Values": "6438",
+            "Information": "true"
+        },
+        {
+            "Code": "WAM8",
+            "Content": "Warenverzeichnis Außenhandelsstatistik (8-Steller)",
+            "Type": "sachlich",
+            "Values": "14319",
+            "Information": "true"
+        }
+    ],
+    "Copyright": "© Statistisches Bundesamt (Destatis), 2026"
+}

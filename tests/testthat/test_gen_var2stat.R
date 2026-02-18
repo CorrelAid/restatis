@@ -32,14 +32,19 @@ with_mock_dir("variables2_fake", {
 
   test_that("gen_var2stat function errors if there is a problem (fake response)", {
 
+    skip_on_cran()
+    skip_on_ci()
+
     # Here, it is necessary to change the mockfile:
     # Change the Status$Code to, e.g., 999
     # Change the Status$Content to contain "test error message"
 
-    skip_on_cran()
-    skip_on_ci()
+    # First download correct file with:
+    # expect_type(object = gen_var2stat(code = "74111", database = "genesis"),
+    #             type = "list")
 
-    expect_error(object = gen_var2stat(code = "74111", database = "genesis"),
+    expect_error(object = gen_var2stat(code = "74111",
+                                       database = "genesis"),
                  regexp = "test error message")
 
   })
