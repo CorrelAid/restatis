@@ -12,6 +12,8 @@
 
 - **Johannes Ritter**. Author.
 
+- **Stefan Linner**. Contributor.
+
 ## Citation
 
 Source:
