@@ -25,8 +25,8 @@ test_that("gen_auth_path handles additional arguments", {
 
 test_that("gen_auth_save validates database parameter", {
 
-  expect_error(gen_auth_save(database = "invalid"),
-               "database")
+  expect_error(object = gen_auth_save(database = "invalid"),
+               regexp = "database")
 
 })
 
@@ -41,7 +41,7 @@ test_that("gen_auth_get returns credentials when they exist", {
               "No genesis credentials saved!")
 
   creds <- gen_auth_get(database = "genesis")
-  expect_type(creds, "list")
+  expect_type(object = creds, type = "list")
   expect_true(all(c("username", "password") %in% names(creds) |
                     "token" %in% names(creds)))
 
@@ -49,8 +49,8 @@ test_that("gen_auth_get returns credentials when they exist", {
 
 test_that("gen_auth_get validates database parameter", {
 
-  expect_error(gen_auth_get(database = "invalid"),
-               "database")
+  expect_error(object = gen_auth_get(database = "invalid"),
+               regexp = "database")
 
 })
 
@@ -66,7 +66,7 @@ test_that("gen_auth_get accepts all valid databases", {
     skip_if_not(file.exists(gen_auth_path(paste0("auth_", db, ".rds"))),
                 paste("No", db, "credentials!"))
 
-    expect_silent(gen_auth_get(database = db))
+    expect_silent(object = gen_auth_get(database = db))
 
   }
 

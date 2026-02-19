@@ -12,8 +12,8 @@ test_that("complete data discovery and retrieval workflow", {
   search_results <- gen_find(database = "genesis",
                              term = "Bevölkerung")
 
-  expect_type(search_results, "list")
-  expect_s3_class(search_results$Tables, "data.frame")
+  expect_type(object = search_results, type = "list")
+  expect_s3_class(object = search_results$Tables, class = "data.frame")
   expect_true(nrow(search_results$Tables) > 0)
 
   # 2. Get metadata about first result
@@ -25,7 +25,7 @@ test_that("complete data discovery and retrieval workflow", {
                              database = "genesis",
                              category = "table")
 
-    expect_type(metadata, "list")
+    expect_type(object = metadata, type = "list")
 
   }
 
@@ -52,7 +52,7 @@ test_that("authentication and data access workflow", {
                                database = "genesis",
                                category = "tables")
 
-    expect_type(catalogue, "list")
+    expect_type(object = catalogue, type = "list")
     expect_true(nrow(catalogue[["Tables"]][[1]][[1]][[1]][[1]]) > 0)
 
   }
@@ -76,7 +76,7 @@ test_that("table retrieval with filtering workflow", {
                           endyear = 2021,
                           language = "en")
 
-  expect_s3_class(table_data, "data.frame")
+  expect_s3_class(object = table_data, class = "data.frame")
 
   # Verify year filtering worked (if years are in the data)
   if ("time" %in% names(table_data)) {
@@ -103,13 +103,13 @@ test_that("relationship exploration workflow", {
   stats <- gen_objects2stat(code = "12411",
                             database = "genesis")
 
-  expect_type(stats, "list")
+  expect_type(object = stats, type = "list")
 
   # 2. Search for variables
   vars <- gen_search_vars(name = "12411",
                           database = "genesis")
 
-  expect_type(vars, "list")
+  expect_type(object = vars, type = "list")
 
 })
 
@@ -124,12 +124,13 @@ test_that("system recovers from API errors gracefully", {
               "No genesis credentials!")
 
   # Try invalid request
-  result1 <- tryCatch(gen_table(name = "invalid-table", database = "genesis"),
+  result1 <- tryCatch(gen_table(name = "invalid-table",
+                                database = "genesis"),
                       error = function(e) NULL)
 
   # System should still work after error
   result2 <- gen_logincheck(database = "genesis")
-  expect_type(result2, "logical")
+  expect_type(object = result2, type = "logical")
 
 })
 
@@ -206,7 +207,7 @@ test_that("detailed vs. non-detailed queries are consistent", {
 
   # Detailed should have more columns
   expect_true(ncol(detailed[["Tables"]][[1]][[1]][[1]][[1]]) >=
-                ncol(basic[["Tables"]][[1]][[1]][[1]][[1]]))
+              ncol(basic[["Tables"]][[1]][[1]][[1]][[1]]))
 
   # Should have same number of rows
   expect_equal(nrow(basic[["Tables"]][[1]][[1]][[1]][[1]]),
@@ -236,7 +237,7 @@ test_that("functions handle large datasets efficiently", {
   expect_true(elapsed < 30)
 
   # Should return data
-  expect_type(result, "list")
+  expect_type(object = result, type = "list")
 
 })
 
@@ -257,12 +258,12 @@ test_that("same function works across all databases", {
 
     # gen_signs should work for all
     result <- gen_signs(database = db)
-    expect_s3_class(result$Output, "data.frame")
+    expect_s3_class(object = result$Output, class = "data.frame")
     expect_true(nrow(result$Output) > 0)
 
     # gen_logincheck should work for all
     login <- gen_logincheck(database = db)
-    expect_type(login, "logical")
+    expect_type(object = login, type = "logical")
   }
 
 })
@@ -282,7 +283,8 @@ test_that("error messages are consistent across databases", {
                 paste("No", db, "credentials!"))
 
     # Test with invalid table name
-    result <- tryCatch(gen_table(name = "invalid-99999", database = db),
+    result <- tryCatch(gen_table(name = "invalid-99999",
+                                 database = db),
                        error = function(e) e$message)
 
     # Should get some error message
@@ -304,7 +306,8 @@ test_that("job creation and retrieval workflow", {
               "No genesis credentials!")
 
   # List jobs
-  jobs <- gen_list_jobs(database = "genesis", flat = TRUE)
-  expect_s3_class(jobs, "data.frame")
+  jobs <- gen_list_jobs(database = "genesis",
+                        flat = TRUE)
+  expect_s3_class(object = jobs, class = "data.frame")
 
 })
