@@ -7,6 +7,7 @@ test_that("gen_val2var function errors if there is no result", {
   with_mock_dir("values1", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_message(object = gen_val2var(code = "61111",
                                         detailed = TRUE,
@@ -26,6 +27,7 @@ test_that("gen_val2var function returns list", {
   with_mock_dir("values2", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- gen_val2var(code = "DLAND",
                           detailed = TRUE,

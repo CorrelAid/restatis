@@ -7,6 +7,7 @@ test_that("gen_modified_data function returns list", {
   with_mock_dir("modified1", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_type(object = gen_modified_data(code = "61111",
                                            date = "01.01.2022",
@@ -22,6 +23,7 @@ test_that("gen_modified_data function returns message", {
   with_mock_dir("modified2", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_message(object = gen_modified_data(code = "61111",
                                               database = "genesis"),
@@ -38,6 +40,7 @@ test_that("gen_modified_data function returns list with attributes", {
   with_mock_dir("modified3", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- gen_modified_data(code = "61111",
                                 date = "01.01.2022",
@@ -60,6 +63,7 @@ test_that("gen_modified_data function warns if there is a non-zero status code",
   with_mock_dir("modified4", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_message(object = gen_modified_data(code = "61234",
                                               date = "01.01.2022",

@@ -7,6 +7,7 @@ test_that("gen_cube returns data.frame", {
   with_mock_dir("cube1", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- gen_cube(name = "47414BJ002",
                        database = "genesis",

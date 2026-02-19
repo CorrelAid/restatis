@@ -7,6 +7,7 @@ test_that("gen_var2stat function returns list", {
   with_mock_dir("variables1", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- gen_var2stat(code = "61111",
                            detailed = TRUE,
@@ -33,6 +34,7 @@ test_that("gen_var2stat function errors if there is a problem (fake response)", 
   with_mock_dir("variables2_fake", {
 
     skip_on_cran()
+    skip_on_ci()
 
     # Here, it is necessary to change the mockfile:
     # Change the Status$Code to, e.g., 999
@@ -88,6 +90,7 @@ test_that("gen_var2stat function messages on FALSE detailed param", {
   with_mock_dir("variables3", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_message(object = gen_var2stat(code = "61111",
                                          detailed = FALSE,

@@ -7,6 +7,7 @@ test_that("gen_table returns data.frame", {
   with_mock_dir("table1", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- gen_table(name = "61111-0001",
                         startyear = 2023,

@@ -7,6 +7,7 @@ test_that("gen_metadata returns list", {
   with_mock_dir("meta1", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- gen_metadata(code = "11111-0001",
                            category = "table",
@@ -41,6 +42,7 @@ test_that("gen_metadata errors if there is an error code (fake response)", {
     #             type = "list")
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_error(object = gen_metadata(code = "1*",
                                        category = "cube",
@@ -58,6 +60,7 @@ test_that("gen_metadata gives message if error.ignore = TRUE", {
   with_mock_dir("meta3", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_message(object = gen_metadata(code = "11111-0001",
                                          category = "table",

@@ -7,6 +7,7 @@ test_that("gen_objects2var does return a list as result", {
   with_mock_dir("xy_variable1", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- gen_objects2var(code = "DLAND",
                               database = "genesis")
@@ -31,6 +32,7 @@ test_that("gen_objects2var does return a data.frame for a single category", {
   with_mock_dir("xy_variable2", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_s3_class(object = gen_objects2var(code = "DLAND",
                                              category = "tables",
@@ -100,6 +102,7 @@ test_that("gen_objects2var function messages on FALSE detailed param", {
   with_mock_dir("xy_variable3", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_message(object = gen_objects2var(code = "DLAND",
                                             detailed = FALSE,

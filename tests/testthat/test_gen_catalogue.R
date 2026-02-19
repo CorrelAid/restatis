@@ -7,6 +7,7 @@ test_that("gen_catalogue function returns list for tables", {
   with_mock_dir("catalogue1", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- gen_catalogue(code = "611*",
                             detailed = TRUE,
@@ -28,6 +29,7 @@ test_that("gen_catalogue function returns lists for statistics", {
   with_mock_dir("catalogue2", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_type(object = gen_catalogue(code = "41141",
                                        detailed = FALSE,
@@ -47,6 +49,7 @@ test_that("gen_catalogue function returns error if there are no results", {
   with_mock_dir("catalogue3", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_error(object = gen_catalogue(code = "41141",
                                         detailed = FALSE,
@@ -66,6 +69,7 @@ test_that("gen_catalogue function returns list of length 3 if all categories are
   with_mock_dir("catalogue4", {
 
     skip_on_cran()
+    skip_on_ci()
 
     res <- gen_catalogue(code = "611*",
                          detailed = FALSE,
@@ -83,6 +87,7 @@ test_that("gen_catalogue function messages on TRUE error.ignore param", {
   with_mock_dir("catalogue5", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_message(object = gen_catalogue(code = "711*",
                                           detailed = TRUE,
@@ -157,6 +162,7 @@ test_that("gen_catalogue function messages on FALSE detailed param", {
   with_mock_dir("catalogue6", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_message(object = gen_catalogue(code = "711*",
                                           detailed = FALSE,

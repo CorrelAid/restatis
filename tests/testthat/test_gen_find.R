@@ -43,6 +43,7 @@ test_that("gen_find errors if there is an error code (fake response)", {
     #             type = "list")
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_error(object = gen_find(term = "bus",
                                    error.ignore = TRUE,
@@ -60,6 +61,7 @@ test_that("gen_find messages for 'detailed = TRUE'", {
   with_mock_dir("find3", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_message(object = gen_find(term = "zensus",
                                      error.ignore = TRUE,

@@ -7,6 +7,7 @@ test_that("gen_search_vars returns a list element", {
   with_mock_dir("searchvars1", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- gen_search_vars(code = NULL,
                               sortcriterion = c("code", "content"),

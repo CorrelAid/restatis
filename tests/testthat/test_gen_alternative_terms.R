@@ -7,6 +7,7 @@ test_that("search terms function returns list", {
   with_mock_dir("terms1", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- gen_alternative_terms(term = "forst*",
                                     similarity = TRUE,

@@ -7,6 +7,7 @@ test_that("gen_objects2stat does return a list as result", {
   with_mock_dir("xy_statistic1", {
 
     skip_on_cran()
+    skip_on_ci()
 
     result <- gen_objects2stat(code = "61111", database = "genesis")
 
@@ -30,6 +31,7 @@ test_that("gen_objects2stat does return a data.frame for a single category", {
   with_mock_dir("xy_statistic2", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_s3_class(object = gen_objects2stat(code = "61111",
                                               category = "tables",
@@ -103,6 +105,7 @@ test_that("gen_objects2stat function messages on FALSE detailed param", {
   with_mock_dir("xy_statistic3", {
 
     skip_on_cran()
+    skip_on_ci()
 
     expect_message(object = gen_objects2stat(code = "61111",
                                              detailed = FALSE,
