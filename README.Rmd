@@ -48,8 +48,8 @@ Almost all functions work on either one of them, on all of them or just on a sel
 | Datenbank des Statistischen Landesamtes Sachsen-Anhalt    | st    |
 
 #### Current information and (known) issues
-- It is unclear whether the databases of Sachsen-Anhalt ('st'), Bayern ('bayern'), Nordrhein-Westfalen ('nrw') and Kommunale sBildungsmonitoring ('bildung') support the creation of jobs. This is because it is sometimes hard to create large enough tables on a test basis. The package supports their creation and download for all databases mentioned, but there might be issues because of lack of tests.
-- The CSV files currently returned by the 'bayern' database (this affects `gen_table()`) appear to be slightly corrupted. This might cause warnings stemming from {vroom}. These can be ignored, but users have to carefully check the resulting `data.frames`. Use `vroom::problems()` to check the data objects for more information.
+- It is unclear whether the databases of Sachsen-Anhalt (`st`), Bayern (`bayern`), Nordrhein-Westfalen (`nrw`) and Kommunales Bildungsmonitoring (`bildung`) support the creation of jobs. This is because it is sometimes hard to create large enough tables on a test basis. The package supports their creation and download for all databases mentioned, but there might be issues because of lack of tests.
+- The CSV files currently returned by the `bayern` database (this affects `gen_table()`) appear to be slightly corrupted. This might cause warnings stemming from {vroom}. These can be ignored, but users have to carefully check the resulting `data.frames`. Use `vroom::problems()` to check the data objects for more information.
 
 ## Installation
 
@@ -117,8 +117,8 @@ In short, there are functions divided in two main parts, searching for (meta)dat
 - **gen_objects2stat()**, **gen_objects2var()**, **gen_var2stat()**, **gen_val2var()**, **gen_val2var2stat()** and **gen_search_vars()**: Find objects, statistics, variables and values related to each other
 
 #### Retrieving data
-- **gen_cube()**: Using this function, you can download 'cube' objects
-- **gen_table()**: Using this function, you can download 'table' objects 
+- **gen_cube()**: Using this function, you can download `cube` objects
+- **gen_table()**: Using this function, you can download `table` objects 
 - **gen_list_jobs()** and **gen_download_job()**: Using this function, you can find and download previously created jobs (large tables)
 
 #### Other functions
