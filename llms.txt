@@ -37,14 +37,14 @@ shortcuts are the following:
 
 #### Current information and (known) issues
 
-- It is unclear whether the databases of Sachsen-Anhalt (‘st’), Bayern
-  (‘bayern’), Nordrhein-Westfalen (‘nrw’) and Kommunale
-  sBildungsmonitoring (‘bildung’) support the creation of jobs. This is
+- It is unclear whether the databases of Sachsen-Anhalt (`st`), Bayern
+  (`bayern`), Nordrhein-Westfalen (`nrw`) and Kommunales
+  Bildungsmonitoring (`bildung`) support the creation of jobs. This is
   because it is sometimes hard to create large enough tables on a test
   basis. The package supports their creation and download for all
   databases mentioned, but there might be issues because of lack of
   tests.
-- The CSV files currently returned by the ‘bayern’ database (this
+- The CSV files currently returned by the `bayern` database (this
   affects
   [`gen_table()`](https://correlaid.github.io/restatis/reference/gen_table.md))
   appear to be slightly corrupted. This might cause warnings stemming
@@ -170,8 +170,8 @@ In short, there are functions divided in two main parts, searching for
 
 #### Retrieving data
 
-- **gen_cube()**: Using this function, you can download ‘cube’ objects
-- **gen_table()**: Using this function, you can download ‘table’ objects
+- **gen_cube()**: Using this function, you can download `cube` objects
+- **gen_table()**: Using this function, you can download `table` objects
 - **gen_list_jobs()** and **gen_download_job()**: Using this function,
   you can find and download previously created jobs (large tables)
 

@@ -117,8 +117,8 @@
 <h4 id="current-information-and-known-issues">Current information and (known) issues<a class="anchor" aria-label="anchor" href="#current-information-and-known-issues"></a>
 </h4>
 <ul>
-<li>It is unclear whether the databases of Sachsen-Anhalt (‘st’), Bayern (‘bayern’), Nordrhein-Westfalen (‘nrw’) and Kommunale sBildungsmonitoring (‘bildung’) support the creation of jobs. This is because it is sometimes hard to create large enough tables on a test basis. The package supports their creation and download for all databases mentioned, but there might be issues because of lack of tests.</li>
-<li>The CSV files currently returned by the ‘bayern’ database (this affects <code><a href="reference/gen_table.html">gen_table()</a></code>) appear to be slightly corrupted. This might cause warnings stemming from {vroom}. These can be ignored, but users have to carefully check the resulting <code>data.frames</code>. Use <code><a href="https://vroom.tidyverse.org/reference/problems.html" class="external-link">vroom::problems()</a></code> to check the data objects for more information.</li>
+<li>It is unclear whether the databases of Sachsen-Anhalt (<code>st</code>), Bayern (<code>bayern</code>), Nordrhein-Westfalen (<code>nrw</code>) and Kommunales Bildungsmonitoring (<code>bildung</code>) support the creation of jobs. This is because it is sometimes hard to create large enough tables on a test basis. The package supports their creation and download for all databases mentioned, but there might be issues because of lack of tests.</li>
+<li>The CSV files currently returned by the <code>bayern</code> database (this affects <code><a href="reference/gen_table.html">gen_table()</a></code>) appear to be slightly corrupted. This might cause warnings stemming from {vroom}. These can be ignored, but users have to carefully check the resulting <code>data.frames</code>. Use <code><a href="https://vroom.tidyverse.org/reference/problems.html" class="external-link">vroom::problems()</a></code> to check the data objects for more information.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -194,9 +194,9 @@
 </h4>
 <ul>
 <li>
-<strong>gen_cube()</strong>: Using this function, you can download ‘cube’ objects</li>
+<strong>gen_cube()</strong>: Using this function, you can download <code>cube</code> objects</li>
 <li>
-<strong>gen_table()</strong>: Using this function, you can download ‘table’ objects</li>
+<strong>gen_table()</strong>: Using this function, you can download <code>table</code> objects</li>
 <li>
 <strong>gen_list_jobs()</strong> and <strong>gen_download_job()</strong>: Using this function, you can find and download previously created jobs (large tables)</li>
 </ul>
