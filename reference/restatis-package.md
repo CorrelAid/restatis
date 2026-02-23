@@ -29,3 +29,7 @@ Authors:
   ([ORCID](https://orcid.org/0000-0001-8878-7386))
 
 - Johannes Ritter <ritter.johannes@gmail.com>
+
+Other contributors:
+
+- Stefan Linner <stefan@linnerprogramming.com> \[contributor\]

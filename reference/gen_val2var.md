@@ -1,8 +1,9 @@
-# gen_val2var
+# Extract Values From Variable
 
 Function to extract the possible values from a variable. Values for
 continuous variables are not extractable, which is why the function
-returns a warning message in this case.
+returns a warning message in this case. This function gathers metadata,
+no actual data. It helps to refine data calls.
 
 ## Usage
 

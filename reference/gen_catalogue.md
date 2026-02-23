@@ -1,4 +1,4 @@
-# Search for tables, statistics and cubes
+# Search For Tables, Statistics and Cubes
 
 Function to search for tables, statistics and cubes from the respective
 database. Additionally, it structures the output based on the internal
@@ -43,11 +43,10 @@ gen_catalogue(
 
 - category:
 
-  Character string. Specify specific GENESIS/regionalstatistik.de object
-  types ('tables', 'statistics' and 'cubes') and specific Zensus 2022
-  object types ('tables' and 'statistics'). All types that are specific
-  for one database can be used together. Default option is to use all
-  types that are possible for the specific database.
+  Character string. Specify specific object types ('tables',
+  'statistics' and 'cubes'). All types that are specific for one
+  database can be used together. Default option is to use all types that
+  are possible for the specific database.
 
 - area:
 

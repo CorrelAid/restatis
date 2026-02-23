@@ -1,8 +1,7 @@
-# gen_cube
+# Download Data Cube As Data.Frame
 
-Download a cube with data from GENESIS, regionalstatistik.de,
-landesdatenbank.nrw.de, bildungsmonitoring.de or
-statistikdaten.bayern.de database
+Download a cube as a data.frame from any supported database. Works not
+on all databases included in the package.
 
 ## Usage
 
@@ -37,8 +36,7 @@ gen_cube(
 
 - name:
 
-  Character string for a cube object (only GENESIS,
-  regionalstatistik.de, landesdatenbank.nrw.de or bildungsmonitoring.de)
+  Character string for a cube object.
 
 - database:
 

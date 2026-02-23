@@ -57,8 +57,6 @@
 <div class="page-header"><h1 id="restatis-">restatis <img src="reference/figures/hexsticker_restatis.png" width="160px" align="right"><a class="anchor" aria-label="anchor" href="#restatis-"></a>
 </h1></div>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<!-- badges: start -->
-
 <p><strong>{restatis}</strong> is a wrapper around the RESTful APIs that provide access to the main databases of German official statistics:</p>
 <ul>
 <li>The <a href="https://www-genesis.destatis.de/genesis/online" class="external-link"><strong>GENESIS database</strong> of the Federal Statistical Office of Germany (Destatis)</a>
@@ -76,11 +74,11 @@
 </li>
 </ul>
 <p>Almost all functions work on either one of them, on all of them or just on a selection.</p>
-<p><a href="https://correlaid.github.io/restatis/">restatis</a> uses shortcuts in its functions to specify the databases in the <code>database</code> parameter (e.g., <code>gen_table(name = "1234-0001", database = "regio")</code>). The respective shortcuts are the following:</p>
+<p><a href="https://correlaid.github.io/restatis/">restatis</a> uses abbreviations in its functions to specify the databases in the <code>database</code> parameter (e.g., <code>gen_table(name = "1234-0001", database = "regio")</code>). The respective abbreviation strings are the following:</p>
 <table class="table">
 <thead><tr class="header">
 <th>Database</th>
-<th>Shortcut</th>
+<th>Abbr.</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -118,7 +116,7 @@
 </h4>
 <ul>
 <li>It is unclear whether the databases of Sachsen-Anhalt (<code>st</code>), Bayern (<code>bayern</code>), Nordrhein-Westfalen (<code>nrw</code>) and Kommunales Bildungsmonitoring (<code>bildung</code>) support the creation of jobs. This is because it is sometimes hard to create large enough tables on a test basis. The package supports their creation and download for all databases mentioned, but there might be issues because of lack of tests.</li>
-<li>The CSV files currently returned by the <code>bayern</code> database (this affects <code><a href="reference/gen_table.html">gen_table()</a></code>) appear to be slightly corrupted. This might cause warnings stemming from {vroom}. These can be ignored, but users have to carefully check the resulting <code>data.frames</code>. Use <code><a href="https://vroom.tidyverse.org/reference/problems.html" class="external-link">vroom::problems()</a></code> to check the data objects for more information.</li>
+<li>The CSV files currently returned by the <code>bayern</code> database (this affects <code><a href="reference/gen_table.html">gen_table()</a></code>) appear to be slightly corrupted. This might cause warnings stemming from <a href="https://vroom.tidyverse.org" class="external-link">vroom</a>. These can be ignored, but users have to carefully check the resulting <code>data.frames</code>. Use <code><a href="https://vroom.tidyverse.org/reference/problems.html" class="external-link">vroom::problems()</a></code> to check the data objects for more information.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -147,12 +145,12 @@
 <div class="section level4">
 <h4 id="credentials-as-parameters">Credentials as parameters<a class="anchor" aria-label="anchor" href="#credentials-as-parameters"></a>
 </h4>
-<p>In the first versions of {restatis}, it was impossible to set the credentials as a parameter. This is because we wanted to emphasise the secure storage of credentials that is the default of the package. However, we became aware of certain use-cases (e.g., automated piplines via GitHub Actions and the like) that made it necessary to set the credentials as a parameter. For this reason, in version 0.4.0 we introduced the <code>credential_list</code> parameter for {restatis}’s functions. Using this parameter, users can provide their credentials independently of <code>gen_auth_save</code>. <strong>Note:</strong> We do only encourage this in very rare cases since it is advisable to safely store the credentials. In case you use <code>credential_list</code>, always make sure that the credentials do not appear anywhere in clear text!</p>
+<p>In the first versions of <a href="https://correlaid.github.io/restatis/">restatis</a>, it was impossible to set the credentials as a parameter. This is because we want to emphasise the secure storage of credentials that is the default of the package. However, we became aware of certain use-cases (e.g., automated piplines via GitHub Actions and the like) that made it necessary to set the credentials as a parameter. For this reason, in version 0.4.0 we introduced the <code>credential_list</code> parameter for <a href="https://correlaid.github.io/restatis/">restatis</a>’s functions. Using this parameter, users can provide their credentials independently of <code>gen_auth_save</code>. <strong>Important Note:</strong> <em>We do only encourage this in very rare cases since it is advisable to safely store the credentials. In case you use <code>credential_list</code>, always make sure that the credentials do not appear anywhere in clear text!</em></p>
 <p>The <code>credentials_list</code> has to have the exact following structure:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">custom_credentials</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>genesis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>username <span class="op">=</span> <span class="st">'abc123'</span>, password <span class="op">=</span> <span class="st">'qwerty1234'</span><span class="op">)</span>,</span>
 <span>                           regio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>username <span class="op">=</span> <span class="st">'abc123'</span>, password <span class="op">=</span> <span class="st">'qwerty1234'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Now when using the custom credentials, you pass the list to the respective function parameter:</p>
+<p>Now when using the custom credentials, you pass the list to the respective function parameter (this overrides the credentials set by <code><a href="reference/gen_auth_save.html">gen_auth_save()</a></code>):</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example call with custom credentials</span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">restatis</span><span class="fu">::</span><span class="fu"><a href="reference/gen_find.html">gen_find</a></span><span class="op">(</span>term <span class="op">=</span> <span class="st">"diagnosen"</span>, </span>
@@ -163,13 +161,13 @@
 <span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">restatis</span><span class="fu">::</span><span class="fu"><a href="reference/gen_find.html">gen_find</a></span><span class="op">(</span>term <span class="op">=</span> <span class="st">"krankenhäuser"</span>, </span>
 <span>                           database <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"genesis"</span>, <span class="st">"regio"</span><span class="op">)</span>,</span>
 <span>                           credential_list <span class="op">=</span> <span class="va">custom_credentials</span><span class="op">)</span>                          </span></code></pre></div>
-<p>You have to make sure that the database(s) you specify in <code>database</code> is/are listed in <code>credential_list</code>, otherwise the function call fails. In some cases, you can specify the <code>error.ignore</code> parameter. If it is set to <code>TRUE</code>, the function will continue to execute for those databases that are available, even if some are not. <em>Note that <code>credentials_list</code> does (currently) not support the use of API tokens.</em></p>
+<p>You have to make sure that the database(s) you specify in <code>database</code> is/are listed in <code>credential_list</code>, otherwise the function call fails. In some cases, you can specify the <code>error.ignore</code> parameter. If it is set to <code>TRUE</code>, the function will continue to execute for those databases that are available, even if some are not. <strong>Note:</strong> <em><code>credentials_list</code> does not (currently) support the use of API tokens.</em></p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="main-features">Main features<a class="anchor" aria-label="anchor" href="#main-features"></a>
 </h3>
-<p>{restatis} provides functions (prefixed with <code>gen_</code>) for finding, exploring, and retrieving data from the three supported APIs. See the <a href="https://correlaid.github.io/restatis/articles/restatis.html">“Basic restatis workflow” vignette</a> for an overview of the main features of the package.</p>
+<p><a href="https://correlaid.github.io/restatis/">restatis</a> provides functions (prefixed with <code>gen_</code>) for finding, exploring, and retrieving data from the three supported APIs. See the <a href="https://correlaid.github.io/restatis/articles/restatis.html">“Basic restatis workflow” vignette</a> for an overview of the main features of the package.</p>
 <p>In short, there are functions divided in two main parts, searching for (meta)data and retrieving data:</p>
 <div class="section level4">
 <h4 id="searching-for-metadata">Searching for (meta)data<a class="anchor" aria-label="anchor" href="#searching-for-metadata"></a>
@@ -263,16 +261,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://CRAN.R-project.org/package=restatis" class="external-link"><img src="https://www.r-pkg.org/badges/version/restatis" alt="CRAN status"></a></li>
-<li><a href="https://github.com/CorrelAid/restatis/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/CorrelAid/restatis/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://app.codecov.io/gh/CorrelAid/restatis" class="external-link"><img src="https://codecov.io/gh/CorrelAid/restatis/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://github.com/sindresorhus/awesome" class="external-link"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome"></a></li>
-</ul>
-</div>
+
 
   </aside>
 </div>

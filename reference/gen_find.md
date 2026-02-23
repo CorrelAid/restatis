@@ -1,17 +1,16 @@
-# General Search for Objects Through A Database
+# General Search For Objects Through A Database
 
 Function to search through the databases. It is similar in usage as the
-search function on the GENESIS main page
-(https://www-genesis.destatis.de/genesis/online). In the search query,
-"UND" (German word for 'and', also written "und" or "&") as well as
-"ODER" (German word for 'or', also written "oder" or "\|") can be
-included and logically combined. Furthermore, wildcards are possible by
-including "\*". If more then one word is included in the term string,
-'and' is used automatically to combine the different words. Important
-note: Time-series are treated as cubes in GENESIS and
-regionalstatistik.de, they are not longer distinguished. If you want to
-find a specific object with a clear code with this find function, you
-need to specify the object type or search for all object types.
+search function on the main page. In the search query, "UND" (German
+word for 'and', also written "und" or "&") as well as "ODER" (German
+word for 'or', also written "oder" or "\|") can be included and
+logically combined. Furthermore, wildcards are possible by including
+"\*". If more then one word is included in the term string, 'and' is
+used automatically to combine the different words. Important note:
+Time-series are treated as cubes in GENESIS and regionalstatistik.de,
+they are not longer distinguished. If you want to find a specific object
+with a clear code with this find function, you need to specify the
+object type or search for all object types.
 
 ## Usage
 
@@ -47,11 +46,11 @@ gen_find(
 
 - category:
 
-  Character string. Specify specific GENESIS/regionalstatistik.de object
-  types ('tables', 'statistics' and 'cubes') and specific Zensus 2022
-  object types ('tables' and 'statistics'). All types that are specific
-  for one database can be used together. Default option is to use all
-  types that are possible for the specific database.
+  Character string. Specify specific object types ('tables',
+  'statistics' and 'cubes') and specific Zensus 2022 object types
+  ('tables' and 'statistics'). All types that are specific for one
+  database can be used together. Default option is to use all types that
+  are possible for the specific database.
 
 - detailed:
 

@@ -1,7 +1,7 @@
-# gen_update_evas
+# Update EVAS Database
 
 Function to web scrape the EVAS numbers from the EVAS website and save
-them as a .rda file. Takes no parameters.
+them as a .rda file. Takes no parameters, only rarely necessary.
 
 ## Usage
 
@@ -11,4 +11,5 @@ gen_update_evas()
 
 ## Value
 
-An updated .rda file containing the latest EVAS numbers
+An updated .rda file containing the latest EVAS numbers, used
+internally.

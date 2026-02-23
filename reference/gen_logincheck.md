@@ -1,4 +1,4 @@
-# gen_logincheck
+# Check If User Can Connect To Service
 
 Function to check if a login is possible for a certain database.
 

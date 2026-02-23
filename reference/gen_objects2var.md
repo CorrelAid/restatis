@@ -1,6 +1,7 @@
-# gen_objects2var
+# Find Objects Related To A Variable
 
-Function to find objects related to a variable
+Function to find objects related to a variable. This is interesting to
+get an overview of a variable's usage.
 
 ## Usage
 
@@ -37,11 +38,10 @@ gen_objects2var(
 
 - category:
 
-  Character string. Specify specific GENESIS/regionalstatistik.de object
-  types ('tables', 'statistics' and 'cubes') and specific Zensus 2022
-  object types ('tables' and 'statistics'). All types that are specific
-  for one database can be used together. Default option is to use all
-  types that are possible for the specific database.
+  Character string. Specify specific object types ('tables',
+  'statistics' and 'cubes'). All types that are specific for one
+  database can be used together. Default option is to use all types that
+  are possible for the specific database.
 
 - area:
 

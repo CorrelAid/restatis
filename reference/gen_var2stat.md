@@ -1,6 +1,8 @@
-# gen_var2stat
+# Generate Variables From Statistics
 
-Function to generate variables from statistics
+Function to generate variable information from a statistic. This
+function gathers metadata, no actual data. It helps to refine data
+calls.
 
 ## Usage
 

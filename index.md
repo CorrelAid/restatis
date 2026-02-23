@@ -20,20 +20,20 @@ to the main databases of German official statistics:
 Almost all functions work on either one of them, on all of them or just
 on a selection.
 
-[restatis](https://correlaid.github.io/restatis/) uses shortcuts in its
-functions to specify the databases in the `database` parameter (e.g.,
-`gen_table(name = "1234-0001", database = "regio")`). The respective
-shortcuts are the following:
+[restatis](https://correlaid.github.io/restatis/) uses abbreviations in
+its functions to specify the databases in the `database` parameter
+(e.g., `gen_table(name = "1234-0001", database = "regio")`). The
+respective abbreviation strings are the following:
 
-| Database                                               | Shortcut |
-|--------------------------------------------------------|----------|
-| GENESIS (Federal Statistical Office of Germany)        | genesis  |
-| Regionaldatenbank (regionalstatistik.de)               | regio    |
-| German Census 2022                                     | zensus   |
-| Kommunale Bildungsdatenbank                            | bildung  |
-| Landesdatenbank NRW                                    | nrw      |
-| Datenbank des Bayerischen Landesamtes für Statistik    | bayern   |
-| Datenbank des Statistischen Landesamtes Sachsen-Anhalt | st       |
+| Database                                               | Abbr.   |
+|--------------------------------------------------------|---------|
+| GENESIS (Federal Statistical Office of Germany)        | genesis |
+| Regionaldatenbank (regionalstatistik.de)               | regio   |
+| German Census 2022                                     | zensus  |
+| Kommunale Bildungsdatenbank                            | bildung |
+| Landesdatenbank NRW                                    | nrw     |
+| Datenbank des Bayerischen Landesamtes für Statistik    | bayern  |
+| Datenbank des Statistischen Landesamtes Sachsen-Anhalt | st      |
 
 #### Current information and (known) issues
 
@@ -48,8 +48,8 @@ shortcuts are the following:
   affects
   [`gen_table()`](https://correlaid.github.io/restatis/reference/gen_table.md))
   appear to be slightly corrupted. This might cause warnings stemming
-  from {vroom}. These can be ignored, but users have to carefully check
-  the resulting `data.frames`. Use
+  from [vroom](https://vroom.tidyverse.org). These can be ignored, but
+  users have to carefully check the resulting `data.frames`. Use
   [`vroom::problems()`](https://vroom.tidyverse.org/reference/problems.html)
   to check the data objects for more information.
 
@@ -103,18 +103,20 @@ and input your username and password (by setting `use_token = FALSE`).
 
 #### Credentials as parameters
 
-In the first versions of {restatis}, it was impossible to set the
-credentials as a parameter. This is because we wanted to emphasise the
-secure storage of credentials that is the default of the package.
+In the first versions of
+[restatis](https://correlaid.github.io/restatis/), it was impossible to
+set the credentials as a parameter. This is because we want to emphasise
+the secure storage of credentials that is the default of the package.
 However, we became aware of certain use-cases (e.g., automated piplines
 via GitHub Actions and the like) that made it necessary to set the
 credentials as a parameter. For this reason, in version 0.4.0 we
-introduced the `credential_list` parameter for {restatis}’s functions.
-Using this parameter, users can provide their credentials independently
-of `gen_auth_save`. **Note:** We do only encourage this in very rare
-cases since it is advisable to safely store the credentials. In case you
-use `credential_list`, always make sure that the credentials do not
-appear anywhere in clear text!
+introduced the `credential_list` parameter for
+[restatis](https://correlaid.github.io/restatis/)’s functions. Using
+this parameter, users can provide their credentials independently of
+`gen_auth_save`. **Important Note:** *We do only encourage this in very
+rare cases since it is advisable to safely store the credentials. In
+case you use `credential_list`, always make sure that the credentials do
+not appear anywhere in clear text!*
 
 The `credentials_list` has to have the exact following structure:
 
@@ -124,7 +126,8 @@ custom_credentials <- list(genesis = c(username = 'abc123', password = 'qwerty12
 ```
 
 Now when using the custom credentials, you pass the list to the
-respective function parameter:
+respective function parameter (this overrides the credentials set by
+[`gen_auth_save()`](https://correlaid.github.io/restatis/reference/gen_auth_save.md)):
 
 ``` r
 # Example call with custom credentials
@@ -142,14 +145,14 @@ You have to make sure that the database(s) you specify in `database`
 is/are listed in `credential_list`, otherwise the function call fails.
 In some cases, you can specify the `error.ignore` parameter. If it is
 set to `TRUE`, the function will continue to execute for those databases
-that are available, even if some are not. *Note that `credentials_list`
-does (currently) not support the use of API tokens.*
+that are available, even if some are not. **Note:** *`credentials_list`
+does not (currently) support the use of API tokens.*
 
 ### Main features
 
-{restatis} provides functions (prefixed with `gen_`) for finding,
-exploring, and retrieving data from the three supported APIs. See the
-[“Basic restatis workflow”
+[restatis](https://correlaid.github.io/restatis/) provides functions
+(prefixed with `gen_`) for finding, exploring, and retrieving data from
+the three supported APIs. See the [“Basic restatis workflow”
 vignette](https://correlaid.github.io/restatis/articles/restatis.html)
 for an overview of the main features of the package.
 

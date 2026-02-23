@@ -1,10 +1,9 @@
-# gen_list_jobs
+# Download List Of Active Download Jobs
 
-Function to list all current jobs connected to the given user in the
-GENESIS or regionalstatistik.de database. Important note: For this
-function it is also possible to use `searchcriterion` parameter and
-`selection` parameter, making it possible to filter the job list based
-on 'type','time','status' or 'code'. For more details see
+Function to list all current jobs connected to the given user. Important
+note: For this function it is also possible to use `searchcriterion`
+parameter and `selection` parameter, making it possible to filter the
+job list based on 'type','time','status' or 'code'. For more details see
 [`vignette("additional_parameter")`](https://correlaid.github.io/restatis/articles/additional_parameter.md).
 
 ## Usage

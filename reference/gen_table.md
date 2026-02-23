@@ -1,8 +1,7 @@
-# gen_table
+# Download Table As Data.Frame
 
-Download a cube with data from GENESIS, regionalstatistik.de, Zensus
-2022, landesdatenbank.nrw.de, bildungsmonitoring.de,
-statistikdaten.bayern.de or genesis.sachsen-anhalt.de database
+Download a table with data from one of the supported databases. This is
+the main function to fetch data, apart from `gen_cube`.
 
 ## Usage
 

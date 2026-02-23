@@ -1,6 +1,7 @@
-# gen_search_vars
+# Search For Variables
 
-Function to search for specific variables
+Function to search for specific variables. This function gathers
+metadata, no actual data. It helps to refine data calls.
 
 ## Usage
 

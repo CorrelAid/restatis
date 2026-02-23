@@ -1,4 +1,4 @@
-# Find similar search terms
+# Find Similar Search Terms
 
 Function to find search terms that are similar or related to one another
 in spelling and also represented in the databases supported by restatis.

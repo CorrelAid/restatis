@@ -19,7 +19,7 @@
 - [`forming_evas()`](https://correlaid.github.io/restatis/reference/forming_evas.md)
   : forming_evas
 - [`gen_alternative_terms()`](https://correlaid.github.io/restatis/reference/gen_alternative_terms.md)
-  : Find similar search terms
+  : Find Similar Search Terms
 - [`gen_auth_ask()`](https://correlaid.github.io/restatis/reference/gen_auth_ask.md)
   : Helper function for authentication purposes
 - [`gen_auth_get()`](https://correlaid.github.io/restatis/reference/gen_auth_get.md)
@@ -29,17 +29,17 @@
 - [`gen_auth_save()`](https://correlaid.github.io/restatis/reference/gen_auth_save.md)
   : Save database credentials
 - [`gen_catalogue()`](https://correlaid.github.io/restatis/reference/gen_catalogue.md)
-  : Search for tables, statistics and cubes
+  : Search For Tables, Statistics and Cubes
 - [`gen_cube()`](https://correlaid.github.io/restatis/reference/gen_cube.md)
-  : gen_cube
+  : Download Data Cube As Data.Frame
 - [`gen_download_job()`](https://correlaid.github.io/restatis/reference/gen_download_job.md)
-  : gen_download_job
+  : Download Jobs That Have Finished Processing
 - [`gen_find()`](https://correlaid.github.io/restatis/reference/gen_find.md)
-  : General Search for Objects Through A Database
+  : General Search For Objects Through A Database
 - [`gen_list_jobs()`](https://correlaid.github.io/restatis/reference/gen_list_jobs.md)
-  : gen_list_jobs
+  : Download List Of Active Download Jobs
 - [`gen_logincheck()`](https://correlaid.github.io/restatis/reference/gen_logincheck.md)
-  : gen_logincheck
+  : Check If User Can Connect To Service
 - [`gen_metadata()`](https://correlaid.github.io/restatis/reference/gen_metadata.md)
   : Search For Meta-Information For All Types Of Objects
 - [`gen_metadata_cube()`](https://correlaid.github.io/restatis/reference/gen_metadata_cube.md)
@@ -53,25 +53,25 @@
 - [`gen_metadata_variable()`](https://correlaid.github.io/restatis/reference/gen_metadata_variable.md)
   : gen_metadata_variable
 - [`gen_modified_data()`](https://correlaid.github.io/restatis/reference/gen_modified_data.md)
-  : gen_modified_data
+  : Check Objects For Updates And Changes
 - [`gen_objects2stat()`](https://correlaid.github.io/restatis/reference/gen_objects2stat.md)
-  : gen_objects2stat
+  : Find Objects Related To A Statistic
 - [`gen_objects2var()`](https://correlaid.github.io/restatis/reference/gen_objects2var.md)
-  : gen_objects2var
+  : Find Objects Related To A Variable
 - [`gen_search_vars()`](https://correlaid.github.io/restatis/reference/gen_search_vars.md)
-  : gen_search_vars
+  : Search For Variables
 - [`gen_signs()`](https://correlaid.github.io/restatis/reference/gen_signs.md)
-  : gen_signs
+  : List Currently Used Special Signs
 - [`gen_table()`](https://correlaid.github.io/restatis/reference/gen_table.md)
-  : gen_table
+  : Download Table As Data.Frame
 - [`gen_update_evas()`](https://correlaid.github.io/restatis/reference/gen_update_evas.md)
-  : gen_update_evas
+  : Update EVAS Database
 - [`gen_val2var()`](https://correlaid.github.io/restatis/reference/gen_val2var.md)
-  : gen_val2var
+  : Extract Values From Variable
 - [`gen_val2var2stat()`](https://correlaid.github.io/restatis/reference/gen_val2var2stat.md)
-  : gen_val2var2stat
+  : Get Values From Variables Of A Statistic
 - [`gen_var2stat()`](https://correlaid.github.io/restatis/reference/gen_var2stat.md)
-  : gen_var2stat
+  : Generate Variables From Statistics
 - [`ggsub()`](https://correlaid.github.io/restatis/reference/ggsub.md) :
   ggsub
 - [`insert_and_save_credentials()`](https://correlaid.github.io/restatis/reference/insert_and_save_credentials.md)

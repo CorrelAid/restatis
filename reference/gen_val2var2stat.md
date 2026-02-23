@@ -1,8 +1,9 @@
-# gen_val2var2stat
+# Get Values From Variables Of A Statistic
 
 Get values from variables from a statistic. Values for continuous
 variables cannot be extracted, so the function returns a warning
-message.
+message. This function gathers metadata, no actual data. It helps to
+refine data calls.
 
 ## Usage
 
