@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_modified_data.R
 \name{gen_modified_data}
 \alias{gen_modified_data}
-\title{gen_modified_data}
+\title{Check Objects For Updates And Changes}
 \usage{
 gen_modified_data(
   code = "",

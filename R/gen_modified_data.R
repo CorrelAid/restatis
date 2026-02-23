@@ -1,4 +1,4 @@
-#' gen_modified_data
+#' Check Objects For Updates And Changes
 #'
 #' @description Function to check for updates, changes, or new objects based on a specific date.
 #'

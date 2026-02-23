@@ -1,6 +1,6 @@
-#' gen_table
+#' Download Table As Data.Frame
 #'
-#' @description Download a cube with data from GENESIS, regionalstatistik.de, Zensus 2022, landesdatenbank.nrw.de, bildungsmonitoring.de, statistikdaten.bayern.de or genesis.sachsen-anhalt.de database
+#' @description Download a table with data from one of the supported databases. This is the main function to fetch data, apart from `gen_cube`.
 #'
 #' @param name Character string. Name/code of the table. Use of wildcards (`*`) is possible.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called.

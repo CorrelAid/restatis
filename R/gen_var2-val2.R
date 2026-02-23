@@ -1,6 +1,6 @@
-#' gen_var2stat
+#' Generate Variables From Statistics
 #'
-#' @description Function to generate variables from statistics
+#' @description Function to generate variable information from a statistic. This function gathers metadata, no actual data. It helps to refine data calls.
 #'
 #' @param code Character string with a maximum length of 15 characters. Code from a database object. Only one code per iteration.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
@@ -155,9 +155,9 @@ gen_var2stat <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_val2var
+#' Extract Values From Variable
 #'
-#' @description Function to extract the possible values from a variable. Values for continuous variables are not extractable, which is why the function returns a warning message in this case.
+#' @description Function to extract the possible values from a variable. Values for continuous variables are not extractable, which is why the function returns a warning message in this case. This function gathers metadata, no actual data. It helps to refine data calls.
 #'
 #' @param code Character string with a maximum length of 15 characters. Code from a database object. Only one code per iteration.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
@@ -303,9 +303,9 @@ gen_val2var <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_val2var2stat
+#' Get Values From Variables Of A Statistic
 #'
-#' @description Get values from variables from a statistic. Values for continuous variables cannot be extracted, so the function returns a warning message.
+#' @description Get values from variables from a statistic. Values for continuous variables cannot be extracted, so the function returns a warning message. This function gathers metadata, no actual data. It helps to refine data calls.
 #'
 #' @param code Character string with a maximum length of 15 characters. Code from a database object. Only one code per iteration.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
@@ -417,9 +417,9 @@ gen_val2var2stat <- function(code = NULL,
 
 #-------------------------------------------------------------------------------
 
-#' gen_search_vars
+#' Search For Variables
 #'
-#' @description Function to search for specific variables
+#' @description Function to search for specific variables. This function gathers metadata, no actual data. It helps to refine data calls.
 #'
 #' @param code Character string with a maximum length of 6 characters. Code from a database object. Only one code per iteration.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.

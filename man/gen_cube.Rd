@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_cube.R
 \name{gen_cube}
 \alias{gen_cube}
-\title{gen_cube}
+\title{Download Data Cube As Data.Frame}
 \usage{
 gen_cube(
   name,
@@ -30,7 +30,7 @@ gen_cube(
 )
 }
 \arguments{
-\item{name}{Character string for a cube object (only GENESIS, regionalstatistik.de, landesdatenbank.nrw.de or bildungsmonitoring.de)}
+\item{name}{Character string for a cube object.}
 
 \item{database}{Character string. Indicator if the GENESIS ('genesis'), regionalstatistik.de ('regio'), landesdatenbank.nrw.de ('nrw') or bildungsmonitoring.de ('bildung') database is called.}
 
@@ -104,7 +104,7 @@ A \link[tibble:tibble]{tibble}. Non-data contents of the data cube object are sa
 the \code{metadata} \link[base:attr]{attribute} of the data frame.
 }
 \description{
-Download a cube with data from GENESIS, regionalstatistik.de, landesdatenbank.nrw.de, bildungsmonitoring.de or statistikdaten.bayern.de database
+Download a cube as a data.frame from any supported database. Works not on all databases included in the package.
 }
 \examples{
 \dontrun{

@@ -1,4 +1,4 @@
-#' Find similar search terms
+#' Find Similar Search Terms
 #'
 #' @description Function to find search terms that are similar or related to one another in spelling and also represented in the databases supported by \pkg{restatis}. Important note: The API call is searching for terms with the same characters. To be useful in searching for related terms it is highly recommended to work with \code{*} placeholders (see examples). The placeholder can be placed before and/or after the search term.
 #'

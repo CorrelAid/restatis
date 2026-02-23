@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_objects2stat.R
 \name{gen_objects2stat}
 \alias{gen_objects2stat}
-\title{gen_objects2stat}
+\title{Find Objects Related To A Statistic}
 \usage{
 gen_objects2stat(
   code = NULL,
@@ -23,7 +23,7 @@ gen_objects2stat(
 
 \item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
 
-\item{category}{Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.}
+\item{category}{Character string. Specify specific object types ('tables', 'statistics' and 'cubes'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.}
 
 \item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
 
@@ -45,7 +45,7 @@ gen_objects2stat(
 A list with all recalled elements from the API. Based on the 'detailed' parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to find objects related to a statistic
+Function to find objects related to a statistic. This is interesting to get an overview of a statistic's usage.
 }
 \examples{
 \dontrun{

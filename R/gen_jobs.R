@@ -1,6 +1,6 @@
-#' gen_list_jobs
+#' Download List Of Active Download Jobs
 #'
-#' @description Function to list all current jobs connected to the given user in the GENESIS or regionalstatistik.de database. Important note: For this function it is also possible to use `searchcriterion` parameter and `selection` parameter, making it possible to filter the job list based on 'type','time','status' or 'code'. For more details see `vignette("additional_parameter")`.
+#' @description Function to list all current jobs connected to the given user. Important note: For this function it is also possible to use `searchcriterion` parameter and `selection` parameter, making it possible to filter the job list based on 'type','time','status' or 'code'. For more details see `vignette("additional_parameter")`.
 #'
 #' @param database Character string. Indicator which database should be called. Accepts only one database.
 #' @param sortcriterion Character string. Indicator if the output should be sorted by 'type','time','status' or 'code'. This is a parameter of the API call itself. The default is 'type'.
@@ -115,7 +115,7 @@ gen_list_jobs <- function(database,
 
 #-------------------------------------------------------------------------------
 
-#' gen_download_job
+#' Download Jobs That Have Finished Processing
 #'
 #' @param name Character string. The job code retrieved by using gen_list_jobs().
 #' @param database Character string. Indicator which database should be called. Only one database can be addressed per function call. Default option is 'genesis'.

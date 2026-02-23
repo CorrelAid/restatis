@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_jobs.R
 \name{gen_list_jobs}
 \alias{gen_list_jobs}
-\title{gen_list_jobs}
+\title{Download List Of Active Download Jobs}
 \usage{
 gen_list_jobs(
   database,
@@ -33,7 +33,7 @@ gen_list_jobs(
 A list or data.frame (see parameter 'flat') of all current jobs of the user.
 }
 \description{
-Function to list all current jobs connected to the given user in the GENESIS or regionalstatistik.de database. Important note: For this function it is also possible to use \code{searchcriterion} parameter and \code{selection} parameter, making it possible to filter the job list based on 'type','time','status' or 'code'. For more details see \code{vignette("additional_parameter")}.
+Function to list all current jobs connected to the given user. Important note: For this function it is also possible to use \code{searchcriterion} parameter and \code{selection} parameter, making it possible to filter the job list based on 'type','time','status' or 'code'. For more details see \code{vignette("additional_parameter")}.
 }
 \details{
 Important information concerning the caching of results: This function's results are \emph{never} cached because there is no use-case for a cached list of jobs (users would always want a refreshed list of jobs and their respective status).

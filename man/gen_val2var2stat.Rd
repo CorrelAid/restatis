@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_var2-val2.R
 \name{gen_val2var2stat}
 \alias{gen_val2var2stat}
-\title{gen_val2var2stat}
+\title{Get Values From Variables Of A Statistic}
 \usage{
 gen_val2var2stat(
   code = NULL,
@@ -45,7 +45,7 @@ gen_val2var2stat(
 A list with all recalled elements from the API. Based on the 'detailed' parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Get values from variables from a statistic. Values for continuous variables cannot be extracted, so the function returns a warning message.
+Get values from variables from a statistic. Values for continuous variables cannot be extracted, so the function returns a warning message. This function gathers metadata, no actual data. It helps to refine data calls.
 }
 \examples{
 \dontrun{

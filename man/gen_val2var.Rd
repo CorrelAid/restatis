@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_var2-val2.R
 \name{gen_val2var}
 \alias{gen_val2var}
-\title{gen_val2var}
+\title{Extract Values From Variable}
 \usage{
 gen_val2var(
   code = NULL,
@@ -39,7 +39,7 @@ gen_val2var(
 A list with all recalled elements from the API.  Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to extract the possible values from a variable. Values for continuous variables are not extractable, which is why the function returns a warning message in this case.
+Function to extract the possible values from a variable. Values for continuous variables are not extractable, which is why the function returns a warning message in this case. This function gathers metadata, no actual data. It helps to refine data calls.
 }
 \examples{
 \dontrun{

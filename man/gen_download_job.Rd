@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_jobs.R
 \name{gen_download_job}
 \alias{gen_download_job}
-\title{gen_download_job}
+\title{Download Jobs That Have Finished Processing}
 \usage{
 gen_download_job(
   name,
@@ -33,7 +33,7 @@ gen_download_job(
 Returns a data.frame with the table content
 }
 \description{
-gen_download_job
+Download Jobs That Have Finished Processing
 }
 \examples{
 \dontrun{

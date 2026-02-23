@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_table.R
 \name{gen_table}
 \alias{gen_table}
-\title{gen_table}
+\title{Download Table As Data.Frame}
 \usage{
 gen_table(
   name,
@@ -105,7 +105,7 @@ specification may lead to errors.}
 A \link[tibble:tibble]{tibble}.
 }
 \description{
-Download a cube with data from GENESIS, regionalstatistik.de, Zensus 2022, landesdatenbank.nrw.de, bildungsmonitoring.de, statistikdaten.bayern.de or genesis.sachsen-anhalt.de database
+Download a table with data from one of the supported databases. This is the main function to fetch data, apart from \code{gen_cube}.
 }
 \examples{
 \dontrun{

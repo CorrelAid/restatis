@@ -1,4 +1,4 @@
-#' gen_signs
+#' List Currently Used Special Signs
 #'
 #' @description Function to list all currently used special signs (e.g., 0, *, X, (), p, ...) and their meaning in the respective database.
 #'

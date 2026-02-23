@@ -28,5 +28,10 @@ Authors:
   \item Johannes Ritter \email{ritter.johannes@gmail.com}
 }
 
+Other contributors:
+\itemize{
+  \item Stefan Linner \email{stefan@linnerprogramming.com} [contributor]
+}
+
 }
 \keyword{internal}

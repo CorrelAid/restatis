@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_var2-val2.R
 \name{gen_search_vars}
 \alias{gen_search_vars}
-\title{gen_search_vars}
+\title{Search For Variables}
 \usage{
 gen_search_vars(
   code = NULL,
@@ -39,7 +39,7 @@ gen_search_vars(
 A list with all recalled elements from the API. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to search for specific variables
+Function to search for specific variables. This function gathers metadata, no actual data. It helps to refine data calls.
 }
 \examples{
 \dontrun{

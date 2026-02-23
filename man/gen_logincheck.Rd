@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_logincheck.R
 \name{gen_logincheck}
 \alias{gen_logincheck}
-\title{gen_logincheck}
+\title{Check If User Can Connect To Service}
 \usage{
 gen_logincheck(database = "all", verbose = TRUE, ...)
 }

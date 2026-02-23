@@ -1,8 +1,8 @@
-#' gen_cube
+#' Download Data Cube As Data.Frame
 #'
-#' @description Download a cube with data from GENESIS, regionalstatistik.de, landesdatenbank.nrw.de, bildungsmonitoring.de or statistikdaten.bayern.de database
+#' @description Download a cube as a data.frame from any supported database. Works not on all databases included in the package.
 #'
-#' @param name Character string for a cube object (only GENESIS, regionalstatistik.de, landesdatenbank.nrw.de or bildungsmonitoring.de)
+#' @param name Character string for a cube object.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), regionalstatistik.de ('regio'), landesdatenbank.nrw.de ('nrw') or bildungsmonitoring.de ('bildung') database is called.
 #' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
 #' @param area Character string. The area in which the table is stored.

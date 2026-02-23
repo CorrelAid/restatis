@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_qualitysigns.R
 \name{gen_signs}
 \alias{gen_signs}
-\title{gen_signs}
+\title{List Currently Used Special Signs}
 \usage{
 gen_signs(
   database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),

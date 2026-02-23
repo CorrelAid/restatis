@@ -2,7 +2,7 @@
 % Please edit documentation in R/gen_var2-val2.R
 \name{gen_var2stat}
 \alias{gen_var2stat}
-\title{gen_var2stat}
+\title{Generate Variables From Statistics}
 \usage{
 gen_var2stat(
   code = NULL,
@@ -42,7 +42,7 @@ gen_var2stat(
 A list with all recalled elements from the API. Based on the 'detailed' parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to generate variables from statistics
+Function to generate variable information from a statistic. This function gathers metadata, no actual data. It helps to refine data calls.
 }
 \examples{
 \dontrun{
