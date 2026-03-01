@@ -4,7 +4,7 @@
 #'
 #' @param code String with a maximum length of 15 characters. Only one code per iteration. "*" notations are possible.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
-#' @param category Character string. Specify specific object types ('tables', 'statistics' and 'cubes'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.
+#' @param category Character string. Specify specific object types ('tables', 'statistics' and 'cubes'). Note that 'zensus' does not support 'cubes'. All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.
 #' @param detailed Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.
 #' @param sortcriterion Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.

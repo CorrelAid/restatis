@@ -15,7 +15,7 @@ gen_list_jobs(
 )
 }
 \arguments{
-\item{database}{Character string. Indicator which database should be called. Accepts only one database.}
+\item{database}{Character string. Indicator which database should be called. Accepts only one database ('regio', 'genesis', 'bayern', 'st', 'nrw' or 'bildung'). 'zensus' does not support jobs.}
 
 \item{sortcriterion}{Character string. Indicator if the output should be sorted by 'type','time','status' or 'code'. This is a parameter of the API call itself. The default is 'type'.}
 

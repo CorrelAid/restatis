@@ -17,7 +17,7 @@ gen_download_job(
 \arguments{
 \item{name}{Character string. The job code retrieved by using gen_list_jobs().}
 
-\item{database}{Character string. Indicator which database should be called. Only one database can be addressed per function call. Default option is 'genesis'.}
+\item{database}{Character string. Indicator which database should be called. Only one database can be addressed per function call ('regio', 'genesis', 'bayern', 'st', 'nrw' or 'bildung'). Default option is 'genesis'. 'zensus' does not support jobs.}
 
 \item{credential_list}{A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.}
 

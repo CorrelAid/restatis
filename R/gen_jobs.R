@@ -2,7 +2,7 @@
 #'
 #' @description Function to list all current jobs connected to the given user. Important note: For this function it is also possible to use `searchcriterion` parameter and `selection` parameter, making it possible to filter the job list based on 'type','time','status' or 'code'. For more details see `vignette("additional_parameter")`.
 #'
-#' @param database Character string. Indicator which database should be called. Accepts only one database.
+#' @param database Character string. Indicator which database should be called. Accepts only one database ('regio', 'genesis', 'bayern', 'st', 'nrw' or 'bildung'). 'zensus' does not support jobs.
 #' @param sortcriterion Character string. Indicator if the output should be sorted by 'type','time','status' or 'code'. This is a parameter of the API call itself. The default is 'type'.
 #' @param flat Boolean. Should the function return a list with jobs and metadata ('FALSE') or just a flat data.frame ('TRUE')? Defaults to FALSE.
 #' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
@@ -118,7 +118,7 @@ gen_list_jobs <- function(database,
 #' Download Jobs That Have Finished Processing
 #'
 #' @param name Character string. The job code retrieved by using gen_list_jobs().
-#' @param database Character string. Indicator which database should be called. Only one database can be addressed per function call. Default option is 'genesis'.
+#' @param database Character string. Indicator which database should be called. Only one database can be addressed per function call ('regio', 'genesis', 'bayern', 'st', 'nrw' or 'bildung'). Default option is 'genesis'. 'zensus' does not support jobs.
 #' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
 #' @param area Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'.
 #' @param compress Boolean. Should empty rows and columns be discarded? Default is FALSE.

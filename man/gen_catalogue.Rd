@@ -23,7 +23,7 @@ gen_catalogue(
 
 \item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
 
-\item{category}{Character string. Specify specific object types ('tables', 'statistics' and 'cubes'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.}
+\item{category}{Character string. Specify specific object types ('tables', 'statistics' and 'cubes'). Note that 'zensus' does not support 'cubes'. All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.}
 
 \item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
 
