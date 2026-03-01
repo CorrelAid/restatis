@@ -25,7 +25,8 @@ gen_list_jobs(
 - database:
 
   Character string. Indicator which database should be called. Accepts
-  only one database.
+  only one database ('regio', 'genesis', 'bayern', 'st', 'nrw' or
+  'bildung'). 'zensus' does not support jobs.
 
 - sortcriterion:
 

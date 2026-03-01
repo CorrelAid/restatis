@@ -44,9 +44,10 @@ gen_catalogue(
 - category:
 
   Character string. Specify specific object types ('tables',
-  'statistics' and 'cubes'). All types that are specific for one
-  database can be used together. Default option is to use all types that
-  are possible for the specific database.
+  'statistics' and 'cubes'). Note that 'zensus' does not support
+  'cubes'. All types that are specific for one database can be used
+  together. Default option is to use all types that are possible for the
+  specific database.
 
 - area:
 

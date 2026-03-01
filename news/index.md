@@ -8,8 +8,6 @@
 
 ## restatis 0.3.0
 
-CRAN release: 2025-04-09
-
 - Added the feature that users can now adjust the API URLs via
   environment variables
 - Added the feature of turning on and off caching via options()
@@ -20,8 +18,6 @@ CRAN release: 2025-04-09
 
 ## restatis 0.2.0
 
-CRAN release: 2024-07-25
-
 - Added support for regionalstatistik.de and the Zensus 2022 database
 - Massively improved the handling of ‘jobs’ (e.g., adding
   gen_download_job())
@@ -29,7 +25,5 @@ CRAN release: 2024-07-25
 - Rewrote functions in the background
 
 ## restatis 0.1.0
-
-CRAN release: 2023-06-30
 
 - Initial CRAN submission.

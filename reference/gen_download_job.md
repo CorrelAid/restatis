@@ -25,8 +25,9 @@ gen_download_job(
 - database:
 
   Character string. Indicator which database should be called. Only one
-  database can be addressed per function call. Default option is
-  'genesis'.
+  database can be addressed per function call ('regio', 'genesis',
+  'bayern', 'st', 'nrw' or 'bildung'). Default option is 'genesis'.
+  'zensus' does not support jobs.
 
 - credential_list:
 
