@@ -2,7 +2,7 @@ Package: restatis
 Title: R Wrapper to Access a Wide Range of Germany's Federal Statistical System 
     Databases Based on the GENESIS Web Service RESTful API of the German Federal 
     Statistical Office (Statistisches Bundesamt/Destatis)
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: c(
     person("Yannik", "Buhl", , "ybuhl@posteo.de", role = c("aut", "cre")),
     person("Zoran", "Kovacevic", role = "aut",
@@ -10,11 +10,11 @@ Authors@R: c(
     person("Dorian", "Le Jeune", role = "aut"),
     person("Long", "Nguyen", , "long.nguyen@uni-bielefeld.de", role = "aut",
            comment = c(ORCID = "0000-0001-8878-7386")),
-    person("Johannes", "Ritter", , "ritter.johannes@gmail.com", role = "aut")
+    person("Johannes", "Ritter", , "ritter.johannes@gmail.com", role = "aut"),
+    person("Stefan", "Linner", , "stefan@linnerprogramming.com", role = "ctb")
   )
-Description: A RESTful API wrapper for accessing the GENESIS database of
-    the German Federal Statistical Office (Destatis) as well as its Census 
-    Database and the database of Germany's regional statistics. Supports data 
+Description: A RESTful API wrapper for accessing the main databases of
+    Germany's Federal Statistical System. Supports data 
     search functions, credential management, result caching, and handling 
     remote background jobs for large datasets.
 License: MIT + file LICENSE
@@ -34,16 +34,16 @@ Imports:
     purrr
 Suggests: 
     httptest2,
-    knitr,
+    quarto,
     rmarkdown,
     testthat (>= 3.0.0),
     rvest,
     usethis,
     withr
 VignetteBuilder: 
-    knitr
+    quarto
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3

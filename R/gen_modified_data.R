@@ -1,11 +1,12 @@
-#' gen_modified_data
+#' Check Objects For Updates And Changes
 #'
 #' @description Function to check for updates, changes, or new objects based on a specific date.
 #'
-#' @param code A character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.
-#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.
+#' @param code A character string with a maximum length of 15 characters. Code from a database object. Only one code per iteration.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.
 #' @param type Character string. Specific GENESIS and regionalstatistik.de object types: 'tables', 'statistics', and 'statisticsUpdates'. Specific Zensus 2022 object types: 'tables' and 'statistics'. All types that are specific for one database can be used together through 'all', which is the default.
 #' @param date Character string. Specific date that is used as the last update or upload time to include an object in return. Default option is 'now', which uses the current date of your system. Alternative options are 'week_before', using the current date of your system minus 7 days, 'month_before', using the current date of your system minus 4 weeks, and 'year_before', using the current date of your system minus 52 weeks. Additionally, it is possible to fill in a specific date of format 'DD.MM.YYYY'.
+#' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
 #' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
@@ -27,9 +28,10 @@
 #' }
 #'
 gen_modified_data <- function(code = "",
-                              database = c("all", "genesis", "zensus", "regio"),
+                              database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),
                               type = c("all", "tables", "statistics", "statisticsUpdates"),
                               date = c("now", "week_before", "month_before", "year_before"),
+                              credential_list = NULL,
                               pagelength = 500,
                               verbose = TRUE,
                               ...) {
@@ -45,6 +47,7 @@ gen_modified_data <- function(code = "",
 
   # database_vector will hold a vector of the specified databases to query
   database_vector <- test_database_function(database,
+                                            credential_list = credential_list,
                                             error.input = TRUE,
                                             text = verbose)
 
@@ -71,7 +74,7 @@ gen_modified_data <- function(code = "",
   #-----------------------------------------------------------------------------
 
   # Processing #
-  res <- lapply(database_vector, function(db){
+  res <- lapply(database_vector, function(db) {
 
     if (isTRUE(verbose)) {
 
@@ -87,8 +90,7 @@ gen_modified_data <- function(code = "",
 
       results_raw <- gen_api(endpoint = "catalogue/modifieddata",
                              database = db,
-                             username = gen_auth_get(database = db)$username,
-                             password = gen_auth_get(database = db)$password,
+                             credential_list = credential_list,
                              selection = code,
                              type = "Neue Tabellen",
                              date = date,
@@ -107,8 +109,7 @@ gen_modified_data <- function(code = "",
 
       results_raw <- gen_api(endpoint = "catalogue/modifieddata",
                              database = db,
-                             username = gen_auth_get(database = db)$username,
-                             password = gen_auth_get(database = db)$password,
+                             credential_list = credential_list,
                              selection = code,
                              type = "Neue Statistiken",
                              date = date,
@@ -126,12 +127,11 @@ gen_modified_data <- function(code = "",
 
     if (type == "statisticsUpdates") {
 
-      if (db == "genesis" | db == "regio") {
+      if (db == "genesis" | db == "regio" | db == "bayern" | db == "nrw" | db == "bildung" | db == "st") {
 
         results_raw <- gen_api(endpoint = "catalogue/modifieddata",
                                database = db,
-                               username = gen_auth_get(database = db)$username,
-                               password = gen_auth_get(database = db)$password,
+                               credential_list = credential_list,
                                selection = code,
                                type = "Aktualisierte Statistiken",
                                date = date,
@@ -152,8 +152,7 @@ gen_modified_data <- function(code = "",
 
       results_raw <- gen_api(endpoint = "catalogue/modifieddata",
                              database = db,
-                             username = gen_auth_get(database = db)$username,
-                             password = gen_auth_get(database = db)$password,
+                             credential_list = credential_list,
                              selection = code,
                              type = "all",
                              date = date,

@@ -1,44 +1,54 @@
-#' gen_cube
+#' Download Data Cube As Data.Frame
 #'
-#' @description Download a cube with data from GENESIS or regionalstatistik.de database
+#' @description Download a cube as a data.frame from any supported database. Works not on all databases included in the package.
 #'
-#' @param name Character string for a cube object (only GENESIS and regionalstatistik.de)
-#' @param ... Further (optional) parameters passed on to the API call:
-#'   \describe{
-#'     \item{\code{area}}{Character string. The area in which the table is stored. Possible values:
-#'     \itemize{
-#'       \item \code{"public"}: cube in the public catalogue
-#'       \item \code{"user"}: cube in the user's account
-#'       \item \code{"all"}: both of the above
-#'     }}
-#'     \item{\code{values}}{Boolean. Should values be included?}
-#'     \item{\code{metadata}}{Boolean. Should metadata be included?}
-#'     \item{\code{additionals}}{Boolean. Should additional metadata be included?}
-#'     \item{\code{contents}}{Character string. Names of required statistical specifications}
-#'     \item{\code{startyear,endyear}}{Four-digit integers. Only retrieve data between these years.}
-#'     \item{\code{timeslices}}{Integer. Number of timeslices (cumulative to startyear or endyear)}
-#'     \item{\code{regionalvariable}}{Character string. Code of the regional variable
-#'     whose value is specified in \code{regionalkey} to filter the results.}
-#'     \item{\code{regionalkey}}{Character string. One or more regional keys. Multiple
-#'       values can be supplied as a character vector or as a single string,
-#'       with the regional keys separated by commas. Use of wildcard (`*`) allowed.}
-#'     \item{\code{classifyingvariable1,classifyingvariable2
-#'       ,classifyingvariable3}}{Character string. Code of the subject classification
-#'       (SK-Merkmal) to which the selection by means of the corresponding
-#'       `classifyingkey` parameter is to be applied.}
-#'     \item{\code{classifyingkey1,classifyingkey2,classifyingkey3}}{Character string.
-#'       One or more values of a subject classification (e.g. "WZ93012"). Applied
-#'       to the corresponding `classifyingvariable` parameter. Multiple
-#'       keys can be supplied as a character vector or as a single string,
-#'       with the keys separated by commas. Use of wildcard (`*`) allowed.}
-#'     \item{\code{stand}}{Character string, format: \code{"DD.MM.YYYY"}. Only retrieve data
-#'       updated after this date.}
-#'     \item{\code{language}}{Character string. Search terms, returned messages and data
-#'       descriptions in German (`"de"`) or English (`"en"`)?}
-#'     \item{\code{...}}{Additional parameters for the API call (see respective API documentation).
-#'       A valid specification of these will not be checked by the function, so wrongful specification
-#'       may lead to errors.}
+#' @param name Character string for a cube object.
+#' @param database Character string. Indicator if the GENESIS ('genesis'), regionalstatistik.de ('regio'), landesdatenbank.nrw.de ('nrw') or bildungsmonitoring.de ('bildung') database is called.
+#' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
+#' @param area Character string. The area in which the table is stored.
+#'   Possible values:
+#'   \itemize{
+#'     \item \code{"public"}: cube in the public catalogue
+#'     \item \code{"user"}: cube in the user's account
+#'     \item \code{"all"}: both of the above
 #'   }
+#' @param values Boolean. Should values be included?
+#' @param metadata Boolean. Should metadata be included?
+#' @param additionals Boolean. Should additional metadata be included?
+#' @param contents Character string. Names of required statistical specifications.
+#' @param startyear Four-digit integer. Only retrieve data from this year onward.
+#' @param endyear Four-digit integer. Only retrieve data up to this year.
+#' @param timeslices Integer. Number of timeslices (cumulative to \code{startyear} or \code{endyear}).
+#' @param regionalvariable Character string. Code of the regional variable whose value
+#'   is specified in \code{regionalkey} to filter the results.
+#' @param regionalkey Character string. One or more regional keys. Multiple values can be
+#'   supplied as a character vector or as a single string, with the regional keys
+#'   separated by commas. Use of wildcard (\code{*}) allowed.
+#' @param classifyingvariable1 Character string. Code of the subject classification
+#'   (SK-Merkmal) to which the selection by means of \code{classifyingkey1} is applied.
+#' @param classifyingvariable2 Character string. Code of the subject classification
+#'   (SK-Merkmal) to which the selection by means of \code{classifyingkey2} is applied.
+#' @param classifyingvariable3 Character string. Code of the subject classification
+#'   (SK-Merkmal) to which the selection by means of \code{classifyingkey3} is applied.
+#' @param classifyingkey1 Character string. One or more values of a subject classification
+#'   (e.g. \code{"WZ93012"}). Applied to \code{classifyingvariable1}. Multiple keys can be
+#'   supplied as a character vector or as a single string, with the keys separated by
+#'   commas. Use of wildcard (\code{*}) allowed.
+#' @param classifyingkey2 Character string. One or more values of a subject classification.
+#'   Applied to \code{classifyingvariable2}. Multiple keys can be supplied as a character
+#'   vector or as a single string, with the keys separated by commas. Use of wildcard
+#'   (\code{*}) allowed.
+#' @param classifyingkey3 Character string. One or more values of a subject classification.
+#'   Applied to \code{classifyingvariable3}. Multiple keys can be supplied as a character
+#'   vector or as a single string, with the keys separated by commas. Use of wildcard
+#'   (\code{*}) allowed.
+#' @param stand Character string, format \code{"DD.MM.YYYY"}. Only retrieve data updated
+#'   after this date.
+#' @param language Character string. Search terms, returned messages and data descriptions
+#'   in German (\code{"de"}) or English (\code{"en"}).
+#' @param ... Additional parameters for the API call (see respective API documentation).
+#'   A valid specification of these will not be checked by the function, so wrongful
+#'   specification may lead to errors.
 #'
 #' @return A [tibble][tibble::tibble()]. Non-data contents of the data cube object are saved in
 #'   the `metadata` [attribute][base::attr()] of the data frame.
@@ -50,36 +60,44 @@
 #' gen_cube("47414BJ002")
 #' }
 #'
-gen_cube <- function(name, ...) {
-  gen_cube_(name, ...)
-}
+gen_cube <- function(name,
+                     database = c("genesis", "regio", "nrw", "bildung"),
+                     credential_list = NULL,
+                     area = c("public", "user"),
+                     values = TRUE,
+                     metadata = TRUE,
+                     additionals = FALSE,
+                     startyear = 1900,
+                     endyear = 2100,
+                     timeslices = NULL,
+                     contents = NULL,
+                     regionalvariable = NULL,
+                     regionalkey = NULL,
+                     classifyingvariable1 = NULL,
+                     classifyingkey1 = NULL,
+                     classifyingvariable2 = NULL,
+                     classifyingkey2 = NULL,
+                     classifyingvariable3 = NULL,
+                     classifyingkey3 = NULL,
+                     stand = NULL,
+                     language = Sys.getenv("RESTATIS_LANG"),
+                     ...) {
 
-#-------------------------------------------------------------------------------
+  #-----------------------------------------------------------------------------
+  # Parameter processing
 
-gen_cube_ <- function(name,
-                      database = c("genesis", "regio"),
-                      area = c("public", "user"),
-                      values = TRUE,
-                      metadata = TRUE,
-                      additionals = FALSE,
-                      startyear = 1900,
-                      endyear = 2100,
-                      timeslices = NULL,
-                      contents = NULL,
-                      regionalvariable = NULL,
-                      regionalkey = NULL,
-                      classifyingvariable1 = NULL,
-                      classifyingkey1 = NULL,
-                      classifyingvariable2 = NULL,
-                      classifyingkey2 = NULL,
-                      classifyingvariable3 = NULL,
-                      classifyingkey3 = NULL,
-                      stand = NULL,
-                      language = Sys.getenv("RESTATIS_LANG"),
-                      ...) {
+  if (missing(database)) {
+
+    stop("It is mandatory to specifiy the 'database' parameter for 'gen_table()'.",
+         call. = FALSE)
+
+  }
 
   area <- match.arg(area)
   database <- match.arg(database)
+
+  check_credential_list_standalone(credential_list = credential_list,
+                                   database = database)
 
   if (!isTRUE(language == "en")) {
 
@@ -101,6 +119,7 @@ gen_cube_ <- function(name,
 
   cube_raw <- gen_api(endpoint = "data/cubefile",
                       database = database,
+                      credential_list = credential_list,
                       name = name,
                       area = area,
                       values = values,
@@ -120,7 +139,6 @@ gen_cube_ <- function(name,
                       classifyingkey3 = classifyingkey3,
                       stand = stand,
                       language = language,
-                      job = FALSE,
                       ...)
 
   #-------------------------------------------------------------------------------
@@ -269,10 +287,8 @@ rename_cube_data_columns <- function(cube) {
   # Recycle default column names for each feature
   dqi_cols_new <- unlist(.mapply(
     paste,
-    expand.grid(
-      suffix = dqi_default_names,
-      feature_name = cube$DQI$NAME
-    )[, c("feature_name", "suffix")],
+    expand.grid(suffix = dqi_default_names,
+                feature_name = cube$DQI$NAME)[, c("feature_name", "suffix")],
     MoreArgs = list(sep = "_")))
 
   data_cols[data_cols %in% dqi_cols] <- dqi_cols_new

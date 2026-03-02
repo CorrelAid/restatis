@@ -1,2 +1,5 @@
 *.html
 *.R
+vignettes/*_files/
+vignettes/*_cache/
+vignettes/*.html

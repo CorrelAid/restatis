@@ -2,9 +2,9 @@
 # Test for expected output & API calls ----
 #-------------------------------------------------------------------------------
 
-with_mock_dir("meta1", {
+test_that("gen_metadata returns list", {
 
-  test_that("gen_metadata returns list", {
+  with_mock_dir("meta1", {
 
     skip_on_cran()
     skip_on_ci()
@@ -13,7 +13,7 @@ with_mock_dir("meta1", {
                            category = "table",
                            database = "genesis")
 
-    expect_type(result, type = "list")
+    expect_type(object = result, type = "list")
 
     attrs <- attributes(result)
 
@@ -29,13 +29,17 @@ with_mock_dir("meta1", {
 
 #-------------------------------------------------------------------------------
 
-with_mock_dir("meta2_fake", {
+test_that("gen_metadata errors if there is an error code (fake response)", {
 
-  test_that("gen_metadata errors if there is an error code (fake response)", {
+  with_mock_dir("meta2_fake", {
 
     # Here, the mockfile needs to be altered:
     # Status$Code = 999
     # Status$Content = "test error message"
+
+    # First download correct file with:
+    # expect_type(object = gen_metadata(code = "1*", category = "cube", database = "genesis"),
+    #             type = "list")
 
     skip_on_cran()
     skip_on_ci()
@@ -51,9 +55,9 @@ with_mock_dir("meta2_fake", {
 
 #-------------------------------------------------------------------------------
 
-with_mock_dir("meta3", {
+test_that("gen_metadata gives message if error.ignore = TRUE", {
 
-  test_that("gen_metadata gives message if error.ignore = TRUE", {
+  with_mock_dir("meta3", {
 
     skip_on_cran()
     skip_on_ci()
@@ -74,9 +78,6 @@ with_mock_dir("meta3", {
 
 test_that("gen_metadata function errors on numeric code param", {
 
-  skip_on_cran()
-  skip_on_ci()
-
   expect_error(object = gen_metadata(code = 12345,
                                      category = "Table",
                                      database = "genesis"),
@@ -85,9 +86,6 @@ test_that("gen_metadata function errors on numeric code param", {
 })
 
 test_that("gen_metadata function errors on multiple categories", {
-
-  skip_on_cran()
-  skip_on_ci()
 
   expect_error(object = gen_metadata(code = "12345",
                                      category = c("Table", "Cube"),
@@ -98,9 +96,6 @@ test_that("gen_metadata function errors on multiple categories", {
 
 test_that("gen_metadata function errors on wrong category", {
 
-  skip_on_cran()
-  skip_on_ci()
-
   expect_error(object = gen_metadata(code = "11111",
                                      category = "Table",
                                      database = "genesis"),
@@ -109,9 +104,6 @@ test_that("gen_metadata function errors on wrong category", {
 })
 
 test_that("gen_metadata function errors on wrong error.ignore param", {
-
-  skip_on_cran()
-  skip_on_ci()
 
   expect_error(object = gen_metadata(code = "11111",
                                      error.ignore = 1,

@@ -7,13 +7,18 @@
 .onLoad <- function(libname, pkgname) {
 
   # Set a function whose results are to be cached
-  .gen_api_cached <<- memoise::memoise(.gen_api_core)
+  assign(".gen_api_cached",
+         memoise::memoise(.gen_api_core),
+         envir = asNamespace(pkgname))
 
   # Set the option of use_cache for the gen_api function
   options(restatis.use_cache = TRUE)
 
   # Set the default language of the package
   if (!nzchar(Sys.getenv("RESTATIS_LANG"))) Sys.setenv(RESTATIS_LANG = "en")
+
+  #-----------------------------------------------------------------------------
+  # SETTING DEFAULT URLs FOR DIFFERENT DATABASES SUPPORTED BY THE PACKAGE
 
   # Set the default URL for the GENESIS database
   if (!nzchar(Sys.getenv("RESTATIS_GENESIS_URL"))) {
@@ -26,6 +31,34 @@
   if (!nzchar(Sys.getenv("RESTATIS_REGIO_URL"))) {
 
     Sys.setenv(RESTATIS_REGIO_URL = "https://www.regionalstatistik.de/genesisws/rest/2020/")
+
+  }
+
+  # Set the default URL for the www.statistikdaten.bayern.de database
+  if (!nzchar(Sys.getenv("RESTATIS_BAYERN_URL"))) {
+
+    Sys.setenv(RESTATIS_BAYERN_URL = "https://www.statistikdaten.bayern.de/genesisWS/rest/2020/")
+
+  }
+
+  # Set the default URL for the www.landesdatenbank.nrw.de database
+  if (!nzchar(Sys.getenv("RESTATIS_NRW_URL"))) {
+
+    Sys.setenv(RESTATIS_NRW_URL = "https://www.landesdatenbank.nrw.de/ldbnrwws/rest/2020/")
+
+  }
+
+  # Set the default URL for the www.bildungsmonitoring.de database
+  if (!nzchar(Sys.getenv("RESTATIS_BILDUNG_URL"))) {
+
+    Sys.setenv(RESTATIS_BILDUNG_URL = "https://www.bildungsmonitoring.de/bildungws/rest/2020/")
+
+  }
+
+  # Set the default URL for the genesis.sachsen-anhalt.de database
+  if (!nzchar(Sys.getenv("RESTATIS_ST_URL"))) {
+
+    Sys.setenv(RESTATIS_ST_URL = "https://genesis.sachsen-anhalt.de/webservice/rest/2020/")
 
   }
 

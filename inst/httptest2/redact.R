@@ -5,7 +5,7 @@ set_redactor(function(request) {
   first_part <- paste0(strsplit(request_string, split = "\\?")[[1]][1], "?")
   second_part <- strsplit(request_string, split = "\\?")[[1]][2]
   split <- strsplit(second_part, split = "&") %>% unlist
-  credentials <- grepl(split, grepl, pattern = "password|username")
+  credentials <- grepl(pattern = "password|username", x = split)
   string <- split[!credentials]
   final_string <- paste0(first_part,
                          paste0("username=ABCDEF&password=1234abcd&username=ABCDEF&password=1234abcd"),

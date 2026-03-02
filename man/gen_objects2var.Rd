@@ -2,15 +2,16 @@
 % Please edit documentation in R/gen_objects2var.R
 \name{gen_objects2var}
 \alias{gen_objects2var}
-\title{gen_objects2var}
+\title{Find Objects Related To A Variable}
 \usage{
 gen_objects2var(
   code = NULL,
-  database = c("all", "genesis", "zensus", "regio"),
+  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),
   category = c("tables", "statistics", "cubes"),
   area = c("all", "public", "user"),
   detailed = FALSE,
   sortcriterion = c("code", "content"),
+  credential_list = NULL,
   pagelength = 500,
   error.ignore = FALSE,
   verbose = TRUE,
@@ -18,17 +19,19 @@ gen_objects2var(
 )
 }
 \arguments{
-\item{code}{Character string with a maximum length of 15 characters. Code from a GENESIS, Zensus 2022 or regionalstatistik.de object. Only one code per iteration.}
+\item{code}{Character string with a maximum length of 15 characters. Code from a database object. Only one code per iteration.}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
 
-\item{category}{Character string. Specify specific GENESIS/regionalstatistik.de object types ('tables', 'statistics' and 'cubes') and specific Zensus 2022 object types ('tables' and 'statistics'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.}
+\item{category}{Character string. Specify specific object types ('tables', 'statistics' and 'cubes'). All types that are specific for one database can be used together. Default option is to use all types that are possible for the specific database.}
 
 \item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'. Not used for 'statistics'.}
 
 \item{detailed}{Boolean. Indicator if the function should return the detailed output of the iteration including all object-related information or only a shortened output including only code and object title. Default option is 'FALSE'.}
 
 \item{sortcriterion}{Character string. Indicator if the output should be sorted by 'code' or 'content'. This is a parameter of the API call itself. The default is 'code'.}
+
+\item{credential_list}{A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.}
 
 \item{pagelength}{Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.}
 
@@ -42,7 +45,7 @@ gen_objects2var(
 A list with all recalled elements from the API. Based on the 'detailed' parameter it contains more or less information, but always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
 }
 \description{
-Function to find objects related to a variable
+Function to find objects related to a variable. This is interesting to get an overview of a variable's usage.
 }
 \examples{
 \dontrun{

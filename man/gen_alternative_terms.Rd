@@ -2,23 +2,26 @@
 % Please edit documentation in R/gen_alternative_terms.R
 \name{gen_alternative_terms}
 \alias{gen_alternative_terms}
-\title{Find similar search terms}
+\title{Find Similar Search Terms}
 \usage{
 gen_alternative_terms(
   term = NULL,
   similarity = TRUE,
-  database = c("all", "genesis", "zensus", "regio"),
+  database = c("all", "genesis", "zensus", "regio", "bayern", "nrw", "bildung", "st"),
+  credential_list = NULL,
   pagelength = 500,
   verbose = TRUE,
   ...
 )
 }
 \arguments{
-\item{term}{Character string. Maximum length of 15 characters. Term or word for which you are searching for alternative or related terms. Use of '*' as a placeholder is possible to generate broader search areas.}
+\item{term}{Character string. Maximum length of 15 characters. Term or word for which you are searching for alternative or related terms. Use of \code{*} as a placeholder is possible to generate broader search areas.}
 
 \item{similarity}{Boolean. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the \code{adist()} function. Default is 'TRUE'.}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
+
+\item{credential_list}{A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.}
 
 \item{pagelength}{Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.}
 
@@ -30,7 +33,7 @@ gen_alternative_terms(
 A list with all recollected elements from the respective database. Attributes are added to the data.frame, describing the search configuration for the returned output.
 }
 \description{
-Function to find search terms that are similar or related to one another in spelling and also represented in the GENESIS, Zensus 2022 or regionalstatistik.de databases. Important note: The API call is searching for terms with the same characters. To be useful in searching for related terms it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
+Function to find search terms that are similar or related to one another in spelling and also represented in the databases supported by \pkg{restatis}. Important note: The API call is searching for terms with the same characters. To be useful in searching for related terms it is highly recommended to work with \code{*} placeholders (see examples). The placeholder can be placed before and/or after the search term.
 }
 \examples{
 \dontrun{

@@ -1,3 +1,8 @@
+# restatis 0.4.0
+* Added support for four more GENESIS-like databases
+* Added the option to specify credentials in the function call
+* Fixed some bugs, optimised documentation
+
 # restatis 0.3.0
 
 * Added the feature that users can now adjust the API URLs via environment variables 

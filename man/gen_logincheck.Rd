@@ -2,12 +2,12 @@
 % Please edit documentation in R/gen_logincheck.R
 \name{gen_logincheck}
 \alias{gen_logincheck}
-\title{gen_logincheck}
+\title{Check If User Can Connect To Service}
 \usage{
 gen_logincheck(database = "all", verbose = TRUE, ...)
 }
 \arguments{
-\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
+\item{database}{Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.}
 
 \item{verbose}{Boolean. In case of success, should a message be printed? Defaults to 'TRUE'.}
 

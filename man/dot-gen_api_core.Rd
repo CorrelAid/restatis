@@ -4,12 +4,14 @@
 \alias{.gen_api_core}
 \title{Basic API request function}
 \usage{
-.gen_api_core(endpoint, database, ...)
+.gen_api_core(endpoint, database, credential_list = NULL, ...)
 }
 \arguments{
 \item{endpoint}{Character string. The endpoint of the API that is to be queried.}
 
 \item{database}{The database the query should be sent to.}
+
+\item{credential_list}{A named list including username and password for the database(s) to be queried. If NULL (default), the function will try to get credentials from the environment variables.}
 
 \item{...}{Further parameters passed on to the final API call.}
 }

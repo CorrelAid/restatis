@@ -37,12 +37,14 @@ gen_api <- function(...,
 #'
 #' @param endpoint Character string. The endpoint of the API that is to be queried.
 #' @param database The database the query should be sent to.
+#' @param credential_list A named list including username and password for the database(s) to be queried. If NULL (default), the function will try to get credentials from the environment variables.
 #' @param ... Further parameters passed on to the final API call.
 #'
 #' @importFrom httr2 `%>%`
 #'
 .gen_api_core <- function(endpoint,
                           database,
+                          credential_list = NULL,
                           ...) {
 
   #-----------------------------------------------------------------------------
@@ -61,16 +63,51 @@ gen_api <- function(...,
 
     url <- Sys.getenv("RESTATIS_REGIO_URL")
 
+  } else if (database == "bayern") {
+
+    url <- Sys.getenv("RESTATIS_BAYERN_URL")
+
+  } else if (database == "nrw") {
+
+    url <- Sys.getenv("RESTATIS_NRW_URL")
+
+  } else if (database == "bildung") {
+
+    url <- Sys.getenv("RESTATIS_BILDUNG_URL")
+
+  } else if (database == "st") {
+
+    url <- Sys.getenv("RESTATIS_ST_URL")
+
+  } else {
+
+    stop(paste0("The database '", database, "' is not supported. Please check the documentation."),
+         call. = FALSE)
+
   }
 
   # Set user agent
   user_agent <- "https://github.com/CorrelAid/restatis"
+
+  # Set custom credentials
+  if (!is.null(credential_list)) {
+
+    username <- credential_list[[database]]["username"]
+    password <- credential_list[[database]]["password"]
+
+  } else {
+
+    username <- gen_auth_get(database = database)$username
+    password <- gen_auth_get(database = database)$password
+
+  }
 
   #-----------------------------------------------------------------------------
 
   # First try to request with POST
   # If POST errors, try GET
   # This allows flexibility across different database instances
+  # However, GET is deprecated in many instances after V5
 
   tryCatch( # tryCatch to try POST
 
@@ -98,8 +135,8 @@ gen_api <- function(...,
         httr2::req_user_agent(user_agent) %>%
         httr2::req_url_path_append(endpoint) %>%
         httr2::req_headers("Content-Type" = "application/x-www-form-urlencoded",
-                           "username" = gen_auth_get(database = database)$username,
-                           "password" = gen_auth_get(database = database)$password) %>%
+                           "username" = username,
+                           "password" = password) %>%
         httr2::req_retry(max_tries = 3) %>%
         httr2::req_perform()
 
@@ -109,11 +146,11 @@ gen_api <- function(...,
 
         expr = {
 
-          # Perform API call with GET (deprecated in GENESIS and Zensus 2022)
           httr2::request(url) %>%
             httr2::req_user_agent(user_agent) %>%
             httr2::req_url_path_append(endpoint) %>%
-            httr2::req_url_query(!!!gen_auth_get(database = database), ...) %>%
+            httr2::req_url_query("username" = username,
+                                 "password" = password, ...) %>%
             httr2::req_retry(max_tries = 3) %>%
             httr2::req_perform()
 
@@ -122,7 +159,7 @@ gen_api <- function(...,
           stop(paste0("The API call(s) have been tried with GET and POST methods, but were unsuccessful (error message: '", e$message, "'). Check your specifications or try again later."),
                call. = FALSE)
 
-      })
+        })
 
     })
 

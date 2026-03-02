@@ -2,16 +2,18 @@
 # Test for expected output & API calls ----
 #-------------------------------------------------------------------------------
 
-with_mock_dir("cube1", {
+test_that("gen_cube returns data.frame", {
 
-  test_that("gen_cube returns data.frame", {
+  with_mock_dir("cube1", {
 
     skip_on_cran()
     skip_on_ci()
 
-    result <- gen_cube("47414BJ002")
+    result <- gen_cube(name = "47414BJ002",
+                       database = "genesis",
+                       startyear = 2024)
 
-    expect_s3_class(result,
+    expect_s3_class(object = result,
                     class = "data.frame")
 
     attrs <- attributes(result)
@@ -29,10 +31,14 @@ with_mock_dir("cube1", {
 
 test_that("gen_cube errors on wrong year parameters", {
 
-  expect_error(gen_cube("47414BJ002", startyear = 1893),
+  expect_error(object = gen_cube(name = "47414BJ002",
+                                 database = "genesis",
+                                 startyear = 1893),
                regexp = "The parameter 'year' has been misspecified")
 
-  expect_error(gen_cube("47414BJ002", startyear = "1893"),
+  expect_error(object = gen_cube(name = "47414BJ002",
+                                 database = "genesis",
+                                 startyear = "1893"),
                regexp = "The parameter 'year' has been misspecified")
 
 })

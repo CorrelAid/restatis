@@ -2,13 +2,13 @@
 % Please edit documentation in R/gen_update_evas.R
 \name{gen_update_evas}
 \alias{gen_update_evas}
-\title{gen_update_evas}
+\title{Update EVAS Database}
 \usage{
 gen_update_evas()
 }
 \value{
-An updated .rda file containing the latest EVAS numbers
+An updated .rda file containing the latest EVAS numbers, used internally.
 }
 \description{
-Function to web scrape the EVAS numbers from the EVAS website and save them as a .rda file. Takes no parameters.
+Function to web scrape the EVAS numbers from the EVAS website and save them as a .rda file. Takes no parameters, only rarely necessary.
 }

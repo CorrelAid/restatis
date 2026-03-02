@@ -6,7 +6,7 @@
 \alias{restatis-package}
 \title{restatis: R Wrapper to Access a Wide Range of Germany's Federal Statistical System Databases Based on the GENESIS Web Service RESTful API of the German Federal Statistical Office (Statistisches Bundesamt/Destatis)}
 \description{
-A RESTful API wrapper for accessing the GENESIS database of the German Federal Statistical Office (Destatis) as well as its Census Database and the database of Germany's regional statistics. Supports data search functions, credential management, result caching, and handling remote background jobs for large datasets.
+A RESTful API wrapper for accessing the main databases of Germany's Federal Statistical System. Supports data search functions, credential management, result caching, and handling remote background jobs for large datasets.
 }
 \seealso{
 Useful links:
@@ -26,6 +26,11 @@ Authors:
   \item Dorian Le Jeune
   \item Long Nguyen \email{long.nguyen@uni-bielefeld.de} (\href{https://orcid.org/0000-0001-8878-7386}{ORCID})
   \item Johannes Ritter \email{ritter.johannes@gmail.com}
+}
+
+Other contributors:
+\itemize{
+  \item Stefan Linner \email{stefan@linnerprogramming.com} [contributor]
 }
 
 }

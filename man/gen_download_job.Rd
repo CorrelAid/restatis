@@ -2,11 +2,12 @@
 % Please edit documentation in R/gen_jobs.R
 \name{gen_download_job}
 \alias{gen_download_job}
-\title{gen_download_job}
+\title{Download Jobs That Have Finished Processing}
 \usage{
 gen_download_job(
   name,
-  database = c("genesis", "regio"),
+  database = c("genesis", "regio", "bayern", "st", "nrw", "bildung"),
+  credential_list = NULL,
   area = c("all", "public", "user"),
   compress = FALSE,
   language = Sys.getenv("RESTATIS_LANG"),
@@ -16,7 +17,9 @@ gen_download_job(
 \arguments{
 \item{name}{Character string. The job code retrieved by using gen_list_jobs().}
 
-\item{database}{Character string. Indicator if the GENESIS ('genesis') or regionalstatistik.de ('regio') database is called. Only one database can be addressed per function call. Default option is 'genesis'.}
+\item{database}{Character string. Indicator which database should be called. Only one database can be addressed per function call ('regio', 'genesis', 'bayern', 'st', 'nrw' or 'bildung'). Default option is 'genesis'. 'zensus' does not support jobs.}
+
+\item{credential_list}{A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.}
 
 \item{area}{Character string. Indicator from which area of the database the results are called. In general, 'all' is the appropriate solution. Default option is 'all'.}
 
@@ -30,7 +33,7 @@ gen_download_job(
 Returns a data.frame with the table content
 }
 \description{
-gen_download_job
+Download Jobs That Have Finished Processing
 }
 \examples{
 \dontrun{
