@@ -2,7 +2,7 @@
 title: "Basic {restatis} workflow"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Basic restatis workflow}
+  %\VignetteIndexEntry{Basic {restatis} workflow}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
@@ -99,3 +99,63 @@ For example, we might want to check to see if something new has been published a
 gen_modified_data(code = "62361", date = "week_before", database = "genesis")
 
 ```
+
+
+```{r}
+library(tidyverse)
+library(restatis)
+
+preisIndex = gen_table("61111-0001",
+                      language="de",
+                      startyear=2010, 
+                      database = "genesis") %>% 
+                      transform(value = as.numeric(gsub(",",".",value))) %>% 
+                      subset(value_unit=="2020=100") 
+
+preisIndex %>%
+  ggplot() +
+  geom_line(aes(x=time, y=value, group=1))
+
+```
+
+Gleich gefilterte API Abrufe zu zeigen.
+Von der Tabelle im Web ausgehen, die classifyingvariable schon per API recherchiert
+
+```{r}
+library(tidyverse)
+library(restatis)
+
+# Verbraucherpreisindex: Deutschland, Monate, Klassifikation des Individualkonsums
+# https://www-genesis.destatis.de/datenbank/online/table/61111-0004/
+
+preiseMeta = gen_metadata_table("61111-0004", database = "genesis")
+
+# Finde den „code“ der Sachklassifikation 
+# (SK-Merkmal), auf die die Auswahl mittels
+# „classifyingkey1“ angewendet werden soll.
+
+preiseMeta$Structure$Rows
+
+
+preisIndex = gen_table("61111-0004",
+                      language="de",
+                      classifyingvariable1="CC13A5",
+                      classifyingkey1="CC13-04521,CC13-04522,CC13-01151,CC13-02201",
+                      startyear=2020, 
+                      database = "genesis") %>% 
+                      transform(value = as.numeric(gsub(",",".",value)))
+
+
+preisIndex$yearMonth <- as.Date(paste0(preisIndex$time,"-",
+                                substr(preisIndex$`1_variable_attribute_code`,6,8),"-15"))
+
+
+preisIndex %>%
+  ggplot() +
+  geom_line(aes(x=yearMonth, y=value, colour=`3_variable_attribute_label`)) +
+  scale_colour_discrete(name = NULL, labels = function(x) sub(",.*", "", x)) +
+  labs(title="Verbraucherpreisindex",
+       subtitle="2020=100", x="", y="")
+
+```
+
