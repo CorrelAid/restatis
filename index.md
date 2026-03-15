@@ -152,9 +152,7 @@ does not (currently) support the use of API tokens.*
 
 [restatis](https://correlaid.github.io/restatis/) provides functions
 (prefixed with `gen_`) for finding, exploring, and retrieving data from
-the three supported APIs. See the [“Basic restatis workflow”
-vignette](https://correlaid.github.io/restatis/articles/restatis.html)
-for an overview of the main features of the package.
+the three supported APIs.
 
 In short, there are functions divided in two main parts, searching for
 (meta)data and retrieving data:
