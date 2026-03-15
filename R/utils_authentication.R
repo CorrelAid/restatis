@@ -181,6 +181,13 @@ test_database_function <- function(input,
 
     #---------------------------------------------------------------------------
 
+    if (!any(res %in% names(credential_list))) {
+
+      stop("None of the databases you defined in 'database' are contained in your 'credential_list'. Please re-specify the credentials.",
+           call. = FALSE)
+
+    }
+
     if (!all(res %in% names(credential_list))) {
 
       missing <- setdiff(res, names(credential_list))

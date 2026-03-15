@@ -11,7 +11,7 @@ test_that("functions error correctly on erroneous credential_list parameter valu
                                                 verbose = FALSE,
                                                 credential_list = list(regio = c(username = "bar",
                                                                                  password = "foo"))),
-               regexp = "Not all databases you defined in 'database' are contained in your 'credential_list'.")
+               regexp = "None of the databases you defined in 'database' are contained in your 'credential_list'. Please re-specify the credentials.")
 
   expect_error(object = result <- gen_catalogue(code = "12*",
                                                 database = c("genesis", "zensus"),
@@ -20,7 +20,7 @@ test_that("functions error correctly on erroneous credential_list parameter valu
                                                 credential_list = list(regio = c(username = "bar", password = "foo"),
                                                                        nrw = c(username = "foo", password = "bar"),
                                                                        bayern = c(username = "foo", password = "bar"))),
-               regexp = "Not all databases you defined in 'database' are contained in your 'credential_list'")
+               regexp = "None of the databases you defined in 'database' are contained in your 'credential_list'. Please re-specify the credentials.")
 
   expect_error(object = result <- gen_catalogue(code = "12*",
                                                 database = c("genesis", "zensus"),
@@ -91,6 +91,6 @@ test_that("restatis functions respond correctly to ill-defined credential_list",
                                         database = "genesis",
                                         credential_list = list("regio" = c("password" = "foo",
                                                                            "username" = "bar"))),
-               regex = "Not all databases you defined in 'database' are contained in your 'credential_list'")
+               regex = "None of the databases you defined in 'database' are contained in your 'credential_list'. Please re-specify the credentials.")
 
 })

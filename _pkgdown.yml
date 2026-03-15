@@ -2,3 +2,8 @@ url: https://correlaid.github.io/restatis/
 template:
   bootstrap: 5
 
+articles:
+- title: "Vignettes"
+  contents:
+  - restatis
+  - additional_parameter

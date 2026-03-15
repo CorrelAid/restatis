@@ -7,6 +7,7 @@
 0 errors | 0 warnings | 0 note
 
 ## Test environments R CMD check
-* Local Windows 11
+* Windows 11
+* Fedora Linux 43 (KDE Plasma Desktop Edition)
 * r-lib/actions (GitHub): MacOS latest, Windows latest, Ubuntu latest/devel/oldrel
 * win-builder project
