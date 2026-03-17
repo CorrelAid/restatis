@@ -138,6 +138,7 @@ gen_api <- function(...,
                            "username" = username,
                            "password" = password) %>%
         httr2::req_retry(max_tries = 3) %>%
+        restatis::req_proxy_if_set() %>%
         httr2::req_perform()
 
     }, error = function(e) {
@@ -152,6 +153,7 @@ gen_api <- function(...,
             httr2::req_url_query("username" = username,
                                  "password" = password, ...) %>%
             httr2::req_retry(max_tries = 3) %>%
+            restatis::req_proxy_if_set() %>%
             httr2::req_perform()
 
         }, error = function(e) {
