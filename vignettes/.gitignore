@@ -3,3 +3,6 @@
 vignettes/*_files/
 vignettes/*_cache/
 vignettes/*.html
+
+/.quarto/
+**/*.quarto_ipynb
