@@ -1,0 +1,143 @@
+<!DOCTYPE html><html><head><title>R: Read a streaming body a chunk at a time</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>resp_stream_raw {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Read a streaming body a chunk at a time</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>resp_stream_raw()</code> retrieves bytes (<code>raw</code> vectors).
+</p>
+</li>
+<li> <p><code>resp_stream_lines()</code> retrieves lines of text (<code>character</code> vectors).
+</p>
+</li>
+<li> <p><code>resp_stream_sse()</code> retrieves a single <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events">server-sent event</a>.
+</p>
+</li>
+<li> <p><code>resp_stream_aws()</code> retrieves a single event from an AWS stream
+(i.e. mime type 'application/vnd.amazon.eventstream&ldquo;).
+</p>
+</li></ul>
+
+<p>Use <code>resp_stream_is_complete()</code> to determine if there is further data
+waiting on the stream.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>resp_stream_raw(resp, kb = 32)
+
+resp_stream_lines(resp, lines = 1, max_size = Inf, warn = TRUE)
+
+resp_stream_sse(resp, max_size = Inf)
+
+resp_stream_aws(resp, max_size = Inf)
+
+## S3 method for class 'httr2_response'
+close(con, ...)
+
+resp_stream_is_complete(resp)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="resp">resp</code>, <code id="con">con</code></td>
+<td>
+<p>A streaming <a href="../../httr2/help/response.html">response</a> created by <code><a href="../../httr2/help/req_perform_connection.html">req_perform_connection()</a></code>.</p>
+</td></tr>
+<tr><td><code id="kb">kb</code></td>
+<td>
+<p>How many kilobytes (1024 bytes) of data to read.</p>
+</td></tr>
+<tr><td><code id="lines">lines</code></td>
+<td>
+<p>The maximum number of lines to return at once.</p>
+</td></tr>
+<tr><td><code id="max_size">max_size</code></td>
+<td>
+<p>The maximum number of bytes to buffer; once this number of
+bytes has been exceeded without a line/event boundary, an error is thrown.</p>
+</td></tr>
+<tr><td><code id="warn">warn</code></td>
+<td>
+<p>Like <code><a href="../../base/html/readLines.html">readLines()</a></code>: warn if the connection ends without a final
+EOL.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Not used; included for compatibility with generic.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+
+<ul>
+<li> <p><code>resp_stream_raw()</code>: a raw vector.
+</p>
+</li>
+<li> <p><code>resp_stream_lines()</code>: a character vector.
+</p>
+</li>
+<li> <p><code>resp_stream_sse()</code>: a list with components <code>type</code>, <code>data</code>, and <code>id</code>.
+<code>type</code>, <code>data</code>, and <code>id</code> are always strings; <code>data</code> and <code>id</code> may be empty
+strings.
+</p>
+</li>
+<li> <p><code>resp_stream_aws()</code>: a list with components <code>headers</code> and <code>body</code>.
+<code>body</code> will be automatically parsed if the event contents a <code style="white-space: pre;">&#8288;:content-type&#8288;</code>
+header with <code>application/json</code>.
+</p>
+</li></ul>
+
+<p><code>resp_stream_sse()</code> and <code>resp_stream_aws()</code> will return <code>NULL</code> to signal that
+the end of the stream has been reached or, if in nonblocking mode, that
+no event is currently available.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>req &lt;- request(example_url()) |&gt;
+  req_template("GET /stream/:n", n = 5)
+
+con &lt;- req |&gt; req_perform_connection()
+while (!resp_stream_is_complete(con)) {
+  lines &lt;- con |&gt; resp_stream_lines(2)
+  cat(length(lines), " lines received\n", sep = "")
+}
+close(con)
+
+# You can also see what's happening by setting verbosity
+con &lt;- req |&gt; req_perform_connection(verbosity = 2)
+while (!resp_stream_is_complete(con)) {
+  lines &lt;- con |&gt; resp_stream_lines(2)
+}
+close(con)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

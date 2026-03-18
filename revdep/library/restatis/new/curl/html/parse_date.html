@@ -1,0 +1,57 @@
+<!DOCTYPE html><html><head><title>R: Parse date/time</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>parse_date {curl}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Parse date/time</h2>
+
+<h3>Description</h3>
+
+<p>Can be used to parse dates appearing in http response headers such
+as <code>Expires</code> or <code>Last-Modified</code>. Automatically recognizes
+most common formats. If the format is known, <code><a href="../../base/html/strptime.html">strptime()</a></code>
+might be easier.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>parse_date(datestring)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="datestring">datestring</code></td>
+<td>
+<p>a string consisting of a timestamp</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Parse dates in many formats
+parse_date("Sunday, 06-Nov-94 08:49:37 GMT")
+parse_date("06 Nov 1994 08:49:37")
+parse_date("20040911 +0200")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>curl</em> version 7.0.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

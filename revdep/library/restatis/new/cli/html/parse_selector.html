@@ -1,0 +1,74 @@
+<!DOCTYPE html><html><head><title>R: Parse a CSS3-like selector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>parse_selector {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Parse a CSS3-like selector</h2>
+
+<h3>Description</h3>
+
+<p>This is the rather small subset of CSS3 that is supported:
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>parse_selector(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>CSS3-like selector string.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Selectors:
+</p>
+
+<ul>
+<li><p> Type selectors, e.g. <code>input</code> selects all <code style="white-space: pre;">&#8288;&lt;input&gt;&#8288;</code> elements.
+</p>
+</li>
+<li><p> Class selectors, e.g. <code>.index</code> selects any element that has a class
+of &quot;index&quot;.
+</p>
+</li>
+<li><p> ID selector. <code style="white-space: pre;">&#8288;#toc&#8288;</code> will match the element that has the ID <code>"toc"</code>.
+</p>
+</li></ul>
+
+<p>Combinators:
+</p>
+
+<ul>
+<li><p> Descendant combinator, i.e. the space, that combinator selects nodes
+that are descendants of the first element. E.g. <code style="white-space: pre;">&#8288;div span&#8288;</code> will match
+all <code style="white-space: pre;">&#8288;&lt;span&gt;&#8288;</code> elements that are inside a <code style="white-space: pre;">&#8288;&lt;div&gt;&#8288;</code> element.
+</p>
+</li></ul>
+
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

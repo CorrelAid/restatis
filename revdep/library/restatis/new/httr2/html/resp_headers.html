@@ -1,0 +1,104 @@
+<!DOCTYPE html><html><head><title>R: Extract headers from a response</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>resp_headers {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract headers from a response</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>resp_headers()</code> retrieves a list of all headers.
+</p>
+</li>
+<li> <p><code>resp_header()</code> retrieves a single header.
+</p>
+</li>
+<li> <p><code>resp_header_exists()</code> checks if a header is present.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>resp_headers(resp, filter = NULL)
+
+resp_header(resp, header, default = NULL)
+
+resp_header_exists(resp, header)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="resp">resp</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/response.html">response</a> object, created by <code><a href="../../httr2/help/req_perform.html">req_perform()</a></code>.</p>
+</td></tr>
+<tr><td><code id="filter">filter</code></td>
+<td>
+<p>A regular expression used to filter the header names.
+<code>NULL</code>, the default, returns all headers.</p>
+</td></tr>
+<tr><td><code id="header">header</code></td>
+<td>
+<p>Header name (case insensitive)</p>
+</td></tr>
+<tr><td><code id="default">default</code></td>
+<td>
+<p>Default value to use if header doesn't exist.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+
+<ul>
+<li> <p><code>resp_headers()</code> returns a list.
+</p>
+</li>
+<li> <p><code>resp_header()</code> returns a string if the header exists and <code>NULL</code> otherwise.
+</p>
+</li>
+<li> <p><code>resp_header_exists()</code> returns <code>TRUE</code> or <code>FALSE</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>resp &lt;- request("https://httr2.r-lib.org") |&gt; req_perform()
+resp |&gt; resp_headers()
+resp |&gt; resp_headers("x-")
+
+resp |&gt; resp_header_exists("server")
+resp |&gt; resp_header("server")
+# Headers are case insensitive
+resp |&gt; resp_header("SERVER")
+
+# Returns NULL if header doesn't exist
+resp |&gt; resp_header("this-header-doesnt-exist")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

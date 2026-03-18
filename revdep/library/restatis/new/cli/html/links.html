@@ -1,0 +1,386 @@
+<!DOCTYPE html><html><head><title>R: cli hyperlinks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>links {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cli hyperlinks</h2>
+
+<h3>Description</h3>
+
+<p>Certain cli styles create clickable links, if your IDE or terminal
+supports them.
+</p>
+
+
+<h3>Note: hyperlinks are currently experimental</h3>
+
+<p>The details of the styles that create hyperlinks will prrobably change
+in the near future, based on user feedback.
+</p>
+
+
+<h3>About the links in this manual page</h3>
+
+<p>The hyperlinks that are included in this manual are demonstrative
+only, except for the <code style="white-space: pre;">&#8288;https:&#8288;</code> links. They look like a hyperlink, and
+you can click on them, but they do nothing. I.e. a <code>.run</code> link will
+not run the linked expression if you click on it.
+</p>
+
+
+<h3>Hyperlink Support</h3>
+
+<p>As of today, the latest release of RStudio (version v2022.07.0+548)
+supports all hyperlink types discussed here. Certain terminals, e.g.
+iTerm on macOS, Linux terminals based on VTE (GNOME terminal) support
+<code>.href</code>, <code>.email</code> and <code>.file</code> links.
+</p>
+<p>You can use <code><a href="../../cli/help/ansi_has_hyperlink_support.html">ansi_has_hyperlink_support()</a></code> to check if your terminal or
+IDE has hyperlink support in general, and <code><a href="../../cli/help/ansi_hyperlink_types.html">ansi_hyperlink_types()</a></code> to
+check if various types of hyperlinks are supported.
+</p>
+<p>If your hyperlink support is not detected properly in your IDE or
+terminal, please open a cli issue at
+<a href="https://github.com/r-lib/cli/issues">https://github.com/r-lib/cli/issues</a>.
+</p>
+
+
+<h3>Link text</h3>
+
+<p>Before we delve into the various types of hyperlinks, a general comment
+about link texts. Some link styles support a custom link text:
+</p>
+
+<ul>
+<li> <p><code>.href</code>
+</p>
+</li>
+<li> <p><code>.help</code>
+</p>
+</li>
+<li> <p><code>.topic</code>
+</p>
+</li>
+<li> <p><code>.vignette</code>
+</p>
+</li>
+<li> <p><code>.run</code>
+</p>
+</li></ul>
+
+<p>Others, i.e. <code>.email</code>, <code>.file</code>, <code>.fun</code> and <code>.url</code> do not support custom
+link text.
+</p>
+<p>The generic syntax for link text is the same as for Markdown hyperlinks:
+</p>
+<div class="sourceCode"><pre>{.style [link text](url)}
+</pre></div>
+
+
+<h4>Vectorization</h4>
+
+<p>Note that it is not possible to add link text to a vector of URLs. E.g.
+this will create a list of three URLs, all clickable:
+</p>
+<div class="sourceCode r"><pre>urls &lt;- paste0("https://httpbin.org/status/", c(200, 403, 404))
+cli::cli_text("Some httpbin URLs: {.url {urls}}.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> Some httpbin URLs: <span style="font-style: italic;color: #268BD2;">&lt;</span><span style="font-style: italic;color: #268BD2;"><a href="https://httpbin.org/status/200">https://httpbin.org/status/200</a></span><span style="font-style: italic;color: #268BD2;">&gt;</span>,                            
+#> <span style="font-style: italic;color: #268BD2;">&lt;</span><span style="font-style: italic;color: #268BD2;"><a href="https://httpbin.org/status/403">https://httpbin.org/status/403</a></span><span style="font-style: italic;color: #268BD2;">&gt;</span>, and                                           
+#> <span style="font-style: italic;color: #268BD2;">&lt;</span><span style="font-style: italic;color: #268BD2;"><a href="https://httpbin.org/status/404">https://httpbin.org/status/404</a></span><span style="font-style: italic;color: #268BD2;">&gt;</span>.                                               
+</pre></div>
+But it is not possible to use a different link text for them.
+
+
+
+
+<h4>What if hyperlinks are not available?</h4>
+
+<p>If ANSI hyperlinks are not available, then the link text for of these
+styles outputs both the link text and the URL in a (hopefully) helpful
+way. See examples below.
+</p>
+
+
+
+<h3>URLs</h3>
+
+<p>There are two cli styles to link to generic URLs. <code>.url</code> does not
+allow custom link text, but <code style="white-space: pre;">&#8288;\href&#8288;</code> does.
+</p>
+<div class="sourceCode r"><pre>cli_text(
+  "See the cli homepage at {.url https://cli.r-lib.org} for details."
+)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> See the cli homepage at <span style="font-style: italic;color: #268BD2;">&lt;</span><span style="font-style: italic;color: #268BD2;"><a href="https://cli.r-lib.org">https://cli.r-lib.org</a></span><span style="font-style: italic;color: #268BD2;">&gt;</span> for details.                    
+</pre></div>
+
+<div class="sourceCode r"><pre>cli_text(
+  "See the {.href [cli homepage](https://cli.r-lib.org)} for details."
+)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> See the <a href="https://cli.r-lib.org">cli homepage</a> for details.                                               
+</pre></div>
+
+
+
+<h4>Without hyperlink support</h4>
+
+<p>This is how these links look without hyperlink support:
+</p>
+<div class="sourceCode r"><pre>local({
+  withr::local_options(cli.hyperlink = FALSE)
+  cli_text(
+    "See the cli homepage at {.url https://cli.r-lib.org} for details."
+  )
+  cli_text(
+    "See the {.href [cli homepage](https://cli.r-lib.org)} for details."
+  )
+})
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> See the cli homepage at <span style="font-style: italic;color: #268BD2;">&lt;https://cli.r-lib.org&gt;</span> for details.                    
+#> See the cli homepage (<span style="font-style: italic;color: #268BD2;">&lt;https://cli.r-lib.org&gt;</span>) for details.                     
+</pre></div>
+
+
+
+
+<h4>URL encoding</h4>
+
+<p>Note that cli does not encode the url, so you might need to call
+<code>utils::URLencode()</code> on it, especially, if it is substituted in
+via <code>{}</code>.
+</p>
+<div class="sourceCode r"><pre>weirdurl &lt;- utils::URLencode("https://example.com/has some spaces")
+cli_text("See more at {.url {weirdurl}}.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> See more at <span style="font-style: italic;color: #268BD2;">&lt;</span><span style="font-style: italic;color: #268BD2;"><a href="https://example.com/has&#37;20some&#37;20spaces">https://example.com/has&#37;20some&#37;20spaces</a></span><span style="font-style: italic;color: #268BD2;">&gt;</span>.                          
+</pre></div>
+
+
+
+
+<h3>Files</h3>
+
+<p>The <code>.file</code> style now automatically creates a <code style="white-space: pre;">&#8288;file:&#8288;</code> hyperlink.
+Because <code style="white-space: pre;">&#8288;file:&#8288;</code> hyperlinks must contain an absolute path, cli tries to
+convert relative paths, and paths starting with <code>~</code> to aboslute path.
+</p>
+<div class="sourceCode r"><pre>cli_text("... edit your {.file ~/.Rprofile} file.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ... edit your <span style="color: #268BD2;"><a href="file:///Users/gaborcsardi/.Rprofile">~/.Rprofile</a></span> file.                                                 
+</pre></div>
+
+
+
+<h4>Link text</h4>
+
+<p><code>.file</code> cannot use a custom link text. If you custom link text, then
+you can use <code>.href</code> with a <code style="white-space: pre;">&#8288;file:&#8288;</code> URL.
+</p>
+<div class="sourceCode r"><pre>prof &lt;- path.expand("~/.Rprofile")
+cli_text("... edit your {.href [R profile](file://{prof})}.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ... edit your <a href="file:///Users/gaborcsardi/.Rprofile">R profile</a>.                                                        
+</pre></div>
+
+
+
+
+<h4>Line and column numbers</h4>
+
+<p>You may add a line number to a file name, separated by <code>:</code>. Handlers
+typically place the cursor at that line after opening the file.
+You may also add a column number, after the line number, separated by
+another <code>:</code>.
+</p>
+<div class="sourceCode r"><pre>cli_text("... see line 5 in {.file ~/.Rprofile:5}.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ... see line 5 in <span style="color: #268BD2;"><a href="file:///Users/gaborcsardi/.Rprofile">~/.Rprofile:5</a></span>.                                                
+</pre></div>
+
+
+
+
+<h4>Default handler</h4>
+
+<p>In RStudio <code style="white-space: pre;">&#8288;file:&#8288;</code> URLs open within RStudio. If you click on a file
+link outside of RStudio, typically the operating system is consulted
+for the application to open it.
+</p>
+
+
+
+<h4>Without hyperlink support</h4>
+
+<p>One issue with using <code>.href</code> file files is that it does not look great
+if hyperlinks are not available. This will be improved in the future:
+</p>
+<div class="sourceCode r"><pre>local({
+  withr::local_options(cli.hyperlink = FALSE)
+  prof &lt;- path.expand("~/.Rprofile")
+  cli_text("... edit your {.href [R profile](file://{prof})}.")
+})
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ... edit your R profile (<span style="font-style: italic;color: #268BD2;">&lt;file:///Users/gaborcsardi/.Rprofile&gt;</span>).                
+</pre></div>
+
+
+
+
+<h3>Links to the manual</h3>
+
+<p><code>.fun</code> automatically creates links to the manual page of the function,
+provided the function name is in the <code>packagename::functionname</code> form:
+</p>
+<div class="sourceCode r"><pre>cli::cli_text("... see {.fun stats::lm} to learn more.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ... see `<a href="x-r-help:stats::lm">stats::lm</a>()` to learn more.                                            
+</pre></div>
+
+
+
+<h4>Link text</h4>
+
+<p>For a custom link text, use <code>.help</code> instead of <code>.fun</code>.
+</p>
+<div class="sourceCode r"><pre>cli::cli_text("... see {.help [{.fun lm}](stats::lm)} to learn more.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ... see <a href="x-r-help:stats::lm">`lm()`</a> to learn more.                                                   
+</pre></div>
+
+
+
+
+<h4>Without hyperlink support</h4>
+
+<p>The same message without hyperlink support looks like this:
+</p>
+<div class="sourceCode r"><pre>local({
+  withr::local_options(cli.hyperlink = FALSE)
+  cli::cli_text("... see {.help [{.fun lm}](stats::lm)} to learn more.")
+})
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ... see `lm()` (`?stats::lm()`) to learn more.                                  
+</pre></div>
+
+
+
+
+<h4>Topics</h4>
+
+<p>To link to a help topic that is not a function, use <code>.topic</code>:
+</p>
+<div class="sourceCode r"><pre>cli::cli_text("... the tibble options at {.topic tibble::tibble_options}.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ... the tibble options at <a href="x-r-help:tibble::tibble_options">tibble::tibble_options</a>.                               
+</pre></div>
+
+<p><code>.topic</code> support link text.
+</p>
+
+
+
+<h4>Vignettes</h4>
+
+<p>To link to a vignette, use <code>.vignette</code>:
+</p>
+<div class="sourceCode r"><pre>cli::cli_text("... see the {.vignette tibble::types} vignette.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ... see the <a href="x-r-vignette:tibble::types">tibble::types</a> vignette.                                             
+</pre></div>
+
+
+
+
+<h3>Click to run code</h3>
+
+<p>RStudio also supports a special link type that runs R code in the
+current R session upon clicking.
+</p>
+<p>You can create these links with <code>.run</code>:
+</p>
+<div class="sourceCode r"><pre>cli::cli_text("Run {.run testthat::snapshot_review()} to review")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> Run <a href="x-r-run:testthat::snapshot_review()">testthat::snapshot_review()</a> to review                                       
+</pre></div>
+
+
+
+<h4>Link text</h4>
+
+<p>Sometimes you want to show a slightly different expression in the link,
+than the one that is evaluated. E.g. the evaluated expression probably
+needs to qualify packages with <code>::</code>, but you might not want to show this:
+</p>
+<div class="sourceCode r"><pre>cli::cli_text(
+  "Run {.run [snapshot_review()](testthat::snapshot_review())} to review"
+)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> Run <a href="x-r-run:testthat::snapshot_review()">snapshot_review()</a> to review                                                 
+</pre></div>
+
+
+
+
+<h4>Security considerations</h4>
+
+<p>To make <code>.run</code> hyperlinks more secure, RStudio will not run code
+</p>
+
+<ul>
+<li><p> that is not in the <code>pkg::fun(args)</code> form,
+</p>
+</li>
+<li><p> if <code>args</code> contains <code>(</code>, <code style="white-space: pre;">&#8288;)&#8288;</code> or <code style="white-space: pre;">&#8288;;&#8288;</code>,
+</p>
+</li>
+<li><p> if it calls a core package (base, stats, etc.),
+</p>
+</li>
+<li><p> if it calls a package that is not loaded, and it is not one of
+testthat, devtools, usethis, rlang, pkgload, or pkgdown which are explicitly allowed.
+</p>
+</li></ul>
+
+<p>When RStudio does not run a <code>.run</code> hyperlink, then it shows the code
+and the user can copy and paste it to the console, if they consider
+it safe to run.
+</p>
+<p>Note that depending on your version of RStudio, the behavior can change.
+</p>
+
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

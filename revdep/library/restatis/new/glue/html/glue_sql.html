@@ -1,0 +1,279 @@
+<!DOCTYPE html><html><head><title>R: Interpolate strings with SQL escaping</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>glue_sql {glue}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Interpolate strings with SQL escaping</h2>
+
+<h3>Description</h3>
+
+<p>SQL databases often have custom quotation syntax for identifiers and strings
+which make writing SQL queries error prone and cumbersome to do. <code>glue_sql()</code> and
+<code>glue_data_sql()</code> are analogs to <code><a href="../../glue/help/glue.html">glue()</a></code> and <code><a href="../../glue/help/glue_data.html">glue_data()</a></code> which handle the
+SQL quoting. <code>glue_sql_collapse()</code> can be used to collapse <code><a href="../../DBI/help/SQL.html">DBI::SQL()</a></code> objects.
+</p>
+<p>They automatically quote character results, quote identifiers if the glue
+expression is surrounded by backticks '<code style="white-space: pre;">&#8288;`&#8288;</code>' and do not quote
+non-characters such as numbers. If numeric data is stored in a character
+column (which should be quoted) pass the data to <code>glue_sql()</code> as a
+character.
+</p>
+<p>Returning the result with <code><a href="../../DBI/help/SQL.html">DBI::SQL()</a></code> will suppress quoting if desired for
+a given value.
+</p>
+<p>Note <a href="https://solutions.posit.co/connections/db/best-practices/run-queries-safely/#parameterized-queries">parameterized queries</a>
+are generally the safest and most efficient way to pass user defined
+values in a query, however not every database driver supports them.
+</p>
+<p>If you place a <code>*</code> at the end of a glue expression the values will be
+collapsed with commas, or if there are no values, produce <code>NULL</code>.
+This is useful for (e.g.) the
+<a href="https://www.w3schools.com/sql/sql_in.asp">SQL IN Operator</a>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>glue_sql(
+  ...,
+  .con,
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = DBI::SQL("NULL"),
+  .null = character(),
+  .comment = "#",
+  .literal = FALSE,
+  .trim = TRUE
+)
+
+glue_data_sql(
+  .x,
+  ...,
+  .con,
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = DBI::SQL("NULL"),
+  .null = character(),
+  .comment = "#",
+  .literal = FALSE,
+  .trim = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>[<code>expressions</code>]<br> Unnamed arguments are taken to be expression
+string(s) to format. Multiple inputs are concatenated together before formatting.
+Named arguments are taken to be temporary variables available for substitution.
+</p>
+<p>For <code>glue_data()</code>, elements in <code>...</code> override the values in <code>.x</code>.</p>
+</td></tr>
+<tr><td><code id=".con">.con</code></td>
+<td>
+<p>[<code>DBIConnection</code>]: A DBI connection object obtained from
+<code><a href="../../DBI/help/dbConnect.html">DBI::dbConnect()</a></code>.</p>
+</td></tr>
+<tr><td><code id=".sep">.sep</code></td>
+<td>
+<p>[<code>character(1)</code>: &lsquo;&quot;&quot;&rsquo;]<br> Separator used to separate elements.</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>[<code>environment</code>: <code>parent.frame()</code>]<br> Environment to evaluate each expression in. Expressions are
+evaluated from left to right. If <code>.x</code> is an environment, the expressions are
+evaluated in that environment and <code>.envir</code> is ignored. If <code>NULL</code> is passed, it is equivalent to <code><a href="../../base/html/environment.html">emptyenv()</a></code>.</p>
+</td></tr>
+<tr><td><code id=".open">.open</code></td>
+<td>
+<p>[<code>character(1)</code>: &lsquo;\{&rsquo;]<br> The opening delimiter. Doubling the
+full delimiter escapes it.</p>
+</td></tr>
+<tr><td><code id=".close">.close</code></td>
+<td>
+<p>[<code>character(1)</code>: &lsquo;\}&rsquo;]<br> The closing delimiter. Doubling the
+full delimiter escapes it.</p>
+</td></tr>
+<tr><td><code id=".na">.na</code></td>
+<td>
+<p>[<code>character(1)</code>: <code>DBI::SQL("NULL")</code>]<br> Value to replace
+<code>NA</code> values with. If <code>NULL</code> missing values are propagated, that is an <code>NA</code>
+result will cause <code>NA</code> output. Otherwise the value is replaced by the
+value of <code>.na</code>.</p>
+</td></tr>
+<tr><td><code id=".null">.null</code></td>
+<td>
+<p>[<code>character(1)</code>: &lsquo;character()&rsquo;]<br> Value to replace
+NULL values with. If <code>character()</code> whole output is <code>character()</code>. If
+<code>NULL</code> all NULL values are dropped (as in <code>paste0()</code>). Otherwise the
+value is replaced by the value of <code>.null</code>.</p>
+</td></tr>
+<tr><td><code id=".comment">.comment</code></td>
+<td>
+<p>[<code>character(1)</code>: &lsquo;#&rsquo;]<br> Value to use as the comment
+character.</p>
+</td></tr>
+<tr><td><code id=".literal">.literal</code></td>
+<td>
+<p>[<code>boolean(1)</code>: &lsquo;FALSE&rsquo;]<br> Whether to treat single or
+double quotes, backticks, and comments as regular characters (vs. as
+syntactic elements), when parsing the expression string. Setting <code>.literal = TRUE</code> probably only makes sense in combination with a custom
+<code>.transformer</code>, as is the case with <code>glue_col()</code>. Regard this argument
+(especially, its name) as experimental.</p>
+</td></tr>
+<tr><td><code id=".trim">.trim</code></td>
+<td>
+<p>[<code>logical(1)</code>: &lsquo;TRUE&rsquo;]<br> Whether to trim the input
+template with <code><a href="../../glue/help/trim.html">trim()</a></code> or not.</p>
+</td></tr>
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>[<code>listish</code>]<br> An environment, list, or data frame used to lookup values.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A <code><a href="../../DBI/help/SQL.html">DBI::SQL()</a></code> object with the given query.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../glue/help/glue_sql_collapse.html">glue_sql_collapse()</a></code> to collapse <code><a href="../../DBI/help/SQL.html">DBI::SQL()</a></code> objects.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+con &lt;- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+iris2 &lt;- iris
+colnames(iris2) &lt;- gsub("[.]", "_", tolower(colnames(iris)))
+DBI::dbWriteTable(con, "iris", iris2)
+var &lt;- "sepal_width"
+tbl &lt;- "iris"
+num &lt;- 2
+val &lt;- "setosa"
+glue_sql("
+  SELECT {`var`}
+  FROM {`tbl`}
+  WHERE {`tbl`}.sepal_length &gt; {num}
+    AND {`tbl`}.species = {val}
+  ", .con = con)
+
+# If sepal_length is store on the database as a character explicitly convert
+# the data to character to quote appropriately.
+glue_sql("
+  SELECT {`var`}
+  FROM {`tbl`}
+  WHERE {`tbl`}.sepal_length &gt; {as.character(num)}
+    AND {`tbl`}.species = {val}
+  ", .con = con)
+
+
+# `glue_sql()` can be used in conjuction with parameterized queries using
+# `DBI::dbBind()` to provide protection for SQL Injection attacks
+ sql &lt;- glue_sql("
+    SELECT {`var`}
+    FROM {`tbl`}
+    WHERE {`tbl`}.sepal_length &gt; ?
+  ", .con = con)
+query &lt;- DBI::dbSendQuery(con, sql)
+DBI::dbBind(query, list(num))
+DBI::dbFetch(query, n = 4)
+DBI::dbClearResult(query)
+
+# `glue_sql()` can be used to build up more complex queries with
+# interchangeable sub queries. It returns `DBI::SQL()` objects which are
+# properly protected from quoting.
+sub_query &lt;- glue_sql("
+  SELECT *
+  FROM {`tbl`}
+  ", .con = con)
+
+glue_sql("
+  SELECT s.{`var`}
+  FROM ({sub_query}) AS s
+  ", .con = con)
+
+# If you want to input multiple values for use in SQL IN statements put `*`
+# at the end of the value and the values will be collapsed and quoted appropriately.
+glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1, .con = con)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1:5, .con = con)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = "setosa", .con = con)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = c("setosa", "versicolor"), .con = con)
+
+# If you need to reference variables from multiple tables use `DBI::Id()`.
+# Here we create a new table of nicknames, join the two tables together and
+# select columns from both tables. Using `DBI::Id()` and the special
+# `glue_sql()` syntax ensures all the table and column identifiers are quoted
+# appropriately.
+
+iris_db &lt;- "iris"
+nicknames_db &lt;- "nicknames"
+
+nicknames &lt;- data.frame(
+  species = c("setosa", "versicolor", "virginica"),
+  nickname = c("Beachhead Iris", "Harlequin Blueflag", "Virginia Iris"),
+  stringsAsFactors = FALSE
+)
+
+DBI::dbWriteTable(con, nicknames_db, nicknames)
+
+cols &lt;- list(
+  DBI::Id(iris_db, "sepal_length"),
+  DBI::Id(iris_db, "sepal_width"),
+  DBI::Id(nicknames_db, "nickname")
+)
+
+iris_species &lt;- DBI::Id(iris_db, "species")
+nicknames_species &lt;- DBI::Id(nicknames_db, "species")
+
+query &lt;- glue_sql("
+  SELECT {`cols`*}
+  FROM {`iris_db`}
+  JOIN {`nicknames_db`}
+  ON {`iris_species`}={`nicknames_species`}",
+  .con = con
+)
+query
+
+DBI::dbGetQuery(con, query, n = 5)
+
+DBI::dbDisconnect(con)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>glue</em> version 1.8.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

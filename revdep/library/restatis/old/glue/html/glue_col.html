@@ -1,0 +1,133 @@
+<!DOCTYPE html><html><head><title>R: Construct strings with color</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>glue_col {glue}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Construct strings with color</h2>
+
+<h3>Description</h3>
+
+<p>The <a href="../../crayon/help/crayon.html">crayon</a> package defines a number of functions used to
+color terminal output. <code>glue_col()</code> and <code>glue_data_col()</code> functions provide
+additional syntax to make using these functions in glue strings easier.
+</p>
+<p>Using the following syntax will apply the function <code><a href="../../crayon/help/crayon.html">crayon::blue()</a></code> to the text 'foo bar'.
+</p>
+<div class="sourceCode"><pre>{blue foo bar}
+</pre></div>
+<p>If you want an expression to be evaluated, simply place that in a normal brace
+expression (these can be nested).
+</p>
+<div class="sourceCode"><pre>{blue 1 + 1 = {1 + 1}}
+</pre></div>
+<p>If the text you want to color contains, e.g., an unpaired quote or a comment
+character, specify <code>.literal = TRUE</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>glue_col(..., .envir = parent.frame(), .na = "NA", .literal = FALSE)
+
+glue_data_col(.x, ..., .envir = parent.frame(), .na = "NA", .literal = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>[<code>expressions</code>]<br> Unnamed arguments are taken to be expression
+string(s) to format. Multiple inputs are concatenated together before formatting.
+Named arguments are taken to be temporary variables available for substitution.
+</p>
+<p>For <code>glue_data()</code>, elements in <code>...</code> override the values in <code>.x</code>.</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>[<code>environment</code>: <code>parent.frame()</code>]<br> Environment to evaluate each expression in. Expressions are
+evaluated from left to right. If <code>.x</code> is an environment, the expressions are
+evaluated in that environment and <code>.envir</code> is ignored. If <code>NULL</code> is passed, it is equivalent to <code><a href="../../base/html/environment.html">emptyenv()</a></code>.</p>
+</td></tr>
+<tr><td><code id=".na">.na</code></td>
+<td>
+<p>[<code>character(1)</code>: &lsquo;NA&rsquo;]<br> Value to replace <code>NA</code> values
+with. If <code>NULL</code> missing values are propagated, that is an <code>NA</code> result will
+cause <code>NA</code> output. Otherwise the value is replaced by the value of <code>.na</code>.</p>
+</td></tr>
+<tr><td><code id=".literal">.literal</code></td>
+<td>
+<p>[<code>boolean(1)</code>: &lsquo;FALSE&rsquo;]<br> Whether to treat single or
+double quotes, backticks, and comments as regular characters (vs. as
+syntactic elements), when parsing the expression string. Setting <code>.literal = TRUE</code> probably only makes sense in combination with a custom
+<code>.transformer</code>, as is the case with <code>glue_col()</code>. Regard this argument
+(especially, its name) as experimental.</p>
+</td></tr>
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>[<code>listish</code>]<br> An environment, list, or data frame used to lookup values.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A glue object, as created by <code><a href="../../glue/help/as_glue.html">as_glue()</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+library(crayon)
+
+glue_col("{blue foo bar}")
+
+glue_col("{blue 1 + 1 = {1 + 1}}")
+
+glue_col("{blue 2 + 2 = {green {2 + 2}}}")
+
+white_on_black &lt;- bgBlack $ white
+glue_col("{white_on_black
+  Roses are {red {colors()[[552]]}},
+  Violets are {blue {colors()[[26]]}},
+  `glue_col()` can show \\
+  {red c}{yellow o}{green l}{cyan o}{blue r}{magenta s}
+  and {bold bold} and {underline underline} too!
+}")
+
+# this would error due to an unterminated quote, if we did not specify
+# `.literal = TRUE`
+glue_col("{yellow It's} happening!", .literal = TRUE)
+
+# `.literal = TRUE` also prevents an error here due to the `#` comment
+glue_col(
+  "A URL: {magenta https://github.com/tidyverse/glue#readme}",
+  .literal = TRUE
+)
+
+# `.literal = TRUE` does NOT prevent evaluation
+x &lt;- "world"
+y &lt;- "day"
+glue_col("hello {x}! {green it's a new {y}!}", .literal = TRUE)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>glue</em> version 1.8.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

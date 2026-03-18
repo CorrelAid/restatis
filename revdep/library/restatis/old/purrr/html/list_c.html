@@ -1,0 +1,111 @@
+<!DOCTYPE html><html><head><title>R: Combine list elements into a single data structure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>list_c {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Combine list elements into a single data structure</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>list_c()</code> combines elements into a vector by concatenating them together
+with <code><a href="../../vctrs/help/vec_c.html">vctrs::vec_c()</a></code>.
+</p>
+</li>
+<li> <p><code>list_rbind()</code> combines elements into a data frame by row-binding them
+together with <code><a href="../../vctrs/help/vec_bind.html">vctrs::vec_rbind()</a></code>.
+</p>
+</li>
+<li> <p><code>list_cbind()</code> combines elements into a data frame by column-binding them
+together with <code><a href="../../vctrs/help/vec_bind.html">vctrs::vec_cbind()</a></code>.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>list_c(x, ..., ptype = NULL)
+
+list_cbind(
+  x,
+  ...,
+  name_repair = c("unique", "universal", "check_unique"),
+  size = NULL
+)
+
+list_rbind(x, ..., names_to = rlang::zap(), ptype = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A list. For <code>list_rbind()</code> and <code>list_cbind()</code> the list must
+only contain only data frames or <code>NULL</code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="ptype">ptype</code></td>
+<td>
+<p>An optional prototype to ensure that the output type is always
+the same.</p>
+</td></tr>
+<tr><td><code id="name_repair">name_repair</code></td>
+<td>
+<p>One of <code>"unique"</code>, <code>"universal"</code>, or <code>"check_unique"</code>.
+See <code><a href="../../vctrs/help/vec_as_names.html">vctrs::vec_as_names()</a></code> for the meaning of these options.</p>
+</td></tr>
+<tr><td><code id="size">size</code></td>
+<td>
+<p>An optional integer size to ensure that every input has the
+same size (i.e. number of rows).</p>
+</td></tr>
+<tr><td><code id="names_to">names_to</code></td>
+<td>
+<p>By default, <code>names(x)</code> are lost. To keep them, supply a
+string to <code>names_to</code> and the names will be saved into a column with that
+name. If <code>names_to</code> is supplied and <code>x</code> is not named, the position of
+the elements will be used instead of the names.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x1 &lt;- list(a = 1, b = 2, c = 3)
+list_c(x1)
+
+x2 &lt;- list(
+  a = data.frame(x = 1:2),
+  b = data.frame(y = "a")
+)
+list_rbind(x2)
+list_rbind(x2, names_to = "id")
+list_rbind(unname(x2), names_to = "id")
+
+list_cbind(x2)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

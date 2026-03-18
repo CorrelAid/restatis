@@ -1,0 +1,134 @@
+<!DOCTYPE html><html><head><title>R: High-level intger64 methods for sorting and ordering</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>sort.integer64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>High-level intger64 methods for sorting and ordering</h2>
+
+<h3>Description</h3>
+
+<p>Fast high-level methods for sorting and ordering. These are wrappers to
+<code><a href="../../bit64/help/ramsort.integer64.html">ramsort.integer64()</a></code> and friends and do not modify their arguments.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'integer64'
+sort(
+  x,
+  decreasing = FALSE,
+  has.na = TRUE,
+  na.last = TRUE,
+  stable = TRUE,
+  optimize = c("time", "memory"),
+  VERBOSE = FALSE,
+  ...
+)
+
+## S3 method for class 'integer64'
+order(
+  ...,
+  na.last = TRUE,
+  decreasing = FALSE,
+  has.na = TRUE,
+  stable = TRUE,
+  optimize = c("time", "memory"),
+  VERBOSE = FALSE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a vector to be sorted by <code><a href="../../bit64/help/ramsort.integer64.html">ramsort.integer64()</a></code> and
+<code><a href="../../bit64/help/ramsortorder.integer64.html">ramsortorder.integer64()</a></code>, i.e. the output of  <code><a href="../../bit64/help/sort.integer64.html">sort.integer64()</a></code></p>
+</td></tr>
+<tr><td><code id="decreasing">decreasing</code></td>
+<td>
+<p>boolean scalar telling ramsort whether to sort
+increasing or decreasing</p>
+</td></tr>
+<tr><td><code id="has.na">has.na</code></td>
+<td>
+<p>boolean scalar defining whether the input vector might
+contain <code>NA</code>s. If we know we don't have NAs, this may speed-up. <em>Note</em>
+that you risk a crash if there are unexpected <code>NA</code>s with <code>has.na=FALSE</code></p>
+</td></tr>
+<tr><td><code id="na.last">na.last</code></td>
+<td>
+<p>boolean scalar telling ramsort whether to sort <code>NA</code>s last
+or first. <em>Note</em> that 'boolean' means that there is no third option
+<code>NA</code> as in <code><a href="../../base/html/sort.html">sort()</a></code></p>
+</td></tr>
+<tr><td><code id="stable">stable</code></td>
+<td>
+<p>boolean scalar defining whether stable sorting is needed.
+Allowing non-stable may speed-up.</p>
+</td></tr>
+<tr><td><code id="optimize">optimize</code></td>
+<td>
+<p>by default ramsort optimizes for 'time' which requires
+more RAM, set to 'memory' to minimize RAM requirements and sacrifice speed</p>
+</td></tr>
+<tr><td><code id="VERBOSE">VERBOSE</code></td>
+<td>
+<p>cat some info about chosen method</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments, passed from generics, ignored in methods</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>see <code><a href="../../base/html/sort.html">sort()</a></code> and <code><a href="../../bit64/help/order.html">order()</a></code>
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>sort</code> returns the sorted vector and <code>vector</code> returns the order positions.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/sort.integer64.html">sort()</a></code>, <code><a href="../../bit64/help/sortcache.html">sortcache()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  x &lt;- as.integer64(sample(c(rep(NA, 9), 1:9), 32, TRUE))
+  x
+  sort(x)
+  message("the following has default optimize='time' which is faster but requires more RAM
+, this calls 'ramorder'")
+  order.integer64(x)
+  message("slower with less RAM, this calls 'ramsortorder'")
+  order.integer64(x, optimize="memory")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

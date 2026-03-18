@@ -1,0 +1,278 @@
+<!DOCTYPE html><html><head><title>R: Hashing for 64bit integers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>hashmap {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Hashing for 64bit integers</h2>
+
+<h3>Description</h3>
+
+<p>This is an explicit implementation of hash functionality that underlies
+matching and other functions in R. Explicit means that you can create,
+store and use hash functionality directly. One advantage is that you can
+re-use hashmaps, which avoid re-building hashmaps again and again.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>hashfun(x, ...)
+
+## S3 method for class 'integer64'
+hashfun(x, minfac = 1.41, hashbits = NULL, ...)
+
+hashmap(x, ...)
+
+## S3 method for class 'integer64'
+hashmap(x, nunique = NULL, minfac = 1.41, hashbits = NULL, cache = NULL, ...)
+
+hashpos(cache, ...)
+
+## S3 method for class 'cache_integer64'
+hashpos(cache, x, nomatch = NA_integer_, ...)
+
+hashrev(cache, ...)
+
+## S3 method for class 'cache_integer64'
+hashrev(cache, x, nomatch = NA_integer_, ...)
+
+hashfin(cache, ...)
+
+## S3 method for class 'cache_integer64'
+hashfin(cache, x, ...)
+
+hashrin(cache, ...)
+
+## S3 method for class 'cache_integer64'
+hashrin(cache, x, ...)
+
+hashdup(cache, ...)
+
+## S3 method for class 'cache_integer64'
+hashdup(cache, ...)
+
+hashuni(cache, ...)
+
+## S3 method for class 'cache_integer64'
+hashuni(cache, keep.order = FALSE, ...)
+
+hashupo(cache, ...)
+
+## S3 method for class 'cache_integer64'
+hashupo(cache, keep.order = FALSE, ...)
+
+hashtab(cache, ...)
+
+## S3 method for class 'cache_integer64'
+hashtab(cache, ...)
+
+hashmaptab(x, ...)
+
+## S3 method for class 'integer64'
+hashmaptab(x, nunique = NULL, minfac = 1.5, hashbits = NULL, ...)
+
+hashmapuni(x, ...)
+
+## S3 method for class 'integer64'
+hashmapuni(x, nunique = NULL, minfac = 1.5, hashbits = NULL, ...)
+
+hashmapupo(x, ...)
+
+## S3 method for class 'integer64'
+hashmapupo(x, nunique = NULL, minfac = 1.5, hashbits = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an integer64 vector</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments, passed from generics, ignored in methods</p>
+</td></tr>
+<tr><td><code id="minfac">minfac</code></td>
+<td>
+<p>minimum factor by which the hasmap has more elements compared to the data <code>x</code>, ignored if <code>hashbits</code> is given directly</p>
+</td></tr>
+<tr><td><code id="hashbits">hashbits</code></td>
+<td>
+<p>length of hashmap is <code>2^hashbits</code></p>
+</td></tr>
+<tr><td><code id="nunique">nunique</code></td>
+<td>
+<p>giving <em>correct</em> number of unique elements can help reducing the size of the hashmap</p>
+</td></tr>
+<tr><td><code id="cache">cache</code></td>
+<td>
+<p>an optional <code><a href="../../bit64/help/cache.html">cache()</a></code> object into which to put the hashmap (by default a new cache is created</p>
+</td></tr>
+<tr><td><code id="nomatch">nomatch</code></td>
+<td>
+<p>the value to be returned if an element is not found in the hashmap</p>
+</td></tr>
+<tr><td><code id="keep.order">keep.order</code></td>
+<td>
+<p>determines order of results and speed: <code>FALSE</code> (the default) is faster and returns in the (pseudo)random order of the hash function, <code>TRUE</code> returns in the order of first appearance in the original data, but this requires extra work</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>function</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>hashfun</code> </td><td style="text-align: right;"> <code>digest</code> </td><td style="text-align: left;"> export of the hash function used in <code>hashmap</code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>hashmap</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/match.integer64.html">match()</a></code> </td><td style="text-align: left;"> return hashmap </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>hashpos</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/match.integer64.html">match()</a></code> </td><td style="text-align: left;"> return positions of <code>x</code> in <code>hashmap</code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>hashrev</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/match.integer64.html">match()</a></code> </td><td style="text-align: left;"> return positions of <code>hashmap</code> in <code>x</code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>hashfin</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/+25in+25.integer64.html">%in%.integer64</a></code> </td><td style="text-align: left;"> return logical whether <code>x</code> is in <code>hashmap</code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>hashrin</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/+25in+25.integer64.html">%in%.integer64</a></code> </td><td style="text-align: left;"> return logical whether <code>hashmap</code> is in <code>x</code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>hashdup</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/duplicated.integer64.html">duplicated()</a></code> </td><td style="text-align: left;"> return logical whether hashdat is duplicated using hashmap </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>hashuni</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/unique.integer64.html">unique()</a></code> </td><td style="text-align: left;"> return unique values of hashmap </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>hashmapuni</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/unique.integer64.html">unique()</a></code> </td><td style="text-align: left;"> return unique values of <code>x</code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>hashupo</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/unique.integer64.html">unique()</a></code> </td><td style="text-align: left;"> return positions of unique values in hashdat </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>hashmapupo</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/unique.integer64.html">unique()</a></code> </td><td style="text-align: left;"> return positions of unique values in <code>x</code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>hashtab</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/table.integer64.html">table()</a></code> </td><td style="text-align: left;"> tabulate values of hashdat using hashmap in <code>keep.order=FALSE</code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>hashmaptab</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/table.integer64.html">table()</a></code> </td><td style="text-align: left;"> tabulate values of <code>x</code> building hasmap on the fly in <code>keep.order=FALSE</code> 
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Value</h3>
+
+<p>See Details
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/match.integer64.html">match()</a></code>, <code><a href="../../bit64/help/runif64.html">runif64()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- as.integer64(sample(c(NA, 0:9)))
+y &lt;- as.integer64(sample(c(NA, 1:9), 10, TRUE))
+hashfun(y)
+hx &lt;- hashmap(x)
+hy &lt;- hashmap(y)
+ls(hy)
+hashpos(hy, x)
+hashrev(hx, y)
+hashfin(hy, x)
+hashrin(hx, y)
+hashdup(hy)
+hashuni(hy)
+hashuni(hy, keep.order=TRUE)
+hashmapuni(y)
+hashupo(hy)
+hashupo(hy, keep.order=TRUE)
+hashmapupo(y)
+hashtab(hy)
+hashmaptab(y)
+
+stopifnot(identical(match(as.integer(x),as.integer(y)),hashpos(hy, x)))
+stopifnot(identical(match(as.integer(x),as.integer(y)),hashrev(hx, y)))
+stopifnot(identical(as.integer(x) %in% as.integer(y), hashfin(hy, x)))
+stopifnot(identical(as.integer(x) %in% as.integer(y), hashrin(hx, y)))
+stopifnot(identical(duplicated(as.integer(y)), hashdup(hy)))
+stopifnot(identical(as.integer64(unique(as.integer(y))), hashuni(hy, keep.order=TRUE)))
+stopifnot(identical(sort(hashuni(hy, keep.order=FALSE)), sort(hashuni(hy, keep.order=TRUE))))
+stopifnot(identical(y[hashupo(hy, keep.order=FALSE)], hashuni(hy, keep.order=FALSE)))
+stopifnot(identical(y[hashupo(hy, keep.order=TRUE)], hashuni(hy, keep.order=TRUE)))
+stopifnot(identical(hashpos(hy, hashuni(hy, keep.order=TRUE)), hashupo(hy, keep.order=TRUE)))
+stopifnot(identical(hashpos(hy, hashuni(hy, keep.order=FALSE)), hashupo(hy, keep.order=FALSE)))
+stopifnot(identical(hashuni(hy, keep.order=FALSE), hashtab(hy)$values))
+stopifnot(identical(as.vector(table(as.integer(y), useNA="ifany"))
+, hashtab(hy)$counts[order.integer64(hashtab(hy)$values)]))
+stopifnot(identical(hashuni(hy, keep.order=TRUE), hashmapuni(y)))
+stopifnot(identical(hashupo(hy, keep.order=TRUE), hashmapupo(y)))
+stopifnot(identical(hashtab(hy), hashmaptab(y)))
+
+    ## Not run: 
+    message("explore speed given size of the hasmap in 2^hashbits and size of the data")
+    message("more hashbits means more random access and less collisions")
+    message("i.e. more data means less random access and more collisions")
+    bits &lt;- 24
+    b &lt;- seq(-1, 0, 0.1)
+    tim &lt;- matrix(NA, length(b), 2, dimnames=list(b, c("bits","bits+1")))
+    for (i in 1:length(b)){
+      n &lt;- as.integer(2^(bits+b[i]))
+      x &lt;- as.integer64(sample(n))
+      tim[i,1] &lt;- repeat.time(hashmap(x, hashbits=bits))[3]
+      tim[i,2] &lt;- repeat.time(hashmap(x, hashbits=bits+1))[3]
+      print(tim)
+      matplot(b, tim)
+    }
+    message("we conclude that n*sqrt(2) is enough to avoid collisions")
+    
+## End(Not run)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

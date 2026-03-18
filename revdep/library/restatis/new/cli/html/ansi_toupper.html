@@ -1,0 +1,117 @@
+<!DOCTYPE html><html><head><title>R: ANSI character translation and case folding</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ansi_toupper {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>ANSI character translation and case folding</h2>
+
+<h3>Description</h3>
+
+<p>There functions are similar to <code><a href="../../base/html/chartr.html">toupper()</a></code>, <code><a href="../../base/html/chartr.html">tolower()</a></code> and
+<code><a href="../../base/html/chartr.html">chartr()</a></code>, but they keep the ANSI colors of the string.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ansi_toupper(x)
+
+ansi_tolower(x)
+
+ansi_chartr(old, new, x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Input string. May have ANSI colors and styles.</p>
+</td></tr>
+<tr><td><code id="old">old</code></td>
+<td>
+<p>a character string specifying the characters to be
+translated.  If a character vector of length 2 or more is supplied,
+the first element is used with a warning.</p>
+</td></tr>
+<tr><td><code id="new">new</code></td>
+<td>
+<p>a character string specifying the translations. If a
+character vector of length 2 or more is supplied, the first element
+is used with a warning.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Character vector of the same length as <code>x</code>, containing
+the translated strings. ANSI styles are retained.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other ANSI string operations: 
+<code><a href="../../cli/help/ansi_align.html">ansi_align</a>()</code>,
+<code><a href="../../cli/help/ansi_columns.html">ansi_columns</a>()</code>,
+<code><a href="../../cli/help/ansi_nchar.html">ansi_nchar</a>()</code>,
+<code><a href="../../cli/help/ansi_strsplit.html">ansi_strsplit</a>()</code>,
+<code><a href="../../cli/help/ansi_strtrim.html">ansi_strtrim</a>()</code>,
+<code><a href="../../cli/help/ansi_strwrap.html">ansi_strwrap</a>()</code>,
+<code><a href="../../cli/help/ansi_substr.html">ansi_substr</a>()</code>,
+<code><a href="../../cli/help/ansi_substring.html">ansi_substring</a>()</code>,
+<code><a href="../../cli/help/ansi_trimws.html">ansi_trimws</a>()</code>
+</p>
+<p>Other ANSI string operations: 
+<code><a href="../../cli/help/ansi_align.html">ansi_align</a>()</code>,
+<code><a href="../../cli/help/ansi_columns.html">ansi_columns</a>()</code>,
+<code><a href="../../cli/help/ansi_nchar.html">ansi_nchar</a>()</code>,
+<code><a href="../../cli/help/ansi_strsplit.html">ansi_strsplit</a>()</code>,
+<code><a href="../../cli/help/ansi_strtrim.html">ansi_strtrim</a>()</code>,
+<code><a href="../../cli/help/ansi_strwrap.html">ansi_strwrap</a>()</code>,
+<code><a href="../../cli/help/ansi_substr.html">ansi_substr</a>()</code>,
+<code><a href="../../cli/help/ansi_substring.html">ansi_substring</a>()</code>,
+<code><a href="../../cli/help/ansi_trimws.html">ansi_trimws</a>()</code>
+</p>
+<p>Other ANSI string operations: 
+<code><a href="../../cli/help/ansi_align.html">ansi_align</a>()</code>,
+<code><a href="../../cli/help/ansi_columns.html">ansi_columns</a>()</code>,
+<code><a href="../../cli/help/ansi_nchar.html">ansi_nchar</a>()</code>,
+<code><a href="../../cli/help/ansi_strsplit.html">ansi_strsplit</a>()</code>,
+<code><a href="../../cli/help/ansi_strtrim.html">ansi_strtrim</a>()</code>,
+<code><a href="../../cli/help/ansi_strwrap.html">ansi_strwrap</a>()</code>,
+<code><a href="../../cli/help/ansi_substr.html">ansi_substr</a>()</code>,
+<code><a href="../../cli/help/ansi_substring.html">ansi_substring</a>()</code>,
+<code><a href="../../cli/help/ansi_trimws.html">ansi_trimws</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>ansi_toupper(col_red("Uppercase"))
+
+ansi_tolower(col_red("LowerCase"))
+
+x &lt;- paste0(col_green("MiXeD"), col_red(" cAsE 123"))
+ansi_chartr("iXs", "why", x)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

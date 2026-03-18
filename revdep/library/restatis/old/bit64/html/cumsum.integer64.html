@@ -1,0 +1,94 @@
+<!DOCTYPE html><html><head><title>R: Cumulative Sums, Products, Extremes and lagged differences</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cumsum.integer64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cumulative Sums, Products, Extremes and lagged differences</h2>
+
+<h3>Description</h3>
+
+<p>Cumulative Sums, Products, Extremes and lagged differences
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'integer64'
+diff(x, lag = 1L, differences = 1L, ...)
+
+## S3 method for class 'integer64'
+cummin(x)
+
+## S3 method for class 'integer64'
+cummax(x)
+
+## S3 method for class 'integer64'
+cumsum(x)
+
+## S3 method for class 'integer64'
+cumprod(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an atomic vector of class 'integer64'</p>
+</td></tr>
+<tr><td><code id="lag">lag</code></td>
+<td>
+<p>see <code><a href="../../base/html/diff.html">diff()</a></code></p>
+</td></tr>
+<tr><td><code id="differences">differences</code></td>
+<td>
+<p>see <code><a href="../../base/html/diff.html">diff()</a></code></p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>ignored</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code><a href="../../base/html/cumsum.html">cummin()</a></code>, <code><a href="../../base/html/cumsum.html">cummax()</a></code> , <code><a href="../../base/html/cumsum.html">cumsum()</a></code> and <code><a href="../../base/html/cumsum.html">cumprod()</a></code>
+return a integer64 vector of the same length as their input
+</p>
+<p><code><a href="../../base/html/diff.html">diff()</a></code> returns a integer64 vector shorter by <code>lag*differences</code> elements
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/sum.integer64.html">sum.integer64()</a></code> <code><a href="../../bit64/help/integer64.html">integer64()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  cumsum(rep(as.integer64(1), 12))
+  diff(as.integer64(c(0,1:12)))
+  cumsum(as.integer64(c(0, 1:12)))
+  diff(cumsum(as.integer64(c(0,0,1:12))), differences=2)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

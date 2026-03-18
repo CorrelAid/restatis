@@ -1,0 +1,279 @@
+<!DOCTYPE html><html><head><title>R: Set operations</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec-set {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Set operations</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>vec_set_intersect()</code> returns all values in both <code>x</code> and <code>y</code>.
+</p>
+</li>
+<li> <p><code>vec_set_difference()</code> returns all values in <code>x</code> but not <code>y</code>. Note
+that this is an asymmetric set difference, meaning it is not commutative.
+</p>
+</li>
+<li> <p><code>vec_set_union()</code> returns all values in either <code>x</code> or <code>y</code>.
+</p>
+</li>
+<li> <p><code>vec_set_symmetric_difference()</code> returns all values in either <code>x</code> or <code>y</code>
+but not both. This is a commutative difference.
+</p>
+</li></ul>
+
+<p>Because these are <em>set</em> operations, these functions only return unique values
+from <code>x</code> and <code>y</code>, returned in the order they first appeared in the original
+input. Names of <code>x</code> and <code>y</code> are retained on the result, but names are always
+taken from <code>x</code> if the value appears in both inputs.
+</p>
+<p>These functions work similarly to <code><a href="../../base/help/sets.html">base::intersect()</a></code>, <code><a href="../../base/help/sets.html">base::setdiff()</a></code>, and
+<code><a href="../../base/help/sets.html">base::union()</a></code>, but don't strip attributes and can be used with data frames.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_set_intersect(
+  x,
+  y,
+  ...,
+  ptype = NULL,
+  x_arg = "x",
+  y_arg = "y",
+  error_call = current_env()
+)
+
+vec_set_difference(
+  x,
+  y,
+  ...,
+  ptype = NULL,
+  x_arg = "x",
+  y_arg = "y",
+  error_call = current_env()
+)
+
+vec_set_union(
+  x,
+  y,
+  ...,
+  ptype = NULL,
+  x_arg = "x",
+  y_arg = "y",
+  error_call = current_env()
+)
+
+vec_set_symmetric_difference(
+  x,
+  y,
+  ...,
+  ptype = NULL,
+  x_arg = "x",
+  y_arg = "y",
+  error_call = current_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code>, <code id="y">y</code></td>
+<td>
+<p>A pair of vectors.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="ptype">ptype</code></td>
+<td>
+<p>If <code>NULL</code>, the default, the output type is determined by
+computing the common type between <code>x</code> and <code>y</code>. If supplied, both <code>x</code> and
+<code>y</code> will be cast to this type.</p>
+</td></tr>
+<tr><td><code id="x_arg">x_arg</code>, <code id="y_arg">y_arg</code></td>
+<td>
+<p>Argument names for <code>x</code> and <code>y</code>. These are used in error
+messages.</p>
+</td></tr>
+<tr><td><code id="error_call">error_call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Missing values are treated as equal to other missing values. For doubles and
+complexes, <code>NaN</code> are equal to other <code>NaN</code>, but not to <code>NA</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A vector of the common type of <code>x</code> and <code>y</code> (or <code>ptype</code>, if supplied)
+containing the result of the corresponding set function.
+</p>
+
+
+<h3>Dependencies</h3>
+
+
+
+<h4><code>vec_set_intersect()</code></h4>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/vec_proxy_equal.html">vec_proxy_equal()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_slice.html">vec_slice()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_ptype2.html">vec_ptype2()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_cast.html">vec_cast()</a></code>
+</p>
+</li></ul>
+
+
+
+
+<h4><code>vec_set_difference()</code></h4>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/vec_proxy_equal.html">vec_proxy_equal()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_slice.html">vec_slice()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_ptype2.html">vec_ptype2()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_cast.html">vec_cast()</a></code>
+</p>
+</li></ul>
+
+
+
+
+<h4><code>vec_set_union()</code></h4>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/vec_proxy_equal.html">vec_proxy_equal()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_slice.html">vec_slice()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_ptype2.html">vec_ptype2()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_cast.html">vec_cast()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_c.html">vec_c()</a></code>
+</p>
+</li></ul>
+
+
+
+
+<h4><code>vec_set_symmetric_difference()</code></h4>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/vec_proxy_equal.html">vec_proxy_equal()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_slice.html">vec_slice()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_ptype2.html">vec_ptype2()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_cast.html">vec_cast()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_c.html">vec_c()</a></code>
+</p>
+</li></ul>
+
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- c(1, 2, 1, 4, 3)
+y &lt;- c(2, 5, 5, 1)
+
+# All unique values in both `x` and `y`.
+# Duplicates in `x` and `y` are always removed.
+vec_set_intersect(x, y)
+
+# All unique values in `x` but not `y`
+vec_set_difference(x, y)
+
+# All unique values in either `x` or `y`
+vec_set_union(x, y)
+
+# All unique values in either `x` or `y` but not both
+vec_set_symmetric_difference(x, y)
+
+# These functions can also be used with data frames
+x &lt;- data_frame(
+  a = c(2, 3, 2, 2),
+  b = c("j", "k", "j", "l")
+)
+y &lt;- data_frame(
+  a = c(1, 2, 2, 2, 3),
+  b = c("j", "l", "j", "l", "j")
+)
+
+vec_set_intersect(x, y)
+vec_set_difference(x, y)
+vec_set_union(x, y)
+vec_set_symmetric_difference(x, y)
+
+# Vector names don't affect set membership, but if you'd like to force
+# them to, you can transform the vector into a two column data frame
+x &lt;- c(a = 1, b = 2, c = 2, d = 3)
+y &lt;- c(c = 2, b = 1, a = 3, d = 3)
+
+vec_set_intersect(x, y)
+
+x &lt;- data_frame(name = names(x), value = unname(x))
+y &lt;- data_frame(name = names(y), value = unname(y))
+
+vec_set_intersect(x, y)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

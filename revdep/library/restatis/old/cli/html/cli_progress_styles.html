@@ -1,0 +1,95 @@
+<!DOCTYPE html><html><head><title>R: List of built-in cli progress styles</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_progress_styles {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>List of built-in cli progress styles</h2>
+
+<h3>Description</h3>
+
+<p>The following options are used to select a style:
+</p>
+
+<ul>
+<li> <p><code>cli_progress_bar_style</code>
+</p>
+</li>
+<li> <p><code>cli_progress_bar_style_ascii</code>
+</p>
+</li>
+<li> <p><code>cli_progress_bar_style_unicode</code>
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_progress_styles()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p>On Unicode terminals (if <code><a href="../../cli/help/is_utf8_output.html">is_utf8_output()</a></code> is <code>TRUE</code>), the
+<code>cli_progress_bar_style_unicode</code> and <code>cli_progress_bar_style</code>
+options are used.
+</p>
+<p>On ASCII terminals (if <code><a href="../../cli/help/is_utf8_output.html">is_utf8_output()</a></code> is <code>FALSE</code>), the
+<code>cli_pgoress_bar_style_ascii</code> and <code>cli_progress_bar_style</code> options
+are are used.
+</p>
+<div class="sourceCode r"><pre>for (style in names(cli_progress_styles())) {
+  options(cli.progress_bar_style = style)
+  label &lt;- ansi_align(paste0("Style '", style, "'"), 20)
+  print(cli_progress_demo(label, live = FALSE, at = 66, total = 100))
+}
+options(cli.progress_var_style = NULL)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> Style 'classic'      <span style="color: #859900;">#####################           </span>  66&#37; | ETA:  3s           
+#> Style 'squares'      <span style="color: #859900;">■■■■■■■■■■■■■■■■■■■■■           </span>  66&#37; | ETA:  3s           
+#> Style 'dot'          <span style="color: #525252;">────────────────────</span><span style="color: #DC322F;">●</span><span style="color: #525252;">──────────</span><span style="color: #859900;"> </span>  66&#37; | ETA:  3s           
+#> Style 'fillsquares'  <span style="color: #859900;">■■■■■■■■■■■■■■■■■■■■■</span><span style="color: #525252;">□□□□□□□□□□</span><span style="color: #859900;"> </span>  66&#37; | ETA:  3s           
+#> Style 'bar'          <span style="color: #859900;">█████████████████████</span><span style="color: #525252;">██████████</span><span style="color: #859900;"> </span>  66&#37; | ETA:  3s           
+</pre></div>
+
+
+
+<h3>Value</h3>
+
+<p>A named list with sublists containing elements
+<code>complete</code>, <code>incomplete</code> and potentially <code>current</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other progress bar functions: 
+<code><a href="../../cli/help/cli_progress_along.html">cli_progress_along</a>()</code>,
+<code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar</a>()</code>,
+<code><a href="../../cli/help/cli_progress_builtin_handlers.html">cli_progress_builtin_handlers</a>()</code>,
+<code><a href="../../cli/help/cli_progress_message.html">cli_progress_message</a>()</code>,
+<code><a href="../../cli/help/cli_progress_num.html">cli_progress_num</a>()</code>,
+<code><a href="../../cli/help/cli_progress_output.html">cli_progress_output</a>()</code>,
+<code><a href="../../cli/help/cli_progress_step.html">cli_progress_step</a>()</code>,
+<code><a href="../../cli/help/progress-variables.html">progress-variables</a></code>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

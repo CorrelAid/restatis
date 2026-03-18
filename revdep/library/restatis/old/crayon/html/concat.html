@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><title>R: Concatenate character vectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>concat {crayon}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Concatenate character vectors</h2>
+
+<h3>Description</h3>
+
+<p>The length of the two arguments must match, or
+one of them must be of length one. If the length of
+one argument is one, then the output's length will
+match the length of the other argument. See examples
+below.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>lhs %+% rhs
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="lhs">lhs</code></td>
+<td>
+<p>Left hand side, character vector.</p>
+</td></tr>
+<tr><td><code id="rhs">rhs</code></td>
+<td>
+<p>Right hand side, character vector.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Concatenated vectors.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>"foo" %+% "bar"
+
+letters[1:10] %+% chr(1:10)
+
+letters[1:10] %+% "-" %+% chr(1:10)
+
+## This is empty (unlike for parse)
+character() %+% "*"
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>crayon</em> version 1.5.3 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

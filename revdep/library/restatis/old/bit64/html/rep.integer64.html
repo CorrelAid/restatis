@@ -1,0 +1,64 @@
+<!DOCTYPE html><html><head><title>R: Replicate elements of integer64 vectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>rep.integer64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Replicate elements of integer64 vectors</h2>
+
+<h3>Description</h3>
+
+<p>Replicate elements of integer64 vectors
+</p>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a vector of 'integer64' to be replicated</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments passed to <code><a href="../../base/html/UseMethod.html">NextMethod()</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code><a href="../../base/html/rep.html">rep()</a></code> returns a integer64 vector
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/c.integer64.html">c.integer64()</a></code> <code><a href="../../bit64/help/rep.integer64.html">rep.integer64()</a></code>
+<code><a href="../../bit64/help/as.data.frame.integer64.html">as.data.frame.integer64()</a></code> <code><a href="../../bit64/help/integer64.html">integer64()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  rep(as.integer64(1:2), 6)
+  rep(as.integer64(1:2), c(6,6))
+  rep(as.integer64(1:2), length.out=6)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

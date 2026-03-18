@@ -1,0 +1,87 @@
+<!DOCTYPE html><html><head><title>R: Get a glimpse of your data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>glimpse {pillar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get a glimpse of your data</h2>
+
+<h3>Description</h3>
+
+<p><code>glimpse()</code> is like a transposed version of <code>print()</code>:
+columns run down the page, and data runs across.
+This makes it possible to see every column in a data frame.
+It's a little like <code><a href="../../utils/html/str.html">str()</a></code> applied to a data frame
+but it tries to show you as much data as possible.
+(And it always shows the underlying data, even when applied
+to a remote data source.)
+</p>
+<p>See <code><a href="../../pillar/help/format_glimpse.html">format_glimpse()</a></code> for details on the formatting.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>glimpse(x, width = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>An object to glimpse at.</p>
+</td></tr>
+<tr><td><code id="width">width</code></td>
+<td>
+<p>Width of output: defaults to the setting of the
+<code>width</code> <a href="../../pillar/help/pillar_options.html">option</a> (if finite)
+or the width of the console.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Unused, for extensibility.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>x original x is (invisibly) returned, allowing <code>glimpse()</code> to be
+used within a data pipe line.
+</p>
+
+
+<h3>S3 methods</h3>
+
+<p><code>glimpse</code> is an S3 generic with a customised method for <code>tbl</code>s and
+<code>data.frames</code>, and a default method that calls <code><a href="../../utils/html/str.html">str()</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>glimpse(mtcars)
+
+
+glimpse(nycflights13::flights)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>pillar</em> version 1.11.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

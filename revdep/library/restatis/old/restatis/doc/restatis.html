@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Basic restatis Workflow</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Basic restatis Workflow</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(restatis)</span></code></pre></div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This vignette describes the basic workflow for finding, exploring,
+and retrieving data from the GENESIS, Zensus 2022 or
+regionalstatistik.de API using <a href="https://correlaid.github.io/restatis/">restatis</a>.</p>
+<p>For more details on additional parameters that can be used to specify
+the API call, see <code>vignette(&quot;additional_parameter&quot;)</code>.</p>
+<p>For the scenario in this vignette, we are going to be a researcher
+trying to find data on the income of bus drivers, called “Busfahrer” in
+German. The following example focuses on the GENESIS database, however,
+it works practically identically for regionalstatistik.de. For the
+Zensus 2022 database, the functions also work almost similarly to
+GENESIS and regionalstatistik.de, but have a few quirks (such as that
+there are no cubes for Zensus 2022 or that you can also authenticate
+using an API token, the latter being available for GENESIS now as
+well).</p>
+</div>
+<div id="step-one-finding-relevant-search-terms" class="section level2">
+<h2>Step one: finding relevant search terms</h2>
+<p>First, we can and should explore if and how our keyword is
+represented in the GENESIS database. We want to see if our keywords are
+related in any way to other words, and we need to be more precise in our
+search process; or in case we already have a particular keyword, if
+there are related keywords that could be included in our search to
+expand our data collection.</p>
+<p>To be as broad as possible, we want to search for any term in the
+database that contains our keyword. To do this, we can use a “*”
+wildcard at the beginning and end of the search term:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>restatis<span class="sc">::</span><span class="fu">gen_alternative_terms</span>(<span class="at">term =</span> <span class="st">&quot;*busfahrer*&quot;</span>, <span class="at">database =</span> <span class="st">&quot;genesis&quot;</span>)</span></code></pre></div>
+<p>Based on the results, our original keyword “busfahrer” is already
+specific enough, and no additional specifications are necessary.</p>
+<p>Had we started with the keyword “bus” - the vehicle itself - we can
+see that the database has several related terms that might be helpful to
+narrow down our search radius further. In this example, it might be
+helpful to see that there are at least three different types of buses
+that are searchable: “fernbus”, “schienenbus” and “kraftomnibusse”.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">gen_alternative_terms</span>(<span class="at">term =</span> <span class="st">&quot;*bus*&quot;</span>, <span class="at">database =</span> <span class="st">&quot;genesis&quot;</span>)</span></code></pre></div>
+</div>
+<div id="search-for-data-objects" class="section level2">
+<h2>Search for data objects</h2>
+<p>Now that we have our specific keyword for our search, we can search
+the database for exactly that term. We want the results to be ordered so
+that items with a title that includes our search term are at the top. We
+also want to explore all object types for now:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>search_results <span class="ot">&lt;-</span> <span class="fu">gen_find</span>(<span class="at">term =</span> <span class="st">&quot;busfahrer&quot;</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>                           <span class="at">detailed =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>                           <span class="at">ordering =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>                           <span class="at">category =</span> <span class="st">&quot;all&quot;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>                           <span class="at">database =</span> <span class="st">&quot;genesis&quot;</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>                           </span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>search_results</span></code></pre></div>
+<p>We can see that we find results for our keyword “busfahrer” in each
+category of objects (statistics, tables, variables, and cubes). Based on
+the promising content description of the first cube object, our next
+step will be to check what it contains before requesting the data.</p>
+<p>As a side note, most of the functions in this package will return
+objects with additional attributes that represent the parameters and
+additional information of your API query. So check the attributes if you
+ever need help recognising how you got the output.</p>
+</div>
+<div id="checking-object-metadata" class="section level2">
+<h2>Checking object metadata</h2>
+<p>To check whether data objects are relevant to your interest, you
+should obtain the metadata for these objects before requesting the data
+itself. The metadata for each type of object stores different key
+characteristics that will help you understand what the object is
+about.</p>
+<p>For our question about the income of bus drivers, we want to check
+the metadata of the first cube object we got from the find function:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">gen_metadata</span>(<span class="at">code =</span> search_results<span class="sc">$</span>Cubes<span class="sc">$</span>Code[<span class="dv">1</span>],</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>             <span class="at">category =</span> search_results<span class="sc">$</span>Cubes<span class="sc">$</span>Object_Type[<span class="dv">1</span>],</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>             <span class="at">database =</span> <span class="st">&quot;genesis&quot;</span>)</span></code></pre></div>
+</div>
+<div id="retrieving-data" class="section level2">
+<h2>Retrieving data</h2>
+<p>We are now pretty sure that this cube object will help us find
+information about our research question. The next step is to get the
+data from the API.</p>
+<p>Based on the fact that we want a cube object, we now use the
+<code>gen_cube()</code> function. For other object types, use the
+corresponding functions (e.g., <code>gen_table()</code> for tables).</p>
+<p>Important note: It is not possible to get a whole statistic object,
+but it is possible to collect the different related cube objects
+independently and then try to recombine them.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">gen_cube</span>(search_results<span class="sc">$</span>Cubes<span class="sc">$</span>Code[<span class="dv">1</span>], <span class="at">database =</span> <span class="st">&quot;genesis&quot;</span>)</span></code></pre></div>
+</div>
+<div id="appendix-check-for-changes-in-previously-collected-data" class="section level2">
+<h2>Appendix: check for changes in previously collected data</h2>
+<p>As a small additional step, we would like to check one week later if
+the collected data objects have been updated in the last week. We can
+also check if additional interesting data objects for our
+interest/keyword have been added to the database. To do this, we need to
+specify the code of the objects we are looking for and the time we want
+to look for updates.</p>
+<p>If we only want to check if something related has been updated, we
+only need to use the first part of the code until we are sure that it
+only covers the topic we are interested in. For example, use “62361*” if
+you want to check if some updated objects have been published for the
+specific statistic “Verdiensterhebung”.</p>
+<p>For convenience, the functions have already implemented the most
+common <code>date</code> specifications, such as “week_before”,
+“month_before”, or “year_before”. If you prefer a fixed date, you can
+enter it as a string in the format “DD.MM.YYYY”.</p>
+<p>For example, we might want to check to see if something new has been
+published about our collected cube object. So we use only the first part
+of the code “62361*“:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">gen_modified_data</span>(<span class="at">code =</span> <span class="st">&quot;62361&quot;</span>, <span class="at">date =</span> <span class="st">&quot;week_before&quot;</span>, <span class="at">database =</span> <span class="st">&quot;genesis&quot;</span>)</span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

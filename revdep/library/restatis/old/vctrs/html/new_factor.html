@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><title>R: Factor/ordered factor S3 class</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>new_factor {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Factor/ordered factor S3 class</h2>
+
+<h3>Description</h3>
+
+<p>A <a href="../../base/html/factor.html">factor</a> is an integer with attribute <code>levels</code>, a character vector. There
+should be one level for each integer between 1 and <code>max(x)</code>.
+An <a href="../../base/html/factor.html">ordered</a> factor has the same properties as a factor, but possesses
+an extra class that marks levels as having a total ordering.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>new_factor(x = integer(), levels = character(), ..., class = character())
+
+new_ordered(x = integer(), levels = character())
+
+## S3 method for class 'factor'
+vec_ptype2(x, y, ...)
+
+## S3 method for class 'ordered'
+vec_ptype2(x, y, ...)
+
+## S3 method for class 'factor'
+vec_cast(x, to, ...)
+
+## S3 method for class 'ordered'
+vec_cast(x, to, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Integer values which index in to <code>levels</code>.</p>
+</td></tr>
+<tr><td><code id="levels">levels</code></td>
+<td>
+<p>Character vector of labels.</p>
+</td></tr>
+<tr><td><code id="...">...</code>, <code id="class">class</code></td>
+<td>
+<p>Used to for subclasses.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions help the base factor and ordered factor classes fit in to
+the vctrs type system by providing constructors, coercion functions,
+and casting functions. <code>new_factor()</code> and <code>new_ordered()</code> are low-level
+constructors - they only check that types, but not values, are valid, so
+are for expert use only.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html><html><head><title>R: Defuse an R expression</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>expr {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Defuse an R expression</h2>
+
+<h3>Description</h3>
+
+<p><code>expr()</code> <a href="../../rlang/help/topic-defuse.html">defuses</a> an R expression with
+<a href="../../rlang/help/injection-operator.html">injection</a> support.
+</p>
+<p>It is equivalent to <code><a href="../../base/help/bquote.html">base::bquote()</a></code>.
+</p>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="expr">expr</code></td>
+<td>
+<p>An expression to defuse.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../rlang/help/topic-defuse.html">Defusing R expressions</a> for an overview.
+</p>
+</li>
+<li> <p><code><a href="../../rlang/help/enquo.html">enquo()</a></code> to defuse non-local expressions from function
+arguments.
+</p>
+</li>
+<li> <p><a href="../../rlang/help/defusing-advanced.html">Advanced defusal operators</a>.
+</p>
+</li>
+<li> <p><code><a href="../../rlang/help/sym.html">sym()</a></code> and <code><a href="../../rlang/help/call2.html">call2()</a></code> for building expressions (symbols and calls
+respectively) programmatically.
+</p>
+</li>
+<li> <p><code><a href="../../base/help/eval.html">base::eval()</a></code> and <code><a href="../../rlang/help/eval_bare.html">eval_bare()</a></code> for resuming evaluation
+of a defused expression.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># R normally returns the result of an expression
+1 + 1
+
+# `expr()` defuses the expression that you have supplied and
+# returns it instead of its value
+expr(1 + 1)
+
+expr(toupper(letters))
+
+# It supports _injection_ with `!!` and `!!!`. This is a convenient
+# way of modifying part of an expression by injecting other
+# objects.
+var &lt;- "cyl"
+expr(with(mtcars, mean(!!sym(var))))
+
+vars &lt;- c("cyl", "am")
+expr(with(mtcars, c(!!!syms(vars))))
+
+# Compare to the normal way of building expressions
+call("with", call("mean", sym(var)))
+
+call("with", call2("c", !!!syms(vars)))
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

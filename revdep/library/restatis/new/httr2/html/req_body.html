@@ -1,0 +1,203 @@
+<!DOCTYPE html><html><head><title>R: Send data in request body</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_body {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Send data in request body</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>req_body_file()</code> sends a local file.
+</p>
+</li>
+<li> <p><code>req_body_raw()</code> sends a string or raw vector.
+</p>
+</li>
+<li> <p><code>req_body_json()</code> sends JSON encoded data. Named components of this data
+can later be modified with <code>req_body_json_modify()</code>.
+</p>
+</li>
+<li> <p><code>req_body_form()</code> sends form encoded data.
+</p>
+</li>
+<li> <p><code>req_body_multipart()</code> creates a multi-part body.
+</p>
+</li></ul>
+
+<p>Adding a body to a request will automatically switch the method to POST.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_body_raw(req, body, type = "")
+
+req_body_file(req, path, type = "")
+
+req_body_json(
+  req,
+  data,
+  auto_unbox = TRUE,
+  digits = 22,
+  null = "null",
+  type = "application/json",
+  ...
+)
+
+req_body_json_modify(req, ...)
+
+req_body_form(.req, ..., .multi = c("error", "comma", "pipe", "explode"))
+
+req_body_multipart(.req, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code>, <code id=".req">.req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="body">body</code></td>
+<td>
+<p>A literal string or raw vector to send as body.</p>
+</td></tr>
+<tr><td><code id="type">type</code></td>
+<td>
+<p>MIME content type. The default, <code>""</code>, will not emit a
+<code>Content-Type</code> header.  Ignored if you have set a <code>Content-Type</code> header
+with <code><a href="../../httr2/help/req_headers.html">req_headers()</a></code>.</p>
+</td></tr>
+<tr><td><code id="path">path</code></td>
+<td>
+<p>Path to file to upload.</p>
+</td></tr>
+<tr><td><code id="data">data</code></td>
+<td>
+<p>Data to include in body.</p>
+</td></tr>
+<tr><td><code id="auto_unbox">auto_unbox</code></td>
+<td>
+<p>Should length-1 vectors be automatically &quot;unboxed&quot; to
+JSON scalars?</p>
+</td></tr>
+<tr><td><code id="digits">digits</code></td>
+<td>
+<p>How many digits of precision should numbers use in JSON?</p>
+</td></tr>
+<tr><td><code id="null">null</code></td>
+<td>
+<p>Should <code>NULL</code> be translated to JSON's null (<code>"null"</code>)
+or an empty list (<code>"list"</code>).</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>&lt;<code><a href="../../rlang/help/dyn-dots.html">dynamic-dots</a></code>&gt; Name-data pairs used to send
+data in the body.
+</p>
+
+<ul>
+<li><p> For <code>req_body_form()</code>, the values must be strings (or things easily
+coerced to strings). Vectors are converted to strings using the
+value of <code>.multi</code>.
+</p>
+</li>
+<li><p> For <code>req_body_multipart()</code> the values must be strings or objects
+produced by <code><a href="../../curl/help/multipart.html">curl::form_file()</a></code>/<code><a href="../../curl/help/multipart.html">curl::form_data()</a></code>.
+</p>
+</li>
+<li><p> For <code>req_body_json_modify()</code>, any simple data made from atomic vectors
+and lists.
+</p>
+</li></ul>
+
+<p><code>req_body_json()</code> uses this argument differently; it takes additional
+arguments passed on to  <code><a href="../../jsonlite/help/fromJSON.html">jsonlite::toJSON()</a></code>.</p>
+</td></tr>
+<tr><td><code id=".multi">.multi</code></td>
+<td>
+<p>Controls what happens when a value is a vector:
+</p>
+
+<ul>
+<li> <p><code>"error"</code>, the default, throws an error.
+</p>
+</li>
+<li> <p><code>"comma"</code>, separates values with a <code style="white-space: pre;">&#8288;,&#8288;</code>, e.g. <code style="white-space: pre;">&#8288;?x=1,2&#8288;</code>.
+</p>
+</li>
+<li> <p><code>"pipe"</code>, separates values with a <code>|</code>, e.g. <code>?x=1|2</code>.
+</p>
+</li>
+<li> <p><code>"explode"</code>, turns each element into its own parameter, e.g. <code>?x=1&amp;x=2</code>
+</p>
+</li></ul>
+
+<p>If none of these options work for your needs, you can instead supply a
+function that takes a character vector of argument values and returns a
+a single string.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A modified HTTP <a href="../../httr2/help/request.html">request</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>req &lt;- request(example_url()) |&gt;
+  req_url_path("/post")
+
+# Most APIs expect small amounts of data in either form or json encoded:
+req |&gt;
+  req_body_form(x = "A simple text string") |&gt;
+  req_dry_run()
+
+req |&gt;
+  req_body_json(list(x = "A simple text string")) |&gt;
+  req_dry_run()
+
+# For total control over the body, send a string or raw vector
+req |&gt;
+  req_body_raw("A simple text string") |&gt;
+  req_dry_run()
+
+# There are two main ways that APIs expect entire files
+path &lt;- tempfile()
+writeLines(letters[1:6], path)
+
+# You can send a single file as the body:
+req |&gt;
+  req_body_file(path) |&gt;
+  req_dry_run()
+
+# You can send multiple files, or a mix of files and data
+# with multipart encoding
+req |&gt;
+  req_body_multipart(a = curl::form_file(path), b = "some data") |&gt;
+  req_dry_run()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

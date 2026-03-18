@@ -1,0 +1,206 @@
+<!DOCTYPE html><html><head><title>R: Indicate the start and termination of some computation in the...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_process_start {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Indicate the start and termination of some computation in the status bar
+(superseded)</h2>
+
+<h3>Description</h3>
+
+<p><strong>The <code style="white-space: pre;">&#8288;cli_process_*()&#8288;</code> functions are superseded by
+the <code><a href="../../cli/help/cli_progress_message.html">cli_progress_message()</a></code> and <code><a href="../../cli/help/cli_progress_step.html">cli_progress_step()</a></code> functions,
+because they have a better default behavior.</strong>
+</p>
+<p>Typically you call <code>cli_process_start()</code> to start the process, and then
+<code>cli_process_done()</code> when it is done. If an error happens before
+<code>cli_process_done()</code> is called, then cli automatically shows the message
+for unsuccessful termination.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_process_start(
+  msg,
+  msg_done = paste(msg, "... done"),
+  msg_failed = paste(msg, "... failed"),
+  on_exit = c("auto", "failed", "done"),
+  msg_class = "alert-info",
+  done_class = "alert-success",
+  failed_class = "alert-danger",
+  .auto_close = TRUE,
+  .envir = parent.frame()
+)
+
+cli_process_done(
+  id = NULL,
+  msg_done = NULL,
+  .envir = parent.frame(),
+  done_class = "alert-success"
+)
+
+cli_process_failed(
+  id = NULL,
+  msg = NULL,
+  msg_failed = NULL,
+  .envir = parent.frame(),
+  failed_class = "alert-danger"
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="msg">msg</code></td>
+<td>
+<p>The message to show to indicate the start of the process or
+computation. It will be collapsed into a single string, and the first
+line is kept and cut to <code><a href="../../cli/help/console_width.html">console_width()</a></code>.</p>
+</td></tr>
+<tr><td><code id="msg_done">msg_done</code></td>
+<td>
+<p>The message to use for successful termination.</p>
+</td></tr>
+<tr><td><code id="msg_failed">msg_failed</code></td>
+<td>
+<p>The message to use for unsuccessful termination.</p>
+</td></tr>
+<tr><td><code id="on_exit">on_exit</code></td>
+<td>
+<p>Whether this process should fail or terminate
+successfully when the calling function (or the environment in <code>.envir</code>)
+exits.</p>
+</td></tr>
+<tr><td><code id="msg_class">msg_class</code></td>
+<td>
+<p>The style class to add to the message. Use an empty
+string to suppress styling.</p>
+</td></tr>
+<tr><td><code id="done_class">done_class</code></td>
+<td>
+<p>The style class to add to the successful termination
+message. Use an empty string to suppress styling.a</p>
+</td></tr>
+<tr><td><code id="failed_class">failed_class</code></td>
+<td>
+<p>The style class to add to the unsuccessful
+termination message. Use an empty string to suppress styling.a</p>
+</td></tr>
+<tr><td><code id=".auto_close">.auto_close</code></td>
+<td>
+<p>Whether to clear the status bar when the calling
+function finishes (or <code>.envir</code> is removed from the stack, if
+specified).</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>Environment to evaluate the glue expressions in. It is
+also used to auto-clear the status bar if <code>.auto_close</code> is <code>TRUE</code>.</p>
+</td></tr>
+<tr><td><code id="id">id</code></td>
+<td>
+<p>Id of the status bar container to clear. If <code>id</code> is not the id
+of the current status bar (because it was overwritten by another
+status bar container), then the status bar is not cleared. If <code>NULL</code>
+(the default) then the status bar is always cleared.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If you handle the errors of the process or computation, then you can do
+the opposite: call <code>cli_process_start()</code> with <code>on_exit = "done"</code>, and
+in the error handler call <code>cli_process_failed()</code>. cli will automatically
+call <code>cli_process_done()</code> on successful termination, when the calling
+function finishes.
+</p>
+<p>See examples below.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Id of the status bar container.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>This function supports <a href="../../cli/help/inline-markup.html">inline markup</a>.
+</p>
+<p>The <code><a href="../../cli/help/cli_progress_message.html">cli_progress_message()</a></code> and <code><a href="../../cli/help/cli_progress_step.html">cli_progress_step()</a></code>
+functions, for a superior API.
+</p>
+<p>Other status bar: 
+<code><a href="../../cli/help/cli_status.html">cli_status</a>()</code>,
+<code><a href="../../cli/help/cli_status_clear.html">cli_status_clear</a>()</code>,
+<code><a href="../../cli/help/cli_status_update.html">cli_status_update</a>()</code>
+</p>
+<p>Other functions supporting inline markup: 
+<code><a href="../../cli/help/cli_abort.html">cli_abort</a>()</code>,
+<code><a href="../../cli/help/cli_alert.html">cli_alert</a>()</code>,
+<code><a href="../../cli/help/cli_blockquote.html">cli_blockquote</a>()</code>,
+<code><a href="../../cli/help/cli_bullets.html">cli_bullets</a>()</code>,
+<code><a href="../../cli/help/cli_bullets_raw.html">cli_bullets_raw</a>()</code>,
+<code><a href="../../cli/help/cli_dl.html">cli_dl</a>()</code>,
+<code><a href="../../cli/help/cli_h1.html">cli_h1</a>()</code>,
+<code><a href="../../cli/help/cli_li.html">cli_li</a>()</code>,
+<code><a href="../../cli/help/cli_ol.html">cli_ol</a>()</code>,
+<code><a href="../../cli/help/cli_progress_along.html">cli_progress_along</a>()</code>,
+<code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar</a>()</code>,
+<code><a href="../../cli/help/cli_progress_message.html">cli_progress_message</a>()</code>,
+<code><a href="../../cli/help/cli_progress_output.html">cli_progress_output</a>()</code>,
+<code><a href="../../cli/help/cli_progress_step.html">cli_progress_step</a>()</code>,
+<code><a href="../../cli/help/cli_rule.html">cli_rule</a></code>,
+<code><a href="../../cli/help/cli_status.html">cli_status</a>()</code>,
+<code><a href="../../cli/help/cli_status_update.html">cli_status_update</a>()</code>,
+<code><a href="../../cli/help/cli_text.html">cli_text</a>()</code>,
+<code><a href="../../cli/help/cli_ul.html">cli_ul</a>()</code>,
+<code><a href="../../cli/help/format_error.html">format_error</a>()</code>,
+<code><a href="../../cli/help/format_inline.html">format_inline</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+## Failure by default
+fun &lt;- function() {
+  cli_process_start("Calculating")
+  if (interactive()) Sys.sleep(1)
+  if (runif(1) &lt; 0.5) stop("Failed")
+  cli_process_done()
+}
+tryCatch(fun(), error = function(err) err)
+
+## Success by default
+fun2 &lt;- function() {
+  cli_process_start("Calculating", on_exit = "done")
+  tryCatch({
+    if (interactive()) Sys.sleep(1)
+    if (runif(1) &lt; 0.5) stop("Failed")
+  }, error = function(err) cli_process_failed())
+}
+fun2()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

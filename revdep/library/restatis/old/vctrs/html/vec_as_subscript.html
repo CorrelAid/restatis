@@ -1,0 +1,97 @@
+<!DOCTYPE html><html><head><title>R: Convert to a base subscript type</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_as_subscript {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert to a base subscript type</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p>Convert <code>i</code> to the base type expected by <code><a href="../../vctrs/help/vec_as_location.html">vec_as_location()</a></code> or
+<code><a href="../../vctrs/help/vec_as_location2.html">vec_as_location2()</a></code>. The values of the subscript type are
+not checked in any way (length, missingness, negative elements).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_as_subscript(
+  i,
+  ...,
+  logical = c("cast", "error"),
+  numeric = c("cast", "error"),
+  character = c("cast", "error"),
+  arg = NULL,
+  call = caller_env()
+)
+
+vec_as_subscript2(
+  i,
+  ...,
+  numeric = c("cast", "error"),
+  character = c("cast", "error"),
+  arg = NULL,
+  call = caller_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="i">i</code></td>
+<td>
+<p>An index vector to convert.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="logical">logical</code>, <code id="numeric">numeric</code>, <code id="character">character</code></td>
+<td>
+<p>How to handle logical, numeric,
+and character subscripts.
+</p>
+<p>If <code>"cast"</code> and the subscript is not one of the three base types
+(logical, integer or character), the subscript is
+<a href="../../vctrs/help/vec_cast.html">cast</a> to the relevant base type, e.g. factors are
+coerced to character. <code>NULL</code> is treated as an empty integer
+vector, and is thus coercible depending on the setting of
+<code>numeric</code>. Symbols are treated as character vectors and thus
+coercible depending on the setting of <code>character</code>.
+</p>
+<p>If <code>"error"</code>, the subscript type is disallowed and triggers an
+informative error.</p>
+</td></tr>
+<tr><td><code id="arg">arg</code></td>
+<td>
+<p>The argument name to be displayed in error messages.</p>
+</td></tr>
+<tr><td><code id="call">call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

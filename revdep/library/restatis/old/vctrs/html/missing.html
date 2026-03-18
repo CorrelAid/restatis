@@ -1,0 +1,118 @@
+<!DOCTYPE html><html><head><title>R: Missing values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>missing {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Missing values</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>vec_detect_missing()</code> returns a logical vector the same size as <code>x</code>. For
+each element of <code>x</code>, it returns <code>TRUE</code> if the element is missing, and <code>FALSE</code>
+otherwise.
+</p>
+</li>
+<li> <p><code>vec_any_missing()</code> returns a single <code>TRUE</code> or <code>FALSE</code> depending on whether
+or not <code>x</code> has <em>any</em> missing values.
+</p>
+</li></ul>
+
+
+
+<h4>Differences with <code><a href="../../base/html/NA.html">is.na()</a></code></h4>
+
+<p>Data frame rows are only considered missing if every element in the row is
+missing. Similarly, <a href="../../vctrs/help/new_rcrd.html">record vector</a> elements are only considered
+missing if every field in the record is missing. Put another way, rows with
+<em>any</em> missing values are considered <a href="../../vctrs/help/vec_detect_complete.html">incomplete</a>, but
+only rows with <em>all</em> missing values are considered missing.
+</p>
+<p>List elements are only considered missing if they are <code>NULL</code>.
+</p>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_detect_missing(x)
+
+vec_any_missing(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A vector</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+
+<ul>
+<li> <p><code>vec_detect_missing()</code> returns a logical vector the same size as <code>x</code>.
+</p>
+</li>
+<li> <p><code>vec_any_missing()</code> returns a single <code>TRUE</code> or <code>FALSE</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Dependencies</h3>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/vec_proxy_equal.html">vec_proxy_equal()</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../vctrs/help/vec_detect_complete.html">vec_detect_complete()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- c(1, 2, NA, 4, NA)
+
+vec_detect_missing(x)
+vec_any_missing(x)
+
+# Data frames are iterated over rowwise, and only report a row as missing
+# if every element of that row is missing. If a row is only partially
+# missing, it is said to be incomplete, but not missing.
+y &lt;- c("a", "b", NA, "d", "e")
+df &lt;- data_frame(x = x, y = y)
+
+df$missing &lt;- vec_detect_missing(df)
+df$incomplete &lt;- !vec_detect_complete(df)
+df
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

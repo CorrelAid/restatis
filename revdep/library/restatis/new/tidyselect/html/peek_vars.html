@@ -1,0 +1,71 @@
+<!DOCTYPE html><html><head><title>R: Peek at variables in the selection context</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>peek_vars {tidyselect}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Peek at variables in the selection context</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>peek_vars()</code> returns the vector of names of the variables
+currently available for selection.
+</p>
+</li>
+<li> <p><code>peek_data()</code> returns the whole input vector (only available with
+<code><a href="../../tidyselect/help/eval_select.html">eval_select()</a></code>).
+</p>
+</li></ul>
+
+<p>Read the <a href="https://tidyselect.r-lib.org/articles/tidyselect.html">Get started</a> for
+examples of how to create selection helpers with <code>peek_vars()</code>.
+</p>
+<p>The variable names in a selection context are registered
+automatically by <code><a href="../../tidyselect/help/eval_select.html">eval_select()</a></code> and <code><a href="../../tidyselect/help/eval_rename.html">eval_rename()</a></code> for the
+duration of the evaluation. <code>peek_vars()</code> is the glue that connects
+<a href="../../tidyselect/help/language.html">selection helpers</a> to the current selection
+context.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>peek_vars(..., fn = NULL)
+
+peek_data(..., fn = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="fn">fn</code></td>
+<td>
+<p>The name of the function to use in error messages when
+the helper is used in the wrong context. If not supplied, a
+generic error message is used instead.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>tidyselect</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

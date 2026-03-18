@@ -1,0 +1,39 @@
+<!DOCTYPE html><html><head><title>R: Deprecated 'UQ()' and 'UQS()' operators</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>UQ {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Deprecated <code>UQ()</code> and <code>UQS()</code> operators</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a>
+These operators are deprecated in favour of
+<code><a href="../../rlang/help/injection-operator.html">!!</a></code> and <code><a href="../../rlang/help/splice-operator.html">!!!</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>UQ(x)
+
+UQS(x)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

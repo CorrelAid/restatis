@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><title>R: Coerce to ri</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>as.ri.ri {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Coerce to ri</h2>
+
+<h3>Description</h3>
+
+<p>Coerce to ri
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'ri'
+as.ri(x, ...)
+
+## Default S3 method:
+as.ri(x, ...)
+
+as.ri(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>object to coerce</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>an <code><a href="../../bit/help/ri.html">ri()</a></code> object
+</p>
+
+
+<h3>Methods (by class)</h3>
+
+
+<ul>
+<li> <p><code>as.ri(ri)</code>: method to coerce <code><a href="../../bit/help/ri.html">ri()</a></code> to <code><a href="../../bit/help/ri.html">ri()</a></code>
+</p>
+</li>
+<li> <p><code>as.ri(default)</code>: default method to coerce to <code><a href="../../bit/help/ri.html">ri()</a></code>
+</p>
+</li></ul>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/CoercionToStandard.html">CoercionToStandard</a></code>, <code><a href="../../bit/help/as.booltype.html">as.booltype()</a></code>, <code><a href="../../bit/help/as.bit.html">as.bit()</a></code>,
+<code><a href="../../bit/help/as.bitwhich.html">as.bitwhich()</a></code> , <code><a href="../../bit/help/as.which.html">as.which()</a></code>, <code><a href="../../bit/help/as.ri.html">as.ri()</a></code>, <code><a href="../../ff/help/as.hi.html">ff::as.hi()</a></code>,  <code><a href="../../ff/help/as.ff.html">ff::as.ff()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>as.ri(c(FALSE, TRUE, FALSE, TRUE))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

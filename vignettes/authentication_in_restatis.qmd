@@ -8,13 +8,8 @@ vignette: >
 ---
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
+Authentication is a core functionality in the world of Application Programming Interfaces (APIs). And so is, needless to say, the topic of keeping your credentials confidential. This is why the process of establishing authentication when using `{restatis}` is a tiny bit more complicated than when using other packages that fetch data or other information from an API. However, in most cases, users only have to establish their credentials in `{restatis}`'s internals once - from then on, the package manages all the rest for you. In the following vignette, we will show you everything you need to successfully authenticate with `{restatis}`.
 
-```{r setup}
-library(restatis)
-```
+## Creating credentials
+## 
+

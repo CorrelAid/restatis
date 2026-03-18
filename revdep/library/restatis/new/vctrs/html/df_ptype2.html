@@ -1,0 +1,97 @@
+<!DOCTYPE html><html><head><title>R: Coercion between two data frames</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>df_ptype2 {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Coercion between two data frames</h2>
+
+<h3>Description</h3>
+
+<p><code>df_ptype2()</code> and <code>df_cast()</code> are the two functions you need to
+call from <code>vec_ptype2()</code> and <code>vec_cast()</code> methods for data frame
+subclasses. See <a href="../../vctrs/help/howto-faq-coercion-data-frame.html">?howto-faq-coercion-data-frame</a>.
+Their main job is to determine the common type of two data frames,
+adding and coercing columns as needed, or throwing an incompatible
+type error when the columns are not compatible.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>df_ptype2(x, y, ..., x_arg = "", y_arg = "", call = caller_env())
+
+df_cast(x, to, ..., x_arg = "", to_arg = "", call = caller_env())
+
+tib_ptype2(x, y, ..., x_arg = "", y_arg = "", call = caller_env())
+
+tib_cast(x, to, ..., x_arg = "", to_arg = "", call = caller_env())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code>, <code id="y">y</code>, <code id="to">to</code></td>
+<td>
+<p>Subclasses of data frame.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>If you call <code>df_ptype2()</code> or <code>df_cast()</code> from a
+<code>vec_ptype2()</code> or <code>vec_cast()</code> method, you must forward the dots
+passed to your method on to <code>df_ptype2()</code> or <code>df_cast()</code>.</p>
+</td></tr>
+<tr><td><code id="x_arg">x_arg</code>, <code id="y_arg">y_arg</code></td>
+<td>
+<p>Argument names for <code>x</code> and <code>y</code>. These are used
+in error messages to inform the user about the locations of
+incompatible types (see <code><a href="../../vctrs/help/stop_incompatible_type.html">stop_incompatible_type()</a></code>).</p>
+</td></tr>
+<tr><td><code id="call">call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+<tr><td><code id="to_arg">to_arg</code></td>
+<td>
+<p>Argument name <code>to</code> used in error messages to
+inform the user about the locations of incompatible types
+(see <code><a href="../../vctrs/help/stop_incompatible_type.html">stop_incompatible_type()</a></code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+
+<ul>
+<li><p> When <code>x</code> and <code>y</code> are not compatible, an error of class
+<code>vctrs_error_incompatible_type</code> is thrown.
+</p>
+</li>
+<li><p> When <code>x</code> and <code>y</code> are compatible, <code>df_ptype2()</code> returns the common
+type as a bare data frame. <code>tib_ptype2()</code> returns the common type
+as a bare tibble.
+</p>
+</li></ul>
+
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

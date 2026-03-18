@@ -1,0 +1,138 @@
+<!DOCTYPE html><html><head><title>R: Lossy cast error</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>maybe_lossy_cast {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Lossy cast error</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p>By default, lossy casts are an error. Use <code>allow_lossy_cast()</code> to
+silence these errors and continue with the partial results. In this
+case the lost values are typically set to <code>NA</code> or to a lower value
+resolution, depending on the type of cast.
+</p>
+<p>Lossy cast errors are thrown by <code>maybe_lossy_cast()</code>. Unlike
+functions prefixed with <code>stop_</code>, <code>maybe_lossy_cast()</code> usually
+returns a result. If a lossy cast is detected, it throws an error,
+unless it's been wrapped in <code>allow_lossy_cast()</code>. In that case, it
+returns the result silently.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>maybe_lossy_cast(
+  result,
+  x,
+  to,
+  lossy = NULL,
+  locations = NULL,
+  ...,
+  loss_type = c("precision", "generality"),
+  x_arg,
+  to_arg,
+  call = caller_env(),
+  details = NULL,
+  message = NULL,
+  class = NULL,
+  .deprecation = FALSE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="result">result</code></td>
+<td>
+<p>The result of a potentially lossy cast.</p>
+</td></tr>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Vectors to cast.</p>
+</td></tr>
+<tr><td><code id="to">to</code></td>
+<td>
+<p>Type to cast to.</p>
+</td></tr>
+<tr><td><code id="lossy">lossy</code></td>
+<td>
+<p>A logical vector indicating which elements of <code>result</code>
+were lossy.
+</p>
+<p>Can also be a single <code>TRUE</code>, but note that <code>locations</code> picks up
+locations from this vector by default. In this case, supply your
+own location vector, possibly empty.</p>
+</td></tr>
+<tr><td><code id="locations">locations</code></td>
+<td>
+<p>An optional integer vector giving the
+locations where <code>x</code> lost information.</p>
+</td></tr>
+<tr><td><code id="...">...</code>, <code id="class">class</code></td>
+<td>
+<p>Only use these fields when creating a subclass.</p>
+</td></tr>
+<tr><td><code id="loss_type">loss_type</code></td>
+<td>
+<p>The kind of lossy cast to be mentioned in error
+messages. Can be loss of precision (for instance from double to
+integer) or loss of generality (from character to factor).</p>
+</td></tr>
+<tr><td><code id="x_arg">x_arg</code></td>
+<td>
+<p>Argument name for <code>x</code>, used in error messages to
+inform the user about the locations of incompatible types
+(see <code><a href="../../vctrs/help/stop_incompatible_type.html">stop_incompatible_type()</a></code>).</p>
+</td></tr>
+<tr><td><code id="to_arg">to_arg</code></td>
+<td>
+<p>Argument name <code>to</code> used in error messages to
+inform the user about the locations of incompatible types
+(see <code><a href="../../vctrs/help/stop_incompatible_type.html">stop_incompatible_type()</a></code>).</p>
+</td></tr>
+<tr><td><code id="call">call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+<tr><td><code id="details">details</code></td>
+<td>
+<p>Any additional human readable details.</p>
+</td></tr>
+<tr><td><code id="message">message</code></td>
+<td>
+<p>An overriding message for the error. <code>details</code> and
+<code>message</code> are mutually exclusive, supplying both is an error.</p>
+</td></tr>
+<tr><td><code id=".deprecation">.deprecation</code></td>
+<td>
+<p>If <code>TRUE</code>, the error is downgraded to a
+deprecation warning. This is useful for transitioning your class
+to a stricter conversion scheme. The warning advises your users
+to wrap their code with <code>allow_lossy_cast()</code>.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

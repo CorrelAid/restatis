@@ -1,0 +1,154 @@
+<!DOCTYPE html><html><head><title>R: Search path environments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>search_envs {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Search path environments</h2>
+
+<h3>Description</h3>
+
+<p>The search path is a chain of environments containing exported
+functions of attached packages.
+</p>
+<p>The API includes:
+</p>
+
+<ul>
+<li> <p><code><a href="../../base/help/search.html">base::search()</a></code> to get the names of environments attached to the
+search path.
+</p>
+</li>
+<li> <p><code>search_envs()</code> returns the environments on the search path as a
+list.
+</p>
+</li>
+<li> <p><code>pkg_env_name()</code> takes a bare package name and prefixes it with
+<code>"package:"</code>. Attached package environments have search names of
+the form <code>package:name</code>.
+</p>
+</li>
+<li> <p><code>pkg_env()</code> takes a bare package name and returns the scoped
+environment of packages if they are attached to the search path,
+and throws an error otherwise. It is a shortcut for
+<code>search_env(pkg_env_name("pkgname"))</code>.
+</p>
+</li>
+<li> <p><code>global_env()</code> and <code>base_env()</code> (simple aliases for <code><a href="../../base/html/environment.html">globalenv()</a></code>
+and <code><a href="../../base/html/environment.html">baseenv()</a></code>). These are respectively the first and last
+environments of the search path.
+</p>
+</li>
+<li> <p><code>is_attached()</code> returns <code>TRUE</code> when its argument (a search name
+or a package environment) is attached to the search path.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>search_envs()
+
+search_env(name)
+
+pkg_env(pkg)
+
+pkg_env_name(pkg)
+
+is_attached(x)
+
+base_env()
+
+global_env()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="name">name</code></td>
+<td>
+<p>The name of an environment attached to the search
+path. Call <code><a href="../../base/help/search.html">base::search()</a></code> to get the names of environments
+currently attached to the search path. Note that the search name
+of a package environment is prefixed with <code>"package:"</code>.</p>
+</td></tr>
+<tr><td><code id="pkg">pkg</code></td>
+<td>
+<p>The name of a package.</p>
+</td></tr>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>An environment or a search name.</p>
+</td></tr>
+</table>
+
+
+<h3>The search path</h3>
+
+<p>This chain of environments determines what objects are visible from
+the global workspace. It contains the following elements:
+</p>
+
+<ul>
+<li><p> The chain always starts with <code>global_env()</code> and finishes with
+<code>base_env()</code> which inherits from the terminal environment
+<code>empty_env()</code>.
+</p>
+</li>
+<li><p> Each <code><a href="../../base/help/library.html">base::library()</a></code> call attaches a new package environment to
+the search path. Attached packages are associated with a <a href="../../rlang/help/env_name.html">search name</a>.
+</p>
+</li>
+<li><p> In addition, any list, data frame, or environment can be attached
+to the search path with <code><a href="../../base/help/attach.html">base::attach()</a></code>.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># List the search names of environments attached to the search path:
+search()
+
+# Get the corresponding environments:
+search_envs()
+
+# The global environment and the base package are always first and
+# last in the chain, respectively:
+envs &lt;- search_envs()
+envs[[1]]
+envs[[length(envs)]]
+
+# These two environments have their own shortcuts:
+global_env()
+base_env()
+
+# Packages appear in the search path with a special name. Use
+# pkg_env_name() to create that name:
+pkg_env_name("rlang")
+search_env(pkg_env_name("rlang"))
+
+# Alternatively, get the scoped environment of a package with
+# pkg_env():
+pkg_env("utils")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

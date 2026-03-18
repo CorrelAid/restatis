@@ -1,0 +1,52 @@
+<!DOCTYPE html><html><head><title>R: Establish handlers on the stack</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>with_handlers {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Establish handlers on the stack</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a>
+</p>
+<p>As of rlang 1.0.0, <code>with_handlers()</code> is deprecated. Use the base
+functions or the experimental <code><a href="../../rlang/help/try_fetch.html">try_fetch()</a></code> function instead.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>with_handlers(.expr, ...)
+
+calling(handler)
+
+exiting(handler)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".expr">.expr</code>, <code id="...">...</code>, <code id="handler">handler</code></td>
+<td>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a></p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

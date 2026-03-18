@@ -1,0 +1,94 @@
+<!DOCTYPE html><html><head><title>R: Box a value</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>box {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Box a value</h2>
+
+<h3>Description</h3>
+
+<p><code>new_box()</code> is similar to <code><a href="../../base/help/AsIs.html">base::I()</a></code> but it protects a value by
+wrapping it in a scalar list rather than by adding an attribute.
+<code>unbox()</code> retrieves the boxed value. <code>is_box()</code> tests whether an
+object is boxed with optional class. <code>as_box()</code> ensures that a
+value is wrapped in a box. <code>as_box_if()</code> does the same but only if
+the value matches a predicate.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>new_box(.x, class = NULL, ...)
+
+is_box(x, class = NULL)
+
+unbox(box)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="class">class</code></td>
+<td>
+<p>For <code>new_box()</code>, an additional class for the
+boxed value (in addition to <code>rlang_box</code>). For <code>is_box()</code>, a class
+or vector of classes passed to <code><a href="../../rlang/help/inherits_all.html">inherits_all()</a></code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional attributes passed to <code><a href="../../base/help/structure.html">base::structure()</a></code>.</p>
+</td></tr>
+<tr><td><code id="x">x</code>, <code id=".x">.x</code></td>
+<td>
+<p>An R object.</p>
+</td></tr>
+<tr><td><code id="box">box</code></td>
+<td>
+<p>A boxed value to unbox.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>boxed &lt;- new_box(letters, "mybox")
+is_box(boxed)
+is_box(boxed, "mybox")
+is_box(boxed, "otherbox")
+
+unbox(boxed)
+
+# as_box() avoids double-boxing:
+boxed2 &lt;- as_box(boxed, "mybox")
+boxed2
+unbox(boxed2)
+
+# Compare to:
+boxed_boxed &lt;- new_box(boxed, "mybox")
+boxed_boxed
+unbox(unbox(boxed_boxed))
+
+# Use `as_box_if()` with a predicate if you need to ensure a box
+# only for a subset of values:
+as_box_if(NULL, is_null, "null_box")
+as_box_if("foo", is_null, "null_box")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html><html><head><title>R: Summary functions for integer64 vectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>sum.integer64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Summary functions for integer64 vectors</h2>
+
+<h3>Description</h3>
+
+<p>Summary functions for integer64 vectors. Function 'range' without arguments
+returns the smallest and largest value of the 'integer64' class.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'integer64'
+any(..., na.rm = FALSE)
+
+## S3 method for class 'integer64'
+all(..., na.rm = FALSE)
+
+## S3 method for class 'integer64'
+sum(..., na.rm = FALSE)
+
+## S3 method for class 'integer64'
+prod(..., na.rm = FALSE)
+
+## S3 method for class 'integer64'
+min(..., na.rm = FALSE)
+
+## S3 method for class 'integer64'
+max(..., na.rm = FALSE)
+
+## S3 method for class 'integer64'
+range(..., na.rm = FALSE, finite = FALSE)
+
+lim.integer64()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>atomic vectors of class 'integer64'</p>
+</td></tr>
+<tr><td><code id="na.rm">na.rm</code></td>
+<td>
+<p>logical scalar indicating whether to ignore NAs</p>
+</td></tr>
+<tr><td><code id="finite">finite</code></td>
+<td>
+<p>logical scalar indicating whether to ignore NAs (just for
+compatibility with <code><a href="../../base/html/range.html">range.default()</a></code>)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The numerical summary methods always return <code>integer64</code>. Therefore the
+methods for <code>min</code>,<code>max</code> and <code>range</code> do not return <code style="white-space: pre;">&#8288;+Inf,-Inf&#8288;</code> on empty
+arguments, but <code style="white-space: pre;">&#8288;+9223372036854775807, -9223372036854775807&#8288;</code> (in this sequence).
+The same is true if only  <code>NA</code>s are submitted with argument <code>na.rm=TRUE</code>.
+</p>
+<p><code>lim.integer64</code> returns these limits in proper order
+<code style="white-space: pre;">&#8288;-9223372036854775807, +9223372036854775807&#8288;</code> and without a <code><a href="../../base/html/warning.html">warning()</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code><a href="../../base/html/all.html">all()</a></code> and <code><a href="../../base/html/any.html">any()</a></code> return a logical scalar
+</p>
+<p><code><a href="../../base/html/range.html">range()</a></code> returns a integer64 vector with two elements
+</p>
+<p><code><a href="../../base/html/Extremes.html">min()</a></code>, <code><a href="../../base/html/Extremes.html">max()</a></code>, <code><a href="../../base/html/sum.html">sum()</a></code> and <code><a href="../../base/html/prod.html">prod()</a></code> return a integer64 scalar
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/mean.integer64.html">mean.integer64()</a></code> <code><a href="../../bit64/help/cumsum.integer64.html">cumsum.integer64()</a></code> <code><a href="../../bit64/help/integer64.html">integer64()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  lim.integer64()
+  range(as.integer64(1:12))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

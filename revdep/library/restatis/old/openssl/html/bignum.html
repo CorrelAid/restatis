@@ -1,0 +1,89 @@
+<!DOCTYPE html><html><head><title>R: Big number arithmetic</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>bignum {openssl}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Big number arithmetic</h2>
+
+<h3>Description</h3>
+
+<p>Basic operations for working with large integers. The <code>bignum</code>
+function converts a positive integer, string or raw vector into a bignum type.
+All basic <a href="../../base/html/Arithmetic.html">Arithmetic</a> and <a href="../../base/html/Comparison.html">Comparison</a> operators such as
+<code>+</code>, <code>-</code>, <code>*</code>, <code>^</code>, <code>%%</code>, <code>%/%</code>, <code>==</code>,
+<code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code> and <code>&gt;=</code> are implemented for
+bignum objects. The
+<a href="https://en.wikipedia.org/wiki/Modular_exponentiation">Modular exponent</a>
+(<code>a^b %% m</code>) can be calculated using <code><a href="../../openssl/help/bignum_mod_exp.html">bignum_mod_exp()</a></code>
+when <code>b</code> is too large for calculating <code>a^b</code> directly.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>bignum(x, hex = FALSE)
+
+bignum_mod_exp(a, b, m)
+
+bignum_mod_inv(a, m)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an integer, string (hex or dec) or raw vector</p>
+</td></tr>
+<tr><td><code id="hex">hex</code></td>
+<td>
+<p>set to TRUE to parse strings as hex rather than decimal notation</p>
+</td></tr>
+<tr><td><code id="a">a</code></td>
+<td>
+<p>bignum value for <code>(a^b %% m)</code></p>
+</td></tr>
+<tr><td><code id="b">b</code></td>
+<td>
+<p>bignum value for <code>(a^b %% m)</code></p>
+</td></tr>
+<tr><td><code id="m">m</code></td>
+<td>
+<p>bignum value for <code>(a^b %% m)</code></p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># create a bignum
+x &lt;- bignum(123L)
+y &lt;- bignum("123456789123456789")
+z &lt;- bignum("D41D8CD98F00B204E9800998ECF8427E", hex = TRUE)
+
+# Basic arithmetic
+div &lt;- z %/% y
+mod &lt;- z %% y
+z2 &lt;- div * y + mod
+stopifnot(z2 == z)
+stopifnot(div &lt; z)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>openssl</em> version 2.3.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

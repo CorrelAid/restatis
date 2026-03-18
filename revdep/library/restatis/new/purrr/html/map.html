@@ -1,0 +1,269 @@
+<!DOCTYPE html><html><head><title>R: Apply a function to each element of a vector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>map {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply a function to each element of a vector</h2>
+
+<h3>Description</h3>
+
+<p>The map functions transform their input by applying a function to
+each element of a list or atomic vector and returning an object of
+the same length as the input.
+</p>
+
+<ul>
+<li> <p><code>map()</code> always returns a list. See the <code><a href="../../purrr/help/modify.html">modify()</a></code> family for
+versions that return an object of the same type as the input.
+</p>
+</li>
+<li> <p><code>map_lgl()</code>, <code>map_int()</code>, <code>map_dbl()</code> and <code>map_chr()</code> return an
+atomic vector of the indicated type (or die trying). For these functions,
+<code>.f</code> must return a length-1 vector of the appropriate type.
+</p>
+</li>
+<li> <p><code>map_vec()</code> simplifies to the common type of the output. It works with
+most types of simple vectors like Date, POSIXct, factors, etc.
+</p>
+</li>
+<li> <p><code>walk()</code> calls <code>.f</code> for its side-effect and returns
+the input <code>.x</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>map(.x, .f, ..., .progress = FALSE)
+
+map_lgl(.x, .f, ..., .progress = FALSE)
+
+map_int(.x, .f, ..., .progress = FALSE)
+
+map_dbl(.x, .f, ..., .progress = FALSE)
+
+map_chr(.x, .f, ..., .progress = FALSE)
+
+map_vec(.x, .f, ..., .ptype = NULL, .progress = FALSE)
+
+walk(.x, .f, ..., .progress = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>A list or atomic vector.</p>
+</td></tr>
+<tr><td><code id=".f">.f</code></td>
+<td>
+<p>A function, specified in one of the following ways:
+</p>
+
+<ul>
+<li><p> A named function, e.g. <code>mean</code>.
+</p>
+</li>
+<li><p> An anonymous function, e.g. <code style="white-space: pre;">&#8288;\(x) x + 1&#8288;</code> or <code>function(x) x + 1</code>.
+</p>
+</li>
+<li><p> A formula, e.g. <code>~ .x + 1</code>. Use <code>.x</code> to refer to the first
+argument. No longer recommended.
+</p>
+</li>
+<li><p> A string, integer, or list, e.g. <code>"idx"</code>, <code>1</code>, or <code>list("idx", 1)</code> which
+are shorthand for <code style="white-space: pre;">&#8288;\(x) pluck(x, "idx")&#8288;</code>, <code style="white-space: pre;">&#8288;\(x) pluck(x, 1)&#8288;</code>, and
+<code style="white-space: pre;">&#8288;\(x) pluck(x, "idx", 1)&#8288;</code> respectively. Optionally supply <code>.default</code> to
+set a default value if the indexed element is <code>NULL</code> or does not exist.
+</p>
+</li></ul>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p>Wrap a function with <code><a href="../../purrr/help/in_parallel.html">in_parallel()</a></code> to declare that it should be performed
+in parallel. See <code><a href="../../purrr/help/in_parallel.html">in_parallel()</a></code> for more details.
+Use of <code>...</code> is not permitted in this context.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed on to the mapped function.
+</p>
+<p>We now generally recommend against using <code>...</code> to pass additional
+(constant) arguments to <code>.f</code>. Instead use a shorthand anonymous function:
+</p>
+<div class="sourceCode R"><pre># Instead of
+x |&gt; map(f, 1, 2, collapse = ",")
+# do:
+x |&gt; map(\(x) f(x, 1, 2, collapse = ","))
+</pre></div>
+<p>This makes it easier to understand which arguments belong to which
+function and will tend to yield better error messages.</p>
+</td></tr>
+<tr><td><code id=".progress">.progress</code></td>
+<td>
+<p>Whether to show a progress bar. Use <code>TRUE</code> to turn on
+a basic progress bar, use a string to give it a name, or see
+<a href="../../purrr/help/progress_bars.html">progress_bars</a> for more details.</p>
+</td></tr>
+<tr><td><code id=".ptype">.ptype</code></td>
+<td>
+<p>If <code>NULL</code>, the default, the output type is the common type
+of the elements of the result. Otherwise, supply a &quot;prototype&quot; giving
+the desired type of output.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The output length is determined by the length of the input.
+The output names are determined by the input names.
+The output type is determined by the suffix:
+</p>
+
+<ul>
+<li><p> No suffix: a list; <code>.f()</code> can return anything.
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;_lgl()&#8288;</code>, <code style="white-space: pre;">&#8288;_int()&#8288;</code>, <code style="white-space: pre;">&#8288;_dbl()&#8288;</code>, <code style="white-space: pre;">&#8288;_chr()&#8288;</code> return a logical, integer, double,
+or character vector respectively; <code>.f()</code> must return a compatible atomic
+vector of length 1.
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;_vec()&#8288;</code> return an atomic or S3 vector, the same type that <code>.f</code> returns.
+<code>.f</code> can return pretty much any type of vector, as long as its length 1.
+</p>
+</li>
+<li> <p><code>walk()</code> returns the input <code>.x</code> (invisibly). This makes it easy to
+use in a pipe. The return value of <code>.f()</code> is ignored.
+</p>
+</li></ul>
+
+<p>Any errors thrown by <code>.f</code> will be wrapped in an error with class
+<a href="../../purrr/help/purrr_error_indexed.html">purrr_error_indexed</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../purrr/help/map_if.html">map_if()</a></code> for applying a function to only those elements
+of <code>.x</code> that meet a specified condition.
+</p>
+<p>Other map variants: 
+<code><a href="../../purrr/help/imap.html">imap</a>()</code>,
+<code><a href="../../purrr/help/lmap.html">lmap</a>()</code>,
+<code><a href="../../purrr/help/map2.html">map2</a>()</code>,
+<code><a href="../../purrr/help/map_depth.html">map_depth</a>()</code>,
+<code><a href="../../purrr/help/map_if.html">map_if</a>()</code>,
+<code><a href="../../purrr/help/modify.html">modify</a>()</code>,
+<code><a href="../../purrr/help/pmap.html">pmap</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Compute normal distributions from an atomic vector
+1:10 |&gt;
+  map(rnorm, n = 10)
+
+# You can also use an anonymous function
+1:10 |&gt;
+  map(\(x) rnorm(10, x))
+
+# Simplify output to a vector instead of a list by computing the mean of the distributions
+1:10 |&gt;
+  map(rnorm, n = 10) |&gt;  # output a list
+  map_dbl(mean)           # output an atomic vector
+
+# Using set_names() with character vectors is handy to keep track
+# of the original inputs:
+set_names(c("foo", "bar")) |&gt; map_chr(paste0, ":suffix")
+
+# Working with lists
+favorite_desserts &lt;- list(Sophia = "banana bread", Eliott = "pancakes", Karina = "chocolate cake")
+favorite_desserts |&gt; map_chr(\(food) paste(food, "rocks!"))
+
+# Extract by name or position
+# .default specifies value for elements that are missing or NULL
+l1 &lt;- list(list(a = 1L), list(a = NULL, b = 2L), list(b = 3L))
+l1 |&gt; map("a", .default = "???")
+l1 |&gt; map_int("b", .default = NA)
+l1 |&gt; map_int(2, .default = NA)
+
+# Supply multiple values to index deeply into a list
+l2 &lt;- list(
+  list(num = 1:3,     letters[1:3]),
+  list(num = 101:103, letters[4:6]),
+  list()
+)
+l2 |&gt; map(c(2, 2))
+
+# Use a list to build an extractor that mixes numeric indices and names,
+# and .default to provide a default value if the element does not exist
+l2 |&gt; map(list("num", 3))
+l2 |&gt; map_int(list("num", 3), .default = NA)
+
+# Working with data frames
+# Use map_lgl(), map_dbl(), etc to return a vector instead of a list:
+mtcars |&gt; map_dbl(sum)
+
+# A more realistic example: split a data frame into pieces, fit a
+# model to each piece, summarise and extract R^2
+mtcars |&gt;
+  split(mtcars$cyl) |&gt;
+  map(\(df) lm(mpg ~ wt, data = df)) |&gt;
+  map(summary) |&gt;
+  map_dbl("r.squared")
+
+
+# Run in interactive sessions only as spawns additional processes
+
+# To use parallelized map:
+# 1. Set daemons (number of parallel processes) first:
+mirai::daemons(2)
+
+# 2. Wrap .f with in_parallel():
+mtcars |&gt; map_dbl(in_parallel(\(x) mean(x)))
+
+# Note that functions from packages should be fully qualified with `pkg::`
+# or call `library(pkg)` within the function
+1:10 |&gt;
+  map(in_parallel(\(x) vctrs::vec_init(integer(), x))) |&gt;
+  map_int(in_parallel(\(x) { library(vctrs); vec_size(x) }))
+
+# A locally-defined function (or any required variables)
+# should be passed via ... of in_parallel():
+slow_lm &lt;- function(formula, data) {
+  Sys.sleep(0.5)
+  lm(formula, data)
+}
+
+mtcars |&gt;
+  split(mtcars$cyl) |&gt;
+  map(in_parallel(\(df) slow_lm(mpg ~ disp, data = df), slow_lm = slow_lm))
+
+# Tear down daemons when no longer in use:
+mirai::daemons(0)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

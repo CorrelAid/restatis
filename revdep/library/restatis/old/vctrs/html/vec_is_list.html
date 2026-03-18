@@ -1,0 +1,76 @@
+<!DOCTYPE html><html><head><title>R: List checks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_is_list {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>List checks</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a>
+</p>
+<p>These functions have been deprecated as of vctrs 0.6.0.
+</p>
+
+<ul>
+<li> <p><code>vec_is_list()</code> has been renamed to <code><a href="../../vctrs/help/obj_is_list.html">obj_is_list()</a></code>.
+</p>
+</li>
+<li> <p><code>vec_check_list()</code> has been renamed to <code><a href="../../vctrs/help/obj_check_list.html">obj_check_list()</a></code>.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_is_list(x)
+
+vec_check_list(x, ..., arg = caller_arg(x), call = caller_env())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>For <code style="white-space: pre;">&#8288;vec_*()&#8288;</code> functions, an object. For <code style="white-space: pre;">&#8288;list_*()&#8288;</code> functions, a
+list.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="arg">arg</code></td>
+<td>
+<p>An argument name as a string. This argument
+will be mentioned in error messages as the input that is at the
+origin of a problem.</p>
+</td></tr>
+<tr><td><code id="call">call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html><html><head><title>R: Complete</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_detect_complete {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Complete</h2>
+
+<h3>Description</h3>
+
+<p><code>vec_detect_complete()</code> detects &quot;complete&quot; observations. An observation is
+considered complete if it is non-missing. For most vectors, this implies that
+<code>vec_detect_complete(x) == !vec_detect_missing(x)</code>.
+</p>
+<p>For data frames and matrices, a row is only considered complete if all
+elements of that row are non-missing. To compare, <code>!vec_detect_missing(x)</code>
+detects rows that are partially complete (they have at least one non-missing
+value).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_detect_complete(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A vector</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A <a href="../../vctrs/help/new_rcrd.html">record</a> type vector is similar to a data frame, and is only
+considered complete if all fields are non-missing.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A logical vector with the same size as <code>x</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/help/complete.cases.html">stats::complete.cases()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- c(1, 2, NA, 4, NA)
+
+# For most vectors, this is identical to `!vec_detect_missing(x)`
+vec_detect_complete(x)
+!vec_detect_missing(x)
+
+df &lt;- data_frame(
+  x = x,
+  y = c("a", "b", NA, "d", "e")
+)
+
+# This returns `TRUE` where all elements of the row are non-missing.
+# Compare that with `!vec_detect_missing()`, which detects rows that have at
+# least one non-missing value.
+df2 &lt;- df
+df2$all_non_missing &lt;- vec_detect_complete(df)
+df2$any_non_missing &lt;- !vec_detect_missing(df)
+df2
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

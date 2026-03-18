@@ -1,0 +1,101 @@
+<!DOCTYPE html><html><head><title>R: Entrace unexpected errors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>global_entrace {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Entrace unexpected errors</h2>
+
+<h3>Description</h3>
+
+<p><code>global_entrace()</code> enriches base errors, warnings, and messages
+with rlang features.
+</p>
+
+<ul>
+<li><p> They are assigned a backtrace. You can configure whether to
+display a backtrace on error with the <a href="../../rlang/help/rlang_backtrace_on_error.html">rlang_backtrace_on_error</a>
+global option.
+</p>
+</li>
+<li><p> They are recorded in <code><a href="../../rlang/help/last_error.html">last_error()</a></code>, <code><a href="../../rlang/help/last_warnings.html">last_warnings()</a></code>, or
+<code><a href="../../rlang/help/last_messages.html">last_messages()</a></code>. You can inspect backtraces at any time by
+calling these functions.
+</p>
+</li></ul>
+
+<p>Set global entracing in your RProfile with:
+</p>
+<div class="sourceCode"><pre>rlang::global_entrace()
+</pre></div>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>global_entrace(enable = TRUE, class = c("error", "warning", "message"))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="enable">enable</code></td>
+<td>
+<p>Whether to enable or disable global handling.</p>
+</td></tr>
+<tr><td><code id="class">class</code></td>
+<td>
+<p>A character vector of one or several classes of
+conditions to be entraced.</p>
+</td></tr>
+</table>
+
+
+<h3>Inside RMarkdown documents</h3>
+
+<p>Call <code>global_entrace()</code> inside an RMarkdown document to cause
+errors and warnings to be promoted to rlang conditions that include
+a backtrace. This needs to be done in a separate setup chunk before
+the first error or warning.
+</p>
+<p>This is useful in conjunction with
+<code><a href="../../rlang/help/rlang_backtrace_on_error_report.html">rlang_backtrace_on_error_report</a></code> and
+<code><a href="../../rlang/help/rlang_backtrace_on_warning_report.html">rlang_backtrace_on_warning_report</a></code>. To get full entracing in an
+Rmd document, include this in a setup chunk before the first error
+or warning is signalled.
+</p>
+<div class="sourceCode"><pre>```{r setup}
+rlang::global_entrace()
+options(rlang_backtrace_on_warning_report = "full")
+options(rlang_backtrace_on_error_report = "full")
+```
+</pre></div>
+
+
+<h3>Under the hood</h3>
+
+<p>On R 4.0 and newer, <code>global_entrace()</code> installs a global handler
+with <code>globalCallingHandlers()</code>. On older R versions, <code>entrace()</code> is
+set as an <code>option(error = )</code> handler. The latter method has the
+disadvantage that only one handler can be set at a time. This means
+that you need to manually switch between <code>entrace()</code> and other
+handlers like <code><a href="../../utils/html/recover.html">recover()</a></code>. Also this causes a conflict with IDE
+handlers (e.g. in RStudio).
+</p>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

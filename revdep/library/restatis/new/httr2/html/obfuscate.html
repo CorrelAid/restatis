@@ -1,0 +1,84 @@
+<!DOCTYPE html><html><head><title>R: Obfuscate mildly secret information</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>obfuscate {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Obfuscate mildly secret information</h2>
+
+<h3>Description</h3>
+
+<p>Use <code>obfuscate("value")</code> to generate a call to <code>obfuscated()</code>, which will
+unobfuscate the value at the last possible moment. Obfuscated values only
+work in limited locations:
+</p>
+
+<ul>
+<li><p> The <code>secret</code> argument to <code><a href="../../httr2/help/oauth_client.html">oauth_client()</a></code>
+</p>
+</li>
+<li><p> Elements of the <code>data</code> argument to <code><a href="../../httr2/help/req_body_form.html">req_body_form()</a></code>, <code>req_body_json()</code>,
+and <code>req_body_multipart()</code>.
+</p>
+</li></ul>
+
+<p>Working together this pair of functions provides a way to obfuscate mildly
+confidential information, like OAuth client secrets. The secret can not be
+revealed from your inspecting source code, but a skilled R programmer could
+figure it out with some effort. The main goal is to protect against scraping;
+there's no way for an automated tool to grab your obfuscated secrets.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>obfuscate(x)
+
+obfuscated(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A string to <code>obfuscate</code>, or mark as <code>obfuscated</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>obfuscate()</code> prints the <code>obfuscated()</code> call to include in your
+code. <code>obfuscated()</code> returns an S3 class marking the string as obfuscated
+so it can be unobfuscated when needed.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>obfuscate("good morning")
+
+# Every time you obfuscate you'll get a different value because it
+# includes 16 bytes of random data which protects against certain types of
+# brute force attack
+obfuscate("good morning")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html><html><head><title>R: Functions that return raw vectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>map_raw {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Functions that return raw vectors</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a>
+</p>
+<p>These functions were deprecated in purrr 1.0.0 because they are of limited
+use and you can now use <code><a href="../../purrr/help/map_vec.html">map_vec()</a></code> instead. They are variants of <code><a href="../../purrr/help/map.html">map()</a></code>,
+<code><a href="../../purrr/help/map2.html">map2()</a></code>, <code><a href="../../purrr/help/imap.html">imap()</a></code>, <code><a href="../../purrr/help/pmap.html">pmap()</a></code>, and <code><a href="../../purrr/help/flatten.html">flatten()</a></code> that return raw vectors.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>map_raw(.x, .f, ...)
+
+map2_raw(.x, .y, .f, ...)
+
+imap_raw(.x, .f, ...)
+
+pmap_raw(.l, .f, ...)
+
+flatten_raw(.x)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

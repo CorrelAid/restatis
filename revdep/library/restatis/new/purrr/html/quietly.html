@@ -1,0 +1,103 @@
+<!DOCTYPE html><html><head><title>R: Wrap a function to capture side-effects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>quietly {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Wrap a function to capture side-effects</h2>
+
+<h3>Description</h3>
+
+<p>Create a modified version of <code>.f</code> that captures side-effects along with
+the return value of the function and returns a list containing
+the <code>result</code>, <code>output</code>, <code>messages</code> and <code>warnings</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>quietly(.f)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".f">.f</code></td>
+<td>
+<p>A function to modify, specified in one of the following ways:
+</p>
+
+<ul>
+<li><p> A named function, e.g. <code>mean</code>.
+</p>
+</li>
+<li><p> An anonymous function, e.g. <code style="white-space: pre;">&#8288;\(x) x + 1&#8288;</code> or <code>function(x) x + 1</code>.
+</p>
+</li>
+<li><p> A formula, e.g. <code>~ .x + 1</code>. No longer recommended.
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A function that takes the same arguments as <code>.f</code>, but returns
+a different value, as described above.
+</p>
+
+
+<h3>Adverbs</h3>
+
+<p>This function is called an adverb because it modifies the effect of a
+function (a verb). If you'd like to include a function created an adverb
+in a package, be sure to read <a href="../../purrr/help/faq-adverbs-export.html">faq-adverbs-export</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other adverbs: 
+<code><a href="../../purrr/help/auto_browse.html">auto_browse</a>()</code>,
+<code><a href="../../purrr/help/compose.html">compose</a>()</code>,
+<code><a href="../../purrr/help/insistently.html">insistently</a>()</code>,
+<code><a href="../../purrr/help/negate.html">negate</a>()</code>,
+<code><a href="../../purrr/help/partial.html">partial</a>()</code>,
+<code><a href="../../purrr/help/possibly.html">possibly</a>()</code>,
+<code><a href="../../purrr/help/safely.html">safely</a>()</code>,
+<code><a href="../../purrr/help/slowly.html">slowly</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>f &lt;- function() {
+  print("Hi!")
+  message("Hello")
+  warning("How are ya?")
+  "Gidday"
+}
+f()
+
+f_quiet &lt;- quietly(f)
+str(f_quiet())
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

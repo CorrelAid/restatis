@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><title>R: logincheck_stop_or_warn</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>logincheck_stop_or_warn {restatis}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>logincheck_stop_or_warn</h2>
+
+<h3>Description</h3>
+
+<p>logincheck_stop_or_warn
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>logincheck_stop_or_warn(response, error, verbose, database)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="response">response</code></td>
+<td>
+<p>A HTTP response object</p>
+</td></tr>
+<tr><td><code id="error">error</code></td>
+<td>
+<p>Boolean. Should the function warn or throw an error?</p>
+</td></tr>
+<tr><td><code id="verbose">verbose</code></td>
+<td>
+<p>Boolean. Should the function message in case of success?</p>
+</td></tr>
+<tr><td><code id="database">database</code></td>
+<td>
+<p>The database that the check should be run for</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>In case of failure warns or errors. Invisibly returns TRUE (success) or FALSE (failure)
+</p>
+
+<hr><div style="text-align: center;">[Package <em>restatis</em> version 0.3.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

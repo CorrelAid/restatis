@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><title>R: Authenticate request with HTTP basic authentication</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_auth_basic {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Authenticate request with HTTP basic authentication</h2>
+
+<h3>Description</h3>
+
+<p>This sets the Authorization header. See details at
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization</a>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_auth_basic(req, username, password = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="username">username</code></td>
+<td>
+<p>User name.</p>
+</td></tr>
+<tr><td><code id="password">password</code></td>
+<td>
+<p>Password. You should avoid entering the password directly
+when calling this function as it will be captured by <code>.Rhistory</code>. Instead,
+leave it unset and the default behaviour will prompt you for it
+interactively.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A modified HTTP <a href="../../httr2/help/request.html">request</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>req &lt;- request("http://example.com") |&gt; req_auth_basic("hadley", "SECRET")
+req
+req |&gt; req_dry_run()
+
+# httr2 does its best to redact the Authorization header so that you don't
+# accidentally reveal confidential data. Use `redact_headers` to reveal it:
+print(req, redact_headers = FALSE)
+req |&gt; req_dry_run(redact_headers = FALSE)
+
+# We do this because the authorization header is not encrypted and the
+# so password can easily be discovered:
+rawToChar(jsonlite::base64_dec("aGFkbGV5OlNFQ1JFVA=="))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

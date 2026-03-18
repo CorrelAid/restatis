@@ -1,0 +1,106 @@
+<!DOCTYPE html><html><head><title>R: Rate limit a request by automatically adding a delay</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_throttle {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Rate limit a request by automatically adding a delay</h2>
+
+<h3>Description</h3>
+
+<p>Use <code>req_throttle()</code> to ensure that repeated calls to <code><a href="../../httr2/help/req_perform.html">req_perform()</a></code> never
+exceed a specified rate.
+</p>
+<p>Throttling is implemented using a &quot;token bucket&quot;, which steadily fills up to
+a maximum of <code>capacity</code> tokens over <code>fill_time_s</code>. Each time you make a
+request, it takes a token out of the bucket, and if the bucket is empty,
+the request will wait until the bucket refills. This ensures that you never
+make more than <code>capacity</code> requests in <code>fill_time_s</code>, but you can make
+requests more quickly if the bucket is full. For example, if you have
+<code>capacity = 10</code> and <code>fill_time_s = 60</code>, you can make 10 requests
+without waiting, but the next request will wait 60 seconds. This gives the
+same average throttling rate as the previous approach, but gives you much
+better performance if you're only making a small number of requests.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_throttle(req, rate, capacity, fill_time_s = 60, realm = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="rate">rate</code></td>
+<td>
+<p>For backwards compatibility, you can still specify the <code>rate</code>,
+which is converted to <code>capacity</code> by multiplying by <code>fill_time_s</code>.
+However, we recommend using <code>capacity</code> and <code>fill_time_s</code> as it gives more
+control.</p>
+</td></tr>
+<tr><td><code id="capacity">capacity</code></td>
+<td>
+<p>The size of the bucket, i.e. the maximum number of
+tokens that can accumulate.</p>
+</td></tr>
+<tr><td><code id="fill_time_s">fill_time_s</code></td>
+<td>
+<p>Time in seconds to fill the capacity. Defaults to 60s.</p>
+</td></tr>
+<tr><td><code id="realm">realm</code></td>
+<td>
+<p>A string that uniquely identifies the throttle pool to use
+(throttling limits always apply <em>per pool</em>). If not supplied, defaults
+to the hostname of the request.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A modified HTTP <a href="../../httr2/help/request.html">request</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../httr2/help/req_retry.html">req_retry()</a></code> for another way of handling rate-limited APIs.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Ensure we never send more than 30 requests a minute
+req &lt;- request(example_url()) |&gt;
+  req_throttle(capacity = 30, fill_time_s = 60)
+
+resp &lt;- req_perform(req)
+throttle_status()
+resp &lt;- req_perform(req)
+throttle_status()
+
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

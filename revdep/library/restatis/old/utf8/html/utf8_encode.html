@@ -1,0 +1,131 @@
+<!DOCTYPE html><html><head><title>R: Encode Character Object as for UTF-8 Printing</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>utf8_encode {utf8}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Encode Character Object as for UTF-8 Printing</h2>
+
+<h3>Description</h3>
+
+<p>Escape the strings in a character object, optionally adding quotes or
+spaces, adjusting the width for display.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>utf8_encode(
+  x,
+  ...,
+  width = 0L,
+  quote = FALSE,
+  justify = "left",
+  escapes = NULL,
+  display = FALSE,
+  utf8 = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>character object.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="width">width</code></td>
+<td>
+<p>integer giving the minimum field width; specify <code>NULL</code> or
+<code>NA</code> for no minimum.</p>
+</td></tr>
+<tr><td><code id="quote">quote</code></td>
+<td>
+<p>logical scalar indicating whether to surround results with
+double-quotes and escape internal double-quotes.</p>
+</td></tr>
+<tr><td><code id="justify">justify</code></td>
+<td>
+<p>justification; one of <code>"left"</code>, <code>"right"</code>,
+<code>"centre"</code>, or <code>"none"</code>. Can be abbreviated.</p>
+</td></tr>
+<tr><td><code id="escapes">escapes</code></td>
+<td>
+<p>a character string specifying the display style for the
+backslash escapes, as an ANSI SGR parameter string, or NULL for no styling.</p>
+</td></tr>
+<tr><td><code id="display">display</code></td>
+<td>
+<p>logical scalar indicating whether to optimize the encoding
+for display, not byte-for-byte data transmission.</p>
+</td></tr>
+<tr><td><code id="utf8">utf8</code></td>
+<td>
+<p>logical scalar indicating whether to encode for a UTF-8 capable
+display (ASCII-only otherwise), or <code>NULL</code> to encode for output
+capabilities as determined by <code>output_utf8()</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>utf8_encode()</code> encodes a character object for printing on a UTF-8 device
+by escaping controls characters and other non-printable characters. When
+<code>display = TRUE</code>, the function optimizes the encoding for display by
+removing default ignorable characters (soft hyphens, zero-width spaces,
+etc.) and placing zero-width spaces after wide emoji. When
+<code>output_utf8()</code> is <code>FALSE</code> the function escapes all non-ASCII
+characters and gives the same results on all platforms.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A character object with the same attributes as <code>x</code> but with
+<code>Encoding</code> set to <code>"UTF-8"</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../utf8/help/utf8_print.html">utf8_print()</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+# the second element is encoded in latin-1, but declared as UTF-8
+x &lt;- c("fa\u00E7ile", "fa\xE7ile", "fa\xC3\xA7ile")
+Encoding(x) &lt;- c("UTF-8", "UTF-8", "bytes")
+
+# encoding
+utf8_encode(x)
+
+# add style to the escapes
+cat(utf8_encode("hello\nstyled\\world", escapes = "1"), "\n")
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>utf8</em> version 1.2.6 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

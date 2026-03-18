@@ -1,0 +1,139 @@
+<!DOCTYPE html><html><head><title>R: Find the common type for a pair of vectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_ptype2.logical {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Find the common type for a pair of vectors</h2>
+
+<h3>Description</h3>
+
+<p><code>vec_ptype2()</code> defines the coercion hierarchy for a set of related
+vector types. Along with <code><a href="../../vctrs/help/vec_cast.html">vec_cast()</a></code>, this generic forms the
+foundation of type coercions in vctrs.
+</p>
+<p><code>vec_ptype2()</code> is relevant when you are implementing vctrs methods
+for your class, but it should not usually be called directly. If
+you need to find the common type of a set of inputs, call
+<code><a href="../../vctrs/help/vec_ptype_common.html">vec_ptype_common()</a></code> instead. This function supports multiple
+inputs and <a href="../../vctrs/help/vec_ptype_finalise.html">finalises</a> the common type.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'logical'
+vec_ptype2(x, y, ..., x_arg = "", y_arg = "")
+
+## S3 method for class 'integer'
+vec_ptype2(x, y, ..., x_arg = "", y_arg = "")
+
+## S3 method for class 'double'
+vec_ptype2(x, y, ..., x_arg = "", y_arg = "")
+
+## S3 method for class 'complex'
+vec_ptype2(x, y, ..., x_arg = "", y_arg = "")
+
+## S3 method for class 'character'
+vec_ptype2(x, y, ..., x_arg = "", y_arg = "")
+
+## S3 method for class 'raw'
+vec_ptype2(x, y, ..., x_arg = "", y_arg = "")
+
+## S3 method for class 'list'
+vec_ptype2(x, y, ..., x_arg = "", y_arg = "")
+
+vec_ptype2(
+  x,
+  y,
+  ...,
+  x_arg = caller_arg(x),
+  y_arg = caller_arg(y),
+  call = caller_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code>, <code id="y">y</code></td>
+<td>
+<p>Vector types.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="x_arg">x_arg</code>, <code id="y_arg">y_arg</code></td>
+<td>
+<p>Argument names for <code>x</code> and <code>y</code>. These are used
+in error messages to inform the user about the locations of
+incompatible types (see <code><a href="../../vctrs/help/stop_incompatible_type.html">stop_incompatible_type()</a></code>).</p>
+</td></tr>
+<tr><td><code id="call">call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+
+<h3>Implementing coercion methods</h3>
+
+
+<ul>
+<li><p> For an overview of how these generics work and their roles in vctrs,
+see <code><a href="../../vctrs/help/theory-faq-coercion.html">?theory-faq-coercion</a></code>.
+</p>
+</li>
+<li><p> For an example of implementing coercion methods for simple vectors,
+see <code><a href="../../vctrs/help/howto-faq-coercion.html">?howto-faq-coercion</a></code>.
+</p>
+</li>
+<li><p> For an example of implementing coercion methods for data frame
+subclasses, see
+<code><a href="../../vctrs/help/howto-faq-coercion-data-frame.html">?howto-faq-coercion-data-frame</a></code>.
+</p>
+</li>
+<li><p> For a tutorial about implementing vctrs classes from scratch, see
+<code>vignette("s3-vector")</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Dependencies</h3>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/vec_ptype.html">vec_ptype()</a></code> is applied to <code>x</code> and <code>y</code>
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../vctrs/help/stop_incompatible_type.html">stop_incompatible_type()</a></code> when you determine from the
+attributes that an input can't be cast to the target type.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

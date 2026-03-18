@@ -1,0 +1,48 @@
+<!DOCTYPE html><html><head><title>R: Does the current R session support ANSI colors?</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>has_color {crayon}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Does the current R session support ANSI colors?</h2>
+
+<h3>Description</h3>
+
+<p>From crayon 2.0.0, this function is simply a wrapper on
+<code><a href="../../crayon/help/num_ansi_colors.html">num_ansi_colors()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>has_color()
+</code></pre>
+
+
+<h3>Value</h3>
+
+<p><code>TRUE</code> if the current R session supports color.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>has_color()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>crayon</em> version 1.5.3 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

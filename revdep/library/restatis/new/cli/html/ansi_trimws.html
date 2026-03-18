@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><title>R: Remove leading and/or trailing whitespace from an ANSI string</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ansi_trimws {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Remove leading and/or trailing whitespace from an ANSI string</h2>
+
+<h3>Description</h3>
+
+<p>This function is similar to <code><a href="../../base/help/trimws.html">base::trimws()</a></code> but works on ANSI strings,
+and keeps color and other styling.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ansi_trimws(x, which = c("both", "left", "right"))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>ANSI string vector.</p>
+</td></tr>
+<tr><td><code id="which">which</code></td>
+<td>
+<p>Whether to remove leading or trailing whitespace or both.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>ANSI string, with the whitespace removed.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other ANSI string operations: 
+<code><a href="../../cli/help/ansi_align.html">ansi_align</a>()</code>,
+<code><a href="../../cli/help/ansi_columns.html">ansi_columns</a>()</code>,
+<code><a href="../../cli/help/ansi_nchar.html">ansi_nchar</a>()</code>,
+<code><a href="../../cli/help/ansi_strsplit.html">ansi_strsplit</a>()</code>,
+<code><a href="../../cli/help/ansi_strtrim.html">ansi_strtrim</a>()</code>,
+<code><a href="../../cli/help/ansi_strwrap.html">ansi_strwrap</a>()</code>,
+<code><a href="../../cli/help/ansi_substr.html">ansi_substr</a>()</code>,
+<code><a href="../../cli/help/ansi_substring.html">ansi_substring</a>()</code>,
+<code><a href="../../cli/help/ansi_toupper.html">ansi_toupper</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>trimws(paste0("   ", col_red("I am red"), "   "))
+ansi_trimws(paste0("   ", col_red("I am red"), "   "))
+trimws(col_red("   I am red   "))
+ansi_trimws(col_red("   I am red   "))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

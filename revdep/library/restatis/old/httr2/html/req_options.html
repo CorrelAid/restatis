@@ -1,0 +1,70 @@
+<!DOCTYPE html><html><head><title>R: Set arbitrary curl options in request</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_options {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Set arbitrary curl options in request</h2>
+
+<h3>Description</h3>
+
+<p><code>req_options()</code> is for expert use only; it allows you to directly set
+libcurl options to access features that are otherwise not available in
+httr2.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_options(.req, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".req">.req</code></td>
+<td>
+<p>A <a href="../../httr2/help/request.html">request</a>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>&lt;<code><a href="../../rlang/help/dyn-dots.html">dynamic-dots</a></code>&gt; Name-value pairs. The name
+should be a valid curl option, as found in <code><a href="../../curl/help/curl_options.html">curl::curl_options()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A modified HTTP <a href="../../httr2/help/request.html">request</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># req_options() allows you to access curl options that are not otherwise
+# exposed by httr2. For example, in very special cases you may need to
+# turn off SSL verification. This is generally a bad idea so httr2 doesn't
+# provide a convenient wrapper, but if you really know what you're doing
+# you can still access this libcurl option:
+req &lt;- request("https://example.com") |&gt;
+  req_options(ssl_verifypeer = 0)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

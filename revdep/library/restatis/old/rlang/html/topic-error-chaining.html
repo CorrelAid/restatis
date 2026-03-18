@@ -1,0 +1,330 @@
+<!DOCTYPE html><html><head><title>R: Including contextual information with error chains</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>topic-error-chaining {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Including contextual information with error chains</h2>
+
+<h3>Description</h3>
+
+<p>Error chaining is a mechanism for providing contextual information when an error occurs. There are multiple situations in which you might be able to provide context that is helpful to quickly understand the cause or origin of an error:
+</p>
+
+<ul>
+<li><p> Mentioning the <em>high level context</em> in which a low level error arose. E.g. chaining a low-level HTTP error to a high-level download error.
+</p>
+</li>
+<li><p> Mentioning the <em>pipeline step</em> in which a user error occurred. This is a major use-case for NSE interfaces in the tidyverse, e.g. in dplyr, tidymodels or ggplot2.
+</p>
+</li>
+<li><p> Mentioning the <em>iteration context</em> in which a user error occurred. For instance, the input file when processing documents, or the iteration number or key when running user code in a loop.
+</p>
+</li></ul>
+
+<p>Here is an example of a chained error from dplyr that shows the pipeline step (<code>mutate()</code>) and the iteration context (group ID) in which a function called by the user failed:
+</p>
+<div class="sourceCode r"><pre>add &lt;- function(x, y) x + y
+
+mtcars |&gt;
+  dplyr::group_by(cyl) |&gt;
+  dplyr::mutate(new = add(disp, "foo"))
+#&gt; Error in `dplyr::mutate()`:
+#&gt; i In argument: `new = add(disp, "foo")`.
+#&gt; i In group 1: `cyl = 4`.
+#&gt; Caused by error in `x + y`:
+#&gt; ! non-numeric argument to binary operator
+</pre></div>
+<p>In all these cases, there are two errors in play, chained together:
+</p>
+
+<ol>
+<li><p> The <strong>causal error</strong>, which interrupted the current course of action.
+</p>
+</li>
+<li><p> The <strong>contextual error</strong>, which expresses higher-level information when something goes wrong.
+</p>
+</li></ol>
+
+<p>There may be more than one contextual error in an error chain, but there is always only one causal error.
+</p>
+
+
+<h3>Rethrowing errors</h3>
+
+<p>To create an error chain, you must first capture causal errors when they occur. We recommend using <code>try_fetch()</code> instead of <code>tryCatch()</code> or <code>withCallingHandlers()</code>.
+</p>
+
+<ul>
+<li><p> Compared to <code>tryCatch()</code>, <code>try_fetch()</code> fully preserves the context of the error. This is important for debugging because it ensures complete backtraces are reported to users (e.g. via <code>last_error()</code>) and allows <code>options(error = recover)</code> to reach into the deepest error context.
+</p>
+</li>
+<li><p> Compared to <code>withCallingHandlers()</code>, which also preserves the error context, <code>try_fetch()</code> is able to catch stack overflow errors on R versions &gt;= 4.2.0.
+</p>
+</li></ul>
+
+<p>In practice, <code>try_fetch()</code> works just like <code>tryCatch()</code>. It takes pairs of error class names and handling functions. To chain an error, simply rethrow it from an error handler by passing it as <code>parent</code> argument.
+</p>
+<p>In this example, we'll create a <code>with_</code> function. That is, a function that sets up some configuration (in this case, chained errors) before executing code supplied as input:
+</p>
+<div class="sourceCode r"><pre>with_chained_errors &lt;- function(expr) {
+  try_fetch(
+    expr,
+    error = function(cnd) {
+      abort("Problem during step.", parent = cnd)
+    }
+  )
+}
+
+with_chained_errors(1 + "")
+#&gt; Error in `with_chained_errors()`:
+#&gt; ! Problem during step.
+#&gt; Caused by error in `1 + ""`:
+#&gt; ! non-numeric argument to binary operator
+</pre></div>
+<p>Typically, you'll use this error helper from another user-facing function.
+</p>
+<div class="sourceCode r"><pre>my_verb &lt;- function(expr) {
+  with_chained_errors(expr)
+}
+
+my_verb(add(1, ""))
+#&gt; Error in `with_chained_errors()`:
+#&gt; ! Problem during step.
+#&gt; Caused by error in `x + y`:
+#&gt; ! non-numeric argument to binary operator
+</pre></div>
+<p>Altough we have created a chained error, the error call of the contextual error is not quite right. It mentions the name of the error helper instead of the name of the user-facing function.
+</p>
+<p>If you've read <a href="../../rlang/help/topic-error-call.html">Including function calls in error messages</a>, you may suspect that we need to pass a <code>call</code> argument to <code>abort()</code>. That's exactly what needs to happen to fix the call and backtrace issues:
+</p>
+<div class="sourceCode r"><pre>with_chained_errors &lt;- function(expr, call = caller_env()) {
+  try_fetch(
+    expr,
+    error = function(cnd) {
+      abort("Problem during step.", parent = cnd, call = call)
+    }
+  )
+}
+</pre></div>
+<p>Now that we've passed the caller environment as <code>call</code> argument, <code>abort()</code> automatically picks up the corresponding function call from the execution frame:
+</p>
+<div class="sourceCode r"><pre>my_verb(add(1, ""))
+#&gt; Error in `my_verb()`:
+#&gt; ! Problem during step.
+#&gt; Caused by error in `x + y`:
+#&gt; ! non-numeric argument to binary operator
+</pre></div>
+
+
+<h4>Side note about missing arguments</h4>
+
+<p><code>my_verb()</code> is implemented with a lazy evaluation pattern. The user input kept unevaluated until the error chain context is set up. A downside of this arrangement is that missing argument errors are reported in the wrong context:
+</p>
+<div class="sourceCode r"><pre>my_verb()
+#&gt; Error in `my_verb()`:
+#&gt; ! Problem during step.
+#&gt; Caused by error in `my_verb()`:
+#&gt; ! argument "expr" is missing, with no default
+</pre></div>
+<p>To fix this, simply require these arguments before setting up the chained error context, for instance with the <code>check_required()</code> input checker exported from rlang:
+</p>
+<div class="sourceCode r"><pre>my_verb &lt;- function(expr) {
+  check_required(expr)
+  with_chained_errors(expr)
+}
+
+my_verb()
+#&gt; Error in `my_verb()`:
+#&gt; ! `expr` is absent but must be supplied.
+</pre></div>
+
+
+
+<h3>Taking full ownership of a causal error</h3>
+
+<p>It is also possible to completely take ownership of a causal error and rethrow it with a more user-friendly error message. In this case, the original error is completely hidden from the end user. Opting for his approach instead of chaining should be carefully considered because hiding the causal error may deprive users from precious debugging information.
+</p>
+
+<ul>
+<li><p> In general, hiding <em>user errors</em> (e.g. dplyr inputs) in this way is likely a bad idea.
+</p>
+</li>
+<li><p> It may be appropriate to hide low-level errors, e.g. replacing HTTP errors by a high-level download error. Similarly, tidyverse packages like dplyr are replacing low-level vctrs errors with higher level errors of their own crafting.
+</p>
+</li>
+<li><p> Hiding causal errors indiscriminately should likely be avoided because it may suppress information about unexpected errors. In general, rethrowing an unchained errors should only be done with specific error classes.
+</p>
+</li></ul>
+
+<p>To rethrow an error without chaining it, and completely take over the causal error from the user point of view, fetch it with <code>try_fetch()</code> and throw a new error. The only difference with throwing a chained error is that the <code>parent</code> argument is set to <code>NA</code>. You could also omit the <code>parent</code> argument entirely, but passing <code>NA</code> lets <code>abort()</code> know it is rethrowing an error from a handler and that it should hide the corresponding error helpers in the backtrace.
+</p>
+<div class="sourceCode r"><pre>with_own_scalar_errors &lt;- function(expr, call = caller_env()) {
+  try_fetch(
+    expr,
+    vctrs_error_scalar_type = function(cnd) {
+      abort(
+        "Must supply a vector.",
+        parent = NA,
+        error = cnd,
+        call = call
+      )
+    }
+  )
+}
+
+my_verb &lt;- function(expr) {
+  check_required(expr)
+  with_own_scalar_errors(
+    vctrs::vec_assert(expr)
+  )
+}
+
+my_verb(env())
+#&gt; Error in `my_verb()`:
+#&gt; ! Must supply a vector.
+</pre></div>
+<p>When a low-level error is overtaken, it is good practice to store it in the high-level error object, so that it can be inspected for debugging purposes. In the snippet above, we stored it in the <code>error</code> field. Here is one way of accessing the original error by subsetting the object returned by <code>last_error()</code>:
+</p>
+<div class="sourceCode r"><pre>rlang::last_error()$error
+</pre></div>
+
+
+<h3>Case study: Mapping with chained errors</h3>
+
+<p>One good use case for chained errors is adding information about the iteration state when looping over a set of inputs. To illustrate this, we'll implement a version of <code>map()</code> / <code>lapply()</code> that chains an iteration error to any captured user error.
+</p>
+<p>Here is a minimal implementation of <code>map()</code>:
+</p>
+<div class="sourceCode r"><pre>my_map &lt;- function(.xs, .fn, ...) {
+  out &lt;- new_list(length(.xs))
+
+  for (i in seq_along(.xs)) {
+    out[[i]] &lt;- .fn(.xs[[i]], ...)
+  }
+
+  out
+}
+
+list(1, 2) |&gt; my_map(add, 100)
+#&gt; [[1]]
+#&gt; [1] 101
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 102
+</pre></div>
+<p>With this implementation, the user has no idea which iteration failed when an error occurs:
+</p>
+<div class="sourceCode r"><pre>list(1, "foo") |&gt; my_map(add, 100)
+#&gt; Error in `x + y`:
+#&gt; ! non-numeric argument to binary operator
+</pre></div>
+
+
+<h4>Rethrowing with iteration information</h4>
+
+<p>To improve on this we'll wrap the loop in a <code>try_fetch()</code> call that rethrow errors with iteration information. Make sure to call <code>try_fetch()</code> on the outside of the loop to avoid a massive performance hit:
+</p>
+<div class="sourceCode r"><pre>my_map &lt;- function(.xs, .fn, ...) {
+  out &lt;- new_list(length(.xs))
+  i &lt;- 0L
+
+  try_fetch(
+    for (i in seq_along(.xs)) {
+      out[[i]] &lt;- .fn(.xs[[i]], ...)
+    },
+    error = function(cnd) {
+      abort(
+        sprintf("Problem while mapping element %d.", i),
+        parent = cnd
+      )
+    }
+  )
+
+  out
+}
+</pre></div>
+<p>And that's it, the error chain created by the rethrowing handler now provides users with the number of the failing iteration:
+</p>
+<div class="sourceCode r"><pre>list(1, "foo") |&gt; my_map(add, 100)
+#&gt; Error in `my_map()`:
+#&gt; ! Problem while mapping element 2.
+#&gt; Caused by error in `x + y`:
+#&gt; ! non-numeric argument to binary operator
+</pre></div>
+
+
+
+<h4>Dealing with errors thrown from the mapped function</h4>
+
+<p>One problem though, is that the user error call is not very informative when the error occurs immediately in the function supplied to <code>my_map()</code>:
+</p>
+<div class="sourceCode r"><pre>my_function &lt;- function(x) {
+  if (!is_string(x)) {
+    abort("`x` must be a string.")
+  }
+}
+
+list(1, "foo") |&gt; my_map(my_function)
+#&gt; Error in `my_map()`:
+#&gt; ! Problem while mapping element 1.
+#&gt; Caused by error in `.fn()`:
+#&gt; ! `x` must be a string.
+</pre></div>
+<p>Functions have no names by themselves. Only the variable that refers to the function has a name. In this case, the mapped function is passed by argument to the variable <code>.fn</code>. So, when an error happens, this is the name that is reported to users.
+</p>
+<p>One approach to fix this is to inspect the <code>call</code> field of the error. When we detect a <code>.fn</code> call, we replace it by the defused code supplied as <code>.fn</code> argument:
+</p>
+<div class="sourceCode r"><pre>my_map &lt;- function(.xs, .fn, ...) {
+  # Capture the defused code supplied as `.fn`
+  fn_code &lt;- substitute(.fn)
+
+  out &lt;- new_list(length(.xs))
+
+  for (i in seq_along(.xs)) {
+    try_fetch(
+      out[[i]] &lt;- .fn(.xs[[i]], ...),
+      error = function(cnd) {
+        # Inspect the `call` field to detect `.fn` calls
+        if (is_call(cnd$call, ".fn")) {
+          # Replace `.fn` by the defused code.
+          # Keep existing arguments.
+          cnd$call[[1]] &lt;- fn_code
+        }
+        abort(
+          sprintf("Problem while mapping element %s.", i),
+          parent = cnd
+        )
+      }
+    )
+  }
+
+  out
+}
+</pre></div>
+<p>And voilà!
+</p>
+<div class="sourceCode r"><pre>list(1, "foo") |&gt; my_map(my_function)
+#&gt; Error in `my_map()`:
+#&gt; ! Problem while mapping element 1.
+#&gt; Caused by error in `my_function()`:
+#&gt; ! `x` must be a string.
+</pre></div>
+
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

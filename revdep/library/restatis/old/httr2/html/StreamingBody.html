@@ -1,0 +1,259 @@
+<!DOCTYPE html><html><head><title>R: 'StreamingBody' class</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>StreamingBody {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2><code>StreamingBody</code> class</h2>
+
+<h3>Description</h3>
+
+<p><code>StreamingBody</code> class
+</p>
+<p><code>StreamingBody</code> class
+</p>
+
+
+<h3>Details</h3>
+
+<p>This R6 class is used to represent the body of a streaming response.
+When using this in mocked responses, you can either create a new instance
+using your own connection or use a subclass for some other representation.
+In either case, you will pass to the <code>body</code> argument of <code><a href="../../httr2/help/new_response.html">new_response()</a></code>.
+</p>
+
+
+<h3>Methods</h3>
+
+
+
+<h4>Public methods</h4>
+
+
+<ul>
+<li> <p><a href="#method-StreamingBody-new"><code>StreamingBody$new()</code></a>
+</p>
+</li>
+<li> <p><a href="#method-StreamingBody-read"><code>StreamingBody$read()</code></a>
+</p>
+</li>
+<li> <p><a href="#method-StreamingBody-read_all"><code>StreamingBody$read_all()</code></a>
+</p>
+</li>
+<li> <p><a href="#method-StreamingBody-is_open"><code>StreamingBody$is_open()</code></a>
+</p>
+</li>
+<li> <p><a href="#method-StreamingBody-is_complete"><code>StreamingBody$is_complete()</code></a>
+</p>
+</li>
+<li> <p><a href="#method-StreamingBody-get_fdset"><code>StreamingBody$get_fdset()</code></a>
+</p>
+</li>
+<li> <p><a href="#method-StreamingBody-close"><code>StreamingBody$close()</code></a>
+</p>
+</li>
+<li> <p><a href="#method-StreamingBody-clone"><code>StreamingBody$clone()</code></a>
+</p>
+</li></ul>
+
+
+<hr>
+<a id="method-StreamingBody-new"></a>
+
+
+
+<h4>Method <code>new()</code></h4>
+
+<p>Create a new object
+</p>
+
+
+<h5>Usage</h5>
+
+<div class="r"><pre>StreamingBody$new(conn)</pre></div>
+
+
+
+<h5>Arguments</h5>
+
+<div class="arguments">
+
+<dl>
+<dt><code>conn</code></dt><dd><p>A connection, that is open and ready for reading.
+<code>StreamingBody</code> will take care of closing it.'</p>
+</dd>
+</dl>
+
+</div>
+
+
+<hr>
+<a id="method-StreamingBody-read"></a>
+
+
+
+<h4>Method <code>read()</code></h4>
+
+<p>Read <code>n</code> bytes into a raw vector.
+</p>
+
+
+<h5>Usage</h5>
+
+<div class="r"><pre>StreamingBody$read(n)</pre></div>
+
+
+
+<h5>Arguments</h5>
+
+<div class="arguments">
+
+<dl>
+<dt><code>n</code></dt><dd><p>Number of bytes to read</p>
+</dd>
+</dl>
+
+</div>
+
+
+<hr>
+<a id="method-StreamingBody-read_all"></a>
+
+
+
+<h4>Method <code>read_all()</code></h4>
+
+<p>Read all bytes and close the connection.
+</p>
+
+
+<h5>Usage</h5>
+
+<div class="r"><pre>StreamingBody$read_all(buffer = 32 * 1024)</pre></div>
+
+
+
+<h5>Arguments</h5>
+
+<div class="arguments">
+
+<dl>
+<dt><code>buffer</code></dt><dd><p>Buffer size, in bytes.</p>
+</dd>
+</dl>
+
+</div>
+
+
+<hr>
+<a id="method-StreamingBody-is_open"></a>
+
+
+
+<h4>Method <code>is_open()</code></h4>
+
+<p>Is the connection still open?
+</p>
+
+
+<h5>Usage</h5>
+
+<div class="r"><pre>StreamingBody$is_open()</pre></div>
+
+
+<hr>
+<a id="method-StreamingBody-is_complete"></a>
+
+
+
+<h4>Method <code>is_complete()</code></h4>
+
+<p>Is the connection complete? (i.e. is there data remaining
+to be read?)
+</p>
+
+
+<h5>Usage</h5>
+
+<div class="r"><pre>StreamingBody$is_complete()</pre></div>
+
+
+<hr>
+<a id="method-StreamingBody-get_fdset"></a>
+
+
+
+<h4>Method <code>get_fdset()</code></h4>
+
+<p>Get the active file descriptions and timeout from the
+handle. Wrapper around <code><a href="../../curl/help/multi.html">curl::multi_fdset()</a></code>.
+</p>
+
+
+<h5>Usage</h5>
+
+<div class="r"><pre>StreamingBody$get_fdset()</pre></div>
+
+
+<hr>
+<a id="method-StreamingBody-close"></a>
+
+
+
+<h4>Method <code>close()</code></h4>
+
+<p>Close the connection
+</p>
+
+
+<h5>Usage</h5>
+
+<div class="r"><pre>StreamingBody$close()</pre></div>
+
+
+<hr>
+<a id="method-StreamingBody-clone"></a>
+
+
+
+<h4>Method <code>clone()</code></h4>
+
+<p>The objects of this class are cloneable with this method.
+</p>
+
+
+<h5>Usage</h5>
+
+<div class="r"><pre>StreamingBody$clone(deep = FALSE)</pre></div>
+
+
+
+<h5>Arguments</h5>
+
+<div class="arguments">
+
+<dl>
+<dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p>
+</dd>
+</dl>
+
+</div>
+
+
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html><html><head><title>R: Create a new HTTP request</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>request {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a new HTTP request</h2>
+
+<h3>Description</h3>
+
+<p>There are three steps needed to perform a HTTP request with httr2:
+</p>
+
+<ol>
+<li><p> Create a request object with <code>request(url)</code> (this function).
+</p>
+</li>
+<li><p> Define its behaviour with <code>req_</code> functions, e.g.:
+</p>
+
+<ul>
+<li> <p><code><a href="../../httr2/help/req_headers.html">req_headers()</a></code> to set header values.
+</p>
+</li>
+<li> <p><code><a href="../../httr2/help/req_url_path.html">req_url_path()</a></code> and friends to modify the url.
+</p>
+</li>
+<li> <p><code><a href="../../httr2/help/req_body_json.html">req_body_json()</a></code> and friends to add a body.
+</p>
+</li>
+<li> <p><code><a href="../../httr2/help/req_auth_basic.html">req_auth_basic()</a></code> to perform basic HTTP authentication.
+</p>
+</li>
+<li> <p><code><a href="../../httr2/help/req_oauth_auth_code.html">req_oauth_auth_code()</a></code> to use the OAuth auth code flow.
+</p>
+</li></ul>
+
+</li>
+<li><p> Perform the request and fetch the response with <code><a href="../../httr2/help/req_perform.html">req_perform()</a></code>.
+</p>
+</li></ol>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>request(base_url)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="base_url">base_url</code></td>
+<td>
+<p>Base URL for request.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An HTTP request: an S3 list with class <code>httr2_request</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>request("http://r-project.org")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html><html><head><title>R: Safely get or set an element deep within a nested data...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>pluck {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Safely get or set an element deep within a nested data structure</h2>
+
+<h3>Description</h3>
+
+<p><code>pluck()</code> implements a generalised form of <code>[[</code> that allow you to index
+deeply and flexibly into data structures. (If you're looking for an
+equivalent of <code>[</code>, see <code><a href="../../purrr/help/keep_at.html">keep_at()</a></code>.) <code>pluck()</code> always succeeds, returning
+<code>.default</code> if the index you are trying to access does not exist or is <code>NULL</code>.
+(If you're looking for a variant that errors, try <code><a href="../../purrr/help/chuck.html">chuck()</a></code>.)
+</p>
+<p><code style="white-space: pre;">&#8288;pluck&lt;-()&#8288;</code> is the assignment equivalent, allowing you to modify an object
+deep within a nested data structure.
+</p>
+<p><code>pluck_exists()</code> tells you whether or not an object exists using the
+same rules as pluck (i.e. a <code>NULL</code> element is equivalent to an absent
+element).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>pluck(.x, ..., .default = NULL)
+
+pluck(.x, ...) &lt;- value
+
+pluck_exists(.x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code>, <code id="x">x</code></td>
+<td>
+<p>A vector or environment</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>A list of accessors for indexing into the object. Can be
+an positive integer, a negative integer (to index from the right),
+a string (to index into names), or an accessor function
+(except for the assignment variants which only support names and
+positions). If the object being indexed is an S4 object,
+accessing it by name will return the corresponding slot.
+</p>
+<p><a href="../../rlang/help/dyn-dots.html">Dynamic dots</a> are supported. In particular, if
+your accessors are stored in a list, you can splice that in with
+<code style="white-space: pre;">&#8288;!!!&#8288;</code>.</p>
+</td></tr>
+<tr><td><code id=".default">.default</code></td>
+<td>
+<p>Value to use if target is <code>NULL</code> or absent.</p>
+</td></tr>
+<tr><td><code id="value">value</code></td>
+<td>
+<p>A value to replace in <code>.x</code> at the pluck location.
+Use <code>zap()</code> to instead remove the element.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+<ul>
+<li><p> You can pluck or chuck with standard accessors like integer
+positions and string names, and also accepts arbitrary accessor
+functions, i.e. functions that take an object and return some
+internal piece.
+</p>
+<p>This is often more readable than a mix of operators and accessors
+because it reads linearly and is free of syntactic
+cruft. Compare: <code>accessor(x[[1]])$foo</code> to <code>pluck(x, 1, accessor, "foo")</code>.
+</p>
+</li>
+<li><p> These accessors never partial-match. This is unlike <code>$</code> which
+will select the <code>disp</code> object if you write <code>mtcars$di</code>.
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><code><a href="../../purrr/help/attr_getter.html">attr_getter()</a></code> for creating attribute getters suitable for use
+with <code>pluck()</code> and <code>chuck()</code>.
+</p>
+</li>
+<li> <p><code><a href="../../purrr/help/modify_in.html">modify_in()</a></code> for applying a function to a plucked location.
+</p>
+</li>
+<li> <p><code><a href="../../purrr/help/keep_at.html">keep_at()</a></code> is similar to <code>pluck()</code>, but retain the structure
+of the list instead of converting it into a vector.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Let's create a list of data structures:
+obj1 &lt;- list("a", list(1, elt = "foo"))
+obj2 &lt;- list("b", list(2, elt = "bar"))
+x &lt;- list(obj1, obj2)
+
+# pluck() provides a way of retrieving objects from such data
+# structures using a combination of numeric positions, vector or
+# list names, and accessor functions.
+
+# Numeric positions index into the list by position, just like `[[`:
+pluck(x, 1)
+# same as x[[1]]
+
+# Index from the back
+pluck(x, -1)
+# same as x[[2]]
+
+pluck(x, 1, 2)
+# same as x[[1]][[2]]
+
+# Supply names to index into named vectors:
+pluck(x, 1, 2, "elt")
+# same as x[[1]][[2]][["elt"]]
+
+# By default, pluck() consistently returns `NULL` when an element
+# does not exist:
+pluck(x, 10)
+try(x[[10]])
+
+# You can also supply a default value for non-existing elements:
+pluck(x, 10, .default = NA)
+
+# The map() functions use pluck() by default to retrieve multiple
+# values from a list:
+map_chr(x, 1)
+map_int(x, c(2, 1))
+
+# pluck() also supports accessor functions:
+my_element &lt;- function(x) x[[2]]$elt
+pluck(x, 1, my_element)
+pluck(x, 2, my_element)
+
+# Even for this simple data structure, this is more readable than
+# the alternative form because it requires you to read both from
+# right-to-left and from left-to-right in different parts of the
+# expression:
+my_element(x[[1]])
+
+# If you have a list of accessors, you can splice those in with `!!!`:
+idx &lt;- list(1, my_element)
+pluck(x, !!!idx)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

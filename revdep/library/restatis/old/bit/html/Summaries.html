@@ -1,0 +1,240 @@
+<!DOCTYPE html><html><head><title>R: Summaries of boolean vectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>Summaries {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Summaries of boolean vectors</h2>
+
+<h3>Description</h3>
+
+<p>Fast aggregation functions for <code><a href="../../bit/help/booltype.html">booltype()</a></code> vectors. namely <code><a href="../../bit/help/bit.html">bit()</a></code>, <code><a href="../../base/html/all.html">all()</a></code>, <code><a href="../../base/html/any.html">any()</a></code>,
+<code><a href="../../base/html/NA.html">anyNA()</a></code>, <code><a href="../../base/html/Extremes.html">min()</a></code>, <code><a href="../../base/html/Extremes.html">max()</a></code>, <code><a href="../../base/html/range.html">range()</a></code>, <code><a href="../../base/html/sum.html">sum()</a></code> and <code><a href="../../base/html/summary.html">summary()</a></code>.
+Now all boolean summaries (except for <code>anyNA</code> because the generic does not allow it)
+have an optional <code>range</code> argument to restrict the range of evalution.
+Note that the boolean summaries have meaning and return values differing from logical
+aggregation functions: they treat <code>NA</code> as <code>FALSE</code>, <code>min</code>, <code>max</code> and <code>range</code> give the
+minimum and maximum positions of <code>TRUE</code>, <code>summary</code> returns counts of <code>FALSE</code>,  <code>TRUE</code>
+and the <code>range</code>.
+Note that you can force the boolean interpretation by calling the booltype method
+explicitly on any <code><a href="../../bit/help/booltypes.html">booltypes</a></code> input, e.g. <code>min.booltype()</code>, see the
+examples.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'bit'
+all(x, range = NULL, ...)
+
+## S3 method for class 'bit'
+any(x, range = NULL, ...)
+
+## S3 method for class 'bit'
+anyNA(x, recursive = FALSE)
+
+## S3 method for class 'bit'
+sum(x, range = NULL, ...)
+
+## S3 method for class 'bit'
+min(x, range = NULL, ...)
+
+## S3 method for class 'bit'
+max(x, range = NULL, ...)
+
+## S3 method for class 'bit'
+range(x, range = NULL, ...)
+
+## S3 method for class 'bit'
+summary(object, range = NULL, ...)
+
+## S3 method for class 'bitwhich'
+all(x, range = NULL, ...)
+
+## S3 method for class 'bitwhich'
+any(x, range = NULL, ...)
+
+## S3 method for class 'bitwhich'
+anyNA(x, recursive = FALSE)
+
+## S3 method for class 'bitwhich'
+sum(x, range = NULL, ...)
+
+## S3 method for class 'bitwhich'
+min(x, range = NULL, ...)
+
+## S3 method for class 'bitwhich'
+max(x, range = NULL, ...)
+
+## S3 method for class 'bitwhich'
+range(x, range = NULL, ...)
+
+## S3 method for class 'bitwhich'
+summary(object, range = NULL, ...)
+
+## S3 method for class 'which'
+all(x, range = NULL, ...)
+
+## S3 method for class 'which'
+any(x, range = NULL, ...)
+
+## S3 method for class 'which'
+anyNA(x, recursive = FALSE)
+
+## S3 method for class 'which'
+sum(x, range = NULL, ...)
+
+## S3 method for class 'which'
+min(x, range = NULL, ...)
+
+## S3 method for class 'which'
+max(x, range = NULL, ...)
+
+## S3 method for class 'which'
+range(x, range = NULL, ...)
+
+## S3 method for class 'which'
+summary(object, range = NULL, ...)
+
+## S3 method for class 'booltype'
+all(x, range = NULL, ...)
+
+## S3 method for class 'booltype'
+any(x, range = NULL, ...)
+
+## S3 method for class 'booltype'
+anyNA(x, ...)
+
+## S3 method for class 'booltype'
+sum(x, range = NULL, ...)
+
+## S3 method for class 'booltype'
+min(x, range = NULL, ...)
+
+## S3 method for class 'booltype'
+max(x, range = NULL, ...)
+
+## S3 method for class 'booltype'
+range(x, range = NULL, ...)
+
+## S3 method for class 'booltype'
+summary(object, range = NULL, ...)
+
+## S3 method for class 'ri'
+all(x, range = NULL, ...)
+
+## S3 method for class 'ri'
+any(x, range = NULL, ...)
+
+## S3 method for class 'ri'
+anyNA(x, recursive = FALSE)
+
+## S3 method for class 'ri'
+sum(x, ...)
+
+## S3 method for class 'ri'
+min(x, ...)
+
+## S3 method for class 'ri'
+max(x, ...)
+
+## S3 method for class 'ri'
+range(x, ...)
+
+## S3 method for class 'ri'
+summary(object, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an object of class bit or bitwhich</p>
+</td></tr>
+<tr><td><code id="range">range</code></td>
+<td>
+<p>a <code><a href="../../bit/help/ri.html">ri()</a></code> or an integer vector of length == 2 giving a
+range restriction for chunked processing</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>formally required but not used</p>
+</td></tr>
+<tr><td><code id="recursive">recursive</code></td>
+<td>
+<p>formally required but not used</p>
+</td></tr>
+<tr><td><code id="object">object</code></td>
+<td>
+<p>an object of class bit</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Summaries of <code><a href="../../bit/help/bit.html">bit()</a></code> vectors are quite fast because we use a double loop that fixes
+each word in a processor register.  Furthermore we break out of looping as soon
+as possible. Summaries of <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> vectors are even faster, if the selection is
+very skewed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>as expected
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/length.html">length()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  l &lt;- c(NA, FALSE, TRUE)
+  b &lt;- as.bit(l)
+
+  all(l)
+  all(b)
+  all(b, range=c(3, 3))
+  all.booltype(l, range=c(3, 3))
+
+  min(l)
+  min(b)
+
+  sum(l)
+  sum(b)
+
+  summary(l)
+  summary(b)
+  summary.booltype(l)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

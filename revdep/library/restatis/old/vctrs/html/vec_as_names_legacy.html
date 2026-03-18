@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><title>R: Repair names with legacy method</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_as_names_legacy {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Repair names with legacy method</h2>
+
+<h3>Description</h3>
+
+<p>This standardises names with the legacy approach that was used in
+tidyverse packages (such as tibble, tidyr, and readxl) before
+<code><a href="../../vctrs/help/vec_as_names.html">vec_as_names()</a></code> was implemented. This tool is meant to help
+transitioning to the new name repairing standard and will be
+deprecated and removed from the package some time in the future.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_as_names_legacy(names, prefix = "V", sep = "")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="names">names</code></td>
+<td>
+<p>A character vector.</p>
+</td></tr>
+<tr><td><code id="prefix">prefix</code>, <code id="sep">sep</code></td>
+<td>
+<p>Prefix and separator for repaired names.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>if (rlang::is_installed("tibble")) {
+
+library(tibble)
+
+# Names repair is turned off by default in tibble:
+try(tibble(a = 1, a = 2))
+
+# You can turn it on by supplying a repair method:
+tibble(a = 1, a = 2, .name_repair = "universal")
+
+# If you prefer the legacy method, use `vec_as_names_legacy()`:
+tibble(a = 1, a = 2, .name_repair = vec_as_names_legacy)
+
+}
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

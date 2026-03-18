@@ -1,0 +1,162 @@
+<!DOCTYPE html><html><head><title>R: Parallel 'any()' and 'all()'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>parallel-operators {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Parallel <code>any()</code> and <code>all()</code></h2>
+
+<h3>Description</h3>
+
+<p>These functions are variants of <code><a href="../../base/html/any.html">any()</a></code> and <code><a href="../../base/html/all.html">all()</a></code> that work in parallel on
+multiple inputs at once. They work similarly to how <code><a href="../../base/html/Extremes.html">pmin()</a></code> and <code><a href="../../base/html/Extremes.html">pmax()</a></code> are
+parallel variants of <code><a href="../../base/html/Extremes.html">min()</a></code> and <code><a href="../../base/html/Extremes.html">max()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_pany(
+  ...,
+  .missing = NA,
+  .size = NULL,
+  .arg = "",
+  .error_call = current_env()
+)
+
+vec_pall(
+  ...,
+  .missing = NA,
+  .size = NULL,
+  .arg = "",
+  .error_call = current_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Logical vectors of equal size.</p>
+</td></tr>
+<tr><td><code id=".missing">.missing</code></td>
+<td>
+<p>Value to use when a missing value is encountered. One of:
+</p>
+
+<ul>
+<li> <p><code>NA</code> to propagate missing values. With this, missings are treated the
+same way as <code>|</code> or <code>&amp;</code>.
+</p>
+</li>
+<li> <p><code>FALSE</code> to treat missing values as <code>FALSE</code>.
+</p>
+</li>
+<li> <p><code>TRUE</code> to treat missing values as <code>TRUE</code>.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id=".size">.size</code></td>
+<td>
+<p>An optional output size. Only useful to specify if it is possible
+for no inputs to be provided.</p>
+</td></tr>
+<tr><td><code id=".arg">.arg</code></td>
+<td>
+<p>Argument name used in error messages.</p>
+</td></tr>
+<tr><td><code id=".error_call">.error_call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>vec_pany()</code> and <code>vec_pall()</code> are consistent with <code><a href="../../base/html/any.html">any()</a></code> and <code><a href="../../base/html/all.html">all()</a></code> when
+there are no inputs to process in parallel:
+</p>
+
+<ul>
+<li> <p><code>any()</code> returns <code>FALSE</code> with no inputs. Similarly, <code>vec_pany(.size = 1)</code>
+returns <code>FALSE</code>.
+</p>
+</li>
+<li> <p><code>all()</code> returns <code>TRUE</code> with no inputs. Similarly, <code>vec_pall(.size = 1)</code>
+returns <code>TRUE</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>A logical vector the same size as the vectors in <code>...</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>a &lt;- c(TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, NA, NA, NA)
+b &lt;- c(TRUE, FALSE, NA, TRUE, FALSE, NA, TRUE, FALSE, NA)
+
+# Default behavior treats missings like `|` does
+vec_pany(a, b)
+a | b
+
+# Default behavior treats missings like `&amp;` does
+vec_pall(a, b)
+a &amp; b
+
+# Remove missings from the computation, like `na_rm = TRUE`
+vec_pany(a, b, .missing = FALSE)
+(a &amp; !is.na(a)) | (b &amp; !is.na(b))
+
+vec_pall(a, b, .missing = TRUE)
+(a | is.na(a)) &amp; (b | is.na(b))
+
+# `vec_pall()` can be used to implement a `dplyr::filter()` style API
+df &lt;- data_frame(id = seq_along(a), a = a, b = b)
+
+keep_rows &lt;- function(x, ...) {
+  vec_slice(x, vec_pall(..., .missing = FALSE))
+}
+drop_rows &lt;- function(x, ...) {
+  vec_slice(x, !vec_pall(..., .missing = FALSE))
+}
+
+# "Keep / Drop the rows when both a and b are TRUE"
+# These form complements of one another, even with `NA`s.
+keep_rows(df, a, b)
+drop_rows(df, a, b)
+
+# Same empty behavior as `any()` and `all()`
+vec_pany(.size = 1)
+any()
+
+vec_pall(.size = 1)
+all()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

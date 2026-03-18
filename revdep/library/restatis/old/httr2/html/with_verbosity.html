@@ -1,0 +1,103 @@
+<!DOCTYPE html><html><head><title>R: Temporarily set verbosity for all requests</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>with_verbosity {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Temporarily set verbosity for all requests</h2>
+
+<h3>Description</h3>
+
+<p><code>with_verbosity()</code> and <code>local_verbosity()</code> are useful for debugging httr2
+code buried deep inside another package, because they allow you to change
+the verbosity even when you don't have access to the request.
+</p>
+<p>Both functions work by temporarily setting the <code>httr2_verbosity</code> option. You
+can also control verbosity by setting the <code>HTTR2_VERBOSITY</code> environment
+variable. This has lower precedence than the option, but can be more easily
+changed outside of R.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>with_verbosity(code, verbosity = 1)
+
+local_verbosity(verbosity, env = caller_env())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="code">code</code></td>
+<td>
+<p>Code to execture</p>
+</td></tr>
+<tr><td><code id="verbosity">verbosity</code></td>
+<td>
+<p>How much information to print? This is a wrapper
+around <code><a href="../../httr2/help/req_verbose.html">req_verbose()</a></code> that uses an integer to control verbosity:
+</p>
+
+<ul>
+<li> <p><code>0</code>: no output
+</p>
+</li>
+<li> <p><code>1</code>: show headers
+</p>
+</li>
+<li> <p><code>2</code>: show headers and bodies
+</p>
+</li>
+<li> <p><code>3</code>: show headers, bodies, and curl status messages.
+</p>
+</li></ul>
+
+<p>Use <code><a href="../../httr2/help/with_verbosity.html">with_verbosity()</a></code> to control the verbosity of requests that
+you can't affect directly.</p>
+</td></tr>
+<tr><td><code id="env">env</code></td>
+<td>
+<p>Environment to use for scoping changes.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>with_verbosity()</code> returns the result of evaluating <code>code</code>.
+<code>local_verbosity()</code> is called for its side-effect and invisibly returns
+the previous value of the option.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>fun &lt;- function() {
+  request("https://httr2.r-lib.org") |&gt; req_perform()
+}
+with_verbosity(fun())
+
+fun &lt;- function() {
+  local_verbosity(2)
+  # someotherpackage::fun()
+}
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

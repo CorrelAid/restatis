@@ -1,0 +1,76 @@
+<!DOCTYPE html><html><head><title>R: Extract response content type and encoding</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>resp_content_type {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract response content type and encoding</h2>
+
+<h3>Description</h3>
+
+<p><code>resp_content_type()</code> returns the just the type and subtype of the
+from the <code>Content-Type</code> header. If <code>Content-Type</code> is not provided; it
+returns <code>NA</code>. Used by <code><a href="../../httr2/help/resp_body_json.html">resp_body_json()</a></code>, <code><a href="../../httr2/help/resp_body_html.html">resp_body_html()</a></code>, and
+<code><a href="../../httr2/help/resp_body_xml.html">resp_body_xml()</a></code>.
+</p>
+<p><code>resp_encoding()</code> returns the likely character encoding of text
+types, as parsed from the <code>charset</code> parameter of the <code>Content-Type</code>
+header. If that header is not found, not valid, or no charset parameter
+is found, returns <code>UTF-8</code>. Used by <code><a href="../../httr2/help/resp_body_string.html">resp_body_string()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>resp_content_type(resp)
+
+resp_encoding(resp)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="resp">resp</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/response.html">response</a> object, created by <code><a href="../../httr2/help/req_perform.html">req_perform()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A string. If no content type is specified <code>resp_content_type()</code>
+will return a character <code>NA</code>; if no encoding is specified,
+<code>resp_encoding()</code> will return <code>"UTF-8"</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>resp &lt;- response(headers = "Content-type: text/html; charset=utf-8")
+resp |&gt; resp_content_type()
+resp |&gt; resp_encoding()
+
+# No Content-Type header
+resp &lt;- response()
+resp |&gt; resp_content_type()
+resp |&gt; resp_encoding()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

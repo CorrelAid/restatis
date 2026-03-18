@@ -1,0 +1,175 @@
+<!DOCTYPE html><html><head><title>R: Set up formatting</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>tbl_format_setup {pillar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Set up formatting</h2>
+
+<h3>Description</h3>
+
+<p><code>tbl_format_setup()</code> is called by <code><a href="../../pillar/help/format.tbl.html">format.tbl()</a></code>.
+This method collects information that is common to the header, body,
+and footer parts of a tibble.
+Examples:
+</p>
+
+<ul>
+<li><p> the dimensions sometimes are reported both in the header
+and (implicitly) in the footer of a tibble;
+</p>
+</li>
+<li><p> the columns shown in the body decide which columns are shown in the footer.
+</p>
+</li></ul>
+
+<p>This information is computed in <code>tbl_format_setup()</code>.
+The result is passed on to the
+<code><a href="../../pillar/help/tbl_format_header.html">tbl_format_header()</a></code>, <code><a href="../../pillar/help/tbl_format_body.html">tbl_format_body()</a></code>, and <code><a href="../../pillar/help/tbl_format_footer.html">tbl_format_footer()</a></code>
+methods.
+If you need to customize parts of the printed output independently,
+override these methods instead.
+</p>
+<p>By checking the <code>setup</code> argument, you can return an object that is
+suitable for a call to <code><a href="../../pillar/help/tbl_format_header.html">tbl_format_header()</a></code> if <code>setup</code> is <code>NULL</code>.
+In this case, the method is called a second time with the return value
+of the first call as <code>setup</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>tbl_format_setup(
+  x,
+  width = NULL,
+  ...,
+  setup = list(tbl_sum = tbl_sum(x)),
+  n = NULL,
+  max_extra_cols = NULL,
+  max_footer_lines = NULL,
+  focus = NULL
+)
+
+## S3 method for class 'tbl'
+tbl_format_setup(
+  x,
+  width,
+  ...,
+  setup,
+  n,
+  max_extra_cols,
+  max_footer_lines,
+  focus
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>An object.</p>
+</td></tr>
+<tr><td><code id="width">width</code></td>
+<td>
+<p>Actual width for printing, a numeric greater than zero.
+This argument is mandatory for all implementations of this method.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Extra arguments to <code><a href="../../pillar/help/print.tbl.html">print.tbl()</a></code> or <code><a href="../../pillar/help/format.tbl.html">format.tbl()</a></code>.</p>
+</td></tr>
+<tr><td><code id="setup">setup</code></td>
+<td>
+<p>This generic is first called with <code>setup = NULL</code> .
+If the method <em>evaluates</em> this argument, the return value
+will only be used in a call to <code><a href="../../pillar/help/tbl_format_header.html">tbl_format_header()</a></code>,
+and after that, a second call to this generic will be made
+with the return value of the first call as <code>setup</code>
+which then will be used in calls to <code><a href="../../pillar/help/tbl_format_body.html">tbl_format_body()</a></code> and <code><a href="../../pillar/help/tbl_format_footer.html">tbl_format_footer()</a></code>.
+This allows displaying the header before starting the computation
+required for the body and footer.</p>
+</td></tr>
+<tr><td><code id="n">n</code></td>
+<td>
+<p>Actual number of rows to print.
+No <a href="../../pillar/help/pillar_options.html">options</a> should be considered
+by implementations of this method.</p>
+</td></tr>
+<tr><td><code id="max_extra_cols">max_extra_cols</code></td>
+<td>
+<p>Number of columns to print abbreviated information for,
+if the width is too small for the entire tibble.
+No <a href="../../pillar/help/pillar_options.html">options</a> should be considered
+by implementations of this method.</p>
+</td></tr>
+<tr><td><code id="max_footer_lines">max_footer_lines</code></td>
+<td>
+<p>Maximum number of lines for the footer.
+No <a href="../../pillar/help/pillar_options.html">options</a> should be considered
+by implementations of this method.</p>
+</td></tr>
+<tr><td><code id="focus">focus</code></td>
+<td>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p>Names of columns to show preferentially if space is tight.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Extend this method to prepare information that is used
+in several parts of the printed output of a tibble-like object,
+or to collect additional arguments passed via <code>...</code> to
+<code><a href="../../pillar/help/print.tbl.html">print.tbl()</a></code> or <code><a href="../../pillar/help/format.tbl.html">format.tbl()</a></code>.
+</p>
+<p>We expect that <code>tbl_format_setup()</code> is extended only rarely,
+and overridden only in exceptional circumstances, if at all.
+If you override this method, you must also implement
+<code><a href="../../pillar/help/tbl_format_header.html">tbl_format_header()</a></code>, <code><a href="../../pillar/help/tbl_format_body.html">tbl_format_body()</a></code>, and <code><a href="../../pillar/help/tbl_format_footer.html">tbl_format_footer()</a></code>
+for your class.
+</p>
+<p>Implementing a method
+allows to override printing and formatting of the entire object
+without overriding the <code><a href="../../base/html/print.html">print()</a></code> and <code><a href="../../base/html/format.html">format()</a></code> methods directly.
+This allows to keep the logic of the <code>width</code> and <code>n</code> arguments.
+</p>
+<p>The default method for the <code>"tbl"</code> class collects information for
+standard printing for tibbles.
+See <code><a href="../../pillar/help/new_tbl_format_setup.html">new_tbl_format_setup()</a></code> for details on the returned object.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object that can be passed as <code>setup</code> argument to
+<code><a href="../../pillar/help/tbl_format_header.html">tbl_format_header()</a></code>, <code><a href="../../pillar/help/tbl_format_body.html">tbl_format_body()</a></code>, and <code><a href="../../pillar/help/tbl_format_footer.html">tbl_format_footer()</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+tbl_format_setup(palmerpenguins::penguins)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>pillar</em> version 1.11.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

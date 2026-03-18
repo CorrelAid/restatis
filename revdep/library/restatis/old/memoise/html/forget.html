@@ -1,0 +1,66 @@
+<!DOCTYPE html><html><head><title>R: Forget past results. Resets the cache of a memoised function....</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>forget {memoise}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Forget past results.
+Resets the cache of a memoised function. Use <code><a href="../../memoise/help/drop_cache.html">drop_cache</a></code> to
+reset the cache only for particular arguments.</h2>
+
+<h3>Description</h3>
+
+<p>Forget past results.
+Resets the cache of a memoised function. Use <code><a href="../../memoise/help/drop_cache.html">drop_cache</a></code> to
+reset the cache only for particular arguments.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>forget(f)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="f">f</code></td>
+<td>
+<p>memoised function</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../memoise/help/memoise.html">memoise</a></code>, <code><a href="../../memoise/help/is.memoised.html">is.memoised</a></code>, <code><a href="../../memoise/help/drop_cache.html">drop_cache</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>memX &lt;- memoise(function() { Sys.sleep(1); runif(1) })
+# The forget() function
+system.time(print(memX()))
+system.time(print(memX()))
+forget(memX)
+system.time(print(memX()))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>memoise</em> version 2.0.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html><html><head><title>R: Superseded selection helpers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>one_of {tidyselect}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Superseded selection helpers</h2>
+
+<h3>Description</h3>
+
+<p><code>one_of()</code> is superseded in favour of the more precise <code><a href="../../tidyselect/help/any_of.html">any_of()</a></code> and
+<code><a href="../../tidyselect/help/all_of.html">all_of()</a></code> selectors.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>one_of(..., .vars = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>One or more character vectors.</p>
+</td></tr>
+<tr><td><code id=".vars">.vars</code></td>
+<td>
+<p>A character vector of variable names. When called
+from inside selecting functions like <code><a href="../../dplyr/help/select.html">dplyr::select()</a></code> these are
+automatically set to the names of the table.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>tidyselect</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html><html><head><title>R: Transpose a list.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>transpose {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Transpose a list.</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#superseded"><img src="../help/figures/lifecycle-superseded.svg" alt='[Superseded]'></a>
+</p>
+<p><code>transpose()</code> turns a list-of-lists &quot;inside-out&quot;; it turns a pair of lists
+into a list of pairs, or a list of pairs into pair of lists. For example,
+if you had a list of length n where each component had values <code>a</code> and
+<code>b</code>, <code>transpose()</code> would make a list with elements <code>a</code> and
+<code>b</code> that contained lists of length n. It's called transpose because
+<code>x[[1]][[2]]</code> is equivalent to <code>transpose(x)[[2]][[1]]</code>.
+</p>
+<p>This function was superseded in purrr 1.0.0 because <code><a href="../../purrr/help/list_transpose.html">list_transpose()</a></code>
+has a better name and can automatically simplify the output, as is commonly
+needed. Superseded functions will not go away, but will only receive critical
+bug fixes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>transpose(.l, .names = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".l">.l</code></td>
+<td>
+<p>A list of vectors to transpose. The first element is used as the
+template; you'll get a warning if a subsequent element has a different
+length.</p>
+</td></tr>
+<tr><td><code id=".names">.names</code></td>
+<td>
+<p>For efficiency, <code>transpose()</code> bases the return structure on
+the first component of <code>.l</code> by default. Specify <code>.names</code> to override this.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list with indexing transposed compared to <code>.l</code>.
+</p>
+<p><code>transpose()</code> is its own inverse, much like the transpose operation on a
+matrix. You can get back the original input by transposing it twice.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- map(1:5, \(i) list(x = runif(1), y = runif(5)))
+# was
+x |&gt; transpose() |&gt; str()
+# now
+x |&gt; list_transpose(simplify = FALSE) |&gt; str()
+
+# transpose() is useful in conjunction with safely() &amp; quietly()
+x &lt;- list("a", 1, 2)
+y &lt;- x |&gt; map(safely(log))
+# was
+y |&gt; transpose() |&gt; str()
+# now:
+y |&gt; list_transpose() |&gt; str()
+
+# Previously, output simplification required a call to another function
+x &lt;- list(list(a = 1, b = 2), list(a = 3, b = 4), list(a = 5, b = 6))
+x |&gt; transpose() |&gt; simplify_all()
+# Now can take advantage of automatic simplification
+x |&gt; list_transpose()
+
+# Provide explicit component names to prevent loss of those that don't
+# appear in first component
+ll &lt;- list(
+  list(x = 1, y = "one"),
+  list(z = "deux", x = 2)
+)
+ll |&gt; transpose()
+nms &lt;- ll |&gt; map(names) |&gt; reduce(union)
+# was
+ll |&gt; transpose(.names = nms)
+# now
+ll |&gt; list_transpose(template = nms)
+# and can supply default value
+ll |&gt; list_transpose(template = nms, default = NA)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html><html><head><title>R: List checks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>obj_is_list {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>List checks</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>obj_is_list()</code> tests if <code>x</code> is considered a list in the vctrs sense. It
+returns <code>TRUE</code> if all of the following hold:
+</p>
+
+<ul>
+<li> <p><code>x</code> must have list storage, i.e. <code>typeof(x)</code> returns <code>"list"</code>
+</p>
+</li>
+<li> <p><code>x</code> must not have a <code>dim</code> attribute
+</p>
+</li>
+<li> <p><code>x</code> must not have a <code>class</code> attribute, or must explicitly inherit from
+<code>"list"</code> as the last class
+</p>
+</li></ul>
+
+</li>
+<li> <p><code>list_all_vectors()</code> takes a list and returns <code>TRUE</code> if all elements of
+that list are vectors.
+</p>
+</li>
+<li> <p><code>list_all_size()</code> takes a list and returns <code>TRUE</code> if all elements of that
+list have the same <code>size</code>.
+</p>
+</li>
+<li> <p><code>list_all_recyclable()</code> takes a list and returns <code>TRUE</code> if all elements of
+that list can recycle to <code>size</code>.
+</p>
+</li>
+<li> <p><code>obj_check_list()</code>, <code>list_check_all_vectors()</code>, <code>list_check_all_size()</code>,
+and <code>list_check_all_recyclable()</code> use the above functions, but throw a
+standardized and informative error if they return <code>FALSE</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>obj_is_list(x)
+
+obj_check_list(x, ..., arg = caller_arg(x), call = caller_env())
+
+list_all_vectors(x, ..., allow_null = FALSE)
+
+list_check_all_vectors(
+  x,
+  ...,
+  allow_null = FALSE,
+  arg = caller_arg(x),
+  call = caller_env()
+)
+
+list_all_size(x, size, ..., allow_null = FALSE)
+
+list_check_all_size(
+  x,
+  size,
+  ...,
+  allow_null = FALSE,
+  arg = caller_arg(x),
+  call = caller_env()
+)
+
+list_all_recyclable(x, size, ..., allow_null = FALSE)
+
+list_check_all_recyclable(
+  x,
+  size,
+  ...,
+  allow_null = FALSE,
+  arg = caller_arg(x),
+  call = caller_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>For <code style="white-space: pre;">&#8288;vec_*()&#8288;</code> functions, an object. For <code style="white-space: pre;">&#8288;list_*()&#8288;</code> functions, a
+list.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="arg">arg</code></td>
+<td>
+<p>An argument name as a string. This argument
+will be mentioned in error messages as the input that is at the
+origin of a problem.</p>
+</td></tr>
+<tr><td><code id="call">call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+<tr><td><code id="allow_null">allow_null</code></td>
+<td>
+<p>Whether <code>NULL</code> elements should be skipped over
+automatically or not.</p>
+</td></tr>
+<tr><td><code id="size">size</code></td>
+<td>
+<p>The size to check each element for compatibility with.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Notably, data frames and S3 record style classes like POSIXlt are not
+considered lists.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../vctrs/help/list_sizes.html">list_sizes()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>obj_is_list(list())
+obj_is_list(list_of(1))
+obj_is_list(data.frame())
+
+list_all_vectors(list(1, mtcars))
+list_all_vectors(list(1, environment()))
+
+list_all_size(list(1:2, 2:3), 2)
+list_all_size(list(1:2, 2:4), 2)
+
+list_all_recyclable(list(1, 2:3), 2)
+list_all_recyclable(list(1, 2:4), 2)
+
+# `list_`-prefixed functions assume a list:
+try(list_all_vectors(environment()))
+
+# `NULL` elements are not considered vectors and generally have a size of 0
+try(list_check_all_vectors(list(1, NULL, 2)))
+try(list_check_all_size(list(1, NULL, 2), size = 1))
+
+# However, it is often useful to perform upfront vector/size checks on a
+# list, excluding `NULL`s, and then filter them out later on
+list_check_all_vectors(list(1, NULL, 2), allow_null = TRUE)
+list_check_all_size(list(1, NULL, 2), size = 1, allow_null = TRUE)
+
+# Performing the checks before removing `NULL`s from the list ensures that
+# any errors report the correct index. Note how the index is incorrect from a
+# user's point of view if we filter out `NULL` too soon.
+xs &lt;- list(1, NULL, 2:3)
+try(list_check_all_size(xs, size = 1, allow_null = TRUE))
+xs &lt;- vec_slice(xs, !vec_detect_missing(xs))
+try(list_check_all_size(xs, size = 1))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

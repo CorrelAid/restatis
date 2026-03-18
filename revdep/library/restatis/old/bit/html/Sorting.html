@@ -1,0 +1,225 @@
+<!DOCTYPE html><html><head><title>R: Generics for in-RAM sorting and ordering</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>Sorting {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generics for in-RAM sorting and ordering</h2>
+
+<h3>Description</h3>
+
+<p>These are generic stubs for low-level sorting and ordering methods
+implemented in packages 'bit64' and 'ff'.  The <code>..sortorder</code> methods do
+sorting and ordering at once, which requires more RAM than ordering but is
+(almost) as fast as as sorting.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ramsort(x, ...)
+
+ramorder(x, i, ...)
+
+ramsortorder(x, i, ...)
+
+mergesort(x, ...)
+
+mergeorder(x, i, ...)
+
+mergesortorder(x, i, ...)
+
+quicksort(x, ...)
+
+quickorder(x, i, ...)
+
+quicksortorder(x, i, ...)
+
+shellsort(x, ...)
+
+shellorder(x, i, ...)
+
+shellsortorder(x, i, ...)
+
+radixsort(x, ...)
+
+radixorder(x, i, ...)
+
+radixsortorder(x, i, ...)
+
+keysort(x, ...)
+
+keyorder(x, i, ...)
+
+keysortorder(x, i, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a vector to be sorted by <code><a href="../../bit/help/ramsort.html">ramsort()</a></code> and
+<code><a href="../../bit/help/ramsortorder.html">ramsortorder()</a></code>, i.e. the output of <code><a href="../../base/html/sort.html">sort()</a></code></p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments to the sorting methods</p>
+</td></tr>
+<tr><td><code id="i">i</code></td>
+<td>
+<p>integer positions to be modified by <code><a href="../../bit/help/ramorder.html">ramorder()</a></code> and
+<code><a href="../../bit/help/ramsortorder.html">ramsortorder()</a></code>, default is 1:n, in this case the output is
+similar to <code><a href="../../base/html/order.html">order()</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>sort</code> generics do sort their argument 'x', some methods need
+temporary RAM of the same size as 'x'.  The <code>order</code> generics do order
+their argument 'i' leaving 'x' as it was, some methods need temporary RAM of
+the same size as 'i'.  The <code>sortorder</code> generics do sort their argument
+'x' and order their argument 'i', this way of ordering is much faster at the
+price of requiring temporary RAM for both, 'x' and 'i', if the method
+requires temporary RAM.  The <code>ram</code> generics are high-level functions
+containing an optimizer that chooses the 'best' algorithms given some
+context.
+</p>
+
+
+<h3>Value</h3>
+
+<p>These functions return the number of <code>NAs</code> found or assumed
+during sorting
+</p>
+
+
+<h3>Index of implemented methods</h3>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>generic</strong> </td><td style="text-align: right;"> <strong>ff</strong> </td><td style="text-align: left;"> <strong>bit64</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>ramsort</code> </td><td style="text-align: right;"> <code><a href="../../ff/help/ramsort.default.html">ff::ramsort.default()</a></code> </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::ramsort.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>shellsort</code> </td><td style="text-align: right;"> <code><a href="../../ff/help/ramsort.default.html">ff::shellsort.default()</a></code> </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::shellsort.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>quicksort</code> </td><td style="text-align: right;">  </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::quicksort.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>mergesort</code> </td><td style="text-align: right;"> <code><a href="../../ff/help/ramsort.default.html">ff::mergesort.default()</a></code> </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::mergesort.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>radixsort</code> </td><td style="text-align: right;"> <code><a href="../../ff/help/ramsort.default.html">ff::radixsort.default()</a></code> </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::radixsort.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>keysort</code> </td><td style="text-align: right;"> <code><a href="../../ff/help/ramsort.default.html">ff::keysort.default()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>ramorder</code> </td><td style="text-align: right;"> <code><a href="../../ff/help/ramorder.default.html">ff::ramorder.default()</a></code> </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::ramorder.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>shellorder</code> </td><td style="text-align: right;"> <code><a href="../../ff/help/ramorder.default.html">ff::shellorder.default()</a></code> </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::shellorder.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>quickorder</code> </td><td style="text-align: right;">  </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::quickorder.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>mergeorder</code> </td><td style="text-align: right;"> <code><a href="../../ff/help/ramorder.default.html">ff::mergeorder.default()</a></code> </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::mergeorder.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>radixorder</code> </td><td style="text-align: right;"> <code><a href="../../ff/help/ramorder.default.html">ff::radixorder.default()</a></code> </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::radixorder.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>keyorder</code> </td><td style="text-align: right;"> <code><a href="../../ff/help/ramorder.default.html">ff::keyorder.default()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>ramsortorder</code> </td><td style="text-align: right;">  </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::ramsortorder.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>shellsortorder</code> </td><td style="text-align: right;">  </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::shellsortorder.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>quicksortorder</code> </td><td style="text-align: right;">  </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::quicksortorder.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>mergesortorder</code> </td><td style="text-align: right;">  </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::mergesortorder.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>radixsortorder</code> </td><td style="text-align: right;">  </td><td style="text-align: left;"> <code><a href="../../bit64/help/ramsort.integer64.html">bit64::radixsortorder.integer64()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>keysortorder</code> </td><td style="text-align: right;">  </td><td style="text-align: left;">  
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Note</h3>
+
+<p>Note that these methods purposely violate the functional programming
+paradigm: they are called for the side-effect of changing some of their
+arguments.  The rationale behind this is that sorting is very RAM-intensive
+and in certain situations we might not want to allocate additional memory if
+not necessary to do so.  The <code>sort</code>-methods change <code>x</code>, the
+<code>order</code>-methods change <code>i</code>, and the <code>sortoder</code>-methods change
+both <code>x</code> and <code>i</code> You as the user are responsible to create copies
+of the input data 'x' and 'i' if you need non-modified versions.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel <a href="mailto:Jens.Oehlschlaegel@truecluster.com">Jens.Oehlschlaegel@truecluster.com</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/sort.html">sort()</a></code> and <code><a href="../../base/html/order.html">order()</a></code> in base R, <code><a href="../../bit/help/bitsort.html">bitsort()</a></code> for faster inteer sorting
+</p>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

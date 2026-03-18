@@ -1,0 +1,114 @@
+<!DOCTYPE html><html><head><title>R: cli progress bar demo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_progress_demo {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cli progress bar demo</h2>
+
+<h3>Description</h3>
+
+<p>Useful for experimenting with format strings and for documentation.
+It creates a progress bar, iterates it until it terminates and saves the
+progress updates.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_progress_demo(
+  name = NULL,
+  status = NULL,
+  type = c("iterator", "tasks", "download", "custom"),
+  total = NA,
+  .envir = parent.frame(),
+  ...,
+  at = if (is_interactive()) NULL else 50,
+  show_after = 0,
+  live = NULL,
+  delay = 0,
+  start = as.difftime(5, units = "secs")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="name">name</code></td>
+<td>
+<p>Passed to <code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar()</a></code>.</p>
+</td></tr>
+<tr><td><code id="status">status</code></td>
+<td>
+<p>Passed to <code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar()</a></code>.</p>
+</td></tr>
+<tr><td><code id="type">type</code></td>
+<td>
+<p>Passed to <code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar()</a></code>.</p>
+</td></tr>
+<tr><td><code id="total">total</code></td>
+<td>
+<p>Passed to <code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar()</a></code>.</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>Passed to <code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar()</a></code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Passed to <code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar()</a></code>.</p>
+</td></tr>
+<tr><td><code id="at">at</code></td>
+<td>
+<p>The number of progress units to show and capture the progress
+bar at. If <code>NULL</code>, then a sequence of states is generated to show the
+progress from beginning to end.</p>
+</td></tr>
+<tr><td><code id="show_after">show_after</code></td>
+<td>
+<p>Delay to show the progress bar. Overrides the
+<code>cli.progress_show_after</code> option.</p>
+</td></tr>
+<tr><td><code id="live">live</code></td>
+<td>
+<p>Whether to show the progress bat on the screen, or just
+return the recorded updates. Defaults to the value of the
+<code>cli.progress_demo_live</code> options. If unset, then it is <code>TRUE</code> in
+interactive sessions.</p>
+</td></tr>
+<tr><td><code id="delay">delay</code></td>
+<td>
+<p>Delay between progress bar updates.</p>
+</td></tr>
+<tr><td><code id="start">start</code></td>
+<td>
+<p>Time to subtract from the start time, to simulate a
+progress bar that takes longer to run.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>List with class <code>cli_progress_demo</code>, which has a print and a
+format method for pretty printing. The <code>lines</code> entry contains the
+output lines, each corresponding to one update.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

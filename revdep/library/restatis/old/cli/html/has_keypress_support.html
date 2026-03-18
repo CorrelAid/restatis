@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><title>R: Check if the current platform/terminal supports reading...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>has_keypress_support {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Check if the current platform/terminal supports reading
+single keys.</h2>
+
+<h3>Description</h3>
+
+<p>Check if the current platform/terminal supports reading
+single keys.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>has_keypress_support()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p>Supported platforms:
+</p>
+
+<ul>
+<li><p> Terminals in Windows and Unix.
+</p>
+</li>
+<li><p> RStudio terminal.
+</p>
+</li></ul>
+
+<p>Not supported:
+</p>
+
+<ul>
+<li><p> RStudio (if not in the RStudio terminal).
+</p>
+</li>
+<li><p> R.app on macOS.
+</p>
+</li>
+<li><p> Rgui on Windows.
+</p>
+</li>
+<li><p> Emacs ESS.
+</p>
+</li>
+<li><p> Others.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>Whether there is support for waiting for individual
+keypressses.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other keypress function: 
+<code><a href="../../cli/help/keypress.html">keypress</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>has_keypress_support()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

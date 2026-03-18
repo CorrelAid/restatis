@@ -1,0 +1,87 @@
+<!DOCTYPE html><html><head><title>R: Components of a pillar</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>new_pillar_component {pillar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Components of a pillar</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p><code>new_pillar_component()</code> constructs an object of class <code>"pillar_component"</code>.
+It is used by custom <code><a href="../../pillar/help/ctl_new_pillar.html">ctl_new_pillar()</a></code> methods to create pillars with
+nonstandard components.
+</p>
+<p><code>pillar_component()</code> is a convenience helper that wraps the input in a list
+and extracts width and minimum width.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>new_pillar_component(x, ..., width, min_width = NULL)
+
+pillar_component(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A bare list of length one (for <code>new_pillar_component()</code>),
+or an object with <code>"width"</code> and <code>"min_width"</code> attributes
+(for <code>pillar_component()</code>).</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="width">width</code>, <code id="min_width">min_width</code></td>
+<td>
+<p>Width and minimum width for the new component.
+If <code>min_width</code> is <code>NULL</code>, it is assumed to match <code>width</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Objects of class <code>"pillar"</code> are internally a named lists of their components.
+The default components for pillars created by <code><a href="../../pillar/help/pillar.html">pillar()</a></code> are:
+<code>title</code> (may be missing), <code>type</code>, and <code>data</code>.
+Each component is a <code>"pillar_component"</code> object.
+</p>
+<p>This class captures contents that can be fitted in a simple column.
+Compound columns are represented by multiple pillar objects, each with their
+own components.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>new_pillar_component(list(letters[1:3]), width = 1)
+pillar_component(new_pillar_title("letters"))
+pillar_component(new_pillar_type(letters))
+pillar_component(pillar_shaft(letters[1:3]))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>pillar</em> version 1.11.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

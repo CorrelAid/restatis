@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><title>R: Control the verbosity of deprecation signals</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>verbosity {lifecycle}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Control the verbosity of deprecation signals</h2>
+
+<h3>Description</h3>
+
+<p>There are 3 levels of verbosity for deprecated functions: silence,
+warning, and error. Since the lifecycle package avoids disruptive
+warnings, the default level of verbosity depends on the lifecycle
+stage of the deprecated function, on the context of the caller
+(global environment or testthat unit tests cause more warnings),
+and whether the warning was already issued (see the help for
+<a href="../../lifecycle/help/deprecate_soft.html">deprecation functions</a>).
+</p>
+<p>You can control the level of verbosity with the global option
+<code>lifecycle_verbosity</code>. It can be set to:
+</p>
+
+<ul>
+<li> <p><code>"quiet"</code> to suppress all deprecation messages.
+</p>
+</li>
+<li> <p><code>"default"</code> or <code>NULL</code> to warn once per session.
+</p>
+</li>
+<li> <p><code>"warning"</code> to warn every time.
+</p>
+</li>
+<li> <p><code>"error"</code> to error instead of warning.
+</p>
+</li></ul>
+
+<p>Note that functions calling <code><a href="../../lifecycle/help/deprecate_stop.html">deprecate_stop()</a></code> invariably throw
+errors.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>if (rlang::is_installed("testthat")) {
+  library(testthat)
+
+  mytool &lt;- function() {
+    deprecate_soft("1.0.0", "mytool()")
+    10 * 10
+  }
+
+  # Forcing the verbosity level is useful for unit testing. You can
+  # force errors to test that the function is indeed deprecated:
+  test_that("mytool is deprecated", {
+    rlang::local_options(lifecycle_verbosity = "error")
+    expect_error(mytool(), class = "defunctError")
+  })
+
+  # Or you can enforce silence to safely test that the function
+  # still works:
+  test_that("mytool still works", {
+    rlang::local_options(lifecycle_verbosity = "quiet")
+    expect_equal(mytool(), 100)
+  })
+}
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>lifecycle</em> version 1.0.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html><html><head><title>R: Type predicates</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>type-predicates {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Type predicates</h2>
+
+<h3>Description</h3>
+
+<p>These type predicates aim to make type testing in R more
+consistent. They are wrappers around <code><a href="../../base/help/typeof.html">base::typeof()</a></code>, so operate
+at a level beneath S3/S4 etc.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>is_list(x, n = NULL)
+
+is_atomic(x, n = NULL)
+
+is_vector(x, n = NULL)
+
+is_integer(x, n = NULL)
+
+is_double(x, n = NULL, finite = NULL)
+
+is_complex(x, n = NULL, finite = NULL)
+
+is_character(x, n = NULL)
+
+is_logical(x, n = NULL)
+
+is_raw(x, n = NULL)
+
+is_bytes(x, n = NULL)
+
+is_null(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Object to be tested.</p>
+</td></tr>
+<tr><td><code id="n">n</code></td>
+<td>
+<p>Expected length of a vector.</p>
+</td></tr>
+<tr><td><code id="finite">finite</code></td>
+<td>
+<p>Whether all values of the vector are finite. The
+non-finite values are <code>NA</code>, <code>Inf</code>, <code>-Inf</code> and <code>NaN</code>. Setting this
+to something other than <code>NULL</code> can be expensive because the whole
+vector needs to be traversed and checked.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Compared to base R functions:
+</p>
+
+<ul>
+<li><p> The predicates for vectors include the <code>n</code> argument for
+pattern-matching on the vector length.
+</p>
+</li>
+<li><p> Unlike <code>is.atomic()</code> in R &lt; 4.4.0, <code>is_atomic()</code> does not return <code>TRUE</code> for
+<code>NULL</code>. Starting in R 4.4.0 <code>is.atomic(NULL)</code> returns FALSE.
+</p>
+</li>
+<li><p> Unlike <code>is.vector()</code>, <code>is_vector()</code> tests if an object is an
+atomic vector or a list. <code>is.vector</code> checks for the presence of
+attributes (other than name).
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><a href="../../rlang/help/bare-type-predicates.html">bare-type-predicates</a> <a href="../../rlang/help/scalar-type-predicates.html">scalar-type-predicates</a>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Dr. Jens Oehlschlägel" />
+
+<meta name="date" content="2025-03-04" />
+
+<title>Usage of the bit package</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Usage of the bit package</h1>
+<h4 class="author">Dr. Jens Oehlschlägel</h4>
+<h4 class="date">2025-03-04</h4>
+
+
+
+<p>The bit package provides the following S3 functionality:</p>
+<ul>
+<li>alternatives to the <code>logical</code> data type which need less
+memory with methods that are often faster
+<ul>
+<li>the <code>bit</code> type for boolean data (without <code>NA</code>,
+factor 32 smaller)</li>
+<li>the <code>bitwhich</code> type for very skewed boolean data (without
+<code>NA</code>, potentially even smaller)</li>
+</ul></li>
+<li>further alternatives for representing Boolean selections
+<ul>
+<li>the <code>which</code> type for positive selections maintaining the
+original vector length</li>
+<li>the <code>ri</code> range index</li>
+</ul></li>
+<li>very fast methods for <code>integer</code>, particularly
+<ul>
+<li>methods for <em>unsorted</em> integers leveraging <code>bit</code>
+vectors rather than <em>hash</em> tables</li>
+<li>methods for <em>sorting</em> integers leveraging <span class="math inline">\(O(N)\)</span> <em>synthetic</em> sorting rather
+than <span class="math inline">\(O(N \log N)\)</span> divide and
+conquer</li>
+<li>methods for <em>sorted</em> integers leveraging <em>merging</em>
+rather than <em>hash</em> tables</li>
+</ul></li>
+<li>some foundations for package <code>ff</code>, particularly
+<ul>
+<li><code>bit</code> and <code>bitwhich</code> vectors and
+<code>ri</code> range indices for filtering and subscripting
+<code>ff</code> objects</li>
+<li><code>rlepack</code> compressing sets of <em>sorted</em> integers
+for <code>hi</code> hybrid indexing</li>
+<li>methods for <em>chunking</em></li>
+</ul></li>
+<li>helper methods for avoiding unwanted data copies</li>
+</ul>
+<hr />
+<div id="boolean-data-types" class="section level2">
+<h2>Boolean data types</h2>
+<p>R’s <code>logical</code> vectors cost 32 bit per element in order to
+code three states <code>FALSE</code>, <code>TRUE</code> and
+<code>NA</code>. By contrast <code>bit</code> vectors cost only 1 bit
+per element and support only the two Boolean states <code>FALSE</code>
+and <code>TRUE</code>. Internally <code>bit</code> are stored as
+<code>integer</code>. <code>bitwhich</code> vectors manage very skewed
+Boolean data as a set of sorted unique integers denoting either
+<em>included</em> or <em>excluded</em> positions, whatever costs less
+memory. Internally <code>bitwhich</code> are stored as
+<code>integer</code> <em>or</em> as <code>logical</code> for the extreme
+cases <em>all included</em> (<code>TRUE</code>), <em>all excluded</em>
+(<code>FALSE</code>) or <em>zero length</em> (<code>logical()</code>).
+Function <code>bitwhich_representation</code> allows to distinguish
+these five cases without the copying-cost of
+<code>unclass(bitwhich)</code>. All three Boolean types
+<code>logical</code>, <code>bit</code>, and <code>bitwhich</code> are
+unified in a super-class <code>booltype</code> and have
+<code>is.booltype(x) == TRUE</code>. Classes <code>which</code> and
+<code>ri</code> can be somewhat considered as a fourth and fifth even
+more special Boolean types (for skewed data with mostly
+<code>FALSE</code> that represents the sorted positions of the few
+<code>TRUE</code>, and as a consecutive series of the latter), and hence
+have <code>booltype</code> <code>4</code> and <code>5</code> but coerce
+differently to <code>integer</code> and <code>double</code> and hence
+are not <code>is.booltype</code>.</p>
+<div id="available-classes" class="section level3">
+<h3>Available classes</h3>
+<p>The <code>booltype</code>s <code>bit</code> and <code>bitwhich</code>
+behave very much like <code>logical</code> with the following
+exceptions</p>
+<ul>
+<li>length is limited to <code>.Machine$integer.max</code></li>
+<li>currently only <code>vector</code> methods are supported, not
+<code>matrix</code> or <code>array</code></li>
+<li>subscripting from them does return <code>logical</code> rather than
+returning their own class (like <code>ff</code> <code>boolean</code>
+vectors do)</li>
+<li>values assigned to them are internally coerced to
+<code>logical</code> before being processed, hence
+<code>x[] &lt;- x</code> is a potentially expensive operation</li>
+<li>they do not support <code>names</code> and <code>character</code>
+subscripts</li>
+<li>only scalar <code>logical</code> subscripts are allowed,
+i.e. <code>FALSE</code>, <code>TRUE</code></li>
+<li>assigned or coerced <code>NA</code> are silently converted to
+<code>FALSE</code></li>
+<li>increasing the <code>length</code> of <code>bit</code> has semantics
+differing from <code>logical</code>: new elements are consistently
+initialized with <code>FALSE</code> instead of <code>NA</code></li>
+<li>increasing the <code>length</code> of <code>bitwhich</code> has
+semantics differing from <code>logical</code> and <code>bit</code>: new
+elements are initialized with the <em>more frequent value</em> of the
+skewed distribution (<code>FALSE</code> winning in the equally frequent
+case).</li>
+<li>aggregation methods <code>min</code>, <code>max</code> and
+<code>range</code> and <code>summary</code> have special meaning, for
+example <code>min</code> corresponds to <code>which.max</code>.</li>
+</ul>
+<p>Note the following features</p>
+<ul>
+<li>aggregation functions support a <code>range</code> argument for
+<em>chunked processing</em></li>
+<li>sorted positive subscripts marked as class <code>which</code> are
+processed faster than ‘just positive subscripts’, and unlike the result
+of the function <code>which</code>, class <code>which</code> retains the
+length of the Boolean vector as attribute <code>maxindex</code>, but its
+<code>length</code> is the number of positive positions</li>
+<li><code>ri</code> range indices are allowed as subscripts which
+supports <em>chunked looping</em> over in-memory <code>bit</code> or
+<code>bitwhich</code> vectors not unlike <em>chunked looping</em> over
+on-disk <code>ff</code> objects.</li>
+<li>binary Boolean operations will promote differing data type to the
+data type implying fewer assumptions, i.e. <code>logical</code> wins
+over <code>bit</code>, <code>bit</code> wins over <code>bitwhich</code>
+and <code>which</code> wins over <code>bitwhich</code>.</li>
+</ul>
+<p>Note the following warnings</p>
+<ul>
+<li>currently <code>bit</code> and <code>bitwhich</code> may answer
+<code>is.logical</code> and <code>is.integer</code> according to their
+internal representation. Do not rely on this, it may be subject to
+change. Do use <code>booltype</code>, <code>is.booltype</code>,
+<code>is.bit</code>, <code>is.bitwhich</code> and
+<code>bitwhich_representation</code> for reasoning about the data
+type.</li>
+</ul>
+<hr />
+</div>
+<div id="available-methods" class="section level3">
+<h3>Available methods</h3>
+<p>Basic methods</p>
+<p><code>is as length length&lt;- [ [&lt;- [[ [[&lt;- rev rep c print</code></p>
+<p>Boolean operations</p>
+<p><code>is.na ! | &amp; == != xor</code></p>
+<p>Aggregation methods</p>
+<p><code>anyNA any all sum min max range summary</code></p>
+<hr />
+</div>
+<div id="creating-and-manipulating" class="section level3">
+<h3>Creating and manipulating</h3>
+<p><code>bit</code> and <code>bitwhich</code> vectors are created like
+<code>logical</code>, for example zero length vectors</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">logical</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; logical(0)</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">bit</span>()</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt; bit length=0 occupying only 0 int32</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">bitwhich</span>()</span></code></pre></div>
+<p>or vectors of a certain length initialized to <code>FALSE</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">logical</span>(<span class="dv">3</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE FALSE</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">bit</span>(<span class="dv">3</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; bit length=3 occupying only 1 int32</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt;     1     2     3 </span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; FALSE FALSE FALSE</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="fu">bitwhich</span>(<span class="dv">3</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; bitwhich: 0/ 3 occupying only  1 int32 in FALSE representation</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt;     1     2     3 </span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; FALSE FALSE FALSE</span></span></code></pre></div>
+<p><code>bitwhich</code> can be created initialized to all elements TRUE
+with</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">bitwhich</span>(<span class="dv">3</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; bitwhich: 3/ 3 occupying only  1 int32 in TRUE representation</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt;    1    2    3 </span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; TRUE TRUE TRUE</span></span></code></pre></div>
+<p>or can be created initialized to a few included or excluded
+elements</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">bitwhich</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt; bitwhich: 1/ 3 occupying only  1 int32 in 1 representation</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt;     1     2     3 </span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; FALSE  TRUE FALSE</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="fu">bitwhich</span>(<span class="dv">3</span>, <span class="sc">-</span><span class="dv">2</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; bitwhich: 2/ 3 occupying only  1 int32 in -1 representation</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt;     1     2     3 </span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt;  TRUE FALSE  TRUE</span></span></code></pre></div>
+<hr />
+<p>Note that <code>logical</code> behaves somewhat inconsistent, when
+creating it, the default is <code>FALSE</code>, when increasing the
+length, the default is <code>NA</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">logical</span>(<span class="dv">3</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">length</span>(l) <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>l</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE FALSE    NA    NA    NA</span></span></code></pre></div>
+<p>Note that the default in <code>bit</code> is always
+<code>FALSE</code>, for creating and increasing the length.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">bit</span>(<span class="dv">3</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">length</span>(b) <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>b</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; bit length=6 occupying only 1 int32</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;     1     2     3     4     5     6 </span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre></div>
+<p>Increasing the length of <code>bitwhich</code> initializes new
+elements to <em>the majority</em> of the old elements, hence a
+<code>bitwhich</code> with a few exclusions has majority
+<code>TRUE</code> and will have new elements initialized to
+<code>TRUE</code> (if both, <code>TRUE</code> and <code>FALSE</code>
+have equal frequency the default is <code>FALSE</code>).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">bitwhich</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">length</span>(w) <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>w</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; bitwhich: 1/ 6 occupying only  1 int32 in 1 representation</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt;     1     2     3     4     5     6 </span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; FALSE  TRUE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">bitwhich</span>(<span class="dv">3</span>, <span class="sc">-</span><span class="dv">2</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="fu">length</span>(w) <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>w</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; bitwhich: 5/ 6 occupying only  1 int32 in -1 representation</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt;     1     2     3     4     5     6 </span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt;  TRUE FALSE  TRUE  TRUE  TRUE  TRUE</span></span></code></pre></div>
+<hr />
+<p>Vector subscripting non-existing elements returns <code>NA</code></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">logical</span>(<span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">bit</span>(<span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">bitwhich</span>(<span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>l[<span class="dv">6</span><span class="dt">L</span>]</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>b[<span class="dv">6</span><span class="dt">L</span>]</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;vmode&quot;)</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;boolean&quot;</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>w[<span class="dv">6</span><span class="dt">L</span>]</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;vmode&quot;)</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;boolean&quot;</span></span></code></pre></div>
+<p>while assigned <code>NA</code> turn into <code>FALSE</code> and
+assigning to a non-existing element does increase vector length</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>l[<span class="dv">6</span><span class="dt">L</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>b[<span class="dv">6</span><span class="dt">L</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>w[<span class="dv">6</span><span class="dt">L</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>l</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE FALSE    NA    NA    NA</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>b</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; bit length=6 occupying only 1 int32</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;     1     2     3     4     5     6 </span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>w</span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; bitwhich: 0/ 6 occupying only  1 int32 in FALSE representation</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt;     1     2     3     4     5     6 </span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre></div>
+<hr />
+<p>As usual list subscripting is only allowed for existing elements</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>l[[<span class="dv">6</span>]]</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>b[[<span class="dv">6</span>]]</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;vmode&quot;)</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt; [1] &quot;boolean&quot;</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>w[[<span class="dv">6</span>]]</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;vmode&quot;)</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;boolean&quot;</span></span></code></pre></div>
+<p>while assignments to non-existing elements do increase length.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>l[[<span class="dv">9</span>]] <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>b[[<span class="dv">9</span>]] <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>w[[<span class="dv">9</span>]] <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; Warning in `[[&lt;-.bitwhich`(`*tmp*`, 9, value = TRUE): increasing length of</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt; bitwhich, which has non-standard semantics</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>l</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE FALSE    NA    NA    NA    NA    NA  TRUE</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>b</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; bit length=9 occupying only 1 int32</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt;     1     2     3     4     5     6     7     8     9 </span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>w</span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; bitwhich: 1/ 6 occupying only  1 int32 in 1 representation</span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt;     1     2     3     4     5     6  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; </span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; FALSE FALSE FALSE FALSE FALSE FALSE    NA    NA  TRUE</span></span></code></pre></div>
+<hr />
+</div>
+<div id="coercion" class="section level3">
+<h3>Coercion</h3>
+<p>There are coercion functions between classes <code>logical</code>,
+<code>bit</code>, <code>bitwhich</code>, <code>which</code>,
+<code>integer</code> and <code>double</code>. However, only the first
+three of those represent Boolean vectors, whereas <code>which</code>
+represents subscript positions, and <code>integer</code> and
+<code>double</code> are ambiguous in that they can represent both,
+Booleans or positions.</p>
+<p>Remember first that coercing <code>logical</code> to
+<code>integer</code> (or <code>double</code>) gives <code>0</code> and
+<code>1</code> and not <code>integer</code> subscript positions:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(l)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="fu">as.logical</span>(i)</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co">#&gt; [1] FALSE  TRUE FALSE</span></span></code></pre></div>
+<p>To obtain <code>integer</code> subscript positions use
+<code>which</code> or better <code>as.which</code> because the latter S3
+class remembers the original vector length and hence we can go coerce
+back to logical</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">as.which</span>(l)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>w</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;maxindex&quot;)</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; [1] 3</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;booltype&quot; &quot;which&quot;</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="fu">as.logical</span>(w)</span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt; [1] FALSE  TRUE FALSE</span></span></code></pre></div>
+<p>coercing back to <code>logical</code> fails using just
+<code>which</code></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">which</span>(l)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>w</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="fu">as.logical</span>(w)  <span class="co"># does not coerce back</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<p>Furthermore from class <code>which</code> we can deduce that the
+positions are sorted which can be leveraged for performance. Note that
+<code>as.which.integer</code> is a core method for converting integer
+positions to class <code>which</code> and it enforces sorting</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">3</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">as.which</span>(i, <span class="at">maxindex=</span><span class="dv">12</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>w</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#&gt; [1] 3 7</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;maxindex&quot;)</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; [1] 12</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;booltype&quot; &quot;which&quot;</span></span></code></pre></div>
+<p>and <code>as.integer</code> gives us back those positions (now
+sorted)</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">as.integer</span>(w)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="co">#&gt; [1] 3 7</span></span></code></pre></div>
+<p>You see that the <code>as.integer</code> generic is ambiguous as the
+<code>integer</code> data type in giving positions on some, and zeroes
+and ones on other inputs. The following set of Boolean types can be
+coerced without loss of information</p>
+<pre><code>logical bit bitwhich which</code></pre>
+<p>The same is true for this set</p>
+<pre><code>logical bit bitwhich integer double</code></pre>
+<p>Furthermore positions are retained in this set</p>
+<pre><code>which integer double</code></pre>
+<p>although the length of the Boolean vector is lost when coercing from
+<code>which</code> to <code>integer</code> or <code>double</code>,
+therefore coercing to them is not reversible. Let’s first create all six
+types and compare their sizes:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">ri</span>(<span class="dv">1</span>, <span class="dv">2</span><span class="sc">^</span><span class="dv">16</span>, <span class="dv">2</span><span class="sc">^</span><span class="dv">20</span>) <span class="co"># sample(2^20, replace=TRUE, prob=c(.125, 875))</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>all.as <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>  <span class="at">double =</span> as.double,</span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>  <span class="at">integer=</span> as.integer,</span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>  <span class="at">logical =</span> as.logical,</span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>  <span class="at">bit =</span> as.bit,</span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>  <span class="at">bitwhich =</span> as.bitwhich,</span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>  <span class="at">which =</span> as.which,</span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>  <span class="at">ri =</span> <span class="cf">function</span>(x) x</span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>)</span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>all.types <span class="ot">&lt;-</span> <span class="fu">lapply</span>(all.as, <span class="cf">function</span>(f) <span class="fu">f</span>(r))</span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a><span class="fu">sapply</span>(all.types, object.size)</span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="co">#&gt;   double  integer  logical      bit bitwhich    which       ri </span></span>
+<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a><span class="co">#&gt;  8388656  4194352  4194352   132584   262832   262656      360</span></span></code></pre></div>
+<p>Now let’s create all combinations of coercion:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>all.comb <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&#39;list&#39;</span>, <span class="fu">length</span>(all.types)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>all.id <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(all.types)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="fu">dim</span>(all.comb)      <span class="ot">&lt;-</span> <span class="fu">dim</span>(all.id)      <span class="ot">&lt;-</span>    <span class="fu">c</span>(<span class="at">from=</span><span class="fu">length</span>(all.types), <span class="at">to=</span><span class="fu">length</span>(all.types))</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="fu">dimnames</span>(all.comb) <span class="ot">&lt;-</span> <span class="fu">dimnames</span>(all.id) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">from=</span> <span class="fu">names</span>(all.types), <span class="at">to=</span> <span class="fu">names</span>(all.types))</span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(all.types)) {</span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_along</span>(all.as)) {</span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a>    <span class="co"># coerce all types to all types (FROM -&gt; TO)</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a>    all.comb[[i, j]] <span class="ot">&lt;-</span> all.as[[j]](all.types[[i]])</span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a>    <span class="co"># and test whether coercing back to the FROM type gives the orginal object</span></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a>    all.id[i, j] <span class="ot">&lt;-</span> <span class="fu">identical</span>(all.as[[i]](all.comb[[i, j]]),  all.types[[i]])</span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a>  }</span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a>}</span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a>all.id</span>
+<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a><span class="co">#&gt;           to</span></span>
+<span id="cb21-15"><a href="#cb21-15" tabindex="-1"></a><span class="co">#&gt; from       double integer logical   bit bitwhich which   ri</span></span>
+<span id="cb21-16"><a href="#cb21-16" tabindex="-1"></a><span class="co">#&gt;   double     TRUE    TRUE    TRUE  TRUE     TRUE FALSE TRUE</span></span>
+<span id="cb21-17"><a href="#cb21-17" tabindex="-1"></a><span class="co">#&gt;   integer    TRUE    TRUE    TRUE  TRUE     TRUE FALSE TRUE</span></span>
+<span id="cb21-18"><a href="#cb21-18" tabindex="-1"></a><span class="co">#&gt;   logical    TRUE    TRUE    TRUE  TRUE     TRUE  TRUE TRUE</span></span>
+<span id="cb21-19"><a href="#cb21-19" tabindex="-1"></a><span class="co">#&gt;   bit        TRUE    TRUE    TRUE  TRUE     TRUE  TRUE TRUE</span></span>
+<span id="cb21-20"><a href="#cb21-20" tabindex="-1"></a><span class="co">#&gt;   bitwhich   TRUE    TRUE    TRUE  TRUE     TRUE  TRUE TRUE</span></span>
+<span id="cb21-21"><a href="#cb21-21" tabindex="-1"></a><span class="co">#&gt;   which     FALSE   FALSE    TRUE  TRUE     TRUE  TRUE TRUE</span></span>
+<span id="cb21-22"><a href="#cb21-22" tabindex="-1"></a><span class="co">#&gt;   ri        FALSE   FALSE   FALSE FALSE    FALSE FALSE TRUE</span></span></code></pre></div>
+<p>Do understand the <code>FALSE</code> above!</p>
+<hr />
+<p>The functions <code>booltype</code> and <code>is.booltype</code>
+diagnose the Boolean type as follows</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>  <span class="at">booltype=</span><span class="fu">sapply</span>(all.types, booltype),</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>  <span class="at">is.boolean=</span><span class="fu">sapply</span>(all.types, is.booltype),</span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>  <span class="at">row.names=</span><span class="fu">names</span>(all.types)</span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>)</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="co">#&gt;          booltype is.boolean</span></span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="co">#&gt; double     nobool      FALSE</span></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a><span class="co">#&gt; integer    nobool      FALSE</span></span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a><span class="co">#&gt; logical   logical       TRUE</span></span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a><span class="co">#&gt; bit           bit       TRUE</span></span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a><span class="co">#&gt; bitwhich bitwhich       TRUE</span></span>
+<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a><span class="co">#&gt; which       which       TRUE</span></span>
+<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a><span class="co">#&gt; ri             ri       TRUE</span></span></code></pre></div>
+<p>Class <code>which</code> and <code>ri</code> are currently not
+<code>is.boolean</code> (no subscript, assignment and Boolean
+operators), but since it is even more specialized than
+<code>bitwhich</code> (assuming skew towards <code>TRUE</code>), we have
+ranked it as the most specialized <code>booltype</code>.</p>
+<hr />
+</div>
+<div id="boolean-operations" class="section level3">
+<h3>Boolean operations</h3>
+<p>The usual Boolean operators</p>
+<pre><code>! | &amp; == != xor is.na</code></pre>
+<p>are implemented and the binary operators work for all combinations of
+<code>logical</code>, <code>bit</code> and <code>bitwhich</code>.</p>
+<p>Technically this is achieved in S3 by giving <code>bit</code> and
+<code>bitwhich</code> another class <code>booltype</code>. Note that
+this is not inheritance where <code>booltype</code> implements common
+methods and <code>bit</code> and <code>bitwhich</code> overrule this
+with more specific methods. Instead the method dispatch to
+<code>booltype</code> dominates <code>bit</code> and
+<code>bitwhich</code> and coordinates more specific methods, this was
+the only way to realize binary logical operators that combine
+<code>bit</code> and <code>bitwhich</code> in S3, because in this case R
+dispatches to neither <code>bit</code> nor <code>bitwhich</code>: if
+both arguments are custom classes R does a non-helpful dispatch to
+<code>integer</code> or <code>logical</code>.</p>
+<p>Anyhow, if a binary Boolean operator meets two different types,
+argument and result type is promoted to <em>less assumptions</em>, hence
+<code>bitwhich</code> is promoted to <code>bit</code> dropping the
+assumption of <em>strong skew</em> and <code>bit</code> is promoted to
+<code>logical</code> dropping the assumption that no <code>NA</code> are
+present.</p>
+<p>Such promotion comes at the price of increased memory requirements,
+for example the following multiplies the memory requirement by factor
+32</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">bit</span>(<span class="fl">1e6</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">|</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="fu">object.size</span>(y) <span class="sc">/</span> <span class="fu">object.size</span>(x)</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="co">#&gt; 31.6 bytes</span></span></code></pre></div>
+<p>Better than lazily relying on automatic propagation is</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">bit</span>(<span class="fl">1e6</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">|</span> <span class="fu">as.bit</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="fu">object.size</span>(y) <span class="sc">/</span> <span class="fu">object.size</span>(x)</span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="co">#&gt; 1 bytes</span></span></code></pre></div>
+<hr />
+</div>
+<div id="manipulation-methods" class="section level3">
+<h3>Manipulation methods</h3>
+<p>Concatenation follows the same promotion rules as Boolean operators.
+Note that <code>c</code> dispatches on the first argument only, hence
+when concatenating multiple Boolean types the first must not be logical,
+otherwise we get corrupt results:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">logical</span>(<span class="dv">6</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">bit</span>(<span class="dv">6</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a><span class="fu">c</span>(l, b)</span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="co">#&gt; [1] 0 0 0 0 0 0 0</span></span></code></pre></div>
+<p>because <code>c.logical</code> treats the six bits as a single value.
+The following expressions work</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">c</span>(b, l)</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a><span class="fu">c</span>(l, <span class="fu">as.logical</span>(b))</span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre></div>
+<p>and of course the most efficient is</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">as.bit</span>(l), b)</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="co">#&gt; bit length=12 occupying only 1 int32</span></span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a><span class="co">#&gt;     1     2     3     4     5     6     7     8     9    10    11    12 </span></span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="co">#&gt; FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre></div>
+<p>If you want your code to process any <code>is.booltype</code>, you
+can use <code>c.booltype</code> directly</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">c.booltype</span>(l, b)</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre></div>
+<p>Both, <code>bit</code> and <code>bitwhich</code> also have
+replication (<code>rep</code>) and reverse (<code>rev</code>) methods
+that work as expected:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">as.bit</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>))</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="fu">rev</span>(b)</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a><span class="co">#&gt; bit length=2 occupying only 1 int32</span></span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a><span class="co">#&gt;     1     2 </span></span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a><span class="co">#&gt;  TRUE FALSE</span></span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a><span class="fu">rep</span>(b, <span class="dv">3</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a><span class="co">#&gt; bit length=6 occupying only 1 int32</span></span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a><span class="co">#&gt;     1     2     3     4     5     6 </span></span>
+<span id="cb30-9"><a href="#cb30-9" tabindex="-1"></a><span class="co">#&gt; FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span>
+<span id="cb30-10"><a href="#cb30-10" tabindex="-1"></a><span class="fu">rep</span>(b, <span class="at">length.out=</span><span class="dv">6</span>)</span>
+<span id="cb30-11"><a href="#cb30-11" tabindex="-1"></a><span class="co">#&gt; bit length=6 occupying only 1 int32</span></span>
+<span id="cb30-12"><a href="#cb30-12" tabindex="-1"></a><span class="co">#&gt;     1     2     3     4     5     6 </span></span>
+<span id="cb30-13"><a href="#cb30-13" tabindex="-1"></a><span class="co">#&gt; FALSE  TRUE FALSE  TRUE FALSE  TRUE</span></span></code></pre></div>
+<hr />
+</div>
+<div id="aggregation-methods-for-booltype" class="section level3">
+<h3>Aggregation methods for <code>booltype</code></h3>
+<p>The usual logical aggregation functions <code>length</code>,
+<code>all</code>, <code>any</code> and <code>anyNA</code> work as
+expected. Note the exception that <code>length(which)</code> does not
+give the length of the Boolean vector but the length of the vector of
+positive integers (like the result of function <code>which</code>).
+<code>sum</code> gives the number of <code>TRUE</code> for all Boolean
+types. For the <code>booltype &gt; 1</code> <code>min</code> gives the
+first position of a <code>TRUE</code> (i.e. <code>which.max</code>),
+<code>max</code> gives the last position of a <code>TRUE</code>,
+<code>range</code> gives both, the range at which we find
+<code>TRUE</code>, and finally <code>summary</code> gives the the counts
+of <code>FALSE</code> and <code>TRUE</code> as well as <code>min</code>
+and <code>max</code>. For example</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">as.bit</span>(l)</span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a><span class="fu">length</span>(b)</span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a><span class="co">#&gt; [1] 5</span></span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a><span class="fu">anyNA</span>(b)</span>
+<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a><span class="fu">any</span>(b)</span>
+<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a><span class="fu">all</span>(b)</span>
+<span id="cb31-10"><a href="#cb31-10" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span>
+<span id="cb31-11"><a href="#cb31-11" tabindex="-1"></a><span class="fu">sum</span>(b)</span>
+<span id="cb31-12"><a href="#cb31-12" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb31-13"><a href="#cb31-13" tabindex="-1"></a><span class="fu">min</span>(b)</span>
+<span id="cb31-14"><a href="#cb31-14" tabindex="-1"></a><span class="co">#&gt; [1] 4</span></span>
+<span id="cb31-15"><a href="#cb31-15" tabindex="-1"></a><span class="fu">max</span>(b)</span>
+<span id="cb31-16"><a href="#cb31-16" tabindex="-1"></a><span class="co">#&gt; [1] 5</span></span>
+<span id="cb31-17"><a href="#cb31-17" tabindex="-1"></a><span class="fu">range</span>(b)</span>
+<span id="cb31-18"><a href="#cb31-18" tabindex="-1"></a><span class="co">#&gt; [1] 4 5</span></span>
+<span id="cb31-19"><a href="#cb31-19" tabindex="-1"></a><span class="fu">summary</span>(b)</span>
+<span id="cb31-20"><a href="#cb31-20" tabindex="-1"></a><span class="co">#&gt; FALSE  TRUE  Min.  Max. </span></span>
+<span id="cb31-21"><a href="#cb31-21" tabindex="-1"></a><span class="co">#&gt;     3     2     4     5</span></span></code></pre></div>
+<p>These special interpretations of <code>min</code>, <code>max</code>,
+<code>range</code> and <code>summary</code> can be enforced for type
+<code>logical</code>, <code>integer</code>, and <code>double</code> by
+using the <code>booltype</code> methods directly as in</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="co"># minimum after coercion to integer</span></span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="fu">min</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>))</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="co"># minimum  position of first TRUE</span></span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="fu">min.booltype</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>))</span>
+<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span></code></pre></div>
+<p>Except for <code>length</code> and <code>anyNA</code> the aggregation
+functions support an optional argument <code>range</code> which
+restricts evaluation the specified range of the Boolean vector. This is
+useful in the context of <em>chunked processing</em>. For example
+analyzing the first 30% of a million Booleans</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">as.bit</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="fl">1e6</span>, <span class="cn">TRUE</span>))</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a><span class="fu">summary</span>(b, <span class="at">range=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">3e5</span>))</span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a><span class="co">#&gt;  FALSE   TRUE   Min.   Max. </span></span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a><span class="co">#&gt; 149738 150262      2 300000</span></span></code></pre></div>
+<p>and analyzing all such chunks</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">sapply</span>(<span class="fu">chunk</span>(b, <span class="at">by=</span><span class="fl">3e5</span>, <span class="at">method=</span><span class="st">&quot;seq&quot;</span>), <span class="cf">function</span>(i) <span class="fu">summary</span>(b, <span class="at">range=</span>i))</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="co">#&gt;       1:300000 300001:600000 600001:900000 900001:1000000</span></span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a><span class="co">#&gt; FALSE   149738        150421        149806          49872</span></span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a><span class="co">#&gt; TRUE    150262        149579        150194          50128</span></span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a><span class="co">#&gt; Min.         2        300003        600001         900001</span></span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a><span class="co">#&gt; Max.    300000        600000        899999         999998</span></span></code></pre></div>
+<p>or better balanced</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">sapply</span>(<span class="fu">chunk</span>(b, <span class="at">by=</span><span class="fl">3e5</span>), <span class="cf">function</span>(i) <span class="fu">summary</span>(b, <span class="at">range=</span>i))</span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="co">#&gt;       1:250000 250001:500000 500001:750000 750001:1000000</span></span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a><span class="co">#&gt; FALSE   124958        125072        125250         124557</span></span>
+<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a><span class="co">#&gt; TRUE    125042        124928        124750         125443</span></span>
+<span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a><span class="co">#&gt; Min.         2        250002        500001         750002</span></span>
+<span id="cb35-6"><a href="#cb35-6" tabindex="-1"></a><span class="co">#&gt; Max.    249998        500000        749999         999998</span></span></code></pre></div>
+<p>The real use-case for chunking is ff objects, where instead of
+processing huge objects at once</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">ff</span>(<span class="at">vmode=</span><span class="st">&quot;single&quot;</span>, <span class="at">length=</span><span class="fu">length</span>(b))   <span class="co"># create a huge ff vector</span></span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>x[<span class="fu">as.hi</span>(b)] <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="fu">sum</span>(b))      <span class="co"># replace some numbers at filtered positions</span></span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a><span class="fu">summary</span>(x[])</span></code></pre></div>
+<p>we can process the ff vector in chunks</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="fu">sapply</span>(<span class="fu">chunk</span>(x, <span class="at">by=</span><span class="fl">3e5</span>), <span class="cf">function</span>(i) <span class="fu">summary</span>(x[i]))</span></code></pre></div>
+<p>and even can process a bit-filtered ff vector in chunks</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">sapply</span>(<span class="fu">chunk</span>(x, <span class="at">by=</span><span class="fl">3e5</span>), <span class="cf">function</span>(i) <span class="fu">summary</span>(x[<span class="fu">as.hi</span>(b, <span class="at">range=</span>i)]))</span></code></pre></div>
+<hr />
+</div>
+</div>
+<div id="fast-methods-for-integer-set-operations" class="section level2">
+<h2>Fast methods for <code>integer</code> set operations</h2>
+<p>R implements <em>set methods</em> using <em>hash tables</em>, namely
+<code>match</code>, <code>%in%</code>, <code>unique</code>,
+<code>duplicated</code>, <code>union</code>, <code>intersect</code>,
+<code>setdiff</code>, <code>setequal</code>. Hashing is a powerful
+method, but it is costly in terms of random access and memory
+consumption. For integers package ‘bit’ implements faster set methods
+using <em>bit vectors</em> (which can be an order of magnitude faster
+and saves up to factor 64 on temporary memory) and <em>merging</em>
+(which is about two orders of magnitude faster, needs no temporary
+memory but requires sorted input). While many set methods return
+<em>unique</em> sets, the <code>merge_*</code> methods can optionally
+preserve ties, the <code>range_*</code> methods below allow to specify
+one of the sets as a <em>range</em>.</p>
+<table>
+<colgroup>
+<col width="18%" />
+<col width="21%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">R hashing</th>
+<th align="left">bit vectors</th>
+<th align="left">merging</th>
+<th align="left">range merging</th>
+<th align="left">rlepack</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>match</code></td>
+<td align="left"></td>
+<td align="left"><code>merge_match</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><code>%in%</code></td>
+<td align="left"><code>bit_in</code></td>
+<td align="left"><code>merge_in</code></td>
+<td align="left"><code>merge_rangein</code></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>!(%in%)</code></td>
+<td align="left"><code>!bit_in</code></td>
+<td align="left"><code>merge_notin</code></td>
+<td align="left"><code>merge_rangenotin</code></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><code>duplicated</code></td>
+<td align="left"><code>bit_duplicated</code></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>unique</code></td>
+<td align="left"><code>bit_unique</code></td>
+<td align="left"><code>merge_unique</code></td>
+<td align="left"></td>
+<td align="left"><code>unique(rlepack)</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>union</code></td>
+<td align="left"><code>bit_union</code></td>
+<td align="left"><code>merge_union</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>intersect</code></td>
+<td align="left"><code>bit_intersect</code></td>
+<td align="left"><code>merge_intersect</code></td>
+<td align="left"><code>merge_rangesect</code></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><code>setdiff</code></td>
+<td align="left"><code>bit_setdiff</code></td>
+<td align="left"><code>merge_setdiff</code></td>
+<td align="left"><code>merge_rangediff</code></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>(a:b)[-i]</code></td>
+<td align="left"><code>bit_rangediff</code></td>
+<td align="left"><code>merge_rangediff</code></td>
+<td align="left"><code>merge_rangediff</code></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><code>bit_symdiff</code></td>
+<td align="left"><code>merge_symdiff</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>setequal</code></td>
+<td align="left"><code>bit_setequal</code></td>
+<td align="left"><code>merge_setequal</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><code>anyDuplicated</code></td>
+<td align="left"><code>bit_anyDuplicated</code></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"><code>anyDuplicated(rlepack)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>sum(duplicated)</code></td>
+<td align="left"><code>bit_sumDuplicated</code></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>Furthermore there are very fast methods for sorting integers (unique
+or keeping ties), reversals that simultaneously change the sign to
+preserve ascending order and methods for finding min or max in sorted
+vectors or within ranges of sorted vectors.</p>
+<table>
+<colgroup>
+<col width="19%" />
+<col width="22%" />
+<col width="32%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">R</th>
+<th align="left">bit vectors</th>
+<th align="left">merging</th>
+<th align="left">range merging</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>sort(unique)</code></td>
+<td align="left"><code>bit_sort_unique</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><code>sort</code></td>
+<td align="left"><code>bit_sort</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>rev</code></td>
+<td align="left"><code>rev(bit)</code></td>
+<td align="left"><code>reverse_vector</code></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><code>-rev</code></td>
+<td align="left"></td>
+<td align="left"><code>copy_vector(revx=TRUE)</code></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>min</code></td>
+<td align="left"><code>min(bit)</code></td>
+<td align="left"><code>merge_first</code></td>
+<td align="left"><code>merge_firstin</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>max</code></td>
+<td align="left"><code>max(bit)</code></td>
+<td align="left"><code>merge_last</code></td>
+<td align="left"><code>merge_lastin</code></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><code>min(!bit)</code></td>
+<td align="left"></td>
+<td align="left"><code>merge_firstnotin</code></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><code>max(!bit)</code></td>
+<td align="left"></td>
+<td align="left"><code>merge_lastnotin</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div id="methods-using-random-access-to-bit-vectors" class="section level3">
+<h3>Methods using random access to bit vectors</h3>
+<p>Set operations using hash tables incur costs for populating and
+querying the hash table: this is random access cost to a relative large
+table. In order to avoid <em>hash collisions</em> hash tables need more
+elements than those being hashed, typically <code>2*N</code> for
+<code>N</code> elements. That is hashing <code>N</code> integer elements
+using a int32 hash function costs <em>random access</em> to
+<code>64*N</code> bits of memory. If the <code>N</code> elements are
+within a range of <code>N</code> values, it is much (by factor 64)
+cheaper to register them in a bit-vector of <code>N</code> bits. The
+<code>bit_*</code> functions first determine the range of the values
+(and count of <code>NA</code>), and then use an appropriately sized bit
+vector. Like the original R functions the <code>bit_*</code> functions
+keep the original order of values (although some implementations could
+be faster by delivering an undefined order). If <code>N</code> is small
+relative to the range of the values the <code>bit_*</code> fall back to
+the standard R functions using hash tables. Where the <code>bit_*</code>
+functions return Boolean vectors they do so by default as
+<code>bit</code> vectors, but but you can give a different coercion
+function as argument <code>retFUN</code>.</p>
+<p>Bit vectors cannot communicate positions, hence cannot replace
+<code>match</code>, however they can replace the <code>%in%</code>
+operator:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">9</span><span class="dt">L</span></span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(n, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sample</span>(n, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a>x</span>
+<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a><span class="co">#&gt; [1] 9 4 7 1 2 7 2 3 1</span></span>
+<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a>y</span>
+<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a><span class="co">#&gt; [1] 5 5 6 7 9 5 5 9 9</span></span>
+<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a>x <span class="sc">%in%</span> y</span>
+<span id="cb39-10"><a href="#cb39-10" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE</span></span>
+<span id="cb39-11"><a href="#cb39-11" tabindex="-1"></a><span class="fu">bit_in</span>(x, y)</span>
+<span id="cb39-12"><a href="#cb39-12" tabindex="-1"></a><span class="co">#&gt; bit length=9 occupying only 1 int32</span></span>
+<span id="cb39-13"><a href="#cb39-13" tabindex="-1"></a><span class="co">#&gt;     1     2     3     4     5     6     7     8     9 </span></span>
+<span id="cb39-14"><a href="#cb39-14" tabindex="-1"></a><span class="co">#&gt;  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE</span></span>
+<span id="cb39-15"><a href="#cb39-15" tabindex="-1"></a><span class="fu">bit_in</span>(x, y, <span class="at">retFUN=</span>as.logical)</span>
+<span id="cb39-16"><a href="#cb39-16" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE</span></span></code></pre></div>
+<p>The <code>bit_in</code> function combines a bit vector optimization
+with reverse look-up, i.e. if the range of <code>x</code> is smaller
+than the range of <code>table</code>, we build the bit vector on
+<code>x</code> instead of the <code>table</code>.</p>
+<hr />
+<p>The <code>bit_duplicated</code> function can handle <code>NA</code>
+in three different ways</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="fu">duplicated</span>(x)</span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a><span class="co">#&gt; [1] FALSE  TRUE FALSE  TRUE FALSE FALSE</span></span>
+<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a><span class="fu">bit_duplicated</span>(x, <span class="at">retFUN=</span>as.logical)</span>
+<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a><span class="co">#&gt; [1] FALSE  TRUE FALSE  TRUE FALSE FALSE</span></span>
+<span id="cb40-6"><a href="#cb40-6" tabindex="-1"></a><span class="fu">bit_duplicated</span>(x, <span class="at">na.rm=</span><span class="cn">NA</span>, <span class="at">retFUN=</span>as.logical)</span>
+<span id="cb40-7"><a href="#cb40-7" tabindex="-1"></a><span class="co">#&gt; [1] FALSE  TRUE FALSE  TRUE FALSE FALSE</span></span>
+<span id="cb40-8"><a href="#cb40-8" tabindex="-1"></a></span>
+<span id="cb40-9"><a href="#cb40-9" tabindex="-1"></a><span class="fu">duplicated</span>(x, <span class="at">incomparables =</span> <span class="cn">NA</span>)</span>
+<span id="cb40-10"><a href="#cb40-10" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE FALSE FALSE</span></span>
+<span id="cb40-11"><a href="#cb40-11" tabindex="-1"></a><span class="fu">bit_duplicated</span>(x, <span class="at">na.rm=</span><span class="cn">FALSE</span>, <span class="at">retFUN=</span>as.logical)</span>
+<span id="cb40-12"><a href="#cb40-12" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE FALSE FALSE</span></span>
+<span id="cb40-13"><a href="#cb40-13" tabindex="-1"></a></span>
+<span id="cb40-14"><a href="#cb40-14" tabindex="-1"></a><span class="fu">bit_duplicated</span>(x, <span class="at">na.rm=</span><span class="cn">TRUE</span>, <span class="at">retFUN=</span>as.logical)</span>
+<span id="cb40-15"><a href="#cb40-15" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE  TRUE FALSE  TRUE FALSE FALSE</span></span></code></pre></div>
+<p>The <code>bit_unique</code> function can also handle <code>NA</code>
+in three different ways</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a><span class="fu">unique</span>(x)</span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a><span class="co">#&gt; [1] NA  1  2  3</span></span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a><span class="fu">bit_unique</span>(x)</span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a><span class="co">#&gt; [1] NA  1  2  3</span></span>
+<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a><span class="fu">unique</span>(x, <span class="at">incomparables =</span> <span class="cn">NA</span>)</span>
+<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a><span class="co">#&gt; [1] NA NA  1  2  3</span></span>
+<span id="cb41-9"><a href="#cb41-9" tabindex="-1"></a><span class="fu">bit_unique</span>(x, <span class="at">na.rm=</span><span class="cn">FALSE</span>)</span>
+<span id="cb41-10"><a href="#cb41-10" tabindex="-1"></a><span class="co">#&gt; [1] NA NA  1  2  3</span></span>
+<span id="cb41-11"><a href="#cb41-11" tabindex="-1"></a></span>
+<span id="cb41-12"><a href="#cb41-12" tabindex="-1"></a><span class="fu">bit_unique</span>(x, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb41-13"><a href="#cb41-13" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3</span></span></code></pre></div>
+<p>The <code>bit_union</code> function build a bit vector spanning the
+united range of both input sets and filters all unites duplicates:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a><span class="fu">union</span>(x, y)</span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a><span class="co">#&gt; [1] NA  1  3  2</span></span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a><span class="fu">bit_union</span>(x, y)</span>
+<span id="cb42-6"><a href="#cb42-6" tabindex="-1"></a><span class="co">#&gt; [1] NA  1  3  2</span></span></code></pre></div>
+<p>The <code>bit_intersect</code> function builds a bit vector spanning
+only the intersected range of both input sets and filters all elements
+outside and the duplicates inside:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span><span class="dt">L</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>, <span class="dv">4</span><span class="dt">L</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a><span class="fu">intersect</span>(x, y)</span>
+<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a><span class="co">#&gt; [1] NA  3</span></span>
+<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a><span class="fu">bit_intersect</span>(x, y)</span>
+<span id="cb43-6"><a href="#cb43-6" tabindex="-1"></a><span class="co">#&gt; [1] NA  3</span></span></code></pre></div>
+<hr />
+<p>The <code>bit_setdiff</code> function builds a bit vector spanning
+the range of the first input set, marks elements of the second set
+within this range as tabooed, and then outputs the remaining elements of
+the first set unless they are duplicates:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span><span class="dt">L</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>, <span class="dv">4</span><span class="dt">L</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a><span class="fu">setdiff</span>(x, y)</span>
+<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a><span class="co">#&gt; [1] 0 1</span></span>
+<span id="cb44-5"><a href="#cb44-5" tabindex="-1"></a><span class="fu">bit_setdiff</span>(x, y)</span>
+<span id="cb44-6"><a href="#cb44-6" tabindex="-1"></a><span class="co">#&gt; [1] 0 1</span></span></code></pre></div>
+<p>The <code>bit_symdiff</code> function implements symmetric set
+difference. It builds two bit vectors spanning the full range and then
+outputs those elements of both sets that are marked at exactly one of
+the bit vectors.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span><span class="dt">L</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>, <span class="dv">4</span><span class="dt">L</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a><span class="fu">union</span>(<span class="fu">setdiff</span>(x, y), <span class="fu">setdiff</span>(y, x))</span>
+<span id="cb45-4"><a href="#cb45-4" tabindex="-1"></a><span class="co">#&gt; [1] 0 1 2 4</span></span>
+<span id="cb45-5"><a href="#cb45-5" tabindex="-1"></a><span class="fu">bit_symdiff</span>(x, y)</span>
+<span id="cb45-6"><a href="#cb45-6" tabindex="-1"></a><span class="co">#&gt; [1] 0 1 2 4</span></span></code></pre></div>
+<p>The <code>bit_setequal</code> function terminates early if the ranges
+of the two sets (or the presence of <code>NA</code>) differ. Otherwise
+it builds two bit vectors spanning the identical range; finally it
+checks the two vectors for being equal with early termination if two
+unequal integers are found.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span><span class="dt">L</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>, <span class="dv">4</span><span class="dt">L</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a><span class="fu">setequal</span>(y, x)</span>
+<span id="cb46-4"><a href="#cb46-4" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span>
+<span id="cb46-5"><a href="#cb46-5" tabindex="-1"></a><span class="fu">bit_setequal</span>(x, y)</span>
+<span id="cb46-6"><a href="#cb46-6" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+<hr />
+<p>The <code>bit_rangediff</code> function works like
+<code>bit_setdiff</code> with two differences: the first set is
+specified as a <em>range</em> of integers, and it has two arguments
+<code>revx</code> and <code>revy</code> which allow to reverse
+<em>order</em> and <em>sign</em> of the two sets <em>before</em> the
+set-diff operation is done. The order of the range is significant,
+e.g. <code>c(1L, 7L)</code> is different from <code>c(7L, 1L)</code>,
+while the order of the second set has no influence:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">bit_rangediff</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="dv">7</span><span class="dt">L</span>), (<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>))</span>
+<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 6 7</span></span>
+<span id="cb47-3"><a href="#cb47-3" tabindex="-1"></a><span class="fu">bit_rangediff</span>(<span class="fu">c</span>(<span class="dv">7</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), (<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>))</span>
+<span id="cb47-4"><a href="#cb47-4" tabindex="-1"></a><span class="co">#&gt; [1] 7 6 2 1</span></span>
+<span id="cb47-5"><a href="#cb47-5" tabindex="-1"></a><span class="fu">bit_rangediff</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="dv">7</span><span class="dt">L</span>), <span class="sc">-</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">revy=</span><span class="cn">TRUE</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 6 7</span></span>
+<span id="cb47-7"><a href="#cb47-7" tabindex="-1"></a><span class="fu">bit_rangediff</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="dv">7</span><span class="dt">L</span>), <span class="sc">-</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">revx=</span><span class="cn">TRUE</span>)</span>
+<span id="cb47-8"><a href="#cb47-8" tabindex="-1"></a><span class="co">#&gt; [1] -7 -6 -2 -1</span></span></code></pre></div>
+<p>If the range and the second set don’t overlap, for example due to
+different signs, the full range is returned:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="fu">bit_rangediff</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="dv">7</span><span class="dt">L</span>), (<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>))</span>
+<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a><span class="co">#&gt; integer(0)</span></span>
+<span id="cb48-3"><a href="#cb48-3" tabindex="-1"></a><span class="fu">bit_rangediff</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="dv">7</span><span class="dt">L</span>), <span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>))</span>
+<span id="cb48-4"><a href="#cb48-4" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3 4 5 6 7</span></span>
+<span id="cb48-5"><a href="#cb48-5" tabindex="-1"></a><span class="fu">bit_rangediff</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="dv">7</span><span class="dt">L</span>), (<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>), <span class="at">revy=</span><span class="cn">TRUE</span>)</span>
+<span id="cb48-6"><a href="#cb48-6" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3 4 5 6 7</span></span></code></pre></div>
+<p>Note that <code>bit_rangediff</code> provides faster negative
+subscripting from a range of integers than the usual phrase
+<code>(1:n)[-i]</code>:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>)[<span class="sc">-</span><span class="dv">7</span>]</span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3 4 5 6 8 9</span></span>
+<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a><span class="fu">bit_rangediff</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="dv">9</span><span class="dt">L</span>), <span class="sc">-</span><span class="dv">7</span><span class="dt">L</span>, <span class="at">revy=</span><span class="cn">TRUE</span>)</span>
+<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3 4 5 6 8 9</span></span></code></pre></div>
+<hr />
+<p>Functions <code>bit_anyDuplicated</code> is a faster version of
+<code>anyDuplicated</code></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">duplicated</span>(x))      <span class="co"># full hash work, returns FALSE or TRUE</span></span>
+<span id="cb50-3"><a href="#cb50-3" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb50-4"><a href="#cb50-4" tabindex="-1"></a><span class="fu">anyDuplicated</span>(x)        <span class="co"># early termination of hash work, returns 0 or position of first duplicate</span></span>
+<span id="cb50-5"><a href="#cb50-5" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb50-6"><a href="#cb50-6" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">bit_duplicated</span>(x))  <span class="co"># full bit work, returns FALSE or TRUE</span></span>
+<span id="cb50-7"><a href="#cb50-7" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb50-8"><a href="#cb50-8" tabindex="-1"></a><span class="fu">bit_anyDuplicated</span>(x)    <span class="co"># early termination of bit work, returns 0 or position of first duplicate</span></span>
+<span id="cb50-9"><a href="#cb50-9" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span></code></pre></div>
+<p>For the meaning of the <code>na.rm</code> parameter see
+<code>bit_duplicated</code>. Function <code>bit_sumDuplicated</code> is
+a faster version of <code>sum(bit_duplicated)</code></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(x))      <span class="co"># full hash work, returns FALSE or TRUE</span></span>
+<span id="cb51-3"><a href="#cb51-3" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb51-4"><a href="#cb51-4" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">bit_duplicated</span>(x))  <span class="co"># full bit work, returns FALSE or TRUE</span></span>
+<span id="cb51-5"><a href="#cb51-5" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb51-6"><a href="#cb51-6" tabindex="-1"></a><span class="fu">bit_sumDuplicated</span>(x)    <span class="co"># early termination of bit work, returns 0 or position of first duplicated</span></span>
+<span id="cb51-7"><a href="#cb51-7" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span></code></pre></div>
+<hr />
+</div>
+<div id="methods-using-bit-vectors-for-sorting-integers" class="section level3">
+<h3>Methods using bit vectors for sorting integers</h3>
+<p>A bit vector cannot replace a hash table for all possible kind of
+tasks (when it comes to counting values or to their positions), but on
+the other hand a bit vector allows something impossible with a hash
+table: <em>sorting</em> keys (without payload). Sorting a large subset
+of unique integers in [1, N] using a bit vector has been described in
+<em>“Programming pearls – cracking the oyster”</em> by Jon Bentley
+(where ‘uniqueness’ is not an input condition but an output feature).
+This is easily generalized to sorting a large subset of integers in a
+range [min, max]. A first scan over the data determines the range of the
+keys, arranges <code>NA</code>s according to the usual
+<code>na.last=</code> argument and checks for presortedness (see
+<code>range_sortna</code>), then the range is projected to a bit vector
+of size <code>max-min+1</code>, all keys are registered causing random
+access and a final scan over the bit vector sequentially writes out the
+sorted keys. This is a <em>synthetical sort</em> because unlike a
+<em>comparison sort</em> the elements are not moved towards their
+ordered positions, instead they are <em>synthesized</em> from the
+bit-representation.</p>
+<p>For <code>N</code> consecutive permuted integers this is by an order
+of magnitude faster than <em>quicksort</em>. For a <em>density</em>
+<span class="math inline">\(d=N/(max-min) \ge 1\)</span> this sort beats
+quicksort, but for <span class="math inline">\(d &lt;&lt; 1\)</span> the
+bit vector becomes too large relative to <code>N</code> and hence
+quicksort is faster. <code>bit_sort_unique</code> implements a hybrid
+algorithm automatically choosing the faster of both, hence for integers
+the following gives identical results</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">9</span>, <span class="dv">9</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a><span class="fu">unique</span>(<span class="fu">sort</span>(x))</span>
+<span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3 4 5 6 9</span></span>
+<span id="cb52-4"><a href="#cb52-4" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">unique</span>(x))</span>
+<span id="cb52-5"><a href="#cb52-5" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3 4 5 6 9</span></span>
+<span id="cb52-6"><a href="#cb52-6" tabindex="-1"></a><span class="fu">bit_sort_unique</span>(x)</span>
+<span id="cb52-7"><a href="#cb52-7" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3 4 5 6 9</span></span></code></pre></div>
+<p>What if duplicates shall be kept?</p>
+<ul>
+<li>A: sort all non-duplicated occurrences using a bit vector</li>
+<li>B: sort the rest</li>
+<li>merge A and B</li>
+</ul>
+<p>The crucial question is how to sort the rest? Recursively using a
+bit-vector can again be faster than quicksort, however it is non-trivial
+to determine an optimal recursion-depth before falling back to
+quicksort. Hence a safe bet is using the bit vector only once and sort
+the rest via quicksort, let’s call that <code>bitsort</code>. Again,
+using <code>bitsort</code> is fast only at medium density in the data
+range. For low density quicksort is faster. For high density
+(duplicates) another synthetic sort is faster: <em>counting sort</em>.
+<code>bit_sort</code> implements a <em>sandwhich sort</em> algorithm
+which given density uses <code>bitsort</code> between two complementing
+algorithms:</p>
+<pre><code>low density    medium density    high density
+quicksort   &lt;&lt; bitsort        &lt;&lt; countsort</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">9</span>, <span class="dv">9</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a><span class="fu">sort</span>(x)</span>
+<span id="cb54-3"><a href="#cb54-3" tabindex="-1"></a><span class="co">#&gt; [1] 4 4 6 7 7 8 9 9 9</span></span>
+<span id="cb54-4"><a href="#cb54-4" tabindex="-1"></a><span class="fu">bit_sort</span>(x)</span>
+<span id="cb54-5"><a href="#cb54-5" tabindex="-1"></a><span class="co">#&gt; [1] 4 4 6 7 7 8 9 9 9</span></span></code></pre></div>
+<p>Both, <code>bit_sort_unique</code> and <code>bit_sort</code> can sort
+<em>decreasing</em>, however, currently this requires an extra pass over
+the data in <code>bit_sort</code> and in the quicksort fallback of
+<code>bit_sort_unique</code>. So far, <code>bit_sort</code> does not
+leverage <em>radix sort</em> for very large <code>N</code>.</p>
+<hr />
+</div>
+<div id="methods-for-sets-of-sorted-integers" class="section level3">
+<h3>Methods for sets of sorted integers</h3>
+<p>Efficient handling of sorted sets is backbone of class
+<code>bitwhich</code>. The <code>merge_*</code> and
+<code>merge_range*</code> integer functions expect sorted input
+(non-decreasing sets or increasing ranges) and return sorted sets (some
+return Boolean vectors or scalars). Exploiting the sortedness makes them
+even faster than the <code>bit_</code> functions. Many of them have
+<code>revx</code> or <code>revy</code> arguments, which reverse the
+scanning direction of an input vector <em>and</em> the interpreted
+<em>sign</em> of its elements, hence we can change signs of input
+vectors in an order-preserving way and without any extra pass over the
+data. By default these functions return <em>unique</em> sets which have
+each element not more than once. However, the <em>binary</em>
+<code>merge_*</code> functions have a <code>method=&quot;exact&quot;</code> which
+in both sets treats consecutive occurrences of the same value as
+different. With <code>method=&quot;exact&quot;</code> for example
+<code>merge_setdiff</code> behaves as if counting the values in the
+first set and subtraction the respective counts of the second set (and
+capping the lower end at zero). Assuming positive integers and equal
+<code>tabulate(, nbins=)</code> with <code>method=&quot;exact&quot;</code> the
+following is identical:</p>
+<table>
+<colgroup>
+<col width="47%" />
+<col width="52%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">merging then counting</th>
+<th align="left">counting then combining</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>tabulate(merge_union(x, y))</code></td>
+<td align="left"><code>pmax(tabulate(x), tabulate(y))</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>tabulate(merge_intersect(x, y))</code></td>
+<td align="left"><code>pmin(tabulate(x), tabulate(y))</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>tabulate(merge_setdiff(x, y))</code></td>
+<td align="left"><code>pmax(tabulate(x) - tabulate(y), 0)</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>tabulate(merge_symdiff(x, y))</code></td>
+<td align="left"><code>abs(tabulate(x) - tabulate(y))</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>tabulate(merge_setequal(x, y))</code></td>
+<td align="left"><code>all(tabulate(x) == tabulate(y))</code></td>
+</tr>
+</tbody>
+</table>
+<p>Note further that <code>method=&quot;exact&quot;</code> delivers
+<em>unique</em> output if the input is unique, and in this case works
+faster than <code>method=&quot;unique&quot;</code>.</p>
+<p>Note further, that the <code>merge_*</code> and
+<code>merge_range*</code> functions have no special treatment for
+<code>NA</code>. If vectors with <code>NA</code> are sorted ith
+<code>NA</code> in the first positions (<code>na.last=FALSE</code>) and
+arguments <code>revx=</code> or <code>revy=</code> have not been used,
+then <code>NAs</code> are treated like ordinary integers.
+<code>NA</code> sorted elsewhere or using <code>revx=</code> or
+<code>revy=</code> can cause unexpected results (note for example that
+<code>revx=</code> switches the sign on all integers but
+<code>NAs</code>).</p>
+<hr />
+<p>The unary <code>merge_unique</code> function transform a sorted set
+into a unique sorted set:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">12</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" tabindex="-1"></a><span class="fu">bit_sort</span>(x)</span>
+<span id="cb55-3"><a href="#cb55-3" tabindex="-1"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10 11 12</span></span>
+<span id="cb55-4"><a href="#cb55-4" tabindex="-1"></a><span class="fu">merge_unique</span>(<span class="fu">bit_sort</span>(x))</span>
+<span id="cb55-5"><a href="#cb55-5" tabindex="-1"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10 11 12</span></span>
+<span id="cb55-6"><a href="#cb55-6" tabindex="-1"></a><span class="fu">bit_sort_unique</span>(x)</span>
+<span id="cb55-7"><a href="#cb55-7" tabindex="-1"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10 11 12</span></span></code></pre></div>
+<hr />
+<p>For binary functions let’s start with <em>set equality</em>:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">as.integer</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">as.integer</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span>
+<span id="cb56-3"><a href="#cb56-3" tabindex="-1"></a><span class="fu">setequal</span>(x, y)</span>
+<span id="cb56-4"><a href="#cb56-4" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb56-5"><a href="#cb56-5" tabindex="-1"></a><span class="fu">merge_setequal</span>(x, y)</span>
+<span id="cb56-6"><a href="#cb56-6" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb56-7"><a href="#cb56-7" tabindex="-1"></a><span class="fu">merge_setequal</span>(x, y, <span class="at">method=</span><span class="st">&quot;exact&quot;</span>)</span>
+<span id="cb56-8"><a href="#cb56-8" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+<p>For <em>set complement</em> there is also a <code>merge_range*</code>
+function:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">as.integer</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">as.integer</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb57-3"><a href="#cb57-3" tabindex="-1"></a><span class="fu">setdiff</span>(x, y)</span>
+<span id="cb57-4"><a href="#cb57-4" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span>
+<span id="cb57-5"><a href="#cb57-5" tabindex="-1"></a><span class="fu">merge_setdiff</span>(x, y)</span>
+<span id="cb57-6"><a href="#cb57-6" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span>
+<span id="cb57-7"><a href="#cb57-7" tabindex="-1"></a><span class="fu">merge_setdiff</span>(x, y, <span class="at">method=</span><span class="st">&quot;exact&quot;</span>)</span>
+<span id="cb57-8"><a href="#cb57-8" tabindex="-1"></a><span class="co">#&gt; [1] 0 2 3 3</span></span>
+<span id="cb57-9"><a href="#cb57-9" tabindex="-1"></a><span class="fu">merge_rangediff</span>(<span class="fu">c</span>(<span class="dv">0</span><span class="dt">L</span>, <span class="dv">4</span><span class="dt">L</span>), y)</span>
+<span id="cb57-10"><a href="#cb57-10" tabindex="-1"></a><span class="co">#&gt; [1] 0 4</span></span>
+<span id="cb57-11"><a href="#cb57-11" tabindex="-1"></a><span class="fu">merge_rangediff</span>(<span class="fu">c</span>(<span class="dv">0</span><span class="dt">L</span>, <span class="dv">4</span><span class="dt">L</span>), <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span><span class="dt">L</span>, <span class="sc">-</span><span class="dv">2</span><span class="dt">L</span>)) <span class="co"># y has no effect due to different sign</span></span>
+<span id="cb57-12"><a href="#cb57-12" tabindex="-1"></a><span class="co">#&gt; [1] 0 1 2 3 4</span></span>
+<span id="cb57-13"><a href="#cb57-13" tabindex="-1"></a><span class="fu">merge_rangediff</span>(<span class="fu">c</span>(<span class="dv">0</span><span class="dt">L</span>, <span class="dv">4</span><span class="dt">L</span>), <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span><span class="dt">L</span>, <span class="sc">-</span><span class="dv">2</span><span class="dt">L</span>), <span class="at">revy=</span><span class="cn">TRUE</span>)</span>
+<span id="cb57-14"><a href="#cb57-14" tabindex="-1"></a><span class="co">#&gt; [1] 0 1 4</span></span>
+<span id="cb57-15"><a href="#cb57-15" tabindex="-1"></a><span class="fu">merge_rangediff</span>(<span class="fu">c</span>(<span class="dv">0</span><span class="dt">L</span>, <span class="dv">4</span><span class="dt">L</span>), <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span><span class="dt">L</span>, <span class="sc">-</span><span class="dv">2</span><span class="dt">L</span>), <span class="at">revx=</span><span class="cn">TRUE</span>)</span>
+<span id="cb57-16"><a href="#cb57-16" tabindex="-1"></a><span class="co">#&gt; [1] -4 -1  0</span></span></code></pre></div>
+<p><code>merge_symdiff</code> for <em>symmetric set complement</em> is
+used similar (without a <code>merge_range*</code> function), as is
+<code>merge_intersect</code>, where the latter is accompanied by a
+<code>merge_range*</code> function:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="sc">-</span><span class="dv">2</span><span class="sc">:</span><span class="dv">1</span></span>
+<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a>y <span class="ot">=</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span></span>
+<span id="cb58-3"><a href="#cb58-3" tabindex="-1"></a><span class="fu">setdiff</span>(x, y)</span>
+<span id="cb58-4"><a href="#cb58-4" tabindex="-1"></a><span class="co">#&gt; [1] -2</span></span>
+<span id="cb58-5"><a href="#cb58-5" tabindex="-1"></a><span class="fu">union</span>(<span class="fu">setdiff</span>(x, y), <span class="fu">setdiff</span>(y, x))</span>
+<span id="cb58-6"><a href="#cb58-6" tabindex="-1"></a><span class="co">#&gt; [1] -2  2</span></span>
+<span id="cb58-7"><a href="#cb58-7" tabindex="-1"></a><span class="fu">merge_symdiff</span>(x, y)</span>
+<span id="cb58-8"><a href="#cb58-8" tabindex="-1"></a><span class="co">#&gt; [1] -2  2</span></span>
+<span id="cb58-9"><a href="#cb58-9" tabindex="-1"></a><span class="fu">merge_intersect</span>(x, y)</span>
+<span id="cb58-10"><a href="#cb58-10" tabindex="-1"></a><span class="co">#&gt; [1] -1  0  1</span></span>
+<span id="cb58-11"><a href="#cb58-11" tabindex="-1"></a><span class="fu">merge_rangesect</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), y)</span>
+<span id="cb58-12"><a href="#cb58-12" tabindex="-1"></a><span class="co">#&gt; [1] -1  0  1</span></span></code></pre></div>
+<p>The <code>merge_union</code> function has a third method
+<code>all</code> which behaves like <code>c</code> but keeps the output
+sorted</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">as.integer</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a>y <span class="ot">=</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb59-3"><a href="#cb59-3" tabindex="-1"></a><span class="fu">union</span>(x, y)</span>
+<span id="cb59-4"><a href="#cb59-4" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3 4</span></span>
+<span id="cb59-5"><a href="#cb59-5" tabindex="-1"></a><span class="fu">merge_union</span>(x, y, <span class="at">method=</span><span class="st">&quot;unique&quot;</span>)</span>
+<span id="cb59-6"><a href="#cb59-6" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3 4</span></span>
+<span id="cb59-7"><a href="#cb59-7" tabindex="-1"></a><span class="fu">merge_union</span>(x, y, <span class="at">method=</span><span class="st">&quot;exact&quot;</span>)</span>
+<span id="cb59-8"><a href="#cb59-8" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 2 3 3 3 4</span></span>
+<span id="cb59-9"><a href="#cb59-9" tabindex="-1"></a><span class="fu">merge_union</span>(x, y, <span class="at">method=</span><span class="st">&quot;all&quot;</span>)</span>
+<span id="cb59-10"><a href="#cb59-10" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 2 2 3 3 3 3 4</span></span>
+<span id="cb59-11"><a href="#cb59-11" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">c</span>(x, y))</span>
+<span id="cb59-12"><a href="#cb59-12" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 2 2 3 3 3 3 4</span></span>
+<span id="cb59-13"><a href="#cb59-13" tabindex="-1"></a><span class="fu">c</span>(x, y)</span>
+<span id="cb59-14"><a href="#cb59-14" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 2 3 3 3 2 3 4</span></span></code></pre></div>
+<hr />
+<p>Unlike the <code>bit_*</code> functions the <code>merge_*</code>
+functions have a <code>merge_match</code> function:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">as.integer</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb60-3"><a href="#cb60-3" tabindex="-1"></a><span class="fu">match</span>(x, y)</span>
+<span id="cb60-4"><a href="#cb60-4" tabindex="-1"></a><span class="co">#&gt; [1]  3  5 NA</span></span>
+<span id="cb60-5"><a href="#cb60-5" tabindex="-1"></a><span class="fu">merge_match</span>(x, y)</span>
+<span id="cb60-6"><a href="#cb60-6" tabindex="-1"></a><span class="co">#&gt; [1]  3  5 NA</span></span></code></pre></div>
+<p>and unlike R’s <code>%in%</code> operator the following functions are
+directly implemented, not on top of merge, and hence save extra passes
+over the data:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a>x <span class="sc">%in%</span> y</span>
+<span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE  TRUE FALSE</span></span>
+<span id="cb61-3"><a href="#cb61-3" tabindex="-1"></a><span class="fu">merge_in</span>(x, y)</span>
+<span id="cb61-4"><a href="#cb61-4" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE  TRUE FALSE</span></span>
+<span id="cb61-5"><a href="#cb61-5" tabindex="-1"></a><span class="fu">merge_notin</span>(x, y)</span>
+<span id="cb61-6"><a href="#cb61-6" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE  TRUE</span></span></code></pre></div>
+<p>The range versions extract logical vectors from <code>y</code>, but
+only for the range in <code>rx</code>.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span><span class="dt">L</span>, <span class="dv">4</span><span class="dt">L</span>)</span>
+<span id="cb62-2"><a href="#cb62-2" tabindex="-1"></a><span class="fu">merge_rangein</span>(x, y)</span>
+<span id="cb62-3"><a href="#cb62-3" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE  TRUE FALSE</span></span>
+<span id="cb62-4"><a href="#cb62-4" tabindex="-1"></a><span class="fu">merge_rangenotin</span>(x, y)</span>
+<span id="cb62-5"><a href="#cb62-5" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE  TRUE</span></span></code></pre></div>
+<p>Compare this to <code>merge_rangesect</code> above.
+<code>merge_rangein</code> is useful in the context of chunked
+processing, see the <code>any</code>, <code>all</code>, <code>sum</code>
+and <code>[</code> methods of class <code>bitwhich</code>.</p>
+<hr />
+<p>The functions <code>merge_first</code> and <code>merge_last</code>
+give first and last element of a sorted set. By default that is
+<em>min</em> and <em>max</em>, however these functions also have an
+<code>revx</code> argument. There are also functions that deliver the
+first resp. last elements <em>of</em> a certain range that are
+<em>in</em> or <em>not in</em> a certain set.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">bit_sort</span>(<span class="fu">sample</span>(<span class="dv">1000</span>, <span class="dv">10</span>))</span>
+<span id="cb63-2"><a href="#cb63-2" tabindex="-1"></a><span class="fu">merge_first</span>(x)</span>
+<span id="cb63-3"><a href="#cb63-3" tabindex="-1"></a><span class="co">#&gt; [1] 104</span></span>
+<span id="cb63-4"><a href="#cb63-4" tabindex="-1"></a><span class="fu">merge_last</span>(x)</span>
+<span id="cb63-5"><a href="#cb63-5" tabindex="-1"></a><span class="co">#&gt; [1] 983</span></span>
+<span id="cb63-6"><a href="#cb63-6" tabindex="-1"></a><span class="fu">merge_firstnotin</span>(<span class="fu">c</span>(<span class="dv">300</span><span class="dt">L</span>, <span class="dv">600</span><span class="dt">L</span>), x)</span>
+<span id="cb63-7"><a href="#cb63-7" tabindex="-1"></a><span class="co">#&gt; [1] 300</span></span>
+<span id="cb63-8"><a href="#cb63-8" tabindex="-1"></a><span class="fu">merge_firstin</span>(<span class="fu">c</span>(<span class="dv">300</span><span class="dt">L</span>, <span class="dv">600</span><span class="dt">L</span>), x)</span>
+<span id="cb63-9"><a href="#cb63-9" tabindex="-1"></a><span class="co">#&gt; [1] 326</span></span>
+<span id="cb63-10"><a href="#cb63-10" tabindex="-1"></a><span class="fu">merge_lastin</span>(<span class="fu">c</span>(<span class="dv">300</span><span class="dt">L</span>, <span class="dv">600</span><span class="dt">L</span>), x)</span>
+<span id="cb63-11"><a href="#cb63-11" tabindex="-1"></a><span class="co">#&gt; [1] 499</span></span>
+<span id="cb63-12"><a href="#cb63-12" tabindex="-1"></a><span class="fu">merge_lastnotin</span>(<span class="fu">c</span>(<span class="dv">300</span><span class="dt">L</span>, <span class="dv">600</span><span class="dt">L</span>), x)</span>
+<span id="cb63-13"><a href="#cb63-13" tabindex="-1"></a><span class="co">#&gt; [1] 600</span></span></code></pre></div>
+<hr />
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

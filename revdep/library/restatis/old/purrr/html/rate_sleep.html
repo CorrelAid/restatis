@@ -1,0 +1,66 @@
+<!DOCTYPE html><html><head><title>R: Wait for a given time</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>rate_sleep {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Wait for a given time</h2>
+
+<h3>Description</h3>
+
+<p>If the rate's internal counter exceeds the maximum number of times
+it is allowed to sleep, <code>rate_sleep()</code> throws an error of class
+<code>purrr_error_rate_excess</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>rate_sleep(rate, quiet = TRUE)
+
+rate_reset(rate)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="rate">rate</code></td>
+<td>
+<p>A <a href="../../purrr/help/rate_backoff.html">rate</a> object determining the waiting time.</p>
+</td></tr>
+<tr><td><code id="quiet">quiet</code></td>
+<td>
+<p>If <code>FALSE</code>, prints a message displaying how long until
+the next request.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Call <code>rate_reset()</code> to reset the internal rate counter to 0.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../purrr/help/rate_backoff.html">rate_backoff()</a></code>, <code><a href="../../purrr/help/insistently.html">insistently()</a></code>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

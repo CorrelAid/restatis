@@ -1,0 +1,86 @@
+<!DOCTYPE html><html><head><title>R: Retrieve most recent request/response</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>last_response {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Retrieve most recent request/response</h2>
+
+<h3>Description</h3>
+
+<p><code>last_request()</code> and <code>last_response()</code> retrieve the most recent request
+made by httr2 and the response it received, to facilitate debugging problems
+<em>after</em> they occur.
+</p>
+<p><code>last_request_json()</code> and <code>last_response_json()</code> return the JSON bodies of
+the most recent request and response. They will error if not JSON.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>last_response()
+
+last_request()
+
+last_request_json(pretty = TRUE)
+
+last_response_json(pretty = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="pretty">pretty</code></td>
+<td>
+<p>Should the JSON be pretty-printed?</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>last_request()</code> and <code>last_response()</code> return an HTTP
+<a href="../../httr2/help/request.html">request</a> or <a href="../../httr2/help/response.html">response</a> respectively. If no request has been made,
+<code>last_request()</code> will return <code>NULL</code>; if no request has been made
+or the last request was unsuccessful, <code>last_response()</code> will return
+<code>NULL</code>.
+</p>
+<p><code>last_request_json()</code> and <code>last_response_json()</code> always return a string.
+They will error if <code>last_request()</code> or <code>last_response()</code> are <code>NULL</code> or
+don't have JSON bodies.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>. &lt;- request("http://httr2.r-lib.org") |&gt; req_perform()
+last_request()
+last_response()
+
+. &lt;- request(example_url("/post")) |&gt;
+  req_body_json(list(a = 1, b = 2)) |&gt;
+  req_perform()
+last_request_json()
+last_request_json(pretty = FALSE)
+last_response_json()
+last_response_json(pretty = FALSE)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

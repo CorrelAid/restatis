@@ -1,0 +1,177 @@
+<!DOCTYPE html><html><head><title>R: Indexed errors ('purrr_error_indexed')</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>purrr_error_indexed {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Indexed errors (<code>purrr_error_indexed</code>)</h2>
+
+<h3>Description</h3>
+
+<p>The <code>purrr_error_indexed</code> class is thrown by <code><a href="../../purrr/help/map.html">map()</a></code>, <code><a href="../../purrr/help/map2.html">map2()</a></code>, <code><a href="../../purrr/help/pmap.html">pmap()</a></code>, and friends.
+It wraps errors thrown during the processing on individual elements with information about the location of the error.
+</p>
+
+
+<h3>Structure</h3>
+
+<p><code>purrr_error_indexed</code> has three important fields:
+</p>
+
+<ul>
+<li> <p><code>location</code>: the location of the error as a single integer.
+</p>
+</li>
+<li> <p><code>name</code>: the name of the location as a string. If the element was not named, <code>name</code> will be <code>NULL</code>
+</p>
+</li>
+<li> <p><code>parent</code>: the original error thrown by <code>.f</code>.
+</p>
+</li></ul>
+
+<p>Let's see this in action by capturing the generated condition from a very simple example:
+</p>
+<div class="sourceCode r"><pre>f &lt;- function(x) {
+  rlang::abort("This is an error")
+} 
+
+cnd &lt;- rlang::catch_cnd(map(c(1, 4, 2), f))
+class(cnd)
+#&gt; [1] "purrr_error_indexed" "rlang_error"         "error"              
+#&gt; [4] "condition"
+
+cnd$location
+#&gt; [1] 1
+
+cnd$name
+#&gt; NULL
+
+print(cnd$parent, backtrace = FALSE)
+#&gt; &lt;error/rlang_error&gt;
+#&gt; Error in `.f()`:
+#&gt; ! This is an error
+</pre></div>
+<p>If the input vector is named, <code>name</code> will be non-<code>NULL</code>:
+</p>
+<div class="sourceCode r"><pre>cnd &lt;- rlang::catch_cnd(map(c(a = 1, b = 4, c = 2), f))
+cnd$name
+#&gt; [1] "a"
+</pre></div>
+
+
+<h3>Handling errors</h3>
+
+<p>(This section assumes that you're familiar with the basics of error handling in R, as described in <a href="https://adv-r.hadley.nz/conditions.html">Advanced R</a>.)
+</p>
+<p>This error chaining is really useful when doing interactive data analysis, but it adds some extra complexity when handling errors with <code>tryCatch()</code> or <code>withCallingHandlers()</code>.
+Let's see what happens by adding a custom class to the error thrown by <code>f()</code>:
+</p>
+<div class="sourceCode r"><pre>f &lt;- function(x) {
+  rlang::abort("This is an error", class = "my_error")
+} 
+map(c(1, 4, 2, 5, 3), f)
+#&gt; Error in `map()`:
+#&gt; i In index: 1.
+#&gt; Caused by error in `.f()`:
+#&gt; ! This is an error
+</pre></div>
+<p>This doesn't change the visual display, but you might be surprised if you try to catch this error with <code>tryCatch()</code> or <code>withCallingHandlers()</code>:
+</p>
+<div class="sourceCode r"><pre>tryCatch(
+  map(c(1, 4, 2, 5, 3), f),
+  my_error = function(err) {
+    # use NULL value if error
+    NULL
+  }
+)
+#&gt; Error in `map()`:
+#&gt; i In index: 1.
+#&gt; Caused by error in `.f()`:
+#&gt; ! This is an error
+
+withCallingHandlers(
+  map(c(1, 4, 2, 5, 3), f),
+  my_error = function(err) {
+    # throw a more informative error
+    abort("Wrapped error", parent = err)
+  }
+)
+#&gt; Error in `map()`:
+#&gt; i In index: 1.
+#&gt; Caused by error in `.f()`:
+#&gt; ! This is an error
+</pre></div>
+<p>That's because, as described above, the error that <code>map()</code> throws will always have class <code>purrr_error_indexed</code>:
+</p>
+<div class="sourceCode r"><pre>tryCatch(
+  map(c(1, 4, 2, 5, 3), f),
+  purrr_error_indexed = function(err) {
+    print("Hello! I am now called :)")
+  }
+)
+#&gt; [1] "Hello! I am now called :)"
+</pre></div>
+<p>In order to handle the error thrown by <code>f()</code>, you'll need to use <code>rlang::cnd_inherits()</code> on the parent error:
+</p>
+<div class="sourceCode r"><pre>tryCatch(
+  map(c(1, 4, 2, 5, 3), f),
+  purrr_error_indexed = function(err) {
+    if (rlang::cnd_inherits(err, "my_error")) {
+      NULL
+    } else {
+      rlang::cnd_signal(err)
+    }
+  }
+)
+#&gt; NULL
+
+withCallingHandlers(
+  map(c(1, 4, 2, 5, 3), f),
+  purrr_error_indexed = function(err) {
+    if (rlang::cnd_inherits(err, "my_error")) {
+      abort("Wrapped error", parent = err)
+    }
+  }
+)
+#&gt; Error:
+#&gt; ! Wrapped error
+#&gt; Caused by error in `map()`:
+#&gt; i In index: 1.
+#&gt; Caused by error in `.f()`:
+#&gt; ! This is an error
+</pre></div>
+<p>(The <code>tryCatch()</code> approach is suboptimal because we're no longer just handling errors, but also rethrowing them.
+The rethrown errors won't work correctly with (e.g.) <code>recover()</code> and <code>traceback()</code>, but we don't currently have a better approach.
+In the future we expect to <a href="https://github.com/r-lib/rlang/issues/1534">enhance <code>try_fetch()</code></a> to make this easier to do 100% correctly).
+</p>
+<p>Finally, if you just want to get rid of purrr's wrapper error, you can resignal the parent error:
+</p>
+<div class="sourceCode r"><pre>withCallingHandlers(
+  map(c(1, 4, 2, 5, 3), f),
+  purrr_error_indexed = function(err) {
+    rlang::cnd_signal(err$parent)
+  }
+)
+#&gt; Error in `.f()`:
+#&gt; ! This is an error
+</pre></div>
+<p>Because we are resignalling an error, it's important to use <code>withCallingHandlers()</code> and not <code>tryCatch()</code> in order to preserve the full backtrace context.
+That way <code>recover()</code>, <code>traceback()</code>, and related tools will continue to work correctly.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

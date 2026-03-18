@@ -1,0 +1,99 @@
+<!DOCTYPE html><html><head><title>R: About cli containers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>containers {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>About cli containers</h2>
+
+<h3>Description</h3>
+
+<p>Container elements may contain other elements. Currently the following
+commands create container elements: <code><a href="../../cli/help/cli_div.html">cli_div()</a></code>, <code><a href="../../cli/help/cli_par.html">cli_par()</a></code>, the list
+elements: <code><a href="../../cli/help/cli_ul.html">cli_ul()</a></code>, <code><a href="../../cli/help/cli_ol.html">cli_ol()</a></code>, <code><a href="../../cli/help/cli_dl.html">cli_dl()</a></code>, and list items are
+containers as well: <code><a href="../../cli/help/cli_li.html">cli_li()</a></code>.
+</p>
+
+
+<h3>Details</h3>
+
+
+
+<h4>Themes</h4>
+
+<p>A container can add a new theme, which is removed when the container
+exits.
+</p>
+<div class="sourceCode r"><pre>d &lt;- cli_div(theme = list(h1 = list(color = "blue",
+                                    "font-weight" = "bold")))
+cli_h1("Custom title")
+cli_end(d)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#>                                                                                 
+#> <span style="font-weight: bold;color: #268BD2;">Custom title</span>                                                                    
+</pre></div>
+
+
+
+
+<h4>Auto-closing</h4>
+
+<p>Container elements are closed with <code><a href="../../cli/help/cli_end.html">cli_end()</a></code>. For convenience,
+by default they are closed automatically when the function that created
+them terminated (either regularly or with an error). The default
+behavior can be changed with the <code>.auto_close</code> argument.
+</p>
+<div class="sourceCode r"><pre>div &lt;- function() {
+  cli_div(class = "tmp", theme = list(.tmp = list(color = "yellow")))
+  cli_text("This is yellow")
+}
+div()
+cli_text("This is not yellow any more")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> <span style="color: #B58900;">This is yellow</span>                                                                  
+#> This is not yellow any more                                                     
+</pre></div>
+
+
+
+
+<h4>Debugging</h4>
+
+<p>You can use the internal <code>cli:::cli_debug_doc()</code> function to see the
+currently open containers.
+</p>
+<div class="sourceCode r"><pre>fun &lt;- function() {
+  cli_div(id = "mydiv")
+  cli_par(class = "myclass")
+  cli:::cli_debug_doc()
+}
+fun()
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#>                                                                                 
+#> &lt;cli document&gt;                                                                  
+#> &lt;body id="body"&gt;                                                                
+#> &lt;div id="mydiv"&gt; +theme                                                         
+#> &lt;par id="cli-40403-226" class="myclass"&gt;                                        
+</pre></div>
+
+
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

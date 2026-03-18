@@ -1,0 +1,139 @@
+<!DOCTYPE html><html><head><title>R: Create a new &quot;with&quot; or &quot;local&quot; function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>local_ {withr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a new &quot;with&quot; or &quot;local&quot; function</h2>
+
+<h3>Description</h3>
+
+<p>These are constructors for <code>with_...</code> or <code>local_...</code> functions.
+They are only needed if you want to alter some global state which is not
+covered by the existing <code>with_...</code> functions, see <a href="../../withr/help/withr.html">withr</a>
+for an overview.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>local_(
+  set,
+  reset = set,
+  get = NULL,
+  ...,
+  envir = parent.frame(),
+  new = TRUE,
+  dots = FALSE
+)
+
+with_(set, reset = set, get = NULL, ..., envir = parent.frame(), new = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="set">set</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[function(...)]&#8288;</code><br> Function used to set the state.
+The return value from this function should be the old state, which will
+then be passed back into the <code>reset()</code> function to clean up the state.
+The function can have arbitrarily many arguments, they will be replicated
+in the formals of the returned function.</p>
+</td></tr>
+<tr><td><code id="reset">reset</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[function(x)]&#8288;</code><br> Function used to reset the state.
+The first argument can be named arbitrarily, further arguments with default
+values, or a &quot;dots&quot; argument, are supported but not used: The function will
+be called as <code>reset(old)</code>.</p>
+</td></tr>
+<tr><td><code id="get">get</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[function(...)]&#8288;</code><br> Optionally, a getter function. If
+supplied, the <code>on.exit()</code> restoration is set up <em>before</em> calling
+<code>set</code>. This is more robust in edge cases.
+</p>
+<p>For technical reasons, this getter function must have the same
+interface as <code>set</code>, which means it is passed the new values as
+well. These can be safely ignored.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="envir">envir</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[environment]&#8288;</code><br> Environment of the returned function.</p>
+</td></tr>
+<tr><td><code id="new">new</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[logical(1)]&#8288;</code><br> Replace the first argument of the <code>set</code> function
+by <code>new</code>? Set to <code>FALSE</code> if the <code>set</code> function only has optional arguments.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>with_...</code> functions reset the state immediately after the
+<code>code</code> argument has been evaluated. The <code>local_...</code> functions
+reset their arguments after they go out of scope, usually at the end of the
+function body.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code style="white-space: pre;">&#8288;[function(new, code, ...)]&#8288;</code> A function with at least two arguments,
+</p>
+
+<ul>
+<li> <p><code>new</code>: New state to use
+</p>
+</li>
+<li> <p><code>code</code>: Code to run in that state.
+</p>
+</li></ul>
+
+<p>If there are more arguments to the function passed in <code>set</code> they are
+added to the returned function.  If <code>set</code> does not have arguments,
+or <code>new</code> is <code>FALSE</code>, the returned function does not have a <code>code</code> argument.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>with_(setwd)
+
+global_stack &lt;- list()
+set_global_state &lt;- function(state, msg = "Changing global state.") {
+  global_stack &lt;- c(list(state), global_stack)
+  message(msg)
+  state
+}
+reset_global_state &lt;- function(state) {
+  old_state &lt;- global_stack[[1]]
+  global_stack &lt;- global_stack[-1]
+  stopifnot(identical(state, old_state))
+}
+with_(set_global_state, reset_global_state)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>withr</em> version 3.0.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

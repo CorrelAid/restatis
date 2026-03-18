@@ -1,0 +1,296 @@
+<!DOCTYPE html><html><head><title>R: Recode and replace values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec-recode-and-replace {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Recode and replace values</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>vec_recode_values()</code> constructs an entirely new vector by recoding the
+values from <code>x</code> specified in <code>from</code> to the corresponding values in <code>to</code>. If
+there are values in <code>x</code> not matched by <code>from</code>, then they are recoded to the
+<code>default</code> value.
+</p>
+</li>
+<li> <p><code>vec_replace_values()</code> updates an existing vector by replacing the values
+from <code>x</code> specified in <code>from</code> with the corresponding values in <code>to</code>. In this
+case, <code>to</code> must have the same type as <code>x</code> and values in <code>x</code> not matched by
+<code>from</code> pass through untouched.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_recode_values(
+  x,
+  ...,
+  from,
+  to,
+  default = NULL,
+  unmatched = "default",
+  from_as_list_of_vectors = FALSE,
+  to_as_list_of_vectors = FALSE,
+  ptype = NULL,
+  x_arg = "x",
+  from_arg = "from",
+  to_arg = "to",
+  default_arg = "default",
+  error_call = current_env()
+)
+
+vec_replace_values(
+  x,
+  ...,
+  from,
+  to,
+  from_as_list_of_vectors = FALSE,
+  to_as_list_of_vectors = FALSE,
+  x_arg = "x",
+  from_arg = "from",
+  to_arg = "to",
+  error_call = current_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A vector.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="from">from</code></td>
+<td>
+<p>Values to locate in <code>x</code> and map to values in <code>to</code>.
+</p>
+<p>Extra values present in <code>from</code> but not in <code>x</code> are ignored.
+</p>
+
+<ul>
+<li><p> If <code>from_as_list_of_vectors = FALSE</code>, <code>from</code> must be a single vector of
+any size, which will be <a href="../../vctrs/help/theory-faq-coercion.html">cast</a> to the type of
+<code>x</code>.
+</p>
+</li>
+<li><p> If <code>from_as_list_of_vectors = TRUE</code>, <code>from</code> must be a list of vectors of
+any size, which will individually be <a href="../../vctrs/help/theory-faq-coercion.html">cast</a>
+to the type of <code>x</code>.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="to">to</code></td>
+<td>
+<p>Values to map <code>from</code> to.
+</p>
+<p>The common type of <code>to</code> and <code>default</code> will determine the type of the
+output, unless <code>ptype</code> is provided.
+</p>
+
+<ul>
+<li><p> If <code>to_as_list_of_vectors = FALSE</code>, <code>to</code> must be a single vector of size
+1 or the same size as <code>from</code>.
+</p>
+</li>
+<li><p> If <code>to_as_list_of_vectors = TRUE</code>, <code>to</code> must be a list of vectors. The
+list itself must be size 1 or the same size as <code>from</code>. Each individual
+vector in the list must be size 1 or the same size as <code>x</code>.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="default">default</code></td>
+<td>
+<p>Default value to use when there is a value present in <code>x</code>
+that is unmatched by a value in <code>from</code>.
+</p>
+<p>By default, a missing value is used as the default value.
+</p>
+<p>If supplied, <code>default</code> must be size 1 or the same size as <code>x</code>.
+</p>
+<p>Can only be set when <code>unmatched = "default"</code>.</p>
+</td></tr>
+<tr><td><code id="unmatched">unmatched</code></td>
+<td>
+<p>Handling of unmatched locations.
+</p>
+<p>One of:
+</p>
+
+<ul>
+<li> <p><code>"default"</code> to use <code>default</code> in unmatched locations.
+</p>
+</li>
+<li> <p><code>"error"</code> to error when there are unmatched locations.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="from_as_list_of_vectors">from_as_list_of_vectors</code>, <code id="to_as_list_of_vectors">to_as_list_of_vectors</code></td>
+<td>
+<p>Boolean values
+determining whether to treat <code>from</code> and <code>to</code> as vectors or as lists of
+vectors. See their parameter descriptions for more details.</p>
+</td></tr>
+<tr><td><code id="ptype">ptype</code></td>
+<td>
+<p>An optional override for the output type, which is usually
+computed as the common type of <code>to</code> and <code>default</code>.</p>
+</td></tr>
+<tr><td><code id="x_arg">x_arg</code>, <code id="from_arg">from_arg</code>, <code id="to_arg">to_arg</code>, <code id="default_arg">default_arg</code></td>
+<td>
+<p>Argument names used in error
+messages.</p>
+</td></tr>
+<tr><td><code id="error_call">error_call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A vector the same size as <code>x</code>.
+</p>
+
+<ul>
+<li><p> For <code>vec_recode_values()</code>, the type of the output is computed as the common
+type of <code>to</code> and <code>default</code>, unless overridden by <code>ptype</code>. The names of the
+output come from the names of <code>to</code> and <code>default</code>.
+</p>
+</li>
+<li><p> For <code>vec_replace_values()</code>, the type of the output will have the same type
+as <code>x</code>. The names of the output will be the same as the names of <code>x</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- c(1, 2, 3, 1, 2, 4, NA, 5)
+
+# Imagine you have a pre-existing lookup table
+likert &lt;- data.frame(
+  from = c(1, 2, 3, 4, 5),
+  to = c(
+    "Strongly disagree",
+    "Disagree",
+    "Neutral",
+    "Agree",
+    "Strongly agree"
+  )
+)
+vec_recode_values(x, from = likert$from, to = likert$to)
+
+# If you don't map all of the values, a `default` is used
+x &lt;- c(1, 2, 3, 1, 2, 4, NA, 5, 6, 7)
+vec_recode_values(x, from = likert$from, to = likert$to)
+vec_recode_values(x, from = likert$from, to = likert$to, default = "Unknown")
+
+# If you want existing `NA`s to pass through, include a mapping for `NA` in
+# your lookup table
+likert &lt;- data.frame(
+  from = c(1, 2, 3, 4, 5, NA),
+  to = c(
+    "Strongly disagree",
+    "Disagree",
+    "Neutral",
+    "Agree",
+    "Strongly agree",
+    NA
+  )
+)
+vec_recode_values(x, from = likert$from, to = likert$to, default = "Unknown")
+
+# If you believe you've captured all of the cases, you can assert this with
+# `unmatched = "error"`, which will error if you've missed any cases
+# (including `NA`, which must be explicitly handled)
+try(vec_recode_values(
+  x,
+  from = likert$from,
+  to = likert$to,
+  unmatched = "error"
+))
+
+if (require("tibble")) {
+  # If you want to partially update `x`, retaining the type of `x` and
+  # leaving values not covered by `from` alone, use `vec_replace_values()`
+  universities &lt;- c(
+    "Duke",
+    "Fake U",
+    "Duke U",
+    NA,
+    "Chapel Hill",
+    "UNC",
+    NA,
+    "Duke"
+  )
+
+  standardize &lt;- tibble::tribble(
+    ~from, ~to,
+    "Duke", "Duke University",
+    "Duke U", "Duke University",
+    "UNC", "UNC Chapel Hill",
+    "Chapel Hill", "UNC Chapel Hill",
+  )
+  vec_replace_values(
+    universities,
+    from = standardize$from,
+    to = standardize$to
+  )
+
+  # In this case, you can use a more powerful feature of
+  # `vec_replace_values()`, `from_as_list_of_vectors`, which allows you to
+  # provide a list of `from` vectors that each match multiple `from` values
+  # to a single `to` value. `tribble()` can help you create these!
+  standardize &lt;- tibble::tribble(
+    ~from, ~to,
+    c("Duke", "Duke U"), "Duke University",
+    c("UNC", "Chapel Hill"), "UNC Chapel Hill",
+  )
+
+  # Note how `from` is a list column
+  standardize
+
+  vec_replace_values(
+    universities,
+    from = standardize$from,
+    to = standardize$to,
+    from_as_list_of_vectors = TRUE
+  )
+
+  # `vec_replace_values()` is also a useful way to map from or to `NA`
+  vec_replace_values(universities, from = NA, to = "Unknown")
+  vec_replace_values(universities, from = "Fake U", to = NA)
+}
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

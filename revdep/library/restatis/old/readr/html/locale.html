@@ -1,0 +1,110 @@
+<!DOCTYPE html><html><head><title>R: Create locales</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>locale {readr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create locales</h2>
+
+<h3>Description</h3>
+
+<p>A locale object tries to capture all the defaults that can vary between
+countries. You set the locale in once, and the details are automatically
+passed on down to the columns parsers. The defaults have been chosen to
+match R (i.e. US English) as closely as possible. See
+<code>vignette("locales")</code> for more details.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>locale(
+  date_names = "en",
+  date_format = "%AD",
+  time_format = "%AT",
+  decimal_mark = ".",
+  grouping_mark = ",",
+  tz = "UTC",
+  encoding = "UTF-8",
+  asciify = FALSE
+)
+
+default_locale()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="date_names">date_names</code></td>
+<td>
+<p>Character representations of day and month names. Either
+the language code as string (passed on to <code><a href="../../readr/help/date_names_lang.html">date_names_lang()</a></code>)
+or an object created by <code><a href="../../readr/help/date_names.html">date_names()</a></code>.</p>
+</td></tr>
+<tr><td><code id="date_format">date_format</code>, <code id="time_format">time_format</code></td>
+<td>
+<p>Default date and time formats.</p>
+</td></tr>
+<tr><td><code id="decimal_mark">decimal_mark</code>, <code id="grouping_mark">grouping_mark</code></td>
+<td>
+<p>Symbols used to indicate the decimal
+place, and to chunk larger numbers. Decimal mark can only be <code style="white-space: pre;">&#8288;,&#8288;</code> or
+<code>.</code>.</p>
+</td></tr>
+<tr><td><code id="tz">tz</code></td>
+<td>
+<p>Default tz. This is used both for input (if the time zone isn't
+present in individual strings), and for output (to control the default
+display). The default is to use &quot;UTC&quot;, a time zone that does not use
+daylight savings time (DST) and hence is typically most useful for data.
+The absence of time zones makes it approximately 50x faster to generate
+UTC times than any other time zone.
+</p>
+<p>Use <code>""</code> to use the system default time zone, but beware that this
+will not be reproducible across systems.
+</p>
+<p>For a complete list of possible time zones, see <code><a href="../../base/html/timezones.html">OlsonNames()</a></code>.
+Americans, note that &quot;EST&quot; is a Canadian time zone that does not have
+DST. It is <em>not</em> Eastern Standard Time. It's better to use
+&quot;US/Eastern&quot;, &quot;US/Central&quot; etc.</p>
+</td></tr>
+<tr><td><code id="encoding">encoding</code></td>
+<td>
+<p>Default encoding. This only affects how the file is
+read - readr always converts the output to UTF-8.</p>
+</td></tr>
+<tr><td><code id="asciify">asciify</code></td>
+<td>
+<p>Should diacritics be stripped from date names and converted to
+ASCII? This is useful if you're dealing with ASCII data where the correct
+spellings have been lost. Requires the <span class="pkg">stringi</span> package.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>locale()
+locale("fr")
+
+# A South American locale
+locale("es", decimal_mark = ",")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>readr</em> version 2.2.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

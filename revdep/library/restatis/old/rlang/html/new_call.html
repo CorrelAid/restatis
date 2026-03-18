@@ -1,0 +1,52 @@
+<!DOCTYPE html><html><head><title>R: Create a new call from components</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>new_call {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a new call from components</h2>
+
+<h3>Description</h3>
+
+<p>Create a new call from components
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>new_call(car, cdr = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="car">car</code></td>
+<td>
+<p>The head of the call. It should be a
+<a href="../../rlang/help/is_callable.html">callable</a> object: a symbol, call, or literal
+function.</p>
+</td></tr>
+<tr><td><code id="cdr">cdr</code></td>
+<td>
+<p>The tail of the call, i.e. a <a href="../../rlang/help/new_node.html">pairlist</a> of
+arguments.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

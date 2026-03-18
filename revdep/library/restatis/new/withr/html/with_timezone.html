@@ -1,0 +1,103 @@
+<!DOCTYPE html><html><head><title>R: Time zone</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>with_timezone {withr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Time zone</h2>
+
+<h3>Description</h3>
+
+<p>Change the time zone, and restore it afterwards.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>with_timezone(tz, code)
+
+local_timezone(tz, .local_envir = parent.frame())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="tz">tz</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[character(1)]&#8288;</code> a valid time zone specification, note that
+time zone names might be platform dependent.</p>
+</td></tr>
+<tr><td><code id="code">code</code></td>
+<td>
+<p><code>[any]</code><br> Code to execute in the temporary environment</p>
+</td></tr>
+<tr><td><code id=".local_envir">.local_envir</code></td>
+<td>
+<p>The environment to apply the change to.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>with_timezone()</code> runs the code with the specified time zone and
+resets it afterwards.
+</p>
+<p><code>local_timezone()</code> changes the time zone for the caller
+execution environment.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>[any]</code><br> The results of the evaluation of the <code>code</code>
+argument.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../withr/help/withr.html">withr</a></code> for examples
+</p>
+<p><code><a href="../../base/html/timezones.html">Sys.timezone()</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>Sys.time()
+with_timezone("Europe/Paris", print(Sys.time()))
+with_timezone("America/Los_Angeles", print(Sys.time()))
+
+fun1 &lt;- function() {
+  local_timezone("CET")
+  print(Sys.time())
+}
+
+fun2 &lt;- function() {
+  local_timezone("America/Los_Angeles")
+  print(Sys.time())
+}
+Sys.time()
+fun1()
+fun2()
+Sys.time()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>withr</em> version 3.0.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

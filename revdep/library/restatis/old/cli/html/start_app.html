@@ -1,0 +1,89 @@
+<!DOCTYPE html><html><head><title>R: Start, stop, query the default cli application</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>start_app {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Start, stop, query the default cli application</h2>
+
+<h3>Description</h3>
+
+<p><code>start_app</code> creates an app, and places it on the top of the app stack.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>start_app(
+  theme = getOption("cli.theme"),
+  output = c("auto", "message", "stdout", "stderr"),
+  .auto_close = TRUE,
+  .envir = parent.frame()
+)
+
+stop_app(app = NULL)
+
+default_app()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="theme">theme</code></td>
+<td>
+<p>Theme to use.</p>
+</td></tr>
+<tr><td><code id="output">output</code></td>
+<td>
+<p>How to print the output.</p>
+</td></tr>
+<tr><td><code id=".auto_close">.auto_close</code></td>
+<td>
+<p>Whether to stop the app, when the calling frame
+is destroyed.</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>The environment to use, instead of the calling frame,
+to trigger the stop of the app.</p>
+</td></tr>
+<tr><td><code id="app">app</code></td>
+<td>
+<p>App to stop. If <code>NULL</code>, the current default app is stopped.
+Otherwise we find the supplied app in the app stack, and remote it,
+together with all the apps above it.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>stop_app</code> removes the top app, or multiple apps from the app stack.
+</p>
+<p><code>default_app</code> returns the default app, the one on the top of the stack.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>start_app</code> returns the new app, <code>default_app</code> returns the default app.
+<code>stop_app</code> does not return anything.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html><html><head><title>R: Modify a list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>list_assign {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Modify a list</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>list_assign()</code> modifies the elements of a list by name or position.
+</p>
+</li>
+<li> <p><code>list_modify()</code> modifies the elements of a list recursively.
+</p>
+</li>
+<li> <p><code>list_merge()</code> merges the elements of a list recursively.
+</p>
+</li></ul>
+
+<p><code>list_modify()</code> is inspired by <code><a href="../../utils/help/modifyList.html">utils::modifyList()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>list_assign(.x, ..., .is_node = NULL)
+
+list_modify(.x, ..., .is_node = NULL)
+
+list_merge(.x, ..., .is_node = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>List to modify.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>New values of a list. Use <code>zap()</code> to remove values.
+</p>
+<p>These values should be either all named or all unnamed. When
+inputs are all named, they are matched to <code>.x</code> by name. When they
+are all unnamed, they are matched by position.
+</p>
+<p><a href="../../rlang/help/dyn-dots.html">Dynamic dots</a> are supported. In particular, if your
+replacement values are stored in a list, you can splice that in with
+<code style="white-space: pre;">&#8288;!!!&#8288;</code>.</p>
+</td></tr>
+<tr><td><code id=".is_node">.is_node</code></td>
+<td>
+<p>A predicate function that determines whether an element is
+a node (by returning <code>TRUE</code>) or a leaf (by returning <code>FALSE</code>). The
+default value, <code>NULL</code>, treats simple lists as nodes and everything else
+(including richer objects like data frames and linear models) as leaves,
+using <code><a href="../../vctrs/help/obj_is_list.html">vctrs::obj_is_list()</a></code>. To recurse into all objects built on lists
+use <code><a href="../../base/html/list.html">is.list()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- list(x = 1:10, y = 4, z = list(a = 1, b = 2))
+str(x)
+
+# Update values
+str(list_assign(x, a = 1))
+
+# Replace values
+str(list_assign(x, z = 5))
+str(list_assign(x, z = NULL))
+str(list_assign(x, z = list(a = 1:5)))
+
+# Replace recursively with list_modify(), leaving the other elements of z alone
+str(list_modify(x, z = list(a = 1:5)))
+
+# Remove values
+str(list_assign(x, z = zap()))
+
+# Combine values with list_merge()
+str(list_merge(x, x = 11, z = list(a = 2:5, c = 3)))
+
+# All these functions support dynamic dots features. Use !!! to splice
+# a list of arguments:
+l &lt;- list(new = 1, y = zap(), z = 5)
+str(list_assign(x, !!!l))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

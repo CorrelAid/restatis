@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><title>R: Zap source references</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>zap_srcref {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Zap source references</h2>
+
+<h3>Description</h3>
+
+<p>There are a number of situations where R creates source references:
+</p>
+
+<ul>
+<li><p> Reading R code from a file with <code>source()</code> and <code>parse()</code> might save
+source references inside calls to <code>function</code> and <code style="white-space: pre;">&#8288;{&#8288;</code>.
+</p>
+</li>
+<li> <p><code><a href="../../base/html/sys.parent.html">sys.call()</a></code> includes a source reference if possible.
+</p>
+</li>
+<li><p> Creating a closure stores the source reference from the call to
+<code>function</code>, if any.
+</p>
+</li></ul>
+
+<p>These source references take up space and might cause a number of
+issues. <code>zap_srcref()</code> recursively walks through expressions and
+functions to remove all source references.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>zap_srcref(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>An R object. Functions and calls are walked recursively.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

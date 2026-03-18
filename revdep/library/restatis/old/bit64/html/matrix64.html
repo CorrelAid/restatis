@@ -1,0 +1,103 @@
+<!DOCTYPE html><html><head><title>R: Working with integer64 arrays and matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>matrix64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Working with integer64 arrays and matrices</h2>
+
+<h3>Description</h3>
+
+<p>These functions and methods facilitate working with integer64
+objects stored in matrices. As ever, the primary motivation
+for having tailor-made functions here is that R's methods
+often receive input from bit64 and treat the vectors as doubles,
+leading to unexpected and/or incorrect results.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>colSums(x, na.rm = FALSE, dims = 1L)
+
+## Default S3 method:
+colSums(x, na.rm = FALSE, dims = 1L)
+
+## S3 method for class 'integer64'
+colSums(x, na.rm = FALSE, dims = 1L)
+
+rowSums(x, na.rm = FALSE, dims = 1L)
+
+## Default S3 method:
+rowSums(x, na.rm = FALSE, dims = 1L)
+
+## S3 method for class 'integer64'
+rowSums(x, na.rm = FALSE, dims = 1L)
+
+## S3 method for class 'integer64'
+aperm(a, perm, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>An array of integer64 numbers.</p>
+</td></tr>
+<tr><td><code id="na.rm">na.rm</code>, <code id="dims">dims</code></td>
+<td>
+<p>Same interpretation as in <code><a href="../../bit64/help/colSums.html">colSums()</a></code>.</p>
+</td></tr>
+<tr><td><code id="a">a</code>, <code id="perm">perm</code></td>
+<td>
+<p>Passed on to <code><a href="../../base/html/aperm.html">aperm()</a></code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Passed on to subsequent methods.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>As of now, the <code>colSums()</code> and <code>rowSums()</code> methods are implemented
+as wrappers around equivalent <code>apply()</code> approaches, because
+re-using the default routine (and then applying integer64 to the
+result) does not work for objects with missing elements. Ideally
+this would eventually get its own dedicated C routine mimicking
+that of <code>colSums()</code> for integers; feature requests and PRs welcome.
+</p>
+<p><code>aperm()</code> is required for <code>apply()</code> to work, in general, otherwise
+<code>FUN</code> gets applied to a class-stripped version of the input.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>A = as.integer64(1:6)
+dim(A) = 3:2
+
+colSums(A)
+rowSums(A)
+aperm(A, 2:1)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

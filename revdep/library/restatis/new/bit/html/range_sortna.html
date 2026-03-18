@@ -1,0 +1,95 @@
+<!DOCTYPE html><html><head><title>R: Prepare for sorting and get range, number of NAs and...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>range_sortna {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Prepare for sorting and get range, number of NAs and unsortedness</h2>
+
+<h3>Description</h3>
+
+<p>In one pass over the vector <code>NA</code>s are treated according to parameter
+<code>na.last</code> exactly like <code><a href="../../base/html/sort.html">sort()</a></code> does, the <code><a href="../../base/html/range.html">range()</a></code>,
+number of <code>NA</code>s and unsortedness is determined.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>range_sortna(x, decreasing = FALSE, na.last = NA)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an integer vector</p>
+</td></tr>
+<tr><td><code id="decreasing">decreasing</code></td>
+<td>
+<p>(currently only <code>FALSE</code> is supported)</p>
+</td></tr>
+<tr><td><code id="na.last">na.last</code></td>
+<td>
+<p><code>NA</code> removes NAs, <code>FALSE</code> puts NAs at the beginning,
+<code>TRUE</code> puts NAs at the end</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>an integer vector with <code>NA</code>s are treated and an <code>attribute</code> <code><a href="../../bit/help/range_na.html">range_na()</a></code>  with
+four elements:
+</p>
+
+<ol>
+<li><p> min integer
+</p>
+</li>
+<li><p> max integer
+</p>
+</li>
+<li><p> number of NAs
+</p>
+</li>
+<li><p> 0 for sorted vector and 1 for <code><a href="../../base/html/is.unsorted.html">is.unsorted()</a></code>
+</p>
+</li></ol>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/range_na.html">range_na()</a></code> and <code><a href="../../bit/help/range_nanozero.html">range_nanozero()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>range_sortna(c(0L, 1L, NA, 2L))
+range_sortna(c(2L, NA, 1L, 0L))
+range_sortna(c(0L, 1L, NA, 2L), na.last=TRUE)
+range_sortna(c(2L, NA, 1L, 0L), na.last=TRUE)
+range_sortna(c(0L, 1L, NA, 2L), na.last=FALSE)
+range_sortna(c(2L, NA, 1L, 0L), na.last=FALSE)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

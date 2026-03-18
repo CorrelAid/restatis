@@ -1,0 +1,64 @@
+<!DOCTYPE html><html><head><title>R: Draw a sparkline line graph with Braille characters.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>spark_line {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Draw a sparkline line graph with Braille characters.</h2>
+
+<h3>Description</h3>
+
+<p>You might want to avoid sparklines on non-UTF-8 systems, because they
+do not look good. You can use <code><a href="../../cli/help/is_utf8_output.html">is_utf8_output()</a></code> to test for support
+for them.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>spark_line(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A numeric vector between 0 and 1</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<div class="sourceCode r"><pre>x &lt;- seq(0, 1, length = 10)
+spark_line(x)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ⣀⡠⠔⠊⠉                                                                           
+</pre></div>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../cli/help/spark_bar.html">spark_bar()</a></code>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

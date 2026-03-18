@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><title>R: Compare two character strings, character by character</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>diff_str {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compare two character strings, character by character</h2>
+
+<h3>Description</h3>
+
+<p>Characters are defined by UTF-8 graphemes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>diff_str(old, new, max_dist = Inf)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="old">old</code></td>
+<td>
+<p>First string, must not be <code>NA</code>.</p>
+</td></tr>
+<tr><td><code id="new">new</code></td>
+<td>
+<p>Second string, must not be <code>NA</code>.</p>
+</td></tr>
+<tr><td><code id="max_dist">max_dist</code></td>
+<td>
+<p>Maximum distance to consider, or <code>Inf</code> for no limit.
+If the LCS edit distance is larger than this, then the function
+throws an error with class <code>"cli_diff_max_dist"</code>. (If you specify
+<code>Inf</code> the real limit is <code>.Machine$integer.max</code> but to reach this the
+function would have to run a very long time.)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list that is a <code>cli_diff_str</code> object and also a
+<code>cli_diff_chr</code> object, see <a href="../../cli/help/diff_str.html">diff_str</a> for the details about its
+structure.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>The diffobj package for a much more comprehensive set of
+<code>diff</code>-like tools.
+</p>
+<p>Other diff functions in cli: 
+<code><a href="../../cli/help/diff_chr.html">diff_chr</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>str1 &lt;- "abcdefghijklmnopqrstuvwxyz"
+str2 &lt;- "PREabcdefgMIDDLEnopqrstuvwxyzPOST"
+diff_str(str1, str2)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

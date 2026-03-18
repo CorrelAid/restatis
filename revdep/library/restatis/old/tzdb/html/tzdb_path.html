@@ -1,0 +1,61 @@
+<!DOCTYPE html><html><head><title>R: Retrieve the path to the time zone database</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>tzdb_path {tzdb}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Retrieve the path to the time zone database</h2>
+
+<h3>Description</h3>
+
+<p>Retrieve the path to the time zone database
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>tzdb_path(type)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="type">type</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[character(1)]&#8288;</code>
+</p>
+<p>The type of time zone database to return the path for.
+</p>
+<p>Currently only <code>"text"</code> is supported.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A single string containing the path to the database.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>tzdb_path("text")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>tzdb</em> version 0.5.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

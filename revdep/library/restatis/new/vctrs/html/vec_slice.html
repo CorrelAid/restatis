@@ -1,0 +1,263 @@
+<!DOCTYPE html><html><head><title>R: Get or set observations in a vector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_slice {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get or set observations in a vector</h2>
+
+<h3>Description</h3>
+
+<p>This provides a common interface to extracting and modifying observations
+for all vector types, regardless of dimensionality. They are analogs to <code>[</code>
+and <code style="white-space: pre;">&#8288;[&lt;-&#8288;</code> that match <code><a href="../../vctrs/help/vec_size.html">vec_size()</a></code> instead of <code>length()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_slice(x, i, ..., error_call = current_env())
+
+vec_slice(x, i) &lt;- value
+
+vec_assign(x, i, value, ..., slice_value = FALSE, x_arg = "", value_arg = "")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A vector</p>
+</td></tr>
+<tr><td><code id="i">i</code></td>
+<td>
+<p>An integer, character or logical vector specifying the locations or
+names of the observations to get/set. Specify <code>TRUE</code> to index all elements
+(as in <code>x[]</code>), or <code>NULL</code>, <code>FALSE</code> or <code>integer()</code> to index none (as in
+<code>x[NULL]</code>).</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="error_call">error_call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+<tr><td><code id="value">value</code></td>
+<td>
+<p>A vector of replacement values
+</p>
+<p><code>value</code> is cast to the type of <code>x</code>.
+</p>
+<p>If <code>slice_value = FALSE</code>, <code>value</code> must be size 1 or the same size as <code>i</code>
+after <code>i</code> has been converted to a positive integer location vector with
+<code><a href="../../vctrs/help/vec_as_location.html">vec_as_location()</a></code> (which may not be the same size as <code>i</code> originally).
+</p>
+<p>If <code>slice_value = TRUE</code>, <code>value</code> must be size 1 or the same size as <code>x</code>.</p>
+</td></tr>
+<tr><td><code id="slice_value">slice_value</code></td>
+<td>
+<p>A boolean. If <code>TRUE</code>, the assignment proceeds as if you
+had provided <code>vec_slice(x, i) &lt;- vec_slice(value, i)</code>, but is optimized to
+avoid materializing the slice of <code>value</code>.</p>
+</td></tr>
+<tr><td><code id="x_arg">x_arg</code>, <code id="value_arg">value_arg</code></td>
+<td>
+<p>Argument names for <code>x</code> and <code>value</code>. These are used
+in error messages to inform the user about the locations of
+incompatible types and sizes (see <code><a href="../../vctrs/help/stop_incompatible_type.html">stop_incompatible_type()</a></code> and
+<code><a href="../../vctrs/help/stop_incompatible_size.html">stop_incompatible_size()</a></code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A vector of the same type as <code>x</code>.
+</p>
+
+
+<h3>Genericity</h3>
+
+<p>Support for S3 objects depends on whether the object implements a
+<code><a href="../../vctrs/help/vec_proxy.html">vec_proxy()</a></code> method.
+</p>
+
+<ul>
+<li><p> When a <code>vec_proxy()</code> method exists, the proxy is sliced or assigned to and
+<code>vec_restore()</code> is called on the result.
+</p>
+</li>
+<li><p> Otherwise, <code>vec_slice()</code> falls back to the base generic <code>[</code> and
+<code style="white-space: pre;">&#8288;vec_slice&lt;-()&#8288;</code> falls back to the base generic <code style="white-space: pre;">&#8288;[&lt;-&#8288;</code>.
+</p>
+</li></ul>
+
+<p>When <code style="white-space: pre;">&#8288;vec_slice&lt;-()&#8288;</code> falls back to <code style="white-space: pre;">&#8288;[&lt;-&#8288;</code>, it is expected that the subclass's
+<code style="white-space: pre;">&#8288;[&lt;-&#8288;</code> method can handle the following subset of cases that base R's <code style="white-space: pre;">&#8288;[&lt;-&#8288;</code>
+can also handle:
+</p>
+
+<ul>
+<li><p> An <code>i</code> vector of positive integer positions (notably excluding <code>NA</code>).
+</p>
+</li>
+<li><p> A <code>value</code> vector of length 1 or length <code>length(i)</code>. If length 1, it
+should be recycled by the <code style="white-space: pre;">&#8288;[&lt;-&#8288;</code> method to the length of <code>i</code>.
+</p>
+</li></ul>
+
+<p>If your <code style="white-space: pre;">&#8288;[&lt;-&#8288;</code> method eventually calls base R's native <code style="white-space: pre;">&#8288;[&lt;-&#8288;</code> code, then these
+cases will be handled for you.
+</p>
+<p>Note that S3 lists are treated as scalars by default, and will
+cause an error if they don't implement a <code><a href="../../vctrs/help/vec_proxy.html">vec_proxy()</a></code> method.
+</p>
+
+
+<h3>Differences with base R subsetting</h3>
+
+
+<ul>
+<li> <p><code>vec_slice()</code> only slices along one dimension. For
+two-dimensional types, the first dimension is subsetted.
+</p>
+</li>
+<li> <p><code>vec_slice()</code> preserves attributes by default.
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;vec_slice&lt;-()&#8288;</code> is type-stable and always returns the same type
+as the LHS.
+</p>
+</li></ul>
+
+
+
+<h3>Dependencies</h3>
+
+
+
+<h4>vctrs dependencies</h4>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/vec_proxy.html">vec_proxy()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_restore.html">vec_restore()</a></code>
+</p>
+</li></ul>
+
+
+
+
+<h4>base dependencies</h4>
+
+
+<ul>
+<li> <p><code>base::`[`</code>
+</p>
+</li>
+<li> <p><code>base::`[&lt;-`</code>
+</p>
+</li></ul>
+
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- sample(10)
+x
+vec_slice(x, 1:3)
+
+# You can assign with the infix variant:
+vec_slice(x, 2) &lt;- 100
+x
+
+# Or with the regular variant that doesn't modify the original input:
+y &lt;- vec_assign(x, 3, 500)
+y
+x
+
+
+# Slicing objects of higher dimension:
+vec_slice(mtcars, 1:3)
+
+# Type stability --------------------------------------------------
+
+# The assign variant is type stable. It always returns the same
+# type as the input.
+x &lt;- 1:5
+vec_slice(x, 2) &lt;- 20.0
+
+# `x` is still an integer vector because the RHS was cast to the
+# type of the LHS:
+vec_ptype(x)
+
+# Compare to `[&lt;-`:
+x[2] &lt;- 20.0
+vec_ptype(x)
+
+
+# Note that the types must be coercible for the cast to happen.
+# For instance, you can cast a double vector of whole numbers to an
+# integer vector:
+vec_cast(1, integer())
+
+# But not fractional doubles:
+try(vec_cast(1.5, integer()))
+
+# For this reason you can't assign fractional values in an integer
+# vector:
+x &lt;- 1:3
+try(vec_slice(x, 2) &lt;- 1.5)
+
+# Slicing `value` -------------------------------------------------
+
+# Sometimes both `x` and `value` start from objects that are the same length,
+# and you need to slice `value` by `i` before assigning it to `x`. This comes
+# up when thinking about how `base::ifelse()` and `dplyr::case_when()` work.
+condition &lt;- c(TRUE, FALSE, TRUE, FALSE)
+yes &lt;- 1:4
+no &lt;- 5:8
+
+# Create an output container and fill it
+out &lt;- vec_init(integer(), 4)
+out &lt;- vec_assign(out, condition, vec_slice(yes, condition))
+out &lt;- vec_assign(out, !condition, vec_slice(no, !condition))
+out
+
+# This is wasteful because you have to materialize the slices of `yes` and
+# `no` before they can be assigned, and you also have to validate `condition`
+# multiple times. Using `slice_value` internally performs
+# `vec_slice(yes, condition)` and `vec_slice(no, !condition)` for you,
+# but does so in a way that avoids the materialization.
+out &lt;- vec_init(integer(), 4)
+out &lt;- vec_assign(out, condition, yes, slice_value = TRUE)
+out &lt;- vec_assign(out, !condition, no, slice_value = TRUE)
+out
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

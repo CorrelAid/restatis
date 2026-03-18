@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><title>R: Read clipboard</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>read_clip {clipr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Read clipboard</h2>
+
+<h3>Description</h3>
+
+<p>Read the contents of the system clipboard into a character vector.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>read_clip(allow_non_interactive = Sys.getenv("CLIPR_ALLOW", interactive()))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="allow_non_interactive">allow_non_interactive</code></td>
+<td>
+<p>By default, clipr will throw an error if run in
+a non-interactive session. Set the environment variable
+<code>CLIPR_ALLOW=TRUE</code> in order to override this behavior.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A character vector with the contents of the clipboard. If the system
+clipboard is empty, returns NULL
+</p>
+
+
+<h3>Note</h3>
+
+<p><code><a href="../../clipr/help/read_clip.html">read_clip()</a></code> will not try to guess at how to parse copied text. If
+you are copying tabular data, it is suggested that you use
+<code><a href="../../clipr/help/read_clip_tbl.html">read_clip_tbl()</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+clip_text &lt;- read_clip()
+
+## End(Not run)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>clipr</em> version 0.8.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

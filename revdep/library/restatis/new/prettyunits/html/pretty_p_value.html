@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><title>R: p-values in a human-readable string</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>pretty_p_value {prettyunits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>p-values in a human-readable string</h2>
+
+<h3>Description</h3>
+
+<p>p-values in a human-readable string
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>pretty_p_value(x, minval = 1e-04)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A numeric vector.</p>
+</td></tr>
+<tr><td><code id="minval">minval</code></td>
+<td>
+<p>The minimum p-value to show (lower values will show as
+<code>paste0("&lt;", minval)</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A character vector of p-value representations.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>pretty_p_value(c(1, 0, NA, 0.01, 0.0000001))
+pretty_p_value(c(1, 0, NA, 0.01, 0.0000001), minval = 0.05)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>prettyunits</em> version 1.2.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

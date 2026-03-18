@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><title>R: Splice values at dots collection time</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>splice {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Splice values at dots collection time</h2>
+
+<h3>Description</h3>
+
+<p><code>splice()</code> is an advanced feature of dynamic dots. It is rarely
+needed but can solve performance issues in edge cases.
+</p>
+<p>The splicing operator <code style="white-space: pre;">&#8288;!!!&#8288;</code> operates both in values contexts like
+<code><a href="../../rlang/help/list2.html">list2()</a></code> and <code><a href="../../rlang/help/dots_list.html">dots_list()</a></code>, and in metaprogramming contexts like
+<code><a href="../../rlang/help/expr.html">expr()</a></code>, <code><a href="../../rlang/help/enquos.html">enquos()</a></code>, or <code><a href="../../rlang/help/inject.html">inject()</a></code>. While the end result looks the
+same, the implementation is different and much more efficient in
+the value cases. This difference in implementation may cause
+performance issues for instance when going from:
+</p>
+<div class="sourceCode r"><pre>xs &lt;- list(2, 3)
+list2(1, !!!xs, 4)
+</pre></div>
+<p>to:
+</p>
+<div class="sourceCode r"><pre>inject(list2(1, !!!xs, 4))
+</pre></div>
+<p>In the former case, the performant value-splicing is used. In the
+latter case, the slow metaprogramming splicing is used.
+</p>
+<p>A common practical case where this may occur is when code is
+wrapped inside a tidyeval context like <code>dplyr::mutate()</code>. In this
+case, the metaprogramming operator <code style="white-space: pre;">&#8288;!!!&#8288;</code> will take over the
+value-splicing operator, causing an unexpected slowdown.
+</p>
+<p>To avoid this in performance-critical code, use <code>splice()</code> instead
+of <code style="white-space: pre;">&#8288;!!!&#8288;</code>:
+</p>
+<div class="sourceCode r"><pre># These both use the fast splicing:
+list2(1, splice(xs), 4)
+inject(list2(1, splice(xs), 4))
+</pre></div>
+<p>Note that <code>splice()</code> behaves differently than <code style="white-space: pre;">&#8288;!!!&#8288;</code>. The splicing happens
+later and is processed by <code>list2()</code> or <code>dots_list()</code>. It does not work in any
+other tidyeval context than these list collectors.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>splice(x)
+
+is_spliced(x)
+
+is_spliced_bare(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A list or vector to splice non-eagerly.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

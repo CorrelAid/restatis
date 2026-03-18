@@ -1,0 +1,126 @@
+<!DOCTYPE html><html><head><title>R: Extract HTTP status from response</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>resp_status {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract HTTP status from response</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>resp_status()</code> retrieves the numeric HTTP status code
+</p>
+</li>
+<li> <p><code>resp_status_desc()</code> retrieves the brief textual description.
+</p>
+</li>
+<li> <p><code>resp_is_error()</code> returns <code>TRUE</code> if the status code represents an error
+(i.e. a 4xx or 5xx status).
+</p>
+</li>
+<li> <p><code>resp_check_status()</code> turns HTTPs errors into R errors.
+</p>
+</li></ul>
+
+<p>These functions are mostly for internal use because in most cases you
+will only ever see a 200 response:
+</p>
+
+<ul>
+<li><p> 1xx are handled internally by curl.
+</p>
+</li>
+<li><p> 3xx redirects are automatically followed. You will only see them if you
+have deliberately suppressed redirects with
+<code>req |&gt; req_options(followlocation = FALSE)</code>.
+</p>
+</li>
+<li><p> 4xx client and 5xx server errors are automatically turned into R errors.
+You can stop them from being turned into R errors with <code><a href="../../httr2/help/req_error.html">req_error()</a></code>,
+e.g. <code style="white-space: pre;">&#8288;req |&gt; req_error(is_error = \(resp) FALSE)&#8288;</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>resp_status(resp)
+
+resp_status_desc(resp)
+
+resp_is_error(resp)
+
+resp_check_status(resp, info = NULL, error_call = caller_env())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="resp">resp</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/response.html">response</a> object, created by <code><a href="../../httr2/help/req_perform.html">req_perform()</a></code>.</p>
+</td></tr>
+<tr><td><code id="info">info</code></td>
+<td>
+<p>A character vector of additional information to include in
+the error message. Passed to <code><a href="../../rlang/help/abort.html">rlang::abort()</a></code>.</p>
+</td></tr>
+<tr><td><code id="error_call">error_call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+
+<ul>
+<li> <p><code>resp_status()</code> returns a scalar integer
+</p>
+</li>
+<li> <p><code>resp_status_desc()</code> returns a string
+</p>
+</li>
+<li> <p><code>resp_is_error()</code> returns <code>TRUE</code> or <code>FALSE</code>
+</p>
+</li>
+<li> <p><code>resp_check_status()</code> invisibly returns the response if it's ok;
+otherwise it throws an error with class <code style="white-space: pre;">&#8288;httr2_http_{status}&#8288;</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># An HTTP status code you're unlikely to see in the wild:
+resp &lt;- response(418)
+resp |&gt; resp_is_error()
+resp |&gt; resp_status()
+resp |&gt; resp_status_desc()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html><html><head><title>R: Deprecate functions and arguments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>deprecate_soft {lifecycle}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Deprecate functions and arguments</h2>
+
+<h3>Description</h3>
+
+<p>These functions provide three levels of verbosity for deprecated
+functions. Learn how to use them in <code>vignette("communicate")</code>.
+</p>
+
+<ul>
+<li> <p><code>deprecate_soft()</code> warns only if the deprecated function is called
+directly, i.e. a user is calling a function they wrote in the global
+environment or a developer is calling it in their package. It does not
+warn when called indirectly, i.e. the deprecation comes from code that
+you don't control.
+</p>
+</li>
+<li> <p><code>deprecate_warn()</code> warns unconditionally.
+</p>
+</li>
+<li> <p><code>deprecate_stop()</code> fails unconditionally.
+</p>
+</li></ul>
+
+<p>Warnings are only issued once per session to avoid overwhelming
+the user. Control with <code><a href="../../lifecycle/help/verbosity.html">options(lifecycle_verbosity)</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>deprecate_soft(
+  when,
+  what,
+  with = NULL,
+  details = NULL,
+  id = NULL,
+  env = caller_env(),
+  user_env = caller_env(2)
+)
+
+deprecate_warn(
+  when,
+  what,
+  with = NULL,
+  details = NULL,
+  id = NULL,
+  always = FALSE,
+  env = caller_env(),
+  user_env = caller_env(2)
+)
+
+deprecate_stop(when, what, with = NULL, details = NULL, env = caller_env())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="when">when</code></td>
+<td>
+<p>A string giving the version when the behaviour was deprecated.</p>
+</td></tr>
+<tr><td><code id="what">what</code></td>
+<td>
+<p>A string describing what is deprecated:
+</p>
+
+<ul>
+<li><p> Deprecate a whole function with <code>"foo()"</code>.
+</p>
+</li>
+<li><p> Deprecate an argument with <code>"foo(arg)"</code>.
+</p>
+</li>
+<li><p> Partially deprecate an argument with
+<code>"foo(arg = 'must be a scalar integer')"</code>.
+</p>
+</li>
+<li><p> Deprecate anything else with a custom message by wrapping it in <code>I()</code>.
+</p>
+</li></ul>
+
+<p>You can optionally supply the namespace: <code>"ns::foo()"</code>, but this is
+usually not needed as it will be inferred from the caller environment.</p>
+</td></tr>
+<tr><td><code id="with">with</code></td>
+<td>
+<p>An optional string giving a recommended replacement for the
+deprecated behaviour. This takes the same form as <code>what</code>.</p>
+</td></tr>
+<tr><td><code id="details">details</code></td>
+<td>
+<p>In most cases the deprecation message can be
+automatically generated from <code>with</code>. When it can't, use <code>details</code>
+to provide a hand-written message.
+</p>
+<p><code>details</code> can either be a single string or a character vector,
+which will be converted to a <a href="../../cli/help/cli_bullets.html">bulleted list</a>.
+By default, info bullets are used. Provide a named vectors to
+override.</p>
+</td></tr>
+<tr><td><code id="id">id</code></td>
+<td>
+<p>The id of the deprecation. A warning is issued only once for each
+<code>id</code>. Defaults to the generated message, but you should provide a unique
+<code>id</code> when the message in <code>details</code> is built programmatically and depends on
+inputs, or when you'd like to deprecate multiple functions but warn only
+once for all of them. Repeated calls to <code>deprecate_soft()</code> and
+<code>deprecate_warn()</code> are also much faster if you supply an <code>id</code> because it
+avoids spending time generating the message only to immediately exit if the
+once per session warning has already been thrown before.</p>
+</td></tr>
+<tr><td><code id="env">env</code>, <code id="user_env">user_env</code></td>
+<td>
+<p>Pair of environments that define where <code style="white-space: pre;">&#8288;deprecate_*()&#8288;</code>
+was called (used to determine the package name) and where the function
+called the deprecating function was called (used to determine if
+<code>deprecate_soft()</code> should message).
+</p>
+<p>These are only needed if you're calling <code style="white-space: pre;">&#8288;deprecate_*()&#8288;</code> from an internal
+helper, in which case you should forward <code>env = caller_env()</code> and
+<code>user_env = caller_env(2)</code>.</p>
+</td></tr>
+<tr><td><code id="always">always</code></td>
+<td>
+<p>If <code>FALSE</code>, the default, will warn once per session. If
+<code>TRUE</code>, will always warn in direct usages. Indirect usages keep
+warning once per session to avoid disrupting users who can't fix the
+issue. Only use <code>always = TRUE</code> after at least one release with
+the default.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>NULL</code>, invisibly.
+</p>
+
+
+<h3>Conditions</h3>
+
+
+<ul>
+<li><p> Deprecation warnings have class <code>lifecycle_warning_deprecated</code>.
+</p>
+</li>
+<li><p> Deprecation errors have class <code>lifecycle_error_deprecated</code>.
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../lifecycle/help/lifecycle.html">lifecycle()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># A deprecated function `foo`:
+deprecate_warn("1.0.0", "foo()")
+
+# A deprecated argument `arg`:
+deprecate_warn("1.0.0", "foo(arg)")
+
+# A partially deprecated argument `arg`:
+deprecate_warn("1.0.0", "foo(arg = 'must be a scalar integer')")
+
+# A deprecated function with a function replacement:
+deprecate_warn("1.0.0", "foo()", "bar()")
+
+# A deprecated function with a function replacement from a
+# different package:
+deprecate_warn("1.0.0", "foo()", "otherpackage::bar()")
+
+# A deprecated function with custom message:
+deprecate_warn(
+  when = "1.0.0",
+  what = "foo()",
+  details = "Please use `otherpackage::bar(foo = TRUE)` instead"
+)
+
+# A deprecated function with custom bulleted list:
+deprecate_warn(
+  when = "1.0.0",
+  what = "foo()",
+  details = c(
+    x = "This is dangerous",
+    i = "Did you mean `safe_foo()` instead?"
+  )
+)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>lifecycle</em> version 1.0.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

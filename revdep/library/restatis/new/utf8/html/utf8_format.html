@@ -1,0 +1,149 @@
+<!DOCTYPE html><html><head><title>R: UTF-8 Text Formatting</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>utf8_format {utf8}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>UTF-8 Text Formatting</h2>
+
+<h3>Description</h3>
+
+<p>Format a character object for UTF-8 printing.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>utf8_format(
+  x,
+  ...,
+  trim = FALSE,
+  chars = NULL,
+  justify = "left",
+  width = NULL,
+  na.encode = TRUE,
+  quote = FALSE,
+  na.print = NULL,
+  print.gap = NULL,
+  utf8 = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>character object.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="trim">trim</code></td>
+<td>
+<p>logical scalar indicating whether to suppress padding spaces
+around elements.</p>
+</td></tr>
+<tr><td><code id="chars">chars</code></td>
+<td>
+<p>integer scalar indicating the maximum number of character units
+to display.  Wide characters like emoji take two character units; combining
+marks and default ignorables take none. Longer strings get truncated and
+suffixed or prefixed with an ellipsis (<code>"..."</code> or <code>"\u2026"</code>,
+whichever is most appropriate for the current character locale). Set to
+<code>NULL</code> to limit output to the line width as determined by
+<code>getOption("width")</code>.</p>
+</td></tr>
+<tr><td><code id="justify">justify</code></td>
+<td>
+<p>justification; one of <code>"left"</code>, <code>"right"</code>,
+<code>"centre"</code>, or <code>"none"</code>. Can be abbreviated.</p>
+</td></tr>
+<tr><td><code id="width">width</code></td>
+<td>
+<p>the minimum field width; set to <code>NULL</code> or <code>0</code> for no
+restriction.</p>
+</td></tr>
+<tr><td><code id="na.encode">na.encode</code></td>
+<td>
+<p>logical scalar indicating whether to encode <code>NA</code>
+values as character strings.</p>
+</td></tr>
+<tr><td><code id="quote">quote</code></td>
+<td>
+<p>logical scalar indicating whether to format for a context with
+surrounding double-quotes (<code>'"'</code>) and escaped internal double-quotes.</p>
+</td></tr>
+<tr><td><code id="na.print">na.print</code></td>
+<td>
+<p>character string (or <code>NULL</code>) indicating the encoding
+for <code>NA</code> values. Ignored when <code>na.encode</code> is <code>FALSE</code>.</p>
+</td></tr>
+<tr><td><code id="print.gap">print.gap</code></td>
+<td>
+<p>non-negative integer (or <code>NULL</code>) giving the number of
+spaces in gaps between columns; set to <code>NULL</code> or <code>1</code> for a single
+space.</p>
+</td></tr>
+<tr><td><code id="utf8">utf8</code></td>
+<td>
+<p>logical scalar indicating whether to format for a UTF-8 capable
+display (ASCII-only otherwise), or <code>NULL</code> to format for output
+capabilities as determined by <code>output_utf8()</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>utf8_format()</code> formats a character object for printing, optionally
+truncating long character strings.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A character object with the same attributes as <code>x</code> but with
+<code>Encoding</code> set to <code>"UTF-8"</code> for elements that can be converted to
+valid UTF-8 and <code>"bytes"</code> for others.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../utf8/help/utf8_print.html">utf8_print()</a></code>, <code><a href="../../utf8/help/utf8_encode.html">utf8_encode()</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+# the second element is encoded in latin-1, but declared as UTF-8
+x &lt;- c("fa\u00E7ile", "fa\xE7ile", "fa\xC3\xA7ile")
+Encoding(x) &lt;- c("UTF-8", "UTF-8", "bytes")
+
+# formatting
+utf8_format(x, chars = 3)
+utf8_format(x, chars = 3, justify = "centre", width = 10)
+utf8_format(x, chars = 3, justify = "right")
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>utf8</em> version 1.2.6 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><title>R: CSS styles for the output of 'ansi_html()'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ansi_html_style {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>CSS styles for the output of <code>ansi_html()</code></h2>
+
+<h3>Description</h3>
+
+<p>CSS styles for the output of <code>ansi_html()</code>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ansi_html_style(
+  colors = TRUE,
+  palette = c("vscode", "dichro", "vga", "winxp", "win10", "macos", "putty", "mirc",
+    "xterm", "ubuntu", "eclipse", "iterm", "iterm-pastel", "iterm-smoooooth",
+    "iterm-snazzy", "iterm-solarized", "iterm-tango")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="colors">colors</code></td>
+<td>
+<p>Whether or not to include colors. <code>FALSE</code> will not include
+colors, <code>TRUE</code> or <code>8</code> will include eight colors (plus their bright
+variants), <code>256</code> will include 256 colors.</p>
+</td></tr>
+<tr><td><code id="palette">palette</code></td>
+<td>
+<p>Character scalar, palette to use for the first eight colors
+plus their bright variants. Terminals define these colors differently,
+and cli includes a couple of examples. Sources of palettes:
+</p>
+
+<ul>
+<li><p> https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
+</p>
+</li>
+<li><p> iTerm2 builtin palettes
+</p>
+</li>
+<li> <p><a href="https://github.com/sindresorhus/iterm2-snazzy">https://github.com/sindresorhus/iterm2-snazzy</a>
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Named list of CSS declaration blocks, where the names are
+CSS selectors. It has a <code>format()</code> and <code>print()</code> methods, which you
+can use to write the output to a CSS or HTML file.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other ANSI to HTML conversion: 
+<code><a href="../../cli/help/ansi_html.html">ansi_html</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>ansi_html_style(colors = FALSE)
+ansi_html_style(colors = 8, palette = "iterm-snazzy")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

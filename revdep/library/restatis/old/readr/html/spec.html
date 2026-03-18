@@ -1,0 +1,82 @@
+<!DOCTYPE html><html><head><title>R: Examine the column specifications for a data frame</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cols_condense {readr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Examine the column specifications for a data frame</h2>
+
+<h3>Description</h3>
+
+<p><code>cols_condense()</code> takes a spec object and condenses its definition by setting
+the default column type to the most frequent type and only listing columns
+with a different type.
+</p>
+<p><code>spec()</code> extracts the full column specification from a tibble
+created by readr.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cols_condense(x)
+
+spec(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>The data frame object to extract from</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A col_spec object.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other parsers: 
+<code><a href="../../readr/help/col_skip.html">col_skip</a>()</code>,
+<code><a href="../../readr/help/cols.html">cols</a>()</code>,
+<code><a href="../../readr/help/parse_datetime.html">parse_datetime</a>()</code>,
+<code><a href="../../readr/help/parse_factor.html">parse_factor</a>()</code>,
+<code><a href="../../readr/help/parse_guess.html">parse_guess</a>()</code>,
+<code><a href="../../readr/help/parse_logical.html">parse_logical</a>()</code>,
+<code><a href="../../readr/help/parse_number.html">parse_number</a>()</code>,
+<code><a href="../../readr/help/parse_vector.html">parse_vector</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>df &lt;- read_csv(readr_example("mtcars.csv"))
+s &lt;- spec(df)
+s
+
+cols_condense(s)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>readr</em> version 2.2.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

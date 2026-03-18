@@ -1,0 +1,65 @@
+<!DOCTYPE html><html><head><title>R: Helper to define the contents of a pillar</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>new_ornament {pillar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Helper to define the contents of a pillar</h2>
+
+<h3>Description</h3>
+
+<p>This function is useful if your data renders differently depending on the
+available width. In this case, implement the <code><a href="../../pillar/help/pillar_shaft.html">pillar_shaft()</a></code> method for your
+class to return a subclass of &quot;pillar_shaft&quot; and have the <code><a href="../../base/html/format.html">format()</a></code> method
+for this subclass call <code>new_ornament()</code>. See the implementation of
+<code>pillar_shaft.numeric()</code> and <code>format.pillar_shaft_decimal()</code> for an example.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>new_ornament(x, width = NULL, align = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A character vector with formatting,
+can use ANYI styles e.g provided by the <span class="pkg">cli</span> package.</p>
+</td></tr>
+<tr><td><code id="width">width</code></td>
+<td>
+<p>An optional width of the resulting pillar, computed from <code>x</code> if
+missing</p>
+</td></tr>
+<tr><td><code id="align">align</code></td>
+<td>
+<p>Alignment, one of <code>"left"</code> or <code>"right"</code></p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>new_ornament(c("abc", "de"), align = "right")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>pillar</em> version 1.11.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

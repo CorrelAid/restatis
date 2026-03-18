@@ -1,0 +1,174 @@
+<!DOCTYPE html><html><head><title>R: Modify a URL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>url_modify {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Modify a URL</h2>
+
+<h3>Description</h3>
+
+<p>Use <code>url_modify()</code> to modify any component of the URL,
+<code>url_modify_relative()</code> to modify with a relative URL,
+or <code>url_modify_query()</code> to modify individual query parameters.
+</p>
+<p>For <code>url_modify()</code>, components that aren't specified in the
+function call will be left as is; components set to <code>NULL</code> will be removed,
+and all other values will be updated. Note that removing <code>scheme</code> or
+<code>hostname</code> will create a relative URL.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>url_modify(
+  url,
+  scheme = as_is,
+  hostname = as_is,
+  username = as_is,
+  password = as_is,
+  port = as_is,
+  path = as_is,
+  query = as_is,
+  fragment = as_is
+)
+
+url_modify_relative(url, relative_url)
+
+url_modify_query(
+  .url,
+  ...,
+  .multi = c("error", "comma", "pipe", "explode"),
+  .space = c("percent", "form")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="url">url</code>, <code id=".url">.url</code></td>
+<td>
+<p>A string or <a href="../../httr2/help/url_parse.html">parsed URL</a>.</p>
+</td></tr>
+<tr><td><code id="scheme">scheme</code></td>
+<td>
+<p>The scheme, typically either <code>http</code> or <code>https</code>.</p>
+</td></tr>
+<tr><td><code id="hostname">hostname</code></td>
+<td>
+<p>The hostname, e.g., <code>www.google.com</code> or <code>posit.co</code>.</p>
+</td></tr>
+<tr><td><code id="username">username</code>, <code id="password">password</code></td>
+<td>
+<p>Username and password to embed in the URL.
+Not generally recommended but needed for some legacy applications.</p>
+</td></tr>
+<tr><td><code id="port">port</code></td>
+<td>
+<p>An integer port number.</p>
+</td></tr>
+<tr><td><code id="path">path</code></td>
+<td>
+<p>The path, e.g., <code style="white-space: pre;">&#8288;/search&#8288;</code>. Paths must start with <code>/</code>, so this
+will be automatically added if omitted.</p>
+</td></tr>
+<tr><td><code id="query">query</code></td>
+<td>
+<p>Either a query string or a named list of query components.</p>
+</td></tr>
+<tr><td><code id="fragment">fragment</code></td>
+<td>
+<p>The fragment, e.g., <code style="white-space: pre;">&#8288;#section-1&#8288;</code>.</p>
+</td></tr>
+<tr><td><code id="relative_url">relative_url</code></td>
+<td>
+<p>A relative URL to append to the base URL.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>&lt;<code><a href="../../rlang/help/dyn-dots.html">dynamic-dots</a></code>&gt;
+Name-value pairs that define query parameters. Each value must be either
+an atomic vector or <code>NULL</code> (which removes the corresponding parameters).
+If you want to opt out of escaping, wrap strings in <code>I()</code>.</p>
+</td></tr>
+<tr><td><code id=".multi">.multi</code></td>
+<td>
+<p>Controls what happens when a value is a vector:
+</p>
+
+<ul>
+<li> <p><code>"error"</code>, the default, throws an error.
+</p>
+</li>
+<li> <p><code>"comma"</code>, separates values with a <code style="white-space: pre;">&#8288;,&#8288;</code>, e.g. <code style="white-space: pre;">&#8288;?x=1,2&#8288;</code>.
+</p>
+</li>
+<li> <p><code>"pipe"</code>, separates values with a <code>|</code>, e.g. <code>?x=1|2</code>.
+</p>
+</li>
+<li> <p><code>"explode"</code>, turns each element into its own parameter, e.g. <code>?x=1&amp;x=2</code>
+</p>
+</li></ul>
+
+<p>If none of these options work for your needs, you can instead supply a
+function that takes a character vector of argument values and returns a
+a single string.</p>
+</td></tr>
+<tr><td><code id=".space">.space</code></td>
+<td>
+<p>How should spaces in query params be escaped? The default,
+&quot;percent&quot;, uses standard percent encoding (i.e. <code style="white-space: pre;">&#8288;%20&#8288;</code>), but you can opt-in
+to &quot;form&quot; encoding, which uses <code>+</code> instead.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An object of the same type as <code>url</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other URL manipulation: 
+<code><a href="../../httr2/help/url_build.html">url_build</a>()</code>,
+<code><a href="../../httr2/help/url_parse.html">url_parse</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>url_modify("http://hadley.nz", path = "about")
+url_modify("http://hadley.nz", scheme = "https")
+url_modify("http://hadley.nz/abc", path = "/cde")
+url_modify("http://hadley.nz/abc", path = "")
+url_modify("http://hadley.nz?a=1", query = "b=2")
+url_modify("http://hadley.nz?a=1", query = list(c = 3))
+
+url_modify_query("http://hadley.nz?a=1&amp;b=2", c = 3)
+url_modify_query("http://hadley.nz?a=1&amp;b=2", b = NULL)
+url_modify_query("http://hadley.nz?a=1&amp;b=2", a = 100)
+
+url_modify_relative("http://hadley.nz/a/b/c.html", "/d.html")
+url_modify_relative("http://hadley.nz/a/b/c.html", "d.html")
+url_modify_relative("http://hadley.nz/a/b/c.html", "../d.html")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html><html><head><title>R: Temporarily mock requests</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>with_mocked_responses {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Temporarily mock requests</h2>
+
+<h3>Description</h3>
+
+<p>Mocking allows you to selectively and temporarily replace the response
+you would typically receive from a request with your own code. These
+functions are low-level and we don't recommend using them directly.
+Instead use package that uses these functions under the hood, like
+<span class="pkg">httptest2</span> or <span class="pkg">vcr</span>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>with_mocked_responses(mock, code)
+
+local_mocked_responses(mock, env = caller_env())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="mock">mock</code></td>
+<td>
+<p>A function, a list, or <code>NULL</code>.
+</p>
+
+<ul>
+<li> <p><code>NULL</code> disables mocking and returns httr2 to regular operation.
+</p>
+</li>
+<li><p> A list of responses will be returned in sequence. After all responses
+have been used up, will return 503 server errors.
+</p>
+</li>
+<li><p> For maximum flexibility, you can supply a function that that takes a
+single argument, <code>req</code>, and returns either <code>NULL</code> (if it doesn't want to
+handle the request) or a <a href="../../httr2/help/response.html">response</a> (if it does).
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="code">code</code></td>
+<td>
+<p>Code to execute in the temporary environment.</p>
+</td></tr>
+<tr><td><code id="env">env</code></td>
+<td>
+<p>Environment to use for scoping changes.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>with_mocked_responses()</code> returns the result of evaluating <code>code</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># This function should perform a response against google.com:
+google &lt;- function() {
+  request("http://google.com") |&gt;
+    req_perform()
+}
+
+# But I can use a mock to instead return my own made up response:
+my_mock &lt;- function(req) {
+  response(status_code = 403)
+}
+try(with_mocked_responses(my_mock, google()))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

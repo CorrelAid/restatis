@@ -1,0 +1,91 @@
+<!DOCTYPE html><html><head><title>R: Translate curl syntax to httr2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>curl_translate {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Translate curl syntax to httr2</h2>
+
+<h3>Description</h3>
+
+<p>The curl command line tool is commonly used to demonstrate HTTP APIs and can
+easily be generated from
+<a href="https://everything.curl.dev/cmdline/copyas.html">browser developer tools</a>.
+<code>curl_translate()</code> saves you the pain of manually translating these calls
+by implementing a partial, but frequently used, subset of curl options.
+Use <code>curl_help()</code> to see the supported options, and <code>curl_translate()</code>
+to translate a curl invocation copy and pasted from elsewhere.
+</p>
+<p>Inspired by <a href="https://github.com/hrbrmstr/curlconverter">curlconverter</a>
+written by <a href="https://rud.is/b/">Bob Rudis</a>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>curl_translate(cmd, simplify_headers = TRUE)
+
+curl_help()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="cmd">cmd</code></td>
+<td>
+<p>Call to curl. If omitted and the clipr package is installed,
+will be retrieved from the clipboard.</p>
+</td></tr>
+<tr><td><code id="simplify_headers">simplify_headers</code></td>
+<td>
+<p>Remove typically unimportant headers included when
+copying a curl command from the browser. This includes:
+</p>
+
+<ul>
+<li> <p><code style="white-space: pre;">&#8288;sec-fetch-*&#8288;</code>
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;sec-ch-ua*&#8288;</code>
+</p>
+</li>
+<li> <p><code>referer</code>, <code>pragma</code>, <code>connection</code>
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A string containing the translated httr2 code. If the input
+was copied from the clipboard, the translation will be copied back
+to the clipboard.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>curl_translate("curl http://example.com")
+curl_translate("curl http://example.com -X DELETE")
+curl_translate("curl http://example.com --header A:1 --header B:2")
+curl_translate("curl http://example.com --verbose")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

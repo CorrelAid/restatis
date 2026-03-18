@@ -1,0 +1,84 @@
+<!DOCTYPE html><html><head><title>R: Safely interpolate strings</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>glue_safe {glue}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Safely interpolate strings</h2>
+
+<h3>Description</h3>
+
+<p><code>glue_safe()</code> and <code>glue_data_safe()</code> differ from <code><a href="../../glue/help/glue.html">glue()</a></code> and <code><a href="../../glue/help/glue_data.html">glue_data()</a></code>
+in that the safe versions only look up symbols from an environment using
+<code><a href="../../base/html/get.html">get()</a></code>. They do not execute any R code. This makes them suitable for use
+with untrusted input, such as inputs in a Shiny application, where using the
+normal functions would allow an attacker to execute arbitrary code.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>glue_safe(..., .envir = parent.frame())
+
+glue_data_safe(.x, ..., .envir = parent.frame())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>[<code>expressions</code>]<br> Unnamed arguments are taken to be expression
+string(s) to format. Multiple inputs are concatenated together before formatting.
+Named arguments are taken to be temporary variables available for substitution.
+</p>
+<p>For <code>glue_data()</code>, elements in <code>...</code> override the values in <code>.x</code>.</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>[<code>environment</code>: <code>parent.frame()</code>]<br> Environment to evaluate each expression in. Expressions are
+evaluated from left to right. If <code>.x</code> is an environment, the expressions are
+evaluated in that environment and <code>.envir</code> is ignored. If <code>NULL</code> is passed, it is equivalent to <code><a href="../../base/html/environment.html">emptyenv()</a></code>.</p>
+</td></tr>
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>[<code>listish</code>]<br> An environment, list, or data frame used to lookup values.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A glue object, as created by <code><a href="../../glue/help/as_glue.html">as_glue()</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>"1 + 1" &lt;- 5
+# glue actually executes the code
+glue("{1 + 1}")
+
+# glue_safe just looks up the value
+glue_safe("{1 + 1}")
+
+rm("1 + 1")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>glue</em> version 1.8.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

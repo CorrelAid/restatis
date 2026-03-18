@@ -1,0 +1,179 @@
+<!DOCTYPE html><html><head><title>R: Evaluate an expression to relocate variables</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>eval_relocate {tidyselect}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Evaluate an expression to relocate variables</h2>
+
+<h3>Description</h3>
+
+<p><code>eval_relocate()</code> is a variant of <code><a href="../../tidyselect/help/eval_select.html">eval_select()</a></code> that moves a selection to
+a new location. Either <code>before</code> or <code>after</code> can be provided to specify where
+to move the selection to. This powers <code>dplyr::relocate()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>eval_relocate(
+  expr,
+  data,
+  ...,
+  before = NULL,
+  after = NULL,
+  strict = TRUE,
+  name_spec = NULL,
+  allow_rename = TRUE,
+  allow_empty = TRUE,
+  allow_predicates = TRUE,
+  before_arg = "before",
+  after_arg = "after",
+  env = caller_env(),
+  error_call = caller_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="expr">expr</code></td>
+<td>
+<p>Defused R code describing a selection according to the
+tidyselect syntax.</p>
+</td></tr>
+<tr><td><code id="data">data</code></td>
+<td>
+<p>A named list, data frame, or atomic vector.
+Technically, <code>data</code> can be any vector with <code>names()</code> and <code>"[["</code>
+implementations.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="before">before</code>, <code id="after">after</code></td>
+<td>
+<p>Defused R code describing a selection according to the
+tidyselect syntax. The selection represents the destination of the
+selection provided through <code>expr</code>. Supplying neither of these will move the
+selection to the left-hand side. Supplying both of these is an error.</p>
+</td></tr>
+<tr><td><code id="strict">strict</code></td>
+<td>
+<p>If <code>TRUE</code>, out-of-bounds errors are thrown if <code>expr</code>
+attempts to select or rename a variable that doesn't exist. If
+<code>FALSE</code>, failed selections or renamings are ignored.</p>
+</td></tr>
+<tr><td><code id="name_spec">name_spec</code></td>
+<td>
+<p>A name specification describing how to combine or
+propagate names. This is used only in case nested <code>c()</code>
+expressions like <code>c(foo = c(bar = starts_with("foo")))</code>. See the
+<code>name_spec</code> argument of <code><a href="../../vctrs/help/vec_c.html">vctrs::vec_c()</a></code> for a description of
+valid name specs.</p>
+</td></tr>
+<tr><td><code id="allow_rename">allow_rename</code></td>
+<td>
+<p>If <code>TRUE</code> (the default), the renaming syntax
+<code>c(foo = bar)</code> is allowed. If <code>FALSE</code>, it causes an error. This
+is useful to implement purely selective behaviour.</p>
+</td></tr>
+<tr><td><code id="allow_empty">allow_empty</code></td>
+<td>
+<p>If <code>TRUE</code> (the default), it is ok for <code>expr</code> to result
+in an empty selection. If <code>FALSE</code>, will error if <code>expr</code> yields an empty
+selection.</p>
+</td></tr>
+<tr><td><code id="allow_predicates">allow_predicates</code></td>
+<td>
+<p>If <code>TRUE</code> (the default), it is ok for <code>expr</code> to
+use predicates (i.e. in <code>where()</code>). If <code>FALSE</code>, will error if <code>expr</code> uses a
+predicate. Will automatically be set to <code>FALSE</code> if <code>data</code> does not
+support predicates (as determined by <code><a href="../../tidyselect/help/tidyselect_data_has_predicates.html">tidyselect_data_has_predicates()</a></code>).</p>
+</td></tr>
+<tr><td><code id="before_arg">before_arg</code>, <code id="after_arg">after_arg</code></td>
+<td>
+<p>Argument names for <code>before</code> and <code>after</code>. These
+are used in error messages.</p>
+</td></tr>
+<tr><td><code id="env">env</code></td>
+<td>
+<p>The environment in which to evaluate <code>expr</code>. Discarded
+if <code>expr</code> is a <a href="../../rlang/help/enquo.html">quosure</a>.</p>
+</td></tr>
+<tr><td><code id="error_call">error_call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A named vector of numeric locations with length equal to <code>length(data)</code>.
+Each position in <code>data</code> will be represented exactly once.
+</p>
+<p>The names are normally the same as in the input data, except when the user
+supplied named selections with <code>c()</code>. In the latter case, the names reflect
+the new names chosen by the user.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>library(rlang)
+
+# Interpret defused code as a request to relocate
+x &lt;- expr(c(mpg, disp))
+after &lt;- expr(wt)
+eval_relocate(x, mtcars, after = after)
+
+# Supplying neither `before` nor `after` will move the selection to the
+# left-hand side
+eval_relocate(x, mtcars)
+
+# Within a function, use `enquo()` to defuse a single argument.
+# Note that `before` and `after` must also be defused with `enquo()`.
+my_relocator &lt;- function(x, expr, before = NULL, after = NULL) {
+  eval_relocate(enquo(expr), x, before = enquo(before), after = enquo(after))
+}
+
+my_relocator(mtcars, vs, before = hp)
+
+# Here is an example of using `eval_relocate()` to implement `relocate()`.
+# Note that the dots are passed on as a defused call to `c(...)`.
+relocate &lt;- function(.x, ..., .before = NULL, .after = NULL) {
+  pos &lt;- eval_relocate(
+    expr(c(...)),
+    .x,
+    before = enquo(.before),
+    after = enquo(.after)
+  )
+  set_names(.x[pos], names(pos))
+}
+
+relocate(mtcars, vs, .before = hp)
+relocate(mtcars, starts_with("d"), .after = last_col())
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>tidyselect</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

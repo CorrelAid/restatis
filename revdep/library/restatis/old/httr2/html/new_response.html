@@ -1,0 +1,93 @@
+<!DOCTYPE html><html><head><title>R: Create a HTTP response</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>new_response {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a HTTP response</h2>
+
+<h3>Description</h3>
+
+<p>This is the constructor function for the <code>httr2_response</code> S3 class. It is
+useful primarily for mocking.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>new_response(
+  method,
+  url,
+  status_code,
+  headers,
+  body,
+  timing = NULL,
+  request = NULL,
+  error_call = caller_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="method">method</code></td>
+<td>
+<p>HTTP method used to retrieve the response.</p>
+</td></tr>
+<tr><td><code id="url">url</code></td>
+<td>
+<p>URL response came from; might not be the same as the URL in
+the request if there were any redirects.</p>
+</td></tr>
+<tr><td><code id="status_code">status_code</code></td>
+<td>
+<p>HTTP status code. Must be a single integer.</p>
+</td></tr>
+<tr><td><code id="headers">headers</code></td>
+<td>
+<p>HTTP headers. Can be supplied as a raw or character vector
+which will be parsed using the standard rules, or a named list.</p>
+</td></tr>
+<tr><td><code id="body">body</code></td>
+<td>
+<p>The body of the response. Can be a raw vector, a <code style="white-space: pre;">&#8288;&lt;httr2_path&gt;&#8288;</code>,
+or a <a href="../../httr2/help/StreamingBody.html">StreamingBody</a>.</p>
+</td></tr>
+<tr><td><code id="timing">timing</code></td>
+<td>
+<p>A named numeric vector giving the time taken by various
+components.</p>
+</td></tr>
+<tr><td><code id="request">request</code></td>
+<td>
+<p>The <a href="../../httr2/help/request.html">request</a> used to generate this response.</p>
+</td></tr>
+<tr><td><code id="error_call">error_call</code></td>
+<td>
+<p>Environment (on call stack) used in error messages.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An HTTP response: an S3 list with class <code>httr2_response</code>.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

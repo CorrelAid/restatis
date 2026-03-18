@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><title>R: Re-run expressions multiple times</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>rerun {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Re-run expressions multiple times</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a>
+</p>
+<p>This function was deprecated in purrr 1.0.0 because we believe that NSE
+functions are not a  good fit for purrr. Also, <code>rerun(n, x)</code> can just as
+easily be expressed as <code style="white-space: pre;">&#8288;map(1:n, \(i) x)&#8288;</code>
+</p>
+<p><code>rerun()</code> is a convenient way of generating sample data. It works similarly to
+<code><a href="../../base/html/lapply.html">replicate</a>(..., simplify = FALSE)</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>rerun(.n, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".n">.n</code></td>
+<td>
+<p>Number of times to run expressions</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Expressions to re-run.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list of length <code>.n</code>. Each element of <code>...</code> will be
+re-run once for each <code>.n</code>.
+</p>
+<p>There is one special case: if there's a single unnamed input, the second
+level list will be dropped. In this case, <code>rerun(n, x)</code> behaves like
+<code>replicate(n, x, simplify = FALSE)</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># old
+5 |&gt; rerun(rnorm(5)) |&gt; str()
+# new
+1:5 |&gt; map(\(i) rnorm(5)) |&gt; str()
+
+# old
+5 |&gt;
+  rerun(x = rnorm(5), y = rnorm(5)) |&gt;
+  map_dbl(\(l) cor(l$x, l$y))
+# new
+1:5 |&gt;
+  map(\(i) list(x = rnorm(5), y = rnorm(5))) |&gt;
+  map_dbl(\(l) cor(l$x, l$y))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

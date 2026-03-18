@@ -1,0 +1,341 @@
+<!DOCTYPE html><html><head><title>R: Draw a banner-like box in the console</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>list_border_styles {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Draw a banner-like box in the console</h2>
+
+<h3>Description</h3>
+
+<p>Draw a banner-like box in the console
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>list_border_styles()
+
+boxx(
+  label,
+  header = "",
+  footer = "",
+  border_style = "single",
+  padding = 1,
+  margin = 0,
+  float = c("left", "center", "right"),
+  col = NULL,
+  background_col = NULL,
+  border_col = col,
+  align = c("left", "center", "right"),
+  width = console_width()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="label">label</code></td>
+<td>
+<p>Label to show, a character vector. Each element will be
+in a new line. You can color it using the <code style="white-space: pre;">&#8288;col_*&#8288;</code>, <code style="white-space: pre;">&#8288;bg_*&#8288;</code> and
+<code style="white-space: pre;">&#8288;style_*&#8288;</code> functions, see <a href="../../cli/help/ansi-styles.html">ANSI styles</a> and the examples
+below.</p>
+</td></tr>
+<tr><td><code id="header">header</code></td>
+<td>
+<p>Text to show on top border of the box. If too long,
+it will be cut.</p>
+</td></tr>
+<tr><td><code id="footer">footer</code></td>
+<td>
+<p>Text to show on the bottom border of the box. If too long,
+it will be cut.</p>
+</td></tr>
+<tr><td><code id="border_style">border_style</code></td>
+<td>
+<p>String that specifies the border style.
+<code>list_border_styles</code> lists all current styles.</p>
+</td></tr>
+<tr><td><code id="padding">padding</code></td>
+<td>
+<p>Padding within the box. Either an integer vector of
+four numbers (bottom, left, top, right), or a single number <code>x</code>, which
+is interpreted as <code>c(x, 3*x, x, 3*x)</code>.</p>
+</td></tr>
+<tr><td><code id="margin">margin</code></td>
+<td>
+<p>Margin around the box. Either an integer vector of four
+numbers (bottom, left, top, right), or a single number <code>x</code>, which is
+interpreted as <code>c(x, 3*x, x, 3*x)</code>.</p>
+</td></tr>
+<tr><td><code id="float">float</code></td>
+<td>
+<p>Whether to display the box on the <code>"left"</code>, <code>"center"</code>, or
+the <code>"right"</code> of the screen.</p>
+</td></tr>
+<tr><td><code id="col">col</code></td>
+<td>
+<p>Color of text, and default border color. Either a style
+function (see <a href="../../cli/help/ansi-styles.html">ANSI styles</a>) or a color name that is
+passed to <code><a href="../../cli/help/make_ansi_style.html">make_ansi_style()</a></code>.</p>
+</td></tr>
+<tr><td><code id="background_col">background_col</code></td>
+<td>
+<p>Background color of the inside of the box.
+Either a style function (see <a href="../../cli/help/ansi-styles.html">ANSI styles</a>), or a color
+name which will be used in <code><a href="../../cli/help/make_ansi_style.html">make_ansi_style()</a></code> to create a
+<em>background</em> style (i.e. <code>bg = TRUE</code> is used).</p>
+</td></tr>
+<tr><td><code id="border_col">border_col</code></td>
+<td>
+<p>Color of the border. Either a style function
+(see <a href="../../cli/help/ansi-styles.html">ANSI styles</a>) or a color name that is passed to
+<code><a href="../../cli/help/make_ansi_style.html">make_ansi_style()</a></code>.</p>
+</td></tr>
+<tr><td><code id="align">align</code></td>
+<td>
+<p>Alignment of the label within the box: <code>"left"</code>,
+<code>"center"</code>, or <code>"right"</code>.</p>
+</td></tr>
+<tr><td><code id="width">width</code></td>
+<td>
+<p>Width of the screen, defaults to <code><a href="../../cli/help/console_width.html">console_width()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+
+<h4>Defaults</h4>
+
+<div class="sourceCode r"><pre>boxx("Hello there!")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ┌──────────────────┐                                                            
+#> │                  │                                                            
+#> │   Hello there!   │                                                            
+#> │                  │                                                            
+#> └──────────────────┘                                                            
+</pre></div>
+
+
+
+
+<h4>Change border style</h4>
+
+<div class="sourceCode r"><pre>boxx("Hello there!", border_style = "double")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ╔══════════════════╗                                                            
+#> ║                  ║                                                            
+#> ║   Hello there!   ║                                                            
+#> ║                  ║                                                            
+#> ╚══════════════════╝                                                            
+</pre></div>
+
+
+
+
+<h4>Multiple lines</h4>
+
+<div class="sourceCode r"><pre>boxx(c("Hello", "there!"), padding = 1)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ┌────────────┐                                                                  
+#> │            │                                                                  
+#> │   Hello    │                                                                  
+#> │   there!   │                                                                  
+#> │            │                                                                  
+#> └────────────┘                                                                  
+</pre></div>
+
+
+
+
+<h4>Padding</h4>
+
+<div class="sourceCode r"><pre>boxx("Hello there!", padding = 1)
+boxx("Hello there!", padding = c(1, 5, 1, 5))
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ┌──────────────────┐                                                            
+#> │                  │                                                            
+#> │   Hello there!   │                                                            
+#> │                  │                                                            
+#> └──────────────────┘                                                            
+#> ┌──────────────────────┐                                                        
+#> │                      │                                                        
+#> │     Hello there!     │                                                        
+#> │                      │                                                        
+#> └──────────────────────┘                                                        
+</pre></div>
+
+
+
+
+<h4>Floating</h4>
+
+<div class="sourceCode r"><pre>boxx("Hello there!", padding = 1, float = "center")
+boxx("Hello there!", padding = 1, float = "right")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#>                           ┌──────────────────┐                                  
+#>                           │                  │                                  
+#>                           │   Hello there!   │                                  
+#>                           │                  │                                  
+#>                           └──────────────────┘                                  
+#>                                                   ┌──────────────────┐          
+#>                                                   │                  │          
+#>                                                   │   Hello there!   │          
+#>                                                   │                  │          
+#>                                                   └──────────────────┘          
+</pre></div>
+
+
+
+
+<h4>Text color</h4>
+
+<div class="sourceCode r"><pre>boxx(col_cyan("Hello there!"), padding = 1, float = "center")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#>                           ┌──────────────────┐                                  
+#>                           │                  │                                  
+#>                           │   <span style="color: #2AA198;">Hello there!</span>   │                                  
+#>                           │                  │                                  
+#>                           └──────────────────┘                                  
+</pre></div>
+
+
+
+
+<h4>Background color</h4>
+
+<div class="sourceCode r"><pre>boxx("Hello there!", padding = 1, background_col = "brown")
+boxx("Hello there!", padding = 1, background_col = bg_red)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ┌──────────────────┐                                                            
+#> │<span style="background-color: #990000;">                  </span>│                                                            
+#> │<span style="background-color: #990000;">   Hello there!   </span>│                                                            
+#> │<span style="background-color: #990000;">                  </span>│                                                            
+#> └──────────────────┘                                                            
+#> ┌──────────────────┐                                                            
+#> │<span style="background-color: #DC322F;">                  </span>│                                                            
+#> │<span style="background-color: #DC322F;">   Hello there!   </span>│                                                            
+#> │<span style="background-color: #DC322F;">                  </span>│                                                            
+#> └──────────────────┘                                                            
+</pre></div>
+
+
+
+
+<h4>Border color</h4>
+
+<div class="sourceCode r"><pre>boxx("Hello there!", padding = 1, border_col = "green")
+boxx("Hello there!", padding = 1, border_col = col_red)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> <span style="color: #859900;">┌──────────────────┐</span>                                                            
+#> <span style="color: #859900;">│</span>                  <span style="color: #859900;">│</span>                                                            
+#> <span style="color: #859900;">│</span>   Hello there!   <span style="color: #859900;">│</span>                                                            
+#> <span style="color: #859900;">│</span>                  <span style="color: #859900;">│</span>                                                            
+#> <span style="color: #859900;">└──────────────────┘</span>                                                            
+#> <span style="color: #DC322F;">┌──────────────────┐</span>                                                            
+#> <span style="color: #DC322F;">│</span>                  <span style="color: #DC322F;">│</span>                                                            
+#> <span style="color: #DC322F;">│</span>   Hello there!   <span style="color: #DC322F;">│</span>                                                            
+#> <span style="color: #DC322F;">│</span>                  <span style="color: #DC322F;">│</span>                                                            
+#> <span style="color: #DC322F;">└──────────────────┘</span>                                                            
+</pre></div>
+
+
+
+
+<h4>Label alignment</h4>
+
+<div class="sourceCode r"><pre>boxx(c("Hi", "there", "you!"), padding = 1, align = "left")
+boxx(c("Hi", "there", "you!"), padding = 1, align = "center")
+boxx(c("Hi", "there", "you!"), padding = 1, align = "right")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ┌───────────┐                                                                   
+#> │           │                                                                   
+#> │   Hi      │                                                                   
+#> │   there   │                                                                   
+#> │   you!    │                                                                   
+#> │           │                                                                   
+#> └───────────┘                                                                   
+#> ┌───────────┐                                                                   
+#> │           │                                                                   
+#> │     Hi    │                                                                   
+#> │   there   │                                                                   
+#> │    you!   │                                                                   
+#> │           │                                                                   
+#> └───────────┘                                                                   
+#> ┌───────────┐                                                                   
+#> │           │                                                                   
+#> │      Hi   │                                                                   
+#> │   there   │                                                                   
+#> │    you!   │                                                                   
+#> │           │                                                                   
+#> └───────────┘                                                                   
+</pre></div>
+
+
+
+
+<h4>A very customized box</h4>
+
+<div class="sourceCode r"><pre>star &lt;- symbol$star
+label &lt;- c(paste(star, "Hello", star), "  there!")
+boxx(
+  col_white(label),
+  border_style="round",
+  padding = 1,
+  float = "center",
+  border_col = "tomato3",
+  background_col="darkolivegreen"
+)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> <span style="color: #cc3333;">                           ╭───────────────╮</span>                                    
+#>                            <span style="color: #cc3333;">│</span><span style="background-color: #336633;">               </span><span style="color: #cc3333;">│</span>                                    
+#>                            <span style="color: #cc3333;">│</span><span style="background-color: #336633;">   </span><span style="color: #EEE8D5;background-color: #336633;">★ Hello ★</span><span style="background-color: #336633;">   </span><span style="color: #cc3333;">│</span>                                    
+#>                            <span style="color: #cc3333;">│</span><span style="background-color: #336633;">   </span><span style="color: #EEE8D5;background-color: #336633;">  there!</span><span style="background-color: #336633;">    </span><span style="color: #cc3333;">│</span>                                    
+#>                            <span style="color: #cc3333;">│</span><span style="background-color: #336633;">               </span><span style="color: #cc3333;">│</span>                                    
+#> <span style="color: #cc3333;">                           ╰───────────────╯</span>                                    
+</pre></div>
+
+
+
+
+<h3>About fonts and terminal settings</h3>
+
+<p>The boxes might or might not look great in your terminal, depending
+on the box style you use and the font the terminal uses. We found that
+the Menlo font looks nice in most terminals an also in Emacs.
+</p>
+<p>RStudio currently has a line height greater than one for console output,
+which makes the boxes ugly.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

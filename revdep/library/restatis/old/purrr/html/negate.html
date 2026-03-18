@@ -1,0 +1,97 @@
+<!DOCTYPE html><html><head><title>R: Negate a predicate function so it selects what it previously...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>negate {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Negate a predicate function so it selects what it previously rejected</h2>
+
+<h3>Description</h3>
+
+<p>Negating a function changes <code>TRUE</code> to <code>FALSE</code> and <code>FALSE</code> to <code>TRUE</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>negate(.p)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".p">.p</code></td>
+<td>
+<p>A predicate function (i.e. a function that returns either <code>TRUE</code>
+or <code>FALSE</code>) specified in one of the following ways:
+</p>
+
+<ul>
+<li><p> A named function, e.g. <code>is.character</code>.
+</p>
+</li>
+<li><p> An anonymous function, e.g. <code style="white-space: pre;">&#8288;\(x) all(x &lt; 0)&#8288;</code> or <code>function(x) all(x &lt; 0)</code>.
+</p>
+</li>
+<li><p> A formula, e.g. <code>~ all(.x &lt; 0)</code>. Use <code>.x</code> to refer to the first argument.
+No longer recommended.
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A new predicate function.
+</p>
+
+
+<h3>Adverbs</h3>
+
+<p>This function is called an adverb because it modifies the effect of a
+function (a verb). If you'd like to include a function created an adverb
+in a package, be sure to read <a href="../../purrr/help/faq-adverbs-export.html">faq-adverbs-export</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other adverbs: 
+<code><a href="../../purrr/help/auto_browse.html">auto_browse</a>()</code>,
+<code><a href="../../purrr/help/compose.html">compose</a>()</code>,
+<code><a href="../../purrr/help/insistently.html">insistently</a>()</code>,
+<code><a href="../../purrr/help/partial.html">partial</a>()</code>,
+<code><a href="../../purrr/help/possibly.html">possibly</a>()</code>,
+<code><a href="../../purrr/help/quietly.html">quietly</a>()</code>,
+<code><a href="../../purrr/help/safely.html">safely</a>()</code>,
+<code><a href="../../purrr/help/slowly.html">slowly</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- list(x = 1:10, y = rbernoulli(10), z = letters)
+x |&gt; keep(is.numeric) |&gt; names()
+x |&gt; keep(negate(is.numeric)) |&gt; names()
+# Same as
+x |&gt; discard(is.numeric)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

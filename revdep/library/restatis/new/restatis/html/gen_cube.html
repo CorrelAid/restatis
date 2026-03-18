@@ -1,0 +1,201 @@
+<!DOCTYPE html><html><head><title>R: Download Data Cube As Data.Frame</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>gen_cube {restatis}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Download Data Cube As Data.Frame</h2>
+
+<h3>Description</h3>
+
+<p>Download a cube as a data.frame from any supported database. Works not on all databases included in the package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>gen_cube(
+  name,
+  database = c("genesis", "regio", "nrw", "bildung"),
+  credential_list = NULL,
+  area = c("public", "user"),
+  values = TRUE,
+  metadata = TRUE,
+  additionals = FALSE,
+  startyear = 1900,
+  endyear = 2100,
+  timeslices = NULL,
+  contents = NULL,
+  regionalvariable = NULL,
+  regionalkey = NULL,
+  classifyingvariable1 = NULL,
+  classifyingkey1 = NULL,
+  classifyingvariable2 = NULL,
+  classifyingkey2 = NULL,
+  classifyingvariable3 = NULL,
+  classifyingkey3 = NULL,
+  stand = NULL,
+  language = Sys.getenv("RESTATIS_LANG"),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="name">name</code></td>
+<td>
+<p>Character string for a cube object.</p>
+</td></tr>
+<tr><td><code id="database">database</code></td>
+<td>
+<p>Character string. Indicator if the GENESIS ('genesis'), regionalstatistik.de ('regio'), landesdatenbank.nrw.de ('nrw') or bildungsmonitoring.de ('bildung') database is called.</p>
+</td></tr>
+<tr><td><code id="credential_list">credential_list</code></td>
+<td>
+<p>A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from <code>gen_auth_get()</code>.</p>
+</td></tr>
+<tr><td><code id="area">area</code></td>
+<td>
+<p>Character string. The area in which the table is stored.
+Possible values:
+</p>
+
+<ul>
+<li> <p><code>"public"</code>: cube in the public catalogue
+</p>
+</li>
+<li> <p><code>"user"</code>: cube in the user's account
+</p>
+</li>
+<li> <p><code>"all"</code>: both of the above
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="values">values</code></td>
+<td>
+<p>Boolean. Should values be included?</p>
+</td></tr>
+<tr><td><code id="metadata">metadata</code></td>
+<td>
+<p>Boolean. Should metadata be included?</p>
+</td></tr>
+<tr><td><code id="additionals">additionals</code></td>
+<td>
+<p>Boolean. Should additional metadata be included?</p>
+</td></tr>
+<tr><td><code id="startyear">startyear</code></td>
+<td>
+<p>Four-digit integer. Only retrieve data from this year onward.</p>
+</td></tr>
+<tr><td><code id="endyear">endyear</code></td>
+<td>
+<p>Four-digit integer. Only retrieve data up to this year.</p>
+</td></tr>
+<tr><td><code id="timeslices">timeslices</code></td>
+<td>
+<p>Integer. Number of timeslices (cumulative to <code>startyear</code> or <code>endyear</code>).</p>
+</td></tr>
+<tr><td><code id="contents">contents</code></td>
+<td>
+<p>Character string. Names of required statistical specifications.</p>
+</td></tr>
+<tr><td><code id="regionalvariable">regionalvariable</code></td>
+<td>
+<p>Character string. Code of the regional variable whose value
+is specified in <code>regionalkey</code> to filter the results.</p>
+</td></tr>
+<tr><td><code id="regionalkey">regionalkey</code></td>
+<td>
+<p>Character string. One or more regional keys. Multiple values can be
+supplied as a character vector or as a single string, with the regional keys
+separated by commas. Use of wildcard (<code>*</code>) allowed.</p>
+</td></tr>
+<tr><td><code id="classifyingvariable1">classifyingvariable1</code></td>
+<td>
+<p>Character string. Code of the subject classification
+(SK-Merkmal) to which the selection by means of <code>classifyingkey1</code> is applied.</p>
+</td></tr>
+<tr><td><code id="classifyingkey1">classifyingkey1</code></td>
+<td>
+<p>Character string. One or more values of a subject classification
+(e.g. <code>"WZ93012"</code>). Applied to <code>classifyingvariable1</code>. Multiple keys can be
+supplied as a character vector or as a single string, with the keys separated by
+commas. Use of wildcard (<code>*</code>) allowed.</p>
+</td></tr>
+<tr><td><code id="classifyingvariable2">classifyingvariable2</code></td>
+<td>
+<p>Character string. Code of the subject classification
+(SK-Merkmal) to which the selection by means of <code>classifyingkey2</code> is applied.</p>
+</td></tr>
+<tr><td><code id="classifyingkey2">classifyingkey2</code></td>
+<td>
+<p>Character string. One or more values of a subject classification.
+Applied to <code>classifyingvariable2</code>. Multiple keys can be supplied as a character
+vector or as a single string, with the keys separated by commas. Use of wildcard
+(<code>*</code>) allowed.</p>
+</td></tr>
+<tr><td><code id="classifyingvariable3">classifyingvariable3</code></td>
+<td>
+<p>Character string. Code of the subject classification
+(SK-Merkmal) to which the selection by means of <code>classifyingkey3</code> is applied.</p>
+</td></tr>
+<tr><td><code id="classifyingkey3">classifyingkey3</code></td>
+<td>
+<p>Character string. One or more values of a subject classification.
+Applied to <code>classifyingvariable3</code>. Multiple keys can be supplied as a character
+vector or as a single string, with the keys separated by commas. Use of wildcard
+(<code>*</code>) allowed.</p>
+</td></tr>
+<tr><td><code id="stand">stand</code></td>
+<td>
+<p>Character string, format <code>"DD.MM.YYYY"</code>. Only retrieve data updated
+after this date.</p>
+</td></tr>
+<tr><td><code id="language">language</code></td>
+<td>
+<p>Character string. Search terms, returned messages and data descriptions
+in German (<code>"de"</code>) or English (<code>"en"</code>).</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional parameters for the API call (see respective API documentation).
+A valid specification of these will not be checked by the function, so wrongful
+specification may lead to errors.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A <a href="../../tibble/help/tibble.html">tibble</a>. Non-data contents of the data cube object are saved in
+the <code>metadata</code> <a href="../../base/help/attr.html">attribute</a> of the data frame.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+gen_cube("47414BJ002")
+
+## End(Not run)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>restatis</em> version 0.4.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

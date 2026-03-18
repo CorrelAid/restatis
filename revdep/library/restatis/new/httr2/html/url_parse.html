@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><title>R: Parse a URL into its component pieces</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>url_parse {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Parse a URL into its component pieces</h2>
+
+<h3>Description</h3>
+
+<p><code>url_parse()</code> parses a URL into its component parts, powered by
+<code><a href="../../curl/help/curl_parse_url.html">curl::curl_parse_url()</a></code>. The parsing algorithm follows the specifications
+detailed in <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>url_parse(url, base_url = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="url">url</code></td>
+<td>
+<p>A string containing the URL to parse.</p>
+</td></tr>
+<tr><td><code id="base_url">base_url</code></td>
+<td>
+<p>Use this as a parent, if <code>url</code> is a relative URL.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An S3 object of class <code>httr2_url</code> with the following components:
+<code>scheme</code>, <code>hostname</code>, <code>username</code>, <code>password</code>, <code>port</code>, <code>path</code>, <code>query</code>, and
+<code>fragment</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other URL manipulation: 
+<code><a href="../../httr2/help/url_build.html">url_build</a>()</code>,
+<code><a href="../../httr2/help/url_modify.html">url_modify</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>url_parse("http://google.com/")
+url_parse("http://google.com:80/")
+url_parse("http://google.com:80/?a=1&amp;b=2")
+url_parse("http://username@google.com:80/path;test?a=1&amp;b=2#40")
+
+# You can parse a relative URL if you also provide a base url
+url_parse("foo", "http://google.com/bar/")
+url_parse("..", "http://google.com/bar/")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

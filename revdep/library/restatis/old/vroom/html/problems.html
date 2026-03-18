@@ -1,0 +1,76 @@
+<!DOCTYPE html><html><head><title>R: Retrieve parsing problems</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>problems {vroom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Retrieve parsing problems</h2>
+
+<h3>Description</h3>
+
+<p>vroom will only fail to parse a file if the file is invalid in a way that is
+unrecoverable. However there are a number of non-fatal problems that you
+might want to know about. You can retrieve a data frame of these problems
+with this function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>problems(x = .Last.value, lazy = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A data frame from <code>vroom::vroom()</code>.</p>
+</td></tr>
+<tr><td><code id="lazy">lazy</code></td>
+<td>
+<p>If <code>TRUE</code>, just the problems found so far are returned. If
+<code>FALSE</code> (the default) the lazy data is first read completely and all
+problems are returned.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A data frame with one row for each problem and four columns:
+</p>
+
+<ul>
+<li><p> row,col - Row and column number that caused the problem, referencing the
+original input
+</p>
+</li>
+<li><p> expected - What vroom expected to find
+</p>
+</li>
+<li><p> actual - What it actually found
+</p>
+</li>
+<li><p> file - The file with the problem
+</p>
+</li></ul>
+
+
+<hr><div style="text-align: center;">[Package <em>vroom</em> version 1.7.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html><html><head><title>R: Text Normalization</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>utf8_normalize {utf8}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Text Normalization</h2>
+
+<h3>Description</h3>
+
+<p>Transform text to normalized form, optionally mapping to lowercase and
+applying compatibility maps.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>utf8_normalize(
+  x,
+  ...,
+  map_case = FALSE,
+  map_compat = FALSE,
+  map_quote = FALSE,
+  remove_ignorable = FALSE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>character object.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="map_case">map_case</code></td>
+<td>
+<p>a logical value indicating whether to apply Unicode case
+mapping to the text. For most languages, this transformation changes
+uppercase characters to their lowercase equivalents.</p>
+</td></tr>
+<tr><td><code id="map_compat">map_compat</code></td>
+<td>
+<p>a logical value indicating whether to apply Unicode
+compatibility mappings to the characters, those required for NFKC and NFKD
+normal forms.</p>
+</td></tr>
+<tr><td><code id="map_quote">map_quote</code></td>
+<td>
+<p>a logical value indicating whether to replace curly single
+quotes and Unicode apostrophe characters with ASCII apostrophe (U+0027).</p>
+</td></tr>
+<tr><td><code id="remove_ignorable">remove_ignorable</code></td>
+<td>
+<p>a logical value indicating whether to remove Unicode
+&quot;default ignorable&quot; characters like zero-width spaces and soft hyphens.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>utf8_normalize()</code> converts the elements of a character object to Unicode
+normalized composed form (NFC) while applying the character maps specified
+by the <code>map_case</code>, <code>map_compat</code>, <code>map_quote</code>, and
+<code>remove_ignorable</code> arguments.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The result is a character object with the same attributes as
+<code>x</code> but with <code>Encoding</code> set to <code>"UTF-8"</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../utf8/help/as_utf8.html">as_utf8()</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+angstrom &lt;- c("\u00c5", "\u0041\u030a", "\u212b")
+utf8_normalize(angstrom) == "\u00c5"
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>utf8</em> version 1.2.6 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

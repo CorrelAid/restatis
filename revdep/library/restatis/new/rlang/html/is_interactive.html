@@ -1,0 +1,79 @@
+<!DOCTYPE html><html><head><title>R: Is R running interactively?</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>is_interactive {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Is R running interactively?</h2>
+
+<h3>Description</h3>
+
+<p>Like <code><a href="../../base/help/interactive.html">base::interactive()</a></code>, <code>is_interactive()</code> returns <code>TRUE</code> when
+the function runs interactively and <code>FALSE</code> when it runs in batch
+mode. It also checks, in this order:
+</p>
+
+<ul>
+<li><p> The <code>rlang_interactive</code> global option. If set to a single <code>TRUE</code>
+or <code>FALSE</code>, <code>is_interactive()</code> returns that value immediately. This
+escape hatch is useful in unit tests or to manually turn on
+interactive features in RMarkdown outputs.
+</p>
+</li>
+<li><p> Whether knitr or testthat is in progress, in which case
+<code>is_interactive()</code> returns <code>FALSE</code>.
+</p>
+</li></ul>
+
+<p><code>with_interactive()</code> and <code>local_interactive()</code> set the global
+option conveniently.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>is_interactive()
+
+local_interactive(value = TRUE, frame = caller_env())
+
+with_interactive(expr, value = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="value">value</code></td>
+<td>
+<p>A single <code>TRUE</code> or <code>FALSE</code>. This overrides the return
+value of <code>is_interactive()</code>.</p>
+</td></tr>
+<tr><td><code id="frame">frame</code></td>
+<td>
+<p>The environment of a running function which defines
+the scope of the temporary options. When the function returns,
+the options are reset to their original values.</p>
+</td></tr>
+<tr><td><code id="expr">expr</code></td>
+<td>
+<p>An expression to evaluate with interactivity set to
+<code>value</code>.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

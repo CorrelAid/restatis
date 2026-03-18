@@ -1,0 +1,200 @@
+<!DOCTYPE html><html><head><title>R: Normalizing URL parser</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>curl_parse_url {curl}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Normalizing URL parser</h2>
+
+<h3>Description</h3>
+
+<p>Interfaces the libcurl <a href="https://curl.se/libcurl/c/libcurl-url.html">URL parser</a>.
+URLs are automatically normalized where possible, such as in the case of
+relative paths or url-encoded queries (see examples).
+When parsing hyperlinks from a HTML document, it is possible to set <code>baseurl</code>
+to the location of the document itself such that relative links can be resolved.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>curl_parse_url(
+  url,
+  baseurl = NULL,
+  decode = TRUE,
+  params = TRUE,
+  default_scheme = FALSE
+)
+
+curl_modify_url(
+  url = NULL,
+  scheme = NULL,
+  host = NULL,
+  port = NULL,
+  path = NULL,
+  query = NULL,
+  fragment = NULL,
+  user = NULL,
+  password = NULL,
+  params = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="url">url</code></td>
+<td>
+<p>either URL string or list returned by <a href="../../curl/help/curl_parse_url.html">curl_parse_url</a>.
+Use this to modify a URL using the other parameters.</p>
+</td></tr>
+<tr><td><code id="baseurl">baseurl</code></td>
+<td>
+<p>use this as the parent if <code>url</code> may be a relative path</p>
+</td></tr>
+<tr><td><code id="decode">decode</code></td>
+<td>
+<p>automatically <a href="../../curl/help/curl_escape.html">url-decode</a> output into the actual
+values. If set to <code>FALSE</code>, values for <code>query</code>, <code>path</code>, <code>fragment</code>, <code>user</code> and <code>password</code> are returned in url-encoded format.</p>
+</td></tr>
+<tr><td><code id="params">params</code></td>
+<td>
+<p>named character vector with http GET parameters. This will automatically
+be converted to <code>application/x-www-form-urlencoded</code> and override <code>query</code>,</p>
+</td></tr>
+<tr><td><code id="default_scheme">default_scheme</code></td>
+<td>
+<p>when <code>url</code> is provided without a scheme prefix, assume <code style="white-space: pre;">&#8288;https://&#8288;</code>.</p>
+</td></tr>
+<tr><td><code id="scheme">scheme</code></td>
+<td>
+<p>string with e.g. <code>https</code>. Required if no <code>url</code> parameter was given.</p>
+</td></tr>
+<tr><td><code id="host">host</code></td>
+<td>
+<p>string with hostname. Required if no <code>url</code> parameter was given.</p>
+</td></tr>
+<tr><td><code id="port">port</code></td>
+<td>
+<p>string or number with port, e.g. <code>"443"</code>.</p>
+</td></tr>
+<tr><td><code id="path">path</code></td>
+<td>
+<p>piece of the url starting with <code>/</code> up till <code style="white-space: pre;">&#8288;?&#8288;</code> or <code style="white-space: pre;">&#8288;#&#8288;</code></p>
+</td></tr>
+<tr><td><code id="query">query</code></td>
+<td>
+<p>piece of url starting with <code style="white-space: pre;">&#8288;?&#8288;</code> up till <code style="white-space: pre;">&#8288;#&#8288;</code>. Only used if no <code>params</code> is given.</p>
+</td></tr>
+<tr><td><code id="fragment">fragment</code></td>
+<td>
+<p>part of url starting with <code style="white-space: pre;">&#8288;#&#8288;</code>.</p>
+</td></tr>
+<tr><td><code id="user">user</code></td>
+<td>
+<p>string with username</p>
+</td></tr>
+<tr><td><code id="password">password</code></td>
+<td>
+<p>string with password</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A valid URL contains at least a scheme and a host, other pieces are optional.
+If these are missing, the parser raises an error. Otherwise it returns
+a list with the following elements:
+</p>
+
+<ul>
+<li> <p><em>url</em>: the normalized input URL
+</p>
+</li>
+<li> <p><em>scheme</em>: the protocol part before the <code style="white-space: pre;">&#8288;://&#8288;</code> (required)
+</p>
+</li>
+<li> <p><em>host</em>: name of host without port (required)
+</p>
+</li>
+<li> <p><em>port</em>: decimal between 0 and 65535
+</p>
+</li>
+<li> <p><em>path</em>: normalized path up till the <code style="white-space: pre;">&#8288;?&#8288;</code> of the url
+</p>
+</li>
+<li> <p><em>query</em>: search query: part between the <code style="white-space: pre;">&#8288;?&#8288;</code> and <code style="white-space: pre;">&#8288;#&#8288;</code> of the url. Use <code>params</code> below to get individual parameters from the query.
+</p>
+</li>
+<li> <p><em>fragment</em>: the hash part after the <code style="white-space: pre;">&#8288;#&#8288;</code> of the url
+</p>
+</li>
+<li> <p><em>user</em>: authentication username
+</p>
+</li>
+<li> <p><em>password</em>: authentication password
+</p>
+</li>
+<li> <p><em>params</em>: named vector with parameters from <code>query</code> if set
+</p>
+</li></ul>
+
+<p>Each element above is either a string or <code>NULL</code>, except for <code>params</code> which
+is always a character vector with the length equal to the number of parameters.
+</p>
+<p>Note that the <code>params</code> field is only usable if the <code>query</code> is in the usual
+<code>application/x-www-form-urlencoded</code> format which is technically not part of
+the RFC. Some services may use e.g. a json blob as the query, in which case
+the parsed <code>params</code> field here can be ignored. There is no way for the parser
+to automatically infer or validate the query format, this is up to the caller.
+</p>
+<p>For more details on the URL format see
+<a href="https://datatracker.ietf.org/doc/html/rfc3986">rfc3986</a>
+or the steps explained in the <a href="https://url.spec.whatwg.org/#concept-basic-url-parser">whatwg basic url parser</a>.
+</p>
+<p>You can use <code><a href="../../curl/help/curl_modify_url.html">curl_modify_url()</a></code> both to modify an existing URL, or to
+create new URL from scratch. Arguments get automatically URL-encoded where
+needed, unless wrapped in <code>I()</code>. If <code>params</code> is given, this gets converted
+into a <code>application/x-www-form-urlencoded</code> string which overrides <code>query</code>.
+When modifying a URL, use an empty string <code>""</code> to unset a piece of the URL.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>url &lt;- "https://jerry:secret@google.com:888/foo/bar?test=123#bla"
+curl_parse_url(url)
+
+# Resolve relative links from a baseurl
+curl_parse_url("/somelink", baseurl = url)
+
+# Paths get normalized
+curl_parse_url("https://foobar.com/foo/bar/../baz/../yolo")$url
+
+# Also normalizes URL-encoding (these URLs are equivalent):
+url1 &lt;- "https://ja.wikipedia.org/wiki/\u5bff\u53f8"
+url2 &lt;- "https://ja.wikipedia.org/wiki/%e5%af%bf%e5%8f%b8"
+curl_parse_url(url1)$path
+curl_parse_url(url2)$path
+curl_parse_url(url1, decode = FALSE)$path
+curl_parse_url(url1, decode = FALSE)$path
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>curl</em> version 7.0.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html><html><head><title>R: Compose multiple functions together to create a new function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>compose {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compose multiple functions together to create a new function</h2>
+
+<h3>Description</h3>
+
+<p>Create a new function that is the composition of multiple functions,
+i.e. <code>compose(f, g)</code> is equivalent to <code>function(...) f(g(...))</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>compose(..., .dir = c("backward", "forward"))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Functions to apply in order (from right to left by
+default). Formulas are converted to functions in the usual way.
+</p>
+<p><a href="../../rlang/help/dyn-dots.html">Dynamic dots</a> are supported. In particular, if
+your functions are stored in a list, you can splice that in with
+<code style="white-space: pre;">&#8288;!!!&#8288;</code>.</p>
+</td></tr>
+<tr><td><code id=".dir">.dir</code></td>
+<td>
+<p>If <code>"backward"</code> (the default), the functions are called
+in the reverse order, from right to left, as is conventional in
+mathematics. If <code>"forward"</code>, they are called from left to right.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A function
+</p>
+
+
+<h3>Adverbs</h3>
+
+<p>This function is called an adverb because it modifies the effect of a
+function (a verb). If you'd like to include a function created an adverb
+in a package, be sure to read <a href="../../purrr/help/faq-adverbs-export.html">faq-adverbs-export</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other adverbs: 
+<code><a href="../../purrr/help/auto_browse.html">auto_browse</a>()</code>,
+<code><a href="../../purrr/help/insistently.html">insistently</a>()</code>,
+<code><a href="../../purrr/help/negate.html">negate</a>()</code>,
+<code><a href="../../purrr/help/partial.html">partial</a>()</code>,
+<code><a href="../../purrr/help/possibly.html">possibly</a>()</code>,
+<code><a href="../../purrr/help/quietly.html">quietly</a>()</code>,
+<code><a href="../../purrr/help/safely.html">safely</a>()</code>,
+<code><a href="../../purrr/help/slowly.html">slowly</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>not_null &lt;- compose(`!`, is.null)
+not_null(4)
+not_null(NULL)
+
+add1 &lt;- function(x) x + 1
+compose(add1, add1)(8)
+
+fn &lt;- compose(\(x) paste(x, "foo"), \(x) paste(x, "bar"))
+fn("input")
+
+# Lists of functions can be spliced with !!!
+fns &lt;- list(
+  function(x) paste(x, "foo"),
+  \(x) paste(x, "bar")
+)
+fn &lt;- compose(!!!fns)
+fn("input")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

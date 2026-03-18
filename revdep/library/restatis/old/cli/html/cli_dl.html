@@ -1,0 +1,157 @@
+<!DOCTYPE html><html><head><title>R: Definition list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_dl {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Definition list</h2>
+
+<h3>Description</h3>
+
+<p>A definition list is a container, see <a href="../../cli/help/containers.html">containers</a>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_dl(
+  items = NULL,
+  labels = names(items),
+  id = NULL,
+  class = NULL,
+  .close = TRUE,
+  .auto_close = TRUE,
+  .envir = parent.frame()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="items">items</code></td>
+<td>
+<p>Named character vector, or <code>NULL</code>. If not <code>NULL</code>, they
+are used as list items.</p>
+</td></tr>
+<tr><td><code id="labels">labels</code></td>
+<td>
+<p>Item labels. Defaults the names in <code>items</code>.</p>
+</td></tr>
+<tr><td><code id="id">id</code></td>
+<td>
+<p>Id of the list container. Can be used for closing it with
+<code><a href="../../cli/help/cli_end.html">cli_end()</a></code> or in themes. If <code>NULL</code>, then an id is generated and
+returned invisibly.</p>
+</td></tr>
+<tr><td><code id="class">class</code></td>
+<td>
+<p>Class of the list container. Can be used in themes.</p>
+</td></tr>
+<tr><td><code id=".close">.close</code></td>
+<td>
+<p>Whether to close the list container if the <code>items</code> were
+specified. If <code>FALSE</code> then new items can be added to the list.</p>
+</td></tr>
+<tr><td><code id=".auto_close">.auto_close</code></td>
+<td>
+<p>Whether to close the container, when the calling
+function finishes (or <code>.envir</code> is removed, if specified).</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>Environment to evaluate the glue expressions in. It is
+also used to auto-close the container if <code>.auto_close</code> is <code>TRUE</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+
+<h4>All items at once</h4>
+
+<div class="sourceCode r"><pre>fun &lt;- function() {
+  cli_dl(c(foo = "one", bar = "two", baz = "three"))
+}
+fun()
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> foo: one                                                                        
+#> bar: two                                                                        
+#> baz: three                                                                      
+</pre></div>
+
+
+
+
+<h4>Items one by one</h4>
+
+<div class="sourceCode r"><pre>fun &lt;- function() {
+  cli_dl()
+  cli_li(c(foo = "{.emph one}"))
+  cli_li(c(bar = "two"))
+  cli_li(c(baz = "three"))
+}
+fun()
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> foo: <span style="font-style: italic;">one</span>                                                                        
+#> bar: two                                                                        
+#> baz: three                                                                      
+</pre></div>
+
+
+
+
+<h3>Value</h3>
+
+<p>The id of the new container element, invisibly.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>This function supports <a href="../../cli/help/inline-markup.html">inline markup</a>.
+</p>
+<p>Other functions supporting inline markup: 
+<code><a href="../../cli/help/cli_abort.html">cli_abort</a>()</code>,
+<code><a href="../../cli/help/cli_alert.html">cli_alert</a>()</code>,
+<code><a href="../../cli/help/cli_blockquote.html">cli_blockquote</a>()</code>,
+<code><a href="../../cli/help/cli_bullets.html">cli_bullets</a>()</code>,
+<code><a href="../../cli/help/cli_bullets_raw.html">cli_bullets_raw</a>()</code>,
+<code><a href="../../cli/help/cli_h1.html">cli_h1</a>()</code>,
+<code><a href="../../cli/help/cli_li.html">cli_li</a>()</code>,
+<code><a href="../../cli/help/cli_ol.html">cli_ol</a>()</code>,
+<code><a href="../../cli/help/cli_process_start.html">cli_process_start</a>()</code>,
+<code><a href="../../cli/help/cli_progress_along.html">cli_progress_along</a>()</code>,
+<code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar</a>()</code>,
+<code><a href="../../cli/help/cli_progress_message.html">cli_progress_message</a>()</code>,
+<code><a href="../../cli/help/cli_progress_output.html">cli_progress_output</a>()</code>,
+<code><a href="../../cli/help/cli_progress_step.html">cli_progress_step</a>()</code>,
+<code><a href="../../cli/help/cli_rule.html">cli_rule</a></code>,
+<code><a href="../../cli/help/cli_status.html">cli_status</a>()</code>,
+<code><a href="../../cli/help/cli_status_update.html">cli_status_update</a>()</code>,
+<code><a href="../../cli/help/cli_text.html">cli_text</a>()</code>,
+<code><a href="../../cli/help/cli_ul.html">cli_ul</a>()</code>,
+<code><a href="../../cli/help/format_error.html">format_error</a>()</code>,
+<code><a href="../../cli/help/format_inline.html">format_inline</a>()</code>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

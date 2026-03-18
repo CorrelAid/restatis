@@ -1,0 +1,192 @@
+<!DOCTYPE html><html><head><title>R: CLI alerts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_alert {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>CLI alerts</h2>
+
+<h3>Description</h3>
+
+<p>Alerts are typically short status messages.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_alert(text, id = NULL, class = NULL, wrap = FALSE, .envir = parent.frame())
+
+cli_alert_success(
+  text,
+  id = NULL,
+  class = NULL,
+  wrap = FALSE,
+  .envir = parent.frame()
+)
+
+cli_alert_danger(
+  text,
+  id = NULL,
+  class = NULL,
+  wrap = FALSE,
+  .envir = parent.frame()
+)
+
+cli_alert_warning(
+  text,
+  id = NULL,
+  class = NULL,
+  wrap = FALSE,
+  .envir = parent.frame()
+)
+
+cli_alert_info(
+  text,
+  id = NULL,
+  class = NULL,
+  wrap = FALSE,
+  .envir = parent.frame()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="text">text</code></td>
+<td>
+<p>Text of the alert.</p>
+</td></tr>
+<tr><td><code id="id">id</code></td>
+<td>
+<p>Id of the alert element. Can be used in themes.</p>
+</td></tr>
+<tr><td><code id="class">class</code></td>
+<td>
+<p>Class of the alert element. Can be used in themes.</p>
+</td></tr>
+<tr><td><code id="wrap">wrap</code></td>
+<td>
+<p>Whether to auto-wrap the text of the alert.</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>Environment to evaluate the glue expressions in.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+
+<h4>Success</h4>
+
+<div class="sourceCode r"><pre>nbld &lt;- 11
+tbld &lt;- prettyunits::pretty_sec(5.6)
+cli_alert_success("Built {.emph {nbld}} status report{?s} in {tbld}.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> <span style="color: #859900;">✔</span> Built <span style="font-style: italic;">11</span> status reports in 5.6s.                                              
+</pre></div>
+
+
+
+
+<h4>Info</h4>
+
+<div class="sourceCode r"><pre>cfl &lt;- "~/.cache/files/latest.cache"
+cli_alert_info("Updating cache file {.path {cfl}}.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> <span style="color: #2AA198;">ℹ</span> Updating cache file <span style="color: #268BD2;">~/.cache/files/latest.cache</span>.                              
+</pre></div>
+
+
+
+
+<h4>Warning</h4>
+
+<div class="sourceCode r"><pre>cfl &lt;- "~/.cache/files/latest.cache"
+cli_alert_warning("Failed to update cache file {.path {cfl}}.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> <span style="color: #B58900;">!</span> Failed to update cache file <span style="color: #268BD2;">~/.cache/files/latest.cache</span>.                      
+</pre></div>
+
+
+
+
+<h4>Danger</h4>
+
+<div class="sourceCode r"><pre>cfl &lt;- "~/.config/report.yaml"
+cli_alert_danger("Cannot validate config file at {.path {cfl}}.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> <span style="color: #DC322F;">✖</span> Cannot validate config file at <span style="color: #268BD2;">~/.config/report.yaml</span>.                         
+</pre></div>
+
+
+
+
+<h4>Text wrapping</h4>
+
+<p>Alerts are printed without wrapping, unless you set <code>wrap = TRUE</code>:
+</p>
+<div class="sourceCode r"><pre>cli_alert_info("Data columns: {.val {names(mtcars)}}.")
+cli_alert_info("Data columns: {.val {names(mtcars)}}.", wrap = TRUE)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> <span style="color: #2AA198;">ℹ</span> Data columns: <span style="color: #268BD2;">"mpg"</span>, <span style="color: #268BD2;">"cyl"</span>, <span style="color: #268BD2;">"disp"</span>, <span style="color: #268BD2;">"hp"</span>, <span style="color: #268BD2;">"drat"</span>, <span style="color: #268BD2;">"wt"</span>, <span style="color: #268BD2;">"qsec"</span>, <span style="color: #268BD2;">"vs"</span>, <span style="color: #268BD2;">"am"</span>, <span style="color: #268BD2;">"g</span>
+#> <span style="color: #268BD2;">ear"</span>, and <span style="color: #268BD2;">"carb"</span>.                                                               
+#> <span style="color: #2AA198;">ℹ</span> Data columns: <span style="color: #268BD2;">"mpg"</span>, <span style="color: #268BD2;">"cyl"</span>, <span style="color: #268BD2;">"disp"</span>, <span style="color: #268BD2;">"hp"</span>, <span style="color: #268BD2;">"drat"</span>, <span style="color: #268BD2;">"wt"</span>, <span style="color: #268BD2;">"qsec"</span>,               
+#> <span style="color: #268BD2;">"vs"</span>, <span style="color: #268BD2;">"am"</span>, <span style="color: #268BD2;">"gear"</span>, and <span style="color: #268BD2;">"carb"</span>.                                                 
+</pre></div>
+
+
+
+
+<h3>See Also</h3>
+
+<p>These functions supports <a href="../../cli/help/inline-markup.html">inline markup</a>.
+</p>
+<p>Other functions supporting inline markup: 
+<code><a href="../../cli/help/cli_abort.html">cli_abort</a>()</code>,
+<code><a href="../../cli/help/cli_blockquote.html">cli_blockquote</a>()</code>,
+<code><a href="../../cli/help/cli_bullets.html">cli_bullets</a>()</code>,
+<code><a href="../../cli/help/cli_bullets_raw.html">cli_bullets_raw</a>()</code>,
+<code><a href="../../cli/help/cli_dl.html">cli_dl</a>()</code>,
+<code><a href="../../cli/help/cli_h1.html">cli_h1</a>()</code>,
+<code><a href="../../cli/help/cli_li.html">cli_li</a>()</code>,
+<code><a href="../../cli/help/cli_ol.html">cli_ol</a>()</code>,
+<code><a href="../../cli/help/cli_process_start.html">cli_process_start</a>()</code>,
+<code><a href="../../cli/help/cli_progress_along.html">cli_progress_along</a>()</code>,
+<code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar</a>()</code>,
+<code><a href="../../cli/help/cli_progress_message.html">cli_progress_message</a>()</code>,
+<code><a href="../../cli/help/cli_progress_output.html">cli_progress_output</a>()</code>,
+<code><a href="../../cli/help/cli_progress_step.html">cli_progress_step</a>()</code>,
+<code><a href="../../cli/help/cli_rule.html">cli_rule</a></code>,
+<code><a href="../../cli/help/cli_status.html">cli_status</a>()</code>,
+<code><a href="../../cli/help/cli_status_update.html">cli_status_update</a>()</code>,
+<code><a href="../../cli/help/cli_text.html">cli_text</a>()</code>,
+<code><a href="../../cli/help/cli_ul.html">cli_ul</a>()</code>,
+<code><a href="../../cli/help/format_error.html">format_error</a>()</code>,
+<code><a href="../../cli/help/format_inline.html">format_inline</a>()</code>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

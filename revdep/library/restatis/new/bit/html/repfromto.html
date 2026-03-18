@@ -1,0 +1,95 @@
+<!DOCTYPE html><html><head><title>R: Virtual recycling</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>repfromto {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Virtual recycling</h2>
+
+<h3>Description</h3>
+
+<p><code>repfromto</code> virtually recylcles object <code>x</code> and cuts out
+positions <code style="white-space: pre;">&#8288;from .. to&#8288;</code>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>repfromto(x, from, to)
+
+repfromto(x, from, to) &lt;- value
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an object from which to recycle</p>
+</td></tr>
+<tr><td><code id="from">from</code></td>
+<td>
+<p>first position to return</p>
+</td></tr>
+<tr><td><code id="to">to</code></td>
+<td>
+<p>last position to return</p>
+</td></tr>
+<tr><td><code id="value">value</code></td>
+<td>
+<p>value to assign</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>repfromto</code> is a generalization of <code><a href="../../base/html/rep.html">rep()</a></code>, where
+<code>rep(x, n) == repfromto(x, 1, n)</code>.  You can see this as an R-side
+(vector) solution of the <code>mod_iterate</code> macro in arithmetic.c
+</p>
+
+
+<h3>Value</h3>
+
+<p>a vector of length <code>from - to + 1</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/rep.html">rep()</a></code>, <code><a href="../../ff/help/ffapply.html">ff::ffvecapply()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  message("a simple example")
+  repfromto(0:9, 11, 20)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

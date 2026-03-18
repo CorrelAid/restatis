@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><title>R: Round a value to a defined number of significant digits...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>pretty_signif {prettyunits}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Round a value to a defined number of significant digits printing out trailing
+zeros, if applicable</h2>
+
+<h3>Description</h3>
+
+<p>Round a value to a defined number of significant digits printing out trailing
+zeros, if applicable
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>pretty_signif(x, digits = 6, sci_range = 6, sci_sep = "e")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>The number to round.</p>
+</td></tr>
+<tr><td><code id="digits">digits</code></td>
+<td>
+<p>integer indicating the number of significant digits.</p>
+</td></tr>
+<tr><td><code id="sci_range">sci_range</code></td>
+<td>
+<p>integer (or <code>Inf</code>) indicating when to switch to
+scientific notation instead of floating point. Zero indicates always use
+scientific; <code>Inf</code> indicates to never use scientific notation;
+otherwise, scientific notation is used when <code>abs(log10(x)) &gt; sci_range</code>.</p>
+</td></tr>
+<tr><td><code id="sci_sep">sci_sep</code></td>
+<td>
+<p>The separator to use for scientific notation strings
+(typically this will be either &quot;e&quot; or &quot;x10^&quot; for computer- or
+human-readable output).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Values that are not standard numbers like <code>Inf</code>, <code>NA</code>, and
+<code>NaN</code> are returned as <code>"Inf"</code>, <code>"NA"</code>, and <code>NaN</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A string with the value.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/Round.html">signif()</a></code>, <code><a href="../../prettyunits/help/pretty_round.html">pretty_round()</a></code>.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>prettyunits</em> version 1.2.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

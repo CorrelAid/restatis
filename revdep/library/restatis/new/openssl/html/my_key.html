@@ -1,0 +1,62 @@
+<!DOCTYPE html><html><head><title>R: Default key</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>my_key {openssl}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Default key</h2>
+
+<h3>Description</h3>
+
+<p>The default user key can be set in the <code>USER_KEY</code> variable and otherwise
+is <code style="white-space: pre;">&#8288;~/.ssh/id_rsa&#8288;</code>. Note that on Windows we treat <code>~</code> as the windows user
+home (and not the documents folder).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>my_key()
+
+my_pubkey()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p>The <code>my_pubkey()</code> function looks for the public key by appending <code>.pub</code>
+to the above key path. If this file does not exist, it reads the private key file
+and automatically derives the corresponding pubkey. In the latter case the user
+may be prompted for a passphrase if the private key is protected.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Set random RSA key as default
+key &lt;- rsa_keygen()
+write_pem(key, tmp &lt;- tempfile(), password = "")
+rm(key)
+Sys.setenv("USER_KEY" = tmp)
+
+# Check the new keys
+print(my_key())
+print(my_pubkey())
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>openssl</em> version 2.3.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

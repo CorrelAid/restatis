@@ -1,0 +1,844 @@
+<!DOCTYPE html><html><head><title>R: cli environment variables and options</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli-config {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cli environment variables and options</h2>
+
+<h3>Description</h3>
+
+<p>cli environment variables and options
+</p>
+
+
+<h3>User facing configuration</h3>
+
+<p>These are environment variables and options that users may set, to modify
+the behavior of cli.
+</p>
+
+
+<h4>Hyperlinks</h4>
+
+<p>cli uses ANSI escape sequences to create hyperlinks.
+Specifically, cli creates <a href="https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda">OSC 8 hyperlinks</a> that have this syntax:
+</p>
+<div class="sourceCode"><pre>OSC 8 ; {OPTIONAL PARAMS } ; {URI} ST {LINK TEXT} OSC 8 ; ; ST
+</pre></div>
+<p>Under the hood, <code><a href="../../cli/help/style_hyperlink.html">style_hyperlink()</a></code> is the helper that forms these links, but it is more common to request them indirectly via inline markup (documented in <code>help("links")</code>).
+</p>
+
+
+<h5><code>R_CLI_HYPERLINK_MODE</code></h5>
+
+<p>Set to <code>posix</code> to force generating POSIX compatible ANSI hyperlinks.
+This is about the specific operating system command (OSC) and string terminator (ST) used in hyperlinks.
+</p>
+<p>If not set, then RStudio compatible links are generated. This is a
+temporary crutch until RStudio handles POSIX hyperlinks correctly, and
+after that it will be removed.
+</p>
+
+
+
+<h5><code>cli.hyperlink</code> option and <code>R_CLI_HYPERLINKS</code> env var</h5>
+
+<p>Set this option or env var to <code>true</code>, <code>TRUE</code> or <code>True</code> to tell cli that the terminal supports ANSI hyperlinks.
+Leave this configuration unset (or set to anything else) when there is no hyperlink support.
+Specifically, this configuration indicates the support for URL and file hyperlinks, requested via markup like <code style="white-space: pre;">&#8288;{.href url}&#8288;</code> or <code style="white-space: pre;">&#8288;{.file path/file}&#8288;</code>.
+(Below we describe the configuration that indicates support for even more specialized types of hyperlinks.)
+</p>
+<p>The option <code>cli.hyperlink</code> takes precedence over the <code>R_CLI_HYPERLINKS</code> env var.
+</p>
+
+
+
+<h5><code style="white-space: pre;">&#8288;cli.hyperlink_*&#8288;</code> options and <code style="white-space: pre;">&#8288;R_CLI_HYPERLINK_*&#8288;</code> env vars</h5>
+
+<p>cli supports a few special types of hyperlink that go beyond pointing to, e.g., a webpage or a file.
+These specialized hyperlinks cause R-specific actions to happen, such as executing a bit of R code or opening specific documentation.
+</p>
+<p>Set the relevant option or env var to <code>true</code>, <code>TRUE</code>, or <code>True</code> to tell cli that the terminal is capable of implementing these specialized behaviours.
+Leave this configuration unset (or set to anything else) when there is no support for a specific type of hyperlink.</p>
+
+<table>
+<tr>
+ <td style="text-align: left;">
+   Action </td><td style="text-align: left;"> Example inline markup </td><td style="text-align: left;"> Option </td><td style="text-align: left;"> Env var </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   Run R code </td><td style="text-align: left;"> <code style="white-space: pre;">&#8288;{.run testthat::snapshot_review()}&#8288;</code> </td><td style="text-align: left;"> <code>cli.hyperlink_run</code> </td><td style="text-align: left;"> <code>R_CLI_HYPERLINK_RUN</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   Open a help topic </td><td style="text-align: left;"> <code style="white-space: pre;">&#8288;{.fun stats::lm}&#8288;</code> <code style="white-space: pre;">&#8288;{.topic tibble::tibble_options}&#8288;</code> <code style="white-space: pre;">&#8288;{.help [{.fun lm}](stats::lm)}&#8288;</code> </td><td style="text-align: left;"> <code>cli.hyperlink_help</code> </td><td style="text-align: left;"> <code>R_CLI_HYPERLINK_HELP</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   Open a vignette </td><td style="text-align: left;"> <code style="white-space: pre;">&#8288;{.vignette tibble::types}&#8288;</code> </td><td style="text-align: left;"> <code>cli.hyperlink_vignette</code> </td><td style="text-align: left;"> <code>R_CLI_HYPERLINK_VIGNETTE</code> 
+</td>
+</tr>
+
+</table>
+
+<p>In all cases, the option takes priority over the corresponding env var.
+</p>
+
+
+
+<h5><code style="white-space: pre;">&#8288;cli.hyperlink_*_url_format&#8288;</code> options and <code style="white-space: pre;">&#8288;R_CLI_HYPERLINK_*_URL_FORMAT&#8288;</code> env vars</h5>
+
+<p>Recall the overall structure of cli's hyperlinks:
+</p>
+<div class="sourceCode"><pre>OSC 8 ; {OPTIONAL PARAMS } ; {URI} ST {LINK TEXT} OSC 8 ; ; ST
+</pre></div>
+<p>The <code>URI</code> part has a default format for each type of hyperlink, but it is possible to provide a custom format via an option or an env var.
+If defined, the option takes priority over the env var.</p>
+
+<table>
+<tr>
+ <td style="text-align: left;">
+   Action </td><td style="text-align: left;"> Default URI format </td><td style="text-align: left;"> Customize via option </td><td style="text-align: left;"> Customize via env var </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   Open a file </td><td style="text-align: left;"> (see below) </td><td style="text-align: left;"> <code>cli.hyperlink_file_url_format</code> </td><td style="text-align: left;"> <code>R_CLI_HYPERLINK_FILE_URL_FORMAT</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   Run R code </td><td style="text-align: left;"> <code>x-r-run:{code}</code> </td><td style="text-align: left;"> <code>cli.hyperlink_run_url_format</code> </td><td style="text-align: left;"> <code>R_CLI_HYPERLINK_RUN_URL_FORMAT</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   Open a help topic </td><td style="text-align: left;"> <code>x-r-help:{topic}</code> </td><td style="text-align: left;"> <code>cli.hyperlink_help_url_format</code> </td><td style="text-align: left;"> <code>R_CLI_HYPERLINK_HELP_URL_FORMAT</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   Open a vignette </td><td style="text-align: left;"> <code>x-r-vignette:{vignette}</code> </td><td style="text-align: left;"> <code>cli.hyperlink_vignette_url_format</code> </td><td style="text-align: left;"> <code>R_CLI_HYPERLINK_VIGNETTE_URL_FORMAT</code> 
+</td>
+</tr>
+
+</table>
+
+<p>A format must be a glue-like template with the relevant placeholder in curly braces (<code>code</code>, <code>topic</code> or <code>vignette</code>).
+</p>
+<p>Here's an example of a custom URI format for runnable code, which is useful in an integrated Positron terminal:
+</p>
+<div class="sourceCode"><pre>positron://positron.positron-r/cli?command=x-r-run:{code}
+</pre></div>
+<p>(For backwards compatibility with older versions of RStudio, in some contexts, a legacy format is used, e.g. <code>ide:run:{code}</code>.)
+</p>
+<p>The default handling for file hyperlinks is geared towards the expectations of RStudio and can't really be expressed as a URI format, but it's approximately <code style="white-space: pre;">&#8288;file://{path}&#8288;</code>, plus possibly passing <code>line</code> and <code>col</code> (yes, it really is <code>col</code>, not <code>column</code>) in the <code style="white-space: pre;">&#8288;OPTIONAL PARAMS&#8288;</code> part of the OSC 8 hyperlink.
+</p>
+<p>A custom format can be provided for file hyperlinks and the relevant placeholders are <code>path</code>, <code>line</code>, and <code>column</code>.
+Examples of custom file hyperlink formats:
+</p>
+<div class="sourceCode"><pre>positron://file{path}:{line}:{column}
+vscode://file{path}:{line}:{column}
+txmt://open?url=file://{path}&amp;line={line}&amp;column={column}
+</pre></div>
+<p>It's OK if the format includes only <code>path</code>.
+</p>
+
+
+
+
+<h4>User facing environment variables</h4>
+
+
+
+<h5><code>NO_COLOR</code></h5>
+
+<p>Set to a nonempty value to turn off ANSI colors.
+See <code><a href="../../cli/help/num_ansi_colors.html">num_ansi_colors()</a></code>.
+</p>
+
+
+
+<h5><code>ESS_BACKGROUND_MODE</code></h5>
+
+<p>Set this environment variable to <code>light</code> or <code>dark</code> to indicate dark mode
+in Emacs. Once https://github.com/emacs-ess/ESS/pull/1178 is merged, ESS
+will set this automatically.
+</p>
+
+
+
+<h5><code>R_CLI_DYNAMIC</code></h5>
+
+<p>Set to <code>true</code>, <code>TRUE</code> or <code>True</code> to assume a dynamic terminal, that supports <code style="white-space: pre;">&#8288;\r&#8288;</code>.
+Set to anything else to assume a non-dynamic terminal.
+See <code><a href="../../cli/help/is_dynamic_tty.html">is_dynamic_tty()</a></code>.
+</p>
+
+
+
+<h5><code>R_CLI_NUM_COLORS</code></h5>
+
+<p>Set to a positive integer to assume a given number of colors.
+See <code><a href="../../cli/help/num_ansi_colors.html">num_ansi_colors()</a></code>.
+</p>
+
+
+
+
+<h4>User facing options</h4>
+
+
+
+<h5><code>cli.ansi</code></h5>
+
+<p>Set to <code>true</code>, <code>TRUE</code> or <code>True</code> to assume a terminal that supports ANSI
+control sequences.
+Set to anything else to assume a non-ANSI terminal.
+See <code><a href="../../cli/help/is_ansi_tty.html">is_ansi_tty()</a></code>.
+</p>
+
+
+
+<h5><code>cli.condition_unicode_bullets</code></h5>
+
+<p><code>TRUE</code> or <code>FALSE</code> to force turn on or off the Unicode symbols when printing
+conditions. E.g. in <code>format_error()</code>, <code>format_warning()</code>, <code>format_message()</code> and
+also in <code>cli_abort()</code>, <code>cli_warn()</code> and <code>cli_inform()</code>.
+</p>
+
+
+
+<h5><code>cli.condition_width</code></h5>
+
+<p>Integer scalar (or <code>Inf</code>) to set the console width when cli is formatting
+errors, warnings or messages in <code>format_error()</code>, <code>format_warning()</code> and
+<code>format_message()</code>. When formatting conditions this option takes precedence
+over <code>cli.width</code>.
+</p>
+
+
+
+<h5><code>cli.default_handler</code></h5>
+
+<p>General handler function for all cli conditions.
+See <a href="https://cli.r-lib.org/articles/semantic-cli.html#cli-messages-1">https://cli.r-lib.org/articles/semantic-cli.html#cli-messages-1</a>
+</p>
+
+
+
+<h5><code>cli.default_num_colors</code></h5>
+
+<p>Default number of ANSI colors. This value is used if the number of colors
+is not already set by
+</p>
+
+<ul>
+<li><p> the <code>cli.num_colors</code> option,
+</p>
+</li>
+<li><p> the <code>R_CLI_NUM_COLORS</code> environment variable,
+</p>
+</li>
+<li><p> the <code>crayon.enabled</code> and <code>crayon.colors</code> options,
+</p>
+</li>
+<li><p> the <code>NO_COLOR</code> environment variable,
+</p>
+</li>
+<li><p> the <code>knitr.in.progress</code> option,
+</p>
+</li>
+<li><p> a <code>sink()</code> call for the stream.
+</p>
+</li></ul>
+
+<p>You can also use this option if color support is detected correctly, but
+you want to adjust the number of colors. E.g.
+</p>
+
+<ul>
+<li><p> if <code>crayon.enabled</code> is <code>TRUE</code>, but <code>crayon.colors</code> is not,
+</p>
+</li>
+<li><p> in Emacs on Windows,
+</p>
+</li>
+<li><p> in terminals.
+</p>
+</li></ul>
+
+<p>See <code><a href="../../cli/help/num_ansi_colors.html">num_ansi_colors()</a></code>. See also the <code>cli.num_colors</code> option.
+</p>
+
+
+
+<h5><code>cli.dynamic</code></h5>
+
+<p>Set to <code>TRUE</code> to assume a dynamic terminal, that supports <code style="white-space: pre;">&#8288;\r&#8288;</code>.
+Set to anything else to assume a non-dynamic terminal.
+See <code><a href="../../cli/help/is_dynamic_tty.html">is_dynamic_tty()</a></code>.
+</p>
+
+
+
+<h5><code>cli.hide_cursor</code></h5>
+
+<p>Whether the cli status bar should try to hide the cursor on terminals.
+Set the <code>FALSE</code> if the hidden cursor causes issues.
+</p>
+
+
+
+<h5><code>cli.ignore_unknown_rstudio_theme</code></h5>
+
+<p>Set to <code>TRUE</code> to omit a warning for an unknown RStudio theme in
+<code>code_highlight()</code>.
+</p>
+
+
+
+<h5><code>cli.num_colors</code></h5>
+
+<p>Number of ANSI colors. See <code><a href="../../cli/help/num_ansi_colors.html">num_ansi_colors()</a></code>. See also the
+<code>cli.default_num_colors</code> option.
+</p>
+
+
+
+<h5><code>cli.message_class</code></h5>
+
+<p>Character vector of classes to add to cli's conditions.
+</p>
+
+
+
+<h5><code>cli.progress_bar_style</code></h5>
+
+<p>Progress bar style.
+See <code><a href="../../cli/help/cli_progress_styles.html">cli_progress_styles()</a></code>.
+</p>
+
+
+
+<h5><code>cli.progress_bar_style_ascii</code></h5>
+
+<p>Progress bar style on ASCII consoles.
+See <code><a href="../../cli/help/cli_progress_styles.html">cli_progress_styles()</a></code>.
+</p>
+
+
+
+<h5><code>cli.progress_bar_style_unicode</code></h5>
+
+<p>Progress bar style on Unicode (UTF-8) consoles;
+See <code><a href="../../cli/help/cli_progress_styles.html">cli_progress_styles()</a></code>.
+</p>
+
+
+
+<h5><code>cli.progress_clear</code></h5>
+
+<p>Whether to clear terminated progress bar from the screen on dynamic terminals.
+See <code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar()</a></code>.
+</p>
+
+
+
+<h5><code>cli.progress_demo_live</code></h5>
+
+<p>Whether <code>cli_progress_demo()</code> should show a live demo, or just record the
+progress bar frames.
+</p>
+
+
+
+<h5><code>cli.progress_format_download</code></h5>
+
+<p>Default format string for <code>download</code> progress bars.
+</p>
+
+
+
+<h5><code>cli.progress_format_download_nototal</code></h5>
+
+<p>Default format string for <code>download</code> progress bars with unknown totals.
+</p>
+
+
+
+<h5><code>cli.progress_format_iterator</code></h5>
+
+<p>Default format string for <code>iterator</code> progress bars.
+</p>
+
+
+
+<h5><code>cli.progress_format_iterator_nototal</code></h5>
+
+<p>Default format string for <code>iterator</code> progress bars with unknown total number
+of progress units.
+</p>
+
+
+
+<h5><code>cli.progress_format_tasks</code></h5>
+
+<p>Default format string for <code>tasks</code> progress bars.
+</p>
+
+
+
+<h5><code>cli.progress_format_tasks_nototal</code></h5>
+
+<p>Default format string for <code>tasks</code> progress bars with unknown totals.
+</p>
+
+
+
+<h5><code>cli.progress_handlers</code></h5>
+
+<p>Progress handlers to try.
+See <code><a href="../../cli/help/cli_progress_builtin_handlers.html">cli_progress_builtin_handlers()</a></code>.
+</p>
+
+
+
+<h5><code>cli.progress_handlers_force</code></h5>
+
+<p>Progress handlers that will always be used, even if another handler
+was already selected.
+See <code><a href="../../cli/help/cli_progress_builtin_handlers.html">cli_progress_builtin_handlers()</a></code>.
+</p>
+
+
+
+<h5><code>cli.progress_handlers_only</code></h5>
+
+<p>Progress handlers to force, ignoring handlers set in
+<code>cli.progress_handlers</code> and <code>cli.progress_handlers_force</code>.
+See <code><a href="../../cli/help/cli_progress_builtin_handlers.html">cli_progress_builtin_handlers()</a></code>.
+</p>
+
+
+
+<h5><code>cli.progress_say_args</code></h5>
+
+<p>Command line arguments for the <code>say</code> progress handlers.
+See <code><a href="../../cli/help/cli_progress_builtin_handlers.html">cli_progress_builtin_handlers()</a></code>.
+</p>
+
+
+
+<h5><code>cli.progress_say_command</code></h5>
+
+<p>External command to use in the <code>say</code> progress handler.
+See <code><a href="../../cli/help/cli_progress_builtin_handlers.html">cli_progress_builtin_handlers()</a></code>.
+</p>
+
+
+
+<h5><code>cli.progress_say_frequency</code></h5>
+
+<p>Minimum delay between <code>say</code> calls in the <code>say</code> progress handler.
+<code>say</code> ignores very frequent updates, to keep the speech comprehensible.
+See <code><a href="../../cli/help/cli_progress_builtin_handlers.html">cli_progress_builtin_handlers()</a></code>.
+</p>
+
+
+
+<h5><code>cli.progress_show_after</code></h5>
+
+<p>Delay before showing a progress bar, in seconds.
+Progress bars that finish before this delay are not shown at all.
+cli also shows progress bars that have more than 50% to go after half of
+this delay has passed.
+</p>
+
+
+
+<h5><code>cli.spinner</code></h5>
+
+<p>Default spinner to use, see <code><a href="../../cli/help/get_spinner.html">get_spinner()</a></code>.
+</p>
+
+
+
+<h5><code>cli.spinner_ascii</code></h5>
+
+<p>Default spinner to use on ASCII terminals, see <code><a href="../../cli/help/get_spinner.html">get_spinner()</a></code>.
+</p>
+
+
+
+<h5><code>cli.spinner_unicode</code></h5>
+
+<p>Default spinner to use on Unicode terminals, see <code><a href="../../cli/help/get_spinner.html">get_spinner()</a></code>.
+</p>
+
+
+
+<h5><code>cli.theme</code></h5>
+
+<p>Default cli theme, in addition to the built-in theme.
+This option in intended for the package developers.
+See <a href="../../cli/help/themes.html">themes</a> and <code><a href="../../cli/help/start_app.html">start_app()</a></code>.
+</p>
+
+
+
+<h5><code>cli.theme_dark</code></h5>
+
+<p>Whether cli should assume a dark theme for the builtin theme.
+See <code><a href="../../cli/help/builtin_theme.html">builtin_theme()</a></code>.
+</p>
+
+
+
+<h5><code>cli.unicode</code></h5>
+
+<p>Whether to assume a Unicode terminal.
+If not set, then it is auto-detected.
+See <code><a href="../../cli/help/is_utf8_output.html">is_utf8_output()</a></code>.
+</p>
+
+
+
+<h5><code>cli.user_theme</code></h5>
+
+<p>cli user theme.
+This option is intended for end users.
+See <a href="../../cli/help/themes.html">themes</a>.
+</p>
+
+
+
+<h5><code>cli.warn_inline_newlines</code></h5>
+
+<p>Whether to emit a warning when cli replaces newline characters with
+spaces within a <code>{.class }</code> inline style.
+Defaults to <code>FALSE</code>.
+</p>
+
+
+
+<h5><code>cli.width</code></h5>
+
+<p>Terminal width to assume.
+If not set, then it is auto-detected.
+See <code><a href="../../cli/help/console_width.html">console_width()</a></code>.
+</p>
+
+
+
+<h5><code>rlib_interactive</code></h5>
+
+<p>Whether to assume an interactive R session.
+If not set, then it is auto-detected.
+</p>
+
+
+
+<h5><code>width</code></h5>
+
+<p>Terminal width.
+This is used on some platforms, if <code>cli.width</code> is not set.
+</p>
+
+
+
+
+<h3>Internal configuration</h3>
+
+<p>These environment variables and options are for cli developers. Users
+should not rely on them as they may change between cli releases.
+</p>
+
+
+<h4>Internal environment variables</h4>
+
+
+
+<h5><code>ASCIICAST</code></h5>
+
+<p>Used to detect an asciicast sub-process in RStudio.
+</p>
+
+
+
+<h5><code>ANSICON</code></h5>
+
+<p>Used to detect ANSICON when detecting the number of ANSI colors.
+</p>
+
+
+
+<h5><code>CI</code></h5>
+
+<p>Used to detect if the code is running on a CI.
+If yes, we avoid ANSI hyperlinks.
+</p>
+
+
+
+<h5><code>CLI_DEBUG_BAD_END</code></h5>
+
+<p>Whether to warn about <code>cli_end()</code> calls when there is no container to close.
+</p>
+
+
+
+<h5><code>CLI_NO_BUILTIN_THEME</code></h5>
+
+<p>Set it to <code>true</code> to omit the builtin theme.
+</p>
+
+
+
+<h5><code>CLI_SPEED_TIME</code></h5>
+
+<p>Can be used to speed up cli's timer.
+It is a factor, e.g. setting it to 2 makes cli's time go twice as fast.
+</p>
+
+
+
+<h5><code>CLI_TICK_TIME</code></h5>
+
+<p>How often the cli timer should alert, in milliseconds.
+</p>
+
+
+
+<h5><code>CMDER_ROOT</code></h5>
+
+<p>Used to detect cmder when detecting the number of ANSI colors.
+</p>
+
+
+
+<h5><code>COLORTERM</code></h5>
+
+<p>Used when detecting ANSI color support.
+</p>
+
+
+
+<h5><code>ConEmuANSI</code></h5>
+
+<p>Used to detect ConEmu when detecting the number of ANSI colors.
+</p>
+
+
+
+<h5><code>EMACS</code></h5>
+
+<p>Used to detect Emacs.
+</p>
+
+
+
+<h5><code>INSIDE_EMACS</code></h5>
+
+<p>Used to detect Emacs.
+</p>
+
+
+
+<h5><code>NOT_CRAN</code></h5>
+
+<p>Set to <code>true</code> to run tests / examples / checks, that do not run on CRAN.
+</p>
+
+
+
+<h5><code style="white-space: pre;">&#8288;_R_CHECK_PACKAGE_NAME_&#8288;</code></h5>
+
+<p>Used to detect <code style="white-space: pre;">&#8288;R CMD check&#8288;</code>.
+</p>
+
+
+
+<h5><code>R_BROWSER</code></h5>
+
+<p>Used to detect the RStudio build pane.
+</p>
+
+
+
+<h5><code>R_GUI_APP_VERSION</code></h5>
+
+<p>Used to detect R.app on macOS, to decide if the console has ANSI control
+sequences.
+</p>
+
+
+
+<h5><code>R_PACKAGE_DIR</code></h5>
+
+<p>Used to detect if the code is running under <code style="white-space: pre;">&#8288;R CMD INSTALL&#8288;</code>.
+</p>
+
+
+
+<h5><code>R_PDFVIEWER</code></h5>
+
+<p>Used to detect the RStudio build pane.
+</p>
+
+
+
+<h5><code>R_PROGRESS_NO_EXAMPLES</code></h5>
+
+<p>Set to <code>true</code> to avoid running examples, outside of <code style="white-space: pre;">&#8288;R CMD check&#8288;</code>.
+</p>
+
+
+
+<h5><code>RSTUDIO</code></h5>
+
+<p>Used to detect RStudio, in various functions.
+</p>
+
+
+
+<h5><code>RSTUDIO_CONSOLE_COLOR</code></h5>
+
+<p>Used to detect the number of colors in RStudio.
+See <code><a href="../../cli/help/num_ansi_colors.html">num_ansi_colors()</a></code>.
+</p>
+
+
+
+<h5><code>RSTUDIO_CONSOLE_WIDTH</code></h5>
+
+<p>Used to auto-detect console width in RStudio.
+</p>
+
+
+
+<h5><code>RSTUDIO_TERM</code></h5>
+
+<p>Used to detect the RStudio build pane.
+</p>
+
+
+
+<h5><code>TEAMCITY_VERSION</code></h5>
+
+<p>Used to detect the TeamCity CI, to turn off ANSI hyperlinks.
+</p>
+
+
+
+<h5><code>TERM</code></h5>
+
+<p>Used to detect if the console has ANSI control sequences, in a terminal.
+</p>
+
+
+
+<h5><code>TERM_PROGRAM</code></h5>
+
+<p>Used to detect iTerm for the dark theme detection and the ANSI hyperlink
+support detection.
+</p>
+
+
+
+<h5><code>TERM_PROGRAM_VERSION</code></h5>
+
+<p>Used to detect a suitable iTerm version for ANSI hyperlink support.
+</p>
+
+
+
+<h5><code>TESTTHAT</code></h5>
+
+<p>Used to detect running in testthat tests.
+</p>
+
+
+
+<h5><code>VTE_VERSION</code></h5>
+
+<p>Used to detect a suitable VTE version for ANSI hyperlinks.
+</p>
+
+
+
+
+<h4>Internal options</h4>
+
+
+
+<h5><code>cli__pb</code></h5>
+
+<p>This option is set to the progress bar that is being updated, when
+interpolating the format string.
+</p>
+
+
+
+<h5><code>cli.record</code></h5>
+
+<p>Internal option to mark the state that cli is recording messages.
+</p>
+
+
+
+<h5><code>crayon.colors</code></h5>
+
+<p>Deprecated option for the number of ANSI colors, that is still supported
+by cli, when the new options are not set.
+See <code><a href="../../cli/help/num_ansi_colors.html">num_ansi_colors()</a></code>.
+</p>
+
+
+
+<h5><code>crayon.enabled</code></h5>
+
+<p>Deprecated option to turn ANSI colors on/off.
+This is still supported by cli when the new options are not set.
+See <code><a href="../../cli/help/num_ansi_colors.html">num_ansi_colors()</a></code>.
+</p>
+
+
+
+<h5><code>crayon.hyperlink</code></h5>
+
+<p>Whether to assume ANSI hyperlink support.
+See <code><a href="../../cli/help/ansi_has_hyperlink_support.html">ansi_has_hyperlink_support()</a></code>.
+</p>
+
+
+
+<h5><code>knitr.in.progress</code></h5>
+
+<p>Used to detect knitr when detecting interactive sessions and ANSI color
+support.
+</p>
+
+
+
+<h5><code>rstudio.notebook.executing</code></h5>
+
+<p>Used to detect knitr when detecting interactive sessions.
+</p>
+
+
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

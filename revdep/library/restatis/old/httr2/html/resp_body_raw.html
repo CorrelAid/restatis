@@ -1,0 +1,135 @@
+<!DOCTYPE html><html><head><title>R: Extract body from response</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>resp_body_raw {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract body from response</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>resp_body_raw()</code> returns the raw bytes.
+</p>
+</li>
+<li> <p><code>resp_body_string()</code> returns a UTF-8 string.
+</p>
+</li>
+<li> <p><code>resp_body_json()</code> returns parsed JSON.
+</p>
+</li>
+<li> <p><code>resp_body_html()</code> returns parsed HTML.
+</p>
+</li>
+<li> <p><code>resp_body_xml()</code> returns parsed XML.
+</p>
+</li>
+<li> <p><code>resp_has_body()</code> returns <code>TRUE</code> if the response has a body.
+</p>
+</li></ul>
+
+<p><code>resp_body_json()</code> and <code>resp_body_xml()</code> check that the content-type header
+is correct; if the server returns an incorrect type you can suppress the
+check with <code>check_type = FALSE</code>. These two functions also cache the parsed
+object so the second and subsequent calls are low-cost.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>resp_body_raw(resp)
+
+resp_has_body(resp)
+
+resp_body_string(resp, encoding = NULL)
+
+resp_body_json(resp, check_type = TRUE, simplifyVector = FALSE, ...)
+
+resp_body_html(resp, check_type = TRUE, ...)
+
+resp_body_xml(resp, check_type = TRUE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="resp">resp</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/response.html">response</a> object, created by <code><a href="../../httr2/help/req_perform.html">req_perform()</a></code>.</p>
+</td></tr>
+<tr><td><code id="encoding">encoding</code></td>
+<td>
+<p>Character encoding of the body text. If not specified,
+will use the encoding specified by the content-type, falling back to
+UTF-8 with a warning if it cannot be found. The resulting string is
+always re-encoded to UTF-8.</p>
+</td></tr>
+<tr><td><code id="check_type">check_type</code></td>
+<td>
+<p>Check that response has expected content type? Set to
+<code>FALSE</code> to suppress the automated check</p>
+</td></tr>
+<tr><td><code id="simplifyVector">simplifyVector</code></td>
+<td>
+<p>Should JSON arrays containing only primitives (i.e.
+booleans, numbers, and strings) be caused to atomic vectors?</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Other arguments passed on to <code><a href="../../jsonlite/help/fromJSON.html">jsonlite::fromJSON()</a></code> and
+<code><a href="../../xml2/help/read_xml.html">xml2::read_xml()</a></code> respectively.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+
+<ul>
+<li> <p><code>resp_body_raw()</code> returns a raw vector.
+</p>
+</li>
+<li> <p><code>resp_body_string()</code> returns a string.
+</p>
+</li>
+<li> <p><code>resp_body_json()</code> returns NULL, an atomic vector, or list.
+</p>
+</li>
+<li> <p><code>resp_body_html()</code> and <code>resp_body_xml()</code> return an <code>xml2::xml_document</code>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>resp &lt;- request("https://httr2.r-lib.org") |&gt; req_perform()
+resp
+
+resp |&gt; resp_has_body()
+resp |&gt; resp_body_raw()
+resp |&gt; resp_body_string()
+
+if (requireNamespace("xml2", quietly = TRUE)) {
+  resp |&gt; resp_body_html()
+}
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

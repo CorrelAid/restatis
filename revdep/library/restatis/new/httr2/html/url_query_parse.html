@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><title>R: Parse query parameters and/or build a string</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>url_query_parse {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Parse query parameters and/or build a string</h2>
+
+<h3>Description</h3>
+
+<p><code>url_query_parse()</code> parses a query string into a named list;
+<code>url_query_build()</code> builds a query string from a named list.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>url_query_parse(query)
+
+url_query_build(query, .multi = c("error", "comma", "pipe", "explode"))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="query">query</code></td>
+<td>
+<p>A string, when parsing; a named list when building.</p>
+</td></tr>
+<tr><td><code id=".multi">.multi</code></td>
+<td>
+<p>Controls what happens when a value is a vector:
+</p>
+
+<ul>
+<li> <p><code>"error"</code>, the default, throws an error.
+</p>
+</li>
+<li> <p><code>"comma"</code>, separates values with a <code style="white-space: pre;">&#8288;,&#8288;</code>, e.g. <code style="white-space: pre;">&#8288;?x=1,2&#8288;</code>.
+</p>
+</li>
+<li> <p><code>"pipe"</code>, separates values with a <code>|</code>, e.g. <code>?x=1|2</code>.
+</p>
+</li>
+<li> <p><code>"explode"</code>, turns each element into its own parameter, e.g. <code>?x=1&amp;x=2</code>
+</p>
+</li></ul>
+
+<p>If none of these options work for your needs, you can instead supply a
+function that takes a character vector of argument values and returns a
+a single string.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>str(url_query_parse("a=1&amp;b=2"))
+
+url_query_build(list(x = 1, y = "z"))
+url_query_build(list(x = 1, y = 1:2), .multi = "explode")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

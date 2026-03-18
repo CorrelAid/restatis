@@ -1,0 +1,99 @@
+<!DOCTYPE html><html><head><title>R: Extract names from symbols</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>as_name {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract names from symbols</h2>
+
+<h3>Description</h3>
+
+<p><code>as_name()</code> converts <a href="../../rlang/help/sym.html">symbols</a> to character strings. The
+conversion is deterministic. That is, the roundtrip <code>symbol -&gt; name -&gt; symbol</code> always gives the same result.
+</p>
+
+<ul>
+<li><p> Use <code>as_name()</code> when you need to transform a symbol to a string
+to <em>refer</em> to an object by its name.
+</p>
+</li>
+<li><p> Use <code><a href="../../rlang/help/as_label.html">as_label()</a></code> when you need to transform any kind of object to
+a string to <em>represent</em> that object with a short description.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>as_name(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A string or symbol, possibly wrapped in a <a href="../../rlang/help/quosure.html">quosure</a>.
+If a string, the attributes are removed, if any.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>rlang::as_name()</code> is the <em>opposite</em> of <code><a href="../../base/help/name.html">base::as.name()</a></code>. If
+you're writing base R code, we recommend using <code><a href="../../base/help/name.html">base::as.symbol()</a></code>
+which is an alias of <code>as.name()</code> that follows a more modern
+terminology (R types instead of S modes).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A character vector of length 1.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../rlang/help/as_label.html">as_label()</a></code> for converting any object to a single string
+suitable as a label. <code><a href="../../rlang/help/as_string.html">as_string()</a></code> for a lower-level version that
+doesn't unwrap quosures.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Let's create some symbols:
+foo &lt;- quote(foo)
+bar &lt;- sym("bar")
+
+# as_name() converts symbols to strings:
+foo
+as_name(foo)
+
+typeof(bar)
+typeof(as_name(bar))
+
+# as_name() unwraps quosured symbols automatically:
+as_name(quo(foo))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

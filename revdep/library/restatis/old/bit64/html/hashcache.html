@@ -1,0 +1,116 @@
+<!DOCTYPE html><html><head><title>R: Big caching of hashing, sorting, ordering</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>hashcache {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Big caching of hashing, sorting, ordering</h2>
+
+<h3>Description</h3>
+
+<p>Functions to create cache that accelerates many operations
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>hashcache(x, nunique = NULL, ...)
+
+sortcache(x, has.na = NULL)
+
+sortordercache(x, has.na = NULL, stable = NULL)
+
+ordercache(x, has.na = NULL, stable = NULL, optimize = "time")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an atomic vector (note that currently only integer64 is supported)</p>
+</td></tr>
+<tr><td><code id="nunique">nunique</code></td>
+<td>
+<p>giving <em>correct</em> number of unique elements can help reducing
+the size of the hashmap</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>passed to <code><a href="../../bit64/help/hashmap.html">hashmap()</a></code></p>
+</td></tr>
+<tr><td><code id="has.na">has.na</code></td>
+<td>
+<p>boolean scalar defining whether the input vector might contain
+<code>NA</code>s. If we know we don't have <code>NA</code>s, this may speed-up. <em>Note</em> that you
+risk a crash if there are unexpected <code>NA</code>s with <code>has.na=FALSE</code>.</p>
+</td></tr>
+<tr><td><code id="stable">stable</code></td>
+<td>
+<p>boolean scalar defining whether stable sorting is needed. Allowing
+non-stable may speed-up.</p>
+</td></tr>
+<tr><td><code id="optimize">optimize</code></td>
+<td>
+<p>by default ramsort optimizes for 'time' which requires more RAM,
+set to 'memory' to minimize RAM requirements and sacrifice speed.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The result of relative expensive operations <code><a href="../../bit64/help/hashmap.html">hashmap()</a></code>, <code><a href="../../bit/help/Sorting.html">bit::ramsort()</a></code>,
+<code><a href="../../bit/help/Sorting.html">bit::ramsortorder()</a></code>, and <code><a href="../../bit/help/Sorting.html">bit::ramorder()</a></code> can be stored in a cache in
+order to avoid multiple excutions. Unless in very specific situations, the
+recommended method is <code>hashsortorder</code> only.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>x</code> with a <code><a href="../../bit64/help/cache.html">cache()</a></code> that contains the result of the expensive operations,
+possible together with small derived information (such as <code><a href="../../bit64/help/nunique.integer64.html">nunique.integer64()</a></code>)
+and previously cached results.
+</p>
+
+
+<h3>Note</h3>
+
+<p>Note that we consider storing the big results from sorting and/or ordering
+as a relevant side-effect, and therefore storing them in the cache should
+require a conscious decision of the user.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/cache.html">cache()</a></code> for caching functions and <code><a href="../../bit64/help/nunique.integer64.html">nunique.integer64()</a></code> for methods benefiting
+from small caches
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  x &lt;- as.integer64(sample(c(rep(NA, 9), 1:9), 32, TRUE))
+  sortordercache(x)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

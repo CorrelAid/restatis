@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><title>R: Generate Key pair</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>keygen {openssl}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate Key pair</h2>
+
+<h3>Description</h3>
+
+<p>The <code>keygen</code> functions generate a random private key. Use <code>as.list(key)$pubkey</code>
+to derive the corresponding public key. Use <a href="../../openssl/help/write_pem.html">write_pem</a> to save a private key
+to a file, optionally with a password.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>rsa_keygen(bits = 2048)
+
+dsa_keygen(bits = 1024)
+
+ec_keygen(curve = c("P-256", "P-384", "P-521"))
+
+x25519_keygen()
+
+ed25519_keygen()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="bits">bits</code></td>
+<td>
+<p>bitsize of the generated RSA/DSA key</p>
+</td></tr>
+<tr><td><code id="curve">curve</code></td>
+<td>
+<p>which NIST curve to use</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Generate keypair
+key &lt;- rsa_keygen()
+pubkey &lt;- as.list(key)$pubkey
+
+# Write/read the key with a passphrase
+write_pem(key, "id_rsa", password = "supersecret")
+read_key("id_rsa", password = "supersecret")
+unlink("id_rsa")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>openssl</em> version 2.3.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html><html><head><title>R: Attribute setting by reference</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>getsetattr {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Attribute setting by reference</h2>
+
+<h3>Description</h3>
+
+<p>Function <code>setattr</code> sets a singe attribute and function
+<code>setattributes</code> sets a list of attributes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>getsetattr(x, which, value)
+
+setattr(x, which, value)
+
+setattributes(x, attributes)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an R object</p>
+</td></tr>
+<tr><td><code id="which">which</code></td>
+<td>
+<p>name of the attribute</p>
+</td></tr>
+<tr><td><code id="value">value</code></td>
+<td>
+<p>value of the attribute, use NULL to remove this attribute</p>
+</td></tr>
+<tr><td><code id="attributes">attributes</code></td>
+<td>
+<p>a named list of attribute values</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The attributes of 'x' are changed in place without copying x. function
+<code>setattributes</code> does only change the named attributes, it does not
+delete the non-names attributes like <code><a href="../../base/html/attributes.html">attributes()</a></code> does.
+</p>
+
+
+<h3>Value</h3>
+
+<p>invisible(), we do not return the changed object to remind you of
+the fact that this function is called for its side-effect of changing its
+input object.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>References</h3>
+
+<p>Writing R extensions &ndash; System and foreign language interfaces
+&ndash; Handling R objects in C &ndash; Attributes (Version 2.11.1 (2010-06-03 ) R
+Development)
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/attr.html">attr()</a></code> <code><a href="../../bit/help/unattr.html">unattr()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  x &lt;- as.single(runif(10))
+  attr(x, "Csingle")
+
+  f &lt;- function(x) attr(x, "Csingle") &lt;- NULL
+  g &lt;- function(x) setattr(x, "Csingle", NULL)
+
+  f(x)
+  x
+  g(x)
+  x
+
+ ## Not run: 
+
+  # restart R
+  library(bit)
+
+  mysingle &lt;- function(length = 0) {
+    ret &lt;- double(length)
+    setattr(ret, "Csingle", TRUE)
+    ret
+  }
+
+  # show that mysinge gives exactly the same result as single
+  identical(single(10), mysingle(10))
+
+  # look at the speedup and memory-savings of mysingle compared to single
+  system.time(mysingle(1e7))
+  memory.size(max=TRUE)
+  system.time(single(1e7))
+  memory.size(max=TRUE)
+
+  # look at the memory limits
+  # on my win32 machine the first line fails
+  #   because of not enough RAM, the second works
+  x &lt;- single(1e8)
+  x &lt;- mysingle(1e8)
+
+  # .g. performance with factors
+  x &lt;- rep(factor(letters), length.out=1e7)
+  x[1:10]
+  # look how fast one can do this
+  system.time(setattr(x, "levels", rev(letters)))
+  x[1:10]
+  # look at the performance loss in time caused by the non-needed copying
+  system.time(levels(x) &lt;- letters)
+  x[1:10]
+
+
+  # restart R
+  library(bit)
+
+  simplefactor &lt;- function(n) {
+    factor(rep(1:2, length.out=n))
+  }
+
+  mysimplefactor &lt;- function(n) {
+    ret &lt;- rep(1:2, length.out=n)
+    setattr(ret, "levels", as.character(1:2))
+    setattr(ret, "class", "factor")
+    ret
+  }
+
+  identical(simplefactor(10), mysimplefactor(10))
+
+  system.time(x &lt;- mysimplefactor(1e7))
+  memory.size(max=TRUE)
+  system.time(setattr(x, "levels", c("a", "b")))
+  memory.size(max=TRUE)
+  x[1:4]
+  memory.size(max=TRUE)
+  rm(x)
+  gc()
+
+  system.time(x &lt;- simplefactor(1e7))
+  memory.size(max=TRUE)
+  system.time(levels(x) &lt;- c("x", "y"))
+  memory.size(max=TRUE)
+  x[1:4]
+  memory.size(max=TRUE)
+  rm(x)
+  gc()
+
+
+## End(Not run)
+
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

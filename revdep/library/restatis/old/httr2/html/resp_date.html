@@ -1,0 +1,64 @@
+<!DOCTYPE html><html><head><title>R: Extract request date from response</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>resp_date {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract request date from response</h2>
+
+<h3>Description</h3>
+
+<p>All responses contain a request date in the <code>Date</code> header; if not provided
+by the server will be automatically added by httr2.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>resp_date(resp)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="resp">resp</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/response.html">response</a> object, created by <code><a href="../../httr2/help/req_perform.html">req_perform()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A <code>POSIXct</code> date-time.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>resp &lt;- response(headers = "Date: Wed, 01 Jan 2020 09:23:15 UTC")
+resp |&gt; resp_date()
+
+# If server doesn't add header (unusual), you get the time the request
+# was created:
+resp &lt;- response()
+resp |&gt; resp_date()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

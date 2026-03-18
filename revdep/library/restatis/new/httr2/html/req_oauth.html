@@ -1,0 +1,81 @@
+<!DOCTYPE html><html><head><title>R: OAuth authentication</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_oauth {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>OAuth authentication</h2>
+
+<h3>Description</h3>
+
+<p>This is a low-level helper for automatically authenticating a request with
+an OAuth flow, caching the access token and refreshing it where possible.
+You should only need to use this function if you're implementing your own
+OAuth flow.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_oauth(req, flow, flow_params, cache)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="flow">flow</code></td>
+<td>
+<p>An <code>oauth_flow_</code> function used to generate the access token.</p>
+</td></tr>
+<tr><td><code id="flow_params">flow_params</code></td>
+<td>
+<p>Parameters for the flow. This should be a named list
+whose names match the argument names of <code>flow</code>.</p>
+</td></tr>
+<tr><td><code id="cache">cache</code></td>
+<td>
+<p>An object that controls how the token is cached. This should
+be a list containing three functions:
+</p>
+
+<ul>
+<li> <p><code>get()</code> retrieves the token from the cache, returning <code>NULL</code> if not
+cached yet.
+</p>
+</li>
+<li> <p><code>set()</code> saves the token to the cache.
+</p>
+</li>
+<li> <p><code>clear()</code> removes the token from the cache
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An <a href="../../httr2/help/oauth_token.html">oauth_token</a>.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html><html><head><title>R: Scale that supports formatted numbers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>scale_x_num {pillar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Scale that supports formatted numbers</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p>This scale is used by default in ggplot2 with columns created with <code><a href="../../pillar/help/num.html">num()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>scale_x_num(
+  ...,
+  position = "bottom",
+  guide = ggplot2::waiver(),
+  rescaler = NULL,
+  super = NULL
+)
+
+scale_y_num(..., guide = ggplot2::waiver(), rescaler = NULL, super = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+
+<p>Arguments passed on to <code><a href="../../ggplot2/help/continuous_scale.html">ggplot2::continuous_scale</a></code>
+</p>
+
+<dl>
+<dt><code>aesthetics</code></dt><dd><p>The names of the aesthetics that this scale works with.</p>
+</dd>
+<dt><code>palette</code></dt><dd><p>A palette function that when called with a numeric vector with
+values between 0 and 1 returns the corresponding output values
+(e.g., <code><a href="../../scales/help/pal_area.html">scales::pal_area()</a></code>).</p>
+</dd>
+<dt><code>name</code></dt><dd><p>The name of the scale. Used as the axis or legend title. If
+<code>waiver()</code>, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
+omitted.</p>
+</dd>
+<dt><code>breaks</code></dt><dd><p>One of:
+</p>
+
+<ul>
+<li> <p><code>NULL</code> for no breaks
+</p>
+</li>
+<li> <p><code>waiver()</code> for the default breaks computed by the
+<a href="../../scales/help/new_transform.html">transformation object</a>
+</p>
+</li>
+<li><p> A numeric vector of positions
+</p>
+</li>
+<li><p> A function that takes the limits as input and returns breaks
+as output (e.g., a function returned by <code><a href="../../scales/help/breaks_extended.html">scales::extended_breaks()</a></code>).
+Note that for position scales, limits are provided after scale expansion.
+Also accepts rlang <a href="../../rlang/help/as_function.html">lambda</a> function notation.
+</p>
+</li></ul>
+</dd>
+<dt><code>minor_breaks</code></dt><dd><p>One of:
+</p>
+
+<ul>
+<li> <p><code>NULL</code> for no minor breaks
+</p>
+</li>
+<li> <p><code>waiver()</code> for the default breaks (none for discrete, one minor break
+between each major break for continuous)
+</p>
+</li>
+<li><p> A numeric vector of positions
+</p>
+</li>
+<li><p> A function that given the limits returns a vector of minor breaks. Also
+accepts rlang <a href="../../rlang/help/as_function.html">lambda</a> function notation. When
+the function has two arguments, it will be given the limits and major
+break positions.
+</p>
+</li></ul>
+</dd>
+<dt><code>n.breaks</code></dt><dd><p>An integer guiding the number of major breaks. The algorithm
+may choose a slightly different number to ensure nice break labels. Will
+only have an effect if <code>breaks = waiver()</code>. Use <code>NULL</code> to use the default
+number of breaks given by the transformation.</p>
+</dd>
+<dt><code>labels</code></dt><dd><p>One of the options below. Please note that when <code>labels</code> is a
+vector, it is highly recommended to also set the <code>breaks</code> argument as a
+vector to protect against unintended mismatches.
+</p>
+
+<ul>
+<li> <p><code>NULL</code> for no labels
+</p>
+</li>
+<li> <p><code>waiver()</code> for the default labels computed by the
+transformation object
+</p>
+</li>
+<li><p> A character vector giving labels (must be same length as <code>breaks</code>)
+</p>
+</li>
+<li><p> An expression vector (must be the same length as breaks). See ?plotmath for details.
+</p>
+</li>
+<li><p> A function that takes the breaks as input and returns labels
+as output. Also accepts rlang <a href="../../rlang/help/as_function.html">lambda</a> function
+notation.
+</p>
+</li></ul>
+</dd>
+<dt><code>limits</code></dt><dd><p>One of:
+</p>
+
+<ul>
+<li> <p><code>NULL</code> to use the default scale range
+</p>
+</li>
+<li><p> A numeric vector of length two providing limits of the scale.
+Use <code>NA</code> to refer to the existing minimum or maximum
+</p>
+</li>
+<li><p> A function that accepts the existing (automatic) limits and returns
+new limits. Also accepts rlang <a href="../../rlang/help/as_function.html">lambda</a> function
+notation.
+Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system
+(see <code><a href="../../ggplot2/help/coord_cartesian.html">coord_cartesian()</a></code>).
+</p>
+</li></ul>
+</dd>
+<dt><code>oob</code></dt><dd><p>One of:
+</p>
+
+<ul>
+<li><p> Function that handles limits outside of the scale limits
+(out of bounds). Also accepts rlang <a href="../../rlang/help/as_function.html">lambda</a>
+function notation.
+</p>
+</li>
+<li><p> The default (<code><a href="../../scales/help/oob.html">scales::censor()</a></code>) replaces out of
+bounds values with <code>NA</code>.
+</p>
+</li>
+<li> <p><code><a href="../../scales/help/oob.html">scales::squish()</a></code> for squishing out of bounds values into range.
+</p>
+</li>
+<li> <p><code><a href="../../scales/help/oob.html">scales::squish_infinite()</a></code> for squishing infinite values into range.
+</p>
+</li></ul>
+</dd>
+<dt><code>expand</code></dt><dd><p>For position scales, a vector of range expansion constants used to add some
+padding around the data to ensure that they are placed some distance
+away from the axes. Use the convenience function <code><a href="../../ggplot2/help/expansion.html">expansion()</a></code>
+to generate the values for the <code>expand</code> argument. The defaults are to
+expand the scale by 5% on each side for continuous variables, and by
+0.6 units on each side for discrete variables.</p>
+</dd>
+<dt><code>na.value</code></dt><dd><p>Missing values will be replaced with this value.</p>
+</dd>
+<dt><code>transform</code></dt><dd><p>For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include &quot;asn&quot;, &quot;atanh&quot;,
+&quot;boxcox&quot;, &quot;date&quot;, &quot;exp&quot;, &quot;hms&quot;, &quot;identity&quot;, &quot;log&quot;, &quot;log10&quot;, &quot;log1p&quot;, &quot;log2&quot;,
+&quot;logit&quot;, &quot;modulus&quot;, &quot;probability&quot;, &quot;probit&quot;, &quot;pseudo_log&quot;, &quot;reciprocal&quot;,
+&quot;reverse&quot;, &quot;sqrt&quot; and &quot;time&quot;.
+</p>
+<p>A transformation object bundles together a transform, its inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called <code style="white-space: pre;">&#8288;transform_&lt;name&gt;&#8288;</code>. If
+transformations require arguments, you can call them from the scales
+package, e.g. <code><a href="../../scales/help/transform_boxcox.html">scales::transform_boxcox(p = 2)</a></code>.
+You can create your own transformation with <code><a href="../../scales/help/new_transform.html">scales::new_transform()</a></code>.</p>
+</dd>
+<dt><code>trans</code></dt><dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a> Deprecated in favour of
+<code>transform</code>.</p>
+</dd>
+<dt><code>call</code></dt><dd><p>The <code>call</code> used to construct the scale for reporting messages.</p>
+</dd>
+</dl>
+</td></tr>
+<tr><td><code id="guide">guide</code>, <code id="position">position</code></td>
+<td>
+<p>Passed on to <code><a href="../../ggplot2/help/continuous_scale.html">ggplot2::continuous_scale()</a></code></p>
+</td></tr>
+<tr><td><code id="rescaler">rescaler</code>, <code id="super">super</code></td>
+<td>
+<p>Must remain <code>NULL</code>.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>pillar</em> version 1.11.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

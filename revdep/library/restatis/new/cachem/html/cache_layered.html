@@ -1,0 +1,67 @@
+<!DOCTYPE html><html><head><title>R: Compose any number of cache objects into a new, layered cache...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cache_layered {cachem}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compose any number of cache objects into a new, layered cache object</h2>
+
+<h3>Description</h3>
+
+<p>Note that <code>cache_layered</code> is currently experimental.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cache_layered(..., logfile = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Cache objects to compose into a new, layered cache object.</p>
+</td></tr>
+<tr><td><code id="logfile">logfile</code></td>
+<td>
+<p>An optional filename or connection object to where logging
+information will be written. To log to the console, use <code>stderr()</code> or
+<code>stdout()</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A layered caching object, with class <code>cache_layered</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+# Make a layered cache from a small memory cache and large disk cache
+m &lt;- cache_mem(max_size = 100 * 1024^2)
+d &lt;- cache_disk(max_size = 2 * 1024^3)
+cl &lt;- cache_layered(m, d)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cachem</em> version 1.1.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html><html><head><title>R: Compute ranks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_rank {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute ranks</h2>
+
+<h3>Description</h3>
+
+<p><code>vec_rank()</code> computes the sample ranks of a vector. For data frames, ranks
+are computed along the rows, using all columns after the first to break
+ties.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_rank(
+  x,
+  ...,
+  ties = c("min", "max", "sequential", "dense"),
+  incomplete = c("rank", "na"),
+  direction = "asc",
+  na_value = "largest",
+  nan_distinct = FALSE,
+  chr_proxy_collate = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A vector</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="ties">ties</code></td>
+<td>
+<p>Ranking of duplicate values.
+</p>
+
+<ul>
+<li> <p><code>"min"</code>: Use the current rank for all duplicates. The next non-duplicate
+value will have a rank incremented by the number of duplicates present.
+</p>
+</li>
+<li> <p><code>"max"</code>: Use the current rank <code>+ n_duplicates - 1</code> for all duplicates.
+The next non-duplicate value will have a rank incremented by the number of
+duplicates present.
+</p>
+</li>
+<li> <p><code>"sequential"</code>: Use an increasing sequence of ranks starting at the
+current rank, applied to duplicates in order of appearance.
+</p>
+</li>
+<li> <p><code>"dense"</code>: Use the current rank for all duplicates. The next
+non-duplicate value will have a rank incremented by <code>1</code>, effectively
+removing any gaps in the ranking.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="incomplete">incomplete</code></td>
+<td>
+<p>Ranking of missing and <a href="../../vctrs/help/vec_detect_complete.html">incomplete</a>
+observations.
+</p>
+
+<ul>
+<li> <p><code>"rank"</code>: Rank incomplete observations normally. Missing values within
+incomplete observations will be affected by <code>na_value</code> and <code>nan_distinct</code>.
+</p>
+</li>
+<li> <p><code>"na"</code>: Don't rank incomplete observations at all. Instead, they are
+given a rank of <code>NA</code>. In this case, <code>na_value</code> and <code>nan_distinct</code> have
+no effect.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="direction">direction</code></td>
+<td>
+<p>Direction to sort in.
+</p>
+
+<ul>
+<li><p> A single <code>"asc"</code> or <code>"desc"</code> for ascending or descending order
+respectively.
+</p>
+</li>
+<li><p> For data frames, a length <code>1</code> or <code>ncol(x)</code> character vector containing
+only <code>"asc"</code> or <code>"desc"</code>, specifying the direction for each column.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="na_value">na_value</code></td>
+<td>
+<p>Ordering of missing values.
+</p>
+
+<ul>
+<li><p> A single <code>"largest"</code> or <code>"smallest"</code> for ordering missing values as the
+largest or smallest values respectively.
+</p>
+</li>
+<li><p> For data frames, a length <code>1</code> or <code>ncol(x)</code> character vector containing
+only <code>"largest"</code> or <code>"smallest"</code>, specifying how missing values should
+be ordered within each column.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="nan_distinct">nan_distinct</code></td>
+<td>
+<p>A single logical specifying whether or not <code>NaN</code> should
+be considered distinct from <code>NA</code> for double and complex vectors. If <code>TRUE</code>,
+<code>NaN</code> will always be ordered between <code>NA</code> and non-missing numbers.</p>
+</td></tr>
+<tr><td><code id="chr_proxy_collate">chr_proxy_collate</code></td>
+<td>
+<p>A function generating an alternate representation
+of character vectors to use for collation, often used for locale-aware
+ordering.
+</p>
+
+<ul>
+<li><p> If <code>NULL</code>, no transformation is done.
+</p>
+</li>
+<li><p> Otherwise, this must be a function of one argument. If the input contains
+a character vector, it will be passed to this function after it has been
+translated to UTF-8. This function should return a character vector with
+the same length as the input. The result should sort as expected in the
+C-locale, regardless of encoding.
+</p>
+</li></ul>
+
+<p>For data frames, <code>chr_proxy_collate</code> will be applied to all character
+columns.
+</p>
+<p>Common transformation functions include: <code>tolower()</code> for case-insensitive
+ordering and <code>stringi::stri_sort_key()</code> for locale-aware ordering.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Unlike <code><a href="../../base/help/rank.html">base::rank()</a></code>, when <code>incomplete = "rank"</code> all missing values are
+given the same rank, rather than an increasing sequence of ranks. When
+<code>nan_distinct = FALSE</code>, <code>NaN</code> values are given the same rank as <code>NA</code>,
+otherwise they are given a rank that differentiates them from <code>NA</code>.
+</p>
+<p>Like <code><a href="../../vctrs/help/vec_order_radix.html">vec_order_radix()</a></code>, ordering is done in the C-locale. This can affect
+the ranks of character vectors, especially regarding how uppercase and
+lowercase letters are ranked. See the documentation of <code><a href="../../vctrs/help/vec_order_radix.html">vec_order_radix()</a></code>
+for more information.
+</p>
+
+
+<h3>Dependencies</h3>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/vec_order_radix.html">vec_order_radix()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_slice.html">vec_slice()</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- c(5L, 6L, 3L, 3L, 5L, 3L)
+
+vec_rank(x, ties = "min")
+vec_rank(x, ties = "max")
+
+# Sequential ranks use an increasing sequence for duplicates
+vec_rank(x, ties = "sequential")
+
+# Dense ranks remove gaps between distinct values,
+# even if there are duplicates
+vec_rank(x, ties = "dense")
+
+y &lt;- c(NA, x, NA, NaN)
+
+# Incomplete values match other incomplete values by default, and their
+# overall position can be adjusted with `na_value`
+vec_rank(y, na_value = "largest")
+vec_rank(y, na_value = "smallest")
+
+# NaN can be ranked separately from NA if required
+vec_rank(y, nan_distinct = TRUE)
+
+# Rank in descending order. Since missing values are the largest value,
+# they are given a rank of `1` when ranking in descending order.
+vec_rank(y, direction = "desc", na_value = "largest")
+
+# Give incomplete values a rank of `NA` by setting `incomplete = "na"`
+vec_rank(y, incomplete = "na")
+
+# Can also rank data frames, using columns after the first to break ties
+z &lt;- c(2L, 3L, 4L, 4L, 5L, 2L)
+df &lt;- data_frame(x = x, z = z)
+df
+
+vec_rank(df)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

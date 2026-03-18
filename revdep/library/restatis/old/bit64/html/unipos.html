@@ -1,0 +1,139 @@
+<!DOCTYPE html><html><head><title>R: Extract Positions of Unique Elements</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>unipos {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Positions of Unique Elements</h2>
+
+<h3>Description</h3>
+
+<p><code>unipos</code> returns the positions of those elements returned by <code><a href="../../base/html/unique.html">unique()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>unipos(x, incomparables = FALSE, order = c("original", "values", "any"), ...)
+
+## S3 method for class 'integer64'
+unipos(
+  x,
+  incomparables = FALSE,
+  order = c("original", "values", "any"),
+  nunique = NULL,
+  method = NULL,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a vector or a data frame or an array or <code>NULL</code>.</p>
+</td></tr>
+<tr><td><code id="incomparables">incomparables</code></td>
+<td>
+<p>ignored</p>
+</td></tr>
+<tr><td><code id="order">order</code></td>
+<td>
+<p>The order in which positions of unique values will be returned,
+see details</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>ignored</p>
+</td></tr>
+<tr><td><code id="nunique">nunique</code></td>
+<td>
+<p>NULL or the number of unique values (including NA). Providing
+<code>nunique</code> can speed-up when <code>x</code> has no cache. Note that a wrong <code>nunique</code>
+can cause undefined behaviour up to a crash.</p>
+</td></tr>
+<tr><td><code id="method">method</code></td>
+<td>
+<p>NULL for automatic method selection or a suitable low-level
+method, see details</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function automatically chooses from several low-level functions
+considering the size of <code>x</code> and the availability of a cache.
+</p>
+<p>Suitable methods are
+</p>
+
+<ul>
+<li> <p><code><a href="../../bit64/help/hashmapupo.html">hashmapupo</a></code> (simultaneously creating and using a hashmap)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/hashupo.html">hashupo</a></code> (first creating a hashmap then using it)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/sortorderupo.html">sortorderupo</a></code> (fast ordering)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/orderupo.html">orderupo</a></code> (memory saving ordering).
+</p>
+</li></ul>
+
+<p>The default <code>order="original"</code> collects unique values in the order of
+the first appearance in <code>x</code> like in <code><a href="../../base/html/unique.html">unique()</a></code>, this costs extra processing.
+<code>order="values"</code> collects unique values in sorted order like in <code><a href="../../base/html/table.html">table()</a></code>,
+this costs extra processing with the hash methods but comes for free.
+<code>order="any"</code> collects unique values in undefined order, possibly faster.
+For hash methods this will be a quasi random order, for sort methods this
+will be sorted order.
+</p>
+
+
+<h3>Value</h3>
+
+<p>an integer vector of positions
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/unique.integer64.html">unique.integer64()</a></code> for unique values and <code><a href="../../bit64/help/match.integer64.html">match.integer64()</a></code>
+for general matching.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- as.integer64(sample(c(rep(NA, 9), 1:9), 32, TRUE))
+unipos(x)
+unipos(x, order="values")
+
+stopifnot(identical(unipos(x),  (1:length(x))[!duplicated(x)]))
+stopifnot(identical(unipos(x),  match.integer64(unique(x), x)))
+stopifnot(identical(unipos(x, order="values"),  match.integer64(unique(x, order="values"), x)))
+stopifnot(identical(unique(x),  x[unipos(x)]))
+stopifnot(identical(unique(x, order="values"),  x[unipos(x, order="values")]))
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html><html><head><title>R: Apply a function to each element of a vector conditionally</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>map_if {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply a function to each element of a vector conditionally</h2>
+
+<h3>Description</h3>
+
+<p>The functions <code>map_if()</code> and <code>map_at()</code> take <code>.x</code> as input, apply
+the function <code>.f</code> to some of the elements of <code>.x</code>, and return a
+list of the same length as the input.
+</p>
+
+<ul>
+<li> <p><code>map_if()</code> takes a predicate function <code>.p</code> as input to determine
+which elements of <code>.x</code> are transformed with <code>.f</code>.
+</p>
+</li>
+<li> <p><code>map_at()</code> takes a vector of names or positions <code>.at</code> to specify
+which elements of <code>.x</code> are transformed with <code>.f</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>map_if(.x, .p, .f, ..., .else = NULL)
+
+map_at(.x, .at, .f, ..., .progress = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>A list or atomic vector.</p>
+</td></tr>
+<tr><td><code id=".p">.p</code></td>
+<td>
+<p>A single predicate function, a formula describing such a
+predicate function, or a logical vector of the same length as <code>.x</code>.
+Alternatively, if the elements of <code>.x</code> are themselves lists of
+objects, a string indicating the name of a logical element in the
+inner lists. Only those elements where <code>.p</code> evaluates to
+<code>TRUE</code> will be modified.</p>
+</td></tr>
+<tr><td><code id=".f">.f</code></td>
+<td>
+<p>A function, specified in one of the following ways:
+</p>
+
+<ul>
+<li><p> A named function, e.g. <code>mean</code>.
+</p>
+</li>
+<li><p> An anonymous function, e.g. <code style="white-space: pre;">&#8288;\(x) x + 1&#8288;</code> or <code>function(x) x + 1</code>.
+</p>
+</li>
+<li><p> A formula, e.g. <code>~ .x + 1</code>. Use <code>.x</code> to refer to the first
+argument. No longer recommended.
+</p>
+</li>
+<li><p> A string, integer, or list, e.g. <code>"idx"</code>, <code>1</code>, or <code>list("idx", 1)</code> which
+are shorthand for <code style="white-space: pre;">&#8288;\(x) pluck(x, "idx")&#8288;</code>, <code style="white-space: pre;">&#8288;\(x) pluck(x, 1)&#8288;</code>, and
+<code style="white-space: pre;">&#8288;\(x) pluck(x, "idx", 1)&#8288;</code> respectively. Optionally supply <code>.default</code> to
+set a default value if the indexed element is <code>NULL</code> or does not exist.
+</p>
+</li></ul>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p>Wrap a function with <code><a href="../../purrr/help/in_parallel.html">in_parallel()</a></code> to declare that it should be performed
+in parallel. See <code><a href="../../purrr/help/in_parallel.html">in_parallel()</a></code> for more details.
+Use of <code>...</code> is not permitted in this context.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed on to the mapped function.
+</p>
+<p>We now generally recommend against using <code>...</code> to pass additional
+(constant) arguments to <code>.f</code>. Instead use a shorthand anonymous function:
+</p>
+<div class="sourceCode R"><pre># Instead of
+x |&gt; map(f, 1, 2, collapse = ",")
+# do:
+x |&gt; map(\(x) f(x, 1, 2, collapse = ","))
+</pre></div>
+<p>This makes it easier to understand which arguments belong to which
+function and will tend to yield better error messages.</p>
+</td></tr>
+<tr><td><code id=".else">.else</code></td>
+<td>
+<p>A function applied to elements of <code>.x</code> for which <code>.p</code>
+returns <code>FALSE</code>.</p>
+</td></tr>
+<tr><td><code id=".at">.at</code></td>
+<td>
+<p>A logical, integer, or character vector giving the elements
+to select. Alternatively, a function that takes a vector of names,
+and returns a logical, integer, or character vector of elements to select.
+</p>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a>: if the tidyselect package is
+installed, you can use <code>vars()</code> and tidyselect helpers to select
+elements.</p>
+</td></tr>
+<tr><td><code id=".progress">.progress</code></td>
+<td>
+<p>Whether to show a progress bar. Use <code>TRUE</code> to turn on
+a basic progress bar, use a string to give it a name, or see
+<a href="../../purrr/help/progress_bars.html">progress_bars</a> for more details.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other map variants: 
+<code><a href="../../purrr/help/imap.html">imap</a>()</code>,
+<code><a href="../../purrr/help/lmap.html">lmap</a>()</code>,
+<code><a href="../../purrr/help/map.html">map</a>()</code>,
+<code><a href="../../purrr/help/map2.html">map2</a>()</code>,
+<code><a href="../../purrr/help/map_depth.html">map_depth</a>()</code>,
+<code><a href="../../purrr/help/modify.html">modify</a>()</code>,
+<code><a href="../../purrr/help/pmap.html">pmap</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Use a predicate function to decide whether to map a function:
+iris |&gt; map_if(is.factor, as.character) |&gt; str()
+
+# Specify an alternative with the `.else` argument:
+iris |&gt; map_if(is.factor, as.character, .else = as.integer) |&gt; str()
+
+# Use numeric vector of positions select elements to change:
+iris |&gt; map_at(c(4, 5), is.numeric) |&gt; str()
+
+# Use vector of names to specify which elements to change:
+iris |&gt; map_at("Species", toupper) |&gt; str()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

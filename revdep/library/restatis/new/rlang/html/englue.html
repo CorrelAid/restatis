@@ -1,0 +1,158 @@
+<!DOCTYPE html><html><head><title>R: Defuse function arguments with glue</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>englue {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Defuse function arguments with glue</h2>
+
+<h3>Description</h3>
+
+<p><code>englue()</code> creates a string with the <a href="../../rlang/help/glue-operators.html">glue operators</a> <code style="white-space: pre;">&#8288;{&#8288;</code> and <code style="white-space: pre;">&#8288;{{&#8288;</code>. These operators are
+normally used to inject names within <a href="../../rlang/help/dyn-dots.html">dynamic dots</a>.
+<code>englue()</code> makes them available anywhere within a function.
+</p>
+<p><code>englue()</code> must be used inside a function. <code>englue("{{ var }}")</code>
+<a href="../../rlang/help/topic-defuse.html">defuses</a> the argument <code>var</code> and transforms it to a
+string using the default name operation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>englue(x, env = caller_env(), error_call = current_env(), error_arg = "x")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A string to interpolate with glue operators.</p>
+</td></tr>
+<tr><td><code id="env">env</code></td>
+<td>
+<p>User environment where the interpolation data lives in
+case you're wrapping <code>englue()</code> in another function.</p>
+</td></tr>
+<tr><td><code id="error_call">error_call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+<tr><td><code id="error_arg">error_arg</code></td>
+<td>
+<p>An argument name as a string. This argument
+will be mentioned in error messages as the input that is at the
+origin of a problem.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>englue("{{ var }}")</code> is equivalent to <code>as_label(enquo(var))</code>. It
+<a href="../../rlang/help/topic-defuse.html">defuses</a> <code>arg</code> and transforms the expression to a
+string with <code><a href="../../rlang/help/as_label.html">as_label()</a></code>.
+</p>
+<p>In dynamic dots, using only <code style="white-space: pre;">&#8288;{&#8288;</code> is allowed. In <code>englue()</code> you must
+use <code style="white-space: pre;">&#8288;{{&#8288;</code> at least once. Use <code>glue::glue()</code> for simple
+interpolation.
+</p>
+<p>Before using <code>englue()</code> in a package, first ensure that glue is
+installed by adding it to your <code style="white-space: pre;">&#8288;Imports:&#8288;</code> section.
+</p>
+<div class="sourceCode r"><pre>usethis::use_package("glue", "Imports")
+</pre></div>
+
+
+<h3>Wrapping <code>englue()</code></h3>
+
+<p>You can provide englue semantics to a user provided string by supplying <code>env</code>.
+In this example we create a variant of <code>englue()</code> that supports a
+special <code>.qux</code> pronoun by:
+</p>
+
+<ul>
+<li><p> Creating an environment <code>masked_env</code> that inherits from the user
+env, the one where their data lives.
+</p>
+</li>
+<li><p> Overriding the <code>error_arg</code> and <code>error_call</code> arguments to point to
+our own argument name and call environment. This pattern is
+slightly different from usual error context passing because
+<code>englue()</code> is a backend function that uses its own error context
+by default (and not a checking function that uses <em>your</em> error
+context by default).
+</p>
+</li></ul>
+
+<div class="sourceCode r"><pre>my_englue &lt;- function(text) {
+  masked_env &lt;- env(caller_env(), .qux = "QUX")
+
+  englue(
+    text,
+    env = masked_env,
+    error_arg = "text",
+    error_call = current_env()
+  )
+}
+
+# Users can then use your wrapper as they would use `englue()`:
+fn &lt;- function(x) {
+  foo &lt;- "FOO"
+  my_englue("{{ x }}_{.qux}_{foo}")
+}
+
+fn(bar)
+#&gt; [1] "bar_QUX_FOO"
+</pre></div>
+<p>If you are creating a low level package on top of englue(), you
+should also consider exposing <code>env</code>, <code>error_arg</code> and <code>error_call</code>
+in your <code>englue()</code> wrapper so users can wrap your wrapper.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../rlang/help/topic-inject.html">Injecting with !!, !!!, and glue syntax</a>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>g &lt;- function(var) englue("{{ var }}")
+g(cyl)
+g(1 + 1)
+g(!!letters)
+
+# These are equivalent to
+as_label(quote(cyl))
+as_label(quote(1 + 1))
+as_label(letters)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

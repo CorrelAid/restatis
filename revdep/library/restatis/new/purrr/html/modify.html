@@ -1,0 +1,204 @@
+<!DOCTYPE html><html><head><title>R: Modify elements selectively</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>modify {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Modify elements selectively</h2>
+
+<h3>Description</h3>
+
+<p>Unlike <code><a href="../../purrr/help/map.html">map()</a></code> and its variants which always return a fixed object
+type (list for <code>map()</code>, integer vector for <code>map_int()</code>, etc), the
+<code>modify()</code> family always returns the same type as the input object.
+</p>
+
+<ul>
+<li> <p><code>modify()</code> is a shortcut for <code style="white-space: pre;">&#8288;x[[i]] &lt;- f(x[[i]]); return(x)&#8288;</code>.
+</p>
+</li>
+<li> <p><code>modify_if()</code> only modifies the elements of <code>x</code> that satisfy a
+predicate and leaves the others unchanged. <code>modify_at()</code> only
+modifies elements given by names or positions.
+</p>
+</li>
+<li> <p><code>modify2()</code> modifies the elements of <code>.x</code> but also passes the
+elements of <code>.y</code> to <code>.f</code>, just like <code><a href="../../purrr/help/map2.html">map2()</a></code>. <code>imodify()</code> passes
+the names or the indices to <code>.f</code> like <code><a href="../../purrr/help/imap.html">imap()</a></code> does.
+</p>
+</li>
+<li> <p><code><a href="../../purrr/help/modify_in.html">modify_in()</a></code> modifies a single element in a <code><a href="../../purrr/help/pluck.html">pluck()</a></code> location.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>modify(.x, .f, ...)
+
+modify_if(.x, .p, .f, ..., .else = NULL)
+
+modify_at(.x, .at, .f, ...)
+
+modify2(.x, .y, .f, ...)
+
+imodify(.x, .f, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>A vector.</p>
+</td></tr>
+<tr><td><code id=".f">.f</code></td>
+<td>
+<p>A function specified in the same way as the corresponding map
+function.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed on to the mapped function.
+</p>
+<p>We now generally recommend against using <code>...</code> to pass additional
+(constant) arguments to <code>.f</code>. Instead use a shorthand anonymous function:
+</p>
+<div class="sourceCode R"><pre># Instead of
+x |&gt; map(f, 1, 2, collapse = ",")
+# do:
+x |&gt; map(\(x) f(x, 1, 2, collapse = ","))
+</pre></div>
+<p>This makes it easier to understand which arguments belong to which
+function and will tend to yield better error messages.</p>
+</td></tr>
+<tr><td><code id=".p">.p</code></td>
+<td>
+<p>A single predicate function, a formula describing such a
+predicate function, or a logical vector of the same length as <code>.x</code>.
+Alternatively, if the elements of <code>.x</code> are themselves lists of
+objects, a string indicating the name of a logical element in the
+inner lists. Only those elements where <code>.p</code> evaluates to
+<code>TRUE</code> will be modified.</p>
+</td></tr>
+<tr><td><code id=".else">.else</code></td>
+<td>
+<p>A function applied to elements of <code>.x</code> for which <code>.p</code>
+returns <code>FALSE</code>.</p>
+</td></tr>
+<tr><td><code id=".at">.at</code></td>
+<td>
+<p>A logical, integer, or character vector giving the elements
+to select. Alternatively, a function that takes a vector of names,
+and returns a logical, integer, or character vector of elements to select.
+</p>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a>: if the tidyselect package is
+installed, you can use <code>vars()</code> and tidyselect helpers to select
+elements.</p>
+</td></tr>
+<tr><td><code id=".y">.y</code></td>
+<td>
+<p>A vector, usually the same length as <code>.x</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since the transformation can alter the structure of the input; it's
+your responsibility to ensure that the transformation produces a
+valid output. For example, if you're modifying a data frame, <code>.f</code>
+must preserve the length of the input.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object the same class as <code>.x</code>
+</p>
+
+
+<h3>Genericity</h3>
+
+<p><code>modify()</code> and variants are generic over classes that implement
+<code>length()</code>, <code>[[</code> and <code style="white-space: pre;">&#8288;[[&lt;-&#8288;</code> methods. If the default implementation
+is not compatible for your class, you can override them with your
+own methods.
+</p>
+<p>If you implement your own <code>modify()</code> method, make sure it satisfies
+the following invariants:
+</p>
+<div class="sourceCode"><pre>modify(x, identity) === x
+modify(x, compose(f, g)) === modify(x, g) |&gt; modify(f)
+</pre></div>
+<p>These invariants are known as the <a href="https://wiki.haskell.org/Functor#Functor_Laws">functor laws</a> in computer
+science.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other map variants: 
+<code><a href="../../purrr/help/imap.html">imap</a>()</code>,
+<code><a href="../../purrr/help/lmap.html">lmap</a>()</code>,
+<code><a href="../../purrr/help/map.html">map</a>()</code>,
+<code><a href="../../purrr/help/map2.html">map2</a>()</code>,
+<code><a href="../../purrr/help/map_depth.html">map_depth</a>()</code>,
+<code><a href="../../purrr/help/map_if.html">map_if</a>()</code>,
+<code><a href="../../purrr/help/pmap.html">pmap</a>()</code>
+</p>
+<p>Other modify variants: 
+<code><a href="../../purrr/help/map_depth.html">map_depth</a>()</code>,
+<code><a href="../../purrr/help/modify_tree.html">modify_tree</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Convert factors to characters
+iris |&gt;
+  modify_if(is.factor, as.character) |&gt;
+  str()
+
+# Specify which columns to map with a numeric vector of positions:
+mtcars |&gt; modify_at(c(1, 4, 5), as.character) |&gt; str()
+
+# Or with a vector of names:
+mtcars |&gt; modify_at(c("cyl", "am"), as.character) |&gt; str()
+
+list(x = sample(c(TRUE, FALSE), 100, replace = TRUE), y = 1:100) |&gt;
+  list_transpose(simplify = FALSE) |&gt;
+  modify_if("x", \(l) list(x = l$x, y = l$y * 100)) |&gt;
+  list_transpose()
+
+# Use modify2() to map over two vectors and preserve the type of
+# the first one:
+x &lt;- c(foo = 1L, bar = 2L)
+y &lt;- c(TRUE, FALSE)
+modify2(x, y, \(x, cond) if (cond) x else 0L)
+
+# Use a predicate function to decide whether to map a function:
+modify_if(iris, is.factor, as.character)
+
+# Specify an alternative with the `.else` argument:
+modify_if(iris, is.factor, as.character, .else = as.integer)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

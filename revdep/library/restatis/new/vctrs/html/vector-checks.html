@@ -1,0 +1,216 @@
+<!DOCTYPE html><html><head><title>R: Vector checks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vector-checks {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Vector checks</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>obj_is_vector()</code> tests if <code>x</code> is considered a vector in the vctrs sense.
+See <em>Vectors and scalars</em> below for the exact details.
+</p>
+</li>
+<li> <p><code>obj_check_vector()</code> uses <code>obj_is_vector()</code> and throws a standardized and
+informative error if it returns <code>FALSE</code>.
+</p>
+</li>
+<li> <p><code>vec_check_size()</code> tests if <code>x</code> has size <code>size</code>, and throws an informative
+error if it doesn't.
+</p>
+</li>
+<li> <p><code>vec_check_recyclable()</code> tests if <code>x</code> can recycle to size <code>size</code>, and
+throws an informative error if it can't.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>obj_is_vector(x)
+
+obj_check_vector(x, ..., arg = caller_arg(x), call = caller_env())
+
+vec_check_size(x, size, ..., arg = caller_arg(x), call = caller_env())
+
+vec_check_recyclable(x, size, ..., arg = caller_arg(x), call = caller_env())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>For <code style="white-space: pre;">&#8288;obj_*()&#8288;</code> functions, an object. For <code style="white-space: pre;">&#8288;vec_*()&#8288;</code> functions, a
+vector.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="arg">arg</code></td>
+<td>
+<p>An argument name as a string. This argument
+will be mentioned in error messages as the input that is at the
+origin of a problem.</p>
+</td></tr>
+<tr><td><code id="call">call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+<tr><td><code id="size">size</code></td>
+<td>
+<p>The size to check for compatibility with.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+
+<ul>
+<li> <p><code>obj_is_vector()</code> returns a single <code>TRUE</code> or <code>FALSE</code>.
+</p>
+</li>
+<li> <p><code>obj_check_vector()</code> returns <code>NULL</code> invisibly, or errors.
+</p>
+</li>
+<li> <p><code>vec_check_size()</code> returns <code>NULL</code> invisibly, or errors.
+</p>
+</li>
+<li> <p><code>vec_check_recyclable()</code> returns <code>NULL</code> invisibly, or errors.
+</p>
+</li></ul>
+
+
+
+<h3>Vectors and scalars</h3>
+
+<p>Informally, a vector is a collection that makes sense to use as column in a
+data frame. The following rules define whether or not <code>x</code> is considered a
+vector.
+</p>
+<p>If no <code><a href="../../vctrs/help/vec_proxy.html">vec_proxy()</a></code> method has been registered, <code>x</code> is a vector if:
+</p>
+
+<ul>
+<li><p> The <a href="../../base/html/typeof.html">base type</a> of the object is atomic: <code>"logical"</code>, <code>"integer"</code>,
+<code>"double"</code>, <code>"complex"</code>, <code>"character"</code>, or <code>"raw"</code>.
+</p>
+</li>
+<li> <p><code>x</code> is a list, as defined by <code><a href="../../vctrs/help/obj_is_list.html">obj_is_list()</a></code>.
+</p>
+</li>
+<li> <p><code>x</code> is a <a href="../../base/html/data.frame.html">data.frame</a>.
+</p>
+</li></ul>
+
+<p>If a <code>vec_proxy()</code> method has been registered, <code>x</code> is a vector if:
+</p>
+
+<ul>
+<li><p> The proxy satisfies one of the above conditions.
+</p>
+</li>
+<li><p> The base type of the proxy is <code>"list"</code>, regardless of its class. S3 lists
+are thus treated as scalars unless they implement a <code>vec_proxy()</code> method.
+</p>
+</li></ul>
+
+<p>Otherwise an object is treated as scalar and cannot be used as a vector.
+In particular:
+</p>
+
+<ul>
+<li> <p><code>NULL</code> is not a vector.
+</p>
+</li>
+<li><p> S3 lists like <code>lm</code> objects are treated as scalars by default.
+</p>
+</li>
+<li><p> Objects of type <a href="../../base/html/expression.html">expression</a> are not treated as vectors.
+</p>
+</li></ul>
+
+
+
+<h3>Technical limitations</h3>
+
+
+<ul>
+<li><p> Support for S4 vectors is currently limited to objects that inherit from an
+atomic type.
+</p>
+</li>
+<li><p> Subclasses of <a href="../../base/html/data.frame.html">data.frame</a> that <em>append</em> their class to the back of the
+<code>"class"</code> attribute are not treated as vectors. If you inherit from an S3
+class, always prepend your class to the front of the <code>"class"</code> attribute
+for correct dispatch. This matches our general principle of allowing
+subclasses but not mixins.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>obj_is_vector(1)
+
+# Data frames are vectors
+obj_is_vector(data_frame())
+
+# Bare lists are vectors
+obj_is_vector(list())
+
+# S3 lists are vectors if they explicitly inherit from `"list"`
+x &lt;- structure(list(), class = c("my_list", "list"))
+obj_is_list(x)
+obj_is_vector(x)
+
+# But if they don't explicitly inherit from `"list"`, they aren't
+# automatically considered to be vectors. Instead, vctrs considers this
+# to be a scalar object, like a linear model returned from `lm()`.
+y &lt;- structure(list(), class = "my_list")
+obj_is_list(y)
+obj_is_vector(y)
+
+# `obj_check_vector()` throws an informative error if the input
+# isn't a vector
+try(obj_check_vector(y))
+
+# `vec_check_size()` throws an informative error if the size of the
+# input doesn't match `size`
+vec_check_size(1:5, size = 5)
+try(vec_check_size(1:5, size = 4))
+
+# `vec_check_recyclable()` throws an informative error if the input can't
+# recycle to size `size`
+vec_check_recyclable(1:5, size = 5)
+vec_check_recyclable(1, size = 5)
+try(vec_check_recyclable(1:2, size = 5))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

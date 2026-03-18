@@ -1,0 +1,148 @@
+<!DOCTYPE html><html><head><title>R: Invoke functions.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>invoke {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Invoke functions.</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a>
+</p>
+<p>These functions were superded in purrr 0.3.0 and deprecated in purrr 1.0.0.
+</p>
+
+<ul>
+<li> <p><code>invoke()</code> is deprecated in favour of the simpler <code>exec()</code> function
+reexported from rlang. <code>exec()</code> evaluates a function call built
+from its inputs and supports <a href="../../rlang/help/dyn-dots.html">dynamic dots</a>:
+</p>
+<div class="sourceCode R"><pre># Before:
+invoke(mean, list(na.rm = TRUE), x = 1:10)
+
+# After
+exec(mean, 1:10, !!!list(na.rm = TRUE))
+</pre></div>
+</li>
+<li> <p><code>invoke_map()</code> is deprecated because it's harder to understand than the
+corresponding code using <code>map()</code>/<code>map2()</code> and <code>exec()</code>:
+</p>
+<div class="sourceCode R"><pre># Before:
+invoke_map(fns, list(args))
+invoke_map(fns, list(args1, args2))
+
+# After:
+map(fns, exec, !!!args)
+map2(fns, list(args1, args2), \(fn, args) exec(fn, !!!args))
+</pre></div>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>invoke(.f, .x = NULL, ..., .env = NULL)
+
+invoke_map(.f, .x = list(NULL), ..., .env = NULL)
+
+invoke_map_lgl(.f, .x = list(NULL), ..., .env = NULL)
+
+invoke_map_int(.f, .x = list(NULL), ..., .env = NULL)
+
+invoke_map_dbl(.f, .x = list(NULL), ..., .env = NULL)
+
+invoke_map_chr(.f, .x = list(NULL), ..., .env = NULL)
+
+invoke_map_raw(.f, .x = list(NULL), ..., .env = NULL)
+
+invoke_map_dfr(.f, .x = list(NULL), ..., .env = NULL)
+
+invoke_map_dfc(.f, .x = list(NULL), ..., .env = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".f">.f</code></td>
+<td>
+<p>For <code>invoke</code>, a function; for <code>invoke_map</code> a
+list of functions.</p>
+</td></tr>
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>For <code>invoke</code>, an argument-list; for <code>invoke_map</code> a
+list of argument-lists the same length as <code>.f</code> (or length 1).
+The default argument, <code>list(NULL)</code>, will be recycled to the
+same length as <code>.f</code>, and will call each function with no
+arguments (apart from any supplied in <code>...</code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed to each function.</p>
+</td></tr>
+<tr><td><code id=".env">.env</code></td>
+<td>
+<p>Environment in which <code><a href="../../base/html/do.call.html">do.call()</a></code> should
+evaluate a constructed expression. This only matters if you pass
+as <code>.f</code> the name of a function rather than its value, or as
+<code>.x</code> symbols of objects rather than their values.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># was
+invoke(runif, list(n = 10))
+invoke(runif, n = 10)
+# now
+exec(runif, n = 10)
+
+# was
+args &lt;- list("01a", "01b")
+invoke(paste, args, sep = "-")
+# now
+exec(paste, !!!args, sep = "-")
+
+# was
+funs &lt;- list(runif, rnorm)
+funs |&gt; invoke_map(n = 5)
+funs |&gt; invoke_map(list(list(n = 10), list(n = 5)))
+
+# now
+funs |&gt; map(exec, n = 5)
+funs |&gt; map2(list(list(n = 10), list(n = 5)), function(f, args) exec(f, !!!args))
+
+# or use pmap + a tibble
+df &lt;- tibble::tibble(
+  fun = list(runif, rnorm),
+  args = list(list(n = 10), list(n = 5))
+)
+df |&gt; pmap(function(fun, args) exec(fun, !!!args))
+
+
+# was
+list(m1 = mean, m2 = median) |&gt; invoke_map(x = rcauchy(100))
+# now
+list(m1 = mean, m2 = median) |&gt; map(function(f) f(rcauchy(100)))
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

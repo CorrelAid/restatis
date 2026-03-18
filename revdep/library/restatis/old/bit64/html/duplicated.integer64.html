@@ -1,0 +1,109 @@
+<!DOCTYPE html><html><head><title>R: Determine Duplicate Elements of integer64</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>duplicated.integer64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Determine Duplicate Elements of integer64</h2>
+
+<h3>Description</h3>
+
+<p><code>duplicated()</code> determines which elements of a vector or data frame are duplicates
+of elements with smaller subscripts, and returns a logical vector
+indicating which elements (rows) are duplicates.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'integer64'
+duplicated(x, incomparables = FALSE, nunique = NULL, method = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a vector or a data frame or an array or <code>NULL</code>.</p>
+</td></tr>
+<tr><td><code id="incomparables">incomparables</code></td>
+<td>
+<p>ignored</p>
+</td></tr>
+<tr><td><code id="nunique">nunique</code></td>
+<td>
+<p>NULL or the number of unique values (including NA). Providing
+<code>nunique</code> can speed-up matching when <code>x</code> has no cache. Note that a wrong
+<code>nunique</code> can cause undefined behaviour up to a crash.</p>
+</td></tr>
+<tr><td><code id="method">method</code></td>
+<td>
+<p>NULL for automatic method selection or a suitable low-level
+method, see details</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>ignored</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function automatically chooses from several low-level functions
+considering the size of <code>x</code> and the availability of a cache.
+</p>
+<p>Suitable methods are
+</p>
+
+<ul>
+<li> <p><code><a href="../../bit64/help/hashdup.html">hashdup</a></code> (hashing)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/sortorderdup.html">sortorderdup</a></code> (fast ordering)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/orderdup.html">orderdup</a></code> (memory saving ordering).
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p><code>duplicated()</code>: a logical vector of the same length as <code>x</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/duplicated.html">duplicated()</a></code>, <code><a href="../../bit64/help/unique.integer64.html">unique.integer64()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- as.integer64(sample(c(rep(NA, 9), 1:9), 32, TRUE))
+duplicated(x)
+
+stopifnot(identical(duplicated(x),  duplicated(as.integer(x))))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

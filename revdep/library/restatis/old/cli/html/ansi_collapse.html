@@ -1,0 +1,156 @@
+<!DOCTYPE html><html><head><title>R: Collapse a vector into a string scalar</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ansi_collapse {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Collapse a vector into a string scalar</h2>
+
+<h3>Description</h3>
+
+<p>Features:
+</p>
+
+<ul>
+<li><p> custom separator (<code>sep</code>),
+</p>
+</li>
+<li><p> custom separator for length-two input (<code>sep2</code>),
+</p>
+</li>
+<li><p> custom last separator (<code>last</code>),
+</p>
+</li>
+<li><p> adds ellipsis to truncated strings,
+</p>
+</li>
+<li><p> uses Unicode ellipsis character on UTF-8 console,
+</p>
+</li>
+<li><p> can collapse &quot;from both ends&quot;, with <code>style = "both-ends"</code>,
+</p>
+</li>
+<li><p> can consider a limit for the display width of the result, in characters,
+</p>
+</li>
+<li><p> handles ANSI control sequences correctly when measuring display width.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ansi_collapse(
+  x,
+  sep = ", ",
+  sep2 = sub("^,", "", last),
+  last = ", and ",
+  trunc = Inf,
+  width = Inf,
+  ellipsis = symbol$ellipsis,
+  style = c("both-ends", "head")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Character vector, or an object with an <code>as.character()</code> method
+to collapse.</p>
+</td></tr>
+<tr><td><code id="sep">sep</code></td>
+<td>
+<p>Separator. A character string.</p>
+</td></tr>
+<tr><td><code id="sep2">sep2</code></td>
+<td>
+<p>Separator for the special case that <code>x</code> contains only two
+elements. A character string. Defaults to the value of <code>last</code> without the
+serial comma.</p>
+</td></tr>
+<tr><td><code id="last">last</code></td>
+<td>
+<p>Last separator, if there is no truncation. E.g. use
+<code>", and "</code> for the <a href="https://en.wikipedia.org/wiki/Serial_comma">serial comma</a>. A character string.</p>
+</td></tr>
+<tr><td><code id="trunc">trunc</code></td>
+<td>
+<p>Maximum number of elements to show. For <code>style = "head"</code>
+at least <code>trunc = 1</code> is used. For <code>style = "both-ends"</code> at least
+<code>trunc = 5</code> is used, even if a smaller number is specified.</p>
+</td></tr>
+<tr><td><code id="width">width</code></td>
+<td>
+<p>Limit for the display width of the result, in characters.
+This is a hard limit, and the output will never exceed it.
+This argument is not implemented for the <code>"both-ends"</code> style, which
+always uses <code>Inf</code>, with a warning if a finite <code>width</code> value is set.</p>
+</td></tr>
+<tr><td><code id="ellipsis">ellipsis</code></td>
+<td>
+<p>Character string to use at the place of the truncation.
+By default, the Unicode ellipsis character is used if the console is
+UTF-8, and three dots otherwise.</p>
+</td></tr>
+<tr><td><code id="style">style</code></td>
+<td>
+<p>Truncation style:
+</p>
+
+<ul>
+<li> <p><code>both-ends</code>: the default, shows the beginning and end of the vector,
+and skips elements in the middle if needed.
+</p>
+</li>
+<li> <p><code>head</code>: shows the beginning of the vector, and skips elements at the
+end, if needed.
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Character scalar. It is <code>NA_character_</code> if any elements in <code>x</code>
+are <code>NA</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>glue_collapse</code> in the glue package inspired this function.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>ansi_collapse(letters)
+
+# truncate
+ansi_collapse(letters, trunc = 5)
+
+# head style
+ansi_collapse(letters, trunc = 5, style = "head")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

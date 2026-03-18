@@ -1,0 +1,132 @@
+<!DOCTYPE html><html><head><title>R: Collect columns for data frame construction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>df_list {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Collect columns for data frame construction</h2>
+
+<h3>Description</h3>
+
+<p><code>df_list()</code> constructs the data structure underlying a data
+frame, a named list of equal-length vectors. It is often used in
+combination with <code><a href="../../vctrs/help/new_data_frame.html">new_data_frame()</a></code> to safely and consistently create
+a helper function for data frame subclasses.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>df_list(
+  ...,
+  .size = NULL,
+  .unpack = TRUE,
+  .name_repair = c("check_unique", "unique", "universal", "minimal", "unique_quiet",
+    "universal_quiet"),
+  .error_call = current_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Vectors of equal-length. When inputs are named, those names
+are used for names of the resulting list.</p>
+</td></tr>
+<tr><td><code id=".size">.size</code></td>
+<td>
+<p>The common size of vectors supplied in <code>...</code>. If <code>NULL</code>, this
+will be computed as the common size of the inputs.</p>
+</td></tr>
+<tr><td><code id=".unpack">.unpack</code></td>
+<td>
+<p>Should unnamed data frame inputs be unpacked? Defaults to
+<code>TRUE</code>.</p>
+</td></tr>
+<tr><td><code id=".name_repair">.name_repair</code></td>
+<td>
+<p>One of <code>"check_unique"</code>, <code>"unique"</code>, <code>"universal"</code>,
+<code>"minimal"</code>, <code>"unique_quiet"</code>, or <code>"universal_quiet"</code>. See <code><a href="../../vctrs/help/vec_as_names.html">vec_as_names()</a></code>
+for the meaning of these options.</p>
+</td></tr>
+<tr><td><code id=".error_call">.error_call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+
+<h3>Properties</h3>
+
+
+<ul>
+<li><p> Inputs are <a href="../../vctrs/help/theory-faq-recycling.html">recycled</a> to a common size with
+<code><a href="../../vctrs/help/vec_recycle_common.html">vec_recycle_common()</a></code>.
+</p>
+</li>
+<li><p> With the exception of data frames, inputs are not modified in any way.
+Character vectors are never converted to factors, and lists are stored
+as-is for easy creation of list-columns.
+</p>
+</li>
+<li><p> Unnamed data frame inputs are automatically unpacked. Named data frame
+inputs are stored unmodified as data frame columns.
+</p>
+</li>
+<li> <p><code>NULL</code> inputs are completely ignored.
+</p>
+</li>
+<li><p> The dots are dynamic, allowing for splicing of lists with <code style="white-space: pre;">&#8288;!!!&#8288;</code> and
+unquoting.
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../vctrs/help/new_data_frame.html">new_data_frame()</a></code> for constructing data frame subclasses from a validated
+input. <code><a href="../../vctrs/help/data_frame.html">data_frame()</a></code> for a fast data frame creation helper.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># `new_data_frame()` can be used to create custom data frame constructors
+new_fancy_df &lt;- function(x = list(), n = NULL, ..., class = NULL) {
+  new_data_frame(x, n = n, ..., class = c(class, "fancy_df"))
+}
+
+# Combine this constructor with `df_list()` to create a safe,
+# consistent helper function for your data frame subclass
+fancy_df &lt;- function(...) {
+  data &lt;- df_list(...)
+  new_fancy_df(data)
+}
+
+df &lt;- fancy_df(x = 1)
+class(df)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

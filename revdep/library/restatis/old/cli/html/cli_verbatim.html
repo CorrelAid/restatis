@@ -1,0 +1,87 @@
+<!DOCTYPE html><html><head><title>R: CLI verbatim text</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_verbatim {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>CLI verbatim text</h2>
+
+<h3>Description</h3>
+
+<p>It is not wrapped, but printed as is. Long lines will overflow.
+No glue substitution is performed on verbatim text.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_verbatim(..., .envir = parent.frame())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>The text to show, in character vectors. Each element is
+printed on a new line.</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>Environment to evaluate the glue expressions in.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+
+<h4>Line breaks</h4>
+
+<div class="sourceCode r"><pre>cli_verbatim("This has\nthree\nlines,")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> This has                                                                        
+#> three                                                                           
+#> lines,                                                                          
+</pre></div>
+
+
+
+
+<h4>Special characters</h4>
+
+<p>No glue substitution happens here.
+</p>
+<div class="sourceCode r"><pre>cli_verbatim("No string {interpolation} or {.emph styling} here")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> No string {interpolation} or {.emph styling} here                               
+</pre></div>
+
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../cli/help/cli_code.html">cli_code()</a></code> for printing R or other source code.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

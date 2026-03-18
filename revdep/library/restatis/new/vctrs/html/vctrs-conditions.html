@@ -1,0 +1,180 @@
+<!DOCTYPE html><html><head><title>R: Custom conditions for vctrs package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vctrs-conditions {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Custom conditions for vctrs package</h2>
+
+<h3>Description</h3>
+
+<p>These functions are called for their side effect of raising
+errors and warnings.
+These conditions have custom classes and structures to make
+testing easier.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>stop_incompatible_type(
+  x,
+  y,
+  ...,
+  x_arg,
+  y_arg,
+  action = c("combine", "convert"),
+  details = NULL,
+  message = NULL,
+  class = NULL,
+  call = caller_env()
+)
+
+stop_incompatible_cast(
+  x,
+  to,
+  ...,
+  x_arg,
+  to_arg,
+  details = NULL,
+  message = NULL,
+  class = NULL,
+  call = caller_env()
+)
+
+stop_incompatible_op(
+  op,
+  x,
+  y,
+  details = NULL,
+  ...,
+  message = NULL,
+  class = NULL,
+  call = caller_env()
+)
+
+stop_incompatible_size(
+  x,
+  y,
+  x_size,
+  y_size,
+  ...,
+  x_arg,
+  y_arg,
+  details = NULL,
+  message = NULL,
+  class = NULL,
+  call = caller_env()
+)
+
+allow_lossy_cast(expr, x_ptype = NULL, to_ptype = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code>, <code id="y">y</code>, <code id="to">to</code></td>
+<td>
+<p>Vectors</p>
+</td></tr>
+<tr><td><code id="...">...</code>, <code id="class">class</code></td>
+<td>
+<p>Only use these fields when creating a subclass.</p>
+</td></tr>
+<tr><td><code id="x_arg">x_arg</code>, <code id="y_arg">y_arg</code>, <code id="to_arg">to_arg</code></td>
+<td>
+<p>Argument names for <code>x</code>, <code>y</code>, and <code>to</code>. Used in
+error messages to inform the user about the locations of incompatible
+types.</p>
+</td></tr>
+<tr><td><code id="action">action</code></td>
+<td>
+<p>An option to customize the incompatible type message depending
+on the context. Errors thrown from <code><a href="../../vctrs/help/vec_ptype2.html">vec_ptype2()</a></code> use <code>"combine"</code> and
+those thrown from <code><a href="../../vctrs/help/vec_cast.html">vec_cast()</a></code> use <code>"convert"</code>.</p>
+</td></tr>
+<tr><td><code id="details">details</code></td>
+<td>
+<p>Any additional human readable details.</p>
+</td></tr>
+<tr><td><code id="message">message</code></td>
+<td>
+<p>An overriding message for the error. <code>details</code> and
+<code>message</code> are mutually exclusive, supplying both is an error.</p>
+</td></tr>
+<tr><td><code id="call">call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+<tr><td><code id="x_ptype">x_ptype</code>, <code id="to_ptype">to_ptype</code></td>
+<td>
+<p>Suppress only the casting errors where <code>x</code>
+or <code>to</code> match these <a href="../../vctrs/help/vec_ptype.html">prototypes</a>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code style="white-space: pre;">&#8288;stop_incompatible_*()&#8288;</code> unconditionally raise an error of class
+<code>"vctrs_error_incompatible_*"</code> and <code>"vctrs_error_incompatible"</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+# Most of the time, `maybe_lossy_cast()` returns its input normally:
+maybe_lossy_cast(
+  c("foo", "bar"),
+  NA,
+  "",
+  lossy = c(FALSE, FALSE),
+  x_arg = "",
+  to_arg = ""
+)
+
+# If `lossy` has any `TRUE`, an error is thrown:
+try(maybe_lossy_cast(
+  c("foo", "bar"),
+  NA,
+  "",
+  lossy = c(FALSE, TRUE),
+  x_arg = "",
+  to_arg = ""
+))
+
+# Unless lossy casts are allowed:
+allow_lossy_cast(
+  maybe_lossy_cast(
+    c("foo", "bar"),
+    NA,
+    "",
+    lossy = c(FALSE, TRUE),
+    x_arg = "",
+    to_arg = ""
+  )
+)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

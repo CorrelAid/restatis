@@ -1,0 +1,64 @@
+<!DOCTYPE html><html><head><title>R: Drop empty elements from a list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>list_drop_empty {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Drop empty elements from a list</h2>
+
+<h3>Description</h3>
+
+<p><code>list_drop_empty()</code> removes empty elements from a list. This includes <code>NULL</code>
+elements along with empty vectors, like <code>integer(0)</code>. This is equivalent to,
+but faster than, <code>vec_slice(x, list_sizes(x) != 0L)</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>list_drop_empty(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A list.</p>
+</td></tr>
+</table>
+
+
+<h3>Dependencies</h3>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/vec_slice.html">vec_slice()</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- list(1, NULL, integer(), 2)
+list_drop_empty(x)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>
