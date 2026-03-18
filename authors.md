@@ -17,7 +17,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/CorrelAid/restatis/blob/dev/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/CorrelAid/restatis/blob/main/DESCRIPTION)
 
 Buhl Y, Kovacevic Z, Le Jeune D, Nguyen L, Ritter J (2026). *restatis: R
 Wrapper to Access a Wide Range of Germany's Federal Statistical System
