@@ -8,8 +8,73 @@ vignette: >
 ---
 ---
 
-Authentication is a core functionality in the world of Application Programming Interfaces (APIs). And so is, needless to say, the topic of keeping your credentials confidential. This is why the process of establishing authentication when using `{restatis}` is a tiny bit more complicated than when using other packages that fetch data or other information from an API. However, in most cases, users only have to establish their credentials in `{restatis}`'s internals once - from then on, the package manages all the rest for you. In the following vignette, we will show you everything you need to successfully authenticate with `{restatis}`.
+Authentication is a core functionality in the world of Application Programming Interfaces (APIs). And so is, needless to say, the topic of keeping your credentials confidential. This is why the process of establishing authentication when using `{restatis}` is a tiny bit more complicated than when using other packages that fetch data or other information from an API. However, in most cases, users only have to establish their credentials in `{restatis}`'s internals once - from then on, the package manages all the rest for you. In the following vignette, we will show you everything you need to successfully authenticate with `{restatis}`. *Note that to access each one of the APIs, you need to have an account that you can create on the respective database's homepage (see links to them in the README).*
 
-## Creating credentials
-## 
+### Creating credentials
+In principal, the package provides a safe way of storing credentials by saving them in a encrypted file on your local PC. After doing so, all the functions will silently decrypt them when needed and you have no business with providing them every time you make a call. To store your credentials do as follows:
+  
+```r
+# Save credentials for only one database at at timee
+restatis::gen_auth_save("genesis")
 
+# Save credentials for all databases supported
+restatis::gen_auth_save("all")
+
+```
+
+You will be prompted for your username and password for all the databases you have chosen. After that, in the console you will find the following message (example for `'genesis'`):
+  
+```r
+Your credentials for the GENESIS database have been saved to /home/username/.config/R/restatis/auth_genesis.rds.
+
+The key to the credentials file has been set as environment variable, which is lost after the R session is closed.
+
+If you want to keep the key saved for future sessions, please add the following line to your .Renviron file, e.g. via the function `usethis::edit_r_environ()`:
+
+GENESIS_KEY=abcdef1234ghijklm5678
+
+Login check for database 'genesis' succeeded.
+
+```
+
+If you want your credentials to be saved across R sessions, do as told and save the key (in this example, `GENESIS_KEY=abcdef1234ghijklm5678`) in your .Renviron file (e.g., by using `usethis::edit_r_environ()`). This is the key `{restatis}` uses to decrypt your credentials on API calls. After that, you are good to go and there is no need to care for your credentials anymore, unless, of course, you change them. 
+
+If you are unsure whether you have saved the correct credentials or just want to check on them, you can use `gen_auth_get()` to get them printed in the console, e.g.: `gen_auth_get("regio")`. If you want to check the path where the encrypted files are being stored, use `gen_auth_path()`.
+
+### API tokens
+
+The GENESIS and Zensus 2022 databases do support authentication with an API token as well. You can set the token as credential by using setting the parameter `use_token = TRUE` for `restatis::gen_auth_save()`:
+
+```r
+restatis::gen_auth_save("zensus", use_token = TRUE)
+```
+
+You will then be prompted for only an API key. The token itself can be found when logging into the respective webpage with your account and by clicking on *Webservice (API)* (EN) or *Webservice-Schnittstelle (API)* (DE) in the bottom left corner. **Important note:** The GENESIS database will not let you create jobs when using API tokens to authenticate. This is why `{restatis}` will check your credential type once you set `job = TRUE` for `gen_table()` and error in case a token is used. To enable the use of jobs, use `gen_auth_save()` and input your username and password (by setting `use_token = FALSE`).
+
+### Credentials as parameters
+
+In the first versions of `{restatis}`, it was impossible to set the credentials as a parameter. This is because we want to emphasise the secure storage of credentials that is the default of the package. However, we became aware of certain use-cases (e.g., automated piplines via GitHub Actions and the like) that made it necessary to set the credentials as a parameter. For this reason, in version 0.4.0 we introduced the `credential_list` parameter for `{restatis}`’s functions.
+Using this parameter, users can provide their credentials independently of `gen_auth_save`. **Important note:** *We do only encourage this in very rare cases since it is advisable to safely store the credentials. In case you use `credential_list`, always make sure that the credentials do not appear anywhere in clear text!*
+
+The `credentials_list` has to have the exact following structure:
+
+``` r
+custom_credentials <- list(genesis = c(username = 'abc123', password = 'qwerty1234'),
+                           regio = c(username = 'abc123', password = 'qwerty1234'))
+```
+
+Now when using the custom credentials, you pass the list to the respective function parameter (this overrides the credentials set by `gen_auth_save()`):
+
+``` r
+# Example call with custom credentials
+res <- restatis::gen_find(term = "diagnosen", 
+                          database = "genesis", 
+                          credential_list = custom_credentials)
+                          
+# This also works with multiple databases in `databases`
+res2 <- restatis::gen_find(term = "krankenhäuser", 
+                           database = c("genesis", "regio"),
+                           credential_list = custom_credentials)                          
+```
+
+You have to make sure that the database(s) you specify in `database` is/are listed in `credential_list`, otherwise the function call fails. In some cases, you can specify the `error.ignore` parameter. If it is set to `TRUE`, the function will continue to execute for those databases that are available, even if some are not. **Important note:** *`credentials_list` does not (currently) support the use of API tokens.*
