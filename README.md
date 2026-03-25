@@ -52,6 +52,12 @@ abbreviation strings are the following:
   cause warnings stemming from `{vroom}`. These can be ignored, but
   users have to carefully check the resulting `data.frames`. Use
   `vroom::problems()` to check the data objects for more information.
+- At the moment, using `gen_cube()` and the latest version of `{vroom}`,
+  there is a deprecation warning popping up that stems from our use of
+  `{readr}` to use literal lines of CSVs. This does not affect the
+  functionality of the function, so for now you can safely ignore it. We
+  monitor whether there will be a change on `{readr}`’s side or will
+  implement a fix with upcoming updates.
 
 ## Installation
 
