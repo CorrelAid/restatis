@@ -52,6 +52,15 @@ respective abbreviation strings are the following:
   users have to carefully check the resulting `data.frames`. Use
   [`vroom::problems()`](https://vroom.tidyverse.org/reference/problems.html)
   to check the data objects for more information.
+- At the moment, using
+  [`gen_cube()`](https://correlaid.github.io/restatis/reference/gen_cube.md)
+  and the latest version of [vroom](https://vroom.tidyverse.org), there
+  is a deprecation warning popping up that stems from our use of
+  [readr](https://readr.tidyverse.org) to use literal lines of CSVs.
+  This does not affect the functionality of the function, so for now you
+  can safely ignore it. We monitor whether there will be a change on
+  [readr](https://readr.tidyverse.org)’s side or will implement a fix
+  with upcoming updates.
 
 ## Installation
 
