@@ -1,161 +1,294 @@
 ---
-title: "Basic {restatis} workflow"
+title: "Basic `{restatis}` workflow"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Basic {restatis} workflow}
+  %\VignetteIndexEntry{Basic `{restatis}` workflow}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r eval=FALSE}
+```{r}
 library(restatis)
+library(ggplot2)
+library(dplyr, warn.conflicts = FALSE)
 ```
+
 
 ## Introduction
 
-This vignette describes the basic workflow for finding, exploring, and retrieving data from the GENESIS, Zensus 2022 or regionalstatistik.de API using [restatis](https://correlaid.github.io/restatis/).
+This vignette describes the basic workflow for finding, exploring, and retrieving data from German official statistics databases using the `{restatis}` package. We will walk through the entire data discovery and retrieval pipeline, from initial search to visualisation and analysis.
 
-For more details on additional parameters that can be used to specify the API call, see `vignette("additional_parameter")`.
+`{restatis}` provides access to several official German statistical databases through R, including:
 
-For the scenario in this vignette, we are going to be a researcher trying to find data on the income of bus drivers, called "Busfahrer" in German. The following example focuses on the GENESIS database, however, it works practically identically for regionalstatistik.de. For the Zensus 2022 database, the functions also work almost similarly to GENESIS and regionalstatistik.de, but have a few quirks (such as that there are no cubes for Zensus 2022 or that you can also authenticate using an API token, the latter being available for GENESIS now as well).
+- GENESIS Online: The main database of the German Federal Statistical Office (Destatis)
+- regionalstatistik.de: Regional statistics data
+- sensus 2022: German Census 2022 data
+- And several state-level statistical databases
 
-## Step one: finding relevant search terms
+For more details on additional parameters for API calls, see `vignette("additional_parameter")`.
 
-First, we can and should explore if and how our keyword is represented in the GENESIS database. We want to see if our keywords are related in any way to other words, and we need to be more precise in our search process; or in case we already have a particular keyword, if there are related keywords that could be included in our search to expand our data collection.
+## Real-World Scenario: Analysing Consumer Price Trends
 
-To be as broad as possible, we want to search for any term in the database that contains our keyword. To do this, we can use a "*" wildcard at the beginning and end of the search term:
+Throughout this vignette, we'll use a realistic example: Analysing how consumer prices for specific product categories have changed since 2020. This is a common use case for economists, policy analysts, and journalists working with German official statistics.
 
-```{r eval=FALSE}
-restatis::gen_alternative_terms(term = "*busfahrer*", database = "genesis")
+### Step 1: Exploring Available Data
 
-```
+Before requesting data, it's important to understand what's available. Let's start by searching for data related to consumer prices.
 
-Based on the results, our original keyword "busfahrer" is already specific enough, and no additional specifications are necessary.
+#### Finding Alternative Terms
 
-Had we started with the keyword "bus" - the vehicle itself - we can see that the database has several related terms that might be helpful to narrow down our search radius further. In this example, it might be helpful to see that there are at least three different types of buses that are searchable: "fernbus", "schienenbus" and "kraftomnibusse".
-
-```{r eval=FALSE}
-gen_alternative_terms(term = "*bus*", database = "genesis")
-
-```
-
-## Search for data objects
-
-Now that we have our specific keyword for our search, we can search the database for exactly that term. We want the results to be ordered so that items with a title that includes our search term are at the top. We also want to explore all object types for now:
-
-```{r eval=FALSE}
-search_results <- gen_find(term = "busfahrer",
-                           detailed = FALSE,
-                           ordering = TRUE,
-                           category = "all",
-                           database = "genesis")
-                           
-search_results
-
-```
-
-We can see that we find results for our keyword "busfahrer" in each category of objects (statistics, tables, variables, and cubes). Based on the promising content description of the first cube object, our next step will be to check what it contains before requesting the data.
-
-As a side note, most of the functions in this package will return objects with additional attributes that represent the parameters and additional information of your API query. So check the attributes if you ever need help recognising how you got the output.
-
-## Checking object metadata
-
-To check whether data objects are relevant to your interest, you should obtain the metadata for these objects before requesting the data itself. The metadata for each type of object stores different key characteristics that will help you understand what the object is about.
-
-For our question about the income of bus drivers, we want to check the metadata of the first cube object we got from the find function:
-
-```{r eval=FALSE}
-gen_metadata(code = search_results$Cubes$Code[1],
-             category = search_results$Cubes$Object_Type[1],
-             database = "genesis")
-
-```
-
-## Retrieving data
-
-We are now pretty sure that this cube object will help us find information about our research question. The next step is to get the data from the API.
-
-Based on the fact that we want a cube object, we now use the `gen_cube()` function. For other object types, use the corresponding functions (e.g., `gen_table()` for tables).
-
-Important note: It is not possible to get a whole statistic object, but it is possible to collect the different related cube objects independently and then try to recombine them.
-
-```{r eval=FALSE}
-gen_cube(search_results$Cubes$Code[1], database = "genesis")
-
-```
-
-## Appendix: check for changes in previously collected data
-
-As a small additional step, we would like to check one week later if the collected data objects have been updated in the last week. We can also check if additional interesting data objects for our interest/keyword have been added to the database. To do this, we need to specify the code of the objects we are looking for and the time we want to look for updates.
-
-If we only want to check if something related has been updated, we only need to use the first part of the code until we are sure that it only covers the topic we are interested in. For example, use "62361*" if you want to check if some updated objects have been published for the specific statistic "Verdiensterhebung".
-
-For convenience, the functions have already implemented the most common `date` specifications, such as "week_before", "month_before", or "year_before". If you prefer a fixed date, you can enter it as a string in the format "DD.MM.YYYY".
-
-For example, we might want to check to see if something new has been published about our collected cube object. So we use only the first part of the code "62361*":
-
-
-```{r eval=FALSE}
-gen_modified_data(code = "62361", date = "week_before", database = "genesis")
-
-```
-
+The GENESIS database is quite comprehensive, so starting with the right keywords is crucial. We can use gen_alternative_terms() to discover related terminology:
 
 ```{r}
-library(tidyverse)
-library(restatis)
 
-preisIndex = gen_table("61111-0001",
-                      language="de",
-                      startyear=2010, 
-                      database = "genesis") %>% 
-                      transform(value = as.numeric(gsub(",",".",value))) %>% 
-                      subset(value_unit=="2020=100") 
-
-preisIndex %>%
-  ggplot() +
-  geom_line(aes(x=time, y=value, group=1))
+# Search for terms related to consumer prices
+restatis::gen_alternative_terms(term = "*verbraucherpr*", 
+                                database = "genesis")
 
 ```
 
-Gleich gefilterte API Abrufe zu zeigen.
-Von der Tabelle im Web ausgehen, die classifyingvariable schon per API recherchiert
+This helps us understand how the database structures price-related data. We might discover that "Verbraucherpreisindex" (Consumer Price Index) is the primary term, and we can also find related concepts like specific commodity categories.
+
+### Step 2: Finding Relevant Data Objects
+
+Once we have our keywords, we search for actual data tables or cubes. The `gen_find()` function returns results from different categories:
 
 ```{r}
-library(tidyverse)
-library(restatis)
 
-# Verbraucherpreisindex: Deutschland, Monate, Klassifikation des Individualkonsums
-# https://www-genesis.destatis.de/datenbank/online/table/61111-0004/
+# Search for consumer price data
+search_results <- restatis::gen_find(term = "verbraucherpreisindex",
+                                     detailed = FALSE,
+                                     ordering = TRUE,
+                                     category = "all",
+                                     database = "genesis")
 
-preiseMeta = gen_metadata_table("61111-0004", database = "genesis")
-
-# Finde den „code“ der Sachklassifikation 
-# (SK-Merkmal), auf die die Auswahl mittels
-# „classifyingkey1“ angewendet werden soll.
-
-preiseMeta$Structure$Rows
-
-
-preisIndex = gen_table("61111-0004",
-                      language="de",
-                      classifyingvariable1="CC13A5",
-                      classifyingkey1="CC13-04521,CC13-04522,CC13-01151,CC13-02201",
-                      startyear=2020, 
-                      database = "genesis") %>% 
-                      transform(value = as.numeric(gsub(",",".",value)))
-
-
-preisIndex$yearMonth <- as.Date(paste0(preisIndex$time,"-",
-                                substr(preisIndex$`1_variable_attribute_code`,6,8),"-15"))
-
-
-preisIndex %>%
-  ggplot() +
-  geom_line(aes(x=yearMonth, y=value, colour=`3_variable_attribute_label`)) +
-  scale_colour_discrete(name = NULL, labels = function(x) sub(",.*", "", x)) +
-  labs(title="Verbraucherpreisindex",
-       subtitle="2020=100", x="", y="")
+# View available tables
+search_results$Tables
 
 ```
 
+The function returns results organised by object type (statistics, tables, cubes, variables). Each result includes:
+
+- Code: The unique identifier for the data object
+- Title: What the data represents
+- Content: Additional description
+
+For our consumer price analysis, we're interested in tables that contain monthly or regular updates. Table `61111-0004` is a good candidate: "Verbraucherpreisindex: Deutschland, Monate, Klassifikation des Individualkonsums" (Consumer Price Index: Germany, Monthly, Personal Consumption Classification).
+
+### Step 3: Exploring Table Metadata
+
+Before downloading data, always check the metadata to understand the structure and available filters:
+
+```{r}
+
+# Get metadata for table 61111-0004
+price_meta <- restatis::gen_metadata_table(code = "61111-0004",
+                                           database = "genesis")
+
+# Examine the structure
+str(price_meta)
+
+# Look at available variables (rows/columns you can filter by)
+price_meta$Structure$Rows
+
+```
+
+The metadata reveals important information:
+
+- Available time periods: What years/months have data?
+- Classification variables: What dimensions can you filter by (e.g., product categories)?
+- Value units: The units of measurement
+- Variable attributes: Additional metadata for filtering
+
+For the consumer price index, you'll typically find:
+
+- A Sachklassifikation (commodity classification) variable (e.g., "CC13A5") that lets you select specific product categories
+- Monthly time data
+- Values indexed to a base year (typically 2020=100)
+
+### Step 4: Downloading Filtered Data
+
+Now we move from exploration to data retrieval. This is where `{restatis}` becomes powerful — you can filter data at the API level, rather than downloading everything and filtering locally.
+
+#### Example 1: Simple Time Series (No Filtering)
+
+For a quick overview, let's first get unfiltered price index data:
+
+```{r}
+
+library(ggplot2)
+
+# Download price index data for 2020 onwards
+price_index <- restatis::gen_table(name = "61111-0001",
+                                   language = "de",
+                                   startyear = 2020,
+                                   database = "genesis") %>%
+  mutate(value = as.numeric(gsub(",", ".", value))) %>%
+  filter(value_unit == "2020=100")
+
+# Quick visualisation
+price_index %>%
+  ggplot(aes(x = time, y = value, group = 1)) +
+  geom_line(linewidth = 1) +
+  labs(title = "Verbraucherpreisindex Deutschland",
+       subtitle = "Basis: 2020=100",
+       x = "Jahr",
+       y = "Index") +
+  theme_minimal()
+
+```
+
+This shows the overall consumer price trend, but we can do much better by filtering specific product categories.
+
+#### Example 2: Filtered Data by Product Category
+
+The real power of `{restatis}` comes from filtering at the API level. Let's get data for specific product categories:
+
+```{r}
+
+# First, get metadata to understand the classification variable codes
+price_meta <- restatis::gen_metadata_table(code = "61111-0004",
+                                           database = "genesis")
+
+# The classification variable is typically stored in Structure$Rows
+# Look for the "Sachklassifikation" or similar classification variable
+# This will tell us the variable code (e.g., "CC13A5") and available category codes
+
+# Now retrieve filtered data for specific product categories
+# Example: Food (CC13-04521), Transport (CC13-04522), Housing (CC13-01151), Clothing (CC13-02201)
+
+price_filtered <- restatis::gen_table(name = "61111-0004",
+                                      language = "de",
+                                      classifyingvariable1 = "CC13A5",  # The classification variable
+                                      classifyingkey1 = "CC13-04521,CC13-04522,CC13-01151,CC13-02201",  # Specific categories
+                                      startyear = 2020,
+                                      database = "genesis") %>%
+  mutate(value = as.numeric(gsub(",", ".", value)))
+
+# Parse the time information to create proper dates
+# The package returns time as strings that need parsing
+# E.g., extract month from attribute code
+price_filtered <- price_filtered %>%
+  mutate(year_month = as.Date(paste0(time, 
+                                     "-", 
+                                     substr(`1_variable_attribute_code`, 6, 8), 
+                                     "-15")))
+
+# Visualisation with multiple categories
+price_filtered %>%
+  ggplot(aes(x = year_month, y = value, color = `3_variable_attribute_label`)) +
+  geom_line(linewidth = 1) +
+  scale_color_discrete(name = NULL,
+                       labels = function(x) gsub(",.*", "", x)) +
+  labs(title = "Verbraucherpreisindex für ausgewählte Produktkategorien",
+       subtitle = "Deutschland, Basis: 2020=100",
+       x = "",
+       y = "Index") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+```
+
+Key insight: By using the `classifyingvariable1` and `classifyingkey1` parameters, we filter data at the API level. This is more efficient than downloading all data and filtering in R.
+
+### Step 5: Practical Data Wrangling
+
+Once you have the data, you typically need to clean and prepare it:
+
+```{r}
+
+# Clean and prepare for analysis
+price_data <- price_filtered %>%
+  select(year_month, value, `3_variable_attribute_label`) %>%
+  rename(date = year_month,
+         price_index = value,
+         category = `3_variable_attribute_label`) %>%
+  mutate(category = gsub(",.*", "", category),  # Remove extra text after comma
+         price_index = as.numeric(price_index)) %>%
+  arrange(date, category)
+
+# Calculate year-over-year changes
+price_data <- price_data %>%
+  group_by(category) %>%
+  arrange(date) %>%
+  mutate(yoy_change = (price_index - lag(price_index, 12)) / lag(price_index, 12) * 100) %>%
+  ungroup()
+
+# Filter to recent data and calculate latest changes
+latest_changes <- price_data %>%
+  filter(!is.na(yoy_change)) %>%
+  group_by(category) %>%
+  slice_tail(n = 1) %>%
+  arrange(desc(yoy_change))
+
+print(latest_changes)
+
+```
+
+### Step 6: Advanced Features
+
+#### Checking for Data Updates
+
+After collecting data, you might want to check if it has been updated:
+
+```{r}
+
+restatis::gen_modified_data(code = "61111",  # Prefix of the table code
+                            date = "month_before",
+                            database = "genesis")
+
+```
+
+This is useful if you're collecting data regularly and want to know what's new.
+
+#### Using Multiple Time Periods
+
+You can specify ranges more precisely:
+
+```{r}
+
+# Get data for a specific range
+price_range <- restatis::gen_table(name = "61111-0004",
+                                   language = "de",
+                                   classifyingvariable1 = "CC13A5",
+                                   classifyingkey1 = "CC13-04521",  # Just food
+                                   startyear = 2015,
+                                   endyear = 2025,
+                                   database = "genesis")
+
+```
+
+#### Important Notes on Data Handling
+
+- Decimal separators: German databases use commas for decimals (note: this does not happen if `language = 'en'`. Convert them to periods if necessary:
+
+```{r eval=FALSE}
+
+data <- data %>%
+  mutate(value = as.numeric(gsub(",", ".", value)))
+
+```
+
+- Time variables: Time information may be encoded differently depending on the table. Always check the metadata structure.
+
+- Variable attributes: Long variable labels may contain additional information separated by commas. Clean these up based on your needs.
+
+- Missing data: The databases use various symbols for missing or suppressed data (marked in `gen_signs()`). Handle these appropriately for your analysis.
+
+## Summary: The Basic Workflow
+
+1. Search: Use `gen_find()` or `gen_alternative_terms()` to discover relevant data
+2. Explore: Check metadata with `gen_metadata_table()` to understand structure and filters
+3. Filter: Identify the classification variables and category codes
+4. Retrieve: Use `gen_table()` or `gen_cube()` with appropriate filtering parameters
+5. Clean: Convert decimal separators, parse dates, clean variable labels
+6. Analyse: Visualise, calculate statistics, or combine with other data sources
+7. Monitor: Use `gen_modified_data()` to track updates
+
+For more detailed information on additional API parameters available for filtering and customising your queries, see vignette("additional_parameter").
+
+## Further Resources
+
+- GENESIS API documentation: https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf
+- `{restatis}` package documentation: https://correlaid.github.io/restatis/
+- German Federal Statistical Office: https://www.destatis.de/
