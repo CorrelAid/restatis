@@ -50,6 +50,7 @@ same possible values.
 Examples:
 
 ``` r
+
 # Get the values of the variable "WAM8" which code starts with "WA29"
 gen_val2var("WAM8", selection = "WA29*", searchcriterion = "code", database = "genesis")
 
@@ -68,6 +69,7 @@ description are possible. The default is *no* sorting.
 Examples:
 
 ``` r
+
 # Get the values of the variable "WAM8" sorted based on their codes
 gen_val2var("WAM8", sortcriterion = "code", database = "genesis")
 ```
@@ -83,6 +85,7 @@ explicitly implemented in many functions.*
 Examples:
 
 ``` r
+
 # Get the values of the variable "WAM8" in German
 gen_val2var("WAM8", language = "de", database = "genesis")
 
@@ -94,39 +97,39 @@ gen_val2var("WAM8", language = "en", database = "genesis")
 
 gen_alternative_terms
 
-| Parameter | Description                                                                            |
-|-----------|----------------------------------------------------------------------------------------|
+| Parameter | Description |
+|----|----|
 | selection | 1-15 characters; filtering based on “code” of the objects; “\*” notations are possible |
-| language  | “de” / “en”                                                                            |
+| language | “de” / “en” |
 
 gen_catalogue
 
 For cubes: (only GENESIS and regionalstatistik.de)
 
-| Parameter | Description                                                                            |
-|-----------|----------------------------------------------------------------------------------------|
+| Parameter | Description |
+|----|----|
 | selection | 1-10 characters; filtering based on “code” of the objects; “\*” notations are possible |
-| language  | “de” / “en”                                                                            |
-| area      | “all” / “public” / “user”                                                              |
+| language | “de” / “en” |
+| area | “all” / “public” / “user” |
 
 For statistics:
 
-| Parameter       | Description                                                                      |
-|-----------------|----------------------------------------------------------------------------------|
-| selection       | 1-15 characters; filtering based on searchcriterion; “\*” notations are possible |
-| searchcriterion | “code” / “content”                                                               |
-| sortcriterion   | “code” / “content”                                                               |
-| language        | “de” / “en”                                                                      |
+| Parameter | Description |
+|----|----|
+| selection | 1-15 characters; filtering based on searchcriterion; “\*” notations are possible |
+| searchcriterion | “code” / “content” |
+| sortcriterion | “code” / “content” |
+| language | “de” / “en” |
 
 For tables:
 
-| Parameter       | Description                                                                      |
-|-----------------|----------------------------------------------------------------------------------|
-| selection       | 1-15 characters; filtering based on searchcriterion; “\*” notations are possible |
-| searchcriterion | “code” / “content” (only Zensus 2022 database)                                   |
-| sortcriterion   | “code” / “top”                                                                   |
-| language        | “de” / “en”                                                                      |
-| area            | “all” / “public” / “user”                                                        |
+| Parameter | Description |
+|----|----|
+| selection | 1-15 characters; filtering based on searchcriterion; “\*” notations are possible |
+| searchcriterion | “code” / “content” (only Zensus 2022 database) |
+| sortcriterion | “code” / “top” |
+| language | “de” / “en” |
+| area | “all” / “public” / “user” |
 
 gen_cube
 
@@ -144,13 +147,13 @@ gen_find
 
 gen_list_jobs
 
-| Parameter       | Description                                                                                               |
-|-----------------|-----------------------------------------------------------------------------------------------------------|
-| selection       | 1-50 characters; filtering based on “code” of the objects or searchcriterion; “\*” notations are possible |
-| searchcriterion | “type” / “code” / “time” / “status”                                                                       |
-| sortcriterion   | “type” / “code” / “time” / “status”                                                                       |
-| language        | “de” / “en”                                                                                               |
-| type            | \-                                                                                                        |
+| Parameter | Description |
+|----|----|
+| selection | 1-50 characters; filtering based on “code” of the objects or searchcriterion; “\*” notations are possible |
+| searchcriterion | “type” / “code” / “time” / “status” |
+| sortcriterion | “type” / “code” / “time” / “status” |
+| language | “de” / “en” |
+| type | \- |
 
 - See more in the following official documentation for GENESIS:
   https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf
@@ -170,31 +173,31 @@ gen_metadata
 
 gen_modified_data
 
-| Parameter | Description                                                                            |
-|-----------|----------------------------------------------------------------------------------------|
+| Parameter | Description |
+|----|----|
 | selection | 1-15 characters; filtering based on “code” of the objects; “\*” notations are possible |
-| language  | “de” / “en”                                                                            |
+| language | “de” / “en” |
 
 gen_objects2stat
 
 For cubes: (only GENESIS and regionalstatistik.de)
 
-| Parameter | Description                                                                            |
-|-----------|----------------------------------------------------------------------------------------|
+| Parameter | Description |
+|----|----|
 | selection | 1-10 characters; filtering based on “code” of the objects; “\*” notations are possible |
-| area      | “all” / “public” / “user”                                                              |
-| language  | “de” / “en”                                                                            |
+| area | “all” / “public” / “user” |
+| language | “de” / “en” |
 
 For variables:
 
-| Parameter       | Description                                                                     |
-|-----------------|---------------------------------------------------------------------------------|
-| selection       | 1-6 characters; filtering based on searchcriterion; “\*” notations are possible |
-| searchcriterion | “code” / “content”                                                              |
-| sortcriterion   | “code” / “content”                                                              |
-| language        | “de” / “en”                                                                     |
-| area            | “all” / “public” / “user”                                                       |
-| type            | \-                                                                              |
+| Parameter | Description |
+|----|----|
+| selection | 1-6 characters; filtering based on searchcriterion; “\*” notations are possible |
+| searchcriterion | “code” / “content” |
+| sortcriterion | “code” / “content” |
+| language | “de” / “en” |
+| area | “all” / “public” / “user” |
+| type | \- |
 
 - See more in the following official documentation for GENESIS:
   https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf
@@ -207,39 +210,39 @@ For variables:
 
 For tables:
 
-| Parameter | Description                                                                            |
-|-----------|----------------------------------------------------------------------------------------|
+| Parameter | Description |
+|----|----|
 | selection | 1-15 characters; filtering based on “code” of the objects; “\*” notations are possible |
-| language  | “de” / “en”                                                                            |
-| area      | “all” / “public” / “user”                                                              |
+| language | “de” / “en” |
+| area | “all” / “public” / “user” |
 
 gen_objects2var
 
 For cubes: (only GENESIS and regionalstatistik.de)
 
-| Parameter | Description                                                                            |
-|-----------|----------------------------------------------------------------------------------------|
+| Parameter | Description |
+|----|----|
 | selection | 1-15 characters; filtering based on “code” of the objects; “\*” notations are possible |
-| language  | “de” / “en”                                                                            |
-| area      | “all” / “public” / “user”                                                              |
+| language | “de” / “en” |
+| area | “all” / “public” / “user” |
 
 For statistics:
 
-| Parameter       | Description                                                                      |
-|-----------------|----------------------------------------------------------------------------------|
-| selection       | 1-15 characters; filtering based on searchcriterion; “\*” notations are possible |
-| searchcriterion | “code” / “content”                                                               |
-| sortcriterion   | “code” / “content”                                                               |
-| language        | “de” / “en”                                                                      |
-| area            | “all” / “public” / “user”                                                        |
+| Parameter | Description |
+|----|----|
+| selection | 1-15 characters; filtering based on searchcriterion; “\*” notations are possible |
+| searchcriterion | “code” / “content” |
+| sortcriterion | “code” / “content” |
+| language | “de” / “en” |
+| area | “all” / “public” / “user” |
 
 For tables:
 
-| Parameter | Description                                                                            |
-|-----------|----------------------------------------------------------------------------------------|
+| Parameter | Description |
+|----|----|
 | selection | 1-15 characters; filtering based on “code” of the objects; “\*” notations are possible |
-| language  | “de” / “en”                                                                            |
-| area      | “all” / “public” / “user”                                                              |
+| language | “de” / “en” |
+| area | “all” / “public” / “user” |
 
 gen_table
 
@@ -254,14 +257,14 @@ gen_table
 
 gen_var2stat
 
-| Parameter       | Description                                                                     |
-|-----------------|---------------------------------------------------------------------------------|
-| selection       | 1-6 characters; filtering based on searchcriterion; “\*” notations are possible |
-| searchcriterion | “code” / “content”                                                              |
-| sortcriterion   | “code” / “content”                                                              |
-| language        | “de” / “en”                                                                     |
-| area            | “all” / “public” / “user”                                                       |
-| type            | \-                                                                              |
+| Parameter | Description |
+|----|----|
+| selection | 1-6 characters; filtering based on searchcriterion; “\*” notations are possible |
+| searchcriterion | “code” / “content” |
+| sortcriterion | “code” / “content” |
+| language | “de” / “en” |
+| area | “all” / “public” / “user” |
+| type | \- |
 
 - See more in the following official documentation for GENESIS:
   https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf
@@ -274,23 +277,23 @@ gen_var2stat
 
 gen_val2var
 
-| Parameter       | Description                                                                      |
-|-----------------|----------------------------------------------------------------------------------|
-| selection       | 1-15 characters; filtering based on searchcriterion; “\*” notations are possible |
-| searchcriterion | “code” / “content”                                                               |
-| sortcriterion   | “code” / “content”                                                               |
-| language        | “de” / “en”                                                                      |
+| Parameter | Description |
+|----|----|
+| selection | 1-15 characters; filtering based on searchcriterion; “\*” notations are possible |
+| searchcriterion | “code” / “content” |
+| sortcriterion | “code” / “content” |
+| language | “de” / “en” |
 
 gen_val2var2stat
 
-| Parameter       | Description                                                                     |
-|-----------------|---------------------------------------------------------------------------------|
-| selection       | 1-6 characters; filtering based on searchcriterion; “\*” notations are possible |
-| searchcriterion | “code” / “content”                                                              |
-| sortcriterion   | “code” / “content”                                                              |
-| language        | “de” / “en”                                                                     |
-| area            | “all” / “public” / “user”                                                       |
-| type            | \-                                                                              |
+| Parameter | Description |
+|----|----|
+| selection | 1-6 characters; filtering based on searchcriterion; “\*” notations are possible |
+| searchcriterion | “code” / “content” |
+| sortcriterion | “code” / “content” |
+| language | “de” / “en” |
+| area | “all” / “public” / “user” |
+| type | \- |
 
 - See more in the following official documentation for GENESIS:
   https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf
@@ -303,14 +306,14 @@ gen_val2var2stat
 
 gen_search_vars
 
-| Parameter       | Description                                                                     |
-|-----------------|---------------------------------------------------------------------------------|
-| selection       | 1-6 characters; filtering based on searchcriterion; “\*” notations are possible |
-| searchcriterion | “code” / “content”                                                              |
-| sortcriterion   | “code” / “content”                                                              |
-| language        | “de” / “en”                                                                     |
-| area            | “all” / “public” / “user”                                                       |
-| type            | \-                                                                              |
+| Parameter | Description |
+|----|----|
+| selection | 1-6 characters; filtering based on searchcriterion; “\*” notations are possible |
+| searchcriterion | “code” / “content” |
+| sortcriterion | “code” / “content” |
+| language | “de” / “en” |
+| area | “all” / “public” / “user” |
+| type | \- |
 
 - See more in the following official documentation for GENESIS:
   https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf
@@ -329,8 +332,8 @@ gen_signs
 
 gen_list_results
 
-| Parameter | Description                                                             |
-|-----------|-------------------------------------------------------------------------|
+| Parameter | Description |
+|----|----|
 | selection | 1-15 characters; filtering based on “code”; “\*” notations are possible |
-| area      | “all” / “public” / “user”                                               |
-| language  | “de” / “en”                                                             |
+| area | “all” / “public” / “user” |
+| language | “de” / “en” |

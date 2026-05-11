@@ -1,6 +1,7 @@
 # Basic {restatis} workflow
 
 ``` r
+
 library(restatis)
 ```
 
@@ -37,6 +38,7 @@ database that contains our keyword. To do this, we can use a “\*”
 wildcard at the beginning and end of the search term:
 
 ``` r
+
 restatis::gen_alternative_terms(term = "*busfahrer*", database = "genesis")
 ```
 
@@ -50,6 +52,7 @@ helpful to see that there are at least three different types of buses
 that are searchable: “fernbus”, “schienenbus” and “kraftomnibusse”.
 
 ``` r
+
 gen_alternative_terms(term = "*bus*", database = "genesis")
 ```
 
@@ -61,6 +64,7 @@ that items with a title that includes our search term are at the top. We
 also want to explore all object types for now:
 
 ``` r
+
 search_results <- gen_find(term = "busfahrer",
                            detailed = FALSE,
                            ordering = TRUE,
@@ -91,6 +95,7 @@ For our question about the income of bus drivers, we want to check the
 metadata of the first cube object we got from the find function:
 
 ``` r
+
 gen_metadata(code = search_results$Cubes$Code[1],
              category = search_results$Cubes$Object_Type[1],
              database = "genesis")
@@ -113,6 +118,7 @@ it is possible to collect the different related cube objects
 independently and then try to recombine them.
 
 ``` r
+
 gen_cube(search_results$Cubes$Code[1], database = "genesis")
 ```
 
@@ -141,5 +147,6 @@ published about our collected cube object. So we use only the first part
 of the code “62361\*“:
 
 ``` r
+
 gen_modified_data(code = "62361", date = "week_before", database = "genesis")
 ```

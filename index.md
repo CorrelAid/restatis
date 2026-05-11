@@ -68,6 +68,7 @@ You can install the released version of
 [restatis](https://correlaid.github.io/restatis/) from CRAN:
 
 ``` r
+
 install.packages("restatis")
 ```
 
@@ -76,6 +77,7 @@ Or install a development version of
 [GitHub](https://github.com/CorrelAid/restatis) with:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("CorrelAid/restatis")
 ```
@@ -130,6 +132,7 @@ not appear anywhere in clear text!*
 The `credentials_list` has to have the exact following structure:
 
 ``` r
+
 custom_credentials <- list(genesis = c(username = 'abc123', password = 'qwerty1234'),
                            regio = c(username = 'abc123', password = 'qwerty1234'))
 ```
@@ -139,6 +142,7 @@ respective function parameter (this overrides the credentials set by
 [`gen_auth_save()`](https://correlaid.github.io/restatis/reference/gen_auth_save.md)):
 
 ``` r
+
 # Example call with custom credentials
 res <- restatis::gen_find(term = "diagnosen", 
                           database = "genesis", 
