@@ -22,36 +22,36 @@ This vignette describes the basic workflow for finding, exploring, and retrievin
 
 - GENESIS Online: The main database of the German Federal Statistical Office (Destatis)
 - regionalstatistik.de: Regional statistics data
-- sensus 2022: German Census 2022 data
-- And several state-level statistical databases
+- Zensus 2022: German Census 2022 data
+- And several state-level or special-interest statistical databases
 
 For more details on additional parameters for API calls, see `vignette("additional_parameter")`.
 
 ## Real-World Scenario: Analysing Consumer Price Trends
 
-Throughout this vignette, we'll use a realistic example: Analysing how consumer prices for specific product categories have changed since 2020. This is a common use case for economists, policy analysts, and journalists working with German official statistics.
+Throughout this vignette, we will use a realistic example: Analysing how consumer prices for specific product categories have changed since 2020. This is a common use case for economists, policy analysts, and journalists working with German official statistics.
 
 ### Step 1: Exploring Available Data
 
-Before requesting data, it's important to understand what's available. Let's start by searching for data related to consumer prices.
+Before requesting data, it is important to understand what is available. Let us start by searching for data related to consumer prices.
 
 #### Finding Alternative Terms
 
-The GENESIS database is quite comprehensive, so starting with the right keywords is crucial. We can use gen_alternative_terms() to discover related terminology:
+The GENESIS database is quite comprehensive, so starting with the right keywords is crucial. We can use `gen_alternative_terms()` to discover related terminology:
 
 ```{r}
 
-# Search for terms related to consumer prices
+# Search for terms related to consumer prices (German: "Verbraucherpreise")
 restatis::gen_alternative_terms(term = "*verbraucherpr*", 
                                 database = "genesis")
 
 ```
 
-This helps us understand how the database structures price-related data. We might discover that "Verbraucherpreisindex" (Consumer Price Index) is the primary term, and we can also find related concepts like specific commodity categories.
+This helps us understand how the database structures price-related data. We discover that "Verbraucherpreisindex" (Consumer Price Index) is the primary term, and we can also find related concepts like specific commodity categories.
 
 ### Step 2: Finding Relevant Data Objects
 
-Once we have our keywords, we search for actual data tables or cubes. The `gen_find()` function returns results from different categories:
+Once we have our keywords, we search for actual data tables or cubes, the main data structures of GENESIS-based databases. The `gen_find()` function returns results from different categories (set `category` to `all`):
 
 ```{r}
 
@@ -69,11 +69,11 @@ search_results$Tables
 
 The function returns results organised by object type (statistics, tables, cubes, variables). Each result includes:
 
-- Code: The unique identifier for the data object
-- Title: What the data represents
-- Content: Additional description
+- `Code`: The unique identifier for the data object
+- `Title`: What the data represents
+- `Content`: Additional description
 
-For our consumer price analysis, we're interested in tables that contain monthly or regular updates. Table `61111-0004` is a good candidate: "Verbraucherpreisindex: Deutschland, Monate, Klassifikation des Individualkonsums" (Consumer Price Index: Germany, Monthly, Personal Consumption Classification).
+For our consumer price analysis, we are interested in tables that contain monthly or regular updates. Table `61111-0004` is a good candidate: "Verbraucherpreisindex: Deutschland, Monate, Klassifikation des Individualkonsums" (Consumer Price Index: Germany, Months, Personal Consumption Classification).
 
 ### Step 3: Exploring Table Metadata
 
@@ -96,15 +96,15 @@ price_meta$Structure$Rows
 The metadata reveals important information:
 
 - Available time periods: What years/months have data?
-- Classification variables: What dimensions can you filter by (e.g., product categories)?
+- Classification variables: What dimensions can we filter by (e.g., product categories)?
 - Value units: The units of measurement
 - Variable attributes: Additional metadata for filtering
 
-For the consumer price index, you'll typically find:
+For the consumer price index, you will typically find:
 
-- A Sachklassifikation (commodity classification) variable (e.g., "CC13A5") that lets you select specific product categories
+- A "Sachklassifikation" (commodity classification) variable (e.g., "CC13A5") that lets you select specific product categories
 - Monthly time data
-- Values indexed to a base year (typically 2020=100)
+- Values indexed to a base year (e.g., 2020=100)
 
 ### Step 4: Downloading Filtered Data
 
@@ -112,7 +112,7 @@ Now we move from exploration to data retrieval. This is where `{restatis}` becom
 
 #### Example 1: Simple Time Series (No Filtering)
 
-For a quick overview, let's first get unfiltered price index data:
+For a quick overview, let us first get unfiltered price index data:
 
 ```{r}
 
@@ -130,9 +130,9 @@ price_index <- restatis::gen_table(name = "61111-0001",
 price_index %>%
   ggplot(aes(x = time, y = value, group = 1)) +
   geom_line(linewidth = 1) +
-  labs(title = "Verbraucherpreisindex Deutschland",
-       subtitle = "Basis: 2020=100",
-       x = "Jahr",
+  labs(title = "Consumer Price Index Germany",
+       subtitle = "Base: 2020=100",
+       x = "Year",
        y = "Index") +
   theme_minimal()
 
@@ -142,7 +142,7 @@ This shows the overall consumer price trend, but we can do much better by filter
 
 #### Example 2: Filtered Data by Product Category
 
-The real power of `{restatis}` comes from filtering at the API level. Let's get data for specific product categories:
+The real power of `{restatis}` comes from filtering at the API level. Let us get data for specific product categories:
 
 ```{r}
 
@@ -163,7 +163,7 @@ price_filtered <- restatis::gen_table(name = "61111-0004",
                                       classifyingkey1 = "CC13-04521,CC13-04522,CC13-01151,CC13-02201",  # Specific categories
                                       startyear = 2020,
                                       database = "genesis") %>%
-  mutate(value = as.numeric(gsub(",", ".", value)))
+  mutate(value = as.numeric(gsub(",", ".", value))) # Correct for the decimal sign
 
 # Parse the time information to create proper dates
 # The package returns time as strings that need parsing
@@ -180,8 +180,8 @@ price_filtered %>%
   geom_line(linewidth = 1) +
   scale_color_discrete(name = NULL,
                        labels = function(x) gsub(",.*", "", x)) +
-  labs(title = "Verbraucherpreisindex für ausgewählte Produktkategorien",
-       subtitle = "Deutschland, Basis: 2020=100",
+  labs(title = "Consumer Price Index For Selected Product Categories",
+       subtitle = "Germany, Base: 2020=100",
        x = "",
        y = "Index") +
   theme_minimal() +
@@ -239,15 +239,15 @@ restatis::gen_modified_data(code = "61111",  # Prefix of the table code
 
 ```
 
-This is useful if you're collecting data regularly and want to know what's new.
+This is useful if you are collecting data regularly and want to know what is new.
 
 #### Using Multiple Time Periods
 
-You can specify ranges more precisely:
+You can specify time ranges more precisely:
 
 ```{r}
 
-# Get data for a specific range
+# Get data for a specific range of years
 price_range <- restatis::gen_table(name = "61111-0004",
                                    language = "de",
                                    classifyingvariable1 = "CC13A5",
