@@ -10,7 +10,7 @@ test_that("complete data discovery and retrieval workflow", {
 
   # 1. Find data about population
   search_results <- gen_find(database = "genesis",
-                             term = "Bevölkerung")
+                             term = "Verbraucherpreisindex")
 
   expect_type(object = search_results, type = "list")
   expect_s3_class(object = search_results$Tables, class = "data.frame")

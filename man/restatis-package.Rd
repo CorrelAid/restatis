@@ -22,6 +22,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Yannik Buhl \email{ybuhl@posteo.de}
   \item Zoran Kovacevic (\href{https://orcid.org/0009-0002-0156-0862}{ORCID})
   \item Dorian Le Jeune
   \item Long Nguyen \email{long.nguyen@uni-bielefeld.de} (\href{https://orcid.org/0000-0001-8878-7386}{ORCID})

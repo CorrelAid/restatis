@@ -22,13 +22,13 @@
             "From": "31.12.1995",
             "To": "31.12.2023"
         },
-        "Valid": "false",
+        "Valid": "true",
         "Structure": {
             "Head": {
                 "Code": "11111",
                 "Content": "Feststellung des Gebietsstands",
                 "Type": "Statistik",
-                "Values": null,
+                "Values": "-1",
                 "Selected": null,
                 "Functions": null,
                 "Structure": [
@@ -36,7 +36,7 @@
                         "Code": "FLC006",
                         "Content": "Gebietsfläche",
                         "Type": "Merkmal",
-                        "Values": null,
+                        "Values": "-1",
                         "Selected": null,
                         "Functions": null,
                         "Structure": null,
@@ -50,8 +50,8 @@
                     "Code": "STAG",
                     "Content": "Stichtag",
                     "Type": "Merkmal",
-                    "Values": "1",
-                    "Selected": "1",
+                    "Values": "-1",
+                    "Selected": null,
                     "Functions": null,
                     "Structure": null,
                     "Updated": "see parent"
@@ -62,7 +62,7 @@
                     "Code": "DLAND",
                     "Content": "Bundesländer",
                     "Type": "Merkmal",
-                    "Values": null,
+                    "Values": "16",
                     "Selected": null,
                     "Functions": null,
                     "Structure": null,

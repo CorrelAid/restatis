@@ -9,7 +9,7 @@ test_that("We do make POST requests", {
                                 database = "genesis")
 
   expect_equal(request$url,
-               "https://www-genesis.destatis.de/genesisWS/rest/2020/helloworld/logincheck")
+               "https://genesis.destatis.de/genesisWS/rest/2020/helloworld/logincheck")
 
   expect_equal(request$method,
                "POST")

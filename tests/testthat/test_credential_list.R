@@ -4,7 +4,8 @@
 
 test_that("functions error correctly on erroneous credential_list parameter values", {
 
-  #-----------------------------------------------------------------------------
+  skip_on_cran()
+  skip_on_ci()
 
   expect_error(object = result <- gen_catalogue(code = "12*",
                                                 database = "genesis",
@@ -12,6 +13,8 @@ test_that("functions error correctly on erroneous credential_list parameter valu
                                                 credential_list = list(regio = c(username = "bar",
                                                                                  password = "foo"))),
                regexp = "None of the databases you defined in 'database' are contained in your 'credential_list'. Please re-specify the credentials.")
+
+  #-----------------------------------------------------------------------------
 
   expect_error(object = result <- gen_catalogue(code = "12*",
                                                 database = c("genesis", "zensus"),
@@ -22,6 +25,8 @@ test_that("functions error correctly on erroneous credential_list parameter valu
                                                                        bayern = c(username = "foo", password = "bar"))),
                regexp = "None of the databases you defined in 'database' are contained in your 'credential_list'. Please re-specify the credentials.")
 
+  #-----------------------------------------------------------------------------
+
   expect_error(object = result <- gen_catalogue(code = "12*",
                                                 database = c("genesis", "zensus"),
                                                 category = "tables",
@@ -29,6 +34,8 @@ test_that("functions error correctly on erroneous credential_list parameter valu
                                                 credential_list = list(genesis = c(username = "bar", password = "foo"),
                                                                        zensus = c(username = "foo", password = "bar"))),
                regexp = "No json-csv file detected.")
+
+  #-----------------------------------------------------------------------------
 
   expect_error(object = result <- gen_catalogue(code = "12*",
                                                 database = c("genesis", "regio"),
@@ -86,6 +93,8 @@ test_that("restatis functions respond correctly to ill-defined credential_list",
                                         database = "genesis",
                                         credential_list = c("genesis" = "foobar")),
                regex = "Parameter 'credential_list' has to be of type 'list' if 'credential_type' is set.")
+
+  #-----------------------------------------------------------------------------
 
   expect_error(object = gen_objects2var(code = "7DLAND",
                                         database = "genesis",

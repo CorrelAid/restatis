@@ -10,6 +10,10 @@ test_that("gen_logincheck errors when the login failed (fake response)", {
     # It needs to include the string "Ein Fehler ist aufgetreten"
     # So that the below error message is displayed
 
+    # Create the file first with this:
+    # expect_message(object = gen_logincheck(database = "genesis"),
+    #             regexp = "Login check for database 'genesis' succeeded.")
+
     skip_on_cran()
     skip_on_ci()
 

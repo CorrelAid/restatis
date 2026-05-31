@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 to the main databases of German official statistics:
 
 - The [**GENESIS database** of the Federal Statistical Office of Germany
-  (Destatis)](https://www-genesis.destatis.de/genesis/online)
+  (Destatis)](https://genesis.destatis.de/datenbank/online/)
 - [**regionalstatistik.de**, which is the database of the German Länder
   (Regionaldatenbank)](https://www.regionalstatistik.de/genesis/online/)
 - The [database of the **German 2022 Census** (Zensus

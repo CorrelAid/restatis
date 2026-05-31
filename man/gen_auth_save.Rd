@@ -24,7 +24,7 @@ session environment variable \code{GENESIS_KEY}. This string is used as the key
 to encrypt and decrypt the entered credentials. To avoid having to save
 authentication in future sessions, \code{GENESIS_KEY} can be added to .Renviron.
 The \code{{usethis}} package includes a helper function for editing .Renviron files
-from an R session with \code{\link[usethis:edit]{usethis::edit_r_environ()}}.
+from an R session with \code{\link[usethis:edit_r_environ]{usethis::edit_r_environ()}}.
 }
 \examples{
 \dontrun{
