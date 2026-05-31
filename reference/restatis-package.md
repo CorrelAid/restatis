@@ -21,6 +21,8 @@ Useful links:
 
 Authors:
 
+- Yannik Buhl <ybuhl@posteo.de>
+
 - Zoran Kovacevic ([ORCID](https://orcid.org/0009-0002-0156-0862))
 
 - Dorian Le Jeune

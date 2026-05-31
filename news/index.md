@@ -1,5 +1,10 @@
 # Changelog
 
+## restatis 0.4.1
+
+- Updated latest GENESIS Online URL
+- Fixed CRAN tests
+
 ## restatis 0.4.0
 
 CRAN release: 2026-03-15
