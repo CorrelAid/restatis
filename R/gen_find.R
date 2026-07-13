@@ -90,13 +90,24 @@ gen_find <- function(term = NULL,
                              term = term,
                              category = category,
                              pagelength = pagelength,
+                             api_call_error_ignore = error.ignore,
                              ...)
 
-      results_json <- test_if_json(results_raw)
+      if (class(results_raw) != "httr2_response") {
 
-      empty_object <- test_if_error_find(results_json, para = error.ignore, verbose = verbose)
+        empty_object <- "HTTP_ERROR"
 
-      empty_object <- test_if_process_further(results_json, para = error.ignore, verbose = verbose)
+        warning(paste0("There has been a HTTPS error in the '", db, "' database (description: ",  results_raw[["message"]], ")."))
+
+      } else {
+
+        results_json <- test_if_json(results_raw)
+
+        empty_object <- test_if_error_find(results_json, para = error.ignore, verbose = verbose)
+
+        empty_object <- test_if_process_further(results_json, para = error.ignore, verbose = verbose)
+
+      }
 
     }
 
@@ -133,6 +144,14 @@ gen_find <- function(term = NULL,
       attr(list_resp, "Language") <- results_json$Parameter$language
       attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
       attr(list_resp, "Copyright") <- results_json$Copyright
+
+      return(list_resp)
+
+    } else if (empty_object == "HTTP_ERROR") {
+
+      list_resp <- list("Output" = paste0("There has been a HTTPS error in the '", db, "' database (description: ",  results_raw[["message"]], ")."))
+
+      attr(list_resp, "Database") <- db
 
       return(list_resp)
 

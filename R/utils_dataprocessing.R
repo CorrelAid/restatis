@@ -8,10 +8,21 @@
 #'
 param_check_year <- function(year) {
 
-  if (as.integer(year) < 1900 || as.integer(year) > 2100)  {
+  if (!is.null(year) & !is.integer(year)) {
 
-    stop("The parameter 'year' has been misspecified (>= 1900 or <= 2100).",
+    stop("Parameter 'year' has to be of value 'NULL' or of type 'integer'.",
          call. = FALSE)
+
+  }
+
+  if (!is.null(year) & is.integer(as.integer(year))) {
+
+    if (as.integer(year) < 1900 || as.integer(year) > 2100) {
+
+      stop("The parameter 'year' has been misspecified (>= 1900 or <= 2100).",
+           call. = FALSE)
+
+    }
 
   }
 

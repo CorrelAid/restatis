@@ -14,16 +14,17 @@
 #' }
 #'
 gen_api <- function(...,
+                    api_call_error_ignore = FALSE,
                     use_cache = getOption("restatis.use_cache", TRUE)) {
 
   # Choose executing function based on cache option
   if (isTRUE(use_cache)) {
 
-    return(.gen_api_cached(...))
+    return(.gen_api_cached(..., api_call_error_ignore = api_call_error_ignore))
 
   } else {
 
-    return(.gen_api_core(...))
+    return(.gen_api_core(..., api_call_error_ignore = api_call_error_ignore))
 
   }
 
@@ -44,6 +45,7 @@ gen_api <- function(...,
 #'
 .gen_api_core <- function(endpoint,
                           database,
+                          api_call_error_ignore,
                           credential_list = NULL,
                           ...) {
 
@@ -156,8 +158,16 @@ gen_api <- function(...,
 
         }, error = function(e) {
 
-          stop(paste0("The API call(s) have been tried with GET and POST methods, but were unsuccessful (error message: '", e$message, "'). Check your specifications or try again later."),
-               call. = FALSE)
+          if (isFALSE(api_call_error_ignore)) {
+
+            stop(paste0("The API call(s) have been tried with GET and POST methods, but were unsuccessful (error message: '", e$message, "'). Check your specifications or try again later."),
+                 call. = FALSE)
+
+          } else {
+
+            return(list(message = e$message))
+
+          }
 
         })
 
