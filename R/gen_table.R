@@ -15,7 +15,9 @@
 #' @param compress Boolean. Should empty rows and columns be discarded?
 #' @param transpose Boolean. Reshape the table between \code{"wide"} and \code{"long"} format.
 #' @param startyear Four-digit integer. Only retrieve data from this year onward.
+#'   Can be NULL to enable the d'timeslices' parameter (see vignettes for additional parameters).
 #' @param endyear Four-digit integer. Only retrieve data up to this year.
+#'   Can be NULL to enable the 'timeslices' parameter (see vignettes for additional parameters).
 #' @param regionalvariable Character string. Code of the regional variable whose value
 #'   is specified in \code{regionalkey} to filter the results.
 #' @param regionalkey Character string. One or more regional keys. Multiple values can be

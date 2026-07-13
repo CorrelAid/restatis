@@ -47,9 +47,11 @@ Possible values:
 
 \item{transpose}{Boolean. Reshape the table between \code{"wide"} and \code{"long"} format.}
 
-\item{startyear}{Four-digit integer. Only retrieve data from this year onward.}
+\item{startyear}{Four-digit integer. Only retrieve data from this year onward.
+Can be NULL to enable the d'timeslices' parameter (see vignettes for additional parameters).}
 
-\item{endyear}{Four-digit integer. Only retrieve data up to this year.}
+\item{endyear}{Four-digit integer. Only retrieve data up to this year.
+Can be NULL to enable the 'timeslices' parameter (see vignettes for additional parameters).}
 
 \item{regionalvariable}{Character string. Code of the regional variable whose value
 is specified in \code{regionalkey} to filter the results.}
