@@ -8,9 +8,9 @@
 #'
 param_check_year <- function(year) {
 
-  if (!is.null(year) & !is.integer(year)) {
+  if (!is.null(year) & !is.numeric(year)) {
 
-    stop("Parameter 'year' has to be of value 'NULL' or of type 'integer'.",
+    stop("Parameter 'year' has to be of value 'NULL' or of type 'numeric'.",
          call. = FALSE)
 
   }
