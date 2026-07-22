@@ -107,106 +107,37 @@ gen_api <- function(...,
   # Catch API parameter values for ...
   body_parameters <- list(...)
 
-  #-----------------------------------------------------------------------------
+  # tryCatch to catch errors from POST request
+  tryCatch(
 
-  # All databases except some edge cases for GENESIS Online now exclusively use POST
-  # So here, the former second attempt with GET is dropped
-  # It is still needed in some GENESIS cases which is here it is still being tried
+    expr = {
 
-  if (database != "genesis") {
+      # Perform API call with POST
+      .do_post(url = url,
+               body_parameters = body_parameters,
+               user_agent = user_agent,
+               endpoint = endpoint,
+               username = username,
+               password = password)
 
-      tryCatch( # tryCatch to try POST
+    }, error = function(e) {
 
-        expr = {
+      if (isFALSE(api_call_error_ignore)) {
 
-          # Perform API call with POST
-          .do_post(url = url,
-                   body_parameters = body_parameters,
-                   user_agent = user_agent,
-                   endpoint = endpoint,
-                   username = username,
-                   password = password)
+        stop(paste0("API call to database '",
+                    database,
+                    "' was unsuccessful (error message: '",
+                    e$message,
+                    "'). Check your specifications or try again later."),
+             call. = FALSE)
 
-        }, error = function(e) {
+      } else {
 
-          if (isFALSE(api_call_error_ignore)) {
+        return(list(message = e$message))
 
-            stop(paste0("The API call(s) have been tried but was unsuccessful (error message: '",
-                        e$message,
-                        "'). Check your specifications or try again later."),
-                 call. = FALSE)
+      }
 
-          } else {
-
-            return(list(message = e$message))
-
-          }
-
-      })
-
-  } else {
-
-    tryCatch( # tryCatch to try POST
-
-      expr = {
-
-        # Catch API parameter values for ...
-        body_parameters <- list(...)
-
-        # Check if there are any items in ...
-        if (length(body_parameters) > 0) {
-
-          req <- httr2::request(url) %>%
-            httr2::req_body_form(!!!body_parameters)
-
-        } else {
-
-          # To make a request work with empty ... we need a fake body
-          req <- httr2::request(url) %>%
-            httr2::req_body_form(!!!list("foo" = "bar"))
-
-        }
-
-        # Perform API call with POST
-        .do_post(url = url,
-                 body_parameters = body_parameters,
-                 user_agent = user_agent,
-                 endpoint = endpoint,
-                 username = username,
-                 password = password)
-
-      }, error = function(e) {
-
-        tryCatch( # tryCatch to try GET
-
-          expr = {
-
-            .do_get(url = url,
-                    user_agent = user_agent,
-                    endpoint = endpoint,
-                    username = username,
-                    password = password)
-
-          }, error = function(e) {
-
-            if (isFALSE(api_call_error_ignore)) {
-
-              stop(paste0("The API call(s) have been tried with GET and POST methods, but were unsuccessful (error message: '",
-                          e$message,
-                          "'). Check your specifications or try again later."),
-                   call. = FALSE)
-
-            } else {
-
-              return(list(message = e$message))
-
-            }
-
-          })
-
-      })
-
-  }
+  })
 
 }
 
@@ -249,23 +180,3 @@ gen_api <- function(...,
 
 #-------------------------------------------------------------------------------
 
-# Helper to perform GET requests
-.do_get <- function(url,
-                    user_agent,
-                    endpoint,
-                    username,
-                    password,
-                    ...) {
-
-  req <- httr2::request(url) %>%
-    httr2::req_user_agent(user_agent) %>%
-    httr2::req_url_path_append(endpoint) %>%
-    httr2::req_url_query("username" = username,
-                         "password" = password,
-                         ...) %>%
-    httr2::req_retry(max_tries = 3) %>%
-    httr2::req_perform()
-
-  req
-
-}
