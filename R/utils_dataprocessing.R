@@ -48,216 +48,216 @@ param_collapse_vec <- function(vec) {
 
 #-------------------------------------------------------------------------------
 
-#' #' forming_evas
-#' #'
-#' #' @param list_of List of EVAS to iterate over
-#' #'
-#' forming_evas <- function(list_of) {
-#'
-#'   # Load data
-#'   evas_list <- restatis::evas_list
-#'
-#'   #-----------------------------------------------------------------------------
-#'   # Process them
-#'
-#'   list_of$Main <- apply(list_of, 1, function(x) {
-#'
-#'     obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 1)]
-#'
-#'     if (length(obj) == 0) {
-#'
-#'       obj <- "No assignment"
-#'
-#'     }
-#'
-#'     return(obj)
-#'
-#'   })
-#'
-#'   #-----------------------------------------------------------------------------
-#'
-#'   list_of$Main2 <- apply(list_of, 1, function(x) {
-#'
-#'     obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 2)]
-#'
-#'     if (length(obj) == 0) {
-#'
-#'       obj <- "No assignment"
-#'
-#'     }
-#'
-#'     return(obj)
-#'
-#'   })
-#'
-#'   #-----------------------------------------------------------------------------
-#'
-#'   list_of$Main3 <- apply(list_of, 1, function(x) {
-#'
-#'     obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 3)]
-#'
-#'     if (length(obj) == 0) {
-#'
-#'       obj <- "No assignment"
-#'
-#'     }
-#'
-#'     return(obj)
-#'
-#'   })
-#'
-#'   #-----------------------------------------------------------------------------
-#'
-#'   list_of$Main5 <- apply(list_of, 1, function(x) {
-#'
-#'     obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 5)]
-#'
-#'     if (length(obj) == 0) {
-#'
-#'       obj <- "No assignment"
-#'
-#'     }
-#'
-#'     return(obj)
-#'
-#'   })
-#'
-#'   #-----------------------------------------------------------------------------
-#'
-#'   keep <- colnames(list_of[,1:(ncol(list_of) - 4)])
-#'
-#'   #-----------------------------------------------------------------------------
-#'   if (sum(list_of$Main == "No assignment") != nrow(list_of)) {
-#'
-#'     nestedlist <- split(list_of, list_of$Main, drop = TRUE)
-#'
-#'     #---------------------------------------------------------------------------
-#'     if (sum(list_of$Main2 == "No assignment") != nrow(list_of)) {
-#'
-#'       nestedlist <- lapply(nestedlist, function(x) {
-#'
-#'         obj <- split(x, x["Main2"], drop = TRUE)
-#'
-#'       })
-#'
-#'       #-------------------------------------------------------------------------
-#'       if (sum(list_of$Main3 == "No assignment") != nrow(list_of)) {
-#'
-#'         nestedlist <- lapply(nestedlist, function(x) {
-#'
-#'           lapply(x, function(y) {
-#'
-#'             obj <- split(y, y["Main3"])
-#'
-#'           })
-#'
-#'         })
-#'
-#'         #-----------------------------------------------------------------------
-#'         if (sum(list_of$Main5 == "No assignment") != nrow(list_of)) {
-#'
-#'           nestedlist <- lapply(nestedlist, function(x) {
-#'
-#'             lapply(x, function(y) {
-#'
-#'               lapply(y, function(z) {
-#'
-#'                 obj <- split(z, z["Main5"])
-#'
-#'                 return(obj)
-#'
-#'               })
-#'
-#'             })
-#'
-#'           })
-#'
-#'           #---------------------------------------------------------------------
-#'
-#'           nestedlist <- lapply(nestedlist, function(d) {
-#'
-#'             lapply(d, function(y) {
-#'
-#'               lapply(y, function(x) {
-#'
-#'                 lapply(x, function(r, remain) {
-#'
-#'                   obj <- r[keep]
-#'                   obj <- tibble::as_tibble(obj)
-#'
-#'                 },
-#'
-#'                 remain = keep)})
-#'
-#'             })
-#'
-#'           })
-#'
-#'           #-----------------------------------------------------------------------
-#'
-#'         } else {
-#'
-#'           nestedlist <- lapply(nestedlist, function(d) {
-#'
-#'             lapply(d, function(y) {
-#'
-#'               lapply(y, function(r, remain) {
-#'
-#'                 obj <- r[keep]
-#'                 obj <- tibble::as_tibble(obj)
-#'
-#'               },
-#'
-#'               remain = keep
-#'
-#'               )}
-#'
-#'             )}
-#'
-#'           )}
-#'
-#'         #-------------------------------------------------------------------------
-#'
-#'       } else {
-#'
-#'         nestedlist <- lapply(nestedlist, function(d) {
-#'
-#'           lapply(d, function(r, remain) {
-#'
-#'             obj <- r[keep]
-#'             obj <- tibble::as_tibble(obj)
-#'           },
-#'
-#'           remain = keep
-#'
-#'           )}
-#'
-#'         )}
-#'
-#'       #---------------------------------------------------------------------------
-#'
-#'     } else {
-#'
-#'       nestedlist <- lapply(nestedlist, function(r, remain) {
-#'
-#'         obj <- r[keep]
-#'         obj <- tibble::as_tibble(obj)
-#'
-#'       },
-#'
-#'       remain = keep)
-#'
-#'     }
-#'
-#'   } else {
-#'
-#'     nestedlist <- tibble::as_tibble(list_of[keep])
-#'
-#'   }
-#'
-#'   return(nestedlist)
-#'
-#' }
+#' forming_evas
+#'
+#' @param list_of List of EVAS to iterate over
+#'
+forming_evas <- function(list_of) {
+
+  # Load data
+  evas_list <- restatis::evas_list
+
+  #-----------------------------------------------------------------------------
+  # Process them
+
+  list_of$Main <- apply(list_of, 1, function(x) {
+
+    obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 1)]
+
+    if (length(obj) == 0) {
+
+      obj <- "No assignment"
+
+    }
+
+    return(obj)
+
+  })
+
+  #-----------------------------------------------------------------------------
+
+  list_of$Main2 <- apply(list_of, 1, function(x) {
+
+    obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 2)]
+
+    if (length(obj) == 0) {
+
+      obj <- "No assignment"
+
+    }
+
+    return(obj)
+
+  })
+
+  #-----------------------------------------------------------------------------
+
+  list_of$Main3 <- apply(list_of, 1, function(x) {
+
+    obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 3)]
+
+    if (length(obj) == 0) {
+
+      obj <- "No assignment"
+
+    }
+
+    return(obj)
+
+  })
+
+  #-----------------------------------------------------------------------------
+
+  list_of$Main5 <- apply(list_of, 1, function(x) {
+
+    obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 5)]
+
+    if (length(obj) == 0) {
+
+      obj <- "No assignment"
+
+    }
+
+    return(obj)
+
+  })
+
+  #-----------------------------------------------------------------------------
+
+  keep <- colnames(list_of[,1:(ncol(list_of) - 4)])
+
+  #-----------------------------------------------------------------------------
+  if (sum(list_of$Main == "No assignment") != nrow(list_of)) {
+
+    nestedlist <- split(list_of, list_of$Main, drop = TRUE)
+
+    #---------------------------------------------------------------------------
+    if (sum(list_of$Main2 == "No assignment") != nrow(list_of)) {
+
+      nestedlist <- lapply(nestedlist, function(x) {
+
+        obj <- split(x, x["Main2"], drop = TRUE)
+
+      })
+
+      #-------------------------------------------------------------------------
+      if (sum(list_of$Main3 == "No assignment") != nrow(list_of)) {
+
+        nestedlist <- lapply(nestedlist, function(x) {
+
+          lapply(x, function(y) {
+
+            obj <- split(y, y["Main3"])
+
+          })
+
+        })
+
+        #-----------------------------------------------------------------------
+        if (sum(list_of$Main5 == "No assignment") != nrow(list_of)) {
+
+          nestedlist <- lapply(nestedlist, function(x) {
+
+            lapply(x, function(y) {
+
+              lapply(y, function(z) {
+
+                obj <- split(z, z["Main5"])
+
+                return(obj)
+
+              })
+
+            })
+
+          })
+
+          #---------------------------------------------------------------------
+
+          nestedlist <- lapply(nestedlist, function(d) {
+
+            lapply(d, function(y) {
+
+              lapply(y, function(x) {
+
+                lapply(x, function(r, remain) {
+
+                  obj <- r[keep]
+                  obj <- tibble::as_tibble(obj)
+
+                },
+
+                remain = keep)})
+
+            })
+
+          })
+
+          #-----------------------------------------------------------------------
+
+        } else {
+
+          nestedlist <- lapply(nestedlist, function(d) {
+
+            lapply(d, function(y) {
+
+              lapply(y, function(r, remain) {
+
+                obj <- r[keep]
+                obj <- tibble::as_tibble(obj)
+
+              },
+
+              remain = keep
+
+              )}
+
+            )}
+
+          )}
+
+        #-------------------------------------------------------------------------
+
+      } else {
+
+        nestedlist <- lapply(nestedlist, function(d) {
+
+          lapply(d, function(r, remain) {
+
+            obj <- r[keep]
+            obj <- tibble::as_tibble(obj)
+          },
+
+          remain = keep
+
+          )}
+
+        )}
+
+      #---------------------------------------------------------------------------
+
+    } else {
+
+      nestedlist <- lapply(nestedlist, function(r, remain) {
+
+        obj <- r[keep]
+        obj <- tibble::as_tibble(obj)
+
+      },
+
+      remain = keep)
+
+    }
+
+  } else {
+
+    nestedlist <- tibble::as_tibble(list_of[keep])
+
+  }
+
+  return(nestedlist)
+
+}
 
 #-------------------------------------------------------------------------------
 
