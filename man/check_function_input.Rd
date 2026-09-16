@@ -21,7 +21,7 @@ check_function_input(
   caller = NULL,
   verbose = NULL,
   debug = NULL,
-  raw = NULL,
+  raw = NULL
 )
 }
 \arguments{
