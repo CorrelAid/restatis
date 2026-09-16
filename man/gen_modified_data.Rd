@@ -12,6 +12,7 @@ gen_modified_data(
   credential_list = NULL,
   pagelength = 500,
   verbose = TRUE,
+  debug = FALSE,
   ...
 )
 }
@@ -29,6 +30,8 @@ gen_modified_data(
 \item{pagelength}{Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.}
 
 \item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
+
+\item{debug}{Boolean. Indicator if the raw output of the API call behind this function should be presented. Default option is 'FALSE'. Set the parameter to 'TRUE' to return raw output.}
 
 \item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }

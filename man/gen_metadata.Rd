@@ -13,6 +13,7 @@ gen_metadata(
   error.ignore = FALSE,
   verbose = TRUE,
   raw = FALSE,
+  debug = FALSE,
   ...
 )
 }
@@ -32,6 +33,8 @@ gen_metadata(
 \item{verbose}{Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.}
 
 \item{raw}{Boolean. Should a non-parsed API response be returned? Default option is 'FALSE'.}
+
+\item{debug}{Boolean. Indicator if the raw output of the API call behind this function should be presented. Default option is 'FALSE'. Set the parameter to 'TRUE' to return raw output.}
 
 \item{...}{Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see \code{vignette("additional_parameter")}.}
 }
