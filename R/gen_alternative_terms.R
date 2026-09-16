@@ -8,6 +8,7 @@
 #' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
 #' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param debug Boolean. Indicator if the raw output of the API call behind this function should be presented. Default option is 'FALSE'. Set the parameter to 'TRUE' to return raw output.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recollected elements from the respective database. Attributes are added to the data.frame, describing the search configuration for the returned output.
@@ -32,6 +33,7 @@ gen_alternative_terms <- function(term = NULL,
                                   credential_list = NULL,
                                   pagelength = 500,
                                   verbose = TRUE,
+                                  debug = FALSE,
                                   ...) {
 
   # Determine calling function; important for checking parameter values
@@ -42,7 +44,8 @@ gen_alternative_terms <- function(term = NULL,
                        similarity = similarity,
                        pagelength = pagelength,
                        caller = caller,
-                       verbose = verbose)
+                       verbose = verbose,
+                       debug = debug)
 
   # Check availability of credentials for the database(s) selected
   database_vector <- test_database_function(database,
@@ -75,6 +78,13 @@ gen_alternative_terms <- function(term = NULL,
 
     # Test validity of JSON results
     results_json <- test_if_json(results_raw)
+
+    # Debug Return
+    if(isTRUE(debug)){
+
+      return(results_json)
+
+    }
 
     # Begin data processing based on function parameters
     if (length(results_json$List) == 0 & length(database_vector) == 1) {

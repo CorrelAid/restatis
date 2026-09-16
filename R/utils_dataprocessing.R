@@ -48,216 +48,216 @@ param_collapse_vec <- function(vec) {
 
 #-------------------------------------------------------------------------------
 
-#' forming_evas
+#' #' forming_evas
+#' #'
+#' #' @param list_of List of EVAS to iterate over
+#' #'
+#' forming_evas <- function(list_of) {
 #'
-#' @param list_of List of EVAS to iterate over
+#'   # Load data
+#'   evas_list <- restatis::evas_list
 #'
-forming_evas <- function(list_of) {
-
-  # Load data
-  evas_list <- restatis::evas_list
-
-  #-----------------------------------------------------------------------------
-  # Process them
-
-  list_of$Main <- apply(list_of, 1, function(x) {
-
-    obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 1)]
-
-    if (length(obj) == 0) {
-
-      obj <- "No assignment"
-
-    }
-
-    return(obj)
-
-  })
-
-  #-----------------------------------------------------------------------------
-
-  list_of$Main2 <- apply(list_of, 1, function(x) {
-
-    obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 2)]
-
-    if (length(obj) == 0) {
-
-      obj <- "No assignment"
-
-    }
-
-    return(obj)
-
-  })
-
-  #-----------------------------------------------------------------------------
-
-  list_of$Main3 <- apply(list_of, 1, function(x) {
-
-    obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 3)]
-
-    if (length(obj) == 0) {
-
-      obj <- "No assignment"
-
-    }
-
-    return(obj)
-
-  })
-
-  #-----------------------------------------------------------------------------
-
-  list_of$Main5 <- apply(list_of, 1, function(x) {
-
-    obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 5)]
-
-    if (length(obj) == 0) {
-
-      obj <- "No assignment"
-
-    }
-
-    return(obj)
-
-  })
-
-  #-----------------------------------------------------------------------------
-
-  keep <- colnames(list_of[,1:(ncol(list_of) - 4)])
-
-  #-----------------------------------------------------------------------------
-  if (sum(list_of$Main == "No assignment") != nrow(list_of)) {
-
-    nestedlist <- split(list_of, list_of$Main, drop = TRUE)
-
-    #---------------------------------------------------------------------------
-    if (sum(list_of$Main2 == "No assignment") != nrow(list_of)) {
-
-      nestedlist <- lapply(nestedlist, function(x) {
-
-        obj <- split(x, x["Main2"], drop = TRUE)
-
-      })
-
-      #-------------------------------------------------------------------------
-      if (sum(list_of$Main3 == "No assignment") != nrow(list_of)) {
-
-        nestedlist <- lapply(nestedlist, function(x) {
-
-          lapply(x, function(y) {
-
-            obj <- split(y, y["Main3"])
-
-          })
-
-        })
-
-        #-----------------------------------------------------------------------
-        if (sum(list_of$Main5 == "No assignment") != nrow(list_of)) {
-
-          nestedlist <- lapply(nestedlist, function(x) {
-
-            lapply(x, function(y) {
-
-              lapply(y, function(z) {
-
-                obj <- split(z, z["Main5"])
-
-                return(obj)
-
-              })
-
-            })
-
-          })
-
-          #---------------------------------------------------------------------
-
-          nestedlist <- lapply(nestedlist, function(d) {
-
-            lapply(d, function(y) {
-
-              lapply(y, function(x) {
-
-                lapply(x, function(r, remain) {
-
-                  obj <- r[keep]
-                  obj <- tibble::as_tibble(obj)
-
-                },
-
-                remain = keep)})
-
-            })
-
-          })
-
-          #-----------------------------------------------------------------------
-
-        } else {
-
-          nestedlist <- lapply(nestedlist, function(d) {
-
-            lapply(d, function(y) {
-
-              lapply(y, function(r, remain) {
-
-                obj <- r[keep]
-                obj <- tibble::as_tibble(obj)
-
-              },
-
-              remain = keep
-
-              )}
-
-            )}
-
-          )}
-
-        #-------------------------------------------------------------------------
-
-      } else {
-
-        nestedlist <- lapply(nestedlist, function(d) {
-
-          lapply(d, function(r, remain) {
-
-            obj <- r[keep]
-            obj <- tibble::as_tibble(obj)
-          },
-
-          remain = keep
-
-          )}
-
-        )}
-
-      #---------------------------------------------------------------------------
-
-    } else {
-
-      nestedlist <- lapply(nestedlist, function(r, remain) {
-
-        obj <- r[keep]
-        obj <- tibble::as_tibble(obj)
-
-      },
-
-      remain = keep)
-
-    }
-
-  } else {
-
-    nestedlist <- tibble::as_tibble(list_of[keep])
-
-  }
-
-  return(nestedlist)
-
-}
+#'   #-----------------------------------------------------------------------------
+#'   # Process them
+#'
+#'   list_of$Main <- apply(list_of, 1, function(x) {
+#'
+#'     obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 1)]
+#'
+#'     if (length(obj) == 0) {
+#'
+#'       obj <- "No assignment"
+#'
+#'     }
+#'
+#'     return(obj)
+#'
+#'   })
+#'
+#'   #-----------------------------------------------------------------------------
+#'
+#'   list_of$Main2 <- apply(list_of, 1, function(x) {
+#'
+#'     obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 2)]
+#'
+#'     if (length(obj) == 0) {
+#'
+#'       obj <- "No assignment"
+#'
+#'     }
+#'
+#'     return(obj)
+#'
+#'   })
+#'
+#'   #-----------------------------------------------------------------------------
+#'
+#'   list_of$Main3 <- apply(list_of, 1, function(x) {
+#'
+#'     obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 3)]
+#'
+#'     if (length(obj) == 0) {
+#'
+#'       obj <- "No assignment"
+#'
+#'     }
+#'
+#'     return(obj)
+#'
+#'   })
+#'
+#'   #-----------------------------------------------------------------------------
+#'
+#'   list_of$Main5 <- apply(list_of, 1, function(x) {
+#'
+#'     obj <- evas_list$Titel[evas_list$EVAS == substr(x["Code"], 1, 5)]
+#'
+#'     if (length(obj) == 0) {
+#'
+#'       obj <- "No assignment"
+#'
+#'     }
+#'
+#'     return(obj)
+#'
+#'   })
+#'
+#'   #-----------------------------------------------------------------------------
+#'
+#'   keep <- colnames(list_of[,1:(ncol(list_of) - 4)])
+#'
+#'   #-----------------------------------------------------------------------------
+#'   if (sum(list_of$Main == "No assignment") != nrow(list_of)) {
+#'
+#'     nestedlist <- split(list_of, list_of$Main, drop = TRUE)
+#'
+#'     #---------------------------------------------------------------------------
+#'     if (sum(list_of$Main2 == "No assignment") != nrow(list_of)) {
+#'
+#'       nestedlist <- lapply(nestedlist, function(x) {
+#'
+#'         obj <- split(x, x["Main2"], drop = TRUE)
+#'
+#'       })
+#'
+#'       #-------------------------------------------------------------------------
+#'       if (sum(list_of$Main3 == "No assignment") != nrow(list_of)) {
+#'
+#'         nestedlist <- lapply(nestedlist, function(x) {
+#'
+#'           lapply(x, function(y) {
+#'
+#'             obj <- split(y, y["Main3"])
+#'
+#'           })
+#'
+#'         })
+#'
+#'         #-----------------------------------------------------------------------
+#'         if (sum(list_of$Main5 == "No assignment") != nrow(list_of)) {
+#'
+#'           nestedlist <- lapply(nestedlist, function(x) {
+#'
+#'             lapply(x, function(y) {
+#'
+#'               lapply(y, function(z) {
+#'
+#'                 obj <- split(z, z["Main5"])
+#'
+#'                 return(obj)
+#'
+#'               })
+#'
+#'             })
+#'
+#'           })
+#'
+#'           #---------------------------------------------------------------------
+#'
+#'           nestedlist <- lapply(nestedlist, function(d) {
+#'
+#'             lapply(d, function(y) {
+#'
+#'               lapply(y, function(x) {
+#'
+#'                 lapply(x, function(r, remain) {
+#'
+#'                   obj <- r[keep]
+#'                   obj <- tibble::as_tibble(obj)
+#'
+#'                 },
+#'
+#'                 remain = keep)})
+#'
+#'             })
+#'
+#'           })
+#'
+#'           #-----------------------------------------------------------------------
+#'
+#'         } else {
+#'
+#'           nestedlist <- lapply(nestedlist, function(d) {
+#'
+#'             lapply(d, function(y) {
+#'
+#'               lapply(y, function(r, remain) {
+#'
+#'                 obj <- r[keep]
+#'                 obj <- tibble::as_tibble(obj)
+#'
+#'               },
+#'
+#'               remain = keep
+#'
+#'               )}
+#'
+#'             )}
+#'
+#'           )}
+#'
+#'         #-------------------------------------------------------------------------
+#'
+#'       } else {
+#'
+#'         nestedlist <- lapply(nestedlist, function(d) {
+#'
+#'           lapply(d, function(r, remain) {
+#'
+#'             obj <- r[keep]
+#'             obj <- tibble::as_tibble(obj)
+#'           },
+#'
+#'           remain = keep
+#'
+#'           )}
+#'
+#'         )}
+#'
+#'       #---------------------------------------------------------------------------
+#'
+#'     } else {
+#'
+#'       nestedlist <- lapply(nestedlist, function(r, remain) {
+#'
+#'         obj <- r[keep]
+#'         obj <- tibble::as_tibble(obj)
+#'
+#'       },
+#'
+#'       remain = keep)
+#'
+#'     }
+#'
+#'   } else {
+#'
+#'     nestedlist <- tibble::as_tibble(list_of[keep])
+#'
+#'   }
+#'
+#'   return(nestedlist)
+#'
+#' }
 
 #-------------------------------------------------------------------------------
 
@@ -278,6 +278,7 @@ forming_evas <- function(list_of) {
 #' @param area Parameter to be checked
 #' @param verbose Parameter to be checked
 #' @param raw Parameter to be checked
+#' @param debug Parameter to be checked
 #' @param pagelength Parameter to be checked
 #'
 check_function_input <- function(code = NULL,
@@ -295,6 +296,7 @@ check_function_input <- function(code = NULL,
                                  area = NULL,
                                  caller = NULL,
                                  verbose = NULL,
+                                 debug = NULL,
                                  raw = NULL) {
 
   #-----------------------------------------------------------------------------
@@ -894,6 +896,31 @@ check_function_input <- function(code = NULL,
     if (isFALSE(raw) && isTRUE(verbose)) {
 
       message("The default 'raw = FALSE' can simplify some information to a significant extent.")
+
+    }
+
+  }
+
+  #-----------------------------------------------------------------------------
+  # debug ----
+  if (!is.null(debug)) {
+
+    if (!is.logical(debug) || length(debug) != 1) {
+
+      stop("Parameter 'debug' has to be of type 'logical' and of length 1.",
+           call. = FALSE)
+
+    }
+
+    if (isTRUE(debug) && isTRUE(verbose)) {
+
+      message("Use 'debug = FALSE' to obtain the output in a processed and more readable format. Currently the raw API call output is presented.")
+
+    }
+
+    if (isFALSE(debug) && isTRUE(verbose)) {
+
+      message("The default 'debug = FALSE' can simplify some information to a significant extent.")
 
     }
 

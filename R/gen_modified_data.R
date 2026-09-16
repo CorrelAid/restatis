@@ -9,6 +9,7 @@
 #' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
 #' @param pagelength Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.
 #' @param verbose Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.
+#' @param debug Boolean. Indicator if the raw output of the API call behind this function should be presented. Default option is 'FALSE'. Set the parameter to 'TRUE' to return raw output.
 #' @param ... Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see `vignette("additional_parameter")`.
 #'
 #' @return A list with all recalled elements from the API. Always includes the code of the object, the title, and the type of the object. This is done to facilitate further processing with the data. Attributes are added to the data.frame describing the search configuration for the returned output.
@@ -34,6 +35,7 @@ gen_modified_data <- function(code = "",
                               credential_list = NULL,
                               pagelength = 500,
                               verbose = TRUE,
+                              debug = FALSE,
                               ...) {
 
   type <- match.arg(type)
@@ -43,7 +45,8 @@ gen_modified_data <- function(code = "",
                                date = date,
                                pagelength = pagelength,
                                database = database,
-                               verbose = verbose)
+                               verbose = verbose,
+                               debug = debug)
 
   # database_vector will hold a vector of the specified databases to query
   database_vector <- test_database_function(database,
@@ -99,6 +102,13 @@ gen_modified_data <- function(code = "",
 
       results_json <- test_if_json(results_raw)
 
+      # Debug Return
+      if(isTRUE(debug)){
+
+        return(results_json)
+
+      }
+
       test_if_error_light(results_json)
 
     }
@@ -117,6 +127,13 @@ gen_modified_data <- function(code = "",
                              ...)
 
       results_json <- test_if_json(results_raw)
+
+      # Debug Return
+      if(isTRUE(debug)){
+
+        return(results_json)
+
+      }
 
       test_if_error_light(results_json)
 
@@ -142,6 +159,13 @@ gen_modified_data <- function(code = "",
 
       results_json <- test_if_json(results_raw)
 
+      # Debug Return
+      if(isTRUE(debug)){
+
+        return(results_json)
+
+      }
+
       test_if_error_light(results_json)
 
     }
@@ -160,6 +184,13 @@ gen_modified_data <- function(code = "",
                              ...)
 
       results_json <- test_if_json(results_raw)
+
+      # Debug Return
+      if(isTRUE(debug)){
+
+        return(results_json)
+
+      }
 
       test_if_error_light(results_json)
 
