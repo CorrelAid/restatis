@@ -273,13 +273,13 @@ forming_evas <- function(list_of) {
 #' @param similarity Parameter to be checked
 #' @param error.ignore Parameter to be checked
 #' @param ordering Parameter to be checked
+#' @param pagelength Parameter to be checked
 #' @param database Parameter to be checked
 #' @param caller Parameter to be checked
 #' @param area Parameter to be checked
 #' @param verbose Parameter to be checked
-#' @param raw Parameter to be checked
 #' @param debug Parameter to be checked
-#' @param pagelength Parameter to be checked
+#' @param raw Parameter to be checked
 #'
 check_function_input <- function(code = NULL,
                                  term = NULL,
