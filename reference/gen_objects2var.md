@@ -17,6 +17,7 @@ gen_objects2var(
   pagelength = 500,
   error.ignore = FALSE,
   verbose = TRUE,
+  debug = FALSE,
   ...
 )
 ```
@@ -87,6 +88,12 @@ gen_objects2var(
   Boolean. Indicator if the output of the function should include
   detailed messages and warnings. Default option is 'TRUE'. Set the
   parameter to 'FALSE' to suppress additional messages and warnings.
+
+- debug:
+
+  Boolean. Indicator if the raw output of the API call behind this
+  function should be presented. Default option is 'FALSE'. Set the
+  parameter to 'TRUE' to return raw output.
 
 - ...:
 

@@ -15,6 +15,7 @@ gen_metadata(
   error.ignore = FALSE,
   verbose = TRUE,
   raw = FALSE,
+  debug = FALSE,
   ...
 )
 ```
@@ -72,6 +73,12 @@ gen_metadata(
 
   Boolean. Should a non-parsed API response be returned? Default option
   is 'FALSE'.
+
+- debug:
+
+  Boolean. Indicator if the raw output of the API call behind this
+  function should be presented. Default option is 'FALSE'. Set the
+  parameter to 'TRUE' to return raw output.
 
 - ...:
 

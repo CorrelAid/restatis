@@ -16,6 +16,7 @@ gen_list_jobs(
   credential_list = NULL,
   error.ignore = FALSE,
   verbose = TRUE,
+  debug = FALSE,
   ...
 )
 ```
@@ -59,6 +60,12 @@ gen_list_jobs(
   Boolean. Indicator if the output of the function should include
   detailed messages and warnings. Default option is 'TRUE'. Set the
   parameter to 'FALSE' to suppress additional messages and warnings.
+
+- debug:
+
+  Boolean. Indicator if the raw output of the API call behind this
+  function should be presented. Default option is 'FALSE'. Set the
+  parameter to 'TRUE' to return raw output.
 
 - ...:
 
