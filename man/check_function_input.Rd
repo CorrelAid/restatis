@@ -20,8 +20,8 @@ check_function_input(
   area = NULL,
   caller = NULL,
   verbose = NULL,
-  raw = NULL,
   debug = NULL,
+  raw = NULL,
 )
 }
 \arguments{
@@ -55,9 +55,9 @@ check_function_input(
 
 \item{verbose}{Parameter to be checked}
 
-\item{raw}{Parameter to be checked}
-
 \item{debug}{Parameter to be checked}
+
+\item{raw}{Parameter to be checked}
 }
 \description{
 check_function_input
