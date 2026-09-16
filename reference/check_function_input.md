@@ -21,8 +21,8 @@ check_function_input(
   area = NULL,
   caller = NULL,
   verbose = NULL,
-  raw = NULL,
   debug = NULL,
+  raw = NULL,
 )
 ```
 
@@ -88,10 +88,10 @@ check_function_input(
 
   Parameter to be checked
 
-- raw:
+- debug:
 
   Parameter to be checked
 
-- debug:
+- raw:
 
   Parameter to be checked
