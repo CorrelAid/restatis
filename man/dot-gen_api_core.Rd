@@ -4,7 +4,13 @@
 \alias{.gen_api_core}
 \title{Basic API request function}
 \usage{
-.gen_api_core(endpoint, database, credential_list = NULL, ...)
+.gen_api_core(
+  endpoint,
+  database,
+  api_call_error_ignore,
+  credential_list = NULL,
+  ...
+)
 }
 \arguments{
 \item{endpoint}{Character string. The endpoint of the API that is to be queried.}

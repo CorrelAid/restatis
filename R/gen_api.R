@@ -14,16 +14,17 @@
 #' }
 #'
 gen_api <- function(...,
+                    api_call_error_ignore = FALSE,
                     use_cache = getOption("restatis.use_cache", TRUE)) {
 
   # Choose executing function based on cache option
   if (isTRUE(use_cache)) {
 
-    return(.gen_api_cached(...))
+    return(.gen_api_cached(..., api_call_error_ignore = api_call_error_ignore))
 
   } else {
 
-    return(.gen_api_core(...))
+    return(.gen_api_core(..., api_call_error_ignore = api_call_error_ignore))
 
   }
 
@@ -44,6 +45,7 @@ gen_api <- function(...,
 #'
 .gen_api_core <- function(endpoint,
                           database,
+                          api_call_error_ignore,
                           credential_list = NULL,
                           ...) {
 
@@ -102,67 +104,79 @@ gen_api <- function(...,
 
   }
 
-  #-----------------------------------------------------------------------------
+  # Catch API parameter values for ...
+  body_parameters <- list(...)
 
-  # First try to request with POST
-  # If POST errors, try GET
-  # This allows flexibility across different database instances
-  # However, GET is deprecated in many instances after V5
-
-  tryCatch( # tryCatch to try POST
+  # tryCatch to catch errors from POST request
+  tryCatch(
 
     expr = {
 
-      # Catch API parameter values for ...
-      body_parameters <- list(...)
-
-      # Check if there are any items in ...
-      if (length(body_parameters) > 0) {
-
-        req <- httr2::request(url) %>%
-          httr2::req_body_form(!!!body_parameters)
-
-      } else {
-
-        # To make a request work with empty ... we need a fake body
-        req <- httr2::request(url) %>%
-          httr2::req_body_form(!!!list("foo" = "bar"))
-
-      }
-
       # Perform API call with POST
-      req %>%
-        httr2::req_user_agent(user_agent) %>%
-        httr2::req_url_path_append(endpoint) %>%
-        httr2::req_headers("Content-Type" = "application/x-www-form-urlencoded",
-                           "username" = username,
-                           "password" = password) %>%
-        httr2::req_retry(max_tries = 3) %>%
-        httr2::req_perform()
+      .do_post(url = url,
+               body_parameters = body_parameters,
+               user_agent = user_agent,
+               endpoint = endpoint,
+               username = username,
+               password = password)
 
     }, error = function(e) {
 
-      tryCatch( # tryCatch to try GET
+      if (isFALSE(api_call_error_ignore)) {
 
-        expr = {
+        stop(paste0("API call to database '",
+                    database,
+                    "' was unsuccessful (error message: '",
+                    e$message,
+                    "'). Check your specifications or try again later."),
+             call. = FALSE)
 
-          httr2::request(url) %>%
-            httr2::req_user_agent(user_agent) %>%
-            httr2::req_url_path_append(endpoint) %>%
-            httr2::req_url_query("username" = username,
-                                 "password" = password, ...) %>%
-            httr2::req_retry(max_tries = 3) %>%
-            httr2::req_perform()
+      } else {
 
-        }, error = function(e) {
+        return(list(message = e$message))
 
-          stop(paste0("The API call(s) have been tried with GET and POST methods, but were unsuccessful (error message: '", e$message, "'). Check your specifications or try again later."),
-               call. = FALSE)
+      }
 
-        })
-
-    })
-
-  #-----------------------------------------------------------------------------
+  })
 
 }
+
+#-------------------------------------------------------------------------------
+
+# Helper to perform POST requests
+.do_post <- function(url,
+                     body_parameters,
+                     user_agent,
+                     endpoint,
+                     username,
+                     password) {
+
+  # Check if there are any items in ...
+  if (length(body_parameters) > 0) {
+
+    req <- httr2::request(url) %>%
+      httr2::req_body_form(!!!body_parameters)
+
+  } else {
+
+    # To make a request work with empty ... we need a fake body
+    req <- httr2::request(url) %>%
+      httr2::req_body_form(!!!list("foo" = "bar"))
+
+  }
+
+  req <- req %>%
+    httr2::req_user_agent(user_agent) %>%
+    httr2::req_url_path_append(endpoint) %>%
+    httr2::req_headers("Content-Type" = "application/x-www-form-urlencoded",
+                       "username" = username,
+                       "password" = password) %>%
+    httr2::req_retry(max_tries = 3) %>%
+    httr2::req_perform()
+
+  req
+
+}
+
+#-------------------------------------------------------------------------------
+

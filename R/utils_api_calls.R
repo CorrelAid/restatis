@@ -46,6 +46,22 @@ test_if_okay <- function(input) {
 #'
 test_if_error_find <- function(input, para, verbose = NULL) {
 
+  if (is.null(input$Cubes) &
+      is.null(input$Statistics) &
+      is.null(input$Tables) &
+      is.null(input$Timeseries) &
+      is.null(input$Variables)) {
+
+    if (!is.null(verbose) && isTRUE(verbose)) {
+
+      message("No object found for your request. Artificial token is used.")
+
+    }
+
+    return(FALSE)
+
+  }
+
   if (input$Status$Code != 0 && isTRUE(para) && input$Status$Code != 22) {
 
     stop(input$Status$Content)

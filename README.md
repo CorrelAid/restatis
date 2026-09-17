@@ -58,6 +58,9 @@ abbreviation strings are the following:
   functionality of the function, so for now you can safely ignore it. We
   monitor whether there will be a change on `{readr}`’s side or will
   implement a fix with upcoming updates.
+- There are reports on the `regio` database occasionally returning
+  incomplete or corrupted tables. We are investigating (see issues,
+  please amend if you encounter the same problems).
 
 ## Installation
 
