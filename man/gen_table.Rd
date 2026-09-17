@@ -11,8 +11,8 @@ gen_table(
   area = c("all", "public", "user"),
   compress = FALSE,
   transpose = FALSE,
-  startyear = 1900,
-  endyear = 2100,
+  startyear = NULL,
+  endyear = NULL,
   regionalvariable = NULL,
   regionalkey = NULL,
   classifyingvariable1 = NULL,
@@ -47,11 +47,19 @@ Possible values:
 
 \item{transpose}{Boolean. Reshape the table between \code{"wide"} and \code{"long"} format.}
 
-\item{startyear}{Four-digit integer. Only retrieve data from this year onward.
-Can be NULL to enable the d'timeslices' parameter (see vignettes for additional parameters).}
+\item{startyear}{Four-digit integer (valid range 1900 - 2100). Only retrieve data from this year onward. Default 'NULL' can help enable the 'timeslices' parameter (see vignettes for additional parameters).
+Note: Starting with {restatis} v0.4.2, no default values for the parameters 'startyear' and 'endyear' will be submitted anymore
+(formerly 1900 to 2100 to fetch all available values). Thus, the resulting table might contain a shorter time span than expected.
+Instead, we encourage users to explicitly set the desired time span. Doing so, we follow the best practice to save API resources.
+The new default of 'NULL' behaves as follows: Each database will always send data, as each table is preconfigured with a standard time
+span that varies for each statistic and each table. If the user desires different time spans, she has to specify the values accordingly.}
 
-\item{endyear}{Four-digit integer. Only retrieve data up to this year.
-Can be NULL to enable the 'timeslices' parameter (see vignettes for additional parameters).}
+\item{endyear}{Four-digit integer (valid range 1900 - 2100). Only retrieve data up to this year. Default 'NULL' can help enable the 'timeslices' parameter (see vignettes for additional parameters).
+Note: Starting with {restatis} v0.4.2, no default values for the parameters 'startyear' and 'endyear' will be submitted anymore
+(formerly 1900 to 2100 to fetch all available values). Thus, the resulting table might contain a shorter time span than expected.
+Instead, we encourage users to explicitly set the desired time span. Doing so, we follow the best practice to save API resources.
+The new default of 'NULL' behaves as follows: Each database will always send data, as each table is preconfigured with a standard time
+span that varies for each statistic and each table. If the user desires different time spans, she has to specify the values accordingly.}
 
 \item{regionalvariable}{Character string. Code of the regional variable whose value
 is specified in \code{regionalkey} to filter the results.}

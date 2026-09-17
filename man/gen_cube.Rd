@@ -12,8 +12,8 @@ gen_cube(
   values = TRUE,
   metadata = TRUE,
   additionals = FALSE,
-  startyear = 1900,
-  endyear = 2100,
+  startyear = NULL,
+  endyear = NULL,
   timeslices = NULL,
   contents = NULL,
   regionalvariable = NULL,
@@ -36,7 +36,7 @@ gen_cube(
 
 \item{credential_list}{A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.}
 
-\item{area}{Character string. The area in which the table is stored.
+\item{area}{Character string. The area in which the cube is stored.
 Possible values:
 \itemize{
 \item \code{"public"}: cube in the public catalogue
@@ -50,9 +50,19 @@ Possible values:
 
 \item{additionals}{Boolean. Should additional metadata be included?}
 
-\item{startyear}{Four-digit integer. Only retrieve data from this year onward.}
+\item{startyear}{Four-digit integer. Only retrieve data from this year onward.
+Note: Starting with {restatis} v0.4.2, no default values for the parameters ‘startyear’ and ‘endyear’ will be submitted anymore
+(formerly 1900 to 2100 to fetch all available values). Thus, the resulting cube might contain a shorter time span than expected.
+Instead, we encourage users to explicitly set the desired time span. Doing so, we follow the best practice to save API resources.
+The new default of ‘NULL’ behaves as follows: Each database will always send data, as each cube is preconfigured with a standard time
+span that varies for each statistic and each cube. If the user desires different time spans, she has to specify the values accordingly.}
 
-\item{endyear}{Four-digit integer. Only retrieve data up to this year.}
+\item{endyear}{Four-digit integer. Only retrieve data up to this year.
+Note: Starting with {restatis} v0.4.2, no default values for the parameters ‘startyear’ and ‘endyear’ will be submitted anymore
+(formerly 1900 to 2100 to fetch all available values). Thus, the resulting cube might contain a shorter time span than expected.
+Instead, we encourage users to explicitly set the desired time span. Doing so, we follow the best practice to save API resources.
+The new default of ‘NULL’ behaves as follows: Each database will always send data, as each cube is preconfigured with a standard time
+span that varies for each statistic and each cube. If the user desires different time spans, she has to specify the values accordingly.}
 
 \item{timeslices}{Integer. Number of timeslices (cumulative to \code{startyear} or \code{endyear}).}
 

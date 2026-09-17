@@ -5,7 +5,7 @@
 #' @param name Character string for a cube object.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), regionalstatistik.de ('regio'), landesdatenbank.nrw.de ('nrw') or bildungsmonitoring.de ('bildung') database is called.
 #' @param credential_list A list containing the credentials for the databases to be accessed. If 'NULL' (default), the function will use the stored credentials from \code{gen_auth_get()}.
-#' @param area Character string. The area in which the table is stored.
+#' @param area Character string. The area in which the cube is stored.
 #'   Possible values:
 #'   \itemize{
 #'     \item \code{"public"}: cube in the public catalogue
@@ -17,7 +17,18 @@
 #' @param additionals Boolean. Should additional metadata be included?
 #' @param contents Character string. Names of required statistical specifications.
 #' @param startyear Four-digit integer. Only retrieve data from this year onward.
+#' Note: Starting with {restatis} v0.4.2, no default values for the parameters ‘startyear’ and ‘endyear’ will be submitted anymore
+#' (formerly 1900 to 2100 to fetch all available values). Thus, the resulting cube might contain a shorter time span than expected.
+#' Instead, we encourage users to explicitly set the desired time span. Doing so, we follow the best practice to save API resources.
+#' The new default of ‘NULL’ behaves as follows: Each database will always send data, as each cube is preconfigured with a standard time
+#' span that varies for each statistic and each cube. If the user desires different time spans, she has to specify the values accordingly.
 #' @param endyear Four-digit integer. Only retrieve data up to this year.
+#' Note: Starting with {restatis} v0.4.2, no default values for the parameters ‘startyear’ and ‘endyear’ will be submitted anymore
+#' (formerly 1900 to 2100 to fetch all available values). Thus, the resulting cube might contain a shorter time span than expected.
+#' Instead, we encourage users to explicitly set the desired time span. Doing so, we follow the best practice to save API resources.
+#' The new default of ‘NULL’ behaves as follows: Each database will always send data, as each cube is preconfigured with a standard time
+#' span that varies for each statistic and each cube. If the user desires different time spans, she has to specify the values accordingly.
+
 #' @param timeslices Integer. Number of timeslices (cumulative to \code{startyear} or \code{endyear}).
 #' @param regionalvariable Character string. Code of the regional variable whose value
 #'   is specified in \code{regionalkey} to filter the results.
@@ -67,8 +78,8 @@ gen_cube <- function(name,
                      values = TRUE,
                      metadata = TRUE,
                      additionals = FALSE,
-                     startyear = 1900,
-                     endyear = 2100,
+                     startyear = NULL,
+                     endyear = NULL,
                      timeslices = NULL,
                      contents = NULL,
                      regionalvariable = NULL,
@@ -88,7 +99,7 @@ gen_cube <- function(name,
 
   if (missing(database)) {
 
-    stop("It is mandatory to specifiy the 'database' parameter for 'gen_table()'.",
+    stop("It is mandatory to specifiy the 'database' parameter for 'gen_cube()'.",
          call. = FALSE)
 
   }
