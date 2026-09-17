@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><title>R: Default redirect url for OAuth</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>oauth_redirect_uri {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Default redirect url for OAuth</h2>
+
+<h3>Description</h3>
+
+<p>The default redirect uri used by <code><a href="../../httr2/help/req_oauth_auth_code.html">req_oauth_auth_code()</a></code>. Defaults to
+<code style="white-space: pre;">&#8288;http://localhost&#8288;</code> unless the <code>HTTR2_OAUTH_REDIRECT_URL</code> envvar is set.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>oauth_redirect_uri()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

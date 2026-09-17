@@ -1,0 +1,101 @@
+<!DOCTYPE html><html><head><title>R: Set and preserve cookies</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_cookie_preserve {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Set and preserve cookies</h2>
+
+<h3>Description</h3>
+
+<p>Use <code>req_cookie_set()</code> to set client side cookies that are sent to the
+server.
+</p>
+<p>By default, httr2 uses a clean slate for every request meaning that cookies
+are not automatically preserved across requests. To preserve cookies, use
+<code>req_cookie_preserve()</code> along with the path to cookie file that will be
+read before and updated after each request.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_cookie_preserve(req, path)
+
+req_cookies_set(req, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="path">path</code></td>
+<td>
+<p>A path to a file where cookies will be read from before and updated after the request.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>&lt;<code><a href="../../rlang/help/dyn-dots.html">dynamic-dots</a></code>&gt;
+Name-value pairs that define query parameters. Each value must be
+an atomic vector, which is automatically escaped. To opt-out of escaping,
+wrap strings in <code>I()</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Use `req_cookies_set()` to set client-side cookies
+request(example_url()) |&gt;
+  req_cookies_set(a = 1, b = 1) |&gt;
+  req_dry_run()
+
+# Use `req_cookie_preserve()` to preserve server-side cookies across requests
+path &lt;- tempfile()
+
+# Set a server-side cookie
+request(example_url()) |&gt;
+  req_cookie_preserve(path) |&gt;
+  req_template("/cookies/set/:name/:value", name = "chocolate", value = "chip") |&gt;
+  req_perform() |&gt;
+  resp_body_json()
+
+# Set another sever-side cookie
+request(example_url()) |&gt;
+  req_cookie_preserve(path) |&gt;
+  req_template("/cookies/set/:name/:value", name = "oatmeal", value = "raisin") |&gt;
+  req_perform() |&gt;
+  resp_body_json()
+
+# Add a client side cookie
+request(example_url()) |&gt;
+  req_url_path("/cookies/set") |&gt;
+  req_cookie_preserve(path) |&gt;
+  req_cookies_set(snicker = "doodle") |&gt;
+  req_perform() |&gt;
+  resp_body_json()
+
+# The cookie path has a straightforward format
+cat(readChar(path, nchars = 1e4))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

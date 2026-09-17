@@ -1,0 +1,152 @@
+<!DOCTYPE html><html><head><title>R: Unary operators and functions for integer64 vectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>format.integer64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Unary operators and functions for integer64 vectors</h2>
+
+<h3>Description</h3>
+
+<p>Unary operators and functions for integer64 vectors.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'integer64'
+format(x, justify = "right", ...)
+
+## S3 method for class 'integer64'
+sign(x)
+
+## S3 method for class 'integer64'
+abs(x)
+
+## S3 method for class 'integer64'
+sqrt(x)
+
+## S3 method for class 'integer64'
+log(x, base = NULL)
+
+## S3 method for class 'integer64'
+log10(x)
+
+## S3 method for class 'integer64'
+log2(x)
+
+## S3 method for class 'integer64'
+trunc(x, ...)
+
+## S3 method for class 'integer64'
+floor(x)
+
+## S3 method for class 'integer64'
+ceiling(x)
+
+## S3 method for class 'integer64'
+signif(x, digits = 6L)
+
+## S3 method for class 'integer64'
+scale(x, center = TRUE, scale = TRUE)
+
+## S3 method for class 'integer64'
+round(x, digits = 0L)
+
+## S3 method for class 'integer64'
+is.na(x)
+
+## S3 method for class 'integer64'
+is.finite(x)
+
+## S3 method for class 'integer64'
+is.infinite(x)
+
+## S3 method for class 'integer64'
+is.nan(x)
+
+## S3 method for class 'integer64'
+!x
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an atomic vector of class 'integer64'</p>
+</td></tr>
+<tr><td><code id="justify">justify</code></td>
+<td>
+<p>should it be right-justified (the default), left-justified,
+centred or left alone.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments to the <code><a href="../../base/html/UseMethod.html">NextMethod()</a></code></p>
+</td></tr>
+<tr><td><code id="base">base</code></td>
+<td>
+<p>an atomic scalar (we save 50% log-calls by not allowing
+a vector base)</p>
+</td></tr>
+<tr><td><code id="digits">digits</code></td>
+<td>
+<p>integer indicating the number of decimal places (round)
+or significant digits (signif) to be used. Negative values are allowed
+(see <code><a href="../../base/html/Round.html">round()</a></code>)</p>
+</td></tr>
+<tr><td><code id="center">center</code></td>
+<td>
+<p>see <code><a href="../../base/html/scale.html">scale()</a></code></p>
+</td></tr>
+<tr><td><code id="scale">scale</code></td>
+<td>
+<p>see <code><a href="../../base/html/scale.html">scale()</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code><a href="../../base/html/format.html">format()</a></code> returns a character vector
+</p>
+<p><code><a href="../../base/html/NA.html">is.na()</a></code> and <code><a href="../../base/html/Logic.html">!</a></code> return a logical vector
+</p>
+<p><code><a href="../../base/html/MathFun.html">sqrt()</a></code>, <code><a href="../../base/html/Log.html">log()</a></code>, <code><a href="../../base/html/Log.html">log2()</a></code> and <code><a href="../../base/html/Log.html">log10()</a></code> return a double vector
+</p>
+<p><code><a href="../../base/html/sign.html">sign()</a></code>, <code><a href="../../base/html/MathFun.html">abs()</a></code>, <code><a href="../../base/html/Round.html">floor()</a></code>, <code><a href="../../base/html/Round.html">ceiling()</a></code>, <code><a href="../../base/html/Round.html">trunc()</a></code> and
+<code><a href="../../base/html/Round.html">round()</a></code> return a vector of class 'integer64'
+</p>
+<p><code><a href="../../base/html/Round.html">signif()</a></code> is not implemented
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/xor.integer64.html">xor.integer64()</a></code> <code><a href="../../bit64/help/integer64.html">integer64()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  sqrt(as.integer64(1:12))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html><html><head><title>R: Fast functions for sorted sets of integer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>merge_rev {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fast functions for sorted sets of integer</h2>
+
+<h3>Description</h3>
+
+<p>The <code>merge_</code> functions allow unary and binary operations on (ascending) sorted vectors
+of <code><a href="../../base/html/integer.html">integer()</a></code>.
+<code>merge_rev(x)</code> will do in one scan what costs two scans in <code><a href="../../base/html/rev.html">-rev(x)</a></code>, see also
+<code><a href="../../bit/help/reverse_vector.html">reverse_vector()</a></code>.
+Many of these <code>merge_</code> can optionally scan their input in reverse order (and switch the
+sign), which again saves extra scans for calling <code>merge_rev(x)</code> first.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>merge_rev(x)
+
+merge_match(x, y, revx = FALSE, revy = FALSE, nomatch = NA_integer_)
+
+merge_in(x, y, revx = FALSE, revy = FALSE)
+
+merge_notin(x, y, revx = FALSE, revy = FALSE)
+
+merge_duplicated(x, revx = FALSE)
+
+merge_anyDuplicated(x, revx = FALSE)
+
+merge_sumDuplicated(x, revx = FALSE)
+
+merge_unique(x, revx = FALSE)
+
+merge_union(
+  x,
+  y,
+  revx = FALSE,
+  revy = FALSE,
+  method = c("unique", "exact", "all")
+)
+
+merge_setdiff(x, y, revx = FALSE, revy = FALSE, method = c("unique", "exact"))
+
+merge_symdiff(x, y, revx = FALSE, revy = FALSE, method = c("unique", "exact"))
+
+merge_intersect(
+  x,
+  y,
+  revx = FALSE,
+  revy = FALSE,
+  method = c("unique", "exact")
+)
+
+merge_setequal(x, y, revx = FALSE, revy = FALSE, method = c("unique", "exact"))
+
+merge_rangein(rx, y, revx = FALSE, revy = FALSE)
+
+merge_rangenotin(rx, y, revx = FALSE, revy = FALSE)
+
+merge_rangesect(rx, y, revx = FALSE, revy = FALSE)
+
+merge_rangediff(rx, y, revx = FALSE, revy = FALSE)
+
+merge_first(x, revx = FALSE)
+
+merge_last(x, revx = FALSE)
+
+merge_firstin(rx, y, revx = FALSE, revy = FALSE)
+
+merge_lastin(rx, y, revx = FALSE, revy = FALSE)
+
+merge_firstnotin(rx, y, revx = FALSE, revy = FALSE)
+
+merge_lastnotin(rx, y, revx = FALSE, revy = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a sorted set</p>
+</td></tr>
+<tr><td><code id="y">y</code></td>
+<td>
+<p>a sorted set</p>
+</td></tr>
+<tr><td><code id="revx">revx</code></td>
+<td>
+<p>default <code>FALSE</code>, set to <code>TRUE</code> to reverse scan parameter 'x'</p>
+</td></tr>
+<tr><td><code id="revy">revy</code></td>
+<td>
+<p>default <code>FALSE</code>, set to <code>TRUE</code> to reverse scan parameter 'y'</p>
+</td></tr>
+<tr><td><code id="nomatch">nomatch</code></td>
+<td>
+<p>integer value returned for non-matched elements, see <code><a href="../../base/html/match.html">match()</a></code></p>
+</td></tr>
+<tr><td><code id="method">method</code></td>
+<td>
+<p>one of &quot;unique&quot;, &quot;exact&quot; (or &quot;all&quot;) which governs how to treat ties, see
+the function descriptions</p>
+</td></tr>
+<tr><td><code id="rx">rx</code></td>
+<td>
+<p>range of integers given as <code><a href="../../bit/help/ri.html">ri()</a></code> or as a two-element <code><a href="../../base/html/integer.html">integer()</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are low-level functions and hence do not check whether the set is
+actually sorted.
+Note that the <code style="white-space: pre;">&#8288;merge_*&#8288;</code> and <code style="white-space: pre;">&#8288;merge_range*&#8288;</code> functions have no special treatment for
+<code>NA</code>.
+If vectors with <code>NA</code> are sorted ith <code>NA</code> in the first positions (<code>na.last=FALSE</code>) and
+arguments <code style="white-space: pre;">&#8288;revx=&#8288;</code> or <code style="white-space: pre;">&#8288;revy=&#8288;</code> have not been used, then <code>NAs</code> are treated like ordinary
+integers. <code>NA</code> sorted elsewhere or using <code style="white-space: pre;">&#8288;revx=&#8288;</code> or <code style="white-space: pre;">&#8288;revy=&#8288;</code> can cause unexpected
+results (note for example that <code style="white-space: pre;">&#8288;revx=&#8288;</code> switches the sign on all integers but <code>NAs</code>).
+</p>
+<p>The <em>binary</em> <code style="white-space: pre;">&#8288;merge_*&#8288;</code> functions have a <code>method="exact"</code>
+which in both sets treats consecutive occurrences of the same value as if they were
+different values, more precisely they are handled as if the identity of ties were
+tuples of <code style="white-space: pre;">&#8288;ties, rank(ties)&#8288;</code>. <code>method="exact"</code> delivers unique output if the input is
+unique, and in this case works faster than <code>method="unique"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>merge_rev(x)</code> returns <code><a href="../../base/html/rev.html">-rev(x)</a></code> for <code><a href="../../base/html/integer.html">integer()</a></code> and <code><a href="../../base/html/double.html">double()</a></code> and
+<code><a href="../../base/html/rev.html">!rev(x)</a></code> for <code><a href="../../base/html/logical.html">logical()</a></code>
+</p>
+
+
+<h3>Functions</h3>
+
+
+<ul>
+<li> <p><code>merge_match()</code>: returns integer positions of sorted set x in sorted set y, see
+<code><a href="../../base/html/match.html">match(x, y, ...)</a></code>
+</p>
+</li>
+<li> <p><code>merge_in()</code>: returns logical existence of sorted set x in sorted set y, see
+<code><a href="../../base/html/match.html">x %in% y</a></code>
+</p>
+</li>
+<li> <p><code>merge_notin()</code>: returns logical in-existence of sorted set x in sorted set y, see
+<code><a href="../../base/html/match.html">!(x %in% y)</a></code>
+</p>
+</li>
+<li> <p><code>merge_duplicated()</code>: returns the duplicated status of a sorted set x, see
+<code><a href="../../base/html/duplicated.html">duplicated()</a></code>
+</p>
+</li>
+<li> <p><code>merge_anyDuplicated()</code>: returns the anyDuplicated status of a sorted set x, see
+<code><a href="../../base/html/duplicated.html">anyDuplicated()</a></code>
+</p>
+</li>
+<li> <p><code>merge_sumDuplicated()</code>: returns the sumDuplicated status of a sorted set x, see
+<code><a href="../../bit/help/bit_sumDuplicated.html">bit_sumDuplicated()</a></code>
+</p>
+</li>
+<li> <p><code>merge_unique()</code>: returns unique elements of sorted set x, see <code><a href="../../base/html/unique.html">unique()</a></code>
+</p>
+</li>
+<li> <p><code>merge_union()</code>: returns union of two sorted sets.
+Default <code>method='unique'</code> returns a unique sorted set, see <code><a href="../../base/html/sets.html">union()</a></code>;
+<code>method='exact'</code> returns a sorted set with the maximum number of ties in either
+input set; <code>method='all'</code> returns a sorted set with the sum of ties in both input
+sets.
+</p>
+</li>
+<li> <p><code>merge_setdiff()</code>: returns sorted set x minus sorted set y
+Default <code>method='unique'</code> returns a unique sorted set, see <code><a href="../../base/html/sets.html">setdiff()</a></code>;
+<code>ethod='exact'</code> returns a sorted set with sum(x ties) minus sum(y ties);
+</p>
+</li>
+<li> <p><code>merge_symdiff()</code>: returns those elements that are in sorted set <code>y</code> <code><a href="../../bit/help/xor.html">xor()</a></code> in
+sorted set <code>y</code>
+Default <code>method='unique'</code> returns the sorted unique set complement, see <code><a href="../../bit/help/symdiff.html">symdiff()</a></code>;
+<code>method='exact'</code> returns a sorted set set complement with
+<code style="white-space: pre;">&#8288;abs(sum(x ties) - sum(y ties))&#8288;</code>.
+</p>
+</li>
+<li> <p><code>merge_intersect()</code>: returns the intersection of two sorted sets x and y
+Default <code>method='unique'</code> returns the sorted unique intersect, see <code><a href="../../base/html/sets.html">intersect()</a></code>;
+<code>method='exact'</code> returns the intersect with the minium number of ties in either set;
+</p>
+</li>
+<li> <p><code>merge_setequal()</code>: returns <code>TRUE</code> for equal sorted sets and <code>FALSE</code> otherwise
+Default <code>method='unique'</code> compares the sets after removing ties, see <code><a href="../../base/html/sets.html">setequal()</a></code>;
+<code>method='exact'</code> compares the sets without removing ties;
+</p>
+</li>
+<li> <p><code>merge_rangein()</code>: returns logical existence of range rx in sorted set y, see
+<code><a href="../../bit/help/merge_in.html">merge_in()</a></code>
+</p>
+</li>
+<li> <p><code>merge_rangenotin()</code>: returns logical in-existence of range rx in sorted set y, see
+<code><a href="../../bit/help/merge_notin.html">merge_notin()</a></code>
+</p>
+</li>
+<li> <p><code>merge_rangesect()</code>: returns the intersection of range rx and sorted set y, see
+<code><a href="../../bit/help/merge_intersect.html">merge_intersect()</a></code>
+</p>
+</li>
+<li> <p><code>merge_rangediff()</code>: returns range rx minus sorted set y, see <code><a href="../../bit/help/merge_setdiff.html">merge_setdiff()</a></code>
+</p>
+</li>
+<li> <p><code>merge_first()</code>: quickly returns the first element of a sorted set x (or <code>NA</code> if
+x is empty), hence <code>x[1]</code> or <code>merge_rev(x)[1]</code>
+</p>
+</li>
+<li> <p><code>merge_last()</code>: quickly returns the last element of a sorted set x, (or <code>NA</code> if
+x is empty), hence <code>x[n]</code> or <code>merge_rev(x)[n]</code>
+</p>
+</li>
+<li> <p><code>merge_firstin()</code>: quickly returns the first common element of a range rx and a
+sorted set y, (or <code>NA</code> if the intersection is empty), hence
+<code>merge_first(merge_rangesect(rx, y))</code>
+</p>
+</li>
+<li> <p><code>merge_lastin()</code>: quickly returns the last common element of a range rx and a
+sorted set y, (or <code>NA</code> if the intersection is empty), hence
+<code>merge_last(merge_rangesect(rx, y))</code>
+</p>
+</li>
+<li> <p><code>merge_firstnotin()</code>: quickly returns the first element of a range rx which is not in a
+sorted set y (or <code>NA</code> if all rx are in y), hence <code>merge_first(merge_rangediff(rx, y))</code>
+</p>
+</li>
+<li> <p><code>merge_lastnotin()</code>: quickly returns the last element of a range rx which is not in a
+sorted set y (or <code>NA</code> if all rx are in y), hence <code>merge_last(merge_rangediff(rx, y))</code>
+</p>
+</li></ul>
+
+
+<h3>Note</h3>
+
+<p>xx OPTIMIZATION OPPORTUNITY These are low-level functions could be optimized with
+initial binary search (not findInterval, which coerces to double).
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>merge_rev(1:9)
+
+merge_match(1:7, 3:9)
+#' merge_match(merge_rev(1:7), 3:9)
+merge_match(merge_rev(1:7), 3:9, revx=TRUE)
+merge_match(merge_rev(1:7), 3:9, revy=TRUE)
+merge_match(merge_rev(1:7), merge_rev(3:9))
+
+merge_in(1:7, 3:9)
+merge_notin(1:7, 3:9)
+
+merge_anyDuplicated(c(1L, 1L, 2L, 3L))
+merge_duplicated(c(1L, 1L, 2L, 3L))
+merge_unique(c(1L, 1L, 2L, 3L))
+
+merge_union(c(1L, 2L, 2L, 2L), c(2L, 2L, 3L))
+merge_union(c(1L, 2L, 2L, 2L), c(2L, 2L, 3L), method="exact")
+merge_union(c(1L, 2L, 2L, 2L), c(2L, 2L, 3L), method="all")
+
+merge_setdiff(c(1L, 2L, 2L, 2L), c(2L, 2L, 3L))
+merge_setdiff(c(1L, 2L, 2L, 2L), c(2L, 2L, 3L), method="exact")
+merge_setdiff(c(1L, 2L, 2L), c(2L, 2L, 2L, 3L), method="exact")
+
+merge_symdiff(c(1L, 2L, 2L, 2L), c(2L, 2L, 3L))
+merge_symdiff(c(1L, 2L, 2L, 2L), c(2L, 2L, 3L), method="exact")
+merge_symdiff(c(1L, 2L, 2L), c(2L, 2L, 2L, 3L), method="exact")
+
+merge_intersect(c(1L, 2L, 2L, 2L), c(2L, 2L, 3L))
+merge_intersect(c(1L, 2L, 2L, 2L), c(2L, 2L, 3L), method="exact")
+
+merge_setequal(c(1L, 2L, 2L), c(1L, 2L))
+merge_setequal(c(1L, 2L, 2L), c(1L, 2L, 2L))
+merge_setequal(c(1L, 2L, 2L), c(1L, 2L), method="exact")
+merge_setequal(c(1L, 2L, 2L), c(1L, 2L, 2L), method="exact")
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

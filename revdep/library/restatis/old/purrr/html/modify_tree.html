@@ -1,0 +1,105 @@
+<!DOCTYPE html><html><head><title>R: Recursively modify a list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>modify_tree {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Recursively modify a list</h2>
+
+<h3>Description</h3>
+
+<p><code>modify_tree()</code> allows you to recursively modify a list, supplying functions
+that either modify each leaf or each node (or both).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>modify_tree(
+  x,
+  ...,
+  leaf = identity,
+  is_node = NULL,
+  pre = identity,
+  post = identity
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A list.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Reserved for future use. Must be empty</p>
+</td></tr>
+<tr><td><code id="leaf">leaf</code></td>
+<td>
+<p>A function applied to each leaf.</p>
+</td></tr>
+<tr><td><code id="is_node">is_node</code></td>
+<td>
+<p>A predicate function that determines whether an element is
+a node (by returning <code>TRUE</code>) or a leaf (by returning <code>FALSE</code>). The
+default value, <code>NULL</code>, treats simple lists as nodes and everything else
+(including richer objects like data frames and linear models) as leaves,
+using <code><a href="../../vctrs/help/obj_is_list.html">vctrs::obj_is_list()</a></code>. To recurse into all objects built on lists
+use <code><a href="../../base/html/list.html">is.list()</a></code>.</p>
+</td></tr>
+<tr><td><code id="pre">pre</code>, <code id="post">post</code></td>
+<td>
+<p>Functions applied to each node. <code>pre</code> is applied on the
+way &quot;down&quot;, i.e. before the leaves are transformed with <code>leaf</code>, while
+<code>post</code> is applied on the way &quot;up&quot;, i.e. after the leaves are transformed.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other modify variants: 
+<code><a href="../../purrr/help/map_depth.html">map_depth</a>()</code>,
+<code><a href="../../purrr/help/modify.html">modify</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- list(list(a = 2:1, c = list(b1 = 2), b = list(c2 = 3, c1 = 4)))
+x |&gt; str()
+
+# Transform each leaf
+x |&gt; modify_tree(leaf = \(x) x + 100) |&gt;  str()
+
+# Recursively sort the nodes
+sort_named &lt;- function(x) {
+  nms &lt;- names(x)
+  if (!is.null(nms)) {
+    x[order(nms)]
+  } else {
+    x
+   }
+}
+x |&gt; modify_tree(post = sort_named) |&gt; str()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

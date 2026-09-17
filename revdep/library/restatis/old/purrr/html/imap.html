@@ -1,0 +1,128 @@
+<!DOCTYPE html><html><head><title>R: Apply a function to each element of a vector, and its index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>imap {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply a function to each element of a vector, and its index</h2>
+
+<h3>Description</h3>
+
+<p><code>imap(x, ...)</code>, an indexed map, is short hand for
+<code>map2(x, names(x), ...)</code> if <code>x</code> has names, or <code>map2(x, seq_along(x), ...)</code>
+if it does not. This is useful if you need to compute on both the value
+and the position of an element.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>imap(.x, .f, ...)
+
+imap_lgl(.x, .f, ...)
+
+imap_chr(.x, .f, ...)
+
+imap_int(.x, .f, ...)
+
+imap_dbl(.x, .f, ...)
+
+imap_vec(.x, .f, ...)
+
+iwalk(.x, .f, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>A list or atomic vector.</p>
+</td></tr>
+<tr><td><code id=".f">.f</code></td>
+<td>
+<p>A function, specified in one of the following ways:
+</p>
+
+<ul>
+<li><p> A named function, e.g. <code>paste</code>.
+</p>
+</li>
+<li><p> An anonymous function, e.g. <code style="white-space: pre;">&#8288;\(x, idx) x + idx&#8288;</code> or
+<code>function(x, idx) x + idx</code>.
+</p>
+</li>
+<li><p> A formula, e.g. <code>~ .x + .y</code>. Use <code>.x</code> to refer to the current element and
+<code>.y</code> to refer to the current index. No longer recommended.
+</p>
+</li></ul>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p>Wrap a function with <code><a href="../../purrr/help/in_parallel.html">in_parallel()</a></code> to declare that it should be performed
+in parallel. See <code><a href="../../purrr/help/in_parallel.html">in_parallel()</a></code> for more details.
+Use of <code>...</code> is not permitted in this context.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed on to the mapped function.
+</p>
+<p>We now generally recommend against using <code>...</code> to pass additional
+(constant) arguments to <code>.f</code>. Instead use a shorthand anonymous function:
+</p>
+<div class="sourceCode R"><pre># Instead of
+x |&gt; map(f, 1, 2, collapse = ",")
+# do:
+x |&gt; map(\(x) f(x, 1, 2, collapse = ","))
+</pre></div>
+<p>This makes it easier to understand which arguments belong to which
+function and will tend to yield better error messages.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A vector the same length as <code>.x</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other map variants: 
+<code><a href="../../purrr/help/lmap.html">lmap</a>()</code>,
+<code><a href="../../purrr/help/map.html">map</a>()</code>,
+<code><a href="../../purrr/help/map2.html">map2</a>()</code>,
+<code><a href="../../purrr/help/map_depth.html">map_depth</a>()</code>,
+<code><a href="../../purrr/help/map_if.html">map_if</a>()</code>,
+<code><a href="../../purrr/help/modify.html">modify</a>()</code>,
+<code><a href="../../purrr/help/pmap.html">pmap</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>imap_chr(sample(10), paste)
+
+imap_chr(sample(10), \(x, idx) paste0(idx, ": ", x))
+
+iwalk(mtcars, \(x, idx) cat(idx, ": ", median(x), "\n", sep = ""))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

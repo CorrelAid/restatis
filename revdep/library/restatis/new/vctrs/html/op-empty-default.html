@@ -1,0 +1,58 @@
+<!DOCTYPE html><html><head><title>R: Default value for empty vectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>%0% {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Default value for empty vectors</h2>
+
+<h3>Description</h3>
+
+<p>Use this inline operator when you need to provide a default value for
+empty (as defined by <code><a href="../../vctrs/help/vec_is_empty.html">vec_is_empty()</a></code>) vectors.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>x %0% y
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A vector</p>
+</td></tr>
+<tr><td><code id="y">y</code></td>
+<td>
+<p>Value to use if <code>x</code> is empty. To preserve type-stability, should
+be the same type as <code>x</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>1:10 %0% 5
+integer() %0% 5
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

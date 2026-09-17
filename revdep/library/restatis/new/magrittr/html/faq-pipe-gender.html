@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><title>R: FAQ: What is the gender of the pipe?</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>faq-pipe-gender {magrittr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>FAQ: What is the gender of the pipe?</h2>
+
+<h3>Description</h3>
+
+<p>In Magritte's original quote &quot;Ceci n'est pas une pipe,&quot; the word
+&quot;pipe&quot; is feminine. However the magrittr package quotes it as
+&quot;Ceci n'est pas un pipe,&quot; with a masculine &quot;pipe.&quot; This
+lighthearted misappropriation is intentional. Whereas the
+object represented in Magritte's painting (a pipe that you can
+smoke) is feminine in the French language, a computer pipe
+(which is an Anglicism in French) is masculine.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>magrittr</em> version 2.0.4 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

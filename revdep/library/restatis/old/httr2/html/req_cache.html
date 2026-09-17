@@ -1,0 +1,133 @@
+<!DOCTYPE html><html><head><title>R: Automatically cache requests</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_cache {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Automatically cache requests</h2>
+
+<h3>Description</h3>
+
+<p>Use <code>req_cache()</code> to automatically cache HTTP requests. Most API requests
+are not cacheable, but static files often are.
+</p>
+<p><code>req_cache()</code> caches responses to GET requests that have status code 200 and
+at least one of the standard caching headers (e.g. <code>Expires</code>,
+<code>Etag</code>, <code>Last-Modified</code>, <code>Cache-Control</code>), unless caching has been expressly
+prohibited with <code>Cache-Control: no-store</code>. Typically, a request will still
+be sent to the server to check that the cached value is still up-to-date,
+but it will not need to re-download the body value.
+</p>
+<p>To learn more about HTTP caching, I recommend the MDN article
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching">HTTP caching</a>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_cache(
+  req,
+  path,
+  use_on_error = FALSE,
+  debug = getOption("httr2_cache_debug", FALSE),
+  max_age = Inf,
+  max_n = Inf,
+  max_size = 1024^3
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="path">path</code></td>
+<td>
+<p>Path to cache directory. Will be created automatically if it
+does not exist.
+</p>
+<p>For quick and easy caching within a session, you can use <code>tempfile()</code>.
+To cache requests within a package, you can use something like
+<code>file.path(tools::R_user_dir("pkgdown", "cache"), "httr2")</code>.
+</p>
+<p>httr2 doesn't provide helpers to manage the cache, but if you want to
+empty it, you can use something like
+<code>unlink(dir(cache_path, full.names = TRUE))</code>.</p>
+</td></tr>
+<tr><td><code id="use_on_error">use_on_error</code></td>
+<td>
+<p>If the request errors, and there's a cache response,
+should <code>req_perform()</code> return that instead of generating an error?</p>
+</td></tr>
+<tr><td><code id="debug">debug</code></td>
+<td>
+<p>When <code>TRUE</code> will emit useful messages telling you about
+cache hits and misses. This can be helpful to understand whether or
+not caching is actually doing anything for your use case.</p>
+</td></tr>
+<tr><td><code id="max_n">max_n</code>, <code id="max_age">max_age</code>, <code id="max_size">max_size</code></td>
+<td>
+<p>Automatically prune the cache by specifying
+one or more of:
+</p>
+
+<ul>
+<li> <p><code>max_age</code>: to delete files older than this number of seconds.
+</p>
+</li>
+<li> <p><code>max_n</code>: to delete files (from oldest to newest) to preserve at
+most this many files.
+</p>
+</li>
+<li> <p><code>max_size</code>: to delete files (from oldest to newest) to preserve at
+most this many bytes.
+</p>
+</li></ul>
+
+<p>The cache pruning is performed at most once per minute.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A modified HTTP <a href="../../httr2/help/request.html">request</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># GitHub uses HTTP caching for all raw files.
+url &lt;- paste0(
+  "https://raw.githubusercontent.com/allisonhorst/palmerpenguins/",
+  "master/inst/extdata/penguins.csv"
+)
+# Here I set debug = TRUE so you can see what's happening
+req &lt;- request(url) |&gt; req_cache(tempdir(), debug = TRUE)
+
+# First request downloads the data
+resp &lt;- req |&gt; req_perform()
+
+# Second request retrieves it from the cache
+resp &lt;- req |&gt; req_perform()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

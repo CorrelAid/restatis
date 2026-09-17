@@ -1,0 +1,47 @@
+<!DOCTYPE html><html><head><title>R: OpenSSL Configuration Info</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>openssl_config {openssl}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>OpenSSL Configuration Info</h2>
+
+<h3>Description</h3>
+
+<p>Shows libssl version and configuration information.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>openssl_config()
+
+fips_mode()
+</code></pre>
+
+
+<h3>Details</h3>
+
+<p>Note that the &quot;fips&quot; flag in <code>openssl_config</code> means that FIPS is
+supported, but it does not mean that it is currently enforced. If
+supported, it can be enabled in several ways, such as a kernel
+option, or setting an environment variable <code>OPENSSL_FORCE_FIPS_MODE=1</code>.
+The <code>fips_mode()</code> function shows if FIPS is currently enforced.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>openssl</em> version 2.3.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

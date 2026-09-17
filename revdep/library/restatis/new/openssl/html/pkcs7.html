@@ -1,0 +1,74 @@
+<!DOCTYPE html><html><head><title>R: Encrypt/decrypt pkcs7 messages</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>pkcs7_encrypt {openssl}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Encrypt/decrypt pkcs7 messages</h2>
+
+<h3>Description</h3>
+
+<p>Encrypt or decrypt messages using PKCS7 smime format.
+Note PKCS7 only supports RSA keys.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>pkcs7_encrypt(message, cert, pem = TRUE)
+
+pkcs7_decrypt(input, key, der = is.raw(input))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="message">message</code></td>
+<td>
+<p>text or raw vector with data to encrypt</p>
+</td></tr>
+<tr><td><code id="cert">cert</code></td>
+<td>
+<p>the certificate with public key to use for encryption</p>
+</td></tr>
+<tr><td><code id="pem">pem</code></td>
+<td>
+<p>convert output pkcs7 data to PEM format</p>
+</td></tr>
+<tr><td><code id="input">input</code></td>
+<td>
+<p>file path or string with PEM or raw vector with p7b data</p>
+</td></tr>
+<tr><td><code id="key">key</code></td>
+<td>
+<p>private key to decrypt data</p>
+</td></tr>
+<tr><td><code id="der">der</code></td>
+<td>
+<p>assume input is in DER format (rather than PEM)</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../openssl/help/encrypt_envelope.html">encrypt_envelope</a>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>openssl</em> version 2.3.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

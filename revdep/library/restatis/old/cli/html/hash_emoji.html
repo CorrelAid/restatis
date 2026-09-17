@@ -1,0 +1,173 @@
+<!DOCTYPE html><html><head><title>R: Emoji hash</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>hash_emoji {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Emoji hash</h2>
+
+<h3>Description</h3>
+
+<p>Emoji hash
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>hash_emoji(x, size = 3)
+
+hash_raw_emoji(x, size = 3)
+
+hash_obj_emoji(x, size = 3, serialize_version = 2)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Character vector. <code>NA</code> entries will have an <code>NA</code> hash.</p>
+</td></tr>
+<tr><td><code id="size">size</code></td>
+<td>
+<p>Number of emojis to use in a hash. Currently it has to
+be from 1 through 4.</p>
+</td></tr>
+<tr><td><code id="serialize_version">serialize_version</code></td>
+<td>
+<p>Workspace format version to use, see
+<code><a href="../../base/help/serialize.html">base::serialize()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>It uses the first 13 hexadecimal characters (out of the 32) of the MD5
+hash of the input, and converts them into an emoji representation.
+It uses a manually selected subset of all emojis, that tend to be
+displayed correctly.
+</p>
+
+
+<h4>Number of possible hash values</h4>
+
+<p>cli uses 2280 possible emojis. This is the number of
+different hashes you can get for different values of <code>size</code>:</p>
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <code>size</code> </td><td style="text-align: right;"> size of hash table space </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   1 </td><td style="text-align: right;"> 2,280 </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   2 </td><td style="text-align: right;"> 5,198,400 </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   3 </td><td style="text-align: right;"> 11,852,352,000 </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   4 </td><td style="text-align: right;"> 27,023,362,560,000 
+</td>
+</tr>
+
+</table>
+
+
+<p><code>hash_raw_emoji()</code> calculates the emoji hash of the bytes
+of a raw vector.
+</p>
+<p><code>hash_obj_emoji()</code> calculates the emoji hash of an R
+object. The object is serialized into a binary vector first.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>hash_emoji()</code> returns a data frame with columns
+</p>
+
+<ul>
+<li> <p><code>hash</code>: the emoji hash, a string of the requested size.
+</p>
+</li>
+<li> <p><code>emojis</code>: list column with the emoji characters in character
+vectors. Note that an emoji might have multiple code points.
+</p>
+</li>
+<li> <p><code>text</code>: text representation of <code>hash</code>, comma separated.
+</p>
+</li>
+<li> <p><code>names</code>: list column with the text representations of <code>emojis</code>, in
+character vectors.
+</p>
+</li></ul>
+
+<p><code>hash_raw_emoji()</code> and <code>hash_obj_emoji()</code> return a list with
+entries:
+</p>
+
+<ul>
+<li> <p><code>hash</code>: the emoji hash, a string of requested size,
+</p>
+</li>
+<li> <p><code>emojis</code>: the individual emoji characters in a character vector,
+</p>
+</li>
+<li> <p><code>text</code>: text representation of <code>hash</code>, comma separated,
+</p>
+</li>
+<li> <p><code>names</code>: names of the emojis, in a character vector.
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p>the emoji package for a comprehensive list of emojis
+</p>
+<p>Other hash functions: 
+<code><a href="../../cli/help/hash_animal.html">hash_animal</a>()</code>,
+<code><a href="../../cli/help/hash_md5.html">hash_md5</a>()</code>,
+<code><a href="../../cli/help/hash_sha1.html">hash_sha1</a>()</code>,
+<code><a href="../../cli/help/hash_sha256.html">hash_sha256</a>()</code>,
+<code><a href="../../cli/help/hash_xxhash.html">hash_xxhash</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>hash_emoji(c("foo", NA, "bar", ""))$text
+
+# if you increase `size`, the shorter hash is a prefix of the longer:
+hash_emoji("foobar", 1)$text
+hash_emoji("foobar", 2)$text
+hash_emoji("foobar", 3)$text
+hash_emoji("foobar", 4)$text
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

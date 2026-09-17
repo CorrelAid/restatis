@@ -1,0 +1,104 @@
+<!DOCTYPE html><html><head><title>R: A block of code</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_code {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>A block of code</h2>
+
+<h3>Description</h3>
+
+<p>A helper function that creates a <code>div</code> with class <code>code</code> and then calls
+<code>cli_verbatim()</code> to output code lines. The builtin theme formats these
+containers specially. In particular, it adds syntax highlighting to
+valid R code.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_code(
+  lines = NULL,
+  ...,
+  language = "R",
+  .auto_close = TRUE,
+  .envir = environment()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="lines">lines</code></td>
+<td>
+<p>Character vector, each line will be a line of code, and
+newline characters also create new lines. Note that <em>no</em> glue
+substitution is performed on the code.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>More character vectors, they are appended to <code>lines</code>.</p>
+</td></tr>
+<tr><td><code id="language">language</code></td>
+<td>
+<p>Programming language. This is also added as a class,
+in addition to <code>code</code>.</p>
+</td></tr>
+<tr><td><code id=".auto_close">.auto_close</code></td>
+<td>
+<p>Passed to <code>cli_div()</code> when creating the container of
+the code. By default the code container is closed after emitting
+<code>lines</code> and <code>...</code> via <code>cli_verbatim()</code>. You can keep that container
+open with <code>.auto_close</code> and/or <code>.envir</code>, and then calling
+<code>cli_verbatim()</code> to add (more) code. Note that the code will be
+formatted and syntax highlighted separately for each <code>cli_verbatim()</code>
+call.</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>Passed to <code>cli_div()</code> when creating the container of the
+code.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<div class="sourceCode r"><pre>myfun &lt;- function() {
+  message("Just an example function")
+  graphics::pairs(iris, col = 1:4)
+}
+cli_code(format(myfun))
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> <span style="color: #999900;">function</span> <span style="color: #cc9900;">()</span>                                                                     
+#> <span style="color: #cc9900;">{</span>                                                                               
+#>     <span style="font-weight: bold;">message</span><span style="color: #B58900;">(</span><span style="color: #009999;">"Just an example function"</span><span style="color: #B58900;">)</span>                                         
+#>     graphics::<span style="font-weight: bold;">pairs</span><span style="color: #B58900;">(</span>iris, col = <span style="color: #cc3399;">1</span><span style="color: #cc9900;">:</span><span style="color: #cc3399;">4</span><span style="color: #B58900;">)</span>                                            
+#> <span style="color: #cc9900;">}</span>                                                                               
+</pre></div>
+
+
+
+<h3>Value</h3>
+
+<p>The id of the container that contains the code.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

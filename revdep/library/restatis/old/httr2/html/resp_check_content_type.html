@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><title>R: Check the content type of a response</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>resp_check_content_type {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Check the content type of a response</h2>
+
+<h3>Description</h3>
+
+<p>A different content type than expected often leads to an error in parsing
+the response body. This function checks that the content type of the response
+is as expected and fails otherwise.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>resp_check_content_type(
+  resp,
+  valid_types = NULL,
+  valid_suffix = NULL,
+  check_type = TRUE,
+  call = caller_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="resp">resp</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/response.html">response</a> object, created by <code><a href="../../httr2/help/req_perform.html">req_perform()</a></code>.</p>
+</td></tr>
+<tr><td><code id="valid_types">valid_types</code></td>
+<td>
+<p>A character vector of valid MIME types. Should only
+be specified with <code>type/subtype</code>.</p>
+</td></tr>
+<tr><td><code id="valid_suffix">valid_suffix</code></td>
+<td>
+<p>A string given an &quot;structured media type&quot; suffix.</p>
+</td></tr>
+<tr><td><code id="check_type">check_type</code></td>
+<td>
+<p>Should the type actually be checked? Provided as a
+convenience for when using this function inside <code style="white-space: pre;">&#8288;resp_body_*&#8288;</code> helpers.</p>
+</td></tr>
+<tr><td><code id="call">call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Called for its side-effect; erroring if the response does not
+have the expected content type.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>resp &lt;- response(headers = list(`content-type` = "application/json"))
+resp_check_content_type(resp, "application/json")
+try(resp_check_content_type(resp, "application/xml"))
+
+# `types` can also specify multiple valid types
+resp_check_content_type(resp, c("application/xml", "application/json"))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

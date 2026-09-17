@@ -1,0 +1,90 @@
+<!DOCTYPE html><html><head><title>R: Coerce a list to a vector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>as_vector {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Coerce a list to a vector</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#superseded"><img src="../help/figures/lifecycle-superseded.svg" alt='[Superseded]'></a>
+</p>
+<p>These functions were superseded in purrr 1.0.0 in favour of
+<code>list_simplify()</code> which has more consistent semantics based on vctrs
+principles:
+</p>
+
+<ul>
+<li> <p><code>as_vector(x)</code> is now <code>list_simplify(x)</code>
+</p>
+</li>
+<li> <p><code>simplify(x)</code> is now <code>list_simplify(x, strict = FALSE)</code>
+</p>
+</li>
+<li> <p><code>simplify_all(x)</code> is <code>map(x, list_simplify, strict = FALSE)</code>
+</p>
+</li></ul>
+
+<p>Superseded functions will not go away, but will only receive critical
+bug fixes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>as_vector(.x, .type = NULL)
+
+simplify(.x, .type = NULL)
+
+simplify_all(.x, .type = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>A list of vectors</p>
+</td></tr>
+<tr><td><code id=".type">.type</code></td>
+<td>
+<p>Can be a vector mold specifying both the type and the
+length of the vectors to be concatenated, such as <code>numeric(1)</code>
+or <code>integer(4)</code>. Alternatively, it can be a string describing
+the type, one of: &quot;logical&quot;, &quot;integer&quot;, &quot;double&quot;, &quot;complex&quot;,
+&quot;character&quot; or &quot;raw&quot;.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># was
+as.list(letters) |&gt; as_vector("character")
+# now
+as.list(letters) |&gt; list_simplify(ptype = character())
+
+# was:
+list(1:2, 3:4, 5:6) |&gt; as_vector(integer(2))
+# now:
+list(1:2, 3:4, 5:6) |&gt; list_c(ptype = integer())
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

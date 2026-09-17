@@ -1,0 +1,120 @@
+<!DOCTYPE html><html><head><title>R: Create a symbol or list of symbols</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>sym {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a symbol or list of symbols</h2>
+
+<h3>Description</h3>
+
+<p>Symbols are a kind of <a href="../../rlang/help/topic-defuse.html">defused expression</a> that
+represent objects in environments.
+</p>
+
+<ul>
+<li> <p><code>sym()</code> and <code>syms()</code> take strings as input and turn them into
+symbols.
+</p>
+</li>
+<li> <p><code>data_sym()</code> and <code>data_syms()</code> create calls of the form
+<code>.data$foo</code> instead of symbols. Subsetting the <code><a href="../../rlang/help/.data.html">.data</a></code> pronoun
+is more robust when you expect a data-variable. See
+<a href="../../rlang/help/topic-data-mask-ambiguity.html">The data mask ambiguity</a>.
+</p>
+</li></ul>
+
+<p>Only tidy eval APIs support the <code><a href="../../rlang/help/.data.html">.data</a></code> pronoun. With base R
+functions, use simple symbols created with <code>sym()</code> or <code>syms()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>sym(x)
+
+syms(x)
+
+data_sym(x)
+
+data_syms(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>For <code>sym()</code> and <code>data_sym()</code>, a string. For <code>syms()</code> and
+<code>data_syms()</code>, a list of strings.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>For <code>sym()</code> and <code>syms()</code>, a symbol or list of symbols. For
+<code>data_sym()</code> and <code>data_syms()</code>, calls of the form <code>.data$foo</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li> <p><a href="../../rlang/help/topic-defuse.html">Defusing R expressions</a>
+</p>
+</li>
+<li> <p><a href="../../rlang/help/topic-metaprogramming.html">Metaprogramming patterns</a>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Create a symbol
+sym("cyl")
+
+# Create a list of symbols
+syms(c("cyl", "am"))
+
+# Symbolised names refer to variables
+eval(sym("cyl"), mtcars)
+
+# Beware of scoping issues
+Cyl &lt;- "wrong"
+eval(sym("Cyl"), mtcars)
+
+# Data symbols are explicitly scoped in the data mask
+try(eval_tidy(data_sym("Cyl"), mtcars))
+
+# These can only be used with tidy eval functions
+try(eval(data_sym("Cyl"), mtcars))
+
+# The empty string returns the missing argument:
+sym("")
+
+# This way sym() and as_string() are inverse of each other:
+as_string(missing_arg())
+sym(as_string(missing_arg()))
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

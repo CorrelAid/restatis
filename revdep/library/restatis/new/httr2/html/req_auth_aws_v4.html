@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><title>R: Sign a request with the AWS SigV4 signing protocol</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_auth_aws_v4 {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Sign a request with the AWS SigV4 signing protocol</h2>
+
+<h3>Description</h3>
+
+<p>This is a custom auth protocol implemented by AWS.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_auth_aws_v4(
+  req,
+  aws_access_key_id,
+  aws_secret_access_key,
+  aws_session_token = NULL,
+  aws_service = NULL,
+  aws_region = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="aws_access_key_id">aws_access_key_id</code>, <code id="aws_secret_access_key">aws_secret_access_key</code></td>
+<td>
+<p>AWS key and secret.</p>
+</td></tr>
+<tr><td><code id="aws_session_token">aws_session_token</code></td>
+<td>
+<p>AWS session token, if required.</p>
+</td></tr>
+<tr><td><code id="aws_service">aws_service</code>, <code id="aws_region">aws_region</code></td>
+<td>
+<p>The AWS service and region to use for the
+request. If not supplied, will be automatically parsed from the URL
+hostname.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+creds &lt;- paws.common::locate_credentials()
+model_id &lt;- "anthropic.claude-3-5-sonnet-20240620-v1:0"
+req &lt;- request("https://bedrock-runtime.us-east-1.amazonaws.com")
+# https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html
+req &lt;- req_url_path_append(req, "model", model_id, "converse")
+req &lt;- req_body_json(req, list(
+  messages = list(list(
+    role = "user",
+    content = list(list(text = "What's your name?"))
+  ))
+))
+req &lt;- req_auth_aws_v4(
+  req,
+  aws_access_key_id = creds$access_key_id,
+  aws_secret_access_key = creds$secret_access_key,
+  aws_session_token = creds$session_token
+)
+resp &lt;- req_perform_connection(req)
+str(resp_body_json(resp))
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

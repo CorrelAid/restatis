@@ -1,0 +1,169 @@
+<!DOCTYPE html><html><head><title>R: Map over two inputs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>map2 {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Map over two inputs</h2>
+
+<h3>Description</h3>
+
+<p>These functions are variants of <code><a href="../../purrr/help/map.html">map()</a></code> that iterate over two arguments at
+a time.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>map2(.x, .y, .f, ..., .progress = FALSE)
+
+map2_lgl(.x, .y, .f, ..., .progress = FALSE)
+
+map2_int(.x, .y, .f, ..., .progress = FALSE)
+
+map2_dbl(.x, .y, .f, ..., .progress = FALSE)
+
+map2_chr(.x, .y, .f, ..., .progress = FALSE)
+
+map2_vec(.x, .y, .f, ..., .ptype = NULL, .progress = FALSE)
+
+walk2(.x, .y, .f, ..., .progress = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code>, <code id=".y">.y</code></td>
+<td>
+<p>A pair of vectors, usually the same length. If not, a vector
+of length 1 will be recycled to the length of the other.</p>
+</td></tr>
+<tr><td><code id=".f">.f</code></td>
+<td>
+<p>A function, specified in one of the following ways:
+</p>
+
+<ul>
+<li><p> A named function.
+</p>
+</li>
+<li><p> An anonymous function, e.g. <code style="white-space: pre;">&#8288;\(x, y) x + y&#8288;</code> or <code>function(x, y) x + y</code>.
+</p>
+</li>
+<li><p> A formula, e.g. <code>~ .x + .y</code>. Use <code>.x</code> to refer to the current
+element of <code>x</code> and <code>.y</code> to refer to the current element of <code>y</code>.
+No longer recommended.
+</p>
+</li></ul>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p>Wrap a function with <code><a href="../../purrr/help/in_parallel.html">in_parallel()</a></code> to declare that it should be performed
+in parallel. See <code><a href="../../purrr/help/in_parallel.html">in_parallel()</a></code> for more details.
+Use of <code>...</code> is not permitted in this context.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed on to the mapped function.
+</p>
+<p>We now generally recommend against using <code>...</code> to pass additional
+(constant) arguments to <code>.f</code>. Instead use a shorthand anonymous function:
+</p>
+<div class="sourceCode R"><pre># Instead of
+x |&gt; map(f, 1, 2, collapse = ",")
+# do:
+x |&gt; map(\(x) f(x, 1, 2, collapse = ","))
+</pre></div>
+<p>This makes it easier to understand which arguments belong to which
+function and will tend to yield better error messages.</p>
+</td></tr>
+<tr><td><code id=".progress">.progress</code></td>
+<td>
+<p>Whether to show a progress bar. Use <code>TRUE</code> to turn on
+a basic progress bar, use a string to give it a name, or see
+<a href="../../purrr/help/progress_bars.html">progress_bars</a> for more details.</p>
+</td></tr>
+<tr><td><code id=".ptype">.ptype</code></td>
+<td>
+<p>If <code>NULL</code>, the default, the output type is the common type
+of the elements of the result. Otherwise, supply a &quot;prototype&quot; giving
+the desired type of output.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The output length is determined by the length of the input.
+The output names are determined by the input names.
+The output type is determined by the suffix:
+</p>
+
+<ul>
+<li><p> No suffix: a list; <code>.f()</code> can return anything.
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;_lgl()&#8288;</code>, <code style="white-space: pre;">&#8288;_int()&#8288;</code>, <code style="white-space: pre;">&#8288;_dbl()&#8288;</code>, <code style="white-space: pre;">&#8288;_chr()&#8288;</code> return a logical, integer, double,
+or character vector respectively; <code>.f()</code> must return a compatible atomic
+vector of length 1.
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;_vec()&#8288;</code> return an atomic or S3 vector, the same type that <code>.f</code> returns.
+<code>.f</code> can return pretty much any type of vector, as long as its length 1.
+</p>
+</li>
+<li> <p><code>walk()</code> returns the input <code>.x</code> (invisibly). This makes it easy to
+use in a pipe. The return value of <code>.f()</code> is ignored.
+</p>
+</li></ul>
+
+<p>Any errors thrown by <code>.f</code> will be wrapped in an error with class
+<a href="../../purrr/help/purrr_error_indexed.html">purrr_error_indexed</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other map variants: 
+<code><a href="../../purrr/help/imap.html">imap</a>()</code>,
+<code><a href="../../purrr/help/lmap.html">lmap</a>()</code>,
+<code><a href="../../purrr/help/map.html">map</a>()</code>,
+<code><a href="../../purrr/help/map_depth.html">map_depth</a>()</code>,
+<code><a href="../../purrr/help/map_if.html">map_if</a>()</code>,
+<code><a href="../../purrr/help/modify.html">modify</a>()</code>,
+<code><a href="../../purrr/help/pmap.html">pmap</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- list(1, 1, 1)
+y &lt;- list(10, 20, 30)
+
+map2(x, y, \(x, y) x + y)
+# Or just
+map2(x, y, `+`)
+
+# Split into pieces, fit model to each piece, then predict
+by_cyl &lt;- mtcars |&gt; split(mtcars$cyl)
+mods &lt;- by_cyl |&gt; map(\(df) lm(mpg ~ wt, data = df))
+map2(mods, by_cyl, predict)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

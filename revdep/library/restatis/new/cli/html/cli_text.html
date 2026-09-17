@@ -1,0 +1,193 @@
+<!DOCTYPE html><html><head><title>R: CLI text</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_text {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>CLI text</h2>
+
+<h3>Description</h3>
+
+<p>Write some text to the screen. This function is most appropriate for
+longer paragraphs. See <code><a href="../../cli/help/cli_alert.html">cli_alert()</a></code> for shorter status messages.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_text(..., .envir = parent.frame())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>The text to show, in character vectors. They will be
+concatenated into a single string. Newlines are <em>not</em> preserved.</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>Environment to evaluate the glue expressions in.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+
+<h4>Text wrapping</h4>
+
+<p>Text is wrapped to the console width, see <code><a href="../../cli/help/console_width.html">console_width()</a></code>.
+</p>
+<div class="sourceCode r"><pre>cli_text(cli:::lorem_ipsum())
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> Lorem ad ipsum veniam esse nisi deserunt duis. Qui incididunt elit              
+#> elit mollit sint nulla consectetur aute commodo do elit laboris minim           
+#> et. Laboris ipsum mollit voluptate et non do incididunt eiusmod. Anim           
+#> consectetur mollit laborum occaecat eiusmod excepteur. Ullamco non              
+#> tempor esse anim tempor magna non.                                              
+</pre></div>
+
+
+
+
+<h4>New lines</h4>
+
+<p>A <code>cli_text()</code> call always appends a newline character to the end.
+</p>
+<div class="sourceCode r"><pre>cli_text("First line.")
+cli_text("Second line.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> First line.                                                                     
+#> Second line.                                                                    
+</pre></div>
+
+
+
+
+<h4>Styling</h4>
+
+<p>You can use <a href="../../cli/help/inline-markup.html">inline markup</a>, as usual.
+</p>
+<div class="sourceCode r"><pre>cli_text("The {.fn cli_text} function in the {.pkg cli} package.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> The `cli_text()` function in the <span style="color: #268BD2;">cli</span> package.                                   
+</pre></div>
+
+
+
+
+<h4>Interpolation</h4>
+
+<p>String interpolation via glue works as usual. Interpolated vectors
+are collapsed.
+</p>
+<div class="sourceCode r"><pre>pos &lt;- c(5, 14, 25, 26)
+cli_text("We have {length(pos)} missing measurements: {pos}.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> We have 4 missing measurements: 5, 14, 25, and 26.                              
+</pre></div>
+
+
+
+
+<h4>Styling and interpolation</h4>
+
+<p>Use double braces to combine styling and string interpolation.
+</p>
+<div class="sourceCode r"><pre>fun &lt;- "cli-text"
+pkg &lt;- "cli"
+cli_text("The {.fn {fun}} function in the {.pkg {pkg}} package.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> The `cli-text()` function in the <span style="color: #268BD2;">cli</span> package.                                   
+</pre></div>
+
+
+
+
+<h4>Multiple arguments</h4>
+
+<p>Arguments are concatenated.
+</p>
+<div class="sourceCode r"><pre>cli_text(c("This ", "will ", "all "), "be ", "one ", "sentence.")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> This will all be one sentence.                                                  
+</pre></div>
+
+
+
+
+<h4>Containers</h4>
+
+<p>You can use <code>cli_text()</code> within cli <a href="../../cli/help/containers.html">containers</a>.
+</p>
+<div class="sourceCode r"><pre>ul &lt;- cli_ul()
+cli_li("First item.")
+cli_text("Still the {.emph first} item")
+cli_li("Second item.")
+cli_text("Still the {.emph second} item")
+cli_end(ul)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> • First item.                                                                   
+#> Still the <span style="font-style: italic;">first</span> item                                                            
+#> • Second item.                                                                  
+#> Still the <span style="font-style: italic;">second</span> item                                                           
+</pre></div>
+
+
+
+
+<h3>See Also</h3>
+
+<p>This function supports <a href="../../cli/help/inline-markup.html">inline markup</a>.
+</p>
+<p>Other functions supporting inline markup: 
+<code><a href="../../cli/help/cli_abort.html">cli_abort</a>()</code>,
+<code><a href="../../cli/help/cli_alert.html">cli_alert</a>()</code>,
+<code><a href="../../cli/help/cli_blockquote.html">cli_blockquote</a>()</code>,
+<code><a href="../../cli/help/cli_bullets.html">cli_bullets</a>()</code>,
+<code><a href="../../cli/help/cli_bullets_raw.html">cli_bullets_raw</a>()</code>,
+<code><a href="../../cli/help/cli_dl.html">cli_dl</a>()</code>,
+<code><a href="../../cli/help/cli_h1.html">cli_h1</a>()</code>,
+<code><a href="../../cli/help/cli_li.html">cli_li</a>()</code>,
+<code><a href="../../cli/help/cli_ol.html">cli_ol</a>()</code>,
+<code><a href="../../cli/help/cli_process_start.html">cli_process_start</a>()</code>,
+<code><a href="../../cli/help/cli_progress_along.html">cli_progress_along</a>()</code>,
+<code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar</a>()</code>,
+<code><a href="../../cli/help/cli_progress_message.html">cli_progress_message</a>()</code>,
+<code><a href="../../cli/help/cli_progress_output.html">cli_progress_output</a>()</code>,
+<code><a href="../../cli/help/cli_progress_step.html">cli_progress_step</a>()</code>,
+<code><a href="../../cli/help/cli_rule.html">cli_rule</a></code>,
+<code><a href="../../cli/help/cli_status.html">cli_status</a>()</code>,
+<code><a href="../../cli/help/cli_status_update.html">cli_status_update</a>()</code>,
+<code><a href="../../cli/help/cli_ul.html">cli_ul</a>()</code>,
+<code><a href="../../cli/help/format_error.html">format_error</a>()</code>,
+<code><a href="../../cli/help/format_inline.html">format_inline</a>()</code>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

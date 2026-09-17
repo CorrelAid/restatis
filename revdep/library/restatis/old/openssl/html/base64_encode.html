@@ -1,0 +1,65 @@
+<!DOCTYPE html><html><head><title>R: Encode and decode base64</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>base64_encode {openssl}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Encode and decode base64</h2>
+
+<h3>Description</h3>
+
+<p>Encode and decode binary data into a base64 string. Character vectors are
+automatically collapsed into a single string.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>base64_encode(bin, linebreaks = FALSE)
+
+base64_decode(text)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="bin">bin</code></td>
+<td>
+<p>raw or character vector with data to encode into base64</p>
+</td></tr>
+<tr><td><code id="linebreaks">linebreaks</code></td>
+<td>
+<p>insert linebreaks in the base64 message to make it more readable</p>
+</td></tr>
+<tr><td><code id="text">text</code></td>
+<td>
+<p>string with base64 data to decode</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>input &lt;- charToRaw("foo = bar + 5")
+message &lt;- base64_encode(input)
+output &lt;- base64_decode(message)
+identical(output, input)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>openssl</em> version 2.3.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

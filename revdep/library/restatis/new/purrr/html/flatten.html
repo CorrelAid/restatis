@@ -1,0 +1,107 @@
+<!DOCTYPE html><html><head><title>R: Flatten a list of lists into a simple vector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>flatten {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Flatten a list of lists into a simple vector</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#superseded"><img src="../help/figures/lifecycle-superseded.svg" alt='[Superseded]'></a>
+</p>
+<p>These functions were superseded in purrr 1.0.0 because their behaviour was
+inconsistent. Superseded functions will not go away, but will only receive
+critical bug fixes.
+</p>
+
+<ul>
+<li> <p><code>flatten()</code> has been superseded by <code><a href="../../purrr/help/list_flatten.html">list_flatten()</a></code>.
+</p>
+</li>
+<li> <p><code>flatten_lgl()</code>, <code>flatten_int()</code>, <code>flatten_dbl()</code>, and <code>flatten_chr()</code>
+have been superseded by <code><a href="../../purrr/help/list_c.html">list_c()</a></code>.
+</p>
+</li>
+<li> <p><code>flatten_dfr()</code> and <code>flatten_dfc()</code> have been superseded by <code><a href="../../purrr/help/list_rbind.html">list_rbind()</a></code>
+and <code><a href="../../purrr/help/list_cbind.html">list_cbind()</a></code> respectively.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>flatten(.x)
+
+flatten_lgl(.x)
+
+flatten_int(.x)
+
+flatten_dbl(.x)
+
+flatten_chr(.x)
+
+flatten_dfr(.x, .id = NULL)
+
+flatten_dfc(.x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>A list to flatten. The contents of the list can be anything for
+<code>flatten()</code> (as a list is returned), but the contents must match the
+type for the other functions.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>flatten()</code> returns a list, <code>flatten_lgl()</code> a logical
+vector, <code>flatten_int()</code> an integer vector, <code>flatten_dbl()</code> a
+double vector, and <code>flatten_chr()</code> a character vector.
+</p>
+<p><code>flatten_dfr()</code> and <code>flatten_dfc()</code> return data frames created by
+row-binding and column-binding respectively. They require dplyr to
+be installed.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- map(1:3, \(i) sample(4))
+x
+
+# was
+x |&gt; flatten_int() |&gt; str()
+# now
+x |&gt; list_c() |&gt; str()
+
+x &lt;- list(list(1, 2), list(3, 4))
+# was
+x |&gt; flatten() |&gt; str()
+# now
+x |&gt; list_flatten() |&gt; str()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

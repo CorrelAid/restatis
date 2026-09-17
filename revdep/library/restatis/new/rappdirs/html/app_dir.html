@@ -1,0 +1,110 @@
+<!DOCTYPE html><html><head><title>R: Record app information in a convenient object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>app_dir {rappdirs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Record app information in a convenient object</h2>
+
+<h3>Description</h3>
+
+<p>Has methods:
+</p>
+
+<ul>
+<li> <p><code style="white-space: pre;">&#8288;$cache()&#8288;</code>
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;$log()&#8288;</code>
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;$data()&#8288;</code>
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;$config()&#8288;</code>
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;$site_data()&#8288;</code>
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;$site_config()&#8288;</code>
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>app_dir(
+  appname = NULL,
+  appauthor = appname,
+  version = NULL,
+  expand = TRUE,
+  os = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="appname">appname</code></td>
+<td>
+<p>is the name of application. If NULL, just the system
+directory is returned.</p>
+</td></tr>
+<tr><td><code id="appauthor">appauthor</code></td>
+<td>
+<p>(only required and used on Windows) is the name of the
+appauthor or distributing body for this application. Typically
+it is the owning company name. This falls back to appname.</p>
+</td></tr>
+<tr><td><code id="version">version</code></td>
+<td>
+<p>is an optional version path element to append to the
+path. You might want to use this if you want multiple versions
+of your app to be able to run independently. If used, this
+would typically be <code>"&lt;major&gt;.&lt;minor&gt;"</code>. Only applied when appname
+is not NULL.</p>
+</td></tr>
+<tr><td><code id="expand">expand</code></td>
+<td>
+<p>If TRUE (the default) will expand the <code>R_LIBS</code> specifiers with their equivalents.
+See <code><a href="../../base/html/libPaths.html">R_LIBS()</a></code> for list of all possibly specifiers.</p>
+</td></tr>
+<tr><td><code id="os">os</code></td>
+<td>
+<p>Operating system whose conventions are used to construct the
+requested directory. Possible values are &quot;win&quot;, &quot;mac&quot;, &quot;unix&quot;. If <code>NULL</code>
+(the default) then the current OS will be used.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>ggplot2_app &lt;- app_dir("ggplot2", "hadley")
+ggplot2_app$cache()
+ggplot2_app$log()
+ggplot2_app$data()
+ggplot2_app$config()
+ggplot2_app$site_config()
+ggplot2_app$site_data()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rappdirs</em> version 0.3.4 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

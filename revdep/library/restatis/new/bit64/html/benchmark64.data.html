@@ -1,0 +1,70 @@
+<!DOCTYPE html><html><head><title>R: Results of performance measurement on a Core i7 Lenovo T410 8...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>benchmark64.data {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Results of performance measurement on a Core i7 Lenovo T410 8 GB RAM under Windows 7 64bit</h2>
+
+<h3>Description</h3>
+
+<p>These are the results of calling <code><a href="../../bit64/help/benchmark64.html">benchmark64()</a></code>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>data(benchmark64.data)
+</code></pre>
+
+
+<h3>Format</h3>
+
+<p>The format is:
+</p>
+<div class="sourceCode"><pre>num [1:16, 1:6] 2.55e-05 2.37 2.39 1.28 1.39 ...
+- attr(*, "dimnames")=List of 2
+..$ : chr [1:16] "cache" "match(s,b)" "s %in% b" "match(b,s)" ...
+..$ : chr [1:6] "32-bit" "64-bit" "hashcache" "sortordercache" ...
+</pre></div>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>data(benchmark64.data)
+print(benchmark64.data)
+matplot(log2(benchmark64.data[-1,1]/benchmark64.data[-1,])
+, pch=c("3", "6", "h", "s", "o", "a")
+, xlab="tasks [last=session]"
+, ylab="log2(relative speed) [bigger is better]"
+)
+matplot(t(log2(benchmark64.data[-1,1]/benchmark64.data[-1,]))
+, axes=FALSE
+, type="b"
+, lwd=c(rep(1, 14), 3)
+, xlab="context"
+, ylab="log2(relative speed) [bigger is better]"
+)
+axis(1
+, labels=c("32-bit", "64-bit", "hash", "sortorder", "order", "hash+sortorder")
+, at=1:6
+)
+axis(2)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html><html><head><title>R: Recode and replace using logical conditions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec-case-and-replace {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Recode and replace using logical conditions</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>vec_case_when()</code> constructs an entirely new vector by recoding the <code>TRUE</code>
+<code>conditions</code> to their corresponding <code>values</code>. If there are locations not
+matched by <code>conditions</code>, then they are recoded to the <code>default</code> value.
+</p>
+</li>
+<li> <p><code>vec_replace_when()</code> updates an existing vector by replacing the values
+from <code>x</code> matched by the <code>TRUE</code> <code>conditions</code> with their corresponding
+<code>values</code>. In this case, each element of <code>values</code> must have the same type as
+<code>x</code> and locations not matched by <code>conditions</code> retain their original <code>x</code>
+value.
+</p>
+</li></ul>
+
+<p><code>vec_case_when()</code> is often thought of as a way to vectorize multiple if-else
+statements, and is an R equivalent of the SQL &quot;searched&quot; <code style="white-space: pre;">&#8288;CASE WHEN&#8288;</code>
+statement.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_case_when(
+  conditions,
+  values,
+  ...,
+  default = NULL,
+  unmatched = "default",
+  ptype = NULL,
+  size = NULL,
+  conditions_arg = "conditions",
+  values_arg = "values",
+  default_arg = "default",
+  error_call = current_env()
+)
+
+vec_replace_when(
+  x,
+  conditions,
+  values,
+  ...,
+  x_arg = "x",
+  conditions_arg = "conditions",
+  values_arg = "values",
+  error_call = current_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="conditions">conditions</code></td>
+<td>
+<p>A list of logical condition vectors.
+</p>
+<p>For <code>vec_case_when()</code>, each vector should be the same size.
+</p>
+<p>For <code>vec_replace_when()</code>, each vector should be the same size as <code>x</code>.
+</p>
+<p>Where a value in <code>conditions</code> is <code>TRUE</code>, the corresponding value in
+<code>values</code> will be assigned to the result.</p>
+</td></tr>
+<tr><td><code id="values">values</code></td>
+<td>
+<p>A list of vectors.
+</p>
+<p>For <code>vec_case_when()</code>, each vector should be size 1 or the size implied by
+<code>conditions</code>. The common type of <code>values</code> and <code>default</code> determine the
+output type, unless overridden by <code>ptype</code>.
+</p>
+<p>For <code>vec_replace_when()</code>, each vector should be size 1 or the same size
+as <code>x</code>. Each vector will be cast to the type of <code>x</code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="default">default</code></td>
+<td>
+<p>Default value to use when <code>conditions</code> does not match every
+location in the output.
+</p>
+<p>By default, a missing value is used as the default value.
+</p>
+<p>If supplied, <code>default</code> must be size 1 or the size implied by <code>conditions</code>.
+</p>
+<p>Can only be set when <code>unmatched = "default"</code>.</p>
+</td></tr>
+<tr><td><code id="unmatched">unmatched</code></td>
+<td>
+<p>Handling of unmatched locations.
+</p>
+<p>One of:
+</p>
+
+<ul>
+<li> <p><code>"default"</code> to use <code>default</code> in unmatched locations.
+</p>
+</li>
+<li> <p><code>"error"</code> to error when there are unmatched locations.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="ptype">ptype</code></td>
+<td>
+<p>An optional override for the output type, which is usually
+computed as the common type of <code>values</code> and <code>default</code>.</p>
+</td></tr>
+<tr><td><code id="size">size</code></td>
+<td>
+<p>An optional override for the output size, which is usually
+computed as the size of the first element of <code>conditions</code>.
+</p>
+<p>Only useful for requiring a fixed size when <code>conditions</code> is an empty list.</p>
+</td></tr>
+<tr><td><code id="error_call">error_call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A vector.</p>
+</td></tr>
+<tr><td><code id="x_arg">x_arg</code>, <code id="conditions_arg">conditions_arg</code>, <code id="values_arg">values_arg</code>, <code id="default_arg">default_arg</code></td>
+<td>
+<p>Argument names used in
+error messages.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A vector.
+</p>
+
+<ul>
+<li><p> For <code>vec_case_when()</code>, the type of the output is computed as the common
+type of <code>values</code> and <code>default</code>, unless overridden by <code>ptype</code>. The names of
+the output come from the names of <code>values</code> and <code>default</code>. The size of the
+output comes from the implied size from <code>conditions</code>, unless overridden by
+<code>size</code>.
+</p>
+</li>
+<li><p> For <code>vec_replace_when()</code>, the type of the output will have the same type as
+<code>x</code>. The names of the output will be the same as the names of <code>x</code>. The size
+of the output will be the same size as <code>x</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Note how the first `TRUE` is used in the output.
+# Also note how the `NA` falls through to `default`.
+x &lt;- seq(-2L, 2L, by = 1L)
+x &lt;- c(x, NA)
+conditions &lt;- list(
+  x &lt; 0,
+  x &lt; 1
+)
+values &lt;- list(
+  "&lt;0",
+  "&lt;1"
+)
+vec_case_when(
+  conditions,
+  values,
+  default = "other"
+)
+
+# Missing values need to be handled with their own case
+# if you want them to have a special value
+conditions &lt;- list(
+  x &lt; 0,
+  x &lt; 1,
+  is.na(x)
+)
+values &lt;- list(
+  "&lt;0",
+  "&lt;1",
+  NA
+)
+vec_case_when(
+  conditions,
+  values,
+  default = "other"
+)
+
+# Both `values` and `default` are vectorized
+values &lt;- list(
+  x * 5,
+  x * 10,
+  NA
+)
+vec_case_when(
+  conditions,
+  values,
+  default = x * 100
+)
+
+# Use `vec_replace_when()` if you need to update `x`, retaining
+# all previous values in locations that you don't match
+conditions &lt;- list(
+  x &lt; 0,
+  x &lt; 1
+)
+values &lt;- list(
+  0,
+  1
+)
+out &lt;- vec_replace_when(
+  x,
+  conditions,
+  values
+)
+out
+
+# Note how `vec_replace_when()` is type stable on `x`, we retain the
+# integer type here even though `values` contained doubles
+typeof(out)
+
+# `vec_case_when()` creates a new vector, so names come from `values`
+# and `default`. `vec_replace_when()` modifies an existing vector, so
+# names come from `x` no matter what, just like `[&lt;-` and `base::replace()`
+x &lt;- c(a = 1, b = 2, c = 3)
+conditions &lt;- list(x == 1, x == 2)
+values &lt;- list(c(x = 0), c(y = -1))
+vec_case_when(conditions, values)
+vec_replace_when(x, conditions, values)
+
+# If you want to enforce that you've covered all of the locations in your
+# `conditions`, use `unmatched = "error"` rather than providing a `default`
+x &lt;- c(0, 1, 2)
+conditions &lt;- list(x == 1, x == 2)
+values &lt;- list("a", "b")
+try(vec_case_when(conditions, values, unmatched = "error"))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

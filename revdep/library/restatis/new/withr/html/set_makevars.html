@@ -1,0 +1,70 @@
+<!DOCTYPE html><html><head><title>R: Create a new 'Makevars' file, by adding new variables</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>set_makevars {withr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a new <code>Makevars</code> file, by adding new variables</h2>
+
+<h3>Description</h3>
+
+<p>You probably want <code><a href="../../withr/help/with_makevars.html">with_makevars()</a></code> instead of this function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>set_makevars(
+  variables,
+  old_path = makevars_user(),
+  new_path = tempfile(),
+  assignment = c("=", ":=", "?=", "+=")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="variables">variables</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[named character]&#8288;</code><br> new variables and their values</p>
+</td></tr>
+<tr><td><code id="old_path">old_path</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[character(1)]&#8288;</code><br> location of existing <code>Makevars</code>
+file to modify.</p>
+</td></tr>
+<tr><td><code id="new_path">new_path</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[character(1)]&#8288;</code><br> location of the new <code>Makevars</code> file</p>
+</td></tr>
+<tr><td><code id="assignment">assignment</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[character(1)]&#8288;</code><br> assignment type to use.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Unlike <code><a href="../../withr/help/with_makevars.html">with_makevars()</a></code>, it does not activate the new <code>Makevars</code>
+file, i.e. it does not set the <code>R_MAKEVARS_USER</code> environment variable.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>withr</em> version 3.0.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

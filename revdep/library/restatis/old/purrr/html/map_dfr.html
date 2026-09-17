@@ -1,0 +1,133 @@
+<!DOCTYPE html><html><head><title>R: Functions that return data frames</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>map_dfr {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Functions that return data frames</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#superseded"><img src="../help/figures/lifecycle-superseded.svg" alt='[Superseded]'></a>
+</p>
+<p>These <code><a href="../../purrr/help/map.html">map()</a></code>, <code><a href="../../purrr/help/map2.html">map2()</a></code>, <code><a href="../../purrr/help/imap.html">imap()</a></code>, and <code><a href="../../purrr/help/pmap.html">pmap()</a></code> variants return data
+frames by row-binding or column-binding the outputs together.
+</p>
+<p>The functions were superseded in purrr 1.0.0 because their names
+suggest they work like <code style="white-space: pre;">&#8288;_lgl()&#8288;</code>, <code style="white-space: pre;">&#8288;_int()&#8288;</code>, etc which require length
+1 outputs, but actually they return results of any size because the results
+are combined without any size checks. Additionally, they use
+<code>dplyr::bind_rows()</code> and <code>dplyr::bind_cols()</code> which require dplyr to be
+installed and have confusing semantics with edge cases. Superseded
+functions will not go away, but will only receive critical bug fixes.
+</p>
+<p>Instead, we recommend using <code>map()</code>, <code>map2()</code>, etc with <code><a href="../../purrr/help/list_rbind.html">list_rbind()</a></code> and
+<code><a href="../../purrr/help/list_cbind.html">list_cbind()</a></code>. These use <code><a href="../../vctrs/help/vec_bind.html">vctrs::vec_rbind()</a></code> and <code><a href="../../vctrs/help/vec_bind.html">vctrs::vec_cbind()</a></code>
+under the hood, and have names that more clearly reflect their semantics.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>map_dfr(.x, .f, ..., .id = NULL)
+
+map_dfc(.x, .f, ...)
+
+imap_dfr(.x, .f, ..., .id = NULL)
+
+imap_dfc(.x, .f, ...)
+
+map2_dfr(.x, .y, .f, ..., .id = NULL)
+
+map2_dfc(.x, .y, .f, ...)
+
+pmap_dfr(.l, .f, ..., .id = NULL)
+
+pmap_dfc(.l, .f, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".id">.id</code></td>
+<td>
+<p>Either a string or <code>NULL</code>. If a string, the output will contain
+a variable with that name, storing either the name (if <code>.x</code> is named) or
+the index (if <code>.x</code> is unnamed) of the input. If <code>NULL</code>, the default, no
+variable will be created.
+</p>
+<p>Only applies to <code style="white-space: pre;">&#8288;_dfr&#8288;</code> variant.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># map ---------------------------------------------
+# Was:
+mtcars |&gt;
+  split(mtcars$cyl) |&gt;
+  map(\(df) lm(mpg ~ wt, data = df)) |&gt;
+  map_dfr(\(mod) as.data.frame(t(as.matrix(coef(mod)))))
+
+# Now:
+mtcars |&gt;
+  split(mtcars$cyl) |&gt;
+  map(\(df) lm(mpg ~ wt, data = df)) |&gt;
+  map(\(mod) as.data.frame(t(as.matrix(coef(mod))))) |&gt;
+  list_rbind()
+
+# for certain pathological inputs `map_dfr()` and `map_dfc()` actually
+# both combine the list by column
+df &lt;- data.frame(
+  x = c(" 13", "  15 "),
+  y = c("  34",  " 67 ")
+)
+
+# Was:
+map_dfr(df, trimws)
+map_dfc(df, trimws)
+
+# But list_rbind()/list_cbind() fail because they require data frame inputs
+try(map(df, trimws) |&gt; list_rbind())
+
+# Instead, use modify() to apply a function to each column of a data frame
+modify(df, trimws)
+
+# map2 ---------------------------------------------
+
+ex_fun &lt;- function(arg1, arg2){
+  col &lt;- arg1 + arg2
+  x &lt;- as.data.frame(col)
+}
+arg1 &lt;- 1:4
+arg2 &lt;- 10:13
+
+# was
+map2_dfr(arg1, arg2, ex_fun)
+# now
+map2(arg1, arg2, ex_fun) |&gt; list_rbind()
+
+# was
+map2_dfc(arg1, arg2, ex_fun)
+# now
+map2(arg1, arg2, ex_fun) |&gt; list_cbind()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

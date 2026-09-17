@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><title>R: Show the raw response</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>resp_raw {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Show the raw response</h2>
+
+<h3>Description</h3>
+
+<p>This function reconstructs the HTTP message that httr2 received from the
+server. It's unlikely to be exactly byte-for-byte identical (because most
+servers compress at least the body, and HTTP/2 can also compress the
+headers), but it conveys the same information.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>resp_raw(resp)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="resp">resp</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/response.html">response</a> object, created by <code><a href="../../httr2/help/req_perform.html">req_perform()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>resp</code> (invisibly).
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>resp &lt;- request(example_url()) |&gt;
+  req_url_path("/json") |&gt;
+  req_perform()
+resp |&gt; resp_raw()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

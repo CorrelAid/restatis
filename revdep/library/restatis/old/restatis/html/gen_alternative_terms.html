@@ -1,0 +1,96 @@
+<!DOCTYPE html><html><head><title>R: Find similar search terms</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>gen_alternative_terms {restatis}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Find similar search terms</h2>
+
+<h3>Description</h3>
+
+<p>Function to find search terms that are similar or related to one another in spelling and also represented in the GENESIS, Zensus 2022 or regionalstatistik.de databases. Important note: The API call is searching for terms with the same characters. To be useful in searching for related terms it is highly recommended to work with &quot;*&quot; placeholders (see examples). The placeholder can be placed before and/or after the search term.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>gen_alternative_terms(
+  term = NULL,
+  similarity = TRUE,
+  database = c("all", "genesis", "zensus", "regio"),
+  pagelength = 500,
+  verbose = TRUE,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="term">term</code></td>
+<td>
+<p>Character string. Maximum length of 15 characters. Term or word for which you are searching for alternative or related terms. Use of '*' as a placeholder is possible to generate broader search areas.</p>
+</td></tr>
+<tr><td><code id="similarity">similarity</code></td>
+<td>
+<p>Boolean. Indicator if the output of the function should be sorted based on a Levenshtein edit distance based on the <code>adist()</code> function. Default is 'TRUE'.</p>
+</td></tr>
+<tr><td><code id="database">database</code></td>
+<td>
+<p>Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus') or regionalstatistik.de ('regio') database is called. Default option is 'all'.</p>
+</td></tr>
+<tr><td><code id="pagelength">pagelength</code></td>
+<td>
+<p>Integer. Maximum length of results or objects (e.g., number of tables). Defaults to 500. Maximum of the databases is 25,000 objects.</p>
+</td></tr>
+<tr><td><code id="verbose">verbose</code></td>
+<td>
+<p>Boolean. Indicator if the output of the function should include detailed messages and warnings. Default option is 'TRUE'. Set the parameter to 'FALSE' to suppress additional messages and warnings.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see <code>vignette("additional_parameter")</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list with all recollected elements from the respective database. Attributes are added to the data.frame, describing the search configuration for the returned output.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+# Find terms at GENESIS that are the same (in spelling) to search term "bus"
+# and sort them by Levenshtein edit distance
+object &lt;- gen_alternative_terms(term = "bus", similarity = TRUE, database = "genesis")
+
+# Find terms at GENESIS that are related (in spelling) to search term "bus"
+object &lt;- gen_alternative_terms(term = "bus*", similarity = TRUE, database = "genesis")
+
+# Find terms at Zensus 2022 that are related (in spelling) to search term "wohn"
+object &lt;- gen_alternative_terms(term = "wohn*", similarity = TRUE, database = "zensus")
+
+## End(Not run)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>restatis</em> version 0.3.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

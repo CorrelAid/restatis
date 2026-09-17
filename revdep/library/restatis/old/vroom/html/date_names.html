@@ -1,0 +1,81 @@
+<!DOCTYPE html><html><head><title>R: Create or retrieve date names</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>date_names {vroom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create or retrieve date names</h2>
+
+<h3>Description</h3>
+
+<p>When parsing dates, you often need to know how weekdays of the week and
+months are represented as text. This pair of functions allows you to either
+create your own, or retrieve from a standard list. The standard list is
+derived from ICU (<code style="white-space: pre;">&#8288;https://site.icu-project.org&#8288;</code>) via the <em>stringi</em> package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>date_names(mon, mon_ab = mon, day, day_ab = day, am_pm = c("AM", "PM"))
+
+date_names_lang(language, call = caller_env())
+
+date_names_langs()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="mon">mon</code>, <code id="mon_ab">mon_ab</code></td>
+<td>
+<p>Full and abbreviated month names.</p>
+</td></tr>
+<tr><td><code id="day">day</code>, <code id="day_ab">day_ab</code></td>
+<td>
+<p>Full and abbreviated week day names. Starts with Sunday.</p>
+</td></tr>
+<tr><td><code id="am_pm">am_pm</code></td>
+<td>
+<p>Names used for AM and PM.</p>
+</td></tr>
+<tr><td><code id="language">language</code></td>
+<td>
+<p>A BCP 47 locale, made up of a language and a region,
+e.g. <code>"en_US"</code> for American English. See <code>date_names_langs()</code>
+for a complete list of available locales.</p>
+</td></tr>
+<tr><td><code id="call">call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>date_names_lang("en")
+date_names_lang("ko")
+date_names_lang("fr")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vroom</em> version 1.7.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

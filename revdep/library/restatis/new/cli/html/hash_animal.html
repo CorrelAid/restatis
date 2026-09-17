@@ -1,0 +1,169 @@
+<!DOCTYPE html><html><head><title>R: Adjective-animal hash</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>hash_animal {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Adjective-animal hash</h2>
+
+<h3>Description</h3>
+
+<p>Adjective-animal hash
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>hash_animal(x, n_adj = 2)
+
+hash_raw_animal(x, n_adj = 2)
+
+hash_obj_animal(x, n_adj = 2, serialize_version = 2)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Character vector. <code>NA</code> entries will have an <code>NA</code> hash.</p>
+</td></tr>
+<tr><td><code id="n_adj">n_adj</code></td>
+<td>
+<p>Number of adjectives to use. It must be from 0 through 3.</p>
+</td></tr>
+<tr><td><code id="serialize_version">serialize_version</code></td>
+<td>
+<p>Workspace format version to use, see
+<code><a href="../../base/help/serialize.html">base::serialize()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>It uses the first 13 hexadecimal characters (out of the 32) of the MD5
+hash of the input, and converts them into an adjective-animal form to
+create a human readable hash.
+</p>
+
+
+<h4>Number of possible hash values</h4>
+
+<p><code>hash_animal()</code> uses 1748 animal names and
+8946 different adjectives. The number of
+different hashes you can get for different values of <code>n_adj</code>:</p>
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <code>n_adj</code> </td><td style="text-align: right;"> size of the hash table space </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   0 </td><td style="text-align: right;"> 1,748 </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   1 </td><td style="text-align: right;"> 15,637,608 </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   2 </td><td style="text-align: right;"> 139,894,041,168 </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   3 </td><td style="text-align: right;"> 1,251,492,092,288,928 
+</td>
+</tr>
+
+</table>
+
+
+
+
+<h4>Source</h4>
+
+<p>The list of adjectives and animals comes from the ids package,
+and in turn from
+<a href="https://github.com/a-type/adjective-adjective-animal">https://github.com/a-type/adjective-adjective-animal</a>, and
+from <code style="white-space: pre;">&#8288;https://gfycat.com&#8288;</code> (now gone).
+</p>
+
+<p><code>hash_raw_animal()</code> calculates the adjective-animal hash of
+the bytes of a raw vector.
+</p>
+<p><code>hash_obj_animal()</code> calculates the adjective-animal hash of
+an R object. The object is serialized into a binary vector first.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A data frame with columns
+</p>
+
+<ul>
+<li> <p><code>hash</code>: the hash value, a string.
+</p>
+</li>
+<li> <p><code>words</code>: list column with the adjectives and the animal name in a
+character vector.
+</p>
+</li></ul>
+
+<p><code>hash_raw_animal()</code> and <code>hash_obj_animal()</code> return a list
+with entries:
+</p>
+
+<ul>
+<li> <p><code>hash</code>: the hash value, a string,
+</p>
+</li>
+<li><p> 'words: the adjectives and the animal name in a character vector.
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p>the ids package for generating random adjective-animal ids
+</p>
+<p>Other hash functions: 
+<code><a href="../../cli/help/hash_emoji.html">hash_emoji</a>()</code>,
+<code><a href="../../cli/help/hash_md5.html">hash_md5</a>()</code>,
+<code><a href="../../cli/help/hash_sha1.html">hash_sha1</a>()</code>,
+<code><a href="../../cli/help/hash_sha256.html">hash_sha256</a>()</code>,
+<code><a href="../../cli/help/hash_xxhash.html">hash_xxhash</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>hash_animal(c("foo", "bar"))
+
+# if you increase `n_adj`, the shorter hash is a suffix of the longer:
+hash_animal("cli package", 0)$hash
+hash_animal("cli package", 1)$hash
+hash_animal("cli package", 2)$hash
+hash_animal("cli package", 3)$hash
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

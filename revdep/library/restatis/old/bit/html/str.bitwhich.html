@@ -1,0 +1,88 @@
+<!DOCTYPE html><html><head><title>R: Str method for bitwhich</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>str.bitwhich {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Str method for bitwhich</h2>
+
+<h3>Description</h3>
+
+<p>To actually view the internal structure use <code>str(unclass(bitwhich))</code>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'bitwhich'
+str(
+  object,
+  vec.len = strO$vec.len,
+  give.head = TRUE,
+  give.length = give.head,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="object">object</code></td>
+<td>
+<p>any <span class="rlang"><b>R</b></span> object about which you want to have some
+information.</p>
+</td></tr>
+<tr><td><code id="vec.len">vec.len</code></td>
+<td>
+<p>numeric (&gt;= 0) indicating how many &lsquo;first few&rsquo; elements
+are displayed of each vector.  The number is multiplied by different
+factors (from .5 to 3) depending on the kind of vector.  Defaults to
+the <code>vec.len</code> component of option <code>"str"</code> (see
+<code><a href="../../base/html/options.html">options</a></code>) which defaults to 4.</p>
+</td></tr>
+<tr><td><code id="give.head">give.head</code></td>
+<td>
+<p>logical; if <code>TRUE</code> (default), give (possibly
+abbreviated) mode/class and length (as <code><var>type</var>[1:...]</code>).</p>
+</td></tr>
+<tr><td><code id="give.length">give.length</code></td>
+<td>
+<p>logical; if <code>TRUE</code> (default), indicate
+length (as <code>[1:...]</code>).</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>potential further arguments (required for Method/Generic
+reasons).</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code><a href="../../base/html/invisible.html">invisible()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>str(bitwhich(120))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

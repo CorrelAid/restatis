@@ -1,0 +1,165 @@
+<!DOCTYPE html><html><head><title>R: Perform a request to get a response</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_perform {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Perform a request to get a response</h2>
+
+<h3>Description</h3>
+
+<p>After preparing a <a href="../../httr2/help/request.html">request</a>, call <code>req_perform()</code> to perform it, fetching
+the results back to R as a <a href="../../httr2/help/response.html">response</a>.
+</p>
+<p>The default HTTP method is <code>GET</code> unless a body (set by <a href="../../httr2/help/req_body_json.html">req_body_json</a> and
+friends) is present, in which case it will be <code>POST</code>. You can override
+these defaults with <code><a href="../../httr2/help/req_method.html">req_method()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_perform(
+  req,
+  path = NULL,
+  verbosity = NULL,
+  mock = getOption("httr2_mock", NULL),
+  error_call = current_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="path">path</code></td>
+<td>
+<p>Optionally, path to save body of the response. This is useful
+for large responses since it avoids storing the response in memory.</p>
+</td></tr>
+<tr><td><code id="verbosity">verbosity</code></td>
+<td>
+<p>How much information to print? This is a wrapper
+around <code><a href="../../httr2/help/req_verbose.html">req_verbose()</a></code> that uses an integer to control verbosity:
+</p>
+
+<ul>
+<li> <p><code>0</code>: no output
+</p>
+</li>
+<li> <p><code>1</code>: show headers
+</p>
+</li>
+<li> <p><code>2</code>: show headers and bodies
+</p>
+</li>
+<li> <p><code>3</code>: show headers, bodies, and curl status messages.
+</p>
+</li></ul>
+
+<p>Use <code><a href="../../httr2/help/with_verbosity.html">with_verbosity()</a></code> to control the verbosity of requests that
+you can't affect directly.</p>
+</td></tr>
+<tr><td><code id="mock">mock</code></td>
+<td>
+<p>A mocking function. If supplied, this function is called
+with the request. It should return either <code>NULL</code> (if it doesn't want to
+handle the request) or a <a href="../../httr2/help/response.html">response</a> (if it does). See
+<code><a href="../../httr2/help/with_mocked_responses.html">with_mocked_responses()</a></code>/<code>local_mocked_responses()</code> for more details.</p>
+</td></tr>
+<tr><td><code id="error_call">error_call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+
+<ul>
+<li><p> If the HTTP request succeeds, and the status code is ok (e.g. 200),
+an HTTP <a href="../../httr2/help/response.html">response</a>.
+</p>
+</li>
+<li><p> If the HTTP request succeeds, but the status code is an error
+(e.g a 404), an error with class <code>c("httr2_http_404", "httr2_http")</code>.
+By default, all 400 and 500 status codes will be treated as an error,
+but you can customise this with <code><a href="../../httr2/help/req_error.html">req_error()</a></code>.
+</p>
+</li>
+<li><p> If the HTTP request fails (e.g. the connection is dropped or the
+server doesn't exist), an error with class <code>"httr2_failure"</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Requests</h3>
+
+<p>Note that one call to <code>req_perform()</code> may perform multiple HTTP requests:
+</p>
+
+<ul>
+<li><p> If the <code>url</code> is redirected with a 301, 302, 303, or 307, curl will
+automatically follow the <code>Location</code> header to the new location.
+</p>
+</li>
+<li><p> If you have configured retries with <code><a href="../../httr2/help/req_retry.html">req_retry()</a></code> and the request
+fails with a transient problem, <code>req_perform()</code> will try again after
+waiting a bit. See <code><a href="../../httr2/help/req_retry.html">req_retry()</a></code> for details.
+</p>
+</li>
+<li><p> If you are using OAuth, and the cached token has expired, <code>req_perform()</code>
+will get a new token either using the refresh token (if available)
+or by running the OAuth flow.
+</p>
+</li></ul>
+
+
+
+<h3>Progress bar</h3>
+
+<p><code>req_perform()</code> will automatically add a progress bar if it needs to wait
+between requests for <code><a href="../../httr2/help/req_throttle.html">req_throttle()</a></code> or <code><a href="../../httr2/help/req_retry.html">req_retry()</a></code>. You can turn the
+progress bar off (and just show the total time to wait) by setting
+<code>options(httr2_progress = FALSE)</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../httr2/help/req_perform_parallel.html">req_perform_parallel()</a></code> to perform multiple requests in parallel.
+<code><a href="../../httr2/help/req_perform_iterative.html">req_perform_iterative()</a></code> to perform multiple requests iteratively.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>request("https://google.com") |&gt;
+  req_perform()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

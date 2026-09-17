@@ -1,0 +1,90 @@
+<!DOCTYPE html><html><head><title>R: Like 'base::grep()' and 'base::grepl()', but for ANSI strings</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ansi_grep {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Like <code><a href="../../base/help/grep.html">base::grep()</a></code> and <code><a href="../../base/help/grep.html">base::grepl()</a></code>, but for ANSI strings</h2>
+
+<h3>Description</h3>
+
+<p>First ANSI sequences will be stripped with <code><a href="../../cli/help/ansi_strip.html">ansi_strip()</a></code>, both
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ansi_grep(pattern, x, ignore.case = FALSE, perl = FALSE, value = FALSE, ...)
+
+ansi_grepl(pattern, x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="pattern">pattern</code></td>
+<td>
+<p>Character scalar, regular expression or fixed string
+(if <code>fixed = TRUE</code>), the pattern to search for. Other objects will be
+coerced using <code><a href="../../base/html/character.html">as.character()</a></code>.</p>
+</td></tr>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Character vector to search in. Other objects will be coerced
+using <code><a href="../../base/html/character.html">as.character()</a></code>.</p>
+</td></tr>
+<tr><td><code id="ignore.case">ignore.case</code>, <code id="perl">perl</code>, <code id="value">value</code></td>
+<td>
+<p>Passed to <code><a href="../../base/help/grep.html">base::grep()</a></code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Extra arguments are passed to <code><a href="../../base/help/grep.html">base::grep()</a></code> or <code><a href="../../base/help/grep.html">base::grepl()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that these functions work on code points (or bytes if
+<code>useBytes = TRUE</code>), and not graphemes.
+</p>
+<p>Unlike <code><a href="../../base/help/grep.html">base::grep()</a></code> and <code><a href="../../base/help/grep.html">base::grepl()</a></code> these functions do not special
+case factors.
+</p>
+<p>Both <code>pattern</code> and <code>x</code> are converted to UTF-8.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The same as <code><a href="../../base/help/grep.html">base::grep()</a></code> and <code><a href="../../base/help/grep.html">base::grepl()</a></code>, respectively.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>red_needle &lt;- col_red("needle")
+haystack &lt;- c("foo", "needle", "foo")
+green_haystack &lt;- col_green(haystack)
+ansi_grepl(red_needle, haystack)
+ansi_grepl(red_needle, green_haystack)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

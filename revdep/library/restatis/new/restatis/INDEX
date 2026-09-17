@@ -1,0 +1,75 @@
+.gen_api_core           Basic API request function
+binding_lapply          binding_lapply
+check_credential_list_standalone
+                        Function to check if credential list provided
+                        is valid
+check_function_input    check_function_input
+check_results           check_results
+evas_list               List of EVAS Codes
+find_token              find_token
+forming_evas            forming_evas
+gen_alternative_terms   Find Similar Search Terms
+gen_auth_ask            Helper function for authentication purposes
+gen_auth_get            Retrieve database credentials
+gen_auth_path           Helper function for authentication purposes
+gen_auth_save           Save database credentials
+gen_catalogue           Search For Tables, Statistics and Cubes
+gen_cube                Download Data Cube As Data.Frame
+gen_download_job        Download Jobs That Have Finished Processing
+gen_find                General Search For Objects Through A Database
+gen_list_jobs           Download List Of Active Download Jobs
+gen_logincheck          Check If User Can Connect To Service
+gen_metadata            Search For Meta-Information For All Types Of
+                        Objects
+gen_metadata_cube       gen_metadata_cube
+gen_metadata_statistic
+                        gen_metadata_statistic
+gen_metadata_table      gen_metadata_table
+gen_metadata_value      gen_metadata_value
+gen_metadata_variable   gen_metadata_variable
+gen_modified_data       Check Objects For Updates And Changes
+gen_objects2stat        Find Objects Related To A Statistic
+gen_objects2var         Find Objects Related To A Variable
+gen_search_vars         Search For Variables
+gen_signs               List Currently Used Special Signs
+gen_table               Download Table As Data.Frame
+gen_update_evas         Update EVAS Database
+gen_val2var             Extract Values From Variable
+gen_val2var2stat        Get Values From Variables Of A Statistic
+gen_var2stat            Generate Variables From Statistics
+ggsub                   ggsub
+insert_and_save_credentials
+                        insert_and_save_credentials
+is_cube_metadata_header
+                        is_cube_metadata_header
+logincheck_http_error   logincheck_http_error
+logincheck_stop_or_warn
+                        logincheck_stop_or_warn
+param_check_regionalkey
+                        param_check_regionalkey
+param_check_year        param_check_year
+param_collapse_vec      param_collapse_vec
+read_cube               read_cube
+read_cube_block         read_cube_block
+read_cube_data_lines    read_cube_data_lines
+read_cube_metadata_header
+                        read_cube_metadata_header
+rename_cube_data_columns
+                        rename_cube_data_columns
+resp_check_data         resp_check_data
+return_table_object     return_table_object
+set_credentials_auth    set_credentials_auth
+spezifisch_create       spezifisch_create
+split_cube              split_cube
+test_database_function
+                        test_database_function
+test_if_error           test_if_error
+test_if_error_find      test_if_error_find
+test_if_error_light     test_if_error_light
+test_if_error_variables
+                        test_if_error_variables
+test_if_json            test_if_json
+test_if_okay            test_if_okay
+test_if_process_further
+                        test_if_process_further
+title_search            title_search

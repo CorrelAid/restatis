@@ -1,0 +1,172 @@
+<!DOCTYPE html><html><head><title>R: Locate sorted groups</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_locate_sorted_groups {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Locate sorted groups</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p><code>vec_locate_sorted_groups()</code> returns a data frame containing a <code>key</code> column
+with sorted unique groups, and a <code>loc</code> column with the locations of each
+group in <code>x</code>. It is similar to <code><a href="../../vctrs/help/vec_group_loc.html">vec_group_loc()</a></code>, except the groups are
+returned sorted rather than by first appearance.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_locate_sorted_groups(
+  x,
+  ...,
+  direction = "asc",
+  na_value = "largest",
+  nan_distinct = FALSE,
+  chr_proxy_collate = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A vector</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="direction">direction</code></td>
+<td>
+<p>Direction to sort in.
+</p>
+
+<ul>
+<li><p> A single <code>"asc"</code> or <code>"desc"</code> for ascending or descending order
+respectively.
+</p>
+</li>
+<li><p> For data frames, a length <code>1</code> or <code>ncol(x)</code> character vector containing
+only <code>"asc"</code> or <code>"desc"</code>, specifying the direction for each column.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="na_value">na_value</code></td>
+<td>
+<p>Ordering of missing values.
+</p>
+
+<ul>
+<li><p> A single <code>"largest"</code> or <code>"smallest"</code> for ordering missing values as the
+largest or smallest values respectively.
+</p>
+</li>
+<li><p> For data frames, a length <code>1</code> or <code>ncol(x)</code> character vector containing
+only <code>"largest"</code> or <code>"smallest"</code>, specifying how missing values should
+be ordered within each column.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="nan_distinct">nan_distinct</code></td>
+<td>
+<p>A single logical specifying whether or not <code>NaN</code> should
+be considered distinct from <code>NA</code> for double and complex vectors. If <code>TRUE</code>,
+<code>NaN</code> will always be ordered between <code>NA</code> and non-missing numbers.</p>
+</td></tr>
+<tr><td><code id="chr_proxy_collate">chr_proxy_collate</code></td>
+<td>
+<p>A function generating an alternate representation
+of character vectors to use for collation, often used for locale-aware
+ordering.
+</p>
+
+<ul>
+<li><p> If <code>NULL</code>, no transformation is done.
+</p>
+</li>
+<li><p> Otherwise, this must be a function of one argument. If the input contains
+a character vector, it will be passed to this function after it has been
+translated to UTF-8. This function should return a character vector with
+the same length as the input. The result should sort as expected in the
+C-locale, regardless of encoding.
+</p>
+</li></ul>
+
+<p>For data frames, <code>chr_proxy_collate</code> will be applied to all character
+columns.
+</p>
+<p>Common transformation functions include: <code>tolower()</code> for case-insensitive
+ordering and <code>stringi::stri_sort_key()</code> for locale-aware ordering.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>vec_locate_sorted_groups(x)</code> is equivalent to, but faster than:
+</p>
+<div class="sourceCode"><pre>info &lt;- vec_group_loc(x)
+vec_slice(info, vec_order(info$key))
+</pre></div>
+
+
+<h3>Value</h3>
+
+<p>A two column data frame with size equal to <code>vec_size(vec_unique(x))</code>.
+</p>
+
+<ul>
+<li><p> A <code>key</code> column of type <code>vec_ptype(x)</code>.
+</p>
+</li>
+<li><p> A <code>loc</code> column of type list, with elements of type integer.
+</p>
+</li></ul>
+
+
+
+<h3>Dependencies of <code>vec_locate_sorted_groups()</code></h3>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/vec_proxy_order.html">vec_proxy_order()</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>df &lt;- data.frame(
+  g = sample(2, 10, replace = TRUE),
+  x = c(NA, sample(5, 9, replace = TRUE))
+)
+
+# `vec_locate_sorted_groups()` is similar to `vec_group_loc()`, except keys
+# are returned ordered rather than by first appearance.
+vec_locate_sorted_groups(df)
+
+vec_group_loc(df)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

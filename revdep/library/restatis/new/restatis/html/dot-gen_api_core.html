@@ -1,0 +1,57 @@
+<!DOCTYPE html><html><head><title>R: Basic API request function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>.gen_api_core {restatis}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Basic API request function</h2>
+
+<h3>Description</h3>
+
+<p>(Uncached) Low-level function to interact with the one of the APIs
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>.gen_api_core(endpoint, database, credential_list = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="endpoint">endpoint</code></td>
+<td>
+<p>Character string. The endpoint of the API that is to be queried.</p>
+</td></tr>
+<tr><td><code id="database">database</code></td>
+<td>
+<p>The database the query should be sent to.</p>
+</td></tr>
+<tr><td><code id="credential_list">credential_list</code></td>
+<td>
+<p>A named list including username and password for the database(s) to be queried. If NULL (default), the function will try to get credentials from the environment variables.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Further parameters passed on to the final API call.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>restatis</em> version 0.4.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

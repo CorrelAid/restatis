@@ -1,0 +1,169 @@
+<!DOCTYPE html><html><head><title>R: Perform request asynchronously using the promises package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_perform_promise {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Perform request asynchronously using the promises package</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p>This variation on <code><a href="../../httr2/help/req_perform.html">req_perform()</a></code> returns a <code><a href="../../promises/help/promise.html">promises::promise()</a></code> object immediately
+and then performs the request in the background, returning program control before the request
+is finished. See the
+<a href="https://rstudio.github.io/promises/articles/promises_01_motivation.html">promises package documentation</a>
+for more details on how to work with the resulting promise object.
+</p>
+<p>If using together with <code><a href="../../later/help/create_loop.html">later::with_temp_loop()</a></code> or other private event loops,
+a new curl pool made by <code><a href="../../curl/help/multi.html">curl::new_pool()</a></code> should be created for requests made
+within the loop to ensure that only these requests are being polled by the loop.
+</p>
+<p>Like with <code><a href="../../httr2/help/req_perform_parallel.html">req_perform_parallel()</a></code>, exercise caution when using this function;
+it's easy to pummel a server with many simultaneous requests. Also, not all servers
+can handle more than 1 request at a time, so the responses may still return
+sequentially.
+</p>
+<p><code>req_perform_promise()</code> also has similar limitations to the
+<code><a href="../../httr2/help/req_perform_parallel.html">req_perform_parallel()</a></code> function, it:
+</p>
+
+<ul>
+<li><p> Will not retrieve a new OAuth token if it expires after the promised request
+is created but before it is actually requested.
+</p>
+</li>
+<li><p> Does not perform throttling with <code><a href="../../httr2/help/req_throttle.html">req_throttle()</a></code>.
+</p>
+</li>
+<li><p> Does not attempt retries as described by <code><a href="../../httr2/help/req_retry.html">req_retry()</a></code>.
+</p>
+</li>
+<li><p> Only consults the cache set by <code><a href="../../httr2/help/req_cache.html">req_cache()</a></code> when the request is promised.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_perform_promise(
+  req,
+  path = NULL,
+  pool = NULL,
+  verbosity = NULL,
+  mock = getOption("httr2_mock", NULL)
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="path">path</code></td>
+<td>
+<p>Optionally, path to save body of the response. This is useful
+for large responses since it avoids storing the response in memory.</p>
+</td></tr>
+<tr><td><code id="pool">pool</code></td>
+<td>
+<p>A pool created by <code><a href="../../curl/help/multi.html">curl::new_pool()</a></code>.</p>
+</td></tr>
+<tr><td><code id="verbosity">verbosity</code></td>
+<td>
+<p>How much information to print? This is a wrapper
+around <code><a href="../../httr2/help/req_verbose.html">req_verbose()</a></code> that uses an integer to control verbosity:
+</p>
+
+<ul>
+<li> <p><code>0</code>: no output
+</p>
+</li>
+<li> <p><code>1</code>: show headers
+</p>
+</li>
+<li> <p><code>2</code>: show headers and bodies
+</p>
+</li>
+<li> <p><code>3</code>: show headers, bodies, and curl status messages.
+</p>
+</li></ul>
+
+<p>Use <code><a href="../../httr2/help/with_verbosity.html">with_verbosity()</a></code> to control the verbosity of requests that
+you can't affect directly.</p>
+</td></tr>
+<tr><td><code id="mock">mock</code></td>
+<td>
+<p>A mocking function. If supplied, this function is called
+with the request. It should return either <code>NULL</code> (if it doesn't want to
+handle the request) or a <a href="../../httr2/help/response.html">response</a> (if it does). See
+<code><a href="../../httr2/help/with_mocked_responses.html">with_mocked_responses()</a></code>/<code>local_mocked_responses()</code> for more details.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a <code><a href="../../promises/help/promise.html">promises::promise()</a></code> object which resolves to a <a href="../../httr2/help/response.html">response</a> if
+successful or rejects on the same errors thrown by <code><a href="../../httr2/help/req_perform.html">req_perform()</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+library(promises)
+request_base &lt;- request(example_url()) |&gt; req_url_path_append("delay")
+
+p &lt;- request_base |&gt; req_url_path_append(2) |&gt; req_perform_promise()
+
+# A promise object, not particularly useful on its own
+p
+
+# Use promise chaining functions to access results
+p %...&gt;%
+  resp_body_json() %...&gt;%
+  print()
+
+
+# Can run two requests at the same time
+p1 &lt;- request_base |&gt; req_url_path_append(2) |&gt; req_perform_promise()
+p2 &lt;- request_base |&gt; req_url_path_append(1) |&gt; req_perform_promise()
+
+p1 %...&gt;%
+  resp_url_path %...&gt;%
+  paste0(., " finished") %...&gt;%
+  print()
+
+p2 %...&gt;%
+  resp_url_path %...&gt;%
+  paste0(., " finished") %...&gt;%
+  print()
+
+# See the [promises package documentation](https://rstudio.github.io/promises/)
+# for more information on working with promises
+
+## End(Not run)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

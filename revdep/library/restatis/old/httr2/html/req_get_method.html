@@ -1,0 +1,56 @@
+<!DOCTYPE html><html><head><title>R: Get request method</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_get_method {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get request method</h2>
+
+<h3>Description</h3>
+
+<p>Defaults to <code>GET</code>, unless the request has a body, in which case it uses
+<code>POST</code>. Either way the method can be overridden with <code><a href="../../httr2/help/req_method.html">req_method()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_get_method(req)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>req &lt;- request(example_url())
+req_get_method(req)
+req_get_method(req |&gt; req_body_raw("abc"))
+req_get_method(req |&gt; req_method("DELETE"))
+req_get_method(req |&gt; req_method("HEAD"))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

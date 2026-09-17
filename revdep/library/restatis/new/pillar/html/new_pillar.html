@@ -1,0 +1,91 @@
+<!DOCTYPE html><html><head><title>R: Construct a custom pillar object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>new_pillar {pillar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Construct a custom pillar object</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p><code>new_pillar()</code> is the low-level constructor for pillar objects.
+It supports arbitrary components.
+See <code><a href="../../pillar/help/pillar.html">pillar()</a></code> for the high-level constructor with default components.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>new_pillar(components, ..., width = NULL, class = NULL, extra = deprecated())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="components">components</code></td>
+<td>
+<p>A named list of components constructed with <code><a href="../../pillar/help/pillar_component.html">pillar_component()</a></code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="width">width</code></td>
+<td>
+<p>Default width, optional.</p>
+</td></tr>
+<tr><td><code id="class">class</code></td>
+<td>
+<p>Name of subclass.</p>
+</td></tr>
+<tr><td><code id="extra">extra</code></td>
+<td>
+<p>Deprecated.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Arbitrary components are supported.
+If your tibble subclass needs more or different components in its pillars,
+override or extend <code><a href="../../pillar/help/ctl_new_pillar.html">ctl_new_pillar()</a></code> and perhaps <code><a href="../../pillar/help/ctl_new_pillar_list.html">ctl_new_pillar_list()</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>lines &lt;- function(char = "-") {
+  stopifnot(nchar(char) == 1)
+  structure(char, class = "lines")
+}
+
+format.lines &lt;- function(x, width, ...) {
+  paste(rep(x, width), collapse = "")
+}
+
+new_pillar(list(
+  title = pillar_component(new_ornament(c("abc", "de"), align = "right")),
+  lines = new_pillar_component(list(lines("=")), width = 1)
+))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>pillar</em> version 1.11.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

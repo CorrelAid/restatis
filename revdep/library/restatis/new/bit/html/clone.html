@@ -1,0 +1,104 @@
+<!DOCTYPE html><html><head><title>R: Cloning ff and ram objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>clone {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cloning ff and ram objects</h2>
+
+<h3>Description</h3>
+
+<p><code>clone</code> physically duplicates objects and can additionally change
+some features, e.g. length.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>clone(x, ...)
+
+## Default S3 method:
+clone(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p><code>x</code> an R object</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments to the generic</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>clone</code> is generic.  <code>clone.default</code> handles ram objects.
+Further methods are provided in package 'ff'.
+<code>still.identical</code> returns TRUE if the two atomic arguments still
+point to the same memory.
+</p>
+
+
+<h3>Value</h3>
+
+<p>an object that is a deep copy of x
+</p>
+
+
+<h3>Methods (by class)</h3>
+
+
+<ul>
+<li> <p><code>clone(default)</code>: default method uses R's C-API 'duplicate()'
+</p>
+</li></ul>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>clone.ff</code>, <code><a href="../../bit/help/copy_vector.html">copy_vector()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  x &lt;- 1:12
+  y &lt;- x
+  still.identical(x, y)
+  y[1] &lt;- y[1]
+  still.identical(x, y)
+  y &lt;- clone(x)
+  still.identical(x, y)
+  rm(x, y); gc()
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

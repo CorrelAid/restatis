@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><title>R: Echo Service</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>curl_echo {curl}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Echo Service</h2>
+
+<h3>Description</h3>
+
+<p>This function is only for testing purposes. It starts a local httpuv server to
+echo the request body and content type in the response.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>curl_echo(handle, port = find_port(), progress = interactive(), file = NULL)
+
+find_port(range = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="handle">handle</code></td>
+<td>
+<p>a curl handle object</p>
+</td></tr>
+<tr><td><code id="port">port</code></td>
+<td>
+<p>the port number on which to run httpuv server</p>
+</td></tr>
+<tr><td><code id="progress">progress</code></td>
+<td>
+<p>show progress meter during http transfer</p>
+</td></tr>
+<tr><td><code id="file">file</code></td>
+<td>
+<p>path or connection to write body. Default returns body as raw vector.</p>
+</td></tr>
+<tr><td><code id="range">range</code></td>
+<td>
+<p>optional integer vector of ports to consider</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>if(require('httpuv')){
+h &lt;- new_handle(url = 'https://hb.cran.dev/post')
+handle_setform(h, foo = "blabla", bar = charToRaw("test"),
+  myfile = form_file(system.file("DESCRIPTION"), "text/description"))
+
+# Echo the POST request data
+formdata &lt;- curl_echo(h)
+
+# Show the multipart body
+cat(rawToChar(formdata$body))
+
+# Parse multipart
+webutils::parse_http(formdata$body, formdata$content_type)
+}
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>curl</em> version 7.0.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html><html><head><title>R: Advanced download interface</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>multi_download {curl}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Advanced download interface</h2>
+
+<h3>Description</h3>
+
+<p>Download multiple files concurrently, with support for resuming large files.
+This function is based on <code><a href="../../curl/help/multi_run.html">multi_run()</a></code> and hence does not error in case any
+of the individual requests fail; you should inspect the return value to find
+out which of the downloads were completed successfully.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>multi_download(
+  urls,
+  destfiles = NULL,
+  resume = FALSE,
+  progress = TRUE,
+  multi_timeout = Inf,
+  multiplex = TRUE,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="urls">urls</code></td>
+<td>
+<p>vector with URLs to download. Alternatively it may also be a
+list of <a href="../../curl/help/new_handle.html">handle</a> objects that have the <code>url</code> option already set.</p>
+</td></tr>
+<tr><td><code id="destfiles">destfiles</code></td>
+<td>
+<p>vector (of equal length as <code>urls</code>) with paths of output files,
+or <code>NULL</code> to use <a href="../../base/html/basename.html">basename</a> of urls.</p>
+</td></tr>
+<tr><td><code id="resume">resume</code></td>
+<td>
+<p>if the file already exists, resume the download. Note that this may
+change server responses, see details.</p>
+</td></tr>
+<tr><td><code id="progress">progress</code></td>
+<td>
+<p>print download progress information</p>
+</td></tr>
+<tr><td><code id="multi_timeout">multi_timeout</code></td>
+<td>
+<p>in seconds, passed to <a href="../../curl/help/multi_run.html">multi_run</a></p>
+</td></tr>
+<tr><td><code id="multiplex">multiplex</code></td>
+<td>
+<p>passed to <a href="../../curl/help/new_pool.html">new_pool</a></p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>extra handle options passed to each request <a href="../../curl/help/new_handle.html">new_handle</a></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Upon completion of all requests, this function returns a data frame with results.
+The <code>success</code> column indicates if a request was successfully completed (regardless
+of the HTTP status code). If it failed, e.g. due to a networking issue, the error
+message is in the <code>error</code> column. A <code>success</code> value <code>NA</code> indicates that the request
+was still in progress when the function was interrupted or reached the elapsed
+<code>multi_timeout</code> and perhaps the download can be resumed if the server supports it.
+</p>
+<p>It is also important to inspect the <code>status_code</code> column to see if any of the
+requests were successful but had a non-success HTTP code, and hence the downloaded
+file probably contains an error page instead of the requested content.
+</p>
+<p>Note that when you set <code>resume = TRUE</code> you should expect HTTP-206 or HTTP-416
+responses. The latter could indicate that the file was already complete, hence
+there was no content left to resume from the server. If you try to resume a file
+download but the server does not support this, success if <code>FALSE</code> and the file
+will not be touched. In fact, if we request to a download to be resumed and the
+server responds <code style="white-space: pre;">&#8288;HTTP 200&#8288;</code> instead of <code style="white-space: pre;">&#8288;HTTP 206&#8288;</code>, libcurl will error and not
+download anything, because this probably means the server did not respect our
+range request and is sending us the full file.
+</p>
+
+
+<h4>About HTTP/2</h4>
+
+<p>Availability of HTTP/2 can increase the performance when making many parallel
+requests to a server, because HTTP/2 can multiplex many requests over a single
+TCP connection. Support for HTTP/2 depends on the version of <code>libcurl</code> that
+your system has, and the TLS back-end that is in use, check <a href="../../curl/help/curl_version.html">curl_version</a>.
+For clients or servers without HTTP/2, curl makes at most 6 connections per
+host over which it distributes the queued downloads.
+</p>
+<p>On Windows and MacOS you can switch the active TLS backend by setting an
+environment variable <a href="https://curl.se/libcurl/c/libcurl-env.html"><code>CURL_SSL_BACKEND</code></a>
+in your <code style="white-space: pre;">&#8288;~/.Renviron&#8288;</code> file. On Windows you can switch between <code>SecureChannel</code>
+(default) and <code>OpenSSL</code> where only the latter supports HTTP/2. On MacOS you
+can use either <code>SecureTransport</code> or <code>LibreSSL</code>, the default varies by MacOS
+version.
+</p>
+
+
+
+<h3>Value</h3>
+
+<p>The function returns a data frame with one row for each downloaded file and
+the following columns:
+</p>
+
+<ul>
+<li> <p><code>success</code> if the HTTP request was successfully performed, regardless of the
+response status code. This is <code>FALSE</code> in case of a network error, or in case
+you tried to resume from a server that did not support this. A value of <code>NA</code>
+means the download was interrupted while in progress.
+</p>
+</li>
+<li> <p><code>status_code</code> the HTTP status code from the request. A successful download is
+usually <code>200</code> for full requests or <code>206</code> for resumed requests. Anything else
+could indicate that the downloaded file contains an error page instead of the
+requested content.
+</p>
+</li>
+<li> <p><code>resumefrom</code> the file size before the request, in case a download was resumed.
+</p>
+</li>
+<li> <p><code>url</code> final url (after redirects) of the request.
+</p>
+</li>
+<li> <p><code>destfile</code> downloaded file on disk.
+</p>
+</li>
+<li> <p><code>error</code> if <code>success == FALSE</code> this column contains an error message.
+</p>
+</li>
+<li> <p><code>type</code> the <code>Content-Type</code> response header value.
+</p>
+</li>
+<li> <p><code>modified</code> the <code>Last-Modified</code> response header value.
+</p>
+</li>
+<li> <p><code>time</code> total elapsed download time for this file in seconds.
+</p>
+</li>
+<li> <p><code>headers</code> vector with http response headers for the request.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+# Example: some large files
+urls &lt;- sprintf(
+  "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-%02d.parquet", 1:12)
+res &lt;- multi_download(urls, resume = TRUE) # You can interrupt (ESC) and resume
+
+# Example: revdep checker
+# Download all reverse dependencies for the 'curl' package from CRAN:
+pkg &lt;- 'curl'
+mirror &lt;- 'https://cloud.r-project.org'
+db &lt;- available.packages(repos = mirror)
+packages &lt;- c(pkg, tools::package_dependencies(pkg, db = db, reverse = TRUE)[[pkg]])
+versions &lt;- db[packages,'Version']
+urls &lt;- sprintf("%s/src/contrib/%s_%s.tar.gz", mirror, packages,  versions)
+res &lt;- multi_download(urls)
+all.equal(unname(tools::md5sum(res$destfile)), unname(db[packages, 'MD5sum']))
+# And then you could use e.g.: tools:::check_packages_in_dir()
+
+# Example: URL checker
+pkg_url_checker &lt;- function(dir){
+  db &lt;- tools:::url_db_from_package_sources(dir)
+  res &lt;- multi_download(db$URL, rep('/dev/null', nrow(db)), nobody=TRUE)
+  db$OK &lt;- res$status_code == 200
+  db
+}
+
+# Use a local package source directory
+pkg_url_checker(".")
+
+
+## End(Not run)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>curl</em> version 7.0.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

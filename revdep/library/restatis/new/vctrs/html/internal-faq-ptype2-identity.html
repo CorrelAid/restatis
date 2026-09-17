@@ -1,0 +1,162 @@
+<!DOCTYPE html><html><head><title>R: Internal FAQ - 'vec_ptype2()', 'NULL', and unspecified...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>internal-faq-ptype2-identity {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Internal FAQ - <code>vec_ptype2()</code>, <code>NULL</code>, and unspecified vectors</h2>
+
+<h3>Description</h3>
+
+
+
+<h4>Promotion monoid</h4>
+
+<p>Promotions (i.e. automatic coercions) should always transform inputs to
+their richer type to avoid losing values of precision. <code>vec_ptype2()</code>
+returns the <em>richer</em> type of two vectors, or throws an incompatible type
+error if none of the two vector types include the other. For example,
+the richer type of integer and double is the latter because double
+covers a larger range of values than integer.
+</p>
+<p><code>vec_ptype2()</code> is a <a href="https://en.wikipedia.org/wiki/Monoid">monoid</a> over
+vectors, which in practical terms means that it is a well behaved
+operation for
+<a href="https://purrr.tidyverse.org/reference/reduce.html">reduction</a>.
+Reduction is an important operation for promotions because that is how
+the richer type of multiple elements is computed. As a monoid,
+<code>vec_ptype2()</code> needs an identity element, i.e. a value that doesn’t
+change the result of the reduction. vctrs has two identity values,
+<code>NULL</code> and <strong>unspecified</strong> vectors.
+</p>
+
+
+
+<h4>The <code>NULL</code> identity</h4>
+
+<p>As an identity element that shouldn’t influence the determination of the
+common type of a set of vectors, <code>NULL</code> is promoted to any type:
+</p>
+<div class="sourceCode r"><pre>vec_ptype2(NULL, "")
+#&gt; character(0)
+vec_ptype2(1L, NULL)
+#&gt; integer(0)
+</pre></div>
+<p>The common type of <code>NULL</code> and <code>NULL</code> is the identity <code>NULL</code>:
+</p>
+<div class="sourceCode r"><pre>vec_ptype2(NULL, NULL)
+#&gt; NULL
+</pre></div>
+<p>This way the result of <code>vec_ptype2(NULL, NULL)</code> does not influence
+subsequent promotions:
+</p>
+<div class="sourceCode r"><pre>vec_ptype2(
+  vec_ptype2(NULL, NULL),
+  ""
+)
+#&gt; character(0)
+</pre></div>
+
+
+
+<h4>Unspecified vectors</h4>
+
+<p>In the vctrs coercion system, logical vectors of missing values are also
+automatically promoted to the type of any other vector, just like
+<code>NULL</code>. We call these vectors unspecified. The special coercion
+semantics of unspecified vectors serve two purposes:
+</p>
+
+<ol>
+<li><p> It makes it possible to assign vectors of <code>NA</code> inside any type of
+vectors, even when they are not coercible with logical:
+</p>
+<div class="sourceCode r"><pre>x &lt;- letters[1:5]
+vec_assign(x, 1:2, c(NA, NA))
+#&gt; [1] NA  NA  "c" "d" "e"
+</pre></div>
+</li>
+<li><p> We can’t put <code>NULL</code> in a data frame, so we need an identity element
+that behaves more like a vector. Logical vectors of <code>NA</code> seem a
+natural fit for this.
+</p>
+</li></ol>
+
+<p>Unspecified vectors are thus promoted to any other type, just like
+<code>NULL</code>:
+</p>
+<div class="sourceCode r"><pre>vec_ptype2(NA, "")
+#&gt; character(0)
+vec_ptype2(1L, c(NA, NA))
+#&gt; integer(0)
+</pre></div>
+
+
+
+<h4>Finalising common types</h4>
+
+<p>vctrs has an internal vector type of class <code>vctrs_unspecified</code>. Users
+normally don’t see such vectors in the wild, but they do come up when
+taking the common type of an unspecified vector with another identity
+value:
+</p>
+<div class="sourceCode r"><pre>vec_ptype2(NA, NA)
+#&gt; &lt;unspecified&gt; [0]
+vec_ptype2(NA, NULL)
+#&gt; &lt;unspecified&gt; [0]
+vec_ptype2(NULL, NA)
+#&gt; &lt;unspecified&gt; [0]
+</pre></div>
+<p>We can’t return <code>NA</code> here because <code>vec_ptype2()</code> normally returns empty
+vectors. We also can’t return <code>NULL</code> because unspecified vectors need to
+be recognised as logical vectors if they haven’t been promoted at the
+end of the reduction.
+</p>
+<div class="sourceCode r"><pre>vec_ptype_finalise(vec_ptype2(NULL, NA))
+#&gt; logical(0)
+</pre></div>
+<p>See the output of <code>vec_ptype_common()</code> which performs the reduction and
+finalises the type, ready to be used by the caller:
+</p>
+<div class="sourceCode r"><pre>vec_ptype_common(NULL, NULL)
+#&gt; NULL
+vec_ptype_common(NA, NULL)
+#&gt; logical(0)
+</pre></div>
+<p><code>vec_ptype_finalise()</code> is an S3 generic, but the only time you should
+ever need to write an S3 method for it is if your class <em>wraps</em> another
+vector in some way and needs special handling to propagate the default
+finalisation. For example, the ivs package contains an interval class
+that wraps <code>start</code> and <code>end</code> vectors of the same type and has a
+<code>vec_ptype_finalize()</code> method that finalises those wrapped vectors:
+</p>
+<div class="sourceCode r"><pre>vec_ptype_finalise.ivs_iv &lt;- function(x, ...) {
+  start &lt;- unclass(x)[[1L]]
+  ptype &lt;- vec_ptype_finalise(start, ...)
+  new_bare_iv(ptype, ptype)
+}
+</pre></div>
+<p>This ensures that <code>vec_ptype_finalise(vec_ptype(ivs::iv(NA, NA)))</code>
+correctly finalises to <code style="white-space: pre;">&#8288;&lt;iv&lt;logical&gt;&gt;&#8288;</code> rather than <code style="white-space: pre;">&#8288;&lt;iv&lt;unspecified&gt;&gt;&#8288;</code>.
+</p>
+<p>Note that data frames are already recursively finalised, so you don’t
+need a <code>vec_ptype_finalise()</code> method for a data frame subclass.
+</p>
+
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

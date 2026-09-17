@@ -1,0 +1,70 @@
+<!DOCTYPE html><html><head><title>R: List curl version and options.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>curl_options {curl}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>List curl version and options.</h2>
+
+<h3>Description</h3>
+
+<p><code>curl_version()</code> shows the versions of libcurl, libssl and zlib and
+supported protocols. <code>curl_options()</code> lists all options available in
+the current version of libcurl.  The dataset <code>curl_symbols</code> lists all
+symbols (including options) provides more information about the symbols,
+including when support was added/removed from libcurl.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>curl_options(filter = "")
+
+curl_options_table(filter = "")
+
+curl_symbols(filter = "")
+
+curl_version()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="filter">filter</code></td>
+<td>
+<p>string: only return options with string in name</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Available options
+curl_options()
+
+# List proxy options
+curl_options("proxy")
+
+# Symbol table
+curl_symbols("proxy")
+# Curl/ssl version info
+curl_version()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>curl</em> version 7.0.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

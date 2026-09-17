@@ -1,0 +1,69 @@
+<!DOCTYPE html><html><head><title>R: Check If User Can Connect To Service</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>gen_logincheck {restatis}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Check If User Can Connect To Service</h2>
+
+<h3>Description</h3>
+
+<p>Function to check if a login is possible for a certain database.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>gen_logincheck(database = "all", verbose = TRUE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="database">database</code></td>
+<td>
+<p>Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.</p>
+</td></tr>
+<tr><td><code id="verbose">verbose</code></td>
+<td>
+<p>Boolean. In case of success, should a message be printed? Defaults to 'TRUE'.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional parameters for the API call. These parameters are only affecting the call itself, no further processing. For more details see <code>vignette("additional_parameter")</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Leads to an informative error message if the login check failed and returns FALSE invisibly. Invisibly returns TRUE otherwise.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+gen_logincheck("zensus")
+
+## End(Not run)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>restatis</em> version 0.4.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

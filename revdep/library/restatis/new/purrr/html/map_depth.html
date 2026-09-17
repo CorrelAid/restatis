@@ -1,0 +1,197 @@
+<!DOCTYPE html><html><head><title>R: Map/modify elements at given depth</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>map_depth {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Map/modify elements at given depth</h2>
+
+<h3>Description</h3>
+
+<p><code>map_depth()</code> calls <code>map(.y, .f)</code> on all <code>.y</code> at the specified <code>.depth</code> in
+<code>.x</code>. <code>modify_depth()</code> calls <code>modify(.y, .f)</code> on <code>.y</code> at the specified
+<code>.depth</code> in <code>.x</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>map_depth(.x, .depth, .f, ..., .ragged = .depth &lt; 0, .is_node = NULL)
+
+modify_depth(.x, .depth, .f, ..., .ragged = .depth &lt; 0, .is_node = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>A list or atomic vector.</p>
+</td></tr>
+<tr><td><code id=".depth">.depth</code></td>
+<td>
+<p>Level of <code>.x</code> to map on. Use a negative value to
+count up from the lowest level of the list.
+</p>
+
+<ul>
+<li> <p><code>map_depth(x, 0, fun)</code> is equivalent to <code>fun(x)</code>.
+</p>
+</li>
+<li> <p><code>map_depth(x, 1, fun)</code> is equivalent to <code>x &lt;- map(x, fun)</code>
+</p>
+</li>
+<li> <p><code>map_depth(x, 2, fun)</code> is equivalent to <code style="white-space: pre;">&#8288;x &lt;- map(x, \(y) map(y, fun))&#8288;</code>
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id=".f">.f</code></td>
+<td>
+<p>A function, specified in one of the following ways:
+</p>
+
+<ul>
+<li><p> A named function, e.g. <code>mean</code>.
+</p>
+</li>
+<li><p> An anonymous function, e.g. <code style="white-space: pre;">&#8288;\(x) x + 1&#8288;</code> or <code>function(x) x + 1</code>.
+</p>
+</li>
+<li><p> A formula, e.g. <code>~ .x + 1</code>. Use <code>.x</code> to refer to the first
+argument. No longer recommended.
+</p>
+</li>
+<li><p> A string, integer, or list, e.g. <code>"idx"</code>, <code>1</code>, or <code>list("idx", 1)</code> which
+are shorthand for <code style="white-space: pre;">&#8288;\(x) pluck(x, "idx")&#8288;</code>, <code style="white-space: pre;">&#8288;\(x) pluck(x, 1)&#8288;</code>, and
+<code style="white-space: pre;">&#8288;\(x) pluck(x, "idx", 1)&#8288;</code> respectively. Optionally supply <code>.default</code> to
+set a default value if the indexed element is <code>NULL</code> or does not exist.
+</p>
+</li></ul>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p>Wrap a function with <code><a href="../../purrr/help/in_parallel.html">in_parallel()</a></code> to declare that it should be performed
+in parallel. See <code><a href="../../purrr/help/in_parallel.html">in_parallel()</a></code> for more details.
+Use of <code>...</code> is not permitted in this context.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed on to the mapped function.
+</p>
+<p>We now generally recommend against using <code>...</code> to pass additional
+(constant) arguments to <code>.f</code>. Instead use a shorthand anonymous function:
+</p>
+<div class="sourceCode R"><pre># Instead of
+x |&gt; map(f, 1, 2, collapse = ",")
+# do:
+x |&gt; map(\(x) f(x, 1, 2, collapse = ","))
+</pre></div>
+<p>This makes it easier to understand which arguments belong to which
+function and will tend to yield better error messages.</p>
+</td></tr>
+<tr><td><code id=".ragged">.ragged</code></td>
+<td>
+<p>If <code>TRUE</code>, will apply to leaves, even if they're not
+at depth <code>.depth</code>. If <code>FALSE</code>, will throw an error if there are
+no elements at depth <code>.depth</code>.</p>
+</td></tr>
+<tr><td><code id=".is_node">.is_node</code></td>
+<td>
+<p>A predicate function that determines whether an element is
+a node (by returning <code>TRUE</code>) or a leaf (by returning <code>FALSE</code>). The
+default value, <code>NULL</code>, treats simple lists as nodes and everything else
+(including richer objects like data frames and linear models) as leaves,
+using <code><a href="../../vctrs/help/obj_is_list.html">vctrs::obj_is_list()</a></code>. To recurse into all objects built on lists
+use <code><a href="../../base/html/list.html">is.list()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../purrr/help/modify_tree.html">modify_tree()</a></code> for a recursive version of <code>modify_depth()</code> that
+allows you to apply a function to every leaf or every node.
+</p>
+<p>Other map variants: 
+<code><a href="../../purrr/help/imap.html">imap</a>()</code>,
+<code><a href="../../purrr/help/lmap.html">lmap</a>()</code>,
+<code><a href="../../purrr/help/map.html">map</a>()</code>,
+<code><a href="../../purrr/help/map2.html">map2</a>()</code>,
+<code><a href="../../purrr/help/map_if.html">map_if</a>()</code>,
+<code><a href="../../purrr/help/modify.html">modify</a>()</code>,
+<code><a href="../../purrr/help/pmap.html">pmap</a>()</code>
+</p>
+<p>Other modify variants: 
+<code><a href="../../purrr/help/modify.html">modify</a>()</code>,
+<code><a href="../../purrr/help/modify_tree.html">modify_tree</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># map_depth() -------------------------------------------------
+# Use `map_depth()` to recursively traverse nested vectors and map
+# a function at a certain depth:
+x &lt;- list(a = list(foo = 1:2, bar = 3:4), b = list(baz = 5:6))
+x |&gt; str()
+x |&gt; map_depth(2, \(y) paste(y, collapse = "/")) |&gt; str()
+
+# Equivalent to:
+x |&gt; map(\(y) map(y, \(z) paste(z, collapse = "/"))) |&gt; str()
+
+# When ragged is TRUE, `.f()` will also be passed leaves at depth &lt; `.depth`
+x &lt;- list(1, list(1, list(1, list(1, 1))))
+x |&gt; str()
+x |&gt; map_depth(4, \(x) length(unlist(x)), .ragged = TRUE) |&gt; str()
+x |&gt; map_depth(3, \(x) length(unlist(x)), .ragged = TRUE) |&gt; str()
+x |&gt; map_depth(2, \(x) length(unlist(x)), .ragged = TRUE) |&gt; str()
+x |&gt; map_depth(1, \(x) length(unlist(x)), .ragged = TRUE) |&gt; str()
+x |&gt; map_depth(0, \(x) length(unlist(x)), .ragged = TRUE) |&gt; str()
+
+# modify_depth() -------------------------------------------------
+l1 &lt;- list(
+  obj1 = list(
+    prop1 = list(param1 = 1:2, param2 = 3:4),
+    prop2 = list(param1 = 5:6, param2 = 7:8)
+  ),
+  obj2 = list(
+    prop1 = list(param1 = 9:10, param2 = 11:12),
+    prop2 = list(param1 = 12:14, param2 = 15:17)
+  )
+)
+
+# In the above list, "obj" is level 1, "prop" is level 2 and "param"
+# is level 3. To apply sum() on all params, we map it at depth 3:
+l1 |&gt; modify_depth(3, sum) |&gt; str()
+
+# modify() lets us pluck the elements prop1/param2 in obj1 and obj2:
+l1 |&gt; modify(c("prop1", "param2")) |&gt; str()
+
+# But what if we want to pluck all param2 elements? Then we need to
+# act at a lower level:
+l1 |&gt; modify_depth(2, "param2") |&gt; str()
+
+# modify_depth() can be with other purrr functions to make them operate at
+# a lower level. Here we ask pmap() to map paste() simultaneously over all
+# elements of the objects at the second level. paste() is effectively
+# mapped at level 3.
+l1 |&gt; modify_depth(2, \(x) pmap(x, paste, sep = " / ")) |&gt; str()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

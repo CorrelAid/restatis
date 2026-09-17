@@ -1,0 +1,103 @@
+<!DOCTYPE html><html><head><title>R: Read/write RDS files.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>read_rds {readr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Read/write RDS files.</h2>
+
+<h3>Description</h3>
+
+<p>Consistent wrapper around <code><a href="../../base/html/readRDS.html">saveRDS()</a></code> and <code><a href="../../base/html/readRDS.html">readRDS()</a></code>.
+<code>write_rds()</code> does not compress by default as space is generally cheaper
+than time.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>read_rds(file, refhook = NULL)
+
+write_rds(
+  x,
+  file,
+  compress = c("none", "gz", "bz2", "xz"),
+  version = 2,
+  refhook = NULL,
+  text = FALSE,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="file">file</code></td>
+<td>
+<p>The file path to read from/write to.</p>
+</td></tr>
+<tr><td><code id="refhook">refhook</code></td>
+<td>
+<p>A function to handle reference objects.</p>
+</td></tr>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>R object to write to serialise.</p>
+</td></tr>
+<tr><td><code id="compress">compress</code></td>
+<td>
+<p>Compression method to use: &quot;none&quot;, &quot;gz&quot; ,&quot;bz&quot;, or &quot;xz&quot;.</p>
+</td></tr>
+<tr><td><code id="version">version</code></td>
+<td>
+<p>Serialization format version to be used. The default value is 2
+as it's compatible for R versions prior to 3.5.0. See <code><a href="../../base/help/readRDS.html">base::saveRDS()</a></code>
+for more details.</p>
+</td></tr>
+<tr><td><code id="text">text</code></td>
+<td>
+<p>If <code>TRUE</code> a text representation is used, otherwise a binary representation is used.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments to connection function. For example, control
+the space-time trade-off of different compression methods with
+<code>compression</code>. See <code><a href="../../base/html/connections.html">connections()</a></code> for more details.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>write_rds()</code> returns <code>x</code>, invisibly.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>temp &lt;- tempfile()
+write_rds(mtcars, temp)
+read_rds(temp)
+## Not run: 
+write_rds(mtcars, "compressed_mtc.rds", "xz", compression = 9L)
+
+## End(Not run)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>readr</em> version 2.2.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

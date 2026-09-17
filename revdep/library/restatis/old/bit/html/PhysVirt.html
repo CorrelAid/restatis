@@ -1,0 +1,115 @@
+<!DOCTYPE html><html><head><title>R: Physical and virtual attributes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>physical.default {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Physical and virtual attributes</h2>
+
+<h3>Description</h3>
+
+<p>Compatibility functions (to package ff) for getting and setting physical and
+virtual attributes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## Default S3 method:
+physical(x)
+
+## Default S3 replacement method:
+physical(x) &lt;- value
+
+## Default S3 method:
+virtual(x)
+
+## Default S3 replacement method:
+virtual(x) &lt;- value
+
+## S3 method for class 'physical'
+print(x, ...)
+
+## S3 method for class 'virtual'
+print(x, ...)
+
+physical(x)
+
+physical(x) &lt;- value
+
+virtual(x)
+
+virtual(x) &lt;- value
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a ff or ram object</p>
+</td></tr>
+<tr><td><code id="value">value</code></td>
+<td>
+<p>a list with named elements</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>ff objects have physical and virtual attributes, which have different
+copying semantics: physical attributes are shared between copies of ff
+objects while virtual attributes might differ between copies.
+<code><a href="../../ff/help/as.ff.html">ff::as.ram()</a></code> will retain some physical and virtual atrributes in
+the ram clone, such that <code><a href="../../ff/help/as.ff.html">ff::as.ff()</a></code> can restore an ff object
+with the same attributes.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>physical</code> and <code>virtual</code> returns a list with named elements
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../ff/help/physical.ff.html">ff::physical.ff()</a></code>, <code><a href="../../ff/help/physical.ffdf.html">ff::physical.ffdf()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  physical(bit(12))
+  virtual(bit(12))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

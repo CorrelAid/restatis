@@ -1,0 +1,176 @@
+<!DOCTYPE html><html><head><title>R: Reduce a list to a single value by iteratively applying a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>reduce {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Reduce a list to a single value by iteratively applying a binary function</h2>
+
+<h3>Description</h3>
+
+<p><code>reduce()</code> is an operation that combines the elements of a vector
+into a single value. The combination is driven by <code>.f</code>, a binary
+function that takes two values and returns a single value: reducing
+<code>f</code> over <code>1:3</code> computes the value <code>f(f(1, 2), 3)</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>reduce(.x, .f, ..., .init, .dir = c("forward", "backward"))
+
+reduce2(.x, .y, .f, ..., .init)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>A list or atomic vector.</p>
+</td></tr>
+<tr><td><code id=".f">.f</code></td>
+<td>
+<p>For <code>reduce()</code>, a 2-argument function. The function will be passed
+the accumulated value as the first argument and the &quot;next&quot; value as the
+second argument.
+</p>
+<p>For <code>reduce2()</code>, a 3-argument function. The function will be passed the
+accumulated value as the first argument, the next value of <code>.x</code> as the
+second argument, and the next value of <code>.y</code> as the third argument.
+</p>
+<p>The reduction terminates early if <code>.f</code> returns a value wrapped in
+a <code><a href="../../purrr/help/done.html">done()</a></code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed on to the reduce function.
+</p>
+<p>We now generally recommend against using <code>...</code> to pass additional
+(constant) arguments to <code>.f</code>. Instead use a shorthand anonymous function:
+</p>
+<div class="sourceCode R"><pre># Instead of
+x |&gt; reduce(f, 1, 2, collapse = ",")
+# do:
+x |&gt; reduce(\(x, y) f(x, y, 1, 2, collapse = ","))
+</pre></div>
+<p>This makes it easier to understand which arguments belong to which
+function and will tend to yield better error messages.</p>
+</td></tr>
+<tr><td><code id=".init">.init</code></td>
+<td>
+<p>If supplied, will be used as the first value to start
+the accumulation, rather than using <code>.x[[1]]</code>. This is useful if
+you want to ensure that <code>reduce</code> returns a correct value when <code>.x</code>
+is empty. If missing, and <code>.x</code> is empty, will throw an error.</p>
+</td></tr>
+<tr><td><code id=".dir">.dir</code></td>
+<td>
+<p>The direction of reduction as a string, one of
+<code>"forward"</code> (the default) or <code>"backward"</code>. See the section about
+direction below.</p>
+</td></tr>
+<tr><td><code id=".y">.y</code></td>
+<td>
+<p>For <code>reduce2()</code> an additional
+argument that is passed to <code>.f</code>. If <code>init</code> is not set, <code>.y</code>
+should be 1 element shorter than <code>.x</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Direction</h3>
+
+<p>When <code>.f</code> is an associative operation like <code>+</code> or <code>c()</code>, the
+direction of reduction does not matter. For instance, reducing the
+vector <code>1:3</code> with the binary function <code>+</code> computes the sum <code>((1 + 2) + 3)</code> from the left, and the same sum <code>(1 + (2 + 3))</code> from the
+right.
+</p>
+<p>In other cases, the direction has important consequences on the
+reduced value. For instance, reducing a vector with <code>list()</code> from
+the left produces a left-leaning nested list (or tree), while
+reducing <code>list()</code> from the right produces a right-leaning list.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../purrr/help/accumulate.html">accumulate()</a></code> for a version that returns all intermediate
+values of the reduction.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Reducing `+` computes the sum of a vector while reducing `*`
+# computes the product:
+1:3 |&gt; reduce(`+`)
+1:10 |&gt; reduce(`*`)
+
+# By ignoring the input vector (nxt), you can turn output of one step into
+# the input for the next. This code takes 10 steps of a random walk:
+reduce(1:10, \(acc, nxt) acc + rnorm(1), .init = 0)
+
+# When the operation is associative, the direction of reduction
+# does not matter:
+reduce(1:4, `+`)
+reduce(1:4, `+`, .dir = "backward")
+
+# However with non-associative operations, the reduced value will
+# be different as a function of the direction. For instance,
+# `list()` will create left-leaning lists when reducing from the
+# right, and right-leaning lists otherwise:
+str(reduce(1:4, list))
+str(reduce(1:4, list, .dir = "backward"))
+
+# reduce2() takes a ternary function and a second vector that is
+# one element smaller than the first vector:
+paste2 &lt;- function(x, y, sep = ".") paste(x, y, sep = sep)
+letters[1:4] |&gt; reduce(paste2)
+letters[1:4] |&gt; reduce2(c("-", ".", "-"), paste2)
+
+x &lt;- list(c(0, 1), c(2, 3), c(4, 5))
+y &lt;- list(c(6, 7), c(8, 9))
+reduce2(x, y, paste)
+
+
+# You can shortcircuit a reduction and terminate it early by
+# returning a value wrapped in a done(). In the following example
+# we return early if the result-so-far, which is passed on the LHS,
+# meets a condition:
+paste3 &lt;- function(out, input, sep = ".") {
+  if (nchar(out) &gt; 4) {
+    return(done(out))
+  }
+  paste(out, input, sep = sep)
+}
+letters |&gt; reduce(paste3)
+
+# Here the early return branch checks the incoming inputs passed on
+# the RHS:
+paste4 &lt;- function(out, input, sep = ".") {
+  if (input == "j") {
+    return(done(out))
+  }
+  paste(out, input, sep = sep)
+}
+letters |&gt; reduce(paste4)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

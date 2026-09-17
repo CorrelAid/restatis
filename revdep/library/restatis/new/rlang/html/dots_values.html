@@ -1,0 +1,94 @@
+<!DOCTYPE html><html><head><title>R: Evaluate dots with preliminary splicing</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>dots_values {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Evaluate dots with preliminary splicing</h2>
+
+<h3>Description</h3>
+
+<p>This is a tool for advanced users. It captures dots, processes
+unquoting and splicing operators, and evaluates them. Unlike
+<code><a href="../../rlang/help/dots_list.html">dots_list()</a></code>, it does not flatten spliced objects, instead they
+are attributed a <code>spliced</code> class (see <code><a href="../../rlang/help/splice.html">splice()</a></code>). You can process
+spliced objects manually, perhaps with a custom predicate (see
+<code><a href="../../rlang/help/flatten_if.html">flatten_if()</a></code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>dots_values(
+  ...,
+  .ignore_empty = c("trailing", "none", "all"),
+  .preserve_empty = FALSE,
+  .homonyms = c("keep", "first", "last", "error"),
+  .check_assign = FALSE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Arguments to evaluate and process splicing operators.</p>
+</td></tr>
+<tr><td><code id=".ignore_empty">.ignore_empty</code></td>
+<td>
+<p>Whether to ignore empty arguments. Can be one
+of <code>"trailing"</code>, <code>"none"</code>, <code>"all"</code>. If <code>"trailing"</code>, only the
+last argument is ignored if it is empty.</p>
+</td></tr>
+<tr><td><code id=".preserve_empty">.preserve_empty</code></td>
+<td>
+<p>Whether to preserve the empty arguments that
+were not ignored. If <code>TRUE</code>, empty arguments are stored with
+<code><a href="../../rlang/help/missing_arg.html">missing_arg()</a></code> values. If <code>FALSE</code> (the default) an error is
+thrown when an empty argument is detected.</p>
+</td></tr>
+<tr><td><code id=".homonyms">.homonyms</code></td>
+<td>
+<p>How to treat arguments with the same name. The
+default, <code>"keep"</code>, preserves these arguments. Set <code>.homonyms</code> to
+<code>"first"</code> to only keep the first occurrences, to <code>"last"</code> to keep
+the last occurrences, and to <code>"error"</code> to raise an informative
+error and indicate what arguments have duplicated names.</p>
+</td></tr>
+<tr><td><code id=".check_assign">.check_assign</code></td>
+<td>
+<p>Whether to check for <code style="white-space: pre;">&#8288;&lt;-&#8288;</code> calls. When <code>TRUE</code> a
+warning recommends users to use <code>=</code> if they meant to match a
+function parameter or wrap the <code style="white-space: pre;">&#8288;&lt;-&#8288;</code> call in curly braces otherwise.
+This ensures assignments are explicit.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>dots &lt;- dots_values(!!! list(1, 2), 3)
+dots
+
+# Flatten the objects marked as spliced:
+flatten_if(dots, is_spliced)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

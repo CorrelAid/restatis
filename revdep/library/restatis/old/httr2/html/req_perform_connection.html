@@ -1,0 +1,120 @@
+<!DOCTYPE html><html><head><title>R: Perform a request and return a streaming connection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_perform_connection {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Perform a request and return a streaming connection</h2>
+
+<h3>Description</h3>
+
+<p>Use <code>req_perform_connection()</code> to perform a request if you want to stream the
+response body. A response returned by <code>req_perform_connection()</code> includes a
+connection as the body. You can then use <code><a href="../../httr2/help/resp_stream_raw.html">resp_stream_raw()</a></code>,
+<code><a href="../../httr2/help/resp_stream_lines.html">resp_stream_lines()</a></code>, or <code><a href="../../httr2/help/resp_stream_sse.html">resp_stream_sse()</a></code> to retrieve data a chunk at a
+time. Always finish up by closing the connection by calling
+<code>close(response)</code>.
+</p>
+<p>This is an alternative interface to <code><a href="../../httr2/help/req_perform_stream.html">req_perform_stream()</a></code> that returns a
+<a href="../../base/help/connections.html">connection</a> that you can use to pull the data, rather
+than providing callbacks that the data is pushed to. This is useful if you
+want to do other work in between handling inputs from the stream.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_perform_connection(
+  req,
+  blocking = TRUE,
+  verbosity = NULL,
+  mock = getOption("httr2_mock", NULL)
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="blocking">blocking</code></td>
+<td>
+<p>When retrieving data, should the connection block and wait
+for the desired information or immediately return what it has (possibly
+nothing)?</p>
+</td></tr>
+<tr><td><code id="verbosity">verbosity</code></td>
+<td>
+<p>How much information to print? This is a wrapper
+around <code><a href="../../httr2/help/req_verbose.html">req_verbose()</a></code> that uses an integer to control verbosity:
+</p>
+
+<ul>
+<li> <p><code>0</code>: no output
+</p>
+</li>
+<li> <p><code>1</code>: show headers
+</p>
+</li>
+<li> <p><code>2</code>: show headers and bodies as they're streamed
+</p>
+</li>
+<li> <p><code>3</code>: show headers, bodies, curl status messages, raw SSEs, and stream
+buffer management
+</p>
+</li></ul>
+
+<p>Use <code><a href="../../httr2/help/with_verbosity.html">with_verbosity()</a></code> to control the verbosity of requests that
+you can't affect directly.</p>
+</td></tr>
+<tr><td><code id="mock">mock</code></td>
+<td>
+<p>A mocking function. If supplied, this function is called
+with the request. It should return either <code>NULL</code> (if it doesn't want to
+handle the request) or a <a href="../../httr2/help/response.html">response</a> (if it does). See
+<code><a href="../../httr2/help/with_mocked_responses.html">with_mocked_responses()</a></code>/<code>local_mocked_responses()</code> for more details.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>req &lt;- request(example_url()) |&gt;
+  req_url_path("/stream-bytes/32768")
+resp &lt;- req_perform_connection(req)
+
+length(resp_stream_raw(resp, kb = 16))
+length(resp_stream_raw(resp, kb = 16))
+# When the stream has no more data, you'll get an empty result:
+length(resp_stream_raw(resp, kb = 16))
+
+# Always close the response when you're done
+close(resp)
+
+# You can loop until complete with resp_stream_is_complete()
+resp &lt;- req_perform_connection(req)
+while (!resp_stream_is_complete(resp)) {
+  print(length(resp_stream_raw(resp, kb = 12)))
+}
+close(resp)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

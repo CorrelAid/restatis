@@ -1,0 +1,107 @@
+<!DOCTYPE html><html><head><title>R: Diagnosing boolean types</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>booltype {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Diagnosing boolean types</h2>
+
+<h3>Description</h3>
+
+<p>Specific methods for <code>booltype</code> are required, where non-unary methods can combine
+multiple bollean types, particularly boolean binary operators.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>booltype(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an R object</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Function <code>booltype</code> returns the boolean type of its argument.
+There are currently six boolean types, <code>booltypes</code> is an <code><a href="../../base/html/factor.html">ordered()</a></code> vector with the
+following ordinal <code><a href="../../base/html/levels.html">levels()</a></code>:
+</p>
+
+<ul>
+<li><p> nobool: non-boolean type
+</p>
+</li>
+<li> <p><code><a href="../../base/html/logical.html">logical()</a></code>: for representing any boolean data including <code>NA</code>
+</p>
+</li>
+<li> <p><code><a href="../../bit/help/bit.html">bit()</a></code>: for representing dense boolean data
+</p>
+</li>
+<li> <p><code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code>: for representing sparse (skewed) boolean data
+</p>
+</li>
+<li> <p><code><a href="../../base/html/which.html">which()</a></code>: for representing sparse boolean data with few 'TRUE
+</p>
+</li>
+<li> <p><code><a href="../../bit/help/ri.html">ri()</a></code>: range-indexing, for representing sparse boolean data with a single range of
+<code>TRUE</code>
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>one scalar element of <code><a href="../../bit/help/booltypes.html">booltypes()</a></code> in case of 'nobool' it carries a name
+attribute with the data type.
+</p>
+
+
+<h3>Note</h3>
+
+<p>do not rely on the internal integer codes of these levels, we might add-in
+<code><a href="../../ff/help/hi.html">hi</a></code> later
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/booltypes.html">booltypes()</a></code>, <code><a href="../../bit/help/is.booltype.html">is.booltype()</a></code>, <code><a href="../../bit/help/as.booltype.html">as.booltype()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>unname(booltypes)
+str(booltypes)
+sapply(
+  list(double(), integer(), logical(), bit(), bitwhich(), as.which(), ri(1, 2, 3)),
+  booltype
+)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

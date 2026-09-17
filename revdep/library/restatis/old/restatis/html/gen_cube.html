@@ -1,0 +1,124 @@
+<!DOCTYPE html><html><head><title>R: gen_cube</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>gen_cube {restatis}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gen_cube</h2>
+
+<h3>Description</h3>
+
+<p>Download a cube with data from GENESIS or regionalstatistik.de database
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>gen_cube(name, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="name">name</code></td>
+<td>
+<p>Character string for a cube object (only GENESIS and regionalstatistik.de)</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Further (optional) parameters passed on to the API call:
+</p>
+
+<dl>
+<dt><code>area</code></dt><dd><p>Character string. The area in which the table is stored. Possible values:
+</p>
+
+<ul>
+<li> <p><code>"public"</code>: cube in the public catalogue
+</p>
+</li>
+<li> <p><code>"user"</code>: cube in the user's account
+</p>
+</li>
+<li> <p><code>"all"</code>: both of the above
+</p>
+</li></ul>
+</dd>
+<dt><code>values</code></dt><dd><p>Boolean. Should values be included?</p>
+</dd>
+<dt><code>metadata</code></dt><dd><p>Boolean. Should metadata be included?</p>
+</dd>
+<dt><code>additionals</code></dt><dd><p>Boolean. Should additional metadata be included?</p>
+</dd>
+<dt><code>contents</code></dt><dd><p>Character string. Names of required statistical specifications</p>
+</dd>
+<dt><code>startyear,endyear</code></dt><dd><p>Four-digit integers. Only retrieve data between these years.</p>
+</dd>
+<dt><code>timeslices</code></dt><dd><p>Integer. Number of timeslices (cumulative to startyear or endyear)</p>
+</dd>
+<dt><code>regionalvariable</code></dt><dd><p>Character string. Code of the regional variable
+whose value is specified in <code>regionalkey</code> to filter the results.</p>
+</dd>
+<dt><code>regionalkey</code></dt><dd><p>Character string. One or more regional keys. Multiple
+values can be supplied as a character vector or as a single string,
+with the regional keys separated by commas. Use of wildcard (<code>*</code>) allowed.</p>
+</dd>
+<dt><code>classifyingvariable1,classifyingvariable2
+      ,classifyingvariable3</code></dt><dd><p>Character string. Code of the subject classification
+(SK-Merkmal) to which the selection by means of the corresponding
+<code>classifyingkey</code> parameter is to be applied.</p>
+</dd>
+<dt><code>classifyingkey1,classifyingkey2,classifyingkey3</code></dt><dd><p>Character string.
+One or more values of a subject classification (e.g. &quot;WZ93012&quot;). Applied
+to the corresponding <code>classifyingvariable</code> parameter. Multiple
+keys can be supplied as a character vector or as a single string,
+with the keys separated by commas. Use of wildcard (<code>*</code>) allowed.</p>
+</dd>
+<dt><code>stand</code></dt><dd><p>Character string, format: <code>"DD.MM.YYYY"</code>. Only retrieve data
+updated after this date.</p>
+</dd>
+<dt><code>language</code></dt><dd><p>Character string. Search terms, returned messages and data
+descriptions in German (<code>"de"</code>) or English (<code>"en"</code>)?</p>
+</dd>
+<dt><code>...</code></dt><dd><p>Additional parameters for the API call (see respective API documentation).
+A valid specification of these will not be checked by the function, so wrongful specification
+may lead to errors.</p>
+</dd>
+</dl>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A <a href="../../tibble/help/tibble.html">tibble</a>. Non-data contents of the data cube object are saved in
+the <code>metadata</code> <a href="../../base/help/attr.html">attribute</a> of the data frame.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Not run: 
+gen_cube("47414BJ002")
+
+## End(Not run)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>restatis</em> version 0.3.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

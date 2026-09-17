@@ -1,0 +1,128 @@
+<!DOCTYPE html><html><head><title>R: Formatting messages with cli</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>topic-condition-formatting {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Formatting messages with cli</h2>
+
+<h3>Description</h3>
+
+<p>Condition formatting is a set of operations applied to raw inputs for error messages that includes:
+</p>
+
+<ul>
+<li><p> Transforming a character vector of lines to a width-wrapped list of error bullets. This makes it easy to write messages in a list format where each bullet conveys a single important point.
+</p>
+<div class="sourceCode r"><pre>abort(c(
+  "The error header",
+  "*" = "An error bullet",
+  "i" = "An info bullet",
+  "x" = "A cross bullet"
+))
+#&gt; Error:
+#&gt; ! The error header
+#&gt; * An error bullet
+#&gt; i An info bullet
+#&gt; x A cross bullet
+</pre></div>
+<p>See the <a href="https://style.tidyverse.org/errors.html">tidyverse error style guide</a> for more about this style of error messaging.
+</p>
+</li>
+<li><p> Applying style (emphasis, boldness, ...) and colours to message elements.
+</p>
+</li></ul>
+
+<p>While the rlang package embeds rudimentary formatting routines, the main formatting engine is implemented in the <a href="https://cli.r-lib.org/">cli package</a>.
+</p>
+
+
+<h4>Formatting messages with cli</h4>
+
+<p>By default, rlang uses an internal mechanism to format bullets. It is preferable to delegate formatting to the <a href="https://cli.r-lib.org/">cli package</a> by using <code><a href="../../cli/help/cli_abort.html">cli::cli_abort()</a></code>, <code><a href="../../cli/help/cli_abort.html">cli::cli_warn()</a></code>, and <code><a href="../../cli/help/cli_abort.html">cli::cli_inform()</a></code> instead of the rlang versions. These wrappers enable cli formatting with sophisticated paragraph wrapping and bullet indenting that make long lines easier to read. In the following example, a long <code>!</code> bullet is broken with an indented newline:
+</p>
+<div class="sourceCode r"><pre>rlang::global_entrace(class = "errorr")
+#&gt; Error in `rlang::global_entrace()`:
+#&gt; ! `class` must be one of "error", "warning", or "message",
+#&gt;   not "errorr".
+#&gt; i Did you mean "error"?
+</pre></div>
+<p>The cli wrappers also add many features such as interpolation, semantic formatting of text elements, and pluralisation:
+</p>
+<div class="sourceCode r"><pre>inform_marbles &lt;- function(n_marbles) {
+  cli::cli_inform(c(
+    "i" = "I have {n_marbles} shiny marble{?s} in my bag.",
+    "v" = "Way to go {.code cli::cli_inform()}!"
+  ))
+}
+
+inform_marbles(1)
+#&gt; i I have 1 shiny marble in my bag.
+#&gt; v Way to go `cli::cli_inform()`!
+
+inform_marbles(2)
+#&gt; i I have 2 shiny marbles in my bag.
+#&gt; v Way to go `cli::cli_inform()`!
+</pre></div>
+
+
+
+<h4>Transitioning from <code>abort()</code> to <code>cli_abort()</code></h4>
+
+<p>If you plan to mass-rename calls from <code>abort()</code> to <code>cli::cli_abort()</code>, be careful if you assemble error messages from user inputs. If these individual pieces contain cli or glue syntax, this will result in hard-to-debug errors and possibly <a href="https://xkcd.com/327/">unexpected behaviour</a>.
+</p>
+<div class="sourceCode r"><pre>user_input &lt;- "{base::stop('Wrong message.', call. = FALSE)}"
+cli::cli_abort(sprintf("Can't handle input `%s`.", user_input))
+#&gt; Error:
+#&gt; ! ! Could not evaluate cli `{}` expression: `base::stop('Wrong...`.
+#&gt; Caused by error: 
+#&gt; ! Wrong message.
+</pre></div>
+<p>To avoid this, protect your error messages by using cli to assemble the pieces:
+</p>
+<div class="sourceCode r"><pre>user_input &lt;- "{base::stop('Wrong message.', call. = FALSE)}"
+cli::cli_abort("Can't handle input {.code {user_input}}.")
+#&gt; Error:
+#&gt; ! Can't handle input `{base::stop('Wrong message.', call. = FALSE)}`.
+</pre></div>
+
+
+
+<h4>Enabling cli formatting globally</h4>
+
+<p>To enable cli formatting for all <code>abort()</code> calls in your namespace, call <code><a href="../../rlang/help/local_use_cli.html">local_use_cli()</a></code> in the <code>onLoad</code> hook of your package. Using <code><a href="../../rlang/help/on_load.html">on_load()</a></code> (make sure to call <code><a href="../../rlang/help/run_on_load.html">run_on_load()</a></code> in your hook):
+</p>
+<div class="sourceCode r"><pre>on_load(local_use_cli())
+</pre></div>
+<p>Enabling cli formatting in <code>abort()</code> is useful for:
+</p>
+
+<ul>
+<li><p> Transitioning from <code>abort()</code> to <code>cli::cli_abort()</code> progressively.
+</p>
+</li>
+<li><p> Using <code>abort()</code> when you'd like to disable interpolation syntax.
+</p>
+</li>
+<li><p> Creating error conditions with <code>error_cnd()</code>. These condition messages will be automatically formatted with cli as well.
+</p>
+</li></ul>
+
+
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html><html><head><title>R: Password Prompt Utility</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>askpass {askpass}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Password Prompt Utility</h2>
+
+<h3>Description</h3>
+
+<p>Prompt the user for a password to authenticate or read a protected key.
+By default, this function automatically uses the most appropriate method
+based on the user platform and front-end. Users or IDEs can override this
+and set a custom password entry function via the <code>askpass</code> option.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>askpass(prompt = "Please enter your password: ")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="prompt">prompt</code></td>
+<td>
+<p>the string printed when prompting the user for input.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>By default <code>askpass()</code> returns <code>NULL</code> in non-interactive sessions.
+(These include knitr runs and testthat tests.)
+If you want to force a password prompt in non-interactive sessions,
+set the <code>rlib_interactive</code> option to <code>TRUE</code>:
+</p>
+<div class="sourceCode r"><pre>options(rlib_interactive = TRUE)
+</pre></div>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+# Prompt user for passwd
+pw &lt;- askpass("Please enter your password")
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>askpass</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html><html><head><title>R: Development notes - 'dots.R'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>dev-notes-dots {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Development notes - <code>dots.R</code></h2>
+
+<h3>Description</h3>
+
+<p>Development notes - <code>dots.R</code>
+</p>
+
+
+<h3><code>.__error_call__.</code> flag in dots collectors</h3>
+
+<p>Dots collectors like <code><a href="../../rlang/help/dots_list.html">dots_list()</a></code> are a little tricky because they
+may error out in different situations. Do we want to forward the
+context, i.e. set the call flag to the calling environment?
+Collectors throw errors in these cases:
+</p>
+
+<ol>
+<li><p> While checking their own parameters, in which case the relevant
+context is the collector itself and we don't forward.
+</p>
+</li>
+<li><p> While collecting the dots, during evaluation of the supplied
+arguments. In this case forwarding or not is irrelevant because
+expressions in <code>...</code> are evaluated in their own environment
+which is not connected to the collector's context.
+</p>
+</li>
+<li><p> While collecting the dots, during argument constraints checks
+such as determined by the <code>.homonyms</code> argument. In this case we
+want to forward the context because the caller of the dots
+collector is the one who determines the constraints for its
+users.
+</p>
+</li></ol>
+
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

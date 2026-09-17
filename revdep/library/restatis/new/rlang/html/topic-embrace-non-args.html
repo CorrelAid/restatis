@@ -1,0 +1,60 @@
+<!DOCTYPE html><html><head><title>R: Does {{ work on regular objects?</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>topic-embrace-non-args {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Does <code style="white-space: pre;">&#8288;{{&#8288;</code> work on regular objects?</h2>
+
+<h3>Description</h3>
+
+<p>The embrace operator <code><a href="../../rlang/help/embrace-operator.html">{{</a></code> should be used exclusively with function arguments:
+</p>
+<div class="sourceCode r"><pre>fn &lt;- function(arg) {
+  quo(foo({{ arg }}))
+}
+
+fn(1 + 1)
+#&gt; &lt;quosure&gt;
+#&gt; expr: ^foo(^1 + 1)
+#&gt; env:  0x7ffd89aac518
+</pre></div>
+<p>However you may have noticed that it also works on regular objects:
+</p>
+<div class="sourceCode r"><pre>fn &lt;- function(arg) {
+  arg &lt;- force(arg)
+  quo(foo({{ arg }}))
+}
+
+fn(1 + 1)
+#&gt; &lt;quosure&gt;
+#&gt; expr: ^foo(^2)
+#&gt; env:  0x7ffd8a633398
+</pre></div>
+<p>In that case, <code style="white-space: pre;">&#8288;{{&#8288;</code> captures the <em>value</em> of the expression instead of a defused expression. That's because only function arguments can be defused.
+</p>
+<p>Note that this issue also applies to <code><a href="../../rlang/help/enquo.html">enquo()</a></code> (on which <code style="white-space: pre;">&#8288;{{&#8288;</code> is based).
+</p>
+
+
+<h3>Why is this not an error?</h3>
+
+<p>Ideally we would have made <code style="white-space: pre;">&#8288;{{&#8288;</code> on regular objects an error.  However this is not possible because in compiled R code it is not always possible to distinguish a regular variable from a function argument. See <a href="../../rlang/help/topic-embrace-constants.html">Why are strings and other constants enquosed in the empty environment?</a> for more about this.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

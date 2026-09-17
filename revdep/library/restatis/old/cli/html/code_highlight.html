@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><title>R: Syntax highlight R code</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>code_highlight {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Syntax highlight R code</h2>
+
+<h3>Description</h3>
+
+<p>Syntax highlight R code
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>code_highlight(code, code_theme = NULL, envir = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="code">code</code></td>
+<td>
+<p>Character vector, each element is one line of code.</p>
+</td></tr>
+<tr><td><code id="code_theme">code_theme</code></td>
+<td>
+<p>Theme see <code><a href="../../cli/help/code_theme_list.html">code_theme_list()</a></code>.</p>
+</td></tr>
+<tr><td><code id="envir">envir</code></td>
+<td>
+<p>Environment to look up function calls for hyperlinks.
+If <code>NULL</code>, then the global search path is used.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>See <code><a href="../../cli/help/code_theme_list.html">code_theme_list()</a></code> for the default syntax highlighting theme and
+how to change it.
+</p>
+<p>If <code>code</code> does not parse, then it is returned unchanged and a
+<code>cli_parse_failure</code> condition is thrown. Note that this is not an error,
+and the condition is ignored, unless explicitly caught.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Character vector, the highlighted code.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other syntax highlighting: 
+<code><a href="../../cli/help/code_theme_list.html">code_theme_list</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>code_highlight(deparse(ls))
+cat(code_highlight(deparse(ls)), sep = "\n")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

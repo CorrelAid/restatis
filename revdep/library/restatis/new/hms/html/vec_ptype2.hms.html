@@ -1,0 +1,56 @@
+<!DOCTYPE html><html><head><title>R: Coercion</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_ptype2.hms {hms}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Coercion</h2>
+
+<h3>Description</h3>
+
+<p>Double dispatch methods to support <code><a href="../../vctrs/help/vec_ptype2.html">vctrs::vec_ptype2()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'hms'
+vec_ptype2(x, y, ..., x_arg = "", y_arg = "")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code>, <code id="y">y</code></td>
+<td>
+<p>Vector types.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="x_arg">x_arg</code>, <code id="y_arg">y_arg</code></td>
+<td>
+<p>Argument names for <code>x</code> and <code>y</code>. These are used
+in error messages to inform the user about the locations of
+incompatible types (see <code><a href="../../vctrs/help/stop_incompatible_type.html">stop_incompatible_type()</a></code>).</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>hms</em> version 1.1.4 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

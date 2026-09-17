@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><title>R: Range index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ri {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Range index</h2>
+
+<h3>Description</h3>
+
+<p>A range index can be used to extract or replace a continuous ascending part
+of the data
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ri(from, to = NULL, maxindex = NA)
+
+## S3 method for class 'ri'
+print(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="from">from</code></td>
+<td>
+<p>first position</p>
+</td></tr>
+<tr><td><code id="to">to</code></td>
+<td>
+<p>last posistion</p>
+</td></tr>
+<tr><td><code id="maxindex">maxindex</code></td>
+<td>
+<p>the maximal length of the object-to-be-subscripted (if
+known)</p>
+</td></tr>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an object of class 'ri'</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A two element integer vector with class 'ri'
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../ff/help/as.hi.html">ff::as.hi()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+ bit(12)[ri(1, 6)]
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html><html><head><title>R: Replicating bit and bitwhich vectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>rep.booltype {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Replicating bit and bitwhich vectors</h2>
+
+<h3>Description</h3>
+
+<p>Creating new bit or bitwhich by recycling such vectors
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'bit'
+rep(x, times = 1L, length.out = NA, ...)
+
+## S3 method for class 'bitwhich'
+rep(x, times = 1L, length.out = NA, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>bit or bitwhich object</p>
+</td></tr>
+<tr><td><code id="times">times</code></td>
+<td>
+<p>number of replications</p>
+</td></tr>
+<tr><td><code id="length.out">length.out</code></td>
+<td>
+<p>final length of replicated vector (dominates times)</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>not used</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An object of class 'bit' or 'bitwhich'
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/rep.html">rep()</a></code>, <code><a href="../../bit/help/bit.html">bit()</a></code> , <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+ rep(as.bit(c(FALSE, TRUE)), 2)
+ rep(as.bit(c(FALSE, TRUE)), length.out=7)
+ rep(as.bitwhich(c(FALSE, TRUE)), 2)
+ rep(as.bitwhich(c(FALSE, TRUE)), length.out=1)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

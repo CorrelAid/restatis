@@ -1,0 +1,173 @@
+<!DOCTYPE html><html><head><title>R: Modify request URL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_url {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Modify request URL</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>req_url()</code> replaces the entire URL.
+</p>
+</li>
+<li> <p><code>req_url_relative()</code> navigates to a relative URL.
+</p>
+</li>
+<li> <p><code>req_url_query()</code> modifies individual query components.
+</p>
+</li>
+<li> <p><code>req_url_path()</code> modifies just the path.
+</p>
+</li>
+<li> <p><code>req_url_path_append()</code> adds to the path.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_url(req, url)
+
+req_url_relative(req, url)
+
+req_url_query(
+  .req,
+  ...,
+  .multi = c("error", "comma", "pipe", "explode"),
+  .space = c("percent", "form")
+)
+
+req_url_path(req, ...)
+
+req_url_path_append(req, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code>, <code id=".req">.req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="url">url</code></td>
+<td>
+<p>A new URL; either an absolute URL for <code>req_url()</code> or a
+relative URL for <code>req_url_relative()</code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>For <code>req_url_query()</code>: &lt;<code><a href="../../rlang/help/dyn-dots.html">dynamic-dots</a></code>&gt;
+Name-value pairs that define query parameters. Each value must be either
+an atomic vector or <code>NULL</code> (which removes the corresponding parameters).
+If you want to opt out of escaping, wrap strings in <code>I()</code>.
+</p>
+<p>For <code>req_url_path()</code> and <code>req_url_path_append()</code>: A sequence of path
+components that will be combined with <code>/</code>.</p>
+</td></tr>
+<tr><td><code id=".multi">.multi</code></td>
+<td>
+<p>Controls what happens when a value is a vector:
+</p>
+
+<ul>
+<li> <p><code>"error"</code>, the default, throws an error.
+</p>
+</li>
+<li> <p><code>"comma"</code>, separates values with a <code style="white-space: pre;">&#8288;,&#8288;</code>, e.g. <code style="white-space: pre;">&#8288;?x=1,2&#8288;</code>.
+</p>
+</li>
+<li> <p><code>"pipe"</code>, separates values with a <code>|</code>, e.g. <code>?x=1|2</code>.
+</p>
+</li>
+<li> <p><code>"explode"</code>, turns each element into its own parameter, e.g. <code>?x=1&amp;x=2</code>
+</p>
+</li></ul>
+
+<p>If none of these options work for your needs, you can instead supply a
+function that takes a character vector of argument values and returns a
+a single string.</p>
+</td></tr>
+<tr><td><code id=".space">.space</code></td>
+<td>
+<p>How should spaces in query params be escaped? The default,
+&quot;percent&quot;, uses standard percent encoding (i.e. <code style="white-space: pre;">&#8288;%20&#8288;</code>), but you can opt-in
+to &quot;form&quot; encoding, which uses <code>+</code> instead.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A modified HTTP <a href="../../httr2/help/request.html">request</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<ul>
+<li><p> To modify a URL without creating a request, see <code><a href="../../httr2/help/url_modify.html">url_modify()</a></code> and
+friends.
+</p>
+</li>
+<li><p> To use a template like <code>GET /user/{user}</code>, see <code><a href="../../httr2/help/req_template.html">req_template()</a></code>.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Change complete url
+req &lt;- request("http://example.com")
+req |&gt; req_url("http://google.com")
+
+# Use a relative url
+req &lt;- request("http://example.com/a/b/c")
+req |&gt; req_url_relative("..")
+req |&gt; req_url_relative("/d/e/f")
+
+# Change url components
+req |&gt;
+  req_url_path_append("a") |&gt;
+  req_url_path_append("b") |&gt;
+  req_url_path_append("search.html") |&gt;
+  req_url_query(q = "the cool ice")
+
+# Modify individual query parameters
+req &lt;- request("http://example.com?a=1&amp;b=2")
+req |&gt; req_url_query(a = 10)
+req |&gt; req_url_query(a = NULL)
+req |&gt; req_url_query(c = 3)
+
+# Use .multi to control what happens with vector parameters:
+req |&gt; req_url_query(id = 100:105, .multi = "comma")
+req |&gt; req_url_query(id = 100:105, .multi = "explode")
+
+# If you have query parameters in a list, use !!!
+params &lt;- list(a = "1", b = "2")
+req |&gt;
+  req_url_query(!!!params, c = "3")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

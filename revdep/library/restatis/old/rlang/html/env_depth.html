@@ -1,0 +1,67 @@
+<!DOCTYPE html><html><head><title>R: Depth of an environment chain</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>env_depth {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Depth of an environment chain</h2>
+
+<h3>Description</h3>
+
+<p>This function returns the number of environments between <code>env</code> and
+the <a href="../../rlang/help/empty_env.html">empty environment</a>, including <code>env</code>. The depth of
+<code>env</code> is also the number of parents of <code>env</code> (since the empty
+environment counts as a parent).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>env_depth(env)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="env">env</code></td>
+<td>
+<p>An environment.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An integer.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>The section on inheritance in <code><a href="../../rlang/help/env.html">env()</a></code> documentation.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>env_depth(empty_env())
+env_depth(pkg_env("rlang"))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

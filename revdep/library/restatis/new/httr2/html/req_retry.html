@@ -1,0 +1,176 @@
+<!DOCTYPE html><html><head><title>R: Automatically retry a request on failure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_retry {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Automatically retry a request on failure</h2>
+
+<h3>Description</h3>
+
+<p><code>req_retry()</code> allows <code><a href="../../httr2/help/req_perform.html">req_perform()</a></code> to automatically retry failing
+requests. It's particularly important for APIs with rate limiting, but can
+also be useful when dealing with flaky servers.
+</p>
+<p>By default, <code>req_perform()</code> will retry if the response is a 429
+(&quot;too many requests&quot;, often used for rate limiting) or 503
+(&quot;service unavailable&quot;). If the API you are wrapping has other transient
+status codes (or conveys transience with some other property of the
+response), you can override the default with <code>is_transient</code>. And
+if you set <code>retry_on_failure = TRUE</code>, the request will retry
+if either the HTTP request or HTTP response doesn't complete successfully,
+leading to an error from curl, the lower-level library that httr2 uses to
+perform HTTP requests. This occurs, for example, if your Wi-Fi is down.
+</p>
+
+
+<h4>Delay</h4>
+
+<p>It's a bad idea to immediately retry a request, so <code>req_perform()</code> will
+wait a little before trying again:
+</p>
+
+<ul>
+<li><p> If the response contains the <code>Retry-After</code> header, httr2 will wait the
+amount of time it specifies. If the API you are wrapping conveys this
+information with a different header (or other property of the response),
+you can override the default behavior with <code>retry_after</code>.
+</p>
+</li>
+<li><p> Otherwise, httr2 will use &quot;truncated exponential backoff with full
+jitter&quot;, i.e., it will wait a random amount of time between one second and
+<code>2 ^ tries</code> seconds, capped at a maximum of 60 seconds. In other words, it
+waits <code>runif(1, 1, 2)</code> seconds after the first failure, <code>runif(1, 1, 4)</code>
+after the second, <code>runif(1, 1, 8)</code> after the third, and so on. If you'd
+prefer a different strategy, you can override the default with <code>backoff</code>.
+</p>
+</li></ul>
+
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_retry(
+  req,
+  max_tries = NULL,
+  max_seconds = NULL,
+  retry_on_failure = FALSE,
+  is_transient = NULL,
+  backoff = NULL,
+  after = NULL,
+  failure_threshold = Inf,
+  failure_timeout = 30,
+  failure_realm = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="max_tries">max_tries</code>, <code id="max_seconds">max_seconds</code></td>
+<td>
+<p>Cap the maximum number of attempts
+(<code>max_tries</code>), the total elapsed time from the first request
+(<code>max_seconds</code>), or both.
+</p>
+<p><code>max_tries</code> is the total number of attempts made, so this should always
+be greater than one.</p>
+</td></tr>
+<tr><td><code id="retry_on_failure">retry_on_failure</code></td>
+<td>
+<p>Treat low-level failures as if they are
+transient errors that can be retried.</p>
+</td></tr>
+<tr><td><code id="is_transient">is_transient</code></td>
+<td>
+<p>A predicate function that takes a single argument
+(the response) and returns <code>TRUE</code> or <code>FALSE</code> specifying whether or not
+the response represents a transient error.</p>
+</td></tr>
+<tr><td><code id="backoff">backoff</code></td>
+<td>
+<p>A function that takes a single argument (the number of failed
+attempts so far) and returns the number of seconds to wait.</p>
+</td></tr>
+<tr><td><code id="after">after</code></td>
+<td>
+<p>A function that takes a single argument (the response) and
+returns either a number of seconds to wait or <code>NA</code>. <code>NA</code> indicates
+that a precise wait time is not available and that the <code>backoff</code> strategy
+should be used instead.</p>
+</td></tr>
+<tr><td><code id="failure_threshold">failure_threshold</code>, <code id="failure_timeout">failure_timeout</code>, <code id="failure_realm">failure_realm</code></td>
+<td>
+<p>Set <code>failure_threshold</code> to activate &quot;circuit breaking&quot; where if a request
+continues to fail after <code>failure_threshold</code> times, cause the request to
+error until a timeout of <code>failure_timeout</code> seconds has elapsed. This
+timeout will persist across all requests with the same <code>failure_realm</code>
+(which defaults to the hostname of the request) and is intended to detect
+failing servers without needing to wait each time.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A modified HTTP <a href="../../httr2/help/request.html">request</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../httr2/help/req_throttle.html">req_throttle()</a></code> if the API has a rate-limit but doesn't expose
+the limits in the response.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># google APIs assume that a 500 is also a transient error
+request("http://google.com") |&gt;
+  req_retry(is_transient = \(resp) resp_status(resp) %in% c(429, 500, 503))
+
+# use a constant 10s delay after every failure
+request("http://example.com") |&gt;
+  req_retry(backoff = \(resp) 10)
+
+# When rate-limited, GitHub's API returns a 403 with
+# `X-RateLimit-Remaining: 0` and an Unix time stored in the
+# `X-RateLimit-Reset` header. This takes a bit more work to handle:
+github_is_transient &lt;- function(resp) {
+  resp_status(resp) == 403 &amp;&amp;
+    identical(resp_header(resp, "X-RateLimit-Remaining"), "0")
+}
+github_after &lt;- function(resp) {
+  time &lt;- as.numeric(resp_header(resp, "X-RateLimit-Reset"))
+  time - unclass(Sys.time())
+}
+request("http://api.github.com") |&gt;
+  req_retry(
+    is_transient = github_is_transient,
+    after = github_after
+  )
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

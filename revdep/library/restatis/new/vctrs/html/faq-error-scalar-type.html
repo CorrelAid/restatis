@@ -1,0 +1,114 @@
+<!DOCTYPE html><html><head><title>R: FAQ - Error: Input must be a vector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>faq-error-scalar-type {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>FAQ - Error: Input must be a vector</h2>
+
+<h3>Description</h3>
+
+<p>This error occurs when a function expects a vector and gets a scalar
+object instead. This commonly happens when some code attempts to assign
+a scalar object as column in a data frame:
+</p>
+<div class="sourceCode r"><pre>fn &lt;- function() NULL
+tibble::tibble(x = fn)
+#&gt; Error in `tibble::tibble()`:
+#&gt; ! All columns in a tibble must be vectors.
+#&gt; x Column `x` is a function.
+
+fit &lt;- lm(1:3 ~ 1)
+tibble::tibble(x = fit)
+#&gt; Error in `tibble::tibble()`:
+#&gt; ! All columns in a tibble must be vectors.
+#&gt; x Column `x` is a `lm` object.
+</pre></div>
+
+
+<h3>Vectorness in base R and in the tidyverse</h3>
+
+<p>In base R, almost everything is a vector or behaves like a vector. In
+the tidyverse we have chosen to be a bit stricter about what is
+considered a vector. The main question we ask ourselves to decide on the
+vectorness of a type is whether it makes sense to include that object as
+a column in a data frame.
+</p>
+<p>The main difference is that S3 lists are considered vectors by base R
+but in the tidyverse that’s not the case by default:
+</p>
+<div class="sourceCode r"><pre>fit &lt;- lm(1:3 ~ 1)
+
+typeof(fit)
+#&gt; [1] "list"
+class(fit)
+#&gt; [1] "lm"
+
+# S3 lists can be subset like a vector using base R:
+fit[c(1, 4)]
+#&gt; $coefficients
+#&gt; (Intercept) 
+#&gt;           2 
+#&gt; 
+#&gt; $rank
+#&gt; [1] 1
+
+# But not in vctrs
+vctrs::vec_slice(fit, c(1, 4))
+#&gt; Error in `vctrs::vec_slice()`:
+#&gt; ! `x` must be a vector, not a &lt;lm&gt; object.
+#&gt; x Detected incompatible scalar S3 list. To be treated as a vector, the object must explicitly inherit from &lt;list&gt; or should implement a `vec_proxy()` method. Class: &lt;lm&gt;.
+#&gt; i If this object comes from a package, please report this error to the package author.
+#&gt; i Read our FAQ about creating vector types (`?vctrs::howto_faq_fix_scalar_type_error`) to learn more.
+</pre></div>
+<p>Defused function calls are another (more esoteric) example:
+</p>
+<div class="sourceCode r"><pre>call &lt;- quote(foo(bar = TRUE, baz = FALSE))
+call
+#&gt; foo(bar = TRUE, baz = FALSE)
+
+# They can be subset like a vector using base R:
+call[1:2]
+#&gt; foo(bar = TRUE)
+lapply(call, function(x) x)
+#&gt; [[1]]
+#&gt; foo
+#&gt; 
+#&gt; $bar
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $baz
+#&gt; [1] FALSE
+
+# But not with vctrs:
+vctrs::vec_slice(call, 1:2)
+#&gt; Error in `vctrs::vec_slice()`:
+#&gt; ! `x` must be a vector, not a call.
+#&gt; i Read our FAQ about scalar types (`?vctrs::faq_error_scalar_type`) to learn more.
+</pre></div>
+
+
+<h3>I get a scalar type error but I think this is a bug</h3>
+
+<p>It’s possible the author of the class needs to do some work to declare
+their class a vector. Consider reaching out to the author. We have
+written a <a href="../../vctrs/help/howto-faq-fix-scalar-type-error.html">developer FAQ page</a> to
+help them fix the issue.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

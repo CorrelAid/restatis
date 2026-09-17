@@ -1,0 +1,117 @@
+<!DOCTYPE html><html><head><title>R: Create bitwhich vector (skewed boolean)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>bitwhich {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create bitwhich vector (skewed boolean)</h2>
+
+<h3>Description</h3>
+
+<p>A bitwhich object represents a boolean filter like a <code><a href="../../bit/help/bit.html">bit()</a></code> object (NAs are not
+allowed) but uses a sparse representation suitable for very skewed (asymmetric)
+selections. Three extreme cases are represented with logical values, no length via
+<code>logical()</code>, all <code>TRUE</code> with <code>TRUE</code> and all <code>FALSE</code> with <code>FALSE</code>. All other
+selections are represented with positive or negative integers, whatever is shorter.
+This needs less RAM compared to <code><a href="../../base/html/logical.html">logical()</a></code> (and often less than <code><a href="../../bit/help/bit.html">bit()</a></code> or
+<code><a href="../../bit/help/as.which.html">which()</a></code>). Logical operations are fast if the selection is asymmetric
+(only few or almost all selected).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>bitwhich(
+  maxindex = 0L,
+  x = NULL,
+  xempty = FALSE,
+  poslength = NULL,
+  is.unsorted = TRUE,
+  has.dup = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="maxindex">maxindex</code></td>
+<td>
+<p>length of the vector</p>
+</td></tr>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Information about which positions are <code>FALSE</code> or <code>TRUE</code>: either <code>logical()</code> or
+<code>TRUE</code> or <code>FALSE</code> or a integer vector of positive or of negative subscripts.</p>
+</td></tr>
+<tr><td><code id="xempty">xempty</code></td>
+<td>
+<p>what to assume about parameter <code>x</code> if <code>x=integer(0)</code>, typically <code>TRUE</code>
+or <code>FALSE</code>.</p>
+</td></tr>
+<tr><td><code id="poslength">poslength</code></td>
+<td>
+<p>tuning: <code>poslength</code> is calculated automatically, you can give
+<code>poslength</code> explicitly, in this case it must be correct and <code>x</code> must be sorted and
+not have duplicates.</p>
+</td></tr>
+<tr><td><code id="is.unsorted">is.unsorted</code></td>
+<td>
+<p>tuning: FALSE implies that <code>x</code> is already sorted and sorting
+is skipped</p>
+</td></tr>
+<tr><td><code id="has.dup">has.dup</code></td>
+<td>
+<p>tuning: FALSE implies that <code>x</code> has no duplicates</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>an object of class 'bitwhich' carrying two attributes
+</p>
+
+<ul>
+<li><p> maxindex: see above
+</p>
+</li>
+<li><p> poslength: see above
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/bitwhich_representation.html">bitwhich_representation()</a></code>,  <code><a href="../../bit/help/as.bitwhich.html">as.bitwhich()</a></code>, <code><a href="../../bit/help/bit.html">bit()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>bitwhich()
+bitwhich(12)
+bitwhich(12, x=TRUE)
+bitwhich(12, x=3)
+bitwhich(12, x=-3)
+bitwhich(12, x=integer())
+bitwhich(12, x=integer(), xempty=TRUE)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

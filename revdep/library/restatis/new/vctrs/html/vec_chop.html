@@ -1,0 +1,117 @@
+<!DOCTYPE html><html><head><title>R: Chopping</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_chop {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Chopping</h2>
+
+<h3>Description</h3>
+
+<p><code>vec_chop()</code> provides an efficient method to repeatedly slice a vector. It
+captures the pattern of <code>map(indices, vec_slice, x = x)</code>. When no indices
+are supplied, it is generally equivalent to <code><a href="../../base/html/list.html">as.list()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_chop(x, ..., indices = NULL, sizes = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A vector</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="indices">indices</code></td>
+<td>
+<p>A list of positive integer vectors to slice <code>x</code> with, or
+<code>NULL</code>. Can't be used if <code>sizes</code> is already specified. If both <code>indices</code>
+and <code>sizes</code> are <code>NULL</code>, <code>x</code> is split into its individual elements,
+equivalent to using an <code>indices</code> of <code>as.list(vec_seq_along(x))</code>.</p>
+</td></tr>
+<tr><td><code id="sizes">sizes</code></td>
+<td>
+<p>An integer vector of non-negative sizes representing sequential
+indices to slice <code>x</code> with, or <code>NULL</code>. Can't be used if <code>indices</code> is already
+specified.
+</p>
+<p>For example, <code>sizes = c(2, 4)</code> is equivalent to <code>indices = list(1:2, 3:6)</code>,
+but is typically faster.
+</p>
+<p><code>sum(sizes)</code> must be equal to <code>vec_size(x)</code>, i.e. <code>sizes</code> must completely
+partition <code>x</code>, but an individual size is allowed to be <code>0</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list where each element has the same type as <code>x</code>. The size of the list is
+equal to <code>vec_size(indices)</code>, <code>vec_size(sizes)</code>, or <code>vec_size(x)</code> depending
+on whether or not <code>indices</code> or <code>sizes</code> is provided.
+</p>
+
+
+<h3>Dependencies</h3>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/vec_slice.html">vec_slice()</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>vec_chop(1:5)
+
+# These two are equivalent
+vec_chop(1:5, indices = list(1:2, 3:5))
+vec_chop(1:5, sizes = c(2, 3))
+
+# Can also be used on data frames
+vec_chop(mtcars, indices = list(1:3, 4:6))
+
+# If you know your input is sorted and you'd like to split on the groups,
+# `vec_run_sizes()` can be efficiently combined with `sizes`
+df &lt;- data_frame(
+  g = c(2, 5, 5, 6, 6, 6, 6, 8, 9, 9),
+  x = 1:10
+)
+vec_chop(df, sizes = vec_run_sizes(df$g))
+
+# If you have a list of homogeneous vectors, sometimes it can be useful to
+# combine, apply a function to the flattened vector, and chop according
+# to the original indices. This can be done efficiently with `list_sizes()`.
+x &lt;- list(c(1, 2, 1), c(3, 1), 5, double())
+x_flat &lt;- vec_c(!!!x)
+x_flat &lt;- x_flat + max(x_flat)
+vec_chop(x_flat, sizes = list_sizes(x))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

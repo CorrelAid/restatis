@@ -1,0 +1,46 @@
+<!DOCTYPE html><html><head><title>R: Signal total number pages</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>signal_total_pages {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Signal total number pages</h2>
+
+<h3>Description</h3>
+
+<p>To be called within a <code>next_req</code> callback function used with
+<code><a href="../../httr2/help/req_perform_iterative.html">req_perform_iterative()</a></code>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>signal_total_pages(n)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="n">n</code></td>
+<td>
+<p>Total number of pages.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

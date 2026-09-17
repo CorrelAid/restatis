@@ -1,0 +1,318 @@
+<!DOCTYPE html><html><head><title>R: Create column specification</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cols {vroom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create column specification</h2>
+
+<h3>Description</h3>
+
+<p><code>cols()</code> includes all columns in the input data, guessing the column types
+as the default. <code>cols_only()</code> includes only the columns you explicitly
+specify, skipping the rest.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cols(..., .default = col_guess(), .delim = NULL)
+
+cols_only(...)
+
+col_logical(...)
+
+col_integer(...)
+
+col_big_integer(...)
+
+col_double(...)
+
+col_character(...)
+
+col_skip(...)
+
+col_number(...)
+
+col_guess(...)
+
+col_factor(levels = NULL, ordered = FALSE, include_na = FALSE, ...)
+
+col_datetime(format = "", ...)
+
+col_date(format = "", ...)
+
+col_time(format = "", ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Either column objects created by <code style="white-space: pre;">&#8288;col_*()&#8288;</code>, or their abbreviated
+character names (as described in the <code>col_types</code> argument of
+<code><a href="../../vroom/help/vroom.html">vroom()</a></code>). If you're only overriding a few columns, it's
+best to refer to columns by name. If not named, the column types must match
+the column names exactly. In <code style="white-space: pre;">&#8288;col_*()&#8288;</code> functions these are stored in the
+object.</p>
+</td></tr>
+<tr><td><code id=".default">.default</code></td>
+<td>
+<p>Any named columns not explicitly overridden in <code>...</code>
+will be read with this column type.</p>
+</td></tr>
+<tr><td><code id=".delim">.delim</code></td>
+<td>
+<p>The delimiter to use when parsing. If the <code>delim</code> argument
+used in the call to <code>vroom()</code> it takes precedence over the one specified in
+<code>col_types</code>.</p>
+</td></tr>
+<tr><td><code id="levels">levels</code></td>
+<td>
+<p>Character vector of the allowed levels. When <code>levels = NULL</code>
+(the default), <code>levels</code> are discovered from the unique values of the data,
+in the order in which they are encountered.</p>
+</td></tr>
+<tr><td><code id="ordered">ordered</code></td>
+<td>
+<p>Is it an ordered factor?</p>
+</td></tr>
+<tr><td><code id="include_na">include_na</code></td>
+<td>
+<p>If <code>TRUE</code> and the data contains at least one <code>NA</code>, then
+<code>NA</code> is included in the levels of the constructed factor.</p>
+</td></tr>
+<tr><td><code id="format">format</code></td>
+<td>
+<p>A format specification. If set to &quot;&quot;:
+</p>
+
+<ul>
+<li> <p><code>col_datetime()</code> expects ISO8601 datetimes. Here are some examples of
+input that should just work:
+&quot;2024-01-15&quot;, &quot;2024-01-15 14:30:00&quot;, &quot;2024-01-15T14:30:00Z&quot;.
+</p>
+</li>
+<li> <p><code>col_date()</code> uses the <code>date_format</code> from <code><a href="../../vroom/help/locale.html">locale()</a></code> (default <code>"%AD"</code>).
+These inputs should just work: &quot;2024-01-15&quot;, &quot;01/15/2024&quot;.
+</p>
+</li>
+<li> <p><code>col_time()</code> uses the <code>time_format</code> from <code><a href="../../vroom/help/locale.html">locale()</a></code> (default <code>"%AT"</code>).
+These inputs should just work: &quot;14:30:00&quot;, &quot;2:30:00 PM&quot;.
+</p>
+</li></ul>
+
+<p>Unlike <code><a href="../../base/html/strptime.html">strptime()</a></code>, the format specification must match the complete
+string. For more details, see below.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The available specifications are: (long names in quotes and string abbreviations in brackets)</p>
+
+<table>
+<tr>
+ <td style="text-align: left;">
+   function </td><td style="text-align: left;"> long name </td><td style="text-align: left;"> short name </td><td style="text-align: left;"> description </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>col_logical()</code> </td><td style="text-align: left;"> "logical" </td><td style="text-align: left;"> "l" </td><td style="text-align: left;"> Logical values containing only <code>T</code>, <code>F</code>, <code>TRUE</code> or <code>FALSE</code>. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>col_integer()</code> </td><td style="text-align: left;"> "integer" </td><td style="text-align: left;"> "i" </td><td style="text-align: left;"> Integer numbers. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>col_big_integer()</code> </td><td style="text-align: left;"> "big_integer" </td><td style="text-align: left;"> "I" </td><td style="text-align: left;"> Big Integers (64bit), requires the <code>bit64</code> package. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>col_double()</code> </td><td style="text-align: left;"> "double", "numeric" </td><td style="text-align: left;"> "d" </td><td style="text-align: left;"> 64-bit double floating point numbers. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>col_character()</code> </td><td style="text-align: left;"> "character" </td><td style="text-align: left;"> "c" </td><td style="text-align: left;"> Character string data. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>col_factor(levels, ordered)</code> </td><td style="text-align: left;"> "factor" </td><td style="text-align: left;"> "f" </td><td style="text-align: left;"> A fixed set of values. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>col_date(format = "")</code> </td><td style="text-align: left;"> "date" </td><td style="text-align: left;"> "D" </td><td style="text-align: left;"> Calendar dates formatted with the locale's <code>date_format</code>. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>col_time(format = "")</code> </td><td style="text-align: left;"> "time" </td><td style="text-align: left;"> "t" </td><td style="text-align: left;"> Times formatted with the locale's <code>time_format</code>. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>col_datetime(format = "")</code> </td><td style="text-align: left;"> "datetime", "POSIXct" </td><td style="text-align: left;"> "T" </td><td style="text-align: left;"> ISO8601 date times. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>col_number()</code> </td><td style="text-align: left;"> "number" </td><td style="text-align: left;"> "n" </td><td style="text-align: left;"> Human readable numbers containing the <code>grouping_mark</code> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>col_skip()</code> </td><td style="text-align: left;"> "skip", "NULL" </td><td style="text-align: left;"> "_", "-" </td><td style="text-align: left;"> Skip and don't import this column. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+   <code>col_guess()</code> </td><td style="text-align: left;"> "guess", "NA" </td><td style="text-align: left;"> "?" </td><td style="text-align: left;"> Parse using the "best" guessed type based on the input. 
+</td>
+</tr>
+
+</table>
+
+
+
+<h4>Date, time, and datetime formats:</h4>
+
+<p><span class="pkg">vroom</span> uses a format specification similar to <code><a href="../../base/html/strptime.html">strptime()</a></code>.
+There are three types of element:
+</p>
+
+<ol>
+<li><p> A conversion specification that is &quot;%&quot; followed by a letter. For example
+&quot;%Y&quot; matches a 4 digit year, &quot;%m&quot;, matches a 2 digit month and &quot;%d&quot; matches
+a 2 digit day. Month and day default to <code>1</code>, (i.e. Jan 1st) if not present,
+for example if only a year is given.
+</p>
+</li>
+<li><p> Whitespace is any sequence of zero or more whitespace characters.
+</p>
+</li>
+<li><p> Any other character is matched exactly.
+</p>
+</li></ol>
+
+<p><span class="pkg">vroom</span>'s datetime <code style="white-space: pre;">&#8288;col_*()&#8288;</code> functions recognize the following
+specifications:
+</p>
+
+<ul>
+<li><p> Year: &quot;%Y&quot; (4 digits). &quot;%y&quot; (2 digits); 00-69 -&gt; 2000-2069, 70-99 -&gt;
+1970-1999.
+</p>
+</li>
+<li><p> Month: &quot;%m&quot; (2 digits), &quot;%b&quot; (abbreviated name in current locale), &quot;%B&quot;
+(full name in current locale).
+</p>
+</li>
+<li><p> Day: &quot;%d&quot; (2 digits), &quot;%e&quot; (optional leading space), &quot;%a&quot; (abbreviated
+name in current locale).
+</p>
+</li>
+<li><p> Hour: &quot;%H&quot; or &quot;%I&quot; or &quot;%h&quot;, use I (and not H) with AM/PM, use h (and not H)
+if your times represent durations longer than one day.
+</p>
+</li>
+<li><p> Minutes: &quot;%M&quot;
+</p>
+</li>
+<li><p> Seconds: &quot;%S&quot; (integer seconds), &quot;%OS&quot; (partial seconds)
+</p>
+</li>
+<li><p> Time zone: &quot;%Z&quot; (as name, e.g. &quot;America/Chicago&quot;), &quot;%z&quot; (as offset from
+UTC, e.g. &quot;+0800&quot;)
+</p>
+</li>
+<li><p> AM/PM indicator: &quot;%p&quot;.
+</p>
+</li>
+<li><p> Non-digits: &quot;%.&quot; skips one non-digit character, &quot;%+&quot; skips one or more
+non-digit characters, &quot;%*&quot; skips any number of non-digits characters.
+</p>
+</li>
+<li><p> Automatic parsers: &quot;%AD&quot; parses with a flexible YMD parser, &quot;%AT&quot; parses
+with a flexible HMS parser.
+</p>
+</li>
+<li><p> Shortcuts: &quot;%D&quot; = &quot;%m/%d/%y&quot;, &quot;%F&quot; = &quot;%Y-%m-%d&quot;, &quot;%R&quot; = &quot;%H:%M&quot;, &quot;%T&quot; =
+&quot;%H:%M:%S&quot;, &quot;%x&quot; = &quot;%y/%m/%d&quot;.
+</p>
+</li></ul>
+
+
+
+<h5>ISO8601 support</h5>
+
+<p>Currently, vroom does not support all of ISO8601. Missing features:
+</p>
+
+<ul>
+<li><p> Week &amp; weekday specifications, e.g. &quot;2013-W05&quot;, &quot;2013-W05-10&quot;.
+</p>
+</li>
+<li><p> Ordinal dates, e.g. &quot;2013-095&quot;.
+</p>
+</li>
+<li><p> Using commas instead of a period for decimal separator.
+</p>
+</li></ul>
+
+<p>The parser is also a little laxer than ISO8601:
+</p>
+
+<ul>
+<li><p> Dates and times can be separated with a space, not just T.
+</p>
+</li>
+<li><p> Mostly correct specifications like &quot;2009-05-19 14:&quot; and &quot;200912-01&quot; work.
+</p>
+</li></ul>
+
+
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>cols(a = col_integer())
+cols_only(a = col_integer())
+
+# You can also use the standard abbreviations
+cols(a = "i")
+cols(a = "i", b = "d", c = "_")
+
+# Or long names (like utils::read.csv)
+cols(a = "integer", b = "double", c = "skip")
+
+# You can also use multiple sets of column definitions by combining
+# them like so:
+
+t1 &lt;- cols(
+  column_one = col_integer(),
+  column_two = col_number())
+
+t2 &lt;- cols(
+ column_three = col_character())
+
+t3 &lt;- t1
+t3$cols &lt;- c(t1$cols, t2$cols)
+t3
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vroom</em> version 1.7.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

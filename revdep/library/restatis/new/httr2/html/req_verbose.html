@@ -1,0 +1,121 @@
+<!DOCTYPE html><html><head><title>R: Show extra output when request is performed</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_verbose {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Show extra output when request is performed</h2>
+
+<h3>Description</h3>
+
+<p><code>req_verbose()</code> uses the following prefixes to distinguish between
+different components of the HTTP requests and responses:
+</p>
+
+<ul>
+<li> <p><code style="white-space: pre;">&#8288;* &#8288;</code> informative curl messages
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;-&gt;&#8288;</code> request headers
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;&gt;&gt;&#8288;</code> request body
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;&lt;-&#8288;</code> response headers
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;&lt;&lt;&#8288;</code> response body
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_verbose(
+  req,
+  header_req = TRUE,
+  header_resp = TRUE,
+  body_req = FALSE,
+  body_resp = FALSE,
+  info = FALSE,
+  redact_headers = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="header_req">header_req</code>, <code id="header_resp">header_resp</code></td>
+<td>
+<p>Show request/response headers?</p>
+</td></tr>
+<tr><td><code id="body_req">body_req</code>, <code id="body_resp">body_resp</code></td>
+<td>
+<p>Should request/response bodies? When the response
+body is compressed, this will show the number of bytes received in
+each &quot;chunk&quot;.</p>
+</td></tr>
+<tr><td><code id="info">info</code></td>
+<td>
+<p>Show informational text from curl? This is mainly useful
+for debugging https and auth problems, so is disabled by default.</p>
+</td></tr>
+<tr><td><code id="redact_headers">redact_headers</code></td>
+<td>
+<p>Redact confidential data in the headers? Currently
+redacts the contents of the Authorization header to prevent you from
+accidentally leaking credentials when debugging/reprexing.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A modified HTTP <a href="../../httr2/help/request.html">request</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../httr2/help/req_perform.html">req_perform()</a></code> which exposes a limited subset of these options
+through the <code>verbosity</code> argument and <code><a href="../../httr2/help/with_verbosity.html">with_verbosity()</a></code> which allows you
+to control the verbosity of requests deeper within the call stack.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Use `req_verbose()` to see the headers that are sent back and forth when
+# making a request
+resp &lt;- request("https://httr2.r-lib.org") |&gt;
+  req_verbose() |&gt;
+  req_perform()
+
+# Or use one of the convenient shortcuts:
+resp &lt;- request("https://httr2.r-lib.org") |&gt;
+  req_perform(verbosity = 1)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

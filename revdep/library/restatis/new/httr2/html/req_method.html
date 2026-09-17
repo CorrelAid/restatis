@@ -1,0 +1,65 @@
+<!DOCTYPE html><html><head><title>R: Set HTTP method in request</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_method {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Set HTTP method in request</h2>
+
+<h3>Description</h3>
+
+<p>Use this function to use a custom HTTP method like <code>HEAD</code>,
+<code>DELETE</code>, <code>PATCH</code>, <code>UPDATE</code>, or <code>OPTIONS</code>. The default method is
+<code>GET</code> for requests without a body, and <code>POST</code> for requests with a body.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_method(req, method)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="method">method</code></td>
+<td>
+<p>Custom HTTP method</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A modified HTTP <a href="../../httr2/help/request.html">request</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>request(example_url()) |&gt; req_method("PATCH")
+request(example_url()) |&gt; req_method("PUT")
+request(example_url()) |&gt; req_method("HEAD")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html><html><head><title>R: Align an ANSI colored string</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ansi_align {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Align an ANSI colored string</h2>
+
+<h3>Description</h3>
+
+<p>Align an ANSI colored string
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ansi_align(
+  text,
+  width = console_width(),
+  align = c("left", "center", "right"),
+  type = "width"
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="text">text</code></td>
+<td>
+<p>The character vector to align.</p>
+</td></tr>
+<tr><td><code id="width">width</code></td>
+<td>
+<p>Width of the field to align in.</p>
+</td></tr>
+<tr><td><code id="align">align</code></td>
+<td>
+<p>Whether to align <code>"left"</code>, <code>"center"</code> or <code>"right"</code>.</p>
+</td></tr>
+<tr><td><code id="type">type</code></td>
+<td>
+<p>Passed on to <code><a href="../../cli/help/ansi_nchar.html">ansi_nchar()</a></code> and there to <code><a href="../../base/html/nchar.html">nchar()</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<div class="sourceCode r"><pre>str &lt;- c(
+  col_red("This is red"),
+  style_bold("This is bold")
+)
+astr &lt;- ansi_align(str, width = 30)
+boxx(astr)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ┌────────────────────────────────────┐                                          
+#> │                                    │                                          
+#> │   <span style="color: #DC322F;">This is red</span>                      │                                          
+#> │   <span style="font-weight: bold;">This is bold</span>                     │                                          
+#> │                                    │                                          
+#> └────────────────────────────────────┘                                          
+</pre></div>
+
+<div class="sourceCode r"><pre>str &lt;- c(
+  col_red("This is red"),
+  style_bold("This is bold")
+)
+astr &lt;- ansi_align(str, align = "center", width = 30)
+boxx(astr)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ┌────────────────────────────────────┐                                          
+#> │                                    │                                          
+#> │             <span style="color: #DC322F;">This is red</span>            │                                          
+#> │            <span style="font-weight: bold;">This is bold</span>            │                                          
+#> │                                    │                                          
+#> └────────────────────────────────────┘                                          
+</pre></div>
+
+<div class="sourceCode r"><pre>str &lt;- c(
+  col_red("This is red"),
+  style_bold("This is bold")
+)
+astr &lt;- ansi_align(str, align = "right", width = 30)
+boxx(astr)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> ┌────────────────────────────────────┐                                          
+#> │                                    │                                          
+#> │                      <span style="color: #DC322F;">This is red</span>   │                                          
+#> │                     <span style="font-weight: bold;">This is bold</span>   │                                          
+#> │                                    │                                          
+#> └────────────────────────────────────┘                                          
+</pre></div>
+
+
+
+<h3>Value</h3>
+
+<p>The aligned character vector.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other ANSI string operations: 
+<code><a href="../../cli/help/ansi_columns.html">ansi_columns</a>()</code>,
+<code><a href="../../cli/help/ansi_nchar.html">ansi_nchar</a>()</code>,
+<code><a href="../../cli/help/ansi_strsplit.html">ansi_strsplit</a>()</code>,
+<code><a href="../../cli/help/ansi_strtrim.html">ansi_strtrim</a>()</code>,
+<code><a href="../../cli/help/ansi_strwrap.html">ansi_strwrap</a>()</code>,
+<code><a href="../../cli/help/ansi_substr.html">ansi_substr</a>()</code>,
+<code><a href="../../cli/help/ansi_substring.html">ansi_substring</a>()</code>,
+<code><a href="../../cli/help/ansi_toupper.html">ansi_toupper</a>()</code>,
+<code><a href="../../cli/help/ansi_trimws.html">ansi_trimws</a>()</code>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

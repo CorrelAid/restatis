@@ -1,0 +1,110 @@
+<!DOCTYPE html><html><head><title>R: CLI headings</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_h1 {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>CLI headings</h2>
+
+<h3>Description</h3>
+
+<p>cli has three levels of headings.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_h1(text, id = NULL, class = NULL, .envir = parent.frame())
+
+cli_h2(text, id = NULL, class = NULL, .envir = parent.frame())
+
+cli_h3(text, id = NULL, class = NULL, .envir = parent.frame())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="text">text</code></td>
+<td>
+<p>Text of the heading. It can contain inline markup.</p>
+</td></tr>
+<tr><td><code id="id">id</code></td>
+<td>
+<p>Id of the heading element, string. It can be used in themes.</p>
+</td></tr>
+<tr><td><code id="class">class</code></td>
+<td>
+<p>Class of the heading element, string. It can be used in
+themes.</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>Environment to evaluate the glue expressions in.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is how the headings look with the default builtin theme.
+</p>
+<div class="sourceCode r"><pre>cli_h1("Header {.emph 1}")
+cli_h2("Header {.emph 2}")
+cli_h3("Header {.emph 3}")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#>                                                                                 
+#> <span style="color: #2AA198;">──</span> <span style="font-weight: bold;">Header </span><span style="font-weight: bold;font-style: italic;">1</span> <span style="color: #2AA198;">──────────────────────────────────────────────────────────</span>          
+#>                                                                                 
+#> ── <span style="font-weight: bold;">Header </span><span style="font-weight: bold;font-style: italic;">2</span> ──                                                                  
+#>                                                                                 
+#> ── Header <span style="font-style: italic;">3</span>                                                                     
+</pre></div>
+
+
+
+<h3>See Also</h3>
+
+<p>These functions supports <a href="../../cli/help/inline-markup.html">inline markup</a>.
+</p>
+<p>Other functions supporting inline markup: 
+<code><a href="../../cli/help/cli_abort.html">cli_abort</a>()</code>,
+<code><a href="../../cli/help/cli_alert.html">cli_alert</a>()</code>,
+<code><a href="../../cli/help/cli_blockquote.html">cli_blockquote</a>()</code>,
+<code><a href="../../cli/help/cli_bullets.html">cli_bullets</a>()</code>,
+<code><a href="../../cli/help/cli_bullets_raw.html">cli_bullets_raw</a>()</code>,
+<code><a href="../../cli/help/cli_dl.html">cli_dl</a>()</code>,
+<code><a href="../../cli/help/cli_li.html">cli_li</a>()</code>,
+<code><a href="../../cli/help/cli_ol.html">cli_ol</a>()</code>,
+<code><a href="../../cli/help/cli_process_start.html">cli_process_start</a>()</code>,
+<code><a href="../../cli/help/cli_progress_along.html">cli_progress_along</a>()</code>,
+<code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar</a>()</code>,
+<code><a href="../../cli/help/cli_progress_message.html">cli_progress_message</a>()</code>,
+<code><a href="../../cli/help/cli_progress_output.html">cli_progress_output</a>()</code>,
+<code><a href="../../cli/help/cli_progress_step.html">cli_progress_step</a>()</code>,
+<code><a href="../../cli/help/cli_rule.html">cli_rule</a></code>,
+<code><a href="../../cli/help/cli_status.html">cli_status</a>()</code>,
+<code><a href="../../cli/help/cli_status_update.html">cli_status_update</a>()</code>,
+<code><a href="../../cli/help/cli_text.html">cli_text</a>()</code>,
+<code><a href="../../cli/help/cli_ul.html">cli_ul</a>()</code>,
+<code><a href="../../cli/help/format_error.html">format_error</a>()</code>,
+<code><a href="../../cli/help/format_inline.html">format_inline</a>()</code>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

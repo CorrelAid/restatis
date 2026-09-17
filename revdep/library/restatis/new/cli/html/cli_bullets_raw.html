@@ -1,0 +1,94 @@
+<!DOCTYPE html><html><head><title>R: List of verbatim items</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_bullets_raw {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>List of verbatim items</h2>
+
+<h3>Description</h3>
+
+<p><code>cli_format_bullets_raw()</code> is similar to <code><a href="../../cli/help/cli_bullets.html">cli_bullets()</a></code>, but it does
+not perform any inline styling or glue substitutions in the input.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_bullets_raw(text, id = NULL, class = NULL)
+
+format_bullets_raw(text, id = NULL, class = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="text">text</code></td>
+<td>
+<p>Character vector of items. See details below on how names
+are interpreted.</p>
+</td></tr>
+<tr><td><code id="id">id</code></td>
+<td>
+<p>Optional id of the <code>div.bullets</code> element, can be used in themes.</p>
+</td></tr>
+<tr><td><code id="class">class</code></td>
+<td>
+<p>Optional additional class(es) for the <code>div.bullets</code> element.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>format_bullets_raw()</code> returns the output instead of printing it.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>These functions support <a href="../../cli/help/inline-markup.html">inline markup</a>.
+</p>
+<p>See <code><a href="../../cli/help/cli_bullets.html">cli_bullets()</a></code> for examples.
+</p>
+<p>Other functions supporting inline markup: 
+<code><a href="../../cli/help/cli_abort.html">cli_abort</a>()</code>,
+<code><a href="../../cli/help/cli_alert.html">cli_alert</a>()</code>,
+<code><a href="../../cli/help/cli_blockquote.html">cli_blockquote</a>()</code>,
+<code><a href="../../cli/help/cli_bullets.html">cli_bullets</a>()</code>,
+<code><a href="../../cli/help/cli_dl.html">cli_dl</a>()</code>,
+<code><a href="../../cli/help/cli_h1.html">cli_h1</a>()</code>,
+<code><a href="../../cli/help/cli_li.html">cli_li</a>()</code>,
+<code><a href="../../cli/help/cli_ol.html">cli_ol</a>()</code>,
+<code><a href="../../cli/help/cli_process_start.html">cli_process_start</a>()</code>,
+<code><a href="../../cli/help/cli_progress_along.html">cli_progress_along</a>()</code>,
+<code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar</a>()</code>,
+<code><a href="../../cli/help/cli_progress_message.html">cli_progress_message</a>()</code>,
+<code><a href="../../cli/help/cli_progress_output.html">cli_progress_output</a>()</code>,
+<code><a href="../../cli/help/cli_progress_step.html">cli_progress_step</a>()</code>,
+<code><a href="../../cli/help/cli_rule.html">cli_rule</a></code>,
+<code><a href="../../cli/help/cli_status.html">cli_status</a>()</code>,
+<code><a href="../../cli/help/cli_status_update.html">cli_status_update</a>()</code>,
+<code><a href="../../cli/help/cli_text.html">cli_text</a>()</code>,
+<code><a href="../../cli/help/cli_ul.html">cli_ul</a>()</code>,
+<code><a href="../../cli/help/format_error.html">format_error</a>()</code>,
+<code><a href="../../cli/help/format_inline.html">format_inline</a>()</code>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

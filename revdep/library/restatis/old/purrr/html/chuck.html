@@ -1,0 +1,82 @@
+<!DOCTYPE html><html><head><title>R: Get an element deep within a nested data structure, failing...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>chuck {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get an element deep within a nested data structure, failing if it doesn't
+exist</h2>
+
+<h3>Description</h3>
+
+<p><code>chuck()</code> implements a generalised form of <code>[[</code> that allow you to index
+deeply and flexibly into data structures. If the index you are trying to
+access does not exist (or is <code>NULL</code>), it will throw (i.e. chuck) an error.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>chuck(.x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>A vector or environment</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>A list of accessors for indexing into the object. Can be
+an positive integer, a negative integer (to index from the right),
+a string (to index into names), or an accessor function
+(except for the assignment variants which only support names and
+positions). If the object being indexed is an S4 object,
+accessing it by name will return the corresponding slot.
+</p>
+<p><a href="../../rlang/help/dyn-dots.html">Dynamic dots</a> are supported. In particular, if
+your accessors are stored in a list, you can splice that in with
+<code style="white-space: pre;">&#8288;!!!&#8288;</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../purrr/help/pluck.html">pluck()</a></code> for a quiet equivalent.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- list(a = 1, b = 2)
+
+# When indexing an element that doesn't exist `[[` sometimes returns NULL:
+x[["y"]]
+# and sometimes errors:
+try(x[[3]])
+
+# chuck() consistently errors:
+try(chuck(x, "y"))
+try(chuck(x, 3))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

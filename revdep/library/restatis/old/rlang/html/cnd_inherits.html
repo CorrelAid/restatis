@@ -1,0 +1,137 @@
+<!DOCTYPE html><html><head><title>R: Does a condition or its ancestors inherit from a class?</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cnd_inherits {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Does a condition or its ancestors inherit from a class?</h2>
+
+<h3>Description</h3>
+
+<p>Like any R objects, errors captured with catchers like <code><a href="../../base/html/conditions.html">tryCatch()</a></code>
+have a <code><a href="../../base/html/class.html">class()</a></code> which you can test with <code><a href="../../base/html/class.html">inherits()</a></code>.  However,
+with chained errors, the class of a captured error might be
+different than the error that was originally signalled. Use
+<code>cnd_inherits()</code> to detect whether an error or any of its <em>parent</em>
+inherits from a class.
+</p>
+<p>Whereas <code>inherits()</code> tells you whether an object is a particular
+kind of error, <code>cnd_inherits()</code> answers the question whether an
+object is a particular kind of error or has been caused by such an
+error.
+</p>
+<p>Some chained conditions carry parents that are not inherited. See
+the <code>.inherit</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code>, <code><a href="../../rlang/help/warn.html">warn()</a></code>, and <code><a href="../../rlang/help/inform.html">inform()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cnd_inherits(cnd, class)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="cnd">cnd</code></td>
+<td>
+<p>A condition to test.</p>
+</td></tr>
+<tr><td><code id="class">class</code></td>
+<td>
+<p>A class passed to <code><a href="../../base/html/class.html">inherits()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Capture an error with <code>cnd_inherits()</code></h3>
+
+<p>Error catchers like <code><a href="../../base/html/conditions.html">tryCatch()</a></code> and <code><a href="../../rlang/help/try_fetch.html">try_fetch()</a></code> can only match
+the class of a condition, not the class of its parents. To match a
+class across the ancestry of an error, you'll need a bit of
+craftiness.
+</p>
+<p>Ancestry matching can't be done with <code>tryCatch()</code> at all so you'll
+need to switch to <code><a href="../../base/html/conditions.html">withCallingHandlers()</a></code>. Alternatively, you can
+use the experimental rlang function <code><a href="../../rlang/help/try_fetch.html">try_fetch()</a></code> which is able to
+perform the roles of both <code>tryCatch()</code> and <code>withCallingHandlers()</code>.
+</p>
+
+
+<h4><code>withCallingHandlers()</code></h4>
+
+<p>Unlike <code>tryCatch()</code>, <code>withCallingHandlers()</code> does not capture an
+error. If you don't explicitly jump with an <em>error</em> or a <em>value</em>
+throw, nothing happens.
+</p>
+<p>Since we don't want to throw an error, we'll throw a value using
+<code><a href="../../base/html/callCC.html">callCC()</a></code>:
+</p>
+<div class="sourceCode r"><pre>f &lt;- function() {
+  parent &lt;- error_cnd("bar", message = "Bar")
+  abort("Foo", parent = parent)
+}
+
+cnd &lt;- callCC(function(throw) {
+  withCallingHandlers(
+    f(),
+    error = function(x) if (cnd_inherits(x, "bar")) throw(x)
+  )
+})
+
+class(cnd)
+#&gt; [1] "rlang_error" "error"       "condition"
+class(cnd$parent)
+#&gt; [1] "bar"         "rlang_error" "error"       "condition"
+</pre></div>
+
+
+
+<h4><code>try_fetch()</code></h4>
+
+<p>This pattern is easier with <code><a href="../../rlang/help/try_fetch.html">try_fetch()</a></code>. Like
+<code>withCallingHandlers()</code>, it doesn't capture a matching error right
+away. Instead, it captures it only if the handler doesn't return a
+<code><a href="../../rlang/help/zap.html">zap()</a></code> value.
+</p>
+<div class="sourceCode r"><pre>cnd &lt;- try_fetch(
+  f(),
+  error = function(x) if (cnd_inherits(x, "bar")) x else zap()
+)
+
+class(cnd)
+#&gt; [1] "rlang_error" "error"       "condition"
+class(cnd$parent)
+#&gt; [1] "bar"         "rlang_error" "error"       "condition"
+</pre></div>
+<p>Note that <code>try_fetch()</code> uses <code>cnd_inherits()</code> internally. This
+makes it very easy to match a parent condition:
+</p>
+<div class="sourceCode r"><pre>cnd &lt;- try_fetch(
+  f(),
+  bar = function(x) x
+)
+
+# This is the parent
+class(cnd)
+#&gt; [1] "bar"         "rlang_error" "error"       "condition"
+</pre></div>
+
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

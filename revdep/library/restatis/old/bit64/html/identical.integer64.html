@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><title>R: Identity function for class 'integer64'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>identical.integer64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Identity function for class 'integer64'</h2>
+
+<h3>Description</h3>
+
+<p>This will discover any deviation between objects containing integer64 vectors.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>identical.integer64(
+  x,
+  y,
+  num.eq = FALSE,
+  single.NA = FALSE,
+  attrib.as.set = TRUE,
+  ignore.bytecode = TRUE,
+  ignore.environment = FALSE,
+  ignore.srcref = TRUE,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code>, <code id="y">y</code></td>
+<td>
+<p>Atomic vector of class 'integer64'</p>
+</td></tr>
+<tr><td><code id="num.eq">num.eq</code>, <code id="single.NA">single.NA</code>, <code id="attrib.as.set">attrib.as.set</code>, <code id="ignore.bytecode">ignore.bytecode</code>, <code id="ignore.environment">ignore.environment</code>, <code id="ignore.srcref">ignore.srcref</code></td>
+<td>
+<p>See <code><a href="../../base/html/identical.html">identical()</a></code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Passed on to <code>identical()</code>. Only <code style="white-space: pre;">&#8288;extptr.as.ref=&#8288;</code> is available as of R 4.4.1,
+and then only for versions of R &gt;= 4.2.0.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is simply a wrapper to <code><a href="../../base/html/identical.html">identical()</a></code> with default arguments
+<code style="white-space: pre;">&#8288;num.eq = FALSE, single.NA = FALSE&#8288;</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A single logical value, <code>TRUE</code> or <code>FALSE</code>, never <code>NA</code> and never
+anything other than a single value.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/+3D+3D.integer64.html">==.integer64</a></code> <code><a href="../../base/html/identical.html">identical()</a></code> <code><a href="../../bit64/help/integer64.html">integer64()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  i64 &lt;- as.double(NA); class(i64) &lt;- "integer64"
+  identical(i64-1, i64+1)
+  identical.integer64(i64-1, i64+1)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

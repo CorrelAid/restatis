@@ -1,0 +1,128 @@
+<!DOCTYPE html><html><head><title>R: Vectorized if-else</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_if_else {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Vectorized if-else</h2>
+
+<h3>Description</h3>
+
+<p><code>vec_if_else()</code> is a vectorized <a href="../../base/html/Control.html">if-else</a>. Compared to the base R
+equivalent, <code><a href="../../base/html/ifelse.html">ifelse()</a></code>, this function allows you to handle missing values in
+the <code>condition</code> with <code>missing</code> and always takes <code>true</code>, <code>false</code>, and
+<code>missing</code> into account when determining what the output type should be.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_if_else(
+  condition,
+  true,
+  false,
+  ...,
+  missing = NULL,
+  ptype = NULL,
+  condition_arg = "condition",
+  true_arg = "true",
+  false_arg = "false",
+  missing_arg = "missing",
+  error_call = current_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="condition">condition</code></td>
+<td>
+<p>A logical vector.</p>
+</td></tr>
+<tr><td><code id="true">true</code>, <code id="false">false</code></td>
+<td>
+<p>Vectors to use for <code>TRUE</code> and <code>FALSE</code> values of
+<code>condition</code>.
+</p>
+<p>Both <code>true</code> and <code>false</code> will be <a href="../../vctrs/help/theory-faq-recycling.html">recycled</a>
+to the size of <code>condition</code>.
+</p>
+<p><code>true</code>, <code>false</code>, and <code>missing</code> (if used) will be cast to their common type.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="missing">missing</code></td>
+<td>
+<p>If not <code>NULL</code>, will be used as the value for <code>NA</code> values of
+<code>condition</code>. Follows the same size and type rules as <code>true</code> and <code>false</code>.</p>
+</td></tr>
+<tr><td><code id="ptype">ptype</code></td>
+<td>
+<p>An optional prototype declaring the desired output type. If
+supplied, this overrides the common type of <code>true</code>, <code>false</code>, and <code>missing</code>.</p>
+</td></tr>
+<tr><td><code id="condition_arg">condition_arg</code>, <code id="true_arg">true_arg</code>, <code id="false_arg">false_arg</code>, <code id="missing_arg">missing_arg</code></td>
+<td>
+<p>Argument names used in
+error messages.</p>
+</td></tr>
+<tr><td><code id="error_call">error_call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A vector with the same size as <code>condition</code> and the same type as the common
+type of <code>true</code>, <code>false</code>, and <code>missing</code>.
+</p>
+<p>Where <code>condition</code> is <code>TRUE</code>, the matching values from <code>true</code>, where it is
+<code>FALSE</code>, the matching values from <code>false</code>, and where it is <code>NA</code>, the matching
+values from <code>missing</code>, if provided, otherwise a missing value will be used.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- c(-5:5, NA)
+vec_if_else(x &lt; 0, NA, x)
+
+# Explicitly handle `NA` values in the `condition` with `missing`
+vec_if_else(x &lt; 0, "negative", "positive", missing = "missing")
+
+# Unlike `ifelse()`, `vec_if_else()` preserves types
+x &lt;- factor(sample(letters[1:5], 10, replace = TRUE))
+ifelse(x %in% c("a", "b", "c"), x, NA)
+vec_if_else(x %in% c("a", "b", "c"), x, NA)
+
+# `vec_if_else()` also works with data frames
+condition &lt;- c(TRUE, FALSE, NA, TRUE)
+true &lt;- data_frame(x = 1:4, y = 5:8)
+false &lt;- data_frame(x = 9:12, y = 13:16)
+vec_if_else(condition, true, false)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

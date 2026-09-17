@@ -1,0 +1,135 @@
+<!DOCTYPE html><html><head><title>R: Hybrid Index, C-coded utilities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>intrle {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Hybrid Index, C-coded utilities</h2>
+
+<h3>Description</h3>
+
+<p>These C-coded utilitites speed up index preprocessing considerably.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>intrle(x)
+
+intisasc(x, na.method = c("none", "break", "skip")[2])
+
+intisdesc(x, na.method = c("none", "break", "skip")[1])
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an integer vector</p>
+</td></tr>
+<tr><td><code id="na.method">na.method</code></td>
+<td>
+<p>one of &quot;none&quot;, &quot;break&quot;, &quot;skip&quot;, see details. The strange defaults stem
+from the initial usage.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>intrle</code> is by factor 50 faster and needs less RAM (2x its input
+vector) compared to <code><a href="../../base/html/rle.html">rle()</a></code> which needs 9x the RAM of its input
+vector.  This is achieved because we allow the C-code of <code>intrle</code> to
+break when it turns out, that rle-packing will not achieve a compression
+factor of 3 or better.
+</p>
+<p><code>intisasc</code> is a faster version of <code><a href="../../base/html/is.unsorted.html">is.unsorted()</a></code>: it checks whether <code>x</code> is sorted.
+</p>
+<p><code>intisdesc</code> checks for being sorted descending and by default default assumes that the
+input <code>x</code> contains no NAs.
+</p>
+<p><code>na.method="none"</code> treats <code>NAs</code> (the smallest integer) like every other integer and
+hence returns either <code>TRUE</code> or <code>FALSE</code> <code>na.method="break"</code> checks for <code>NAs</code> and
+returns either <code>NA</code> as soon as  <code>NA</code> is encountered. <code>na.method="skip"</code> checks for
+<code>NAs</code> and skips over them, hence decides the return value only on the basis of
+non-NA values.
+</p>
+
+
+<h3>Value</h3>
+
+
+<ul>
+<li> <p><code>intrle</code> returns an object of class <code><a href="../../base/html/rle.html">rle()</a></code> or NULL, if rle-compression is not
+efficient (compression factor &lt;3 or <code>length(x) &lt; 3</code>).
+</p>
+</li>
+<li> <p><code>intisasc</code> returns one of <code style="white-space: pre;">&#8288;FALSE, NA, TRUE&#8288;</code>
+</p>
+</li>
+<li> <p><code>intisdesc</code> returns one of <code style="white-space: pre;">&#8288;FALSE, TRUE&#8288;</code> (if the input contains NAs, the output is
+undefined)
+</p>
+</li></ul>
+
+
+
+<h3>Functions</h3>
+
+
+<ul>
+<li> <p><code>intisasc()</code>: check whether integer vector is ascending
+</p>
+</li>
+<li> <p><code>intisdesc()</code>: check whether integer vector is descending
+</p>
+</li></ul>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../ff/help/hi.html">ff::hi()</a></code>, <code><a href="../../base/html/rle.html">rle()</a></code>, <code><a href="../../base/html/is.unsorted.html">is.unsorted()</a></code>,
+<code><a href="../../ff/help/is.sorted.html">ff::is.sorted.default()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  intrle(sample(1:10))
+  intrle(diff(1:10))
+  intisasc(1:10)
+  intisasc(10:1)
+  intisasc(c(NA, 1:10))
+  intisdesc(1:10)
+  intisdesc(c(10:1, NA))
+  intisdesc(c(10:6, NA, 5:1))
+  intisdesc(c(10:6, NA, 5:1), na.method="skip")
+  intisdesc(c(10:6, NA, 5:1), na.method="break")
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

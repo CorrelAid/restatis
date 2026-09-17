@@ -1,0 +1,111 @@
+<!DOCTYPE html><html><head><title>R: Simulate (a subset of) a VT-5xx ANSI terminal</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vt_output {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulate (a subset of) a VT-5xx ANSI terminal</h2>
+
+<h3>Description</h3>
+
+<p>This is utility function that calculates the state of a VT-5xx screen
+after a certain set of output.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vt_output(output, width = 80L, height = 25L)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="output">output</code></td>
+<td>
+<p>Character vector or raw vector. Character vectors are
+collapsed (without a separater), and converted to a raw vector using
+<code><a href="../../base/help/rawConversion.html">base::charToRaw()</a></code>.</p>
+</td></tr>
+<tr><td><code id="width">width</code></td>
+<td>
+<p>Terminal width.</p>
+</td></tr>
+<tr><td><code id="height">height</code></td>
+<td>
+<p>Terminal height.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Currently it supports:
+</p>
+
+<ul>
+<li><p> configurable terminal width and height
+</p>
+</li>
+<li><p> ASCII printable characters.
+</p>
+</li>
+<li> <p><code style="white-space: pre;">&#8288;\n&#8288;</code>, <code style="white-space: pre;">&#8288;\r&#8288;</code>.
+</p>
+</li>
+<li><p> ANSI SGR colors, 8 color mode, 256 color mode and true color mode.
+</p>
+</li>
+<li><p> Other ANSI SGR features: bold, italic, underline, strikethrough,
+blink, inverse.
+</p>
+</li></ul>
+
+<p>It does <em>not</em> currently supports other features, mode notably:
+</p>
+
+<ul>
+<li><p> Other ANSI control sequences and features. Other control sequences
+are silently ignored.
+</p>
+</li>
+<li><p> Wide Unicode characters. Their width is not taken into account
+correctly.
+</p>
+</li>
+<li><p> Unicode graphemes.
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>Data frame with columns <code>lineno</code>, <code>segmentno</code>, <code>segment</code>,
+<code>attributes</code>.
+</p>
+
+
+<h3>Note</h3>
+
+<p>This function is experimental, and the virtual temrinal API will
+likely change in future versions of cli.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

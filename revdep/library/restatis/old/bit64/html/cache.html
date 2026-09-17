@@ -1,0 +1,156 @@
+<!DOCTYPE html><html><head><title>R: Atomic Caching</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cache {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Atomic Caching</h2>
+
+<h3>Description</h3>
+
+<p>Functions for caching results attached to atomic objects
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>newcache(x)
+
+jamcache(x)
+
+cache(x)
+
+setcache(x, which, value)
+
+getcache(x, which)
+
+remcache(x)
+
+## S3 method for class 'cache'
+print(x, all.names = FALSE, pattern, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an integer64 vector (or a cache object in case of <code>print.cache</code>)</p>
+</td></tr>
+<tr><td><code id="which">which</code></td>
+<td>
+<p>A character naming the object to be retrieved from the cache or to be stored in the cache</p>
+</td></tr>
+<tr><td><code id="value">value</code></td>
+<td>
+<p>An object to be stored in the cache</p>
+</td></tr>
+<tr><td><code id="all.names">all.names</code>, <code id="pattern">pattern</code></td>
+<td>
+<p>passed to <code><a href="../../base/html/ls.html">ls()</a></code> when listing the cache content</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>ignored</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A <code>cache</code> is an <code><a href="../../base/html/environment.html">environment</a></code> attached to an atomic object with the
+<code><a href="../../base/html/attr.html">attribute</a></code> name 'cache'. It contains at least a reference to the
+atomic object that carries the cache. This is used when accessing
+the cache to detect whether the object carrying the cache has been
+modified meanwhile.
+</p>
+
+
+<h3>Value</h3>
+
+<p>See details
+</p>
+
+
+<h3>Functions</h3>
+
+
+<ul>
+<li> <p><code>newcache()</code>: creates a new cache referencing  <code>x</code>
+</p>
+</li>
+<li> <p><code>jamcache()</code>: forces <code>x</code> to have a cache
+</p>
+</li>
+<li> <p><code>cache()</code>: returns the cache attached to <code>x</code> if it is not
+found to be outdated
+</p>
+</li>
+<li> <p><code>setcache()</code>: assigns a value into the cache of <code>x</code>
+</p>
+</li>
+<li> <p><code>getcache()</code>: gets cache value 'which' from <code>x</code>
+</p>
+</li>
+<li> <p><code>remcache()</code>: removes the cache from <code>x</code>
+</p>
+</li></ul>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/still.identical.html">bit::still.identical()</a></code> for testing whether to symbols point to the same RAM.
+</p>
+<p>Functions that get and set small cache-content automatically when a cache is present:
+<code><a href="../../bit/help/Metadata.html">bit::na.count()</a></code>, <code><a href="../../bit/help/Metadata.html">bit::nvalid()</a></code>, <code><a href="../../bit/help/Metadata.html">bit::is.sorted()</a></code>, <code><a href="../../bit/help/Metadata.html">bit::nunique()</a></code> and
+<code><a href="../../bit/help/Metadata.html">bit::nties()</a></code>
+</p>
+<p>Setting big caches with a relevant memory footprint requires a conscious decision
+of the user: <code><a href="../../bit64/help/hashcache.html">hashcache</a></code>, <code><a href="../../bit64/help/sortcache.html">sortcache</a></code>, <code><a href="../../bit64/help/ordercache.html">ordercache</a></code>, <code><a href="../../bit64/help/sortordercache.html">sortordercache</a></code>
+</p>
+<p>Functions that use big caches: <code><a href="../../bit64/help/match.integer64.html">match.integer64()</a></code>, <code><a href="../../bit64/help/+25in+25.integer64.html">%in%.integer64</a></code>,
+<code><a href="../../bit64/help/duplicated.integer64.html">duplicated.integer64()</a></code>, <code><a href="../../bit64/help/unique.integer64.html">unique.integer64()</a></code>, <code><a href="../../bit64/help/unipos.html">unipos()</a></code>, <code><a href="../../bit64/help/table.integer64.html">table.integer64()</a></code>,
+<code><a href="../../bit64/help/keypos.html">keypos()</a></code>, <code><a href="../../bit64/help/tiepos.html">tiepos()</a></code>, <code><a href="../../bit64/help/rank.integer64.html">rank.integer64()</a></code>, <code><a href="../../bit64/help/prank.html">prank()</a></code>, <code><a href="../../bit64/help/qtile.html">qtile()</a></code>,
+<code><a href="../../bit64/help/quantile.integer64.html">quantile.integer64()</a></code>, <code><a href="../../bit64/help/median.integer64.html">median.integer64()</a></code>, and <code><a href="../../bit64/help/summary.integer64.html">summary.integer64()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  x &lt;- as.integer64(sample(c(rep(NA, 9), 1:9), 32, TRUE))
+  y &lt;- x
+  still.identical(x,y)
+  y[1] &lt;- NA
+  still.identical(x,y)
+  mycache &lt;- newcache(x)
+  ls(mycache)
+  mycache
+  rm(mycache)
+  jamcache(x)
+  cache(x)
+  x[1] &lt;- NA
+  cache(x)
+  getcache(x, "abc")
+  setcache(x, "abc", 1)
+  getcache(x, "abc")
+  remcache(x)
+  cache(x)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><title>R: Guess encoding of file</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>guess_encoding {readr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Guess encoding of file</h2>
+
+<h3>Description</h3>
+
+<p>Uses <code><a href="../../stringi/help/stri_enc_detect.html">stringi::stri_enc_detect()</a></code>: see the documentation there
+for caveats.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>guess_encoding(file, n_max = 10000, threshold = 0.2)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="file">file</code></td>
+<td>
+<p>A character string specifying an input as specified in
+<code><a href="../../readr/help/datasource.html">datasource()</a></code>, a raw vector, or a list of raw vectors.</p>
+</td></tr>
+<tr><td><code id="n_max">n_max</code></td>
+<td>
+<p>Number of lines to read. If <code>n_max</code> is -1, all lines in
+file will be read.</p>
+</td></tr>
+<tr><td><code id="threshold">threshold</code></td>
+<td>
+<p>Only report guesses above this threshold of certainty.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A tibble
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>guess_encoding(readr_example("mtcars.csv"))
+guess_encoding(read_lines_raw(readr_example("mtcars.csv")))
+guess_encoding(read_file_raw(readr_example("mtcars.csv")))
+
+guess_encoding("a\n\u00b5\u00b5")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>readr</em> version 2.2.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

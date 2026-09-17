@@ -1,0 +1,139 @@
+<!DOCTYPE html><html><head><title>R: Binary operators for integer64 vectors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>xor.integer64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Binary operators for integer64 vectors</h2>
+
+<h3>Description</h3>
+
+<p>Binary operators for integer64 vectors.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>binattr(e1, e2)
+
+## S3 method for class 'integer64'
+e1 + e2
+
+## S3 method for class 'integer64'
+e1 - e2
+
+## S3 method for class 'integer64'
+e1 %/% e2
+
+## S3 method for class 'integer64'
+e1 %% e2
+
+## S3 method for class 'integer64'
+e1 * e2
+
+## S3 method for class 'integer64'
+e1 ^ e2
+
+## S3 method for class 'integer64'
+e1 / e2
+
+## S3 method for class 'integer64'
+e1 == e2
+
+## S3 method for class 'integer64'
+e1 != e2
+
+## S3 method for class 'integer64'
+e1 &lt; e2
+
+## S3 method for class 'integer64'
+e1 &lt;= e2
+
+## S3 method for class 'integer64'
+e1 &gt; e2
+
+## S3 method for class 'integer64'
+e1 &gt;= e2
+
+## S3 method for class 'integer64'
+e1 &amp; e2
+
+## S3 method for class 'integer64'
+e1 | e2
+
+## S3 method for class 'integer64'
+xor(x, y)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="e1">e1</code></td>
+<td>
+<p>an atomic vector of class 'integer64'</p>
+</td></tr>
+<tr><td><code id="e2">e2</code></td>
+<td>
+<p>an atomic vector of class 'integer64'</p>
+</td></tr>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an atomic vector of class 'integer64'</p>
+</td></tr>
+<tr><td><code id="y">y</code></td>
+<td>
+<p>an atomic vector of class 'integer64'</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code><a href="../../base/html/Logic.html">&amp;</a></code>, <code><a href="../../base/html/Logic.html">|</a></code>, <code><a href="../../base/html/Logic.html">xor()</a></code>, <code><a href="../../base/html/Comparison.html">!=</a></code>, <code><a href="../../base/html/Comparison.html">==</a></code>,
+<code><a href="../../base/html/Comparison.html">&lt;</a></code>, <code><a href="../../base/html/Comparison.html">&lt;=</a></code>, <code><a href="../../base/html/Comparison.html">&gt;</a></code>, <code><a href="../../base/html/Comparison.html">&gt;=</a></code> return a logical vector
+</p>
+<p><code><a href="../../base/html/Arithmetic.html">^</a></code> and <code><a href="../../base/html/Arithmetic.html">/</a></code> return a double vector
+</p>
+<p><code><a href="../../base/html/Arithmetic.html">+</a></code>, <code><a href="../../base/html/Arithmetic.html">-</a></code>, <code><a href="../../base/html/Arithmetic.html">*</a></code>, <code><a href="../../base/html/Arithmetic.html">%/%</a></code>, <code><a href="../../base/html/Arithmetic.html">%%</a></code>
+return a vector of class 'integer64'
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/format.integer64.html">format.integer64()</a></code> <code><a href="../../bit64/help/integer64.html">integer64()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  as.integer64(1:12) - 1
+  options(integer64_semantics="new")
+  d &lt;- 2.5
+  i &lt;- as.integer64(5)
+  d/i  # new 0.5
+  d*i  # new 13
+  i*d  # new 13
+  options(integer64_semantics="old")
+  d/i  # old: 0.4
+  d*i  # old: 10
+  i*d  # old: 13
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

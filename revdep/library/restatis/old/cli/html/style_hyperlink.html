@@ -1,0 +1,89 @@
+<!DOCTYPE html><html><head><title>R: Terminal Hyperlinks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>style_hyperlink {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Terminal Hyperlinks</h2>
+
+<h3>Description</h3>
+
+<p><code>ansi_hyperlink()</code> creates an ANSI hyperlink.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>style_hyperlink(text, url, params = NULL)
+
+ansi_has_hyperlink_support()
+
+ansi_hyperlink_types()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="text">text</code></td>
+<td>
+<p>Text to show. <code>text</code> and <code>url</code> are recycled to match their
+length, via a <code>paste0()</code> call.</p>
+</td></tr>
+<tr><td><code id="url">url</code></td>
+<td>
+<p>URL to link to.</p>
+</td></tr>
+<tr><td><code id="params">params</code></td>
+<td>
+<p>A named character vector of additional parameters, or <code>NULL</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is currently experimental. In particular, many of the
+<code style="white-space: pre;">&#8288;ansi_*()&#8288;</code> functions do not support it properly.
+</p>
+<p><code>ansi_has_hyperlink_support()</code> checks if the current <code>stdout()</code>
+supports hyperlinks.
+</p>
+<p>See also
+<a href="https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda">https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda</a>.
+</p>
+<p><code>ansi_hyperlink_types()</code> checks if current <code>stdout()</code> supports various
+types of hyperlinks. It returns a list with entries <code>href</code>, <code>run</code>,
+<code>help</code> and <code>vignettes</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Styled <code>cli_ansi_string</code> for <code>style_hyperlink()</code>.
+Logical scalar for <code>ansi_has_hyperlink_support()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>cat("This is an", style_hyperlink("R", "https://r-project.org"), "link.\n")
+ansi_has_hyperlink_support()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

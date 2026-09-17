@@ -1,0 +1,101 @@
+<!DOCTYPE html><html><head><title>R: Generics related to cache access</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>Metadata {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generics related to cache access</h2>
+
+<h3>Description</h3>
+
+<p>These generics are packaged here for methods in packages <code>bit64</code> and
+<code>ff</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>is.sorted(x, ...)
+
+is.sorted(x, ...) &lt;- value
+
+na.count(x, ...)
+
+na.count(x, ...) &lt;- value
+
+nvalid(x, ...)
+
+nunique(x, ...)
+
+nunique(x, ...) &lt;- value
+
+nties(x, ...)
+
+nties(x, ...) &lt;- value
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>some object</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>ignored</p>
+</td></tr>
+<tr><td><code id="value">value</code></td>
+<td>
+<p>value assigned on responsibility of the user</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>see help of the available methods
+</p>
+
+
+<h3>Value</h3>
+
+<p>see help of the available methods
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel <a href="mailto:Jens.Oehlschlaegel@truecluster.com">Jens.Oehlschlaegel@truecluster.com</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/is.sorted.integer64.html">bit64::is.sorted.integer64()</a></code>, <code><a href="../../bit64/help/is.sorted.integer64.html">bit64::na.count.integer64()</a></code>,
+<code><a href="../../bit64/help/is.sorted.integer64.html">bit64::nvalid.integer64()</a></code>, <code><a href="../../bit64/help/is.sorted.integer64.html">bit64::nunique.integer64()</a></code>, <code><a href="../../bit64/help/is.sorted.integer64.html">bit64::nties.integer64()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  methods("na.count")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

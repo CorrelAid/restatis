@@ -1,0 +1,96 @@
+<!DOCTYPE html><html><head><title>R: Create an OAuth token</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>oauth_token {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create an OAuth token</h2>
+
+<h3>Description</h3>
+
+<p>Creates a S3 object of class <code style="white-space: pre;">&#8288;&lt;httr2_token&gt;&#8288;</code> representing an OAuth token
+returned from the access token endpoint.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>oauth_token(
+  access_token,
+  token_type = "bearer",
+  expires_in = NULL,
+  refresh_token = NULL,
+  ...,
+  .date = Sys.time()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="access_token">access_token</code></td>
+<td>
+<p>The access token used to authenticate request</p>
+</td></tr>
+<tr><td><code id="token_type">token_type</code></td>
+<td>
+<p>Type of token; only <code>"bearer"</code> is currently supported.</p>
+</td></tr>
+<tr><td><code id="expires_in">expires_in</code></td>
+<td>
+<p>Number of seconds until token expires.</p>
+</td></tr>
+<tr><td><code id="refresh_token">refresh_token</code></td>
+<td>
+<p>Optional refresh token; if supplied, this can be
+used to cheaply get a new access token when this one expires.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional components returned by the endpoint</p>
+</td></tr>
+<tr><td><code id=".date">.date</code></td>
+<td>
+<p>Date the request was made; used to convert the relative
+<code>expires_in</code> to an absolute <code>expires_at</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An OAuth token: an S3 list with class <code>httr2_token</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../httr2/help/oauth_token_cached.html">oauth_token_cached()</a></code> to use the token cache with a specified
+OAuth flow.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>oauth_token("abcdef")
+oauth_token("abcdef", expires_in = 3600)
+oauth_token("abcdef", refresh_token = "ghijkl")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

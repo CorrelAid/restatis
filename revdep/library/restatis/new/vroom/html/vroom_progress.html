@@ -1,0 +1,57 @@
+<!DOCTYPE html><html><head><title>R: Determine whether progress bars should be shown</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vroom_progress {vroom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Determine whether progress bars should be shown</h2>
+
+<h3>Description</h3>
+
+<p>By default, vroom shows progress bars. However, progress reporting is
+suppressed if any of the following conditions hold:
+</p>
+
+<ul>
+<li><p> The bar is explicitly disabled by setting the environment variable
+<code>VROOM_SHOW_PROGRESS</code> to <code>"false"</code>.
+</p>
+</li>
+<li><p> The code is run in a non-interactive session, as determined by
+<code><a href="../../rlang/help/is_interactive.html">rlang::is_interactive()</a></code>.
+</p>
+</li>
+<li><p> The code is run in an RStudio notebook chunk, as determined by
+<code>getOption("rstudio.notebook.executing")</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vroom_progress()
+</code></pre>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>vroom_progress()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vroom</em> version 1.7.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

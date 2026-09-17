@@ -1,0 +1,135 @@
+<!DOCTYPE html><html><head><title>R: Close a CLI container</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_end {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Close a CLI container</h2>
+
+<h3>Description</h3>
+
+<p>Containers aut0-close by default, but sometimes you need to explicitly
+close them. Closing a container also closes all of its nested
+containers.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_end(id = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="id">id</code></td>
+<td>
+<p>Id of the container to close. If missing, the current
+container is closed, if any.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+
+<h4>Explicit closing</h4>
+
+<div class="sourceCode r"><pre>cnt &lt;- cli_par()
+cli_text("First paragraph.")
+cli_end(cnt)
+cnt &lt;- cli_par()
+cli_text("Second paragraph.")
+cli_end(cnt)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> First paragraph.                                                                
+#>                                                                                 
+#> Second paragraph.                                                               
+#>                                                                                 
+</pre></div>
+
+
+
+
+<h4>Closing a stack of containers</h4>
+
+<div class="sourceCode r"><pre>list &lt;- cli_ul()
+cli_li("Item one:")
+cli_li("Item two:")
+cli_par()
+cli_text("Still item two.")
+cli_end(list)
+cli_text("Not in the list any more")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> • Item one:                                                                     
+#> • Item two:                                                                     
+#> Still item two.                                                                 
+#>                                                                                 
+#> Not in the list any more                                                        
+</pre></div>
+
+
+
+
+<h4>Omitting <code>id</code></h4>
+
+<p>If <code>id</code> is omitted, the container that was opened last will be closed.
+</p>
+<div class="sourceCode r"><pre>cli_par()
+cli_text("First paragraph")
+cli_end()
+cli_par()
+cli_text("Second paragraph")
+cli_end()
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> First paragraph                                                                 
+#>                                                                                 
+#> Second paragraph                                                                
+#>                                                                                 
+</pre></div>
+
+
+
+
+<h4>Debugging containers</h4>
+
+<p>You can use the internal <code>cli:::cli_debug_doc()</code> function to see the
+currently open containers.
+</p>
+<div class="sourceCode r"><pre>fun &lt;- function() {
+  cli_div(id = "mydiv")
+  cli_par(class = "myclass")
+  cli:::cli_debug_doc()
+}
+fun()
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> &lt;cli document&gt;                                                                  
+#> &lt;body id="body"&gt;                                                                
+#> &lt;div id="mydiv"&gt; +theme                                                         
+#> &lt;par id="cli-40403-64" class="myclass"&gt;                                         
+</pre></div>
+
+
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

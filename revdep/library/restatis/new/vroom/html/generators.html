@@ -1,0 +1,142 @@
+<!DOCTYPE html><html><head><title>R: Generate individual vectors of the types supported by vroom</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>generators {vroom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate individual vectors of the types supported by vroom</h2>
+
+<h3>Description</h3>
+
+<p>Generate individual vectors of the types supported by vroom
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>gen_character(n, min = 5, max = 25, values = c(letters, LETTERS, 0:9), ...)
+
+gen_double(n, f = stats::rnorm, ...)
+
+gen_number(n, f = stats::rnorm, ...)
+
+gen_integer(n, min = 1L, max = .Machine$integer.max, prob = NULL, ...)
+
+gen_factor(
+  n,
+  levels = NULL,
+  ordered = FALSE,
+  num_levels = gen_integer(1L, 1L, 25L),
+  ...
+)
+
+gen_time(n, min = 0, max = hms::hms(days = 1), fractional = FALSE, ...)
+
+gen_date(n, min = as.Date("2001-01-01"), max = as.Date("2021-01-01"), ...)
+
+gen_datetime(
+  n,
+  min = as.POSIXct("2001-01-01"),
+  max = as.POSIXct("2021-01-01"),
+  tz = "UTC",
+  ...
+)
+
+gen_logical(n, ...)
+
+gen_name(n)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="n">n</code></td>
+<td>
+<p>The size of the vector to generate</p>
+</td></tr>
+<tr><td><code id="min">min</code></td>
+<td>
+<p>The minimum range for the vector</p>
+</td></tr>
+<tr><td><code id="max">max</code></td>
+<td>
+<p>The maximum range for the vector</p>
+</td></tr>
+<tr><td><code id="values">values</code></td>
+<td>
+<p>The explicit values to use.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed to internal generation functions</p>
+</td></tr>
+<tr><td><code id="f">f</code></td>
+<td>
+<p>The random function to use.</p>
+</td></tr>
+<tr><td><code id="prob">prob</code></td>
+<td>
+<p>a vector of probability weights for obtaining the elements
+of the vector being sampled.</p>
+</td></tr>
+<tr><td><code id="levels">levels</code></td>
+<td>
+<p>The explicit levels to use, if <code>NULL</code> random levels are generated using <code><a href="../../vroom/help/gen_name.html">gen_name()</a></code>.</p>
+</td></tr>
+<tr><td><code id="ordered">ordered</code></td>
+<td>
+<p>Should the factors be ordered factors?</p>
+</td></tr>
+<tr><td><code id="num_levels">num_levels</code></td>
+<td>
+<p>The number of factor levels to generate</p>
+</td></tr>
+<tr><td><code id="fractional">fractional</code></td>
+<td>
+<p>Whether to generate times with fractional seconds</p>
+</td></tr>
+<tr><td><code id="tz">tz</code></td>
+<td>
+<p>The timezone to use for dates</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># characters
+gen_character(4)
+
+# factors
+gen_factor(4)
+
+# logical
+gen_logical(4)
+
+# numbers
+gen_double(4)
+gen_integer(4)
+
+# temporal data
+gen_time(4)
+gen_date(4)
+gen_datetime(4)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vroom</em> version 1.7.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

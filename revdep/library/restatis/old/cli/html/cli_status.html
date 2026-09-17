@@ -1,0 +1,153 @@
+<!DOCTYPE html><html><head><title>R: Update the status bar (superseded)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_status {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Update the status bar (superseded)</h2>
+
+<h3>Description</h3>
+
+<p><strong>The <code style="white-space: pre;">&#8288;cli_status_*()&#8288;</code> functions are superseded by
+the <code><a href="../../cli/help/cli_progress_message.html">cli_progress_message()</a></code> and <code><a href="../../cli/help/cli_progress_step.html">cli_progress_step()</a></code> functions,
+because they have a better default behavior.</strong>
+</p>
+<p>The status bar is the last line of the terminal. cli apps can use this
+to show status information, progress bars, etc. The status bar is kept
+intact by all semantic cli output.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_status(
+  msg,
+  msg_done = paste(msg, "... done"),
+  msg_failed = paste(msg, "... failed"),
+  .keep = FALSE,
+  .auto_close = TRUE,
+  .envir = parent.frame(),
+  .auto_result = c("clear", "done", "failed", "auto")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="msg">msg</code></td>
+<td>
+<p>The text to show, a character vector. It will be
+collapsed into a single string, and the first line is kept and cut to
+<code><a href="../../cli/help/console_width.html">console_width()</a></code>. The message is often associated with the start of
+a calculation.</p>
+</td></tr>
+<tr><td><code id="msg_done">msg_done</code></td>
+<td>
+<p>The message to use when the message is cleared, when
+the calculation finishes successfully. If <code>.auto_close</code> is <code>TRUE</code>
+and <code>.auto_result</code> is <code>"done"</code>, then this is printed automatically
+when the calling function (or <code>.envir</code>) finishes.</p>
+</td></tr>
+<tr><td><code id="msg_failed">msg_failed</code></td>
+<td>
+<p>The message to use when the message is cleared, when
+the calculation finishes unsuccessfully. If <code>.auto_close</code> is <code>TRUE</code>
+and <code>.auto_result</code> is <code>"failed"</code>, then this is printed automatically
+when the calling function (or <code>.envir</code>) finishes.</p>
+</td></tr>
+<tr><td><code id=".keep">.keep</code></td>
+<td>
+<p>What to do when this status bar is cleared. If <code>TRUE</code> then
+the content of this status bar is kept, as regular cli output (the
+screen is scrolled up if needed). If <code>FALSE</code>, then this status bar
+is deleted.</p>
+</td></tr>
+<tr><td><code id=".auto_close">.auto_close</code></td>
+<td>
+<p>Whether to clear the status bar when the calling
+function finishes (or <code>.envir</code> is removed from the stack, if
+specified).</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>Environment to evaluate the glue expressions in. It is
+also used to auto-clear the status bar if <code>.auto_close</code> is <code>TRUE</code>.</p>
+</td></tr>
+<tr><td><code id=".auto_result">.auto_result</code></td>
+<td>
+<p>What to do when auto-closing the status bar.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Use <code><a href="../../cli/help/cli_status_clear.html">cli_status_clear()</a></code> to clear the status bar.
+</p>
+<p>Often status messages are associated with processes. E.g. the app starts
+downloading a large file, so it sets the status bar accordingly. Once the
+download is done (or has failed), the app typically updates the status bar
+again. cli automates much of this, via the <code>msg_done</code>, <code>msg_failed</code>, and
+<code>.auto_result</code> arguments. See examples below.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The id of the new status bar container element, invisibly.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Status bars support <a href="../../cli/help/inline-markup.html">inline markup</a>.
+</p>
+<p>The <code><a href="../../cli/help/cli_progress_message.html">cli_progress_message()</a></code> and <code><a href="../../cli/help/cli_progress_step.html">cli_progress_step()</a></code>
+functions, for a superior API.
+</p>
+<p>Other status bar: 
+<code><a href="../../cli/help/cli_process_start.html">cli_process_start</a>()</code>,
+<code><a href="../../cli/help/cli_status_clear.html">cli_status_clear</a>()</code>,
+<code><a href="../../cli/help/cli_status_update.html">cli_status_update</a>()</code>
+</p>
+<p>Other functions supporting inline markup: 
+<code><a href="../../cli/help/cli_abort.html">cli_abort</a>()</code>,
+<code><a href="../../cli/help/cli_alert.html">cli_alert</a>()</code>,
+<code><a href="../../cli/help/cli_blockquote.html">cli_blockquote</a>()</code>,
+<code><a href="../../cli/help/cli_bullets.html">cli_bullets</a>()</code>,
+<code><a href="../../cli/help/cli_bullets_raw.html">cli_bullets_raw</a>()</code>,
+<code><a href="../../cli/help/cli_dl.html">cli_dl</a>()</code>,
+<code><a href="../../cli/help/cli_h1.html">cli_h1</a>()</code>,
+<code><a href="../../cli/help/cli_li.html">cli_li</a>()</code>,
+<code><a href="../../cli/help/cli_ol.html">cli_ol</a>()</code>,
+<code><a href="../../cli/help/cli_process_start.html">cli_process_start</a>()</code>,
+<code><a href="../../cli/help/cli_progress_along.html">cli_progress_along</a>()</code>,
+<code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar</a>()</code>,
+<code><a href="../../cli/help/cli_progress_message.html">cli_progress_message</a>()</code>,
+<code><a href="../../cli/help/cli_progress_output.html">cli_progress_output</a>()</code>,
+<code><a href="../../cli/help/cli_progress_step.html">cli_progress_step</a>()</code>,
+<code><a href="../../cli/help/cli_rule.html">cli_rule</a></code>,
+<code><a href="../../cli/help/cli_status_update.html">cli_status_update</a>()</code>,
+<code><a href="../../cli/help/cli_text.html">cli_text</a>()</code>,
+<code><a href="../../cli/help/cli_ul.html">cli_ul</a>()</code>,
+<code><a href="../../cli/help/format_error.html">format_error</a>()</code>,
+<code><a href="../../cli/help/format_inline.html">format_inline</a>()</code>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

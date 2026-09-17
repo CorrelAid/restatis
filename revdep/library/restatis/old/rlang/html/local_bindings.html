@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><title>R: Temporarily change bindings of an environment</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>local_bindings {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Temporarily change bindings of an environment</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>local_bindings()</code> temporarily changes bindings in <code>.env</code> (which
+is by default the caller environment). The bindings are reset to
+their original values when the current frame (or an arbitrary one
+if you specify <code>.frame</code>) goes out of scope.
+</p>
+</li>
+<li> <p><code>with_bindings()</code> evaluates <code>expr</code> with temporary bindings. When
+<code>with_bindings()</code> returns, bindings are reset to their original
+values. It is a simple wrapper around <code>local_bindings()</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>local_bindings(..., .env = .frame, .frame = caller_env())
+
+with_bindings(.expr, ..., .env = caller_env())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Pairs of names and values. These dots support splicing
+(with value semantics) and name unquoting.</p>
+</td></tr>
+<tr><td><code id=".env">.env</code></td>
+<td>
+<p>An environment.</p>
+</td></tr>
+<tr><td><code id=".frame">.frame</code></td>
+<td>
+<p>The frame environment that determines the scope of
+the temporary bindings. When that frame is popped from the call
+stack, bindings are switched back to their original values.</p>
+</td></tr>
+<tr><td><code id=".expr">.expr</code></td>
+<td>
+<p>An expression to evaluate with temporary bindings.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>local_bindings()</code> returns the values of old bindings
+invisibly; <code>with_bindings()</code> returns the value of <code>expr</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>foo &lt;- "foo"
+bar &lt;- "bar"
+
+# `foo` will be temporarily rebinded while executing `expr`
+with_bindings(paste(foo, bar), foo = "rebinded")
+paste(foo, bar)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

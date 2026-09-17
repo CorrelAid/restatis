@@ -1,0 +1,101 @@
+<!DOCTYPE html><html><head><title>R: Coerce from integer64</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>as.character.integer64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Coerce from integer64</h2>
+
+<h3>Description</h3>
+
+<p>Methods to coerce integer64 to other atomic types. 'as.bitstring' coerces
+to a human-readable bit representation (strings of zeroes and ones).
+The methods <code><a href="../../base/html/format.html">format()</a></code>, <code><a href="../../base/html/character.html">as.character()</a></code>, <code><a href="../../base/html/double.html">as.double()</a></code>,
+<code><a href="../../base/html/logical.html">as.logical()</a></code>, <code><a href="../../base/html/integer.html">as.integer()</a></code> do what you would expect.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>as.bitstring(x, ...)
+
+## S3 method for class 'integer64'
+as.double(x, keep.names = FALSE, ...)
+
+## S3 method for class 'integer64'
+as.integer(x, ...)
+
+## S3 method for class 'integer64'
+as.logical(x, ...)
+
+## S3 method for class 'integer64'
+as.character(x, ...)
+
+## S3 method for class 'integer64'
+as.bitstring(x, ...)
+
+## S3 method for class 'bitstring'
+print(x, ...)
+
+## S3 method for class 'integer64'
+as.list(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an integer64 vector</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments to the <code><a href="../../base/html/UseMethod.html">NextMethod()</a></code></p>
+</td></tr>
+<tr><td><code id="keep.names">keep.names</code></td>
+<td>
+<p>FALSE, set to TRUE to keep a names vector</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>as.bitstring</code> returns a string of class 'bitstring'.
+</p>
+<p>The other methods return atomic vectors of the expected types
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/as.integer64.character.html">as.integer64.character()</a></code> <code><a href="../../bit64/help/integer64.html">integer64()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  as.character(lim.integer64())
+  as.bitstring(lim.integer64())
+  as.bitstring(as.integer64(c(
+   -2,-1,NA,0:2
+  )))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

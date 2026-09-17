@@ -1,0 +1,101 @@
+<!DOCTYPE html><html><head><title>R: Use cli to format error messages</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>local_use_cli {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Use cli to format error messages</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p><code>local_use_cli()</code> marks a package namespace or the environment of a
+running function with a special flag that instructs <code><a href="../../rlang/help/abort.html">abort()</a></code> to
+use cli to format error messages. This formatting happens lazily,
+at print-time, in various places:
+</p>
+
+<ul>
+<li><p> When an unexpected error is displayed to the user.
+</p>
+</li>
+<li><p> When a captured error is printed in the console, for instance via
+<code><a href="../../rlang/help/last_error.html">last_error()</a></code>.
+</p>
+</li>
+<li><p> When <code><a href="../../base/html/conditions.html">conditionMessage()</a></code> is called.
+</p>
+</li></ul>
+
+<p>cli formats messages and bullets with indentation and
+width-wrapping to produce a polished display of messages.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>local_use_cli(..., format = TRUE, inline = FALSE, frame = caller_env())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="format">format</code></td>
+<td>
+<p>Whether to use cli at print-time to format messages
+and bullets.</p>
+</td></tr>
+<tr><td><code id="inline">inline</code></td>
+<td>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a> Whether to use
+cli at throw-time to format the inline parts of a message. This
+makes it possible to use cli interpolation and formatting with
+<code>abort()</code>.</p>
+</td></tr>
+<tr><td><code id="frame">frame</code></td>
+<td>
+<p>A package namespace or an environment of a running
+function.</p>
+</td></tr>
+</table>
+
+
+<h3>Usage</h3>
+
+<p>To use cli formatting automatically in your package:
+</p>
+
+<ol>
+<li><p> Make sure <code><a href="../../rlang/help/run_on_load.html">run_on_load()</a></code> is called from your <code>.onLoad()</code> hook.
+</p>
+</li>
+<li><p> Call <code>on_load(local_use_cli())</code> at the top level of your namespace.
+</p>
+</li></ol>
+
+<p>It is also possible to call <code>local_use_cli()</code> inside a running
+function, in which case the flag only applies within that function.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

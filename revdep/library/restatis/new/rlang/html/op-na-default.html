@@ -1,0 +1,68 @@
+<!DOCTYPE html><html><head><title>R: Replace missing values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>op-na-default {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Replace missing values</h2>
+
+<h3>Description</h3>
+
+<p><strong>Note</strong>: This operator is now out of scope for rlang. It will be
+replaced by a vctrs-powered operator (probably in the <a href="https://github.com/tidyverse/funs">funs package</a>) at which point the
+rlang version of <code style="white-space: pre;">&#8288;%|%&#8288;</code> will be deprecated.
+</p>
+<p>This infix function is similar to <code>%||%</code> but is vectorised
+and provides a default value for missing elements. It is faster
+than using <code><a href="../../base/help/ifelse.html">base::ifelse()</a></code> and does not perform type conversions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>x %|% y
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>The original values.</p>
+</td></tr>
+<tr><td><code id="y">y</code></td>
+<td>
+<p>The replacement values. Must be of length 1 or the same length as <code>x</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../rlang/help/op-null-default.html">op-null-default</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>c("a", "b", NA, "c") %|% "default"
+c(1L, NA, 3L, NA, NA) %|% (6L:10L)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

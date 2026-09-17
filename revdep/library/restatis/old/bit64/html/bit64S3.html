@@ -1,0 +1,172 @@
+<!DOCTYPE html><html><head><title>R: Turning base R functions into S3 generics for bit64</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>bit64S3 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Turning base R functions into S3 generics for bit64</h2>
+
+<h3>Description</h3>
+
+<p>Turn those base functions S3 generic which are used in bit64
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>from:to
+is.double(x)
+match(x, table, ...)
+x %in% table
+rank(x, ...)
+order(...)
+
+## Default S3 method:
+is.double(x)
+
+## S3 method for class 'integer64'
+is.double(x)
+
+## S3 method for class 'integer64'
+mtfrm(x)
+
+## Default S3 method:
+match(x, table, ...)
+
+## Default S3 method:
+x %in% table
+
+## Default S3 method:
+rank(x, ...)
+
+## Default S3 method:
+order(...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>integer64 vector: the values to be matched, optionally carrying a
+cache created with <code><a href="../../bit64/help/hashcache.html">hashcache()</a></code></p>
+</td></tr>
+<tr><td><code id="table">table</code></td>
+<td>
+<p>integer64 vector: the values to be matched against, optionally
+carrying a cache created with <code><a href="../../bit64/help/hashcache.html">hashcache()</a></code> or <code><a href="../../bit64/help/sortordercache.html">sortordercache()</a></code></p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>ignored</p>
+</td></tr>
+<tr><td><code id="from">from</code></td>
+<td>
+<p>scalar denoting first element of sequence</p>
+</td></tr>
+<tr><td><code id="to">to</code></td>
+<td>
+<p>scalar denoting last element of sequence</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The following functions are turned into S3 generics in order to dispatch
+methods for <code><a href="../../bit64/help/integer64.html">integer64()</a></code>:
+</p>
+
+<ul>
+<li> <p><code><a href="../../bit64/help/+3A.html">:</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/is.double.html">is.double()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/match.html">match()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/+25in+25.html">%in%</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/rank.html">rank()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/order.html">order()</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p><code><a href="../../base/html/invisible.html">invisible()</a></code>
+</p>
+
+
+<h3>Note</h3>
+
+
+<ul>
+<li> <p><code><a href="../../bit64/help/is.double.html">is.double()</a></code> returns <code>FALSE</code> for <code><a href="../../bit64/help/integer64.html">integer64</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/+3A.html">:</a></code> currently only dispatches at its first argument, thus
+<code>as.integer64(1):9</code> works but <code>1:as.integer64(9)</code> doesn't
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/match.html">match()</a></code> currently only dispatches at its first argument and expects
+its second argument also to be integer64, otherwise throws an error.
+Beware of something like <code>match(2, as.integer64(0:3))</code>
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/+25in+25.html">%in%</a></code> currently only dispatches at its first argument and expects
+its second argument also to be integer64, otherwise throws an error.
+Beware of something like <code>2 %in% as.integer64(0:3)</code>
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/order.html">order()</a></code> currently only orders a single argument, trying more than
+one raises an error
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/bit64.html">bit64()</a></code>, <a href="../../methods/html/S3Part.html">S3</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'> is.double(as.integer64(1))
+    as.integer64(1):9
+ match(as.integer64(2), as.integer64(0:3))
+ as.integer64(2) %in% as.integer64(0:3)
+
+ unique(as.integer64(c(1,1,2)))
+ rank(as.integer64(c(1,1,2)))
+
+
+ order(as.integer64(c(1,NA,2)))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

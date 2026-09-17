@@ -1,0 +1,77 @@
+<!DOCTYPE html><html><head><title>R: Extract arguments from a call</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>call_args {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract arguments from a call</h2>
+
+<h3>Description</h3>
+
+<p>Extract arguments from a call
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>call_args(call)
+
+call_args_names(call)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="call">call</code></td>
+<td>
+<p>A defused call.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A named list of arguments.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../rlang/help/fn_fmls.html">fn_fmls()</a></code> and <code><a href="../../rlang/help/fn_fmls_names.html">fn_fmls_names()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>call &lt;- quote(f(a, b))
+
+# Subsetting a call returns the arguments converted to a language
+# object:
+call[-1]
+
+# On the other hand, call_args() returns a regular list that is
+# often easier to work with:
+str(call_args(call))
+
+# When the arguments are unnamed, a vector of empty strings is
+# supplied (rather than NULL):
+call_args_names(call)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html><html><head><title>R: Equality proxy</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_proxy_equal {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Equality proxy</h2>
+
+<h3>Description</h3>
+
+<p>Returns a proxy object (i.e. an atomic vector or data frame of atomic
+vectors). For <a href="../../vctrs/help/vctr.html">vctr</a>s, this determines the behaviour of <code>==</code> and
+<code>!=</code> (via <code><a href="../../vctrs/help/vec_equal.html">vec_equal()</a></code>); <code><a href="../../base/html/unique.html">unique()</a></code>, <code><a href="../../base/html/duplicated.html">duplicated()</a></code> (via
+<code><a href="../../vctrs/help/vec_unique.html">vec_unique()</a></code> and <code><a href="../../vctrs/help/vec_duplicate_detect.html">vec_duplicate_detect()</a></code>); <code><a href="../../base/html/NA.html">is.na()</a></code> and <code><a href="../../base/html/NA.html">anyNA()</a></code>
+(via <code><a href="../../vctrs/help/vec_detect_missing.html">vec_detect_missing()</a></code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_proxy_equal(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A vector x.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The default method calls <code><a href="../../vctrs/help/vec_proxy.html">vec_proxy()</a></code>, as the default underlying
+vector data should be equal-able in most cases. If your class is
+not equal-able, provide a <code>vec_proxy_equal()</code> method that throws an
+error.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A 1d atomic vector or a data frame.
+</p>
+
+
+<h3>Data frames</h3>
+
+<p>If the proxy for <code>x</code> is a data frame, the proxy function is automatically
+recursively applied on all columns as well. After applying the proxy
+recursively, if there are any data frame columns present in the proxy, then
+they are unpacked. Finally, if the resulting data frame only has a single
+column, then it is unwrapped and a vector is returned as the proxy.
+</p>
+
+
+<h3>Dependencies</h3>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/vec_proxy.html">vec_proxy()</a></code> called by default
+</p>
+</li></ul>
+
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

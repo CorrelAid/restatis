@@ -1,0 +1,116 @@
+<!DOCTYPE html><html><head><title>R: Generic CLI container</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_div {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generic CLI container</h2>
+
+<h3>Description</h3>
+
+<p>See <a href="../../cli/help/containers.html">containers</a>. A <code>cli_div</code> container is special, because it may
+add new themes, that are valid within the container.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_div(
+  id = NULL,
+  class = NULL,
+  theme = NULL,
+  .auto_close = TRUE,
+  .envir = parent.frame()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="id">id</code></td>
+<td>
+<p>Element id, a string. If <code>NULL</code>, then a new id is generated
+and returned.</p>
+</td></tr>
+<tr><td><code id="class">class</code></td>
+<td>
+<p>Class name, sting. Can be used in themes.</p>
+</td></tr>
+<tr><td><code id="theme">theme</code></td>
+<td>
+<p>A custom theme for the container. See <a href="../../cli/help/themes.html">themes</a>.</p>
+</td></tr>
+<tr><td><code id=".auto_close">.auto_close</code></td>
+<td>
+<p>Whether to close the container, when the calling
+function finishes (or <code>.envir</code> is removed, if specified).</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>Environment to evaluate the glue expressions in. It is
+also used to auto-close the container if <code>.auto_close</code> is <code>TRUE</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+
+<h4>Custom themes</h4>
+
+<div class="sourceCode r"><pre>d &lt;- cli_div(theme = list(h1 = list(color = "cyan",
+                                    "font-weight" = "bold")))
+cli_h1("Custom title")
+cli_end(d)
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#>                                                                                 
+#> <span style="font-weight: bold;color: #2AA198;">Custom title</span>                                                                    
+</pre></div>
+
+
+
+
+<h4>Auto-closing</h4>
+
+<p>By default a <code>cli_div()</code> is closed automatically when the calling
+frame exits.
+</p>
+<div class="sourceCode r"><pre>div &lt;- function() {
+  cli_div(class = "tmp", theme = list(.tmp = list(color = "yellow")))
+  cli_text("This is yellow")
+}
+div()
+cli_text("This is not yellow any more")
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> <span style="color: #B58900;">This is yellow</span>                                                                  
+#> This is not yellow any more                                                     
+</pre></div>
+
+
+
+
+<h3>Value</h3>
+
+<p>The id of the new container element, invisibly.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

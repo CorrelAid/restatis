@@ -1,0 +1,108 @@
+<!DOCTYPE html><html><head><title>R: Get parent environments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>env_parent {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get parent environments</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>env_parent()</code> returns the parent environment of <code>env</code> if called
+with <code>n = 1</code>, the grandparent with <code>n = 2</code>, etc.
+</p>
+</li>
+<li> <p><code>env_tail()</code> searches through the parents and returns the one
+which has <code><a href="../../rlang/help/empty_env.html">empty_env()</a></code> as parent.
+</p>
+</li>
+<li> <p><code>env_parents()</code> returns the list of all parents, including the
+empty environment. This list is named using <code><a href="../../rlang/help/env_name.html">env_name()</a></code>.
+</p>
+</li></ul>
+
+<p>See the section on <em>inheritance</em> in <code><a href="../../rlang/help/env.html">env()</a></code>'s documentation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>env_parent(env = caller_env(), n = 1)
+
+env_tail(env = caller_env(), last = global_env())
+
+env_parents(env = caller_env(), last = global_env())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="env">env</code></td>
+<td>
+<p>An environment.</p>
+</td></tr>
+<tr><td><code id="n">n</code></td>
+<td>
+<p>The number of generations to go up.</p>
+</td></tr>
+<tr><td><code id="last">last</code></td>
+<td>
+<p>The environment at which to stop. Defaults to the
+global environment. The empty environment is always a stopping
+condition so it is safe to leave the default even when taking the
+tail or the parents of an environment on the search path.
+</p>
+<p><code>env_tail()</code> returns the environment which has <code>last</code> as parent
+and <code>env_parents()</code> returns the list of environments up to <code>last</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An environment for <code>env_parent()</code> and <code>env_tail()</code>, a list
+of environments for <code>env_parents()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Get the parent environment with env_parent():
+env_parent(global_env())
+
+# Or the tail environment with env_tail():
+env_tail(global_env())
+
+# By default, env_parent() returns the parent environment of the
+# current evaluation frame. If called at top-level (the global
+# frame), the following two expressions are equivalent:
+env_parent()
+env_parent(base_env())
+
+# This default is more handy when called within a function. In this
+# case, the enclosure environment of the function is returned
+# (since it is the parent of the evaluation frame):
+enclos_env &lt;- env()
+fn &lt;- set_env(function() env_parent(), enclos_env)
+identical(enclos_env, fn())
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

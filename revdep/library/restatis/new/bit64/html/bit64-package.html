@@ -1,0 +1,1340 @@
+<!DOCTYPE html><html><head><title>R: A S3 class for vectors of 64bit integers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>bit64-package {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>A S3 class for vectors of 64bit integers</h2>
+
+<h3>Description</h3>
+
+<p>Package 'bit64' provides fast serializable S3 atomic 64bit (signed) integers
+that can be used in vectors, matrices, arrays and data.frames. Methods are
+available for coercion from and to logicals, integers, doubles, characters
+and factors as well as many elementwise and summary functions.
+</p>
+
+
+<h4>Version 0.8</h4>
+
+<p>With 'integer64' vectors you can store very large integers at the expense
+of 64 bits, which is by factor 7 better than 'int64' from package 'int64'.
+Due to the smaller memory footprint, the atomic vector architecture and
+using only S3 instead of S4 classes, most operations are one to three orders
+of magnitude faster: Example speedups are 4x for serialization, 250x for
+adding, 900x for coercion and 2000x for object creation. Also 'integer64'
+avoids an ongoing (potentially infinite) penalty for garbage collection
+observed during existence of 'int64' objects (see code in example section).
+</p>
+
+
+
+<h4>Version 0.9</h4>
+
+<p>Package 'bit64' - which extends R with fast 64-bit integers - now has fast
+(single-threaded) implementations the most important univariate algorithmic
+operations (those based on hashing and sorting). We now have methods for
+'match', '%in%', 'duplicated', 'unique', 'table', 'sort', 'order', 'rank',
+'quantile', 'median' and 'summary'. Regarding data management we also have
+novel generics 'unipos' (positions of the unique values), 'tiepos' (
+positions of ties), 'keypos' (positions of foreign keys in a sorted
+dimension table) and derived methods 'as.factor' and 'as.ordered'. This 64-
+bit functionality is implemented carefully to be not slower than the
+respective 32-bit operations in Base R and also to avoid outlying waiting
+times observed with 'order', 'rank' and 'table' (speedup factors 20/16/200
+respective). This increases the dataset size with wich we can work truly
+interactive. The speed is achieved by simple heuristic optimizers in high-
+level functions choosing the best from multiple low-level algorithms and
+further taking advantage of a novel caching if activated. In an example R
+session using a couple of these operations the 64-bit integers performed 22x
+faster than base 32-bit integers, hash-caching improved this to 24x,
+sortorder-caching was most efficient with 38x (caching hashing and sorting
+is not worth it with 32x at duplicated RAM consumption).
+</p>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>integer64(length = 0L)
+
+is.integer64(x)
+
+## S3 replacement method for class 'integer64'
+length(x) &lt;- value
+
+## S3 method for class 'integer64'
+print(x, quote = FALSE, ...)
+
+## S3 method for class 'integer64'
+str(
+  object,
+  vec.len = strO$vec.len,
+  give.head = TRUE,
+  give.length = give.head,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="length">length</code></td>
+<td>
+<p>length of vector using <code><a href="../../base/html/integer.html">integer()</a></code></p>
+</td></tr>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an integer64 vector</p>
+</td></tr>
+<tr><td><code id="value">value</code></td>
+<td>
+<p>an integer64 vector of values to be assigned</p>
+</td></tr>
+<tr><td><code id="quote">quote</code></td>
+<td>
+<p>logical, indicating whether or not strings should be printed with surrounding quotes.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments to the <code><a href="../../base/html/UseMethod.html">NextMethod()</a></code></p>
+</td></tr>
+<tr><td><code id="object">object</code></td>
+<td>
+<p>an integer64 vector</p>
+</td></tr>
+<tr><td><code id="vec.len">vec.len</code>, <code id="give.head">give.head</code>, <code id="give.length">give.length</code></td>
+<td>
+<p>see <code><a href="../../utils/help/str.html">utils::str()</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>integer64</code> returns a vector of 'integer64', i.e.,
+a vector of <code><a href="../../base/html/double.html">double()</a></code> decorated with class 'integer64'.
+</p>
+
+
+<h3>Design considerations</h3>
+
+<p>64 bit integers are related to big data: we need them to overcome address space
+limitations. Therefore performance of the 64 bit integer type is critical. In the
+S language &ndash; designed in 1975 &ndash; atomic objects were defined to be vectors for a
+couple of good reasons: simplicity, option for implicit parallelization, good
+cache locality. In recent years many analytical databases have learnt that lesson:
+column based data bases provide superior performance for many applications, the
+result are products such as MonetDB, Sybase IQ, Vertica, Exasol, Ingres Vectorwise.
+If we introduce 64 bit integers not natively in Base R but as an external package,
+we should at least strive to make them as 'basic' as possible. Therefore the design
+choice of bit64 not only differs from package int64, it is obvious: Like the other
+atomic types in Base R, we model data type 'integer64' as a contiguous <code><a href="../../base/html/vector.html">atomic</a></code>
+vector in memory, and we use the more basic <a href="../../methods/html/S3Part.html">S3</a> class system, not <a href="../../base/html/isS4.html">S4</a>. Like
+package int64 we want our 'integer64' to be <code><a href="../../base/html/serialize.html">serialize</a></code>able, therefore we also
+use an existing data type as the basis. Again the choice is obvious: R has only one
+64 bit data type: doubles. By using <code><a href="../../base/html/double.html">double</a></code>s, <code>integer64</code> <code><a href="../../base/html/class.html">inherits</a></code> some
+functionality such as <code><a href="../../base/html/is.recursive.html">is.atomic()</a></code>, <code><a href="../../base/html/length.html">length()</a></code>, <code><a href="../../base/html/length.html">length&lt;-</a></code>, <code><a href="../../base/html/names.html">names()</a></code>,
+<code><a href="../../base/html/names.html">names&lt;-</a></code>, <code><a href="../../base/html/dim.html">dim()</a></code>, <code><a href="../../base/html/dim.html">dim&lt;-</a></code>, <code><a href="../../base/html/dimnames.html">dimnames()</a></code>, <code><a href="../../base/html/dimnames.html">dimnames&lt;-</a></code>.
+</p>
+<p>Our R level functions strictly follow the functional programming paradigm:
+no modification of arguments or other side-effects. Before version 0.93  we
+internally deviated from the strict paradigm in order to boost performance. Our C
+functions do not create new return values, instead we pass-in the memory to be
+returned as an argument. This gives us the freedom to apply the C-function to new
+or old vectors, which helps to avoid unnecessary memory allocation, unnecessary
+copying and unnecessary garbage collection. Prior to 0.93 <em>within</em> our R functions
+we also deviated from conventional R programming by not using <code><a href="../../base/html/attr.html">attr&lt;-</a></code> and
+<code><a href="../../base/html/attributes.html">attributes&lt;-</a></code> because they always did new memory allocation and copying in older
+R versions. If we wanted to set attributes of return values that we have freshly
+created, we instead used functions <code><a href="../../bit/help/getsetattr.html">bit::setattr()</a></code> and <code><a href="../../bit/help/getsetattr.html">bit::setattributes()</a></code>.
+From version 0.93 <code>bit::setattr()</code> is only used for manipulating <code><a href="../../bit64/help/cache.html">cache</a></code> objects,
+in <code><a href="../../bit64/help/ramsort.integer64.html">ramsort.integer64()</a></code>, <code><a href="../../bit64/help/sort.integer64.html">sort.integer64()</a></code>, and <code><a href="../../bit64/help/as.data.frame.integer64.html">as.data.frame.integer64()</a></code>.
+</p>
+
+
+<h3>Arithmetic precision and coercion</h3>
+
+<p>The fact that we introduce 64 bit long long integers &ndash; without introducing 128-bit
+long doubles &ndash; creates some subtle challenges: Unlike 32 bit <code><a href="../../base/html/integer.html">integer</a></code>s, the
+<code>integer64</code> are no longer a proper subset of <code><a href="../../base/html/double.html">double</a></code>. If a binary arithmetic
+operation does involve a <code>double</code> and a <code>integer</code>, it is a no-brainer to return
+<code>double</code> without loss of information. If an <code>integer64</code> meets a <code>double</code>, it is not
+trivial what type to return. Switching to <code>integer64</code> limits our ability to
+represent very large numbers, switching to <code>double</code> limits our ability to
+distinguish <code>x</code> from <code>x+1</code>. Since the latter is the purpose of introducing 64 bit
+integers, we usually return <code>integer64</code> from functions involving <code>integer64</code>, for
+example in <code><a href="../../bit64/help/c.integer64.html">c()</a></code>, <code><a href="../../bit64/help/cbind.integer64.html">cbind()</a></code>, and
+<code><a href="../../bit64/help/rbind.integer64.html">rbind()</a></code>
+</p>
+<p>Different from Base R, our operators <code><a href="../../bit64/help/+2B.integer64.html">+</a></code>, <code><a href="../../bit64/help/-.integer64.html">-</a></code>,
+<code><a href="../../bit64/help/+25+2F+25.integer64.html">%/%</a></code>, and <code><a href="../../bit64/help/+25+25.integer64.html">%%</a></code> coerce their arguments to
+<code>integer64</code> and always return <code>integer64</code>.
+</p>
+<p>The multiplication operator <code><a href="../../bit64/help/+2A.integer64.html">*</a></code> coerces its first argument to
+<code>integer64</code> but allows its second argument to be also <code>double</code>: the second
+argument is internaly coerced to 'long double' and the result of the
+multiplication is returned as <code>integer64</code>.
+</p>
+<p>The division <code><a href="../../bit64/help/+2F.integer64.html">/</a></code> and power <code><a href="../../bit64/help/+5E.integer64.html">^</a></code> operators also
+coerce their first argument to <code>integer64</code> and coerce internally their second
+argument to 'long double', they return as <code>double</code>, like
+<code><a href="../../bit64/help/sqrt.integer64.html">sqrt()</a></code>, <code><a href="../../bit64/help/log.integer64.html">log()</a></code>,
+<code><a href="../../bit64/help/log2.integer64.html">log2()</a></code>, and <code><a href="../../bit64/help/log10.integer64.html">log10()</a></code> do.</p>
+
+<table>
+<tr>
+ <td style="text-align: center;">
+   <strong>argument1</strong> </td><td style="text-align: center;"> <strong>op</strong> </td><td style="text-align: center;"> <strong>argument2</strong> </td><td style="text-align: center;"> <strong>-&gt;</strong> </td><td style="text-align: center;"> <strong>coerced1</strong> </td><td style="text-align: center;"> <strong>op</strong> </td><td style="text-align: center;"> <strong>coerced2</strong> </td><td style="text-align: center;"> <strong>-&gt;</strong> </td><td style="text-align: center;"> <strong>result</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   integer64 </td><td style="text-align: center;"> + </td><td style="text-align: center;"> double </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> + </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   double </td><td style="text-align: center;"> + </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> + </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   integer64 </td><td style="text-align: center;"> - </td><td style="text-align: center;"> double </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> - </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   double </td><td style="text-align: center;"> - </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> - </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   integer64 </td><td style="text-align: center;"> %/% </td><td style="text-align: center;"> double </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> %/% </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   double </td><td style="text-align: center;"> %/% </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> %/% </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   integer64 </td><td style="text-align: center;"> %% </td><td style="text-align: center;"> double </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> %% </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   double </td><td style="text-align: center;"> %% </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> %% </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   integer64 </td><td style="text-align: center;"> * </td><td style="text-align: center;"> double </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> * </td><td style="text-align: center;"> long double </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   double </td><td style="text-align: center;"> * </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> * </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   integer64 </td><td style="text-align: center;"> / </td><td style="text-align: center;"> double </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> / </td><td style="text-align: center;"> long double </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> double </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   double </td><td style="text-align: center;"> / </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> / </td><td style="text-align: center;"> long double </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> double </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   integer64 </td><td style="text-align: center;"> ^ </td><td style="text-align: center;"> double </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> / </td><td style="text-align: center;"> long double </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> double </td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   double </td><td style="text-align: center;"> ^ </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> integer64 </td><td style="text-align: center;"> / </td><td style="text-align: center;"> long double </td><td style="text-align: center;"> -&gt; </td><td style="text-align: center;"> double 
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Creating and testing S3 class 'integer64'</h3>
+
+<p>Our creator function <code>integer64</code> takes an argument <code>length</code>, creates an atomic
+double vector of this length, attaches an S3 class attribute 'integer64' to it,
+and that's it. We simply rely on S3 method dispatch and interpret those 64-bit
+elements as 'long long int'.
+</p>
+<p><code><a href="../../bit64/help/is.double.html">is.double()</a></code> currently returns TRUE for <code>integer64</code> and might return <code>FALSE</code> in
+a later release. Consider <code>is.double()</code> to have undefined behavior and do query
+<code><a href="../../bit64/help/is.integer64.html">is.integer64()</a></code> <em>before</em> querying <code>is.double()</code>.
+</p>
+<p>The methods <code><a href="../../bit64/help/is.integer64.html">is.integer64()</a></code> and <code><a href="../../base/html/vector.html">is.vector()</a></code> both return <code>TRUE</code> for <code>integer64</code>.
+Note that we did not patch <code><a href="../../base/html/mode.html">storage.mode()</a></code> and <code><a href="../../base/html/typeof.html">typeof()</a></code>, which both continue
+returning 'double'. Like for 32 bit <code><a href="../../base/html/integer.html">integer</a></code>, <code><a href="../../base/html/mode.html">mode()</a></code> returns 'numeric' and
+<code><a href="../../base/html/double.html">as.double()</a></code> tries coercing to <code><a href="../../base/html/double.html">double</a></code>. It is possible that 'integer64' becomes
+a <code>vmode</code> in package ff.
+</p>
+<p>Further methods for creating <code>integer64</code> are <code><a href="../../bit64/help/range.integer64.html">range()</a></code> which
+returns the range of the data type if calles without arguments,
+<code><a href="../../bit64/help/rep.integer64.html">rep()</a></code>, <code><a href="../../bit64/help/seq.integer64.html">seq()</a></code>.
+</p>
+<p>For all available methods on <code>integer64</code> vectors see the index below and the examples.
+</p>
+
+
+<h3>Index of implemented methods</h3>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>creating, testing, printing</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>NA_integer64_</code> </td><td style="text-align: right;"> <code><a href="../../base/html/NA.html">NA_integer_</a></code> </td><td style="text-align: left;"> NA constant </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>integer64</code> </td><td style="text-align: right;"> <code><a href="../../base/html/integer.html">integer</a></code> </td><td style="text-align: left;"> create zero atomic vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/runif64.html">runif64()</a></code> </td><td style="text-align: right;"> <code><a href="../../stats/html/Uniform.html">runif()</a></code> </td><td style="text-align: left;"> create random vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/rep.integer64.html">rep.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/rep.html">rep()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/seq.integer64.html">seq.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/seq.html">seq()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/is.integer64.html">is.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../methods/html/is.html">is()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/integer.html">is.integer()</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/is.vector.integer64.html">is.vector.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/vector.html">is.vector()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/identical.integer64.html">identical.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/identical.html">identical()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/length+3C-.integer64.html">length&lt;-.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/length.html">length&lt;-</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/length.html">length()</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../base/html/names.html">names&lt;-</a></code> </td><td style="text-align: right;"> inherited from Base R </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/names.html">names()</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/dim.html">dim&lt;-</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/dim.html">dim()</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/dimnames.html">dimnames&lt;-</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/dimnames.html">dimnames()</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../utils/html/str.html">str()</a></code> </td><td style="text-align: left;"> inherited from Base R, does not print values correctly </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/print.integer64.html">print.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/print.html">print()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/str.integer64.html">str.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../utils/html/str.html">str()</a></code> </td><td style="text-align: left;">  
+</td>
+</tr>
+
+</table>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>coercing to integer64</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.integer64.html">as.integer64()</a></code> </td><td style="text-align: right;">  </td><td style="text-align: left;"> generic </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.integer64.bitstring.html">as.integer64.bitstring()</a></code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/as.bitstring.html">as.bitstring()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.integer64.character.html">as.integer64.character()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/character.html">character()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.integer64.double.html">as.integer64.double()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/double.html">double()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.integer64.integer.html">as.integer64.integer()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/integer.html">integer()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.integer64.integer64.html">as.integer64.integer64()</a></code> </td><td style="text-align: right;"> <code>integer64</code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.integer64.logical.html">as.integer64.logical()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/logical.html">logical()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.integer64.NULL.html">as.integer64.NULL()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/NULL.html">NULL()</a></code> </td><td style="text-align: left;">  
+</td>
+</tr>
+
+</table>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>coercing from integer64</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.list.integer64.html">as.list.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/list.html">as.list()</a></code> </td><td style="text-align: left;"> generic </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.bitstring.html">as.bitstring()</a></code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/as.bitstring.html">as.bitstring()</a></code> </td><td style="text-align: left;"> generic </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.bitstring.integer64.html">as.bitstring.integer64()</a></code> </td><td style="text-align: right;">  </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.character.integer64.html">as.character.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/character.html">as.character()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.double.integer64.html">as.double.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/double.html">as.double()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.integer.integer64.html">as.integer.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/integer.html">as.integer()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.logical.integer64.html">as.logical.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/logical.html">as.logical()</a></code> </td><td style="text-align: left;">  
+</td>
+</tr>
+
+</table>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>data structures</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/c.integer64.html">c.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/c.html">c()</a></code> </td><td style="text-align: left;"> vector concatenate </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/cbind.integer64.html">cbind.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/cbind.html">cbind()</a></code> </td><td style="text-align: left;"> column bind </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/rbind.integer64.html">rbind.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/cbind.html">rbind()</a></code> </td><td style="text-align: left;"> row bind </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/as.data.frame.integer64.html">as.data.frame.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/as.data.frame.html">as.data.frame()</a></code> </td><td style="text-align: left;"> coerce atomic object to data.frame </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/data.frame.html">data.frame()</a></code> </td><td style="text-align: left;"> inherited from Base R since we have coercion 
+</td>
+</tr>
+
+</table>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>subscripting</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/extract.replace.integer64.html">[.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/help/Extract.html">[</a></code> </td><td style="text-align: left;"> vector and array extract </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/extract.replace.integer64.html">[&lt;-.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/help/Extract.html">[&lt;-</a></code> </td><td style="text-align: left;"> vector and array assign </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/extract.replace.integer64.html">[[.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/help/Extract.html">[[</a></code> </td><td style="text-align: left;"> scalar extract </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/extract.replace.integer64.html">[[&lt;-.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/help/Extract.html">[[&lt;-</a></code> </td><td style="text-align: left;"> scalar assign 
+</td>
+</tr>
+
+</table>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>binary operators</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/+2B.integer64.html">+.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Arithmetic.html">+</a></code> </td><td style="text-align: left;"> returns integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/-.integer64.html">-.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Arithmetic.html">-</a></code> </td><td style="text-align: left;"> returns integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/+2A.integer64.html">*.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Arithmetic.html">*</a></code> </td><td style="text-align: left;"> returns integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/+5E.integer64.html">^.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Arithmetic.html">^</a></code> </td><td style="text-align: left;"> returns double </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/+2F.integer64.html">/.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Arithmetic.html">/</a></code> </td><td style="text-align: left;"> returns double </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/+25+2F+25.integer64.html">%/%.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Arithmetic.html">%/%</a></code> </td><td style="text-align: left;"> returns integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/+25+25.integer64.html">%%.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Arithmetic.html">%%</a></code> </td><td style="text-align: left;"> returns integer64 
+</td>
+</tr>
+
+</table>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>comparison operators</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/+3D+3D.integer64.html">==.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Comparison.html">==</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/+21+3D.integer64.html">!=.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Comparison.html">!=</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/+3C.integer64.html">&lt;.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Comparison.html">&lt;</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/+3C+3D.integer64.html">&lt;=.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Comparison.html">&lt;=</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/+3E.integer64.html">&gt;.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Comparison.html">&gt;</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/+3E+3D.integer64.html">&gt;=.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Comparison.html">&gt;=</a></code> </td><td style="text-align: left;">  
+</td>
+</tr>
+
+</table>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+<strong>logical operators</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+<code><a href="../../bit64/help/+21.integer64.html">!.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Logic.html">!</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+<code><a href="../../bit64/help/+26.integer64.html">&amp;.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Logic.html">&amp;</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+<code><a href="../../bit64/help/xor.integer64.html">|.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/help/Logic.html">|</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+<code><a href="../../bit64/help/xor.integer64.html">xor.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Logic.html">xor()</a></code> </td><td style="text-align: left;">  
+</td>
+</tr>
+
+</table>
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>math functions</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/is.na.integer64.html">is.na.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/NA.html">is.na()</a></code> </td><td style="text-align: left;"> returns logical </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/format.integer64.html">format.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/format.html">format()</a></code> </td><td style="text-align: left;"> returns character </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/abs.integer64.html">abs.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/MathFun.html">abs()</a></code> </td><td style="text-align: left;"> returns integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/sign.integer64.html">sign.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/sign.html">sign()</a></code> </td><td style="text-align: left;"> returns integer64 </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/log.integer64.html">log.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Log.html">log()</a></code> </td><td style="text-align: left;"> returns double </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/log10.integer64.html">log10.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Log.html">log10()</a></code> </td><td style="text-align: left;"> returns double </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/log2.integer64.html">log2.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Log.html">log2()</a></code> </td><td style="text-align: left;"> returns double </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/sqrt.integer64.html">sqrt.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/MathFun.html">sqrt()</a></code> </td><td style="text-align: left;"> returns double </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/ceiling.integer64.html">ceiling.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Round.html">ceiling()</a></code> </td><td style="text-align: left;"> dummy returning its argument </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/floor.integer64.html">floor.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Round.html">floor()</a></code> </td><td style="text-align: left;"> dummy returning its argument </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/trunc.integer64.html">trunc.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Round.html">trunc()</a></code> </td><td style="text-align: left;"> dummy returning its argument </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/round.integer64.html">round.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Round.html">round()</a></code> </td><td style="text-align: left;"> dummy returning its argument </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/signif.integer64.html">signif.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Round.html">signif()</a></code> </td><td style="text-align: left;"> dummy returning its argument 
+</td>
+</tr>
+
+</table>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>cumulative functions</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/cummin.integer64.html">cummin.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/cumsum.html">cummin()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/cummax.integer64.html">cummax.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/cumsum.html">cummax()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/cumsum.integer64.html">cumsum.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/cumsum.html">cumsum()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/cumprod.integer64.html">cumprod.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/cumsum.html">cumprod()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/diff.integer64.html">diff.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/diff.html">diff()</a></code> </td><td style="text-align: left;">  
+</td>
+</tr>
+
+</table>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>summary functions</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/range.integer64.html">range.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/range.html">range()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/min.integer64.html">min.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Extremes.html">min()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/max.integer64.html">max.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/Extremes.html">max()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/sum.integer64.html">sum.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/sum.html">sum()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/mean.integer64.html">mean.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/mean.html">mean()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/prod.integer64.html">prod.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/prod.html">prod()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/all.integer64.html">all.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/all.html">all()</a></code> </td><td style="text-align: left;">  </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/any.integer64.html">any.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/any.html">any()</a></code> </td><td style="text-align: left;">  
+</td>
+</tr>
+
+</table>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>algorithmically complex functions</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description (caching)</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/match.integer64.html">match.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/match.html">match()</a></code> </td><td style="text-align: left;"> position of x in table (h//o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/+25in+25.integer64.html">%in%.integer64</a></code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/+25in+25.html">%in%</a></code> </td><td style="text-align: left;"> is x in table? (h//o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/duplicated.integer64.html">duplicated.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/duplicated.html">duplicated()</a></code> </td><td style="text-align: left;"> is current element duplicate of previous one? (h//o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/unique.integer64.html">unique.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/unique.html">unique()</a></code> </td><td style="text-align: left;"> (shorter) vector of unique values only (h/s/o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/unipos.integer64.html">unipos.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/unipos.html">unipos()</a></code> </td><td style="text-align: left;"> positions corresponding to unique values (h/s/o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/tiepos.integer64.html">tiepos.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/tiepos.html">tiepos()</a></code> </td><td style="text-align: left;"> positions of values that are tied (//o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/keypos.integer64.html">keypos.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/keypos.html">keypos()</a></code> </td><td style="text-align: left;"> position of current value in sorted list of unique values (//o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/table.integer64.html">table.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/table.html">table()</a></code> </td><td style="text-align: left;"> unique values and their frequencies (h/s/o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/sort.integer64.html">sort.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/sort.html">sort()</a></code> </td><td style="text-align: left;"> sorted vector (/s/o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/order.integer64.html">order.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/order.html">order()</a></code> </td><td style="text-align: left;"> positions of elements that would create sorted vector (//o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/rank.integer64.html">rank.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/rank.html">rank()</a></code> </td><td style="text-align: left;"> (average) ranks of non-NAs, NAs kept in place (/s/o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/quantile.integer64.html">quantile.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../stats/html/quantile.html">quantile()</a></code> </td><td style="text-align: left;"> (existing) values at specified percentiles (/s/o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/median.integer64.html">median.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../stats/html/median.html">median()</a></code> </td><td style="text-align: left;"> (existing) value at percentile 0.5 (/s/o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/summary.integer64.html">summary.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/summary.html">summary()</a></code> </td><td style="text-align: left;"> (/s/o/so) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/all.equal.integer64.html">all.equal.integer64()</a></code> </td><td style="text-align: right;"> <code><a href="../../base/html/all.equal.html">all.equal()</a></code> </td><td style="text-align: left;"> test if two objects are (nearly) equal (/s/o/so) 
+</td>
+</tr>
+
+</table>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>helper functions</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/minusclass.html">minusclass()</a></code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/minusclass.html">minusclass()</a></code> </td><td style="text-align: left;"> removing class attritbute </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/plusclass.html">plusclass()</a></code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/plusclass.html">plusclass()</a></code> </td><td style="text-align: left;"> inserting class attribute </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code><a href="../../bit64/help/binattr.html">binattr()</a></code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/binattr.html">binattr()</a></code> </td><td style="text-align: left;"> define binary op behaviour 
+</td>
+</tr>
+
+</table>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>tested I/O functions</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../utils/html/read.table.html">read.table()</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../utils/html/write.table.html">write.table()</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/serialize.html">serialize()</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/serialize.html">unserialize()</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/save.html">save()</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/load.html">load()</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/dput.html">dput()</a></code> </td><td style="text-align: left;"> inherited from Base R </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code><a href="../../base/html/dput.html">dget()</a></code> </td><td style="text-align: left;"> inherited from Base R 
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Limitations inherited from implementing 64 bit integers via an external package</h3>
+
+
+<ul>
+<li> <p><strong>vector size</strong> of atomic vectors is still limited to
+<code><a href="../../base/html/zMachine.html">.Machine$integer.max</a></code>. However, external memory extending packages
+such as ff or bigmemory can extend their address space now with <code>integer64</code>.
+Having 64 bit integers also help with those not so obvious address issues that
+arise once we exchange data with SQL databases and datawarehouses, which use big
+integers as surrogate keys, e.g. on indexed primary key columns. This puts R into
+a relatively strong position compared to certain commercial statistical softwares,
+which sell database connectivity but neither have the range of 64 bit integers,
+nor have integers at all, nor have a single numeric data type in their
+macro-glue-language.
+</p>
+</li>
+<li> <p><strong>literals</strong> such as <code style="white-space: pre;">&#8288;123LL&#8288;</code> would require changes to Base R, up to then we need
+to write (and call) <code>as.integer64(123L)</code> or <code>as.integer64(123)</code> or
+<code>as.integer64('123')</code>. Only the latter allows to specify numbers beyond Base R's
+numeric data types and therefore is the recommended way to use &ndash; using only one
+way may facilitate migrating code to literals at a later stage.
+</p>
+</li></ul>
+
+
+
+<h3>Limitations inherited from Base R, Core team, can you change this?</h3>
+
+
+<ul>
+<li> <p><strong><code><a href="../../base/html/identical.html">identical()</a></code></strong> with default parameters does not distinguish all bit-patterns of
+doubles. For testing purposes we provide a wrapper <code><a href="../../bit64/help/identical.integer64.html">identical.integer64()</a></code> that
+will distinguish all bit-patterns. It would be desireable to have a single call
+of <code>identical()</code> handle both, <code><a href="../../base/html/double.html">double</a></code> and <code>integer64</code>.
+</p>
+</li>
+<li><p> the <strong>colon</strong> operator <a href="../../bit64/help/+3A.html">:</a> officially does not dispatch S3 methods, however, we
+have made it generic:
+</p>
+<div class="sourceCode r"><pre>from &lt;- lim.integer64()[1]
+to &lt;- from+99
+from:to
+</pre></div>
+<p>As a limitation remains: it will only dispatch at its first argument <code>from</code> but
+not at its second <code>to</code>.
+</p>
+</li>
+<li> <p><strong><code><a href="../../bit64/help/is.double.html">is.double()</a></code></strong> does not dispatch S3 methods, However, we have made it generic
+and it will return <code>FALSE</code> on <code>integer64</code>.
+</p>
+</li>
+<li> <p><strong><code><a href="../../base/html/c.html">c()</a></code></strong> only dispatches <code><a href="../../bit64/help/c.integer64.html">c.integer64()</a></code> if the first argument is <code>integer64</code>
+and it does not recursively dispatch the proper method when called with argument
+<code>recursive=TRUE</code>. Therefore <code>c(list(integer64, integer64))</code> does not work and
+for now you can only call <code>c.integer64(list(x, x))</code>.
+</p>
+</li>
+<li> <p><strong>generic binary operators</strong> fail to dispatch <em>any</em> user-defined S3 method
+if the two arguments have two different S3 classes. For example we have two
+classes <code><a href="../../bit/help/bit.html">bit::bit</a></code> and <code><a href="../../bit/help/bitwhich.html">bit::bitwhich</a></code> sparsely representing boolean vectors
+and we have methods <code><a href="../../bit/help/xor.html">&amp;.bit</a></code> and
+<code><a href="../../bit/help/xor.html">&amp;.bitwhich</a></code>. For an expression involving both as in
+<code>bit &amp; bitwhich</code>, none of the two methods is dispatched. Instead a standard
+method is dispatched, which neither handles <code>bit</code> nor <code>bitwhich</code>. Although
+it lacks symmetry, the better choice would be to dispatch simply the method
+of the class of the first argument in case of class conflict. This choice would
+allow authors of extension packages providing coherent behaviour at least within
+their contributed classes. But as long as none of the package author's methods is
+dispatched, they cannot handle the conflicting classes at all.
+</p>
+</li>
+<li> <p><strong><code><a href="../../base/html/unlist.html">unlist()</a></code></strong> is not generic and if it were, we would face similar problems as
+with <code><a href="../../base/html/c.html">c()</a></code>
+</p>
+</li>
+<li> <p><strong><code><a href="../../base/html/vector.html">vector()</a></code></strong> with argument <code>mode='integer64'</code> cannot work without adjustment
+of Base R
+</p>
+</li>
+<li> <p><strong><code><a href="../../base/html/vector.html">as.vector()</a></code></strong> with argument <code>mode='integer64'</code> cannot work without adjustment
+of Base R
+</p>
+</li>
+<li> <p><strong><code><a href="../../base/html/vector.html">is.vector()</a></code></strong> does not dispatch its method <code><a href="../../bit64/help/is.vector.integer64.html">is.vector.integer64()</a></code>
+</p>
+</li>
+<li> <p><strong><code><a href="../../base/html/mode.html">mode&lt;-()</a></code></strong> drops the class 'integer64' which is returned from
+<code>as.integer64()</code>. Also it does not remove an existing class 'integer64' when
+assigning mode 'integer'.
+</p>
+</li>
+<li> <p><strong><code><a href="../../base/html/mode.html">storage.mode&lt;-()</a></code></strong> does not support external data types such as <code>integer64</code>
+</p>
+</li>
+<li> <p><strong><code><a href="../../base/html/matrix.html">matrix()</a></code></strong> does drop the 'integer64' class attribute.
+</p>
+</li>
+<li> <p><strong><code><a href="../../base/html/array.html">array()</a></code></strong>  does drop the 'integer64' class attribute.
+</p>
+
+<ul>
+<li><p> In current R versions (1.15.1) this can be circumvented by activating the
+function <code>as.vector.integer64()</code>. However, the CRAN maintainer has requested
+to remove <code>as.vector.integer64()</code>, even at the price of breaking previously
+working functionality of the package.
+</p>
+</li></ul>
+
+</li>
+<li> <p><strong><code><a href="../../utils/html/str.html">str()</a></code></strong> does not print the values of <code>integer64</code> correctly
+</p>
+</li></ul>
+
+
+
+<h3>Further limitations</h3>
+
+
+<ul>
+<li> <p><strong>subscripting</strong> non-existing elements and subscripting with <code>NA</code>s is currently
+not supported. Such subscripting currently returns <code>9218868437227407266</code> instead
+of <code>NA</code> (the <code>NA</code> value of the underlying double code). Following the full R
+behaviour here would either destroy performance or require extensive C-coding.
+</p>
+</li></ul>
+
+
+
+<h3>Note</h3>
+
+<p><code>integer64</code> are useful for handling database keys and exact counting in +-2^63.
+Do not use them as replacement for 32bit integers, integer64 are not supported for
+subscripting by R-core and they have different semantics when combined with double.
+Do understand that <code>integer64</code> can only be useful over <code>double</code> if we do not coerce
+it to <code>double</code>.
+</p>
+<p>While
+</p>
+<p>integer + double -&gt; double + double -&gt; double
+</p>
+<p>or
+</p>
+<p>1L + 0.5 -&gt; 1.5
+</p>
+<p>for additive operations we coerce to <code>integer64</code>
+</p>
+<p>integer64 + double -&gt;  integer64 + integer64 -&gt; integer64
+</p>
+<p>hence
+</p>
+<p>as.integer64(1) + 0.5 -&gt; 1LL + 0LL -&gt; 1LL
+</p>
+<p>see section &quot;Arithmetic precision and coercion&quot; above
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p><strong>Maintainer</strong>: Michael Chirico <a href="mailto:michaelchirico4@gmail.com">michaelchirico4@gmail.com</a>
+</p>
+<p>Authors:
+</p>
+
+<ul>
+<li><p> Jens Oehlschlägel
+</p>
+</li></ul>
+
+<p>Other contributors:
+</p>
+
+<ul>
+<li><p> Leonardo Silvestri [contributor]
+</p>
+</li>
+<li><p> Ofek Shilon [contributor]
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/integer.html">integer()</a></code> in base R
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>message("Using integer64 in vector")
+x &lt;- integer64(8)    # create 64 bit vector
+x
+is.atomic(x)         # TRUE
+is.integer64(x)      # TRUE
+is.numeric(x)        # TRUE
+is.integer(x)        # FALSE - debatable
+is.double(x)         # FALSE - might change
+x[] &lt;- 1:2           # assigned value is recycled as usual
+x[1:6]               # subscripting as usual
+length(x) &lt;- 13      # changing length as usual
+x
+rep(x, 2)            # replicate as usual
+seq(as.integer64(1), 10)     # seq.integer64 is dispatched on first given argument
+seq(to=as.integer64(10), 1)  # seq.integer64 is dispatched on first given argument
+seq.integer64(along.with=x)  # or call seq.integer64 directly
+# c.integer64 is dispatched only if *first* argument is integer64 ...
+x &lt;- c(x,runif(length(x), max=100))
+# ... and coerces everything to integer64 - including double
+x
+names(x) &lt;- letters  # use names as usual
+x
+
+message("Using integer64 in array - note that 'matrix' currently does not work")
+message("as.vector.integer64 removed as requested by the CRAN maintainer")
+message("as consequence 'array' also does not work anymore")
+message("we still can create a matrix or array by assigning 'dim'")
+y &lt;- rep(as.integer64(NA), 12)
+dim(y) &lt;- c(3,4)
+dimnames(y) &lt;- list(letters[1:3], LETTERS[1:4])
+y["a",] &lt;- 1:2       # assigning as usual
+y
+y[1:2,-4]            # subscripting as usual
+# cbind.integer64 dispatched on any argument and coerces everything to integer64
+cbind(E=1:3, F=runif(3, 0, 100), G=c("-1","0","1"), y)
+
+message("Using integer64 in data.frame")
+str(as.data.frame(x))
+str(as.data.frame(y))
+str(data.frame(y))
+str(data.frame(I(y)))
+d &lt;- data.frame(x=x, y=runif(length(x), 0, 100))
+d
+d$x
+
+message("Using integer64 with csv files")
+fi64 &lt;- tempfile()
+write.csv(d, file=fi64, row.names=FALSE)
+e &lt;- read.csv(fi64, colClasses=c("integer64", NA))
+unlink(fi64)
+str(e)
+identical.integer64(d$x,e$x)
+
+message("Serializing and unserializing integer64")
+dput(d, fi64)
+e &lt;- dget(fi64)
+identical.integer64(d$x,e$x)
+e &lt;- d[,]
+save(e, file=fi64)
+rm(e)
+load(file=fi64)
+identical.integer64(d,e)
+
+  ## Not run: 
+message("== Differences between integer64 and int64 ==")
+require(bit64)
+require(int64)
+
+message("-- integer64 is atomic --")
+is.atomic(integer64())
+#is.atomic(int64())
+str(integer64(3))
+#str(int64(3))
+
+message("-- The following performance numbers are measured under RWin64  --")
+message("-- under RWin32 the advantage of integer64 over int64 is smaller --")
+
+message("-- integer64 needs 7x/5x less RAM than int64 under 64/32 bit OS
+(and twice the RAM of integer as it should be) --")
+#as.vector(object.size(int64(1e6))/object.size(integer64(1e6)))
+as.vector(object.size(integer64(1e6))/object.size(integer(1e6)))
+
+message("-- integer64 creates 2000x/1300x faster than int64 under 64/32 bit OS
+(and 3x the time of integer) --")
+t32 &lt;- system.time(integer(1e8))
+t64 &lt;- system.time(integer64(1e8))
+#T64 &lt;- system.time(int64(1e7))*10  # using 1e8 as above stalls our R on an i7 8 GB RAM Thinkpad
+#T64/t64
+t64/t32
+
+i32 &lt;- sample(1e6)
+d64 &lt;- as.double(i32)
+
+message("-- the following timings are rather conservative since timings
+ of integer64 include garbage collection -- due to looped calls")
+message("-- integer64 coerces 900x/100x faster than int64
+ under 64/32 bit OS (and 2x the time of coercing to integer) --")
+t32 &lt;- system.time(for(i in 1:1000)as.integer(d64))
+t64 &lt;- system.time(for(i in 1:1000)as.integer64(d64))
+#T64 &lt;- system.time(as.int64(d64))*1000
+#T64/t64
+t64/t32
+td64 &lt;- system.time(for(i in 1:1000)as.double(i32))
+t64 &lt;- system.time(for(i in 1:1000)as.integer64(i32))
+#T64 &lt;- system.time(for(i in 1:10)as.int64(i32))*100
+#T64/t64
+t64/td64
+
+message("-- integer64 serializes 4x/0.8x faster than int64
+ under 64/32 bit OS (and less than 2x/6x the time of integer or double) --")
+t32 &lt;- system.time(for(i in 1:10)serialize(i32, NULL))
+td64 &lt;- system.time(for(i in 1:10)serialize(d64, NULL))
+i64 &lt;- as.integer64(i32);
+t64 &lt;- system.time(for(i in 1:10)serialize(i64, NULL))
+rm(i64); gc()
+#I64 &lt;- as.int64(i32);
+#T64 &lt;- system.time(for(i in 1:10)serialize(I64, NULL))
+#rm(I64); gc()
+#T64/t64
+t64/t32
+t64/td64
+
+
+message("-- integer64 adds 250x/60x faster than int64
+ under 64/32 bit OS (and less than 6x the time of integer or double) --")
+td64 &lt;- system.time(for(i in 1:100)d64+d64)
+t32 &lt;- system.time(for(i in 1:100)i32+i32)
+i64 &lt;- as.integer64(i32);
+t64 &lt;- system.time(for(i in 1:100)i64+i64)
+rm(i64); gc()
+#I64 &lt;- as.int64(i32);
+#T64 &lt;- system.time(for(i in 1:10)I64+I64)*10
+#rm(I64); gc()
+#T64/t64
+t64/t32
+t64/td64
+
+message("-- integer64 sums 3x/0.2x faster than int64
+(and at about 5x/60X the time of integer and double) --")
+td64 &lt;- system.time(for(i in 1:100)sum(d64))
+t32 &lt;- system.time(for(i in 1:100)sum(i32))
+i64 &lt;- as.integer64(i32);
+t64 &lt;- system.time(for(i in 1:100)sum(i64))
+rm(i64); gc()
+#I64 &lt;- as.int64(i32);
+#T64 &lt;- system.time(for(i in 1:100)sum(I64))
+#rm(I64); gc()
+#T64/t64
+t64/t32
+t64/td64
+
+message("-- integer64 diffs 5x/0.85x faster than integer and double
+(int64 version 1.0 does not support diff) --")
+td64 &lt;- system.time(for(i in 1:10)diff(d64, lag=2L, differences=2L))
+t32 &lt;- system.time(for(i in 1:10)diff(i32, lag=2L, differences=2L))
+i64 &lt;- as.integer64(i32);
+t64 &lt;- system.time(for(i in 1:10)diff(i64, lag=2L, differences=2L))
+rm(i64); gc()
+t64/t32
+t64/td64
+
+
+message("-- integer64 subscripts 1000x/340x faster than int64
+(and at the same speed / 10x slower as integer) --")
+ts32 &lt;- system.time(for(i in 1:1000)sample(1e6, 1e3))
+t32&lt;- system.time(for(i in 1:1000)i32[sample(1e6, 1e3)])
+i64 &lt;- as.integer64(i32);
+t64 &lt;- system.time(for(i in 1:1000)i64[sample(1e6, 1e3)])
+rm(i64); gc()
+#I64 &lt;- as.int64(i32);
+#T64 &lt;- system.time(for(i in 1:100)I64[sample(1e6, 1e3)])*10
+#rm(I64); gc()
+#(T64-ts32)/(t64-ts32)
+(t64-ts32)/(t32-ts32)
+
+message("-- integer64 assigns 200x/90x faster than int64
+(and 50x/160x slower than integer) --")
+ts32 &lt;- system.time(for(i in 1:100)sample(1e6, 1e3))
+t32 &lt;- system.time(for(i in 1:100)i32[sample(1e6, 1e3)] &lt;- 1:1e3)
+i64 &lt;- as.integer64(i32);
+i64 &lt;- system.time(for(i in 1:100)i64[sample(1e6, 1e3)] &lt;- 1:1e3)
+rm(i64); gc()
+#I64 &lt;- as.int64(i32);
+#I64 &lt;- system.time(for(i in 1:10)I64[sample(1e6, 1e3)] &lt;- 1:1e3)*10
+#rm(I64); gc()
+#(T64-ts32)/(t64-ts32)
+(t64-ts32)/(t32-ts32)
+
+
+tdfi32 &lt;- system.time(dfi32 &lt;- data.frame(a=i32, b=i32, c=i32))
+tdfsi32 &lt;- system.time(dfi32[1e6:1,])
+fi32 &lt;- tempfile()
+tdfwi32 &lt;- system.time(write.csv(dfi32, file=fi32, row.names=FALSE))
+tdfri32 &lt;- system.time(read.csv(fi32, colClasses=rep("integer", 3)))
+unlink(fi32)
+rm(dfi32); gc()
+
+i64 &lt;- as.integer64(i32);
+tdfi64 &lt;- system.time(dfi64 &lt;- data.frame(a=i64, b=i64, c=i64))
+tdfsi64 &lt;- system.time(dfi64[1e6:1,])
+fi64 &lt;- tempfile()
+tdfwi64 &lt;- system.time(write.csv(dfi64, file=fi64, row.names=FALSE))
+tdfri64 &lt;- system.time(read.csv(fi64, colClasses=rep("integer64", 3)))
+unlink(fi64)
+rm(i64, dfi64); gc()
+
+#I64 &lt;- as.int64(i32);
+#tdfI64 &lt;- system.time(dfI64&lt;-data.frame(a=I64, b=I64, c=I64))
+#tdfsI64 &lt;- system.time(dfI64[1e6:1,])
+#fI64 &lt;- tempfile()
+#tdfwI64 &lt;- system.time(write.csv(dfI64, file=fI64, row.names=FALSE))
+#tdfrI64 &lt;- system.time(read.csv(fI64, colClasses=rep("int64", 3)))
+#unlink(fI64)
+#rm(I64, dfI64); gc()
+
+message("-- integer64 coerces 40x/6x faster to data.frame than int64
+(and factor 1/9 slower than integer) --")
+#tdfI64/tdfi64
+tdfi64/tdfi32
+message("-- integer64 subscripts from data.frame 20x/2.5x faster than int64
+ (and 3x/13x slower than integer) --")
+#tdfsI64/tdfsi64
+tdfsi64/tdfsi32
+message("-- integer64 csv writes about 2x/0.5x faster than int64
+(and about 1.5x/5x slower than integer) --")
+#tdfwI64/tdfwi64
+tdfwi64/tdfwi32
+message("-- integer64 csv reads about 3x/1.5 faster than int64
+(and about 2x slower than integer) --")
+#tdfrI64/tdfri64
+tdfri64/tdfri32
+
+rm(i32, d64); gc()
+
+
+message("-- investigating the impact on garbage collection: --")
+message("-- the fragmented structure of int64 messes up R's RAM --")
+message("-- and slows down R's gargbage collection just by existing --")
+
+td32 &lt;- double(21)
+td32[1] &lt;- system.time(d64 &lt;- double(1e7))[3]
+for (i in 2:11)td32[i] &lt;- system.time(gc(), gcFirst=FALSE)[3]
+rm(d64)
+for (i in 12:21)td32[i] &lt;- system.time(gc(), gcFirst=FALSE)[3]
+
+t64 &lt;- double(21)
+t64[1] &lt;- system.time(i64 &lt;- integer64(1e7))[3]
+for (i in 2:11)t64[i] &lt;- system.time(gc(), gcFirst=FALSE)[3]
+rm(i64)
+for (i in 12:21)t64[i] &lt;- system.time(gc(), gcFirst=FALSE)[3]
+
+#T64 &lt;- double(21)
+#T64[1] &lt;- system.time(I64 &lt;- int64(1e7))[3]
+#for (i in 2:11)T64[i] &lt;- system.time(gc(), gcFirst=FALSE)[3]
+#rm(I64)
+#for (i in 12:21)T64[i] &lt;- system.time(gc(), gcFirst=FALSE)[3]
+
+#matplot(1:21, cbind(td32, t64, T64), pch=c("d","i","I"), log="y")
+matplot(1:21, cbind(td32, t64), pch=c("d","i"), log="y")
+  
+## End(Not run)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

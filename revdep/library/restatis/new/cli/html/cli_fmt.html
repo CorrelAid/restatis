@@ -1,0 +1,64 @@
+<!DOCTYPE html><html><head><title>R: Capture the output of cli functions instead of printing it</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_fmt {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Capture the output of cli functions instead of printing it</h2>
+
+<h3>Description</h3>
+
+<p>Capture the output of cli functions instead of printing it
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_fmt(expr, collapse = FALSE, strip_newline = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="expr">expr</code></td>
+<td>
+<p>Expression to evaluate, containing <code style="white-space: pre;">&#8288;cli_*()&#8288;</code> calls,
+typically.</p>
+</td></tr>
+<tr><td><code id="collapse">collapse</code></td>
+<td>
+<p>Whether to collapse the output into a single character
+scalar, or return a character vector with one element for each line.</p>
+</td></tr>
+<tr><td><code id="strip_newline">strip_newline</code></td>
+<td>
+<p>Whether to strip the trailing newline.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>cli_fmt({
+  cli_alert_info("Loading data file")
+  cli_alert_success("Loaded data file")
+})
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

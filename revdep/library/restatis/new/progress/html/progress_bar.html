@@ -1,0 +1,240 @@
+<!DOCTYPE html><html><head><title>R: Progress bar in the terminal</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>progress_bar {progress}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Progress bar in the terminal</h2>
+
+<h3>Description</h3>
+
+<p>Progress bars are configurable, may include percentage, elapsed time,
+and/or the estimated completion time. They work in the command line,
+in Emacs and in R Studio. The progress package was heavily influenced by
+https://github.com/tj/node-progress
+</p>
+
+
+<h3>Creating the progress bar</h3>
+
+<p>A progress bar is an R6 object, that can be created with
+<code>progress_bar$new()</code>. It has the following arguments:
+</p>
+
+<dl>
+<dt>format</dt><dd><p>The format of the progress bar. A number of
+tokens can be used here, see them below. It defaults to
+<code>"[:bar] :percent"</code>, which means that the progress
+bar is within brackets on the left, and the percentage
+is printed on the right.</p>
+</dd>
+<dt>total</dt><dd><p>Total number of ticks to complete. If it is unknown,
+use <code>NA</code> here. Defaults to 100.</p>
+</dd>
+<dt>width</dt><dd><p>Width of the progress bar. Default is the current
+terminal width (see <code>options()</code> and <code>width</code>) minus two.</p>
+</dd>
+<dt>stream</dt><dd><p>This argument is deprecated, and <code>message()</code> is
+used to print the progress bar.</p>
+</dd>
+<dt>complete</dt><dd><p>Completion character, defaults to <code>=</code>.</p>
+</dd>
+<dt>incomplete</dt><dd><p>Incomplete character, defaults to <code>-</code>.</p>
+</dd>
+<dt>current</dt><dd><p>Current character, defaults to <code>&gt;</code>.</p>
+</dd>
+<dt>callback</dt><dd><p>Callback function to call when the progress
+bar finishes. The progress bar object itself is passed to it
+as the single parameter.</p>
+</dd>
+<dt>clear</dt><dd><p>Whether to clear the progress bar on completion.
+Defaults to <code>TRUE</code>.</p>
+</dd>
+<dt>show_after</dt><dd><p>Amount of time in seconds, after which the progress
+bar is shown on the screen. For very short processes,
+it is probably not worth showing it at all. Defaults to two
+tenth of a second.</p>
+</dd>
+<dt>force</dt><dd><p>Whether to force showing the progress bar,
+even if the given (or default) stream does not seem to support it.</p>
+</dd>
+<dt>message_class</dt><dd><p>Extra classes to add to the message conditions
+signalled by the progress bar.</p>
+</dd>
+</dl>
+
+
+
+<h3>Using the progress bar</h3>
+
+<p>Three functions can update a progress bar. <code>progress_bar$tick()</code>
+increases the number of ticks by one (or another specified value).
+<code>progress_bar$update()</code> sets a given ratio and
+<code>progress_bar$terminate()</code> removes the progress bar.
+<code>progress_bar$finished</code> can be used to see if the progress bar has
+finished.
+</p>
+<p>Note that the progress bar is not shown immediately, but only after
+<code>show_after</code> seconds. (Set this to zero, and call <code>tick(0)</code> to
+force showing the progress bar.)
+</p>
+<p><code>progress_bar$message()</code> prints a message above the progress bar.
+It fails if the progress bar has already finished.
+</p>
+
+
+<h3>Tokens</h3>
+
+<p>They can be used in the <code>format</code> argument when creating the
+progress bar.
+</p>
+
+<dl>
+<dt>:bar</dt><dd><p>The progress bar itself.</p>
+</dd>
+<dt>:current</dt><dd><p>Current tick number.</p>
+</dd>
+<dt>:total</dt><dd><p>Total ticks.</p>
+</dd>
+<dt>:elapsed</dt><dd><p>Elapsed time in seconds.</p>
+</dd>
+<dt>:elapsedfull</dt><dd><p>Elapsed time in hh:mm:ss format.</p>
+</dd>
+<dt>:eta</dt><dd><p>Estimated completion time in seconds.</p>
+</dd>
+<dt>:percent</dt><dd><p>Completion percentage.</p>
+</dd>
+<dt>:rate</dt><dd><p>Download rate, bytes per second. See example below.</p>
+</dd>
+<dt>:tick_rate</dt><dd><p>Similar to <code style="white-space: pre;">&#8288;:rate&#8288;</code>, but we don't assume that
+the units are bytes, we just print the raw number of ticks per
+second.</p>
+</dd>
+<dt>:bytes</dt><dd><p>Shows :current, formatted as bytes. Useful
+for downloads or file reads if you don't know the size of the
+file in advance. See example below.</p>
+</dd>
+<dt>:spin</dt><dd><p>Shows a spinner that updates even when progress is
+advanced by zero.</p>
+</dd>
+</dl>
+
+<p>Custom tokens are also supported, and you need to pass their
+values to <code>progress_bar$tick()</code> or <code>progress_bar$update()</code>,
+in a named list. See example below.
+</p>
+
+
+<h3>Options</h3>
+
+<p>The <code>progress_enabled</code> option can be set to <code>FALSE</code> to turn off the
+progress bar. This works for the C++ progress bar as well.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+## We don't run the examples on CRAN, because they takes &gt;10s
+## altogether. Unfortunately it is hard to create a set of
+## meaningful progress bar examples that also run quickly.
+## Not run: 
+
+## Basic
+pb &lt;- progress_bar$new(total = 100)
+for (i in 1:100) {
+  pb$tick()
+  Sys.sleep(1 / 100)
+}
+
+## ETA
+pb &lt;- progress_bar$new(
+  format = "  downloading [:bar] :percent eta: :eta",
+  total = 100, clear = FALSE, width= 60)
+for (i in 1:100) {
+  pb$tick()
+  Sys.sleep(1 / 100)
+}
+
+## Elapsed time
+pb &lt;- progress_bar$new(
+  format = "  downloading [:bar] :percent in :elapsed",
+  total = 100, clear = FALSE, width= 60)
+for (i in 1:100) {
+  pb$tick()
+  Sys.sleep(1 / 100)
+}
+
+## Spinner
+pb &lt;- progress_bar$new(
+  format = "(:spin) [:bar] :percent",
+  total = 30, clear = FALSE, width = 60)
+for (i in 1:30) {
+  pb$tick()
+  Sys.sleep(3 / 100)
+}
+
+## Custom tokens
+pb &lt;- progress_bar$new(
+  format = "  downloading :what [:bar] :percent eta: :eta",
+  clear = FALSE, total = 200, width = 60)
+f &lt;- function() {
+  for (i in 1:100) {
+    pb$tick(tokens = list(what = "foo   "))
+    Sys.sleep(2 / 100)
+  }
+  for (i in 1:100) {
+    pb$tick(tokens = list(what = "foobar"))
+    Sys.sleep(2 / 100)
+  }
+}
+f()
+
+## Download (or other) rates
+pb &lt;- progress_bar$new(
+  format = "  downloading foobar at :rate, got :bytes in :elapsed",
+  clear = FALSE, total = NA, width = 60)
+f &lt;- function() {
+  for (i in 1:100) {
+    pb$tick(sample(1:100 * 1000, 1))
+    Sys.sleep(2/100)
+  }
+  pb$tick(1e7)
+  invisible()
+}
+f()
+
+pb &lt;- progress_bar$new(
+  format = "  got :current rows at :tick_rate/sec",
+  clear = FALSE, total = NA, width = 60)
+f &lt;- function() {
+  for (i in 1:100) {
+    pb$tick(sample(1:100, 1))
+    Sys.sleep(2/100)
+  }
+  pb$terminate()
+  invisible()
+}
+f()
+
+
+## End(Not run)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>progress</em> version 1.2.3 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

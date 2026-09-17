@@ -1,0 +1,73 @@
+<!DOCTYPE html><html><head><title>R: Provide a succinct summary of an object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>tbl_sum {pillar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Provide a succinct summary of an object</h2>
+
+<h3>Description</h3>
+
+<p><code>tbl_sum()</code> gives a brief textual description of a table-like object,
+which should include the dimensions and the data source in the first element,
+and additional information in the other elements (such as grouping for <span class="pkg">dplyr</span>).
+The default implementation forwards to <code><a href="../../pillar/help/obj_sum.html">obj_sum()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>tbl_sum(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Object to summarise.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A named character vector, describing the dimensions in the first element
+and the data source in the name of the first element.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../pillar/help/type_sum.html">type_sum()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>tbl_sum(1:10)
+tbl_sum(matrix(1:10))
+tbl_sum(data.frame(a = 1))
+tbl_sum(Sys.Date())
+tbl_sum(Sys.time())
+tbl_sum(mean)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>pillar</em> version 1.11.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

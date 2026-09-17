@@ -1,0 +1,73 @@
+<!DOCTYPE html><html><head><title>R: Create an attribute getter function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>attr_getter {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create an attribute getter function</h2>
+
+<h3>Description</h3>
+
+<p><code>attr_getter()</code> generates an attribute accessor function; i.e., it
+generates a function for extracting an attribute with a given
+name. Unlike the base R <code>attr()</code> function with default options, it
+doesn't use partial matching.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>attr_getter(attr)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="attr">attr</code></td>
+<td>
+<p>An attribute name as string.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../purrr/help/pluck.html">pluck()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># attr_getter() takes an attribute name and returns a function to
+# access the attribute:
+get_rownames &lt;- attr_getter("row.names")
+get_rownames(mtcars)
+
+# These getter functions are handy in conjunction with pluck() for
+# extracting deeply into a data structure. Here we'll first
+# extract by position, then by attribute:
+obj1 &lt;- structure("obj", obj_attr = "foo")
+obj2 &lt;- structure("obj", obj_attr = "bar")
+x &lt;- list(obj1, obj2)
+
+pluck(x, 1, attr_getter("obj_attr"))  # From first object
+pluck(x, 2, attr_getter("obj_attr"))  # From second object
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html><html><head><title>R: Coercing to bitwhich</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>as.bitwhich.NULL {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Coercing to bitwhich</h2>
+
+<h3>Description</h3>
+
+<p>Functions to coerce to bitwhich
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class ''NULL''
+as.bitwhich(x, ...)
+
+## S3 method for class 'bitwhich'
+as.bitwhich(x, ...)
+
+## S3 method for class 'which'
+as.bitwhich(x, maxindex = attr(x, "maxindex"), ...)
+
+## S3 method for class 'ri'
+as.bitwhich(x, ...)
+
+## S3 method for class 'integer'
+as.bitwhich(x, poslength = NULL, ...)
+
+## S3 method for class 'double'
+as.bitwhich(x, poslength = NULL, ...)
+
+## S3 method for class 'logical'
+as.bitwhich(x, poslength = NULL, ...)
+
+## S3 method for class 'bit'
+as.bitwhich(x, range = NULL, poslength = NULL, ...)
+
+as.bitwhich(x = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>An object of class 'bitwhich', 'integer', 'logical' or 'bit' or an
+integer vector as resulting from 'which'</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments</p>
+</td></tr>
+<tr><td><code id="maxindex">maxindex</code></td>
+<td>
+<p>the length of the new bitwhich vector</p>
+</td></tr>
+<tr><td><code id="poslength">poslength</code></td>
+<td>
+<p>the number of selected elements</p>
+</td></tr>
+<tr><td><code id="range">range</code></td>
+<td>
+<p>a <code><a href="../../bit/help/ri.html">ri()</a></code> or an integer vector of length == 2 giving a
+range restriction for chunked processing</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a value of class <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code>
+</p>
+
+
+<h3>Methods (by class)</h3>
+
+
+<ul>
+<li> <p><code>as.bitwhich(`NULL`)</code>: method to coerce to <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> (zero length) from
+<code><a href="../../base/html/NULL.html">NULL</a></code>
+</p>
+</li>
+<li> <p><code>as.bitwhich(bitwhich)</code>: method to coerce to <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> from <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code>
+</p>
+</li>
+<li> <p><code>as.bitwhich(which)</code>: method to coerce to <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> from <code><a href="../../bit/help/as.which.html">which()</a></code>
+</p>
+</li>
+<li> <p><code>as.bitwhich(ri)</code>: method to coerce to <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> from <code><a href="../../bit/help/ri.html">ri()</a></code>
+</p>
+</li>
+<li> <p><code>as.bitwhich(integer)</code>: method to coerce to <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> from
+<code><a href="../../base/html/integer.html">integer()</a></code> (<code>0</code> and <code>NA</code> become <code>FALSE</code>, everthing
+else becomes <code>TRUE</code>)
+</p>
+</li>
+<li> <p><code>as.bitwhich(double)</code>: method to coerce to <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> from
+<code><a href="../../base/html/double.html">double()</a></code> (<code>0</code> and <code>NA</code> become <code>FALSE</code>, everthing
+else becomes <code>TRUE</code>)
+</p>
+</li>
+<li> <p><code>as.bitwhich(logical)</code>: method to coerce to <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> from <code><a href="../../base/html/logical.html">logical()</a></code>
+</p>
+</li>
+<li> <p><code>as.bitwhich(bit)</code>: method to coerce to <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> from <code><a href="../../bit/help/bit.html">bit()</a></code>
+</p>
+</li></ul>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/CoercionToStandard.html">CoercionToStandard</a></code>, <code><a href="../../bit/help/as.booltype.html">as.booltype()</a></code>, <code><a href="../../bit/help/as.bit.html">as.bit()</a></code>,
+<code><a href="../../bit/help/as.bitwhich.html">as.bitwhich()</a></code> , <code><a href="../../bit/help/as.which.html">as.which()</a></code>, <code><a href="../../bit/help/as.ri.html">as.ri()</a></code>, <code><a href="../../ff/help/as.hi.html">ff::as.hi()</a></code>,  <code><a href="../../ff/help/as.ff.html">ff::as.ff()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>as.bitwhich(c(0L, 1L, 2L, -2L, NA))
+as.bitwhich(c(0, 1, 2, -2, NA))
+
+ as.bitwhich(c(NA, NA, NA))
+ as.bitwhich(c(FALSE, FALSE, FALSE))
+ as.bitwhich(c(FALSE, FALSE, TRUE))
+ as.bitwhich(c(FALSE, TRUE, TRUE))
+ as.bitwhich(c(TRUE, TRUE, TRUE))
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

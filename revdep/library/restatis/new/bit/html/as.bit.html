@@ -1,0 +1,158 @@
+<!DOCTYPE html><html><head><title>R: Coercing to bit</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>as.bit.NULL {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Coercing to bit</h2>
+
+<h3>Description</h3>
+
+<p>Coercing to bit vector
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class ''NULL''
+as.bit(x, ...)
+
+## S3 method for class 'bit'
+as.bit(x, ...)
+
+## S3 method for class 'logical'
+as.bit(x, ...)
+
+## S3 method for class 'integer'
+as.bit(x, ...)
+
+## S3 method for class 'double'
+as.bit(x, ...)
+
+## S3 method for class 'bitwhich'
+as.bit(x, ...)
+
+## S3 method for class 'which'
+as.bit(x, length = attr(x, "maxindex"), ...)
+
+## S3 method for class 'ri'
+as.bit(x, ...)
+
+as.bit(x = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an object of class <code><a href="../../bit/help/bit.html">bit()</a></code>, <code><a href="../../base/html/logical.html">logical()</a></code>,
+<code><a href="../../base/html/integer.html">integer()</a></code>, <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> or an integer from
+<code><a href="../../bit/help/as.which.html">as.which()</a></code> or a boolean <code><a href="../../ff/help/vmode.html">ff</a></code></p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments</p>
+</td></tr>
+<tr><td><code id="length">length</code></td>
+<td>
+<p>the length of the new bit vector</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Coercing to bit is quite fast because we use a double loop that fixes each
+word in a processor register
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>is.bit</code> returns FALSE or TRUE, <code>as.bit</code> returns a vector
+of class 'bit'
+</p>
+
+
+<h3>Methods (by class)</h3>
+
+
+<ul>
+<li> <p><code>as.bit(`NULL`)</code>: method to coerce to <code><a href="../../bit/help/bit.html">bit()</a></code> (zero length) from <code><a href="../../base/html/NULL.html">NULL</a></code>
+</p>
+</li>
+<li> <p><code>as.bit(bit)</code>: method to coerce to <code><a href="../../bit/help/bit.html">bit()</a></code> from <code><a href="../../bit/help/bit.html">bit()</a></code>
+</p>
+</li>
+<li> <p><code>as.bit(logical)</code>: method to coerce to <code><a href="../../bit/help/bit.html">bit()</a></code> from <code><a href="../../base/html/logical.html">logical()</a></code>
+</p>
+</li>
+<li> <p><code>as.bit(integer)</code>: method to coerce to <code><a href="../../bit/help/bit.html">bit()</a></code> from
+<code><a href="../../base/html/integer.html">integer()</a></code> (<code>0L</code> and <code>NA</code> become <code>FALSE</code>,
+everthing else becomes <code>TRUE</code>)
+</p>
+</li>
+<li> <p><code>as.bit(double)</code>: method to coerce to <code><a href="../../bit/help/bit.html">bit()</a></code> from
+<code><a href="../../base/html/double.html">double()</a></code> (<code>0</code> and <code>NA</code> become <code>FALSE</code>, everthing
+else becomes <code>TRUE</code>)
+</p>
+</li>
+<li> <p><code>as.bit(bitwhich)</code>: method to coerce to <code><a href="../../bit/help/bit.html">bit()</a></code> from <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code>
+</p>
+</li>
+<li> <p><code>as.bit(which)</code>: method to coerce to <code><a href="../../bit/help/bit.html">bit()</a></code> from <code><a href="../../bit/help/as.which.html">which()</a></code>
+</p>
+</li>
+<li> <p><code>as.bit(ri)</code>: method to coerce to <code><a href="../../bit/help/bit.html">bit()</a></code> from <code><a href="../../bit/help/ri.html">ri()</a></code>
+</p>
+</li></ul>
+
+
+<h3>Note</h3>
+
+<p>Zero is coerced to FALSE, all other numbers including NA are coerced
+to TRUE.  This differs from the NA-to-FALSE coercion in package ff and may
+change in the future.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/CoercionToStandard.html">CoercionToStandard</a></code>, <code><a href="../../bit/help/as.booltype.html">as.booltype()</a></code>, <code><a href="../../bit/help/as.bit.html">as.bit()</a></code>,
+<code><a href="../../bit/help/as.bitwhich.html">as.bitwhich()</a></code> , <code><a href="../../bit/help/as.which.html">as.which()</a></code>, <code><a href="../../bit/help/as.ri.html">as.ri()</a></code>, <code><a href="../../ff/help/as.hi.html">ff::as.hi()</a></code>,  <code><a href="../../ff/help/as.ff.html">ff::as.ff()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>as.bit(c(0L, 1L, 2L, -2L, NA))
+as.bit(c(0, 1, 2, -2, NA))
+
+as.bit(c(FALSE, NA, TRUE))
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html><html><head><title>R: Do every, some, or none of the elements of a list satisfy a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>every {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Do every, some, or none of the elements of a list satisfy a predicate?</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>some()</code> returns <code>TRUE</code> when <code>.p</code> is <code>TRUE</code> for at least one element.
+</p>
+</li>
+<li> <p><code>every()</code> returns <code>TRUE</code> when <code>.p</code> is <code>TRUE</code> for all elements.
+</p>
+</li>
+<li> <p><code>none()</code> returns <code>TRUE</code> when <code>.p</code> is <code>FALSE</code> for all elements.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>every(.x, .p, ...)
+
+some(.x, .p, ...)
+
+none(.x, .p, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>A list or vector.</p>
+</td></tr>
+<tr><td><code id=".p">.p</code></td>
+<td>
+<p>A predicate function (i.e. a function that returns either <code>TRUE</code>
+or <code>FALSE</code>) specified in one of the following ways:
+</p>
+
+<ul>
+<li><p> A named function, e.g. <code>is.character</code>.
+</p>
+</li>
+<li><p> An anonymous function, e.g. <code style="white-space: pre;">&#8288;\(x) all(x &lt; 0)&#8288;</code> or <code>function(x) all(x &lt; 0)</code>.
+</p>
+</li>
+<li><p> A formula, e.g. <code>~ all(.x &lt; 0)</code>. Use <code>.x</code> to refer to the first argument.
+No longer recommended.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed on to <code>.p</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A logical vector of length 1.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- list(0:10, 5.5)
+x |&gt; every(is.numeric)
+x |&gt; every(is.integer)
+x |&gt; some(is.integer)
+x |&gt; none(is.character)
+
+# Missing values are propagated:
+some(list(NA, FALSE), identity)
+
+# If you need to use these functions in a context where missing values are
+# unsafe (e.g. in `if ()` conditions), make sure to use safe predicates:
+if (some(list(NA, FALSE), rlang::is_true)) "foo" else "bar"
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

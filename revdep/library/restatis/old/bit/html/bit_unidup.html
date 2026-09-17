@@ -1,0 +1,139 @@
+<!DOCTYPE html><html><head><title>R: bit unique and duplicated</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>bit_unidup {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>bit unique and duplicated</h2>
+
+<h3>Description</h3>
+
+<p>Fast versions of <code><a href="../../base/html/unique.html">unique()</a></code>, <code><a href="../../base/html/duplicated.html">duplicated()</a></code> ,
+<code><a href="../../base/html/duplicated.html">anyDuplicated()</a></code> and <code>sum(duplicated(x))</code> for integers.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>bit_unique(x, na.rm = NA, range_na = NULL)
+
+bit_duplicated(x, na.rm = NA, range_na = NULL, retFUN = as.bit)
+
+bit_anyDuplicated(x, na.rm = NA, range_na = NULL)
+
+bit_sumDuplicated(x, na.rm = NA, range_na = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an integer vector</p>
+</td></tr>
+<tr><td><code id="na.rm">na.rm</code></td>
+<td>
+<p><code>NA</code> treats NAs like other integers, <code>TRUE</code> treats
+<em>all</em> NAs as duplicates, <code>FALSE</code> treats <em>no</em> NAs as
+duplicates</p>
+</td></tr>
+<tr><td><code id="range_na">range_na</code></td>
+<td>
+<p><code>NULL</code> calls <code><a href="../../bit/help/range_na.html">range_na()</a></code>, optionally the result of <code><a href="../../bit/help/range_na.html">range_na()</a></code> can be
+given here to avoid calling it again</p>
+</td></tr>
+<tr><td><code id="retFUN">retFUN</code></td>
+<td>
+<p>a function that coerces <code><a href="../../bit/help/bit.html">bit()</a></code> and <code><a href="../../base/html/logical.html">logical()</a></code> vectors</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>determines the range of the integers and checks if the density justifies use
+of a bit vector; if yes, uses a bit vector for finding duplicates; if no,
+falls back to <code><a href="../../base/html/unique.html">unique()</a></code>, <code><a href="../../base/html/duplicated.html">duplicated()</a></code>, <code><a href="../../base/html/duplicated.html">anyDuplicated()</a></code> and <code>sum(duplicated(x))</code>
+</p>
+
+
+<h3>Value</h3>
+
+
+<ul>
+<li> <p><code>bit_unique</code> returns a vector of unique integers,
+</p>
+</li>
+<li> <p><code>bit_duplicated</code> returns a boolean vector coerced to <code>retFUN</code>,
+</p>
+</li>
+<li> <p><code>bit_anyDuplicated</code> returns the position of the first duplicate (or zero if no
+duplicates)
+</p>
+</li>
+<li> <p><code>bit_sumDuplicated</code> returns the number of duplicated values (as.integer)
+</p>
+</li></ul>
+
+
+
+<h3>Functions</h3>
+
+
+<ul>
+<li> <p><code>bit_unique()</code>: extracts unique elements
+</p>
+</li>
+<li> <p><code>bit_duplicated()</code>: determines duplicate elements
+</p>
+</li>
+<li> <p><code>bit_anyDuplicated()</code>: checks for existence of duplicate elements
+</p>
+</li>
+<li> <p><code>bit_sumDuplicated()</code>: counts duplicate elements
+</p>
+</li></ul>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/bit_sort_unique.html">bit_sort_unique()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>bit_unique(c(2L, 1L, NA, NA, 1L, 2L))
+bit_unique(c(2L, 1L, NA, NA, 1L, 2L), na.rm=FALSE)
+bit_unique(c(2L, 1L, NA, NA, 1L, 2L), na.rm=TRUE)
+
+bit_duplicated(c(2L, 1L, NA, NA, 1L, 2L))
+bit_duplicated(c(2L, 1L, NA, NA, 1L, 2L), na.rm=FALSE)
+bit_duplicated(c(2L, 1L, NA, NA, 1L, 2L), na.rm=TRUE)
+
+bit_anyDuplicated(c(2L, 1L, NA, NA, 1L, 2L))
+bit_anyDuplicated(c(2L, 1L, NA, NA, 1L, 2L), na.rm=FALSE)
+bit_anyDuplicated(c(2L, 1L, NA, NA, 1L, 2L), na.rm=TRUE)
+
+bit_sumDuplicated(c(2L, 1L, NA, NA, 1L, 2L))
+bit_sumDuplicated(c(2L, 1L, NA, NA, 1L, 2L), na.rm=FALSE)
+bit_sumDuplicated(c(2L, 1L, NA, NA, 1L, 2L), na.rm=TRUE)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

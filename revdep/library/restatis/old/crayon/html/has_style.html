@@ -1,0 +1,61 @@
+<!DOCTYPE html><html><head><title>R: Check if a string has some ANSI styling</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>has_style {crayon}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Check if a string has some ANSI styling</h2>
+
+<h3>Description</h3>
+
+<p>Check if a string has some ANSI styling
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>has_style(string)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="string">string</code></td>
+<td>
+<p>The string to check. It can also be a character
+vector.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Logical vector, <code>TRUE</code> for the strings that have some
+ANSI styling.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## The second one has style if crayon is enabled
+has_style("foobar")
+has_style(red("foobar"))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>crayon</em> version 1.5.3 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

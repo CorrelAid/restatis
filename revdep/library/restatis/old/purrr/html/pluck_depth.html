@@ -1,0 +1,70 @@
+<!DOCTYPE html><html><head><title>R: Compute the depth of a vector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>pluck_depth {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute the depth of a vector</h2>
+
+<h3>Description</h3>
+
+<p>The depth of a vector is how many levels that you can index/pluck into it.
+<code>pluck_depth()</code> was previously called <code>vec_depth()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>pluck_depth(x, is_node = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A vector</p>
+</td></tr>
+<tr><td><code id="is_node">is_node</code></td>
+<td>
+<p>Optionally override the default criteria for determine an
+element can be recursed within. The default matches the behaviour of
+<code>pluck()</code> which can recurse into lists and expressions.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An integer.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- list(
+  list(),
+  list(list()),
+  list(list(list(1)))
+)
+pluck_depth(x)
+x |&gt; map_int(pluck_depth)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

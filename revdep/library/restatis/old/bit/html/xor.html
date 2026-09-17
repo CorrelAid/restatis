@@ -1,0 +1,236 @@
+<!DOCTYPE html><html><head><title>R: Boolean operators and functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>xor.default {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Boolean operators and functions</h2>
+
+<h3>Description</h3>
+
+<p>Boolean NEGATION '!', AND '&amp;', OR '|' and EXCLUSIVE OR xor', see
+<code><a href="../../base/help/Logic.html">Logic</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## Default S3 method:
+xor(x, y)
+
+## S3 method for class 'logical'
+xor(x, y)
+
+## S3 method for class 'bit'
+!x
+
+## S3 method for class 'bit'
+e1 &amp; e2
+
+## S3 method for class 'bit'
+e1 | e2
+
+## S3 method for class 'bit'
+e1 == e2
+
+## S3 method for class 'bit'
+e1 != e2
+
+## S3 method for class 'bit'
+xor(x, y)
+
+## S3 method for class 'bitwhich'
+!x
+
+## S3 method for class 'bitwhich'
+e1 &amp; e2
+
+## S3 method for class 'bitwhich'
+e1 | e2
+
+## S3 method for class 'bitwhich'
+e1 == e2
+
+## S3 method for class 'bitwhich'
+e1 != e2
+
+## S3 method for class 'bitwhich'
+xor(x, y)
+
+## S3 method for class 'booltype'
+e1 &amp; e2
+
+## S3 method for class 'booltype'
+e1 | e2
+
+## S3 method for class 'booltype'
+e1 == e2
+
+## S3 method for class 'booltype'
+e1 != e2
+
+## S3 method for class 'booltype'
+xor(x, y)
+
+xor(x, y)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a <code><a href="../../bit/help/is.booltype.html">is.booltype()</a></code> vector</p>
+</td></tr>
+<tr><td><code id="y">y</code></td>
+<td>
+<p>a <code><a href="../../bit/help/is.booltype.html">is.booltype()</a></code> vector</p>
+</td></tr>
+<tr><td><code id="e1">e1</code></td>
+<td>
+<p>a <code><a href="../../bit/help/is.booltype.html">is.booltype()</a></code> vector</p>
+</td></tr>
+<tr><td><code id="e2">e2</code></td>
+<td>
+<p>a <code><a href="../../bit/help/is.booltype.html">is.booltype()</a></code> vector</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The binary operators and function <code>xor</code> can now combine any <code><a href="../../bit/help/is.booltype.html">is.booltype()</a></code> vectors.
+They now recycle if vectors have different length. If the two arguments have different
+<code><a href="../../bit/help/booltypes.html">booltypes()</a></code> the return value corresponds to the lower <code><a href="../../bit/help/booltype.html">booltype()</a></code> of the two.
+</p>
+<p>Boolean operations on <code><a href="../../bit/help/bit.html">bit()</a></code> vectors are extremely fast because they are
+implemented using C's bitwise operators. Boolean operations on or <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code>
+vectors are even faster, if they represent very skewed selections.
+</p>
+<p>The <code>xor</code> function has been made generic and <code>xor.default</code> has
+been implemented much faster than R's standard <code><a href="../../bit/help/xor.html">xor()</a></code>.
+This was possible because actually boolean function <code>xor</code> and
+comparison operator <code>!=</code> do the same (even with NAs), and <code>!=</code> is
+much faster than the multiple calls in <code>(x | y) &amp; !(x &amp; y)</code>
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code><a href="../../bit/help/booltype.html">booltype()</a></code> or <code><a href="../../base/html/logical.html">logical()</a></code>
+</p>
+
+
+<h3>Methods (by class)</h3>
+
+
+<ul>
+<li> <p><code>xor(default)</code>: default method for <code><a href="../../bit/help/xor.html">xor()</a></code>
+</p>
+</li>
+<li> <p><code>xor(logical)</code>: <code><a href="../../base/html/logical.html">logical()</a></code> method for <code><a href="../../bit/help/xor.html">xor()</a></code>
+</p>
+</li>
+<li> <p><code>xor(bit)</code>: <code><a href="../../bit/help/bit.html">bit()</a></code> method for <code><a href="../../bit/help/xor.html">xor()</a></code>
+</p>
+</li>
+<li> <p><code>xor(bitwhich)</code>: <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> method for <code><a href="../../bit/help/xor.html">xor()</a></code>
+</p>
+</li>
+<li> <p><code>xor(booltype)</code>: <code><a href="../../bit/help/booltype.html">booltype()</a></code> method for <code><a href="../../bit/help/xor.html">xor()</a></code>
+</p>
+</li></ul>
+
+
+<h3>Functions</h3>
+
+
+<ul>
+<li> <p><code>`!`(bit)</code>: <code><a href="../../bit/help/bit.html">bit()</a></code> method for <code><a href="../../base/html/Logic.html">!</a></code>
+</p>
+</li>
+<li> <p><code> &amp; </code>: <code><a href="../../bit/help/bit.html">bit()</a></code> method for <code><a href="../../base/html/Logic.html">&amp;</a></code>
+</p>
+</li>
+<li> <p><code> | </code>: <code><a href="../../bit/help/bit.html">bit()</a></code> method for <code><a href="../../base/html/Logic.html">|</a></code>
+</p>
+</li>
+<li> <p><code> == </code>: <code><a href="../../bit/help/bit.html">bit()</a></code> method for <code><a href="../../base/html/Comparison.html">==</a></code>
+</p>
+</li>
+<li> <p><code> != </code>: <code><a href="../../bit/help/bit.html">bit()</a></code> method for <code><a href="../../base/html/Comparison.html">!=</a></code>
+</p>
+</li>
+<li> <p><code>`!`(bitwhich)</code>: <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> method for <code><a href="../../base/html/Logic.html">!</a></code>
+</p>
+</li>
+<li> <p><code> &amp; </code>: <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> method for <code><a href="../../base/html/Logic.html">&amp;</a></code>
+</p>
+</li>
+<li> <p><code> | </code>: <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> method for <code><a href="../../base/html/Logic.html">|</a></code>
+</p>
+</li>
+<li> <p><code> == </code>: <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> method for <code><a href="../../base/html/Comparison.html">==</a></code>
+</p>
+</li>
+<li> <p><code> != </code>: <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> method for <code><a href="../../base/html/Comparison.html">!=</a></code>
+</p>
+</li>
+<li> <p><code> &amp; </code>: <code><a href="../../bit/help/booltype.html">booltype()</a></code> method for <code><a href="../../base/html/Logic.html">&amp;</a></code>
+</p>
+</li>
+<li> <p><code> | </code>: <code><a href="../../bit/help/booltype.html">booltype()</a></code> method for <code><a href="../../base/html/Logic.html">|</a></code>
+</p>
+</li>
+<li> <p><code> == </code>: <code><a href="../../bit/help/booltype.html">booltype()</a></code> method for <code><a href="../../base/html/Comparison.html">==</a></code>
+</p>
+</li>
+<li> <p><code> != </code>: <code><a href="../../bit/help/booltype.html">booltype()</a></code> method for <code><a href="../../base/html/Comparison.html">!=</a></code>
+</p>
+</li></ul>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/booltypes.html">booltypes()</a></code>, <code><a href="../../base/html/Logic.html">Logic</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  x &lt;- c(FALSE, FALSE, FALSE, NA, NA, NA, TRUE, TRUE, TRUE)
+  y &lt;- c(FALSE, NA, TRUE, FALSE, NA, TRUE, FALSE, NA, TRUE)
+
+  x | y
+  x | as.bit(y)
+  x | as.bitwhich(y)
+  x | as.which(y)
+  x | ri(1, 1, 9)
+
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

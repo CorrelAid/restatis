@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><title>R: Combine two or more ANSI styles</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>combine_ansi_styles {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Combine two or more ANSI styles</h2>
+
+<h3>Description</h3>
+
+<p>Combine two or more styles or style functions into a new style function
+that can be called on strings to style them.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>combine_ansi_styles(...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>The styles to combine. For character strings, the
+<code><a href="../../cli/help/make_ansi_style.html">make_ansi_style()</a></code> function is used to create a style first.
+They will be applied from right to left.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>It does not usually make sense to combine two foreground
+colors (or two background colors), because only the first one
+applied will be used.
+</p>
+<p>It does make sense to combine different kind of styles,
+e.g. background color, foreground color, bold font.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The combined style function.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other ANSI styling: 
+<code><a href="../../cli/help/ansi-styles.html">ansi-styles</a></code>,
+<code><a href="../../cli/help/make_ansi_style.html">make_ansi_style</a>()</code>,
+<code><a href="../../cli/help/num_ansi_colors.html">num_ansi_colors</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## Use style names
+alert &lt;- combine_ansi_styles("bold", "red4")
+cat(alert("Warning!"), "\n")
+
+## Or style functions
+alert &lt;- combine_ansi_styles(style_bold, col_red, bg_cyan)
+cat(alert("Warning!"), "\n")
+
+## Combine a composite style
+alert &lt;- combine_ansi_styles(
+  "bold",
+  combine_ansi_styles("red", bg_cyan))
+cat(alert("Warning!"), "\n")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

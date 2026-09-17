@@ -1,0 +1,195 @@
+<!DOCTYPE html><html><head><title>R: Cross Tabulation and Table Creation for integer64</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>table.integer64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cross Tabulation and Table Creation for integer64</h2>
+
+<h3>Description</h3>
+
+<p><code>table.integer64</code> uses the cross-classifying integer64 vectors to build a
+contingency table of the counts at each combination of vector values.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>table.integer64(
+  ...,
+  return = c("table", "data.frame", "list"),
+  order = c("values", "counts"),
+  nunique = NULL,
+  method = NULL,
+  dnn = list.names(...),
+  deparse.level = 1L
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>one or more objects which can be interpreted as factors
+(including character strings), or a list (or data frame) whose
+components can be so interpreted.  (For <code>as.table</code> and <code>as.data.frame</code>,
+arguments passed to specific methods.)</p>
+</td></tr>
+<tr><td><code id="return">return</code></td>
+<td>
+<p>choose the return format, see details</p>
+</td></tr>
+<tr><td><code id="order">order</code></td>
+<td>
+<p>By default results are created sorted by &quot;values&quot;, or by &quot;counts&quot;</p>
+</td></tr>
+<tr><td><code id="nunique">nunique</code></td>
+<td>
+<p>NULL or the number of unique values of table (including NA).
+Providing <code>nunique</code> can speed-up matching when <code>table</code> has no cache. Note
+that a wrong <code>nunique</code> can cause undefined behaviour up to a crash.</p>
+</td></tr>
+<tr><td><code id="method">method</code></td>
+<td>
+<p>NULL for automatic method selection or a suitable low-level
+method, see details</p>
+</td></tr>
+<tr><td><code id="dnn">dnn</code></td>
+<td>
+<p>the names to be given to the dimensions in the result
+(the <em>dimnames names</em>).</p>
+</td></tr>
+<tr><td><code id="deparse.level">deparse.level</code></td>
+<td>
+<p>controls how the default <code>dnn</code> is constructed. See Details.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function automatically chooses from several low-level functions considering
+the size of <code>x</code> and the availability of a cache.
+</p>
+<p>Suitable methods are
+</p>
+
+<ul>
+<li> <p><code><a href="../../bit64/help/hashmaptab.html">hashmaptab</a></code> (simultaneously creating and using a hashmap)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/hashtab.html">hashtab</a></code> (first creating a hashmap then using it)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/sortordertab.html">sortordertab</a></code> (fast ordering)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/ordertab.html">ordertab</a></code> (memory saving ordering).
+</p>
+</li></ul>
+
+<p>If the argument <code>dnn</code> is not supplied, the internal function
+<code>list.names</code> is called to compute the 'dimname names'.  If the
+arguments in <code>...</code> are named, those names are used.  For the
+remaining arguments, <code>deparse.level = 0</code> gives an empty name,
+<code>deparse.level = 1</code> uses the supplied argument if it is a symbol,
+and <code>deparse.level = 2</code> will deparse the argument.
+</p>
+<p>Arguments <code>exclude</code>, <code>useNA</code>, are not supported, i.e. <code>NA</code>s are always tabulated,
+and, different from <code><a href="../../base/html/table.html">table()</a></code> they are sorted first if <code>order="values"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>By default (with <code>return="table"</code>) <code><a href="../../base/html/table.html">table()</a></code> returns a
+<em>contingency table</em>, an object of class <code>"table"</code>, an array of integer values.
+Note that unlike S the result is always an array, a 1D array if one factor is
+given. Note also that for multidimensional arrays this is a <em>dense</em> return
+structure which can dramatically increase RAM requirements (for large arrays
+with high mutual information, i.e. many possible input combinations of which
+only few occur) and that <code><a href="../../base/html/table.html">table()</a></code> is limited to <code>2^31</code> possible combinations
+(e.g. two input vectors with 46340 unique values only). Finally note that the
+tabulated values or value-combinations are represented as <code>dimnames</code> and that
+the implied conversion of values to strings can cause <em>severe</em> performance
+problems since each string needs to be integrated into R's global string cache.
+</p>
+<p>You can use the other <code style="white-space: pre;">&#8288;return=&#8288;</code> options to cope with these problems, the potential
+combination limit is increased from <code>2^31</code> to <code>2^63</code> with these options, RAM is
+only required for observed combinations and string conversion is avoided.
+</p>
+<p>With <code>return="data.frame"</code> you get a <em>dense</em> representation as a <code><a href="../../base/html/data.frame.html">data.frame()</a></code>
+(like that resulting from <code>as.data.frame(table(...))</code>) where only observed
+combinations are listed (each as a data.frame row) with the corresponding
+frequency counts (the latter as component named by <code>responseName</code>). This is
+the inverse of <code><a href="../../stats/html/xtabs.html">xtabs()</a></code>.
+</p>
+<p>With <code>return="list"</code> you also get a <em>dense</em> representation as a simple
+<code><a href="../../base/html/list.html">list()</a></code> with components
+</p>
+
+<ul>
+<li> <p><code>values</code> a integer64 vector of the technically tabulated values, for 1D this
+is the tabulated values themselves, for kD these are the values representing
+the potential combinations of input values
+</p>
+</li>
+<li> <p><code>counts</code> the frequency counts
+</p>
+</li>
+<li> <p><code>dims</code> only for kD: a list with the vectors of the unique values of the
+input dimensions
+</p>
+</li></ul>
+
+
+
+<h3>Note</h3>
+
+<p>Note that by using <code><a href="../../bit64/help/as.integer64.factor.html">as.integer64.factor()</a></code> we can also input
+factors into <code>table.integer64</code> &ndash; only the <code><a href="../../base/html/levels.html">levels()</a></code> get lost.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/table.html">table()</a></code> for more info on the standard version coping with Base R's
+data types, <code><a href="../../base/html/tabulate.html">tabulate()</a></code> which can faster tabulate <code><a href="../../base/html/integer.html">integer</a></code>s with a limited
+range <code style="white-space: pre;">&#8288;[1L .. nL not too big]&#8288;</code>, <code><a href="../../bit64/help/unique.integer64.html">unique.integer64()</a></code> for the unique values
+without counting them and <code><a href="../../bit64/help/unipos.integer64.html">unipos.integer64()</a></code> for the positions of the unique values.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>message("pure integer64 examples")
+x &lt;- as.integer64(sample(c(rep(NA, 9), 1:9), 32, TRUE))
+y &lt;- as.integer64(sample(c(rep(NA, 9), 1:9), 32, TRUE))
+z &lt;- sample(c(rep(NA, 9), letters), 32, TRUE)
+table.integer64(x)
+table.integer64(x, order="counts")
+table.integer64(x, y)
+table.integer64(x, y, return="data.frame")
+
+message("via as.integer64.factor we can use 'table.integer64' also for factors")
+table.integer64(x, as.integer64(as.factor(z)))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

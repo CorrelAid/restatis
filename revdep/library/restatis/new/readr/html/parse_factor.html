@@ -1,0 +1,128 @@
+<!DOCTYPE html><html><head><title>R: Parse factors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>parse_factor {readr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Parse factors</h2>
+
+<h3>Description</h3>
+
+<p><code>parse_factor()</code> is similar to <code><a href="../../base/html/factor.html">factor()</a></code>, but generates a warning if
+<code>levels</code> have been specified and some elements of <code>x</code> are not found in those
+<code>levels</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>parse_factor(
+  x,
+  levels = NULL,
+  ordered = FALSE,
+  na = c("", "NA"),
+  locale = default_locale(),
+  include_na = TRUE,
+  trim_ws = TRUE
+)
+
+col_factor(levels = NULL, ordered = FALSE, include_na = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Character vector of values to parse.</p>
+</td></tr>
+<tr><td><code id="levels">levels</code></td>
+<td>
+<p>Character vector of the allowed levels. When <code>levels = NULL</code>
+(the default), <code>levels</code> are discovered from the unique values of <code>x</code>, in
+the order in which they appear in <code>x</code>.</p>
+</td></tr>
+<tr><td><code id="ordered">ordered</code></td>
+<td>
+<p>Is it an ordered factor?</p>
+</td></tr>
+<tr><td><code id="na">na</code></td>
+<td>
+<p>Character vector of strings to interpret as missing values. Set this
+option to <code>character()</code> to indicate no missing values.</p>
+</td></tr>
+<tr><td><code id="locale">locale</code></td>
+<td>
+<p>The locale controls defaults that vary from place to place.
+The default locale is US-centric (like R), but you can use
+<code><a href="../../readr/help/locale.html">locale()</a></code> to create your own locale that controls things like
+the default time zone, encoding, decimal mark, big mark, and day/month
+names.</p>
+</td></tr>
+<tr><td><code id="include_na">include_na</code></td>
+<td>
+<p>If <code>TRUE</code> and <code>x</code> contains at least one <code>NA</code>, then <code>NA</code>
+is included in the levels of the constructed factor.</p>
+</td></tr>
+<tr><td><code id="trim_ws">trim_ws</code></td>
+<td>
+<p>Should leading and trailing whitespace (ASCII spaces and tabs) be trimmed from
+each field before parsing it?</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p>Other parsers: 
+<code><a href="../../readr/help/col_skip.html">col_skip</a>()</code>,
+<code><a href="../../readr/help/cols.html">cols</a>()</code>,
+<code><a href="../../readr/help/cols_condense.html">cols_condense</a>()</code>,
+<code><a href="../../readr/help/parse_datetime.html">parse_datetime</a>()</code>,
+<code><a href="../../readr/help/parse_guess.html">parse_guess</a>()</code>,
+<code><a href="../../readr/help/parse_logical.html">parse_logical</a>()</code>,
+<code><a href="../../readr/help/parse_number.html">parse_number</a>()</code>,
+<code><a href="../../readr/help/parse_vector.html">parse_vector</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># discover the levels from the data
+parse_factor(c("a", "b"))
+parse_factor(c("a", "b", "-99"))
+parse_factor(c("a", "b", "-99"), na = c("", "NA", "-99"))
+parse_factor(c("a", "b", "-99"), na = c("", "NA", "-99"), include_na = FALSE)
+
+# provide the levels explicitly
+parse_factor(c("a", "b"), levels = letters[1:5])
+
+x &lt;- c("cat", "dog", "caw")
+animals &lt;- c("cat", "dog", "cow")
+
+# base::factor() silently converts elements that do not match any levels to
+# NA
+factor(x, levels = animals)
+
+# parse_factor() generates same factor as base::factor() but throws a warning
+# and reports problems
+parse_factor(x, levels = animals)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>readr</em> version 2.2.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html><html><head><title>R: Customize the appearance of compound pillars in your tibble...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ctl_new_pillar_list {pillar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Customize the appearance of compound pillars in your tibble subclass</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p>Gain full control over the appearance of the pillars of your tibble subclass
+in its body.
+This method is intended for implementers of subclasses of the <code>"tbl"</code> class.
+Users will rarely need them, and we also expect the default implementation
+to be sufficient for the vast majority of cases.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>ctl_new_pillar_list(
+  controller,
+  x,
+  width,
+  ...,
+  title = NULL,
+  first_pillar = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="controller">controller</code></td>
+<td>
+<p>The object of class <code>"tbl"</code> currently printed.</p>
+</td></tr>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A vector, can also be a data frame, matrix, or array.</p>
+</td></tr>
+<tr><td><code id="width">width</code></td>
+<td>
+<p>The available width, can be a vector for multiple tiers.
+If <code>NULL</code>, only the first pillar is instantiated.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="title">title</code></td>
+<td>
+<p>The title, derived from the name of the column in the data.</p>
+</td></tr>
+<tr><td><code id="first_pillar">first_pillar</code></td>
+<td>
+<p>Can be passed to this method if the first pillar
+for a compound pillar (or the pillar itself for a simple pillar)
+has been constructed already.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>ctl_new_pillar_list()</code> is called to construct a list of pillars.
+If <code>x</code> is a regular (one-dimensional) vector, the list contains one pillar
+constructed by <code><a href="../../pillar/help/ctl_new_pillar.html">ctl_new_pillar()</a></code>.
+This method also works for compound columns: columns that are data frames,
+matrices or arrays, with the following behavior:
+</p>
+
+<ul>
+<li><p> If <code>width</code> is <code>NULL</code>, the method always returns a list of length one
+containing one pillar object that represents the first sub-column in this
+compound column.
+</p>
+</li>
+<li><p> Otherwise, the returned list contains one pillar object for all sub-columns
+that can be fit in the available horizontal space.
+These pillar objects are obtained by calling <code>ctl_new_pillar_list()</code>
+with <code>width = NULL</code> on each sub-column until the available width is
+exhausted.
+</p>
+</li></ul>
+
+<p>This method is called to initiate the construction of all pillars
+in the tibble to be printed.
+To ensure that all packed columns that fit the available space are printed,
+<code>ctl_new_pillar_list()</code> may be called twice on the same input:
+once with <code>width = NULL</code>, and
+once with <code>width</code> corresponding to the then known available space
+and with <code>first_pillar</code> set to the pillar object constructed in the
+first call.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+# Simple column
+ctl_new_pillar_list(
+  tibble::tibble(),
+  palmerpenguins::penguins$weight[1:3],
+  width = 10
+)
+
+# Packed data frame: unknown width
+ctl_new_pillar_list(
+  tibble::tibble(),
+  palmerpenguins::penguins[1:3, ],
+  width = NULL
+)
+
+# Packed data frame: known width
+ctl_new_pillar_list(
+  tibble::tibble(),
+  palmerpenguins::penguins,
+  width = 60
+)
+
+# Deeply packed data frame with known width:
+# showing only the first sub-column even if the width is sufficient
+ctl_new_pillar_list(
+  tibble::tibble(),
+  tibble::tibble(x = tibble::tibble(b = 1, c = 2), y = 3),
+  width = 60
+)
+
+# Packed matrix: unknown width
+ctl_new_pillar_list(tibble::tibble(), matrix(1:6, ncol = 2), width = NULL)
+
+# Packed matrix: known width
+ctl_new_pillar_list(tibble::tibble(), matrix(1:6, ncol = 2), width = 60)
+
+# Packed array
+ctl_new_pillar_list(tibble::tibble(), Titanic, width = 60)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>pillar</em> version 1.11.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

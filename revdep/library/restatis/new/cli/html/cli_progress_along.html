@@ -1,0 +1,192 @@
+<!DOCTYPE html><html><head><title>R: Add a progress bar to a mapping function or for loop</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_progress_along {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Add a progress bar to a mapping function or for loop</h2>
+
+<h3>Description</h3>
+
+<p>Note that this function is currently experimental!
+</p>
+<p>Use <code>cli_progress_along()</code> in a mapping function or in a for loop, to add a
+progress bar. It uses <code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar()</a></code> internally.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_progress_along(
+  x,
+  name = NULL,
+  total = length(x),
+  ...,
+  .envir = parent.frame()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Sequence to add the progress bar to.</p>
+</td></tr>
+<tr><td><code id="name">name</code></td>
+<td>
+<p>Name of the progress bar, a label, passed to
+<code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar()</a></code>.</p>
+</td></tr>
+<tr><td><code id="total">total</code></td>
+<td>
+<p>Passed to <code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar()</a></code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Passed to <code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar()</a></code>.</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>Passed to <code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar()</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+
+<h4><code>for</code> loop</h4>
+
+<p>A <code>for</code> loop with <code>cli_progress_along()</code> looks like this:
+</p>
+<div class="sourceCode r"><pre>for (i in cli_progress_along(seq)) {
+  ...
+}
+</pre></div>
+<p>A complete example:
+</p>
+<div class="sourceCode r"><pre>clifun &lt;- function() {
+  for (i in cli_progress_along(1:100, "Downloading")) {
+     Sys.sleep(4/100)
+  }
+}
+clifun()
+</pre></div>
+<p><img src="../help/figures/progress-along-1.svg" alt="progress-along-1.svg">
+</p>
+
+
+
+<h4><code>lapply()</code> and other mapping functions</h4>
+
+<p>They will look like this:
+</p>
+<div class="sourceCode r"><pre>lapply(cli_progress_along(X), function(i) ...)
+</pre></div>
+<p>A complete example:
+</p>
+<div class="sourceCode r"><pre>res &lt;- lapply(cli_progress_along(1:100, "Downloading"), function(i) {
+  Sys.sleep(4/100)
+})
+</pre></div>
+<p><img src="../help/figures/progress-along-2.svg" alt="progress-along-2.svg">
+</p>
+
+
+
+<h4>Custom format string</h4>
+
+<div class="sourceCode r"><pre>clifun &lt;- function() {
+  for (i in cli_progress_along(1:100,
+      format = "Downloading data file {cli::pb_current}")) {
+     Sys.sleep(4/100)
+  }
+}
+clifun()
+</pre></div>
+<p><img src="../help/figures/progress-along-3.svg" alt="progress-along-3.svg">
+</p>
+
+
+
+<h4>Breaking out of loops</h4>
+
+<p>Note that if you use <code>break</code> in the <code>for</code> loop, you probably want to
+terminate the progress bar explicitly when breaking out of the loop,
+or right after the loop:
+</p>
+<div class="sourceCode r"><pre>for (i in cli_progress_along(seq)) {
+  ...
+  if (cond) cli_progress_done() &amp;&amp; break
+  ...
+}
+</pre></div>
+
+
+
+<h3>Value</h3>
+
+<p>An index vector from 1 to <code>length(x)</code> that triggers progress
+updates as you iterate over it.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>This function supports <a href="../../cli/help/inline-markup.html">inline markup</a>.
+</p>
+<p><code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar()</a></code> and the traditional progress bar API.
+</p>
+<p>Other progress bar functions: 
+<code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar</a>()</code>,
+<code><a href="../../cli/help/cli_progress_builtin_handlers.html">cli_progress_builtin_handlers</a>()</code>,
+<code><a href="../../cli/help/cli_progress_message.html">cli_progress_message</a>()</code>,
+<code><a href="../../cli/help/cli_progress_num.html">cli_progress_num</a>()</code>,
+<code><a href="../../cli/help/cli_progress_output.html">cli_progress_output</a>()</code>,
+<code><a href="../../cli/help/cli_progress_step.html">cli_progress_step</a>()</code>,
+<code><a href="../../cli/help/cli_progress_styles.html">cli_progress_styles</a>()</code>,
+<code><a href="../../cli/help/progress-variables.html">progress-variables</a></code>
+</p>
+<p>Other functions supporting inline markup: 
+<code><a href="../../cli/help/cli_abort.html">cli_abort</a>()</code>,
+<code><a href="../../cli/help/cli_alert.html">cli_alert</a>()</code>,
+<code><a href="../../cli/help/cli_blockquote.html">cli_blockquote</a>()</code>,
+<code><a href="../../cli/help/cli_bullets.html">cli_bullets</a>()</code>,
+<code><a href="../../cli/help/cli_bullets_raw.html">cli_bullets_raw</a>()</code>,
+<code><a href="../../cli/help/cli_dl.html">cli_dl</a>()</code>,
+<code><a href="../../cli/help/cli_h1.html">cli_h1</a>()</code>,
+<code><a href="../../cli/help/cli_li.html">cli_li</a>()</code>,
+<code><a href="../../cli/help/cli_ol.html">cli_ol</a>()</code>,
+<code><a href="../../cli/help/cli_process_start.html">cli_process_start</a>()</code>,
+<code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar</a>()</code>,
+<code><a href="../../cli/help/cli_progress_message.html">cli_progress_message</a>()</code>,
+<code><a href="../../cli/help/cli_progress_output.html">cli_progress_output</a>()</code>,
+<code><a href="../../cli/help/cli_progress_step.html">cli_progress_step</a>()</code>,
+<code><a href="../../cli/help/cli_rule.html">cli_rule</a></code>,
+<code><a href="../../cli/help/cli_status.html">cli_status</a>()</code>,
+<code><a href="../../cli/help/cli_status_update.html">cli_status_update</a>()</code>,
+<code><a href="../../cli/help/cli_text.html">cli_text</a>()</code>,
+<code><a href="../../cli/help/cli_ul.html">cli_ul</a>()</code>,
+<code><a href="../../cli/help/format_error.html">format_error</a>()</code>,
+<code><a href="../../cli/help/format_inline.html">format_inline</a>()</code>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

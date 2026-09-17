@@ -1,0 +1,154 @@
+<!DOCTYPE html><html><head><title>R: Interleave many vectors into one vector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_interleave {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Interleave many vectors into one vector</h2>
+
+<h3>Description</h3>
+
+<p><code>vec_interleave()</code> combines multiple vectors together, much like <code><a href="../../vctrs/help/vec_c.html">vec_c()</a></code>,
+but does so in such a way that the elements of each vector are interleaved
+together.
+</p>
+<p>It is a more efficient equivalent to the following usage of <code>vec_c()</code>:
+</p>
+<div class="sourceCode"><pre>vec_interleave(x, y) == vec_c(x[1], y[1], x[2], y[2], ..., x[n], y[n])
+</pre></div>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_interleave(
+  ...,
+  .size = NULL,
+  .ptype = NULL,
+  .name_spec = NULL,
+  .name_repair = c("minimal", "unique", "check_unique", "universal", "unique_quiet",
+    "universal_quiet"),
+  .error_call = current_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Vectors to interleave.</p>
+</td></tr>
+<tr><td><code id=".size">.size</code></td>
+<td>
+<p>The expected size of each vector. If not provided, computed
+automatically by <code><a href="../../vctrs/help/vec_size_common.html">vec_size_common()</a></code>. Each vector will be
+<a href="../../vctrs/help/theory-faq-recycling.html">recycled</a> to this size.</p>
+</td></tr>
+<tr><td><code id=".ptype">.ptype</code></td>
+<td>
+<p>The expected type of each vector. If not provided, computed
+automatically by <code><a href="../../vctrs/help/vec_ptype_common.html">vec_ptype_common()</a></code>. Each vector will be
+<a href="../../vctrs/help/theory-faq-coercion.html">cast</a> to this type.</p>
+</td></tr>
+<tr><td><code id=".name_spec">.name_spec</code></td>
+<td>
+<p>A name specification for combining
+inner and outer names. This is relevant for inputs passed with a
+name, when these inputs are themselves named, like <code>outer = c(inner = 1)</code>, or when they have length greater than 1: <code>outer = 1:2</code>. By default, these cases trigger an error. You can resolve
+the error by providing a specification that describes how to
+combine the names or the indices of the inner vector with the
+name of the input. This specification can be:
+</p>
+
+<ul>
+<li><p> A function of two arguments. The outer name is passed as a
+string to the first argument, and the inner names or positions
+are passed as second argument.
+</p>
+</li>
+<li><p> An anonymous function as a purrr-style formula.
+</p>
+</li>
+<li><p> A glue specification of the form <code>"{outer}_{inner}"</code>.
+</p>
+</li>
+<li> <p><code>"inner"</code>, in which case outer names are ignored, and inner
+names are used if they exist. Note that outer names may still
+be used to provide informative error messages.
+</p>
+</li>
+<li><p> An <code><a href="../../rlang/help/zap.html">rlang::zap()</a></code> object, in which case both outer and inner
+names are ignored and the result is unnamed.
+</p>
+</li></ul>
+
+<p>See the <a href="../../vctrs/help/name_spec.html">name specification topic</a>.</p>
+</td></tr>
+<tr><td><code id=".name_repair">.name_repair</code></td>
+<td>
+<p>How to repair names, see <code>repair</code> options in
+<code><a href="../../vctrs/help/vec_as_names.html">vec_as_names()</a></code>.</p>
+</td></tr>
+<tr><td><code id=".error_call">.error_call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="../../rlang/help/abort.html">abort()</a></code> for more information.</p>
+</td></tr>
+</table>
+
+
+<h3>Dependencies</h3>
+
+
+
+<h4>vctrs dependencies</h4>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/list_combine.html">list_combine()</a></code>
+</p>
+</li></ul>
+
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># The most common case is to interleave two vectors
+vec_interleave(1:3, 4:6)
+
+# But you aren't restricted to just two
+vec_interleave(1:3, 4:6, 7:9, 10:12)
+
+# You can also interleave data frames
+x &lt;- data_frame(x = 1:2, y = c("a", "b"))
+y &lt;- data_frame(x = 3:4, y = c("c", "d"))
+
+vec_interleave(x, y)
+
+# `.size` can be used to recycle size 1 elements before interleaving
+vec_interleave(1, 2, .size = 3)
+
+# `.ptype` can be used to enforce a particular type
+typeof(vec_interleave(1, 2, .ptype = integer()))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html><html><head><title>R: OAuth with a bearer JWT (JSON web token)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_oauth_bearer_jwt {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>OAuth with a bearer JWT (JSON web token)</h2>
+
+<h3>Description</h3>
+
+<p>Authenticate using a <strong>Bearer JWT</strong> (JSON web token) as an authorization
+grant to get an access token, as defined by <a href="https://datatracker.ietf.org/doc/html/rfc7523#section-2.1">Section 2.1 of RFC 7523</a>.
+It is often used for service accounts, accounts that are used primarily in
+automated environments.
+</p>
+<p>Learn more about the overall OAuth authentication flow in
+<a href="https://httr2.r-lib.org/articles/oauth.html">https://httr2.r-lib.org/articles/oauth.html</a>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_oauth_bearer_jwt(
+  req,
+  client,
+  claim,
+  signature = "jwt_encode_sig",
+  signature_params = list(),
+  scope = NULL,
+  token_params = list()
+)
+
+oauth_flow_bearer_jwt(
+  client,
+  claim,
+  signature = "jwt_encode_sig",
+  signature_params = list(),
+  scope = NULL,
+  token_params = list()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="client">client</code></td>
+<td>
+<p>An <code><a href="../../httr2/help/oauth_client.html">oauth_client()</a></code>.</p>
+</td></tr>
+<tr><td><code id="claim">claim</code></td>
+<td>
+<p>A list of claims. If all elements of the claim set are static
+apart from <code>iat</code>, <code>nbf</code>, <code>exp</code>, or <code>jti</code>, provide a list and
+<code><a href="../../httr2/help/jwt_claim.html">jwt_claim()</a></code> will automatically fill in the dynamic components.
+If other components need to vary, you can instead provide a zero-argument
+callback function which should call <code>jwt_claim()</code>.</p>
+</td></tr>
+<tr><td><code id="signature">signature</code></td>
+<td>
+<p>Function use to sign <code>claim</code>, e.g. <code><a href="../../httr2/help/jwt_encode_sig.html">jwt_encode_sig()</a></code>.</p>
+</td></tr>
+<tr><td><code id="signature_params">signature_params</code></td>
+<td>
+<p>Additional arguments passed to <code>signature</code>, e.g.
+<code>size</code>, <code>header</code>.</p>
+</td></tr>
+<tr><td><code id="scope">scope</code></td>
+<td>
+<p>Scopes to be requested from the resource owner.</p>
+</td></tr>
+<tr><td><code id="token_params">token_params</code></td>
+<td>
+<p>List containing additional parameters passed to the
+<code>token_url</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>req_oauth_bearer_jwt()</code> returns a modified HTTP <a href="../../httr2/help/request.html">request</a> that will
+use OAuth; <code>oauth_flow_bearer_jwt()</code> returns an <a href="../../httr2/help/oauth_token.html">oauth_token</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other OAuth flows: 
+<code><a href="../../httr2/help/req_oauth_auth_code.html">req_oauth_auth_code</a>()</code>,
+<code><a href="../../httr2/help/req_oauth_client_credentials.html">req_oauth_client_credentials</a>()</code>,
+<code><a href="../../httr2/help/req_oauth_password.html">req_oauth_password</a>()</code>,
+<code><a href="../../httr2/help/req_oauth_refresh.html">req_oauth_refresh</a>()</code>,
+<code><a href="../../httr2/help/req_oauth_token_exchange.html">req_oauth_token_exchange</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>req_auth &lt;- function(req) {
+  req_oauth_bearer_jwt(
+    req,
+    client = oauth_client("example", "https://example.com/get_token"),
+    claim = jwt_claim()
+  )
+}
+
+request("https://example.com") |&gt;
+ req_auth()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

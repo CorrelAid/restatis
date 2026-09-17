@@ -1,0 +1,151 @@
+<!DOCTYPE html><html><head><title>R: Signal an error, warning or message with a cli formatted...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cli_abort {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Signal an error, warning or message with a cli formatted
+message</h2>
+
+<h3>Description</h3>
+
+<p>These functions let you create error, warning or diagnostic
+messages with cli formatting, including inline styling,
+pluralization and glue substitutions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cli_abort(
+  message,
+  ...,
+  call = .envir,
+  .envir = parent.frame(),
+  .frame = .envir
+)
+
+cli_warn(message, ..., .envir = parent.frame())
+
+cli_inform(message, ..., .envir = parent.frame())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="message">message</code></td>
+<td>
+<p>It is formatted via a call to <code><a href="../../cli/help/cli_bullets.html">cli_bullets()</a></code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Passed to <code><a href="../../rlang/help/abort.html">rlang::abort()</a></code>, <code><a href="../../rlang/help/abort.html">rlang::warn()</a></code> or
+<code><a href="../../rlang/help/abort.html">rlang::inform()</a></code>.</p>
+</td></tr>
+<tr><td><code id="call">call</code></td>
+<td>
+<p>The execution environment of a currently running
+function, e.g. <code>call = caller_env()</code>. The corresponding function
+call is retrieved and mentioned in error messages as the source
+of the error.
+</p>
+<p>You only need to supply <code>call</code> when throwing a condition from a
+helper function which wouldn't be relevant to mention in the
+message.
+</p>
+<p>Can also be <code>NULL</code> or a <a href="../../rlang/help/topic-defuse.html">defused function call</a> to
+respectively not display any call or hard-code a code to display.
+</p>
+<p>For more information about error calls, see <a href="../../rlang/help/topic-error-call.html">Including function calls in error messages</a>.</p>
+</td></tr>
+<tr><td><code id=".envir">.envir</code></td>
+<td>
+<p>Environment to evaluate the glue expressions in.</p>
+</td></tr>
+<tr><td><code id=".frame">.frame</code></td>
+<td>
+<p>The throwing context. Used as default for
+<code>.trace_bottom</code>, and to determine the internal package to mention
+in internal errors when <code>.internal</code> is <code>TRUE</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<div class="sourceCode r"><pre>n &lt;- "boo"
+cli_abort(c(
+        "{.var n} must be a numeric vector",
+  "x" = "You've supplied a {.cls {class(n)}} vector."
+))
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> <span style="font-weight: bold;color: #B58900;">Error</span><span style="font-weight: bold;">:</span>                                                                          
+#> <span style="color: #B58900;">!</span> `n` must be a numeric vector                                                  
+#> <span style="color: #DC322F;">✖</span> You've supplied a <span style="color: #268BD2;">&lt;character&gt;</span> vector.                                         
+#> <span style="color: #525252;">Run `</span><span style="color: #525252;"><a href="x-r-run:rlang::last_trace()">rlang::last_trace()</a></span><span style="color: #525252;">` to see where the error occurred.</span>                      
+</pre></div>
+
+<div class="sourceCode r"><pre>len &lt;- 26
+idx &lt;- 100
+cli_abort(c(
+        "Must index an existing element:",
+  "i" = "There {?is/are} {len} element{?s}.",
+  "x" = "You've tried to subset element {idx}."
+))
+</pre></div>
+<div class="asciicast" style="color: #172431;font-family: 'Fira Code',Monaco,Consolas,Menlo,'Bitstream Vera Sans Mono','Powerline Symbols',monospace;line-height: 1.300000"><pre>
+#> <span style="font-weight: bold;color: #B58900;">Error</span><span style="font-weight: bold;">:</span>                                                                          
+#> <span style="color: #B58900;">!</span> Must index an existing element:                                               
+#> <span style="color: #2AA198;">ℹ</span> There are 26 elements.                                                        
+#> <span style="color: #DC322F;">✖</span> You've tried to subset element 100.                                           
+#> <span style="color: #525252;">Run `</span><span style="color: #525252;"><a href="x-r-run:rlang::last_trace()">rlang::last_trace()</a></span><span style="color: #525252;">` to see where the error occurred.</span>                      
+</pre></div>
+
+
+
+<h3>See Also</h3>
+
+<p>These functions support <a href="../../cli/help/inline-markup.html">inline markup</a>.
+</p>
+<p>Other functions supporting inline markup: 
+<code><a href="../../cli/help/cli_alert.html">cli_alert</a>()</code>,
+<code><a href="../../cli/help/cli_blockquote.html">cli_blockquote</a>()</code>,
+<code><a href="../../cli/help/cli_bullets.html">cli_bullets</a>()</code>,
+<code><a href="../../cli/help/cli_bullets_raw.html">cli_bullets_raw</a>()</code>,
+<code><a href="../../cli/help/cli_dl.html">cli_dl</a>()</code>,
+<code><a href="../../cli/help/cli_h1.html">cli_h1</a>()</code>,
+<code><a href="../../cli/help/cli_li.html">cli_li</a>()</code>,
+<code><a href="../../cli/help/cli_ol.html">cli_ol</a>()</code>,
+<code><a href="../../cli/help/cli_process_start.html">cli_process_start</a>()</code>,
+<code><a href="../../cli/help/cli_progress_along.html">cli_progress_along</a>()</code>,
+<code><a href="../../cli/help/cli_progress_bar.html">cli_progress_bar</a>()</code>,
+<code><a href="../../cli/help/cli_progress_message.html">cli_progress_message</a>()</code>,
+<code><a href="../../cli/help/cli_progress_output.html">cli_progress_output</a>()</code>,
+<code><a href="../../cli/help/cli_progress_step.html">cli_progress_step</a>()</code>,
+<code><a href="../../cli/help/cli_rule.html">cli_rule</a></code>,
+<code><a href="../../cli/help/cli_status.html">cli_status</a>()</code>,
+<code><a href="../../cli/help/cli_status_update.html">cli_status_update</a>()</code>,
+<code><a href="../../cli/help/cli_text.html">cli_text</a>()</code>,
+<code><a href="../../cli/help/cli_ul.html">cli_ul</a>()</code>,
+<code><a href="../../cli/help/format_error.html">format_error</a>()</code>,
+<code><a href="../../cli/help/format_inline.html">format_inline</a>()</code>
+</p>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

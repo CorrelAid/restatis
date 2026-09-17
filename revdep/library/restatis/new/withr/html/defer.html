@@ -1,0 +1,129 @@
+<!DOCTYPE html><html><head><title>R: Defer Evaluation of an Expression</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>defer {withr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Defer Evaluation of an Expression</h2>
+
+<h3>Description</h3>
+
+<p>Similar to <code><a href="../../base/html/on.exit.html">on.exit()</a></code>, but allows one to attach
+an expression to be evaluated when exiting any frame currently
+on the stack. This provides a nice mechanism for scoping side
+effects for the duration of a function's execution.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>defer(expr, envir = parent.frame(), priority = c("first", "last"))
+
+defer_parent(expr, priority = c("first", "last"))
+
+deferred_run(envir = parent.frame())
+
+deferred_clear(envir = parent.frame())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="expr">expr</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[expression]&#8288;</code><br> An expression to be evaluated.</p>
+</td></tr>
+<tr><td><code id="envir">envir</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[environment]&#8288;</code><br> Attach exit handlers to this environment.
+Typically, this should be either the current environment or
+a parent frame (accessed through <code><a href="../../base/html/sys.parent.html">parent.frame()</a></code>).</p>
+</td></tr>
+<tr><td><code id="priority">priority</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[character(1)]&#8288;</code><br> Specify whether this handler should
+be executed <code>"first"</code> or <code>"last"</code>, relative to any other
+registered handlers on this environment.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>defer()</code> works by attaching handlers to the requested environment (as an
+attribute called <code>"handlers"</code>), and registering an exit handler that
+executes the registered handler when the function associated with the
+requested environment finishes execution.
+</p>
+<p>Deferred events can be set on the global environment, primarily to facilitate
+the interactive development of code that is intended to be executed inside a
+function or test. A message alerts the user to the fact that an explicit
+<code>deferred_run()</code> is the only way to trigger these deferred events. Use
+<code>deferred_clear()</code> to clear them without evaluation. The global environment
+scenario is the main motivation for these functions.
+</p>
+
+
+<h3>Running handlers within <code>source()</code></h3>
+
+<p>withr handlers run within <code>source()</code> are run when <code>source()</code> exits
+rather than line by line.
+</p>
+<p>This is only the case when the script is sourced in <code>globalenv()</code>.
+For a local environment, the caller needs to set
+<code>options(withr.hook_source = TRUE)</code>. This is to avoid paying the
+penalty of detecting <code>source()</code> in the normal usage of <code>defer()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># define a 'local' function that creates a file, and
+# removes it when the parent function has finished executing
+local_file &lt;- function(path) {
+  file.create(path)
+  defer_parent(unlink(path))
+}
+
+# create tempfile path
+path &lt;- tempfile()
+
+# use 'local_file' in a function
+local({
+  local_file(path)
+  stopifnot(file.exists(path))
+})
+
+# file is deleted as we leave 'local' local
+stopifnot(!file.exists(path))
+
+# investigate how 'defer' modifies the
+# executing function's environment
+local({
+  local_file(path)
+  print(attributes(environment()))
+})
+
+# Note that examples lack function scoping so deferred calls are
+# generally executed immediately
+defer(print("one"))
+defer(print("two"))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>withr</em> version 3.0.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

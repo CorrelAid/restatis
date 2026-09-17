@@ -1,0 +1,69 @@
+<!DOCTYPE html><html><head><title>R: Splice objects and lists of objects into a list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>splice {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Splice objects and lists of objects into a list</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a>
+</p>
+<p>This function was deprecated in purrr 1.0.0 because we no longer believe that
+this style of implicit/automatic splicing is a good idea; instead use
+<code>rlang::list2()</code> + <code style="white-space: pre;">&#8288;!!!&#8288;</code> or <code><a href="../../purrr/help/list_flatten.html">list_flatten()</a></code>.
+</p>
+<p><code>splice()</code> splices all arguments into a list. Non-list objects and lists
+with a S3 class are encapsulated in a list before concatenation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>splice(...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Objects to concatenate.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>inputs &lt;- list(arg1 = "a", arg2 = "b")
+
+# splice() concatenates the elements of inputs with arg3
+splice(inputs, arg3 = c("c1", "c2")) |&gt; str()
+list(inputs, arg3 = c("c1", "c2")) |&gt; str()
+c(inputs, arg3 = c("c1", "c2")) |&gt; str()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,86 @@
+StreamingBody           'StreamingBody' class
+curl_translate          Translate curl syntax to httr2
+is_online               Is your computer currently online?
+iterate_with_offset     Iteration helpers
+last_response           Retrieve most recent request/response
+new_response            Create a HTTP response
+oauth_cache_clear       Clear OAuth cache
+oauth_cache_path        httr2 OAuth cache location
+oauth_client            Create an OAuth client
+oauth_client_req_auth   OAuth client authentication
+oauth_redirect_uri      Default redirect url for OAuth
+oauth_token             Create an OAuth token
+obfuscate               Obfuscate mildly secret information
+req_auth_aws_v4         Sign a request with the AWS SigV4 signing
+                        protocol
+req_auth_basic          Authenticate request with HTTP basic
+                        authentication
+req_auth_bearer_token   Authenticate request with bearer token
+req_body_raw            Send data in request body
+req_cache               Automatically cache requests
+req_cookie_preserve     Set and preserve cookies
+req_dry_run             Perform a dry run
+req_error               Control handling of HTTP errors
+req_get_body_type       Get request body
+req_get_headers         Get request headers
+req_get_method          Get request method
+req_get_url             Get request URL
+req_headers             Modify request headers
+req_method              Set HTTP method in request
+req_oauth_auth_code     OAuth with authorization code
+req_oauth_bearer_jwt    OAuth with a bearer JWT (JSON web token)
+req_oauth_client_credentials
+                        OAuth with client credentials
+req_oauth_device        OAuth with device flow
+req_oauth_password      OAuth with username and password
+req_oauth_refresh       OAuth with a refresh token
+req_oauth_token_exchange
+                        OAuth token exchange
+req_options             Set arbitrary curl options in request
+req_perform             Perform a request to get a response
+req_perform_connection
+                        Perform a request and return a streaming
+                        connection
+req_perform_iterative   Perform requests iteratively, generating new
+                        requests from previous responses
+req_perform_parallel    Perform a list of requests in parallel
+req_perform_promise     Perform request asynchronously using the
+                        promises package
+req_perform_sequential
+                        Perform multiple requests in sequence
+req_perform_stream      Perform a request and handle data as it streams
+                        back
+req_progress            Add a progress bar to long downloads or uploads
+req_proxy               Use a proxy for a request
+req_retry               Automatically retry a request on failure
+req_template            Set request method/path from a template
+req_throttle            Rate limit a request by automatically adding a
+                        delay
+req_timeout             Set time limit for a request
+req_url                 Modify request URL
+req_user_agent          Set user-agent for a request
+req_verbose             Show extra output when request is performed
+request                 Create a new HTTP request
+resp_body_raw           Extract body from response
+resp_check_content_type
+                        Check the content type of a response
+resp_content_type       Extract response content type and encoding
+resp_date               Extract request date from response
+resp_headers            Extract headers from a response
+resp_link_url           Parse link URL from a response
+resp_raw                Show the raw response
+resp_request            Find the request responsible for a response
+resp_retry_after        Extract wait time from a response
+resp_status             Extract HTTP status from response
+resp_stream_raw         Read a streaming body a chunk at a time
+resp_timing             Extract timing data
+resp_url                Get URL/components from the response
+response                Create a HTTP response for testing
+resps_successes         Tools for working with lists of responses
+secret_make_key         Secret management
+url_build               Build a string from a URL object
+url_modify              Modify a URL
+url_parse               Parse a URL into its component pieces
+url_query_parse         Parse query parameters and/or build a string
+with_mocked_responses   Temporarily mock requests
+with_verbosity          Temporarily set verbosity for all requests

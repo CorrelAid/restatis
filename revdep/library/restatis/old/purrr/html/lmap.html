@@ -1,0 +1,155 @@
+<!DOCTYPE html><html><head><title>R: Apply a function to list-elements of a list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>lmap {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Apply a function to list-elements of a list</h2>
+
+<h3>Description</h3>
+
+<p><code>lmap()</code>, <code>lmap_at()</code> and <code>lmap_if()</code> are similar to <code>map()</code>, <code>map_at()</code> and
+<code>map_if()</code>, except instead of mapping over <code>.x[[i]]</code>, they instead map over
+<code>.x[i]</code>.
+</p>
+<p>This has several advantages:
+</p>
+
+<ul>
+<li><p> It makes it possible to work with functions that exclusively take a list.
+</p>
+</li>
+<li><p> It allows <code>.f</code> to access the attributes of the encapsulating list,
+like <code><a href="../../base/html/names.html">names()</a></code>.
+</p>
+</li>
+<li><p> It allows <code>.f</code> to return a larger or small list than it receives
+changing the size of the output.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>lmap(.x, .f, ...)
+
+lmap_if(.x, .p, .f, ..., .else = NULL)
+
+lmap_at(.x, .at, .f, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>A list or data frame.</p>
+</td></tr>
+<tr><td><code id=".f">.f</code></td>
+<td>
+<p>A function that takes a length-1 list and returns a list (of any
+length.)</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed on to the mapped function.
+</p>
+<p>We now generally recommend against using <code>...</code> to pass additional
+(constant) arguments to <code>.f</code>. Instead use a shorthand anonymous function:
+</p>
+<div class="sourceCode R"><pre># Instead of
+x |&gt; map(f, 1, 2, collapse = ",")
+# do:
+x |&gt; map(\(x) f(x, 1, 2, collapse = ","))
+</pre></div>
+<p>This makes it easier to understand which arguments belong to which
+function and will tend to yield better error messages.</p>
+</td></tr>
+<tr><td><code id=".p">.p</code></td>
+<td>
+<p>A single predicate function, a formula describing such a
+predicate function, or a logical vector of the same length as <code>.x</code>.
+Alternatively, if the elements of <code>.x</code> are themselves lists of
+objects, a string indicating the name of a logical element in the
+inner lists. Only those elements where <code>.p</code> evaluates to
+<code>TRUE</code> will be modified.</p>
+</td></tr>
+<tr><td><code id=".else">.else</code></td>
+<td>
+<p>A function applied to elements of <code>.x</code> for which <code>.p</code>
+returns <code>FALSE</code>.</p>
+</td></tr>
+<tr><td><code id=".at">.at</code></td>
+<td>
+<p>A logical, integer, or character vector giving the elements
+to select. Alternatively, a function that takes a vector of names,
+and returns a logical, integer, or character vector of elements to select.
+</p>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a>: if the tidyselect package is
+installed, you can use <code>vars()</code> and tidyselect helpers to select
+elements.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list or data frame, matching <code>.x</code>. There are no guarantees about
+the length.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other map variants: 
+<code><a href="../../purrr/help/imap.html">imap</a>()</code>,
+<code><a href="../../purrr/help/map.html">map</a>()</code>,
+<code><a href="../../purrr/help/map2.html">map2</a>()</code>,
+<code><a href="../../purrr/help/map_depth.html">map_depth</a>()</code>,
+<code><a href="../../purrr/help/map_if.html">map_if</a>()</code>,
+<code><a href="../../purrr/help/modify.html">modify</a>()</code>,
+<code><a href="../../purrr/help/pmap.html">pmap</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>set.seed(1014)
+
+# Let's write a function that returns a larger list or an empty list
+# depending on some condition. It also uses the input name to name the
+# output
+maybe_rep &lt;- function(x) {
+  n &lt;- rpois(1, 2)
+  set_names(rep_len(x, n), paste0(names(x), seq_len(n)))
+}
+
+# The output size varies each time we map f()
+x &lt;- list(a = 1:4, b = letters[5:7], c = 8:9, d = letters[10])
+x |&gt; lmap(maybe_rep) |&gt; str()
+
+# We can apply f() on a selected subset of x
+x |&gt; lmap_at(c("a", "d"), maybe_rep) |&gt; str()
+
+# Or only where a condition is satisfied
+x |&gt; lmap_if(is.character, maybe_rep) |&gt; str()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

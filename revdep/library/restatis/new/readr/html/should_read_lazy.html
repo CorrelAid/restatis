@@ -1,0 +1,51 @@
+<!DOCTYPE html><html><head><title>R: Determine whether to read a file lazily</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>should_read_lazy {readr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Determine whether to read a file lazily</h2>
+
+<h3>Description</h3>
+
+<p>This function consults the option <code>readr.read_lazy</code> to figure out whether to
+do lazy reading or not. If the option is unset, the default is <code>FALSE</code>,
+meaning readr will read files eagerly, not lazily. If you want to use this
+option to express a preference for lazy reading, do this:
+</p>
+<div class="sourceCode"><pre>options(readr.read_lazy = TRUE)
+</pre></div>
+<p>Typically, one would use the option to control lazy reading at the session,
+file, or user level. The <code>lazy</code> argument of functions like <code><a href="../../readr/help/read_csv.html">read_csv()</a></code> can
+be used to control laziness in an individual call.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>should_read_lazy()
+</code></pre>
+
+
+<h3>See Also</h3>
+
+<p>The blog post <a href="https://tidyverse.org/blog/2021/11/readr-2-1-0-lazy/">&quot;Eager vs lazy reading in readr 2.1.0&quot;</a> explains
+the benefits (and downsides) of lazy reading.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>readr</em> version 2.2.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html><html><head><title>R: Function for chunked range index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>chunks {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Function for chunked range index</h2>
+
+<h3>Description</h3>
+
+<p>creates a sequence of range indexes using a syntax not completely unlike
+'seq'
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>chunks(
+  from = NULL,
+  to = NULL,
+  by = NULL,
+  length.out = NULL,
+  along.with = NULL,
+  overlap = 0L,
+  method = c("bbatch", "seq"),
+  maxindex = NA
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="from">from</code></td>
+<td>
+<p>the starting value of the sequence.</p>
+</td></tr>
+<tr><td><code id="to">to</code></td>
+<td>
+<p>the (maximal) end value of the sequence.</p>
+</td></tr>
+<tr><td><code id="by">by</code></td>
+<td>
+<p>increment of the sequence</p>
+</td></tr>
+<tr><td><code id="length.out">length.out</code></td>
+<td>
+<p>desired length of the sequence.</p>
+</td></tr>
+<tr><td><code id="along.with">along.with</code></td>
+<td>
+<p>take the length from the length of this argument.</p>
+</td></tr>
+<tr><td><code id="overlap">overlap</code></td>
+<td>
+<p>number of values to overlap (will lower the starting value of
+the sequence, the first range becomes smaller</p>
+</td></tr>
+<tr><td><code id="method">method</code></td>
+<td>
+<p>default 'bbatch' will try to balance the chunk size, see
+<code><a href="../../bit/help/bbatch.html">bbatch()</a></code>, 'seq' will create chunks like <code><a href="../../base/help/seq.html">seq()</a></code></p>
+</td></tr>
+<tr><td><code id="maxindex">maxindex</code></td>
+<td>
+<p>passed to <code><a href="../../bit/help/ri.html">ri()</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>returns a named list of <code><a href="../../bit/help/ri.html">ri()</a></code> objects
+representing chunks of subscripts
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p>generic <code><a href="../../bit/help/chunk.html">chunk()</a></code>, <code><a href="../../bit/help/ri.html">ri()</a></code>, <code><a href="../../base/help/seq.html">seq()</a></code>, <code><a href="../../bit/help/bbatch.html">bbatch()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  chunks(1, 100, by=30)
+  chunks(1, 100, by=30, method="seq")
+   ## Not run: 
+require(foreach)
+m &lt;- 10000
+k &lt;- 1000
+n &lt;- m*k
+message("Four ways to loop from 1 to n. Slowest foreach to fastest chunk is 1700:1
+on a dual core notebook with 3GB RAM\n")
+z &lt;- 0L;
+print(k*system.time({it &lt;- icount(m); foreach (i = it) %do% { z &lt;- i; NULL }}))
+z
+
+z &lt;- 0L
+print(system.time({i &lt;- 0L; while (i &lt; n) {i &lt;- i + 1L; z &lt;- i}}))
+z
+
+z &lt;- 0L
+print(system.time(for (i in 1:n) z &lt;- i))
+z
+
+z &lt;- 0L; n &lt;- m*k;
+print(system.time(for (ch in chunks(1, n, by=m)) {for (i in ch[1]:ch[2]) z &lt;- i}))
+z
+
+message("Seven ways to calculate sum(1:n).
+ Slowest foreach to fastest chunk is 61000:1 on a dual core notebook with 3GB RAM\n")
+print(k*system.time({it &lt;- icount(m); foreach (i = it, .combine="+") %do% { i }}))
+
+z &lt;- 0;
+print(k*system.time({it &lt;- icount(m); foreach (i = it) %do% { z &lt;- z + i; NULL }}))
+z
+
+z &lt;- 0; print(system.time({i &lt;- 0L;while (i &lt; n) {i &lt;- i + 1L; z &lt;- z + i}})); z
+
+z &lt;- 0; print(system.time(for (i in 1:n) z &lt;- z + i)); z
+
+print(system.time(sum(as.double(1:n))))
+
+z &lt;- 0; n &lt;- m*k
+print(system.time(for (ch in chunks(1, n, by=m)) {for (i in ch[1]:ch[2]) z &lt;- z + i}))
+z
+
+z &lt;- 0; n &lt;- m*k
+print(system.time(for (ch in chunks(1, n, by=m)) {z &lt;- z + sum(as.double(ch[1]:ch[2]))}))
+z
+   
+## End(Not run)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

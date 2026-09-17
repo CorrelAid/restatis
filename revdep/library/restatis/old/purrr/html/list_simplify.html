@@ -1,0 +1,84 @@
+<!DOCTYPE html><html><head><title>R: Simplify a list to an atomic or S3 vector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>list_simplify {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simplify a list to an atomic or S3 vector</h2>
+
+<h3>Description</h3>
+
+<p>Simplification maintains a one-to-one correspondence between the input
+and output, implying that each element of <code>x</code> must contain a one element
+vector or a one-row data frame. If you don't want to maintain this
+correspondence, then you probably want either <code><a href="../../purrr/help/list_c.html">list_c()</a></code>/<code><a href="../../purrr/help/list_rbind.html">list_rbind()</a></code> or
+<code><a href="../../purrr/help/list_flatten.html">list_flatten()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>list_simplify(x, ..., strict = TRUE, ptype = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A list.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="strict">strict</code></td>
+<td>
+<p>What should happen if simplification fails? If <code>TRUE</code>
+(the default) it will error. If <code>FALSE</code> and <code>ptype</code> is not supplied,
+it will return <code>x</code> unchanged.</p>
+</td></tr>
+<tr><td><code id="ptype">ptype</code></td>
+<td>
+<p>An optional prototype to ensure that the output type is always
+the same.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A vector the same length as <code>x</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>list_simplify(list(1, 2, 3))
+
+# Only works when vectors are length one and have compatible types:
+try(list_simplify(list(1, 2, 1:3)))
+try(list_simplify(list(1, 2, "x")))
+
+# Unless you strict = FALSE, in which case you get the input back:
+list_simplify(list(1, 2, 1:3), strict = FALSE)
+list_simplify(list(1, 2, "x"), strict = FALSE)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html><html><head><title>R: Vectorized Sequences</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vecseq {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Vectorized Sequences</h2>
+
+<h3>Description</h3>
+
+<p><code>vecseq</code> returns concatenated multiple sequences
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vecseq(x, y = NULL, concat = TRUE, eval = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>vector of sequence start points</p>
+</td></tr>
+<tr><td><code id="y">y</code></td>
+<td>
+<p>vector of sequence end points (if <code>is.null(y)</code> then <code>x</code>
+are taken as endpoints, all starting at 1)</p>
+</td></tr>
+<tr><td><code id="concat">concat</code></td>
+<td>
+<p>vector of sequence end points (if <code>is.null(y)</code> then
+<code>x</code> are taken as endpoints, all starting at 1)</p>
+</td></tr>
+<tr><td><code id="eval">eval</code></td>
+<td>
+<p>vector of sequence end points (if <code>is.null(y)</code> then
+<code>x</code> are taken as endpoints, all starting at 1)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a generalization of <code><a href="../../base/html/sequence.html">sequence()</a></code> in that you can choose
+sequence starts other than 1 and also have options to no concat and/or
+return a call instead of the evaluated sequence.
+</p>
+
+
+<h3>Value</h3>
+
+
+<ul>
+<li><p> if <code>concat == FALSE</code> and <code>eval == FALSE</code> a list with n calls that generate sequences
+</p>
+</li>
+<li><p> if <code>concat == FALSE</code> and <code>eval == TRUE </code> a list with n sequences
+</p>
+</li>
+<li><p> if <code>concat == TRUE </code> and <code>eval == FALSE</code> a single call generating the concatenated
+sequences
+</p>
+</li>
+<li><p> if <code>concat == TRUE</code> and <code>eval == TRUE </code> an integer vector of concatentated sequences
+</p>
+</li></ul>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Angelo Canty, Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/Colon.html">:</a></code>, <code><a href="../../base/html/seq.html">seq()</a></code>, <code><a href="../../base/html/sequence.html">sequence()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  sequence(c(3, 4))
+  vecseq(c(3, 4))
+  vecseq(c(1, 11), c(5, 15))
+  vecseq(c(1, 11), c(5, 15), concat=FALSE, eval=FALSE)
+  vecseq(c(1, 11), c(5, 15), concat=FALSE, eval=TRUE)
+  vecseq(c(1, 11), c(5, 15), concat=TRUE, eval=FALSE)
+  vecseq(c(1, 11), c(5, 15), concat=TRUE, eval=TRUE)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

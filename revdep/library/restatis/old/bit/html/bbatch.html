@@ -1,0 +1,95 @@
+<!DOCTYPE html><html><head><title>R: Balanced Batch sizes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>bbatch {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Balanced Batch sizes</h2>
+
+<h3>Description</h3>
+
+<p><code>bbatch</code> calculates batch sizes in 1..N so that they have rather balanced
+sizes than very different sizes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>bbatch(N, B)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="N">N</code></td>
+<td>
+<p>total size in 0..integer_max</p>
+</td></tr>
+<tr><td><code id="B">B</code></td>
+<td>
+<p>desired batch size in 1..integer_max</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Tries to have <code>rb == 0</code> or <code>rb</code> as close to <code>b</code> as possible
+while guaranteeing that <code>rb &lt; b &amp;&amp; (b - rb) &lt;= min(nb, b)</code>
+</p>
+
+
+<h3>Value</h3>
+
+<p>a list with components:
+</p>
+
+<ul>
+<li><p> b: the batch size
+</p>
+</li>
+<li><p> nb: the number of batches
+</p>
+</li>
+<li><p> rb: the size of the rest
+</p>
+</li></ul>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/repfromto.html">repfromto()</a></code>, <code><a href="../../ff/help/ffapply.html">ff::ffvecapply()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  bbatch(100, 24)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

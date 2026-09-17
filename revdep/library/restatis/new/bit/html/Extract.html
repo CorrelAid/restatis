@@ -1,0 +1,125 @@
+<!DOCTYPE html><html><head><title>R: Extract or replace part of an boolean vector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>Extract {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract or replace part of an boolean vector</h2>
+
+<h3>Description</h3>
+
+<p>Operators acting on <code><a href="../../bit/help/bit.html">bit()</a></code> or <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> objects to extract or replace parts.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'bit'
+x[[i]]
+
+## S3 replacement method for class 'bit'
+x[[i]] &lt;- value
+
+## S3 method for class 'bit'
+x[i]
+
+## S3 replacement method for class 'bit'
+x[i] &lt;- value
+
+## S3 method for class 'bitwhich'
+x[[i]]
+
+## S3 replacement method for class 'bitwhich'
+x[[i]] &lt;- value
+
+## S3 method for class 'bitwhich'
+x[i]
+
+## S3 replacement method for class 'bitwhich'
+x[i] &lt;- value
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a <code><a href="../../bit/help/bit.html">bit()</a></code> or <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> object</p>
+</td></tr>
+<tr><td><code id="i">i</code></td>
+<td>
+<p>preferrably a positive integer subscript or a <code><a href="../../bit/help/ri.html">ri()</a></code>, see text</p>
+</td></tr>
+<tr><td><code id="value">value</code></td>
+<td>
+<p>new logical or integer values</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The typical usecase for '[' and '[&lt;-' is subscripting with positive integers,
+negative integers are allowed but slower,
+as logical subscripts only scalars are allowed.
+The subscript can be given as a <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> object.
+Also <code><a href="../../bit/help/ri.html">ri()</a></code> can be used as subscript.
+</p>
+<p>Extracting from <code><a href="../../bit/help/bit.html">bit()</a></code> and <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> is faster than from  <code><a href="../../base/html/logical.html">logical()</a></code> if positive
+subscripts are used. Unteger subscripts make sense.  Negative subscripts are
+converted to positive ones, beware the RAM consumption.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The extractors <code>[[</code> and <code>[</code> return a logical scalar or
+vector.  The replacment functions return an object of <code>class(x)</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/bit.html">bit()</a></code>, <a href="../../base/help/Extract.html">'Extract&ldquo;</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  x &lt;- as.bit(c(FALSE, NA, TRUE))
+  x[] &lt;- c(FALSE, NA, TRUE)
+  x[1:2]
+  x[-3]
+  x[ri(1, 2)]
+  x[as.bitwhich(c(TRUE, TRUE, FALSE))]
+  x[[1]]
+  x[] &lt;- TRUE
+  x[1:2] &lt;- FALSE
+  x[[1]] &lt;- TRUE
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

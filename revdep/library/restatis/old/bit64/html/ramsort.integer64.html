@@ -1,0 +1,272 @@
+<!DOCTYPE html><html><head><title>R: Low-level intger64 methods for in-RAM sorting and ordering</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>ramsort.integer64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Low-level intger64 methods for in-RAM sorting and ordering</h2>
+
+<h3>Description</h3>
+
+<p>Fast low-level methods for sorting and ordering. The <code>..sortorder</code>
+methods do sorting and ordering at once, which requires more RAM
+than ordering but is (almost) as fast as as sorting.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'integer64'
+shellsort(x, has.na = TRUE, na.last = FALSE, decreasing = FALSE, ...)
+
+## S3 method for class 'integer64'
+shellsortorder(x, i, has.na = TRUE, na.last = FALSE, decreasing = FALSE, ...)
+
+## S3 method for class 'integer64'
+shellorder(x, i, has.na = TRUE, na.last = FALSE, decreasing = FALSE, ...)
+
+## S3 method for class 'integer64'
+mergesort(x, has.na = TRUE, na.last = FALSE, decreasing = FALSE, ...)
+
+## S3 method for class 'integer64'
+mergeorder(x, i, has.na = TRUE, na.last = FALSE, decreasing = FALSE, ...)
+
+## S3 method for class 'integer64'
+mergesortorder(x, i, has.na = TRUE, na.last = FALSE, decreasing = FALSE, ...)
+
+## S3 method for class 'integer64'
+quicksort(
+  x,
+  has.na = TRUE,
+  na.last = FALSE,
+  decreasing = FALSE,
+  restlevel = floor(1.5 * log2(length(x))),
+  ...
+)
+
+## S3 method for class 'integer64'
+quicksortorder(
+  x,
+  i,
+  has.na = TRUE,
+  na.last = FALSE,
+  decreasing = FALSE,
+  restlevel = floor(1.5 * log2(length(x))),
+  ...
+)
+
+## S3 method for class 'integer64'
+quickorder(
+  x,
+  i,
+  has.na = TRUE,
+  na.last = FALSE,
+  decreasing = FALSE,
+  restlevel = floor(1.5 * log2(length(x))),
+  ...
+)
+
+## S3 method for class 'integer64'
+radixsort(
+  x,
+  has.na = TRUE,
+  na.last = FALSE,
+  decreasing = FALSE,
+  radixbits = 8L,
+  ...
+)
+
+## S3 method for class 'integer64'
+radixsortorder(
+  x,
+  i,
+  has.na = TRUE,
+  na.last = FALSE,
+  decreasing = FALSE,
+  radixbits = 8L,
+  ...
+)
+
+## S3 method for class 'integer64'
+radixorder(
+  x,
+  i,
+  has.na = TRUE,
+  na.last = FALSE,
+  decreasing = FALSE,
+  radixbits = 8L,
+  ...
+)
+
+## S3 method for class 'integer64'
+ramsort(
+  x,
+  has.na = TRUE,
+  na.last = FALSE,
+  decreasing = FALSE,
+  stable = TRUE,
+  optimize = c("time", "memory"),
+  VERBOSE = FALSE,
+  ...
+)
+
+## S3 method for class 'integer64'
+ramsortorder(
+  x,
+  i,
+  has.na = TRUE,
+  na.last = FALSE,
+  decreasing = FALSE,
+  stable = TRUE,
+  optimize = c("time", "memory"),
+  VERBOSE = FALSE,
+  ...
+)
+
+## S3 method for class 'integer64'
+ramorder(
+  x,
+  i,
+  has.na = TRUE,
+  na.last = FALSE,
+  decreasing = FALSE,
+  stable = TRUE,
+  optimize = c("time", "memory"),
+  VERBOSE = FALSE,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a vector to be sorted by <code><a href="../../bit64/help/ramsort.integer64.html">ramsort.integer64()</a></code> and
+<code><a href="../../bit64/help/ramsortorder.integer64.html">ramsortorder.integer64()</a></code>, i.e. the output of  <code><a href="../../bit64/help/sort.integer64.html">sort.integer64()</a></code></p>
+</td></tr>
+<tr><td><code id="has.na">has.na</code></td>
+<td>
+<p>boolean scalar defining whether the input vector might contain
+<code>NA</code>s. If we know we don't have NAs, this may speed-up. <em>Note</em> that you
+risk a crash if there are unexpected <code>NA</code>s with <code>has.na=FALSE</code></p>
+</td></tr>
+<tr><td><code id="na.last">na.last</code></td>
+<td>
+<p>boolean scalar telling ramsort whether to sort <code>NA</code>s last
+or first. <em>Note</em> that 'boolean' means that there is no third option <code>NA</code>
+as in <code><a href="../../base/html/sort.html">sort()</a></code></p>
+</td></tr>
+<tr><td><code id="decreasing">decreasing</code></td>
+<td>
+<p>boolean scalar telling ramsort whether to sort increasing
+or decreasing</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments, passed from generics, ignored in methods</p>
+</td></tr>
+<tr><td><code id="i">i</code></td>
+<td>
+<p>integer positions to be modified by <code><a href="../../bit64/help/ramorder.integer64.html">ramorder.integer64()</a></code> and
+<code><a href="../../bit64/help/ramsortorder.integer64.html">ramsortorder.integer64()</a></code>, default is 1:n, in this case the output is
+similar to <code><a href="../../bit64/help/order.integer64.html">order.integer64()</a></code></p>
+</td></tr>
+<tr><td><code id="restlevel">restlevel</code></td>
+<td>
+<p>number of remaining recursionlevels before <code>quicksort</code>
+switches from recursing to <code>shellsort</code></p>
+</td></tr>
+<tr><td><code id="radixbits">radixbits</code></td>
+<td>
+<p>size of radix in bits</p>
+</td></tr>
+<tr><td><code id="stable">stable</code></td>
+<td>
+<p>boolean scalar defining whether stable sorting is needed.
+Allowing non-stable may speed-up.</p>
+</td></tr>
+<tr><td><code id="optimize">optimize</code></td>
+<td>
+<p>by default ramsort optimizes for 'time' which requires more
+RAM, set to 'memory' to minimize RAM requirements and sacrifice speed</p>
+</td></tr>
+<tr><td><code id="VERBOSE">VERBOSE</code></td>
+<td>
+<p>cat some info about chosen method</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>See <code><a href="../../bit/help/Sorting.html">bit::ramsort()</a></code>
+</p>
+
+
+<h3>Value</h3>
+
+<p>These functions return the number of <code>NAs</code> found or assumed
+during sorting
+</p>
+
+
+<h3>Note</h3>
+
+<p>Note that these methods purposely violate the functional programming
+paradigm: they are called for the side-effect of changing some of
+their arguments. The <code>sort</code>-methods change <code>x</code>, the <code>order</code>-methods
+change <code>i</code>, and the <code>sortoder</code>-methods change both <code>x</code> and <code>i</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/Sorting.html">bit::ramsort()</a></code> for the generic, <code>ramsort.default</code> for the methods
+provided by package ff, <code><a href="../../bit64/help/sort.integer64.html">sort.integer64()</a></code> for the sort interface and
+<code><a href="../../bit64/help/sortcache.html">sortcache()</a></code> for caching the work of sorting
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  x &lt;- as.integer64(sample(c(rep(NA, 9), 1:9), 32, TRUE))
+  x
+  message("ramsort example")
+  s &lt;- clone(x)
+  ramsort(s)
+  message("s has been changed in-place - whether or not ramsort uses an in-place algorithm")
+  s
+  message("ramorder example")
+  s &lt;- clone(x)
+  o &lt;- seq_along(s)
+  ramorder(s, o)
+  message("o has been changed in-place - s remains unchanged")
+  s
+  o
+  s[o]
+  message("ramsortorder example")
+  o &lt;- seq_along(s)
+  ramsortorder(s, o)
+  message("s and o have both been changed in-place - this is much faster")
+  s
+  o
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

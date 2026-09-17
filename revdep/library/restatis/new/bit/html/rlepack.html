@@ -1,0 +1,115 @@
+<!DOCTYPE html><html><head><title>R: Hybrid Index, rle-pack utilities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>rlepack {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Hybrid Index, rle-pack utilities</h2>
+
+<h3>Description</h3>
+
+<p>Basic utilities for rle packing and unpacking and apropriate methods for
+<code><a href="../../base/html/rev.html">rev()</a></code> and <code><a href="../../base/html/unique.html">unique()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>rlepack(x, ...)
+
+## S3 method for class 'integer'
+rlepack(x, pack = TRUE, ...)
+
+rleunpack(x)
+
+## S3 method for class 'rlepack'
+rleunpack(x)
+
+## S3 method for class 'rlepack'
+rev(x)
+
+## S3 method for class 'rlepack'
+unique(x, incomparables = FALSE, ...)
+
+## S3 method for class 'rlepack'
+anyDuplicated(x, incomparables = FALSE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>in 'rlepack' an integer vector, in the other functions an object of
+class 'rlepack'</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>just to keep R CMD CHECK quiet (not used)</p>
+</td></tr>
+<tr><td><code id="pack">pack</code></td>
+<td>
+<p>FALSE to suppress packing</p>
+</td></tr>
+<tr><td><code id="incomparables">incomparables</code></td>
+<td>
+<p>just to keep R CMD CHECK quiet (not used)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list with components:
+</p>
+
+<ul>
+<li><p> first: the first element of the packed sequence
+</p>
+</li>
+<li><p> dat: either an object of class <code><a href="../../base/html/rle.html">rle()</a></code> or the complete input vector <code>x</code> if
+rle-packing is not efficient
+</p>
+</li>
+<li><p> last: the last element of the packed sequence
+</p>
+</li></ul>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../ff/help/hi.html">ff::hi()</a></code>, <code><a href="../../bit/help/intrle.html">intrle()</a></code>, <code><a href="../../base/html/rle.html">rle()</a></code>, <code><a href="../../base/html/rev.html">rev()</a></code>, <code><a href="../../base/html/unique.html">unique()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  x &lt;- rlepack(rep(0L, 10))
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html><html><head><title>R: 'cat()' helpers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cat_line {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2><code>cat()</code> helpers</h2>
+
+<h3>Description</h3>
+
+<p>These helpers provide useful wrappers around <code><a href="../../base/html/cat.html">cat()</a></code>: most importantly
+they all set <code>sep = ""</code>, and <code>cat_line()</code> automatically adds a newline.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cat_line(..., col = NULL, background_col = NULL, file = stdout())
+
+cat_bullet(
+  ...,
+  col = NULL,
+  background_col = NULL,
+  bullet = "bullet",
+  bullet_col = NULL,
+  file = stdout()
+)
+
+cat_boxx(..., file = stdout())
+
+cat_rule(..., file = stdout())
+
+cat_print(x, file = "")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>For <code>cat_line()</code> and <code>cat_bullet()</code>, pasted together with
+<code>collapse = "\n"</code>. For <code>cat_rule()</code> and <code>cat_boxx()</code> passed on to
+<code><a href="../../cli/help/rule.html">rule()</a></code> and <code><a href="../../cli/help/boxx.html">boxx()</a></code> respectively.</p>
+</td></tr>
+<tr><td><code id="col">col</code>, <code id="background_col">background_col</code>, <code id="bullet_col">bullet_col</code></td>
+<td>
+<p>Colors for text, background, and
+bullets respectively.</p>
+</td></tr>
+<tr><td><code id="file">file</code></td>
+<td>
+<p>Output destination. Defaults to standard output.</p>
+</td></tr>
+<tr><td><code id="bullet">bullet</code></td>
+<td>
+<p>Name of bullet character. Indexes into <a href="../../cli/help/symbol.html">symbol</a></p>
+</td></tr>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>An object to print.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>cat_line("This is ", "a ", "line of text.", col = "red")
+cat_bullet(letters[1:5])
+cat_bullet(letters[1:5], bullet = "tick", bullet_col = "green")
+cat_rule()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

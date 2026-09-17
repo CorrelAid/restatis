@@ -1,0 +1,203 @@
+<!DOCTYPE html><html><head><title>R: Getting and setting length of bit, bitwhich and ri objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>length.bit {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Getting and setting length of bit, bitwhich and ri objects</h2>
+
+<h3>Description</h3>
+
+<p>Query the number of bits in a <code><a href="../../bit/help/bit.html">bit()</a></code> vector or change the number
+of bits in a bit vector.
+Query the number of bits in a bitwhich()] vector or change the number of bits in a bit
+vector.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'bit'
+length(x)
+
+## S3 replacement method for class 'bit'
+length(x) &lt;- value
+
+## S3 method for class 'bitwhich'
+length(x)
+
+## S3 replacement method for class 'bitwhich'
+length(x) &lt;- value
+
+## S3 method for class 'ri'
+length(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a <code><a href="../../bit/help/bit.html">bit()</a></code>, <code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> or <code><a href="../../bit/help/ri.html">ri()</a></code>
+object</p>
+</td></tr>
+<tr><td><code id="value">value</code></td>
+<td>
+<p>the new number of bits</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>NOTE that the length does NOT reflect the number of selected (<code>TRUE</code>)
+bits, it reflects the sum of both, <code>TRUE</code> and <code>FALSE</code> bits.
+Increasing the length of a <code><a href="../../bit/help/bit.html">bit()</a></code> object will set new bits to
+<code>FALSE</code>.  The behaviour of increasing the length of a
+<code><a href="../../bit/help/bitwhich.html">bitwhich()</a></code> object is different and depends on the content of the
+object:
+</p>
+
+<ul>
+<li><p> TRUE &ndash; all included, new bits are set to <code>TRUE</code>
+</p>
+</li>
+<li><p> positive integers &ndash; some included, new bits are set to <code>FALSE</code>
+</p>
+</li>
+<li><p> negative integers &ndash; some excluded, new bits are set to <code>TRUE</code>
+</p>
+</li>
+<li><p> FALSE &ndash; all excluded:, new bits are set to <code>FALSE</code>
+</p>
+</li></ul>
+
+<p>Decreasing the length of bit or bitwhich removes any previous information
+about the status bits above the new length.
+</p>
+
+
+<h3>Value</h3>
+
+<p>the length A bit vector with the new length
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/length.html">length()</a></code>, <code><a href="../../bit/help/sum.bit.html">sum()</a></code>,
+<code><a href="../../bit/help/poslength.html">poslength()</a></code>, <code><a href="../../bit/help/maxindex.html">maxindex()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  stopifnot(length(ri(1, 1, 32)) == 32)
+
+  x &lt;- as.bit(ri(32, 32, 32))
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 1)
+  length(x) &lt;- 16
+  stopifnot(length(x) == 16)
+  stopifnot(sum(x) == 0)
+  length(x) &lt;- 32
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 0)
+
+  x &lt;- as.bit(ri(1, 1, 32))
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 1)
+  length(x) &lt;- 16
+  stopifnot(length(x) == 16)
+  stopifnot(sum(x) == 1)
+  length(x) &lt;- 32
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 1)
+
+  x &lt;- as.bitwhich(bit(32))
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 0)
+  length(x) &lt;- 16
+  stopifnot(length(x) == 16)
+  stopifnot(sum(x) == 0)
+  length(x) &lt;- 32
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 0)
+
+  x &lt;- as.bitwhich(!bit(32))
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 32)
+  length(x) &lt;- 16
+  stopifnot(length(x) == 16)
+  stopifnot(sum(x) == 16)
+  length(x) &lt;- 32
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 32)
+
+  x &lt;- as.bitwhich(ri(32, 32, 32))
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 1)
+  length(x) &lt;- 16
+  stopifnot(length(x) == 16)
+  stopifnot(sum(x) == 0)
+  length(x) &lt;- 32
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 0)
+
+  x &lt;- as.bitwhich(ri(2, 32, 32))
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 31)
+  length(x) &lt;- 16
+  stopifnot(length(x) == 16)
+  stopifnot(sum(x) == 15)
+  length(x) &lt;- 32
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 31)
+
+  x &lt;- as.bitwhich(ri(1, 1, 32))
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 1)
+  length(x) &lt;- 16
+  stopifnot(length(x) == 16)
+  stopifnot(sum(x) == 1)
+  length(x) &lt;- 32
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 1)
+
+  x &lt;- as.bitwhich(ri(1, 31, 32))
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 31)
+  message("NOTE the change from 'some excluded' to 'all excluded' here")
+  length(x) &lt;- 16
+  stopifnot(length(x) == 16)
+  stopifnot(sum(x) == 16)
+  length(x) &lt;- 32
+  stopifnot(length(x) == 32)
+  stopifnot(sum(x) == 32)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

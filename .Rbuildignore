@@ -11,7 +11,5 @@
 ^codecov\.yml$
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
-^revdep$
 ^\.positai$
 ^\.claude$
-^vignettes/\.quarto$

@@ -1,0 +1,75 @@
+<!DOCTYPE html><html><head><title>R: Is object a node or pairlist?</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>is_pairlist {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Is object a node or pairlist?</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>is_pairlist()</code> checks that <code>x</code> has type <code>pairlist</code>.
+</p>
+</li>
+<li> <p><code>is_node()</code> checks that <code>x</code> has type <code>pairlist</code> or <code>language</code>.
+It tests whether <code>x</code> is a node that has a CAR and a CDR,
+including callable nodes (language objects).
+</p>
+</li>
+<li> <p><code>is_node_list()</code> checks that <code>x</code> has type <code>pairlist</code> or <code>NULL</code>.
+<code>NULL</code> is the empty node list.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>is_pairlist(x)
+
+is_node(x)
+
+is_node_list(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>Object to test.</p>
+</td></tr>
+</table>
+
+
+<h3>Life cycle</h3>
+
+<p>These functions are experimental. We are still figuring out a good
+naming convention to refer to the different lisp-like lists in R.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../rlang/help/is_call.html">is_call()</a></code> tests for language nodes.
+</p>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

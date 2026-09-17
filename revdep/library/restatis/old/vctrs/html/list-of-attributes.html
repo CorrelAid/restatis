@@ -1,0 +1,68 @@
+<!DOCTYPE html><html><head><title>R: 'list_of' attributes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>list-of-attributes {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2><code>list_of</code> attributes</h2>
+
+<h3>Description</h3>
+
+
+<ul>
+<li> <p><code>list_of_ptype()</code> returns the <code>ptype</code> required by the <code>list_of</code>.
+If no <code>ptype</code> is required, then <code>NULL</code> is returned.
+</p>
+</li>
+<li> <p><code>list_of_size()</code> returns the <code>size</code> required by the <code>list_of</code>.
+If no <code>size</code> is required, then <code>NULL</code> is returned.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>list_of_ptype(x)
+
+list_of_size(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A <a href="../../vctrs/help/list_of.html">list_of</a>.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- list_of(1, 2)
+list_of_ptype(x)
+list_of_size(x)
+
+x &lt;- list_of(.ptype = integer(), .size = 5)
+list_of_ptype(x)
+list_of_size(x)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

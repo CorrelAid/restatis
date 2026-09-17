@@ -1,0 +1,95 @@
+<!DOCTYPE html><html><head><title>R: Equality</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>vec_equal {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Equality</h2>
+
+<h3>Description</h3>
+
+<p><code>vec_equal()</code> tests if two vectors are equal.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>vec_equal(x, y, na_equal = FALSE, .ptype = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code>, <code id="y">y</code></td>
+<td>
+<p>Vectors with compatible types and lengths.</p>
+</td></tr>
+<tr><td><code id="na_equal">na_equal</code></td>
+<td>
+<p>Should <code>NA</code> values be considered equal?</p>
+</td></tr>
+<tr><td><code id=".ptype">.ptype</code></td>
+<td>
+<p>Override to optionally specify common type</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A logical vector the same size as the common size of <code>x</code> and <code>y</code>.
+Will only contain <code>NA</code>s if <code>na_equal</code> is <code>FALSE</code>.
+</p>
+
+
+<h3>Dependencies</h3>
+
+
+<ul>
+<li> <p><code><a href="../../vctrs/help/vec_cast_common.html">vec_cast_common()</a></code> with fallback
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_recycle_common.html">vec_recycle_common()</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../vctrs/help/vec_proxy_equal.html">vec_proxy_equal()</a></code>
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../vctrs/help/vec_detect_missing.html">vec_detect_missing()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>vec_equal(c(TRUE, FALSE, NA), FALSE)
+vec_equal(c(TRUE, FALSE, NA), FALSE, na_equal = TRUE)
+
+vec_equal(5, 1:10)
+vec_equal("d", letters[1:10])
+
+df &lt;- data.frame(x = c(1, 1, 2, 1), y = c(1, 2, 1, NA))
+vec_equal(df, data.frame(x = 1, y = 2))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html><html><head><title>R: Test if two integer64 vectors are all.equal</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>all.equal.integer64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Test if two integer64 vectors are all.equal</h2>
+
+<h3>Description</h3>
+
+<p>A utility to compare integer64 objects 'x' and 'y' testing for
+‘near equality’, see <code><a href="../../base/html/all.equal.html">all.equal()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'integer64'
+all.equal(
+  target,
+  current,
+  tolerance = sqrt(.Machine$double.eps),
+  scale = NULL,
+  countEQ = FALSE,
+  formatFUN = function(err, what) format(err),
+  ...,
+  check.attributes = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="target">target</code></td>
+<td>
+<p>a vector of 'integer64' or an object that can be coerced
+with <code><a href="../../bit64/help/as.integer64.html">as.integer64()</a></code></p>
+</td></tr>
+<tr><td><code id="current">current</code></td>
+<td>
+<p>a vector of 'integer64' or an object that can be coerced
+with <code><a href="../../bit64/help/as.integer64.html">as.integer64()</a></code></p>
+</td></tr>
+<tr><td><code id="tolerance">tolerance</code></td>
+<td>
+<p>numeric &gt; 0.  Differences smaller than <code>tolerance</code> are
+not reported.  The default value is close to <code>1.5e-8</code>.</p>
+</td></tr>
+<tr><td><code id="scale">scale</code></td>
+<td>
+<p><code>NULL</code> or numeric &gt; 0, typically of length 1 or
+<code>length(target)</code>. See Details.</p>
+</td></tr>
+<tr><td><code id="countEQ">countEQ</code></td>
+<td>
+<p>logical indicating if the <code>target == current</code> cases should
+be counted when computing the mean (absolute or relative) differences.
+The default, <code>FALSE</code> may seem misleading in cases where <code>target</code> and
+<code>current</code> only differ in a few places; see the extensive example.</p>
+</td></tr>
+<tr><td><code id="formatFUN">formatFUN</code></td>
+<td>
+<p>a <code><a href="../../base/html/function.html">function()</a></code> of two arguments, <code>err</code>, the relative,
+absolute or scaled error, and <code>what</code>, a character string indicating the
+<em>kind</em> of error; maybe used, e.g., to format relative and absolute errors
+differently.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments are ignored</p>
+</td></tr>
+<tr><td><code id="check.attributes">check.attributes</code></td>
+<td>
+<p>logical indicating if the <code><a href="../../base/html/attributes.html">attributes()</a></code> of <code>target</code>
+and <code>current</code> (other than the names) should be compared.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In <code><a href="../../base/html/all.equal.html">all.equal.numeric()</a></code> the type <code>integer</code> is treated as a proper subset
+of <code>double</code> i.e. does not complain about comparing <code>integer</code> with <code>double</code>.
+Following this logic <code>all.equal.integer64</code> treats <code>integer</code> as a proper
+subset of <code>integer64</code> and does not complain about comparing <code>integer</code> with
+<code>integer64</code>. <code>double</code> also compares without warning as long as the values
+are within <code><a href="../../bit64/help/lim.integer64.html">lim.integer64()</a></code>, if <code>double</code> are bigger <code>all.equal.integer64</code>
+complains about the <code style="white-space: pre;">&#8288;all.equal.integer64 overflow warning&#8288;</code>. For further
+details see <code><a href="../../base/html/all.equal.html">all.equal()</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Either ‘TRUE’ (‘NULL’ for ‘attr.all.equal’) or a vector of ‘mode’
+‘&quot;character&quot;’ describing the differences between ‘target’ and
+‘current’.
+</p>
+
+
+<h3>Note</h3>
+
+<p><code><a href="../../base/html/all.equal.html">all.equal()</a></code> only dispatches to this method if the first argument is <code>integer64</code>,
+calling <code><a href="../../base/html/all.equal.html">all.equal()</a></code> with a <code>non-integer64</code> first and a <code>integer64</code> second argument
+gives undefined behavior!
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/all.equal.html">all.equal()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  all.equal(as.integer64(1:10), as.integer64(0:9))
+  all.equal(as.integer64(1:10), as.integer(1:10))
+  all.equal(as.integer64(1:10), as.double(1:10))
+  all.equal(as.integer64(1), as.double(1e300))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

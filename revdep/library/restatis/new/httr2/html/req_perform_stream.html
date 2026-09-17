@@ -1,0 +1,113 @@
+<!DOCTYPE html><html><head><title>R: Perform a request and handle data as it streams back</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_perform_stream {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Perform a request and handle data as it streams back</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a>
+</p>
+<p>Please use <code><a href="../../httr2/help/req_perform_connection.html">req_perform_connection()</a></code> instead.
+</p>
+<p>After preparing a request, call <code>req_perform_stream()</code> to perform the request
+and handle the result with a streaming callback. This is useful for
+streaming HTTP APIs where potentially the stream never ends.
+</p>
+<p>The <code>callback</code> will only be called if the result is successful. If you need
+to stream an error response, you can use <code><a href="../../httr2/help/req_error.html">req_error()</a></code> to suppress error
+handling so that the body is streamed to you.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_perform_stream(
+  req,
+  callback,
+  timeout_sec = Inf,
+  buffer_kb = 64,
+  round = c("byte", "line")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="callback">callback</code></td>
+<td>
+<p>A single argument callback function. It will be called
+repeatedly with a raw vector whenever there is at least <code>buffer_kb</code>
+worth of data to process. It must return <code>TRUE</code> to continue streaming.</p>
+</td></tr>
+<tr><td><code id="timeout_sec">timeout_sec</code></td>
+<td>
+<p>Number of seconds to process stream for.</p>
+</td></tr>
+<tr><td><code id="buffer_kb">buffer_kb</code></td>
+<td>
+<p>Buffer size, in kilobytes.</p>
+</td></tr>
+<tr><td><code id="round">round</code></td>
+<td>
+<p>How should the raw vector sent to <code>callback</code> be rounded?
+Choose <code>"byte"</code>, <code>"line"</code>, or supply your own function that takes a
+raw vector of <code>bytes</code> and returns the locations of possible cut points
+(or <code>integer()</code> if there are none).</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An HTTP <a href="../../httr2/help/response.html">response</a>. The body will be empty if the request was
+successful (since the <code>callback</code> function will have handled it). The body
+will contain the HTTP response body if the request was unsuccessful.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># PREVIOSULY
+show_bytes &lt;- function(x) {
+  cat("Got ", length(x), " bytes\n", sep = "")
+  TRUE
+}
+resp &lt;- request(example_url()) |&gt;
+  req_url_path("/stream-bytes/100000") |&gt;
+  req_perform_stream(show_bytes, buffer_kb = 32)
+
+# NOW
+resp &lt;- request(example_url()) |&gt;
+  req_url_path("/stream-bytes/100000") |&gt;
+  req_perform_connection()
+while (!resp_stream_is_complete(resp)) {
+  x &lt;-  resp_stream_raw(resp, kb = 32)
+  cat("Got ", length(x), " bytes\n", sep = "")
+}
+close(resp)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

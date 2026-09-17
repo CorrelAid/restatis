@@ -1,0 +1,129 @@
+<!DOCTYPE html><html><head><title>R: Perform multiple requests in sequence</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_perform_sequential {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Perform multiple requests in sequence</h2>
+
+<h3>Description</h3>
+
+<p>Given a list of requests, this function performs each in turn, returning
+a list of responses. It's the serial equivalent of <code><a href="../../httr2/help/req_perform_parallel.html">req_perform_parallel()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_perform_sequential(
+  reqs,
+  paths = NULL,
+  on_error = c("stop", "return", "continue"),
+  mock = getOption("httr2_mock", NULL),
+  progress = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="reqs">reqs</code></td>
+<td>
+<p>A list of <a href="../../httr2/help/request.html">request</a>s.</p>
+</td></tr>
+<tr><td><code id="paths">paths</code></td>
+<td>
+<p>An optional character vector of paths, if you want to download
+the response bodies to disk. If supplied, must be the same length as
+<code>reqs</code>.</p>
+</td></tr>
+<tr><td><code id="on_error">on_error</code></td>
+<td>
+<p>What should happen if one of the requests fails?
+</p>
+
+<ul>
+<li> <p><code>stop</code>, the default: stop iterating with an error.
+</p>
+</li>
+<li> <p><code>return</code>: stop iterating, returning all the successful responses
+received so far, as well as an error object for the failed request.
+</p>
+</li>
+<li> <p><code>continue</code>: continue iterating, recording errors in the result.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="mock">mock</code></td>
+<td>
+<p>A mocking function. If supplied, this function is called
+with the request. It should return either <code>NULL</code> (if it doesn't want to
+handle the request) or a <a href="../../httr2/help/response.html">response</a> (if it does). See
+<code><a href="../../httr2/help/with_mocked_responses.html">with_mocked_responses()</a></code>/<code>local_mocked_responses()</code> for more details.</p>
+</td></tr>
+<tr><td><code id="progress">progress</code></td>
+<td>
+<p>Display a progress bar for the status of all requests? Use
+<code>TRUE</code> to turn on a basic progress bar, use a string to give it a name,
+or see <a href="../../httr2/help/progress_bars.html">progress_bars</a> to customize it in other ways. Not compatible with
+<code><a href="../../httr2/help/req_progress.html">req_progress()</a></code>, as httr2 can only display a single progress bar at a
+time.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list, the same length as <code>reqs</code>, containing <a href="../../httr2/help/response.html">response</a>s and possibly
+error objects, if <code>on_error</code> is <code>"return"</code> or <code>"continue"</code> and one of the
+responses errors. If <code>on_error</code> is <code>"return"</code> and it errors on the ith
+request, the ith element of the result will be an error object, and the
+remaining elements will be <code>NULL</code>. If <code>on_error</code> is <code>"continue"</code>, it will
+be a mix of requests and error objects.
+</p>
+<p>Only httr2 errors are captured; see <code><a href="../../httr2/help/req_error.html">req_error()</a></code> for more details.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># One use of req_perform_sequential() is if the API allows you to request
+# data for multiple objects, you want data for more objects than can fit
+# in one request.
+req &lt;- request("https://api.restful-api.dev/objects")
+
+# Imagine we have 50 ids:
+ids &lt;- sort(sample(100, 50))
+
+# But the API only allows us to request 10 at time. So we first use split
+# and some modulo arithmetic magic to generate chunks of length 10
+chunks &lt;- unname(split(ids, (seq_along(ids) - 1) %/% 10))
+
+# Then we use lapply to generate one request for each chunk:
+reqs &lt;- chunks |&gt; lapply(\(idx) req |&gt; req_url_query(id = idx, .multi = "comma"))
+
+# Then we can perform them all and get the results
+## Not run: 
+resps &lt;- reqs |&gt; req_perform_sequential()
+resps_data(resps, \(resp) resp_body_json(resp))
+
+## End(Not run)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

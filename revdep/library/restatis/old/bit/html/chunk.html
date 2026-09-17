@@ -1,0 +1,121 @@
+<!DOCTYPE html><html><head><title>R: Methods for chunked range index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>chunk {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Methods for chunked range index</h2>
+
+<h3>Description</h3>
+
+<p>Calls <code><a href="../../bit/help/chunks.html">chunks()</a></code> to create a sequence of range indexes along the object which causes
+the method dispatch.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>chunk(x = NULL, ...)
+
+## Default S3 method:
+chunk(x = NULL, ..., RECORDBYTES = NULL, BATCHBYTES = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>the object along we want chunks</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments passed to <code><a href="../../bit/help/chunks.html">chunks()</a></code></p>
+</td></tr>
+<tr><td><code id="RECORDBYTES">RECORDBYTES</code></td>
+<td>
+<p>integer scalar representing the bytes needed to process a single
+element of the boolean vector (default 4 bytes for logical)</p>
+</td></tr>
+<tr><td><code id="BATCHBYTES">BATCHBYTES</code></td>
+<td>
+<p>integer scalar limiting the number of bytes to be processed in one
+chunk, default from <code>getOption("ffbatchbytes")</code> if not null, otherwise 16777216</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>chunk</code> is generic, the default method is described here, other methods
+that automatically consider RAM needs are provided with package 'ff', see
+for example <code><a href="../../ff/help/chunk.ffdf.html">ff::chunk.ffdf()</a></code>
+</p>
+
+
+<h3>Value</h3>
+
+<p>returns a named list of <code><a href="../../bit/help/ri.html">ri()</a></code> objects
+representing chunks of subscripts
+</p>
+
+
+<h3>Methods (by class)</h3>
+
+
+<ul>
+<li> <p><code>chunk(default)</code>: default vector method
+</p>
+</li></ul>
+
+
+<h3>available methods</h3>
+
+<p><code>chunk.default</code>, <code><a href="../../ff/help/chunk.ffdf.html">ff::chunk.ff_vector()</a></code>,
+<code><a href="../../ff/help/chunk.ffdf.html">ff::chunk.ffdf()</a></code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/chunks.html">chunks()</a></code>, <code><a href="../../bit/help/ri.html">ri()</a></code>, <code><a href="../../base/help/seq.html">seq()</a></code>, <code><a href="../../bit/help/bbatch.html">bbatch()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>  chunk(complex(1e7))
+  chunk(raw(1e7))
+  chunk(raw(1e7), length=3)
+
+  chunks(1, 10, 3)
+  # no longer do
+  chunk(1, 100, 10)
+  # but for bckward compatibility this works
+  chunk(from=1, to=100, by=10)
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

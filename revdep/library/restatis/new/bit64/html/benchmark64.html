@@ -1,0 +1,290 @@
+<!DOCTYPE html><html><head><title>R: Function for measuring algorithmic performance of high-level...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>benchmark64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Function for measuring algorithmic performance of high-level and low-level integer64 functions</h2>
+
+<h3>Description</h3>
+
+<p>Function for measuring algorithmic performance of high-level and low-level integer64 functions
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>benchmark64(nsmall = 2L^16L, nbig = 2L^25L, timefun = repeat.time)
+
+optimizer64(
+  nsmall = 2L^16L,
+  nbig = 2L^25L,
+  timefun = repeat.time,
+  what = c("match", "%in%", "duplicated", "unique", "unipos", "table", "rank",
+    "quantile"),
+  uniorder = c("original", "values", "any"),
+  taborder = c("values", "counts"),
+  plot = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="nsmall">nsmall</code></td>
+<td>
+<p>size of smaller vector</p>
+</td></tr>
+<tr><td><code id="nbig">nbig</code></td>
+<td>
+<p>size of larger bigger vector</p>
+</td></tr>
+<tr><td><code id="timefun">timefun</code></td>
+<td>
+<p>a function for timing such as <code><a href="../../bit/help/repeat.time.html">bit::repeat.time()</a></code> or <code><a href="../../base/html/system.time.html">system.time()</a></code></p>
+</td></tr>
+<tr><td><code id="what">what</code></td>
+<td>
+<p>a vector of names of high-level functions</p>
+</td></tr>
+<tr><td><code id="uniorder">uniorder</code></td>
+<td>
+<p>one of the order parameters that are allowed in <code><a href="../../bit64/help/unique.integer64.html">unique.integer64()</a></code> and <code><a href="../../bit64/help/unipos.integer64.html">unipos.integer64()</a></code></p>
+</td></tr>
+<tr><td><code id="taborder">taborder</code></td>
+<td>
+<p>one of the order parameters that are allowed in <code><a href="../../bit64/help/table.integer64.html">table.integer64()</a></code></p>
+</td></tr>
+<tr><td><code id="plot">plot</code></td>
+<td>
+<p>set to FALSE to suppress plotting</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>benchmark64</code> compares the following scenarios for the following use cases:</p>
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>scenario name</strong> </td><td style="text-align: left;"> <strong>explanation</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   32-bit </td><td style="text-align: left;"> applying Base R function to 32-bit integer data </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   64-bit </td><td style="text-align: left;"> applying bit64 function to 64-bit integer data (with no cache) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   hashcache </td><td style="text-align: left;"> ditto when cache contains <code><a href="../../bit64/help/hashmap.html">hashmap()</a></code>, see <code><a href="../../bit64/help/hashcache.html">hashcache()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   sortordercache </td><td style="text-align: left;"> ditto when cache contains sorting and ordering, see <code><a href="../../bit64/help/sortordercache.html">sortordercache()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   ordercache </td><td style="text-align: left;"> ditto when cache contains ordering only, see <code><a href="../../bit64/help/ordercache.html">ordercache()</a></code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   allcache </td><td style="text-align: left;"> ditto when cache contains sorting, ordering and hashing 
+</td>
+</tr>
+
+</table>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>use case name</strong> </td><td style="text-align: left;"> <strong>explanation</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   cache </td><td style="text-align: left;"> filling the cache according to scenario </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   match(s,b) </td><td style="text-align: left;"> match small in big vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   s %in% b </td><td style="text-align: left;"> small %in% big vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   match(b,s) </td><td style="text-align: left;"> match big in small vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   b %in% s </td><td style="text-align: left;"> big %in% small vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   match(b,b) </td><td style="text-align: left;"> match big in (different) big vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   b %in% b </td><td style="text-align: left;"> big %in% (different) big vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   duplicated(b) </td><td style="text-align: left;"> duplicated of big vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   unique(b) </td><td style="text-align: left;"> unique of big vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   table(b) </td><td style="text-align: left;"> table of big vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   sort(b) </td><td style="text-align: left;"> sorting of big vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   order(b) </td><td style="text-align: left;"> ordering of big vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   rank(b) </td><td style="text-align: left;"> ranking of big vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   quantile(b) </td><td style="text-align: left;"> quantiles of big vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   summary(b) </td><td style="text-align: left;"> summary of of big vector </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   SESSION </td><td style="text-align: left;"> exemplary session involving multiple calls (including cache filling costs) 
+</td>
+</tr>
+
+</table>
+
+<p>Note that the timings for the cached variants do <em>not</em> contain the
+time costs of building the cache, except for the timing of the exemplary
+user session, where the cache costs are included in order to evaluate amortization.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>benchmark64</code> returns a matrix with elapsed seconds, different high-level tasks
+in rows and different scenarios to solve the task in columns. The last row
+named 'SESSION' contains the elapsed seconds of the exemplary sesssion.
+</p>
+<p><code>optimizer64</code> returns a dimensioned list with one row for each high-level
+function timed and two columns named after the values of the <code>nsmall</code> and
+<code>nbig</code> sample sizes. Each list cell contains a matrix with timings,
+low-level-methods in rows and three measurements <code>c("prep","both","use")</code>
+in columns. If it can be measured separately, <code>prep</code> contains the timing
+of preparatory work such as sorting and hashing, and <code>use</code> contains the
+timing of using the prepared work. If the function timed does both,
+preparation and use, the timing is in <code>both</code>.
+</p>
+
+
+<h3>Functions</h3>
+
+
+<ul>
+<li> <p><code>benchmark64()</code>: compares high-level integer64 functions against the
+integer functions from Base R
+</p>
+</li>
+<li> <p><code>optimizer64()</code>: compares for each high-level integer64 function the Base
+R integer function with several low-level integer64 functions with and
+without caching
+</p>
+</li></ul>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/integer64.html">integer64()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>message("this small example using system.time does not give serious timings\n
+this we do this only to run regression tests")
+benchmark64(nsmall=2^7, nbig=2^13, timefun=function(expr)system.time(expr, gcFirst=FALSE))
+optimizer64(nsmall=2^7, nbig=2^13, timefun=function(expr)system.time(expr, gcFirst=FALSE)
+, plot=FALSE
+)
+## Not run: 
+message("for real measurement of sufficiently large datasets run this on your machine")
+benchmark64()
+optimizer64()
+
+## End(Not run)
+message("let's look at the performance results on Core i7 Lenovo T410 with 8 GB RAM")
+data(benchmark64.data)
+print(benchmark64.data)
+
+matplot(log2(benchmark64.data[-1,1]/benchmark64.data[-1,])
+, pch=c("3", "6", "h", "s", "o", "a")
+, xlab="tasks [last=session]"
+, ylab="log2(relative speed) [bigger is better]"
+)
+matplot(t(log2(benchmark64.data[-1,1]/benchmark64.data[-1,]))
+, type="b", axes=FALSE
+, lwd=c(rep(1, 14), 3)
+, xlab="context"
+, ylab="log2(relative speed) [bigger is better]"
+)
+axis(1
+, labels=c("32-bit", "64-bit", "hash", "sortorder", "order", "hash+sortorder")
+, at=1:6
+)
+axis(2)
+data(optimizer64.data)
+print(optimizer64.data)
+oldpar &lt;- par(no.readonly = TRUE)
+par(mfrow=c(2,1))
+par(cex=0.7)
+for (i in 1:nrow(optimizer64.data)){
+ for (j in 1:2){
+   tim &lt;- optimizer64.data[[i,j]]
+  barplot(t(tim))
+  if (rownames(optimizer64.data)[i]=="match")
+   title(paste("match", colnames(optimizer64.data)[j], "in", colnames(optimizer64.data)[3-j]))
+  else if (rownames(optimizer64.data)[i]=="%in%")
+   title(paste(colnames(optimizer64.data)[j], "%in%", colnames(optimizer64.data)[3-j]))
+  else
+   title(paste(rownames(optimizer64.data)[i], colnames(optimizer64.data)[j]))
+ }
+}
+par(mfrow=c(1,1))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

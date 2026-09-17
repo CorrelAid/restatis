@@ -1,0 +1,76 @@
+<!DOCTYPE html><html><head><title>R: Match a selector node to a container</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>match_selector_node {cli}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Match a selector node to a container</h2>
+
+<h3>Description</h3>
+
+<p>Match a selector node to a container
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>match_selector_node(node, cnt)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="node">node</code></td>
+<td>
+<p>Selector node, as parsed by <code>parse_selector_node()</code>.</p>
+</td></tr>
+<tr><td><code id="cnt">cnt</code></td>
+<td>
+<p>Container node, has elements <code>tag</code>, <code>id</code>, <code>class</code>.
+</p>
+<p>The selector node matches the container, if all these hold:
+</p>
+
+<ul>
+<li><p> The id of the selector is missing or unique.
+</p>
+</li>
+<li><p> The tag of the selector is missing or unique.
+</p>
+</li>
+<li><p> The id of the container is missing or unique.
+</p>
+</li>
+<li><p> The tag of the container is unique.
+</p>
+</li>
+<li><p> If the selector specifies an id, it matches the id of the container.
+</p>
+</li>
+<li><p> If the selector specifies a tag, it matches the tag of the container.
+</p>
+</li>
+<li><p> If the selector specifies class names, the container has all these
+classes.
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>cli</em> version 3.6.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

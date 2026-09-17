@@ -1,0 +1,75 @@
+<!DOCTYPE html><html><head><title>R: Signal other experimental or superseded features</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>signal_stage {lifecycle}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Signal other experimental or superseded features</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt='[Experimental]'></a>
+</p>
+<p><code>signal_stage()</code> allows you to signal life cycle stages other than
+deprecation (for which you should use <code><a href="../../lifecycle/help/deprecate_warn.html">deprecate_warn()</a></code> and friends). There
+is no behaviour associated with this signal, it is currently purely a way to
+express intent at the call site. In the future, we hope to replace this with
+a standardized call to <code>base::declare()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>signal_stage(stage, what, with = NULL, env = deprecated())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="stage">stage</code></td>
+<td>
+<p>Life cycle stage, either <code>"experimental"</code> or <code>"superseded"</code>.</p>
+</td></tr>
+<tr><td><code id="what">what</code></td>
+<td>
+<p>String describing what feature the stage applies too, using the
+same syntax as <code><a href="../../lifecycle/help/deprecate_warn.html">deprecate_warn()</a></code>.</p>
+</td></tr>
+<tr><td><code id="with">with</code></td>
+<td>
+<p>An optional string giving a recommended replacement for a
+superseded function.</p>
+</td></tr>
+<tr><td><code id="env">env</code></td>
+<td>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a></p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>foofy &lt;- function(x, y, z) {
+  signal_stage("experimental", "foofy()")
+  x + y / z
+}
+foofy(1, 2, 3)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>lifecycle</em> version 1.0.5 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

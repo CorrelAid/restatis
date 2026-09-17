@@ -1,0 +1,68 @@
+<!DOCTYPE html><html><head><title>R: Find the caller argument for error messages</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>caller_arg {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Find the caller argument for error messages</h2>
+
+<h3>Description</h3>
+
+<p><code>caller_arg()</code> is a variant of <code>substitute()</code> or <code><a href="../../rlang/help/ensym.html">ensym()</a></code> for
+arguments that reference other arguments. Unlike <code>substitute()</code>
+which returns an expression, <code>caller_arg()</code> formats the expression
+as a single line string which can be included in error messages.
+</p>
+
+<ul>
+<li><p> When included in an error message, the resulting label should
+generally be formatted as argument, for instance using the <code>.arg</code>
+in the cli package.
+</p>
+</li>
+<li><p> Use <code style="white-space: pre;">&#8288;@inheritParams rlang::args_error_context&#8288;</code> to document an
+<code>arg</code> or <code>error_arg</code> argument that takes <code>error_arg()</code> as default.
+</p>
+</li></ul>
+
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="arg">arg</code></td>
+<td>
+<p>An argument name in the current function.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>arg_checker &lt;- function(x, arg = caller_arg(x), call = caller_env()) {
+  cli::cli_abort("{.arg {arg}} must be a thingy.", arg = arg, call = call)
+}
+
+my_function &lt;- function(my_arg) {
+  arg_checker(my_arg)
+}
+
+try(my_function(NULL))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

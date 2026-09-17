@@ -1,0 +1,189 @@
+<!DOCTYPE html><html><head><title>R: Perform requests iteratively, generating new requests from...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_perform_iterative {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Perform requests iteratively, generating new requests from previous responses</h2>
+
+<h3>Description</h3>
+
+<p><code>req_perform_iterative()</code> iteratively generates and performs requests,
+using a callback function, <code>next_req</code>, to define the next request based on
+the current request and response. You will probably want to pair it with an
+<a href="../../httr2/help/iterate_with_offset.html">iteration helper</a> and use a
+<a href="../../httr2/help/resps_successes.html">multi-response handler</a> to process the result.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_perform_iterative(
+  req,
+  next_req,
+  path = NULL,
+  max_reqs = 20,
+  on_error = c("stop", "return"),
+  mock = getOption("httr2_mock", NULL),
+  progress = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>The first <a href="../../httr2/help/request.html">request</a> to perform.</p>
+</td></tr>
+<tr><td><code id="next_req">next_req</code></td>
+<td>
+<p>A function that takes the previous response (<code>resp</code>) and
+request (<code>req</code>) and returns a <a href="../../httr2/help/request.html">request</a> for the next page or <code>NULL</code> if
+the iteration should terminate. See below for more details.</p>
+</td></tr>
+<tr><td><code id="path">path</code></td>
+<td>
+<p>Optionally, path to save the body of request. This should be
+a glue string that uses <code>{i}</code> to distinguish different requests.
+Useful for large responses because it avoids storing the response in
+memory.</p>
+</td></tr>
+<tr><td><code id="max_reqs">max_reqs</code></td>
+<td>
+<p>The maximum number of requests to perform. Use <code>Inf</code> to
+perform all requests until <code>next_req()</code> returns <code>NULL</code>.</p>
+</td></tr>
+<tr><td><code id="on_error">on_error</code></td>
+<td>
+<p>What should happen if a request fails?
+</p>
+
+<ul>
+<li> <p><code>"stop"</code>, the default: stop iterating with an error.
+</p>
+</li>
+<li> <p><code>"return"</code>: stop iterating, returning all the successful responses so
+far, as well as an error object for the failed request.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="mock">mock</code></td>
+<td>
+<p>A mocking function. If supplied, this function is called
+with the request. It should return either <code>NULL</code> (if it doesn't want to
+handle the request) or a <a href="../../httr2/help/response.html">response</a> (if it does). See
+<code><a href="../../httr2/help/with_mocked_responses.html">with_mocked_responses()</a></code>/<code>local_mocked_responses()</code> for more details.</p>
+</td></tr>
+<tr><td><code id="progress">progress</code></td>
+<td>
+<p>Display a progress bar for the status of all requests? Use
+<code>TRUE</code> to turn on a basic progress bar, use a string to give it a name,
+or see <a href="../../httr2/help/progress_bars.html">progress_bars</a> to customize it in other ways. Not compatible with
+<code><a href="../../httr2/help/req_progress.html">req_progress()</a></code>, as httr2 can only display a single progress bar at a
+time.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list, at most length <code>max_reqs</code>, containing <a href="../../httr2/help/response.html">response</a>s and possibly one
+error object, if <code>on_error</code> is <code>"return"</code> and one of the requests errors.
+If present, the error object will always be the last element in the list.
+</p>
+<p>Only httr2 errors are captured; see <code><a href="../../httr2/help/req_error.html">req_error()</a></code> for more details.
+</p>
+
+
+<h3><code>next_req()</code></h3>
+
+<p>The key piece that makes <code>req_perform_iterative()</code> work is the <code>next_req()</code>
+argument. For most common cases, you can use one of the canned helpers,
+like <code><a href="../../httr2/help/iterate_with_offset.html">iterate_with_offset()</a></code>. If, however, the API you're wrapping uses a
+different pagination system, you'll need to write your own. This section
+gives some advice.
+</p>
+<p>Generally, your function needs to inspect the response, extract some data
+from it, then use that to modify the previous request. For example, imagine
+that the response returns a cursor, which needs to be added to the body of
+the request. The simplest version of this function might look like this:
+</p>
+<div class="sourceCode R"><pre>next_req &lt;- function(resp, req) {
+  cursor &lt;- resp_body_json(resp)$next_cursor
+  req |&gt; req_body_json_modify(cursor = cursor)
+}
+</pre></div>
+<p>There's one problem here: if there are no more pages to return, then
+<code>cursor</code> will be <code>NULL</code>, but <code>req_body_json_modify()</code> will still generate
+a meaningful request. So we need to handle this specifically by
+returning <code>NULL</code>:
+</p>
+<div class="sourceCode R"><pre>next_req &lt;- function(resp, req) {
+  cursor &lt;- resp_body_json(resp)$next_cursor
+  if (is.null(cursor))
+    return(NULL)
+  req |&gt; req_body_json_modify(cursor = cursor)
+}
+</pre></div>
+<p>A value of <code>NULL</code> lets <code>req_perform_iterative()</code> know there are no more
+pages remaining.
+</p>
+<p>There's one last feature you might want to add to your iterator: if you
+know the total number of pages, then it's nice to let
+<code>req_perform_iterative()</code> know so it can adjust the progress bar.
+(This will only ever decrease the number of pages, not increase it.)
+You can signal the total number of pages by calling <code><a href="../../httr2/help/signal_total_pages.html">signal_total_pages()</a></code>,
+like this:
+</p>
+<div class="sourceCode R"><pre>next_req &lt;- function(resp, req) {
+  body &lt;- resp_body_json(resp)
+  cursor &lt;- body$next_cursor
+  if (is.null(cursor))
+    return(NULL)
+
+  signal_total_pages(body$pages)
+  req |&gt; req_body_json_modify(cursor = cursor)
+}
+</pre></div>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>req &lt;- request(example_url()) |&gt;
+  req_url_path("/iris") |&gt;
+  req_throttle(10) |&gt;
+  req_url_query(limit = 5)
+
+resps &lt;- req_perform_iterative(req, iterate_with_offset("page_index"))
+
+data &lt;- resps |&gt; resps_data(function(resp) {
+  data &lt;- resp_body_json(resp)$data
+  data.frame(
+    Sepal.Length = sapply(data, `[[`, "Sepal.Length"),
+    Sepal.Width = sapply(data, `[[`, "Sepal.Width"),
+    Petal.Length = sapply(data, `[[`, "Petal.Length"),
+    Petal.Width = sapply(data, `[[`, "Petal.Width"),
+    Species = sapply(data, `[[`, "Species")
+  )
+})
+str(data)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

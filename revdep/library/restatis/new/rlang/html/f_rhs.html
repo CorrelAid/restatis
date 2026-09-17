@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><title>R: Get or set formula components</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>f_rhs {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get or set formula components</h2>
+
+<h3>Description</h3>
+
+<p><code>f_rhs</code> extracts the right-hand side, <code>f_lhs</code> extracts the left-hand
+side, and <code>f_env</code> extracts the environment in which the formula was defined.
+All functions throw an error if <code>f</code> is not a formula.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>f_rhs(f)
+
+f_rhs(x) &lt;- value
+
+f_lhs(f)
+
+f_lhs(x) &lt;- value
+
+f_env(f)
+
+f_env(x) &lt;- value
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="f">f</code>, <code id="x">x</code></td>
+<td>
+<p>A formula</p>
+</td></tr>
+<tr><td><code id="value">value</code></td>
+<td>
+<p>The value to replace with.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>f_rhs</code> and <code>f_lhs</code> return language objects (i.e.  atomic
+vectors of length 1, a name, or a call). <code>f_env</code> returns an
+environment.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>f_rhs(~ 1 + 2 + 3)
+f_rhs(~ x)
+f_rhs(~ "A")
+f_rhs(1 ~ 2)
+
+f_lhs(~ y)
+f_lhs(x ~ y)
+
+f_env(~ x)
+f &lt;- as.formula("y ~ x", env = new.env())
+f_env(f)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

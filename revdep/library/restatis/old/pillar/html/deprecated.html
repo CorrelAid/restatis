@@ -1,0 +1,67 @@
+<!DOCTYPE html><html><head><title>R: Deprecated functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>deprecated {pillar}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Deprecated functions</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a>
+</p>
+<p>Use <code><a href="../../vctrs/help/vec_assert.html">vctrs::vec_is()</a></code> instead of <code>is_vector_s3()</code>.
+</p>
+<p>Use <code><a href="../../testthat/help/expect_snapshot.html">testthat::expect_snapshot()</a></code> instead of <code>expect_known_display()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>is_vector_s3(x)
+
+expect_known_display(object, file, ..., width = 80L, crayon = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="object">object</code></td>
+<td>
+<p>An object to check.</p>
+</td></tr>
+<tr><td><code id="file">file</code></td>
+<td>
+<p>File path where known value/output will be stored.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Unused.</p>
+</td></tr>
+<tr><td><code id="width">width</code></td>
+<td>
+<p>The width of the output.</p>
+</td></tr>
+<tr><td><code id="crayon">crayon</code></td>
+<td>
+<p>Color the output?</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>pillar</em> version 1.11.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

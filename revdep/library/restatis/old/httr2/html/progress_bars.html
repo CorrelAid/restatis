@@ -1,0 +1,111 @@
+<!DOCTYPE html><html><head><title>R: Progress bars in httr2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>progress_bars {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Progress bars in httr2</h2>
+
+<h3>Description</h3>
+
+<p>Some of httr2's perform functions have a <code>progress</code> argument that you can use
+to create a progress bar. <code>progress</code> can be:
+</p>
+
+<ul>
+<li> <p><code>FALSE</code>, the default: does not create a progress bar.
+</p>
+</li>
+<li> <p><code>TRUE</code>: creates a basic unnamed progress bar.
+</p>
+</li>
+<li><p> A string: creates a basic progress bar with the given name.
+</p>
+</li>
+<li><p> A named list of progress bar parameters, as described below.
+</p>
+</li></ul>
+
+<p>It's good practice to name your progress bars, to make it clear what
+calculation or process they belong to. We recommend keeping the names
+under 20 characters, so the whole progress bar fits comfortably even on
+on narrower displays.
+</p>
+
+
+<h4>Progress bar parameters</h4>
+
+
+<ul>
+<li> <p><code>clear</code>: whether to remove the progress bar from the screen after
+termination. Defaults to <code>TRUE</code>.
+</p>
+</li>
+<li> <p><code>format</code>: format string. This overrides the default format string of
+the progress bar type. It must be given for the <code>custom</code> type.
+Format strings may contain R expressions to evaluate in braces.
+They support cli <a href="../../cli/help/pluralization.html">pluralization</a>, and
+<a href="../../cli/help/inline-markup.html">styling</a> and they can contain special
+<a href="../../cli/help/progress-variables.html">progress variables</a>.
+</p>
+</li>
+<li> <p><code>format_done</code>: format string for successful termination. By default
+the same as <code>format</code>.
+</p>
+</li>
+<li> <p><code>format_failed</code>: format string for unsuccessful termination.
+By default the same as <code>format</code>.
+</p>
+</li>
+<li> <p><code>name</code>: progress bar name. This is by default the empty string and it
+is displayed at the beginning of the progress bar.
+</p>
+</li>
+<li> <p><code>type</code>: progress bar type. Currently supported types are:
+</p>
+
+<ul>
+<li> <p><code>iterator</code>: the default, a for loop or a mapping function,
+</p>
+</li>
+<li> <p><code>tasks</code>: a (typically small) number of tasks,
+</p>
+</li>
+<li> <p><code>download</code>: download of one file,
+</p>
+</li>
+<li> <p><code>custom</code>: custom type, <code>format</code> must not be <code>NULL</code> for this type.
+The default display is different for each progress bar type.
+</p>
+</li></ul>
+
+</li></ul>
+
+
+
+
+<h4>Further documentation</h4>
+
+<p>purrr's progress bars are powered by cli, so see
+<a href="https://cli.r-lib.org/articles/progress.html">Introduction to progress bars in cli</a>
+and <a href="https://cli.r-lib.org/articles/progress-advanced.html">Advanced cli progress bars</a>
+for more details.
+</p>
+
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

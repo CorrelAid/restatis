@@ -1,0 +1,86 @@
+<!DOCTYPE html><html><head><title>R: Trim a character vector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>trim {glue}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Trim a character vector</h2>
+
+<h3>Description</h3>
+
+<p>This trims a character vector according to the trimming rules used by glue.
+These follow similar rules to <a href="https://www.python.org/dev/peps/pep-0257/">Python Docstrings</a>,
+with the following features.
+</p>
+
+<ul>
+<li><p> Leading and trailing whitespace from the first and last lines is removed.
+</p>
+</li>
+<li><p> A uniform amount of indentation is stripped from the second line on, equal
+to the minimum indentation of all non-blank lines after the first.
+</p>
+</li>
+<li><p> Lines can be continued across newlines by using <code style="white-space: pre;">&#8288;\\&#8288;</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>trim(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A character vector to trim.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A character vector.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>glue("
+    A formatted string
+    Can have multiple lines
+      with additional indention preserved
+    ")
+
+glue("
+  \ntrailing or leading newlines can be added explicitly\n
+  ")
+
+glue("
+    A formatted string \\
+    can also be on a \\
+    single line
+    ")
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>glue</em> version 1.8.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

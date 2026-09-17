@@ -1,0 +1,58 @@
+<!DOCTYPE html><html><head><title>R: Clear OAuth cache</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>oauth_cache_clear {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Clear OAuth cache</h2>
+
+<h3>Description</h3>
+
+<p>Use this function to clear cached credentials.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>oauth_cache_clear(client, cache_disk = FALSE, cache_key = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="client">client</code></td>
+<td>
+<p>An <code><a href="../../httr2/help/oauth_client.html">oauth_client()</a></code>.</p>
+</td></tr>
+<tr><td><code id="cache_disk">cache_disk</code></td>
+<td>
+<p>Should the access token be cached on disk? This reduces
+the number of times that you need to re-authenticate at the cost of
+storing access credentials on disk.
+</p>
+<p>Learn more in <a href="https://httr2.r-lib.org/articles/oauth.html">https://httr2.r-lib.org/articles/oauth.html</a>.</p>
+</td></tr>
+<tr><td><code id="cache_key">cache_key</code></td>
+<td>
+<p>If you want to cache multiple tokens per app, use this
+key to disambiguate them.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

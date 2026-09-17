@@ -1,0 +1,67 @@
+<!DOCTYPE html><html><head><title>R: Language</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>with_language {withr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Language</h2>
+
+<h3>Description</h3>
+
+<p>Temporarily change the language used for translations.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>with_language(lang, code)
+
+local_language(lang, .local_envir = parent.frame())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="lang">lang</code></td>
+<td>
+<p>A BCP47 language code like &quot;en&quot; (English), &quot;fr&quot; (French),
+&quot;fr_CA&quot; (French Canadian). Formally, this is a lower case two letter
+<a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639 country code</a>,
+optionally followed by &quot;_&quot; or &quot;-&quot; and an upper case two letter
+<a href="https://en.wikipedia.org/wiki/ISO_3166-2">ISO 3166 region code</a>.</p>
+</td></tr>
+<tr><td><code id="code">code</code></td>
+<td>
+<p><code>[any]</code><br> Code to execute in the temporary environment</p>
+</td></tr>
+<tr><td><code id=".local_envir">.local_envir</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[environment]&#8288;</code><br> The environment to use for scoping.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>with_language("en", try(mean[[1]]))
+with_language("fr", try(mean[[1]]))
+with_language("es", try(mean[[1]]))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>withr</em> version 3.0.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

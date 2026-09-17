@@ -1,0 +1,112 @@
+<!DOCTYPE html><html><head><title>R: Keep/discard elements based on their values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>keep {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Keep/discard elements based on their values</h2>
+
+<h3>Description</h3>
+
+<p><code>keep()</code> selects all elements where <code>.p</code> evaluates to <code>TRUE</code>;
+<code>discard()</code> selects all elements where <code>.p</code> evaluates to <code>FALSE</code>.
+<code>compact()</code> discards elements where <code>.p</code> evaluates to an empty vector.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>keep(.x, .p, ...)
+
+discard(.x, .p, ...)
+
+compact(.x, .p = identity)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id=".x">.x</code></td>
+<td>
+<p>A list or vector.</p>
+</td></tr>
+<tr><td><code id=".p">.p</code></td>
+<td>
+<p>A predicate function (i.e. a function that returns either <code>TRUE</code>
+or <code>FALSE</code>) specified in one of the following ways:
+</p>
+
+<ul>
+<li><p> A named function, e.g. <code>is.character</code>.
+</p>
+</li>
+<li><p> An anonymous function, e.g. <code style="white-space: pre;">&#8288;\(x) all(x &lt; 0)&#8288;</code> or <code>function(x) all(x &lt; 0)</code>.
+</p>
+</li>
+<li><p> A formula, e.g. <code>~ all(.x &lt; 0)</code>. Use <code>.x</code> to refer to the first argument.
+No longer recommended.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Additional arguments passed on to <code>.p</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In other languages, <code>keep()</code> and <code>discard()</code> are often called <code>select()</code>/
+<code>filter()</code> and <code>reject()</code>/ <code>drop()</code>, but those names are already taken
+in R. <code>keep()</code> is similar to <code><a href="../../base/html/funprog.html">Filter()</a></code>, but the argument order is more
+convenient, and the evaluation of the predicate function <code>.p</code> is stricter.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../purrr/help/keep_at.html">keep_at()</a></code>/<code><a href="../../purrr/help/discard_at.html">discard_at()</a></code> to keep/discard elements by name.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>rep(10, 10) |&gt;
+  map(sample, 5) |&gt;
+  keep(function(x) mean(x) &gt; 6)
+
+# Or use shorthand form
+rep(10, 10) |&gt;
+  map(sample, 5) |&gt;
+  keep(\(x) mean(x) &gt; 6)
+
+# Using a string instead of a function will select all list elements
+# where that subelement is TRUE
+x &lt;- rerun(5, a = rbernoulli(1), b = sample(10))
+x
+x |&gt; keep("a")
+x |&gt; discard("a")
+
+# compact() discards elements that are NULL or that have length zero
+list(a = "a", b = NULL, c = integer(0), d = NA, e = list()) |&gt;
+  compact()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

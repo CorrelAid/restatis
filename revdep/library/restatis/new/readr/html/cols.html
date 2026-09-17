@@ -1,0 +1,142 @@
+<!DOCTYPE html><html><head><title>R: Create column specification</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>cols {readr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create column specification</h2>
+
+<h3>Description</h3>
+
+<p><code>cols()</code> includes all columns in the input data, guessing the column types
+as the default. <code>cols_only()</code> includes only the columns you explicitly
+specify, skipping the rest. In general you can substitute <code>list()</code> for
+<code>cols()</code> without changing the behavior.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>cols(..., .default = col_guess())
+
+cols_only(...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="...">...</code></td>
+<td>
+<p>Either column objects created by <code style="white-space: pre;">&#8288;col_*()&#8288;</code>, or their abbreviated
+character names (as described in the <code>col_types</code> argument of
+<code><a href="../../readr/help/read_delim.html">read_delim()</a></code>). If you're only overriding a few columns, it's
+best to refer to columns by name. If not named, the column types must match
+the column names exactly.</p>
+</td></tr>
+<tr><td><code id=".default">.default</code></td>
+<td>
+<p>Any named columns not explicitly overridden in <code>...</code>
+will be read with this column type.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The available specifications are: (with string abbreviations in brackets)
+</p>
+
+<ul>
+<li> <p><code>col_logical()</code> [l], containing only <code>T</code>, <code>F</code>, <code>TRUE</code> or <code>FALSE</code>.
+</p>
+</li>
+<li> <p><code>col_integer()</code> [i], integers.
+</p>
+</li>
+<li> <p><code>col_double()</code> [d], doubles.
+</p>
+</li>
+<li> <p><code>col_character()</code> [c], everything else.
+</p>
+</li>
+<li> <p><code>col_factor(levels, ordered)</code> [f], a fixed set of values.
+</p>
+</li>
+<li> <p><code>col_date(format = "")</code> [D]: with the locale's <code>date_format</code>.
+</p>
+</li>
+<li> <p><code>col_time(format = "")</code> [t]: with the locale's <code>time_format</code>.
+</p>
+</li>
+<li> <p><code>col_datetime(format = "")</code> [T]: ISO8601 date times
+</p>
+</li>
+<li> <p><code>col_number()</code> [n], numbers containing the <code>grouping_mark</code>
+</p>
+</li>
+<li> <p><code>col_skip()</code> [_, -], don't import this column.
+</p>
+</li>
+<li> <p><code>col_guess()</code> [?], parse using the &quot;best&quot; type based on the input.
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p>Other parsers: 
+<code><a href="../../readr/help/col_skip.html">col_skip</a>()</code>,
+<code><a href="../../readr/help/cols_condense.html">cols_condense</a>()</code>,
+<code><a href="../../readr/help/parse_datetime.html">parse_datetime</a>()</code>,
+<code><a href="../../readr/help/parse_factor.html">parse_factor</a>()</code>,
+<code><a href="../../readr/help/parse_guess.html">parse_guess</a>()</code>,
+<code><a href="../../readr/help/parse_logical.html">parse_logical</a>()</code>,
+<code><a href="../../readr/help/parse_number.html">parse_number</a>()</code>,
+<code><a href="../../readr/help/parse_vector.html">parse_vector</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>cols(a = col_integer())
+cols_only(a = col_integer())
+
+# You can also use the standard abbreviations
+cols(a = "i")
+cols(a = "i", b = "d", c = "_")
+
+# You can also use multiple sets of column definitions by combining
+# them like so:
+
+t1 &lt;- cols(
+  column_one = col_integer(),
+  column_two = col_number()
+)
+
+t2 &lt;- cols(
+  column_three = col_character()
+)
+
+t3 &lt;- t1
+t3$cols &lt;- c(t1$cols, t2$cols)
+t3
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>readr</em> version 2.2.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

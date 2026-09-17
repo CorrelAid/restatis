@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><title>R: Register default global handlers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>global_handle {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Register default global handlers</h2>
+
+<h3>Description</h3>
+
+<p><code>global_handle()</code> sets up a default configuration for error,
+warning, and message handling. It calls:
+</p>
+
+<ul>
+<li> <p><code><a href="../../rlang/help/global_entrace.html">global_entrace()</a></code> to enable rlang errors and warnings globally.
+</p>
+</li>
+<li> <p><code><a href="../../rlang/help/global_prompt_install.html">global_prompt_install()</a></code> to recover from <code>packageNotFoundError</code>s
+with a user prompt to install the missing package. Note that at
+the time of writing (R 4.1), there are only very limited
+situations where this handler works.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>global_handle(entrace = TRUE, prompt_install = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="entrace">entrace</code></td>
+<td>
+<p>Passed as <code>enable</code> argument to <code><a href="../../rlang/help/global_entrace.html">global_entrace()</a></code>.</p>
+</td></tr>
+<tr><td><code id="prompt_install">prompt_install</code></td>
+<td>
+<p>Passed as <code>enable</code> argument to
+<code><a href="../../rlang/help/global_prompt_install.html">global_prompt_install()</a></code>.</p>
+</td></tr>
+</table>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

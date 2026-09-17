@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><title>R: Callback classes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>callback {readr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Callback classes</h2>
+
+<h3>Description</h3>
+
+<p>These classes are used to define callback behaviors.
+</p>
+
+
+<h3>Details</h3>
+
+
+<dl>
+<dt>ChunkCallback</dt><dd><p>Callback interface definition, all callback functions should inherit from this class.</p>
+</dd>
+<dt>SideEffectChunkCallback</dt><dd><p>Callback function that is used only for side effects, no results are returned.</p>
+</dd>
+<dt>DataFrameCallback</dt><dd><p>Callback function that combines each result together at the end.</p>
+</dd>
+<dt>AccumulateCallBack</dt><dd>
+<p>Callback function that accumulates a single result. Requires the parameter <code>acc</code> to specify
+the initial value of the accumulator.  The parameter <code>acc</code> is <code>NULL</code> by default.
+</p>
+</dd>
+<dt>ListCallback</dt><dd><p>Callback function that returns the results in a list.</p>
+</dd>
+</dl>
+
+
+
+<h3>See Also</h3>
+
+<p>Other chunked: 
+<code><a href="../../readr/help/read_delim_chunked.html">read_delim_chunked</a>()</code>,
+<code><a href="../../readr/help/read_lines_chunked.html">read_lines_chunked</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## If given a regular function it is converted to a SideEffectChunkCallback
+
+# view structure of each chunk
+read_lines_chunked(readr_example("mtcars.csv"), str, chunk_size = 5)
+
+# Print starting line of each chunk
+f &lt;- function(x, pos) print(pos)
+read_lines_chunked(readr_example("mtcars.csv"), SideEffectChunkCallback$new(f), chunk_size = 5)
+
+# If combined results are desired you can use the DataFrameCallback
+
+# Cars with 3 gears
+f &lt;- function(x, pos) subset(x, gear == 3)
+read_csv_chunked(readr_example("mtcars.csv"), DataFrameCallback$new(f), chunk_size = 5)
+
+# The ListCallback can be used for more flexible output
+f &lt;- function(x, pos) x$mpg[x$hp &gt; 100]
+read_csv_chunked(readr_example("mtcars.csv"), ListCallback$new(f), chunk_size = 5)
+
+# The AccumulateCallback accumulates results from each chunk
+f &lt;- function(x, pos, acc) sum(x$mpg) + acc
+read_csv_chunked(readr_example("mtcars.csv"), AccumulateCallback$new(f, acc = 0), chunk_size = 5)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>readr</em> version 2.2.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

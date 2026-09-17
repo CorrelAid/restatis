@@ -1,0 +1,109 @@
+<!DOCTYPE html><html><head><title>R: Tools for working with lists of responses</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>resps_successes {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Tools for working with lists of responses</h2>
+
+<h3>Description</h3>
+
+<p>These functions provide a basic toolkit for working with lists of
+responses and possibly errors, as returned by <code><a href="../../httr2/help/req_perform_parallel.html">req_perform_parallel()</a></code>,
+<code><a href="../../httr2/help/req_perform_sequential.html">req_perform_sequential()</a></code>, and <code><a href="../../httr2/help/req_perform_iterative.html">req_perform_iterative()</a></code>.
+</p>
+
+<ul>
+<li> <p><code>resps_successes()</code> returns a list of successful responses.
+</p>
+</li>
+<li> <p><code>resps_failures()</code> returns a list of failed responses (i.e. errors).
+</p>
+</li>
+<li> <p><code>resps_ok()</code> returns a logical vector indicating which requests were
+successful.
+</p>
+</li>
+<li> <p><code>resps_requests()</code> returns the list of requests that corresponds to
+each response.
+</p>
+</li>
+<li> <p><code>resps_data()</code> returns all the data in a single vector or data frame.
+</p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>resps_successes(resps)
+
+resps_failures(resps)
+
+resps_ok(resps)
+
+resps_requests(resps)
+
+resps_data(resps, resp_data)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="resps">resps</code></td>
+<td>
+<p>A list of responses (possibly including errors).</p>
+</td></tr>
+<tr><td><code id="resp_data">resp_data</code></td>
+<td>
+<p>A function that takes a response (<code>resp</code>) and
+returns the data found inside that response as a vector or data frame.
+</p>
+<p>NB: If you're using <code><a href="../../httr2/help/resp_body_raw.html">resp_body_raw()</a></code>, you're likely to want to wrap its
+output in <code>list()</code> to avoid combining all the bodies into a single raw
+vector, e.g. <code style="white-space: pre;">&#8288;resps |&gt; resps_data(\(resp) list(resp_body_raw(resp)))&#8288;</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>reqs &lt;- list(
+  request(example_url()) |&gt; req_url_path("/ip"),
+  request(example_url()) |&gt; req_url_path("/user-agent"),
+  request(example_url()) |&gt; req_template("/status/:status", status = 404),
+  request("INVALID")
+)
+resps &lt;- req_perform_parallel(reqs, on_error = "continue")
+
+# find successful responses
+resps |&gt; resps_successes()
+
+# collect all their data
+resps |&gt;
+  resps_successes() |&gt;
+  resps_data(\(resp) resp_body_json(resp))
+
+# find requests corresponding to failure responses
+resps |&gt;
+  resps_failures() |&gt;
+  resps_requests()
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

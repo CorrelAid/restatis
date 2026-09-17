@@ -1,0 +1,78 @@
+<!DOCTYPE html><html><head><title>R: Keep/discard elements based on their name/position</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>keep_at {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Keep/discard elements based on their name/position</h2>
+
+<h3>Description</h3>
+
+<p><code>keep_at()</code> and <code>discard_at()</code> are similar to <code>[</code> or <code>dplyr::select()</code>: they
+return the same type of data structure as the input, but only containing
+the requested elements. (If you're looking for a function similar to
+<code>[[</code> see <code><a href="../../purrr/help/pluck.html">pluck()</a></code>/<code><a href="../../purrr/help/chuck.html">chuck()</a></code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>keep_at(x, at)
+
+discard_at(x, at)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A list or atomic vector.</p>
+</td></tr>
+<tr><td><code id="at">at</code></td>
+<td>
+<p>A logical, integer, or character vector giving the elements
+to select. Alternatively, a function that takes a vector of names,
+and returns a logical, integer, or character vector of elements to select.
+</p>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt='[Deprecated]'></a>: if the tidyselect package is
+installed, you can use <code>vars()</code> and tidyselect helpers to select
+elements.</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../purrr/help/keep.html">keep()</a></code>/<code><a href="../../purrr/help/discard.html">discard()</a></code> to keep/discard elements by value.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- c(a = 1, b = 2, cat = 10, dog = 15, elephant = 5, e = 10)
+x |&gt; keep_at(letters)
+x |&gt; discard_at(letters)
+
+# Can also use a function
+x |&gt; keep_at(\(x) nchar(x) == 3)
+x |&gt; discard_at(\(x) nchar(x) == 3)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

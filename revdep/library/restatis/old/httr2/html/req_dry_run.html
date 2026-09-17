@@ -1,0 +1,131 @@
+<!DOCTYPE html><html><head><title>R: Perform a dry run</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>req_dry_run {httr2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Perform a dry run</h2>
+
+<h3>Description</h3>
+
+<p>This shows you exactly what httr2 will send to the server, without
+actually sending anything. It requires the httpuv package because it
+works by sending the real HTTP request to a local webserver, thanks to
+the magic of <code><a href="../../curl/help/curl_echo.html">curl::curl_echo()</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>req_dry_run(
+  req,
+  quiet = FALSE,
+  redact_headers = TRUE,
+  testing_headers = is_testing(),
+  pretty_json = getOption("httr2_pretty_json", TRUE)
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="req">req</code></td>
+<td>
+<p>A httr2 <a href="../../httr2/help/request.html">request</a> object.</p>
+</td></tr>
+<tr><td><code id="quiet">quiet</code></td>
+<td>
+<p>If <code>TRUE</code> doesn't print anything.</p>
+</td></tr>
+<tr><td><code id="redact_headers">redact_headers</code></td>
+<td>
+<p>Redact confidential data in the headers? Currently
+redacts the contents of the Authorization header to prevent you from
+accidentally leaking credentials when debugging/reprexing.</p>
+</td></tr>
+<tr><td><code id="testing_headers">testing_headers</code></td>
+<td>
+<p>If <code>TRUE</code>, removes headers that httr2 would otherwise
+be automatically added, which are likely to change across test runs. This
+currently includes:
+</p>
+
+<ul>
+<li><p> The default <code>User-Agent</code>, which varies based on libcurl, curl, and
+httr2 versions.
+</p>
+</li>
+<li><p> The 'Host&ldquo; header, which is often set to a testing server.
+</p>
+</li>
+<li><p> The <code>Content-Length</code> header, which will often vary by platform because
+of varying newline encodings. (And is also not correct if you have
+<code>pretty_json = TRUE</code>.)
+</p>
+</li>
+<li><p> The <code>Accept-Encoding</code> header, which varies based on how libcurl was
+built.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="pretty_json">pretty_json</code></td>
+<td>
+<p>If <code>TRUE</code>, automatically prettify JSON bodies.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+
+<h4>Limitations</h4>
+
+
+<ul>
+<li><p> The HTTP version is always <code>HTTP/1.1</code> (since you can't determine what it
+will actually be without connecting to the real server).
+</p>
+</li></ul>
+
+
+
+
+<h3>Value</h3>
+
+<p>Invisibly, a list containing information about the request,
+including <code>method</code>, <code>path</code>, and <code>headers</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># httr2 adds default User-Agent, Accept, and Accept-Encoding headers
+request("http://example.com") |&gt; req_dry_run()
+
+# the Authorization header is automatically redacted to avoid leaking
+# credentials on the console
+req &lt;- request("http://example.com") |&gt; req_auth_basic("user", "password")
+req |&gt; req_dry_run()
+
+# if you need to see it, use redact_headers = FALSE
+req |&gt; req_dry_run(redact_headers = FALSE)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>httr2</em> version 1.2.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

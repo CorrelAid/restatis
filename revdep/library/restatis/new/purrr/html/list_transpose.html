@@ -1,0 +1,138 @@
+<!DOCTYPE html><html><head><title>R: Transpose a list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>list_transpose {purrr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Transpose a list</h2>
+
+<h3>Description</h3>
+
+<p><code>list_transpose()</code> turns a list-of-lists &quot;inside-out&quot;. For instance it turns a pair of
+lists into a list of pairs, or a list of pairs into a pair of lists. For
+example, if you had a list of length <code>n</code> where each component had values <code>a</code>
+and <code>b</code>, <code>list_transpose()</code> would make a list with elements <code>a</code> and
+<code>b</code> that contained lists of length <code>n</code>.
+</p>
+<p>It's called transpose because <code>x[["a"]][["b"]]</code> is equivalent to
+<code>list_transpose(x)[["b"]][["a"]]</code>, i.e. transposing a list flips the order of
+indices in a similar way to transposing a matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>list_transpose(
+  x,
+  ...,
+  template = NULL,
+  simplify = NA,
+  ptype = NULL,
+  default = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A list of vectors to transpose.</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>These dots are for future extensions and must be empty.</p>
+</td></tr>
+<tr><td><code id="template">template</code></td>
+<td>
+<p>A &quot;template&quot; that describes the output list. Can either be
+a character vector (where elements are extracted by name), or an integer
+vector (where elements are extracted by position). Defaults to the union
+of the names of the elements of <code>x</code>, or if they're not present, the
+union of the integer indices.</p>
+</td></tr>
+<tr><td><code id="simplify">simplify</code></td>
+<td>
+<p>Should the result be <a href="../../purrr/help/list_simplify.html">simplified</a>?
+</p>
+
+<ul>
+<li> <p><code>TRUE</code>: simplify or die trying.
+</p>
+</li>
+<li> <p><code>NA</code>: simplify if possible.
+</p>
+</li>
+<li> <p><code>FALSE</code>: never try to simplify, always leaving as a list.
+</p>
+</li></ul>
+
+<p>Alternatively, a named list specifying the simplification by output
+element.</p>
+</td></tr>
+<tr><td><code id="ptype">ptype</code></td>
+<td>
+<p>An optional vector prototype used to control the simplification.
+Alternatively, a named list specifying the prototype by output element.</p>
+</td></tr>
+<tr><td><code id="default">default</code></td>
+<td>
+<p>A default value to use if a value is absent or <code>NULL</code>.
+Alternatively, a named list specifying the default by output element.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># list_transpose() is useful in conjunction with safely()
+x &lt;- list("a", 1, 2)
+y &lt;- x |&gt; map(safely(log))
+y |&gt; str()
+# Put all the errors and results together
+y |&gt; list_transpose() |&gt; str()
+# Supply a default result to further simplify
+y |&gt; list_transpose(default = list(result = NA)) |&gt; str()
+
+# list_transpose() will try to simplify by default:
+x &lt;- list(list(a = 1, b = 2), list(a = 3, b = 4), list(a = 5, b = 6))
+x |&gt; list_transpose()
+# this makes list_tranpose() not completely symmetric
+x |&gt; list_transpose() |&gt; list_transpose()
+
+# use simplify = FALSE to always return lists:
+x |&gt; list_transpose(simplify = FALSE) |&gt; str()
+x |&gt;
+  list_transpose(simplify = FALSE) |&gt;
+  list_transpose(simplify = FALSE) |&gt; str()
+
+# Provide an explicit template if you know which elements you want to extract
+ll &lt;- list(
+  list(x = 1, y = "one"),
+  list(z = "deux", x = 2)
+)
+ll |&gt; list_transpose()
+ll |&gt; list_transpose(template = c("x", "y", "z"))
+ll |&gt; list_transpose(template = 1)
+
+# And specify a default if you want to simplify
+ll |&gt; list_transpose(template = c("x", "y", "z"), default = NA)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>purrr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

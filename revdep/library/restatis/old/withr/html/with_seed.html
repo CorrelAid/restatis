@@ -1,0 +1,106 @@
+<!DOCTYPE html><html><head><title>R: Random seed</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>with_seed {withr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Random seed</h2>
+
+<h3>Description</h3>
+
+<p><code>with_seed()</code> runs code with a specific random seed and resets it afterwards.
+</p>
+<p><code>with_preserve_seed()</code> runs code with the current random seed and resets it
+afterwards.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>with_seed(
+  seed,
+  code,
+  .rng_kind = NULL,
+  .rng_normal_kind = NULL,
+  .rng_sample_kind = NULL
+)
+
+local_seed(
+  seed,
+  .local_envir = parent.frame(),
+  .rng_kind = NULL,
+  .rng_normal_kind = NULL,
+  .rng_sample_kind = NULL
+)
+
+with_preserve_seed(code)
+
+local_preserve_seed(.local_envir = parent.frame())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="seed">seed</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[integer(1)]&#8288;</code><br> The random seed to use to evaluate the code.</p>
+</td></tr>
+<tr><td><code id="code">code</code></td>
+<td>
+<p><code>[any]</code><br> Code to execute in the temporary environment</p>
+</td></tr>
+<tr><td><code id=".rng_kind">.rng_kind</code>, <code id=".rng_normal_kind">.rng_normal_kind</code>, <code id=".rng_sample_kind">.rng_sample_kind</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[character(1)]&#8288;</code><br> Kind of RNG to use. Passed as the <code>kind</code>,
+<code>normal.kind</code>, and <code>sample.kind</code> arguments of <code><a href="../../base/html/Random.html">RNGkind()</a></code>.</p>
+</td></tr>
+<tr><td><code id=".local_envir">.local_envir</code></td>
+<td>
+<p><code style="white-space: pre;">&#8288;[environment]&#8288;</code><br> The environment to use for scoping.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>[any]</code><br> The results of the evaluation of the <code>code</code>
+argument.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../withr/help/withr.html">withr</a></code> for examples
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># Same random values:
+with_preserve_seed(runif(5))
+with_preserve_seed(runif(5))
+
+# Use a pseudorandom value as seed to advance the RNG and pick a different
+# value for the next call:
+with_seed(seed &lt;- sample.int(.Machine$integer.max, 1L), runif(5))
+with_seed(seed, runif(5))
+with_seed(seed &lt;- sample.int(.Machine$integer.max, 1L), runif(5))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>withr</em> version 3.0.2 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

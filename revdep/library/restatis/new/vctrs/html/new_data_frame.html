@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><title>R: Assemble attributes for data frame construction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>new_data_frame {vctrs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Assemble attributes for data frame construction</h2>
+
+<h3>Description</h3>
+
+<p><code>new_data_frame()</code> constructs a new data frame from an existing list. It is
+meant to be performant, and does not check the inputs for correctness in any
+way. It is only safe to use after a call to <code><a href="../../vctrs/help/df_list.html">df_list()</a></code>, which collects and
+validates the columns used to construct the data frame.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>new_data_frame(x = list(), n = NULL, ..., class = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>A named list of equal-length vectors. The lengths are not
+checked; it is responsibility of the caller to make sure they are
+equal.</p>
+</td></tr>
+<tr><td><code id="n">n</code></td>
+<td>
+<p>Number of rows. If <code>NULL</code>, will be computed from the length of
+the first element of <code>x</code>.</p>
+</td></tr>
+<tr><td><code id="...">...</code>, <code id="class">class</code></td>
+<td>
+<p>Additional arguments for creating subclasses.
+</p>
+<p>The following attributes have special behavior:
+</p>
+
+<ul>
+<li> <p><code>"names"</code> is preferred if provided, overriding existing names in <code>x</code>.
+</p>
+</li>
+<li> <p><code>"row.names"</code> is preferred if provided, overriding both <code>n</code> and the size
+implied by <code>x</code>.
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../vctrs/help/df_list.html">df_list()</a></code> for a way to safely construct a data frame's underlying
+data structure from individual columns. This can be used to create a
+named list for further use by <code>new_data_frame()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>new_data_frame(list(x = 1:10, y = 10:1))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>vctrs</em> version 0.7.1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html><html><head><title>R: Is frame environment user facing?</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>env_is_user_facing {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Is frame environment user facing?</h2>
+
+<h3>Description</h3>
+
+<p>Detects if <code>env</code> is user-facing, that is, whether it's an environment
+that inherits from:
+</p>
+
+<ul>
+<li><p> The global environment, as would happen when called interactively
+</p>
+</li>
+<li><p> A package that is currently being tested
+</p>
+</li></ul>
+
+<p>If either is true, we consider <code>env</code> to belong to an evaluation
+frame that was called <em>directly</em> by the end user. This is by
+contrast to <em>indirect</em> calls by third party functions which are not
+user facing.
+</p>
+<p>For instance the <a href="https://lifecycle.r-lib.org/">lifecycle</a> package
+uses <code>env_is_user_facing()</code> to figure out whether a deprecated function
+was called directly or indirectly, and select an appropriate
+verbosity level as a function of that.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>env_is_user_facing(env)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="env">env</code></td>
+<td>
+<p>An environment.</p>
+</td></tr>
+</table>
+
+
+<h3>Escape hatch</h3>
+
+<p>You can override the return value of <code>env_is_user_facing()</code> by
+setting the global option <code>"rlang_user_facing"</code> to:
+</p>
+
+<ul>
+<li> <p><code>TRUE</code> or <code>FALSE</code>.
+</p>
+</li>
+<li><p> A package name as a string. Then <code>env_is_user_facing(x)</code> returns
+<code>TRUE</code> if <code>x</code> inherits from the namespace corresponding to that
+package name.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>fn &lt;- function() {
+  env_is_user_facing(caller_env())
+}
+
+# Direct call of `fn()` from the global env
+with(global_env(), fn())
+
+# Indirect call of `fn()` from a package
+with(ns_env("utils"), fn())
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

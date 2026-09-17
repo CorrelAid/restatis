@@ -1,0 +1,154 @@
+<!DOCTYPE html><html><head><title>R: Is an object an expression?</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>is_expression {rlang}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Is an object an expression?</h2>
+
+<h3>Description</h3>
+
+<p>In rlang, an <em>expression</em> is the return type of <code><a href="../../rlang/help/parse_expr.html">parse_expr()</a></code>, the
+set of objects that can be obtained from parsing R code. Under this
+definition expressions include numbers, strings, <code>NULL</code>, symbols,
+and function calls. These objects can be classified as:
+</p>
+
+<ul>
+<li><p> Symbolic objects, i.e. symbols and function calls (for which
+<code>is_symbolic()</code> returns <code>TRUE</code>)
+</p>
+</li>
+<li><p> Syntactic literals, i.e. scalar atomic objects and <code>NULL</code>
+(testable with <code>is_syntactic_literal()</code>)
+</p>
+</li></ul>
+
+<p><code>is_expression()</code> returns <code>TRUE</code> if the input is either a symbolic
+object or a syntactic literal. If a call, the elements of the call
+must all be expressions as well. Unparsable calls are not
+considered expressions in this narrow definition.
+</p>
+<p>Note that in base R, there exists <code><a href="../../base/html/expression.html">expression()</a></code> vectors, a data
+type similar to a list that supports special attributes created by
+the parser called source references. This data type is not
+supported in rlang.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>is_expression(x)
+
+is_syntactic_literal(x)
+
+is_symbolic(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>An object to test.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>is_symbolic()</code> returns <code>TRUE</code> for symbols and calls (objects with
+type <code>language</code>). Symbolic objects are replaced by their value
+during evaluation. Literals are the complement of symbolic
+objects. They are their own value and return themselves during
+evaluation.
+</p>
+<p><code>is_syntactic_literal()</code> is a predicate that returns <code>TRUE</code> for the
+subset of literals that are created by R when parsing text (see
+<code><a href="../../rlang/help/parse_expr.html">parse_expr()</a></code>): numbers, strings and <code>NULL</code>. Along with symbols,
+these literals are the terminating nodes in an AST.
+</p>
+<p>Note that in the most general sense, a literal is any R object that
+evaluates to itself and that can be evaluated in the empty
+environment. For instance, <code>quote(c(1, 2))</code> is not a literal, it is
+a call. However, the result of evaluating it in <code><a href="../../rlang/help/base_env.html">base_env()</a></code> is a
+literal(in this case an atomic vector).
+</p>
+<p>As the data structure for function arguments, pairlists are also a
+kind of language objects. However, since they are mostly an
+internal data structure and can't be returned as is by the parser,
+<code>is_expression()</code> returns <code>FALSE</code> for pairlists.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../rlang/help/is_call.html">is_call()</a></code> for a call predicate.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>q1 &lt;- quote(1)
+is_expression(q1)
+is_syntactic_literal(q1)
+
+q2 &lt;- quote(x)
+is_expression(q2)
+is_symbol(q2)
+
+q3 &lt;- quote(x + 1)
+is_expression(q3)
+is_call(q3)
+
+
+# Atomic expressions are the terminating nodes of a call tree:
+# NULL or a scalar atomic vector:
+is_syntactic_literal("string")
+is_syntactic_literal(NULL)
+
+is_syntactic_literal(letters)
+is_syntactic_literal(quote(call()))
+
+# Parsable literals have the property of being self-quoting:
+identical("foo", quote("foo"))
+identical(1L, quote(1L))
+identical(NULL, quote(NULL))
+
+# Like any literals, they can be evaluated within the empty
+# environment:
+eval_bare(quote(1L), empty_env())
+
+# Whereas it would fail for symbolic expressions:
+# eval_bare(quote(c(1L, 2L)), empty_env())
+
+
+# Pairlists are also language objects representing argument lists.
+# You will usually encounter them with extracted formals:
+fmls &lt;- formals(is_expression)
+typeof(fmls)
+
+# Since they are mostly an internal data structure, is_expression()
+# returns FALSE for pairlists, so you will have to check explicitly
+# for them:
+is_expression(fmls)
+is_pairlist(fmls)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>rlang</em> version 1.1.7 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

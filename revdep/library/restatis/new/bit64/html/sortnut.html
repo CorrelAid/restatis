@@ -1,0 +1,329 @@
+<!DOCTYPE html><html><head><title>R: Searching and other uses of sorting for 64bit integers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>sortnut {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Searching and other uses of sorting for 64bit integers</h2>
+
+<h3>Description</h3>
+
+<p>This is roughly an implementation of hash functionality but based on sorting
+instead on a hashmap. Since sorting is more informative than hashing we
+can do some more interesting things.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>sortnut(sorted, ...)
+
+## S3 method for class 'integer64'
+sortnut(sorted, ...)
+
+ordernut(table, order, ...)
+
+## S3 method for class 'integer64'
+ordernut(table, order, ...)
+
+sortfin(sorted, x, ...)
+
+## S3 method for class 'integer64'
+sortfin(sorted, x, method = NULL, ...)
+
+orderfin(table, order, x, ...)
+
+## S3 method for class 'integer64'
+orderfin(table, order, x, method = NULL, ...)
+
+orderpos(table, order, x, ...)
+
+## S3 method for class 'integer64'
+orderpos(table, order, x, nomatch = NA, method = NULL, ...)
+
+sortorderpos(sorted, order, x, ...)
+
+## S3 method for class 'integer64'
+sortorderpos(sorted, order, x, nomatch = NA, method = NULL, ...)
+
+orderdup(table, order, ...)
+
+## S3 method for class 'integer64'
+orderdup(table, order, method = NULL, ...)
+
+sortorderdup(sorted, order, ...)
+
+## S3 method for class 'integer64'
+sortorderdup(sorted, order, method = NULL, ...)
+
+sortuni(sorted, nunique, ...)
+
+## S3 method for class 'integer64'
+sortuni(sorted, nunique, ...)
+
+orderuni(table, order, nunique, ...)
+
+## S3 method for class 'integer64'
+orderuni(table, order, nunique, keep.order = FALSE, ...)
+
+sortorderuni(table, sorted, order, nunique, ...)
+
+## S3 method for class 'integer64'
+sortorderuni(table, sorted, order, nunique, ...)
+
+orderupo(table, order, nunique, ...)
+
+## S3 method for class 'integer64'
+orderupo(table, order, nunique, keep.order = FALSE, ...)
+
+sortorderupo(sorted, order, nunique, keep.order = FALSE, ...)
+
+## S3 method for class 'integer64'
+sortorderupo(sorted, order, nunique, keep.order = FALSE, ...)
+
+ordertie(table, order, nties, ...)
+
+## S3 method for class 'integer64'
+ordertie(table, order, nties, ...)
+
+sortordertie(sorted, order, nties, ...)
+
+## S3 method for class 'integer64'
+sortordertie(sorted, order, nties, ...)
+
+sorttab(sorted, nunique, ...)
+
+## S3 method for class 'integer64'
+sorttab(sorted, nunique, ...)
+
+ordertab(table, order, nunique, ...)
+
+## S3 method for class 'integer64'
+ordertab(table, order, nunique, denormalize = FALSE, keep.order = FALSE, ...)
+
+sortordertab(sorted, order, ...)
+
+## S3 method for class 'integer64'
+sortordertab(sorted, order, denormalize = FALSE, ...)
+
+orderkey(table, order, na.skip.num = 0L, ...)
+
+## S3 method for class 'integer64'
+orderkey(table, order, na.skip.num = 0L, ...)
+
+sortorderkey(sorted, order, na.skip.num = 0L, ...)
+
+## S3 method for class 'integer64'
+sortorderkey(sorted, order, na.skip.num = 0L, ...)
+
+orderrnk(table, order, na.count, ...)
+
+## S3 method for class 'integer64'
+orderrnk(table, order, na.count, ...)
+
+sortorderrnk(sorted, order, na.count, ...)
+
+## S3 method for class 'integer64'
+sortorderrnk(sorted, order, na.count, ...)
+
+sortqtl(sorted, na.count, probs, ...)
+
+## S3 method for class 'integer64'
+sortqtl(sorted, na.count, probs, ...)
+
+orderqtl(table, order, na.count, probs, ...)
+
+## S3 method for class 'integer64'
+orderqtl(table, order, na.count, probs, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="sorted">sorted</code></td>
+<td>
+<p>a sorted <code><a href="../../bit64/help/integer64.html">integer64</a></code> vector</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>further arguments, passed from generics, ignored in methods</p>
+</td></tr>
+<tr><td><code id="table">table</code></td>
+<td>
+<p>the original data with original order under the sorted vector</p>
+</td></tr>
+<tr><td><code id="order">order</code></td>
+<td>
+<p>an <code><a href="../../base/html/integer.html">integer</a></code> order vector that turns 'table' into 'sorted'</p>
+</td></tr>
+<tr><td><code id="x">x</code></td>
+<td>
+<p>an <code><a href="../../bit64/help/integer64.html">integer64</a></code> vector</p>
+</td></tr>
+<tr><td><code id="method">method</code></td>
+<td>
+<p>see Details</p>
+</td></tr>
+<tr><td><code id="nomatch">nomatch</code></td>
+<td>
+<p>the value to be returned if an element is not found in the hashmap</p>
+</td></tr>
+<tr><td><code id="nunique">nunique</code></td>
+<td>
+<p>number of unique elements, usually we get this from cache
+or call <code>sortnut</code> or <code>ordernut</code></p>
+</td></tr>
+<tr><td><code id="keep.order">keep.order</code></td>
+<td>
+<p>determines order of results and speed: <code>FALSE</code> (the default)
+is faster and returns in sorted order, <code>TRUE</code> returns in the order of first
+appearance in the original data, but this requires extra work</p>
+</td></tr>
+<tr><td><code id="nties">nties</code></td>
+<td>
+<p>number of tied values, usually we get this from cache or
+call <code>sortnut</code> or <code>ordernut</code></p>
+</td></tr>
+<tr><td><code id="denormalize">denormalize</code></td>
+<td>
+<p>FALSE returns counts of unique values, TRUE returns each
+value with its counts</p>
+</td></tr>
+<tr><td><code id="na.skip.num">na.skip.num</code></td>
+<td>
+<p>0 or the number of <code>NA</code>s. With 0, <code>NA</code>s are coded with 1L,
+with the number of <code>NA</code>s, these are coded with <code>NA</code></p>
+</td></tr>
+<tr><td><code id="na.count">na.count</code></td>
+<td>
+<p>the number of <code>NA</code>s, needed for this low-level function algorithm</p>
+</td></tr>
+<tr><td><code id="probs">probs</code></td>
+<td>
+<p>vector of probabilities in <code style="white-space: pre;">&#8288;[0..1]&#8288;</code> for which we seek quantiles</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+<table>
+<tr>
+ <td style="text-align: right;">
+   <strong>sortfun</strong> </td><td style="text-align: right;"> <strong>orderfun</strong> </td><td style="text-align: right;"> <strong>sortorderfun</strong> </td><td style="text-align: right;"> <strong>see also</strong> </td><td style="text-align: left;"> <strong>description</strong> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>sortnut</code> </td><td style="text-align: right;"> <code>ordernut</code> </td><td style="text-align: right;">  </td><td style="text-align: right;">  </td><td style="text-align: left;"> return number of tied and of unique values </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>sortfin</code> </td><td style="text-align: right;"> <code>orderfin</code> </td><td style="text-align: right;">  </td><td style="text-align: right;"> <code><a href="../../bit64/help/+25in+25.integer64.html">%in%.integer64</a></code> </td><td style="text-align: left;"> return logical whether <code>x</code> is in <code>table</code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code>orderpos</code> </td><td style="text-align: right;"> <code>sortorderpos</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/match.integer64.html">match()</a></code> </td><td style="text-align: left;"> return positions of <code>x</code> in <code>table</code> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code>orderdup</code> </td><td style="text-align: right;"> <code>sortorderdup</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/duplicated.integer64.html">duplicated()</a></code> </td><td style="text-align: left;"> return logical whether values are duplicated </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>sortuni</code> </td><td style="text-align: right;"> <code>orderuni</code> </td><td style="text-align: right;"> <code>sortorderuni</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/unique.integer64.html">unique()</a></code> </td><td style="text-align: left;"> return unique values (=dimensiontable) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code>orderupo</code> </td><td style="text-align: right;"> <code>sortorderupo</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/unique.integer64.html">unique()</a></code> </td><td style="text-align: left;"> return positions of unique values </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code>ordertie</code> </td><td style="text-align: right;"> <code>sortordertie</code> </td><td style="text-align: right;">  </td><td style="text-align: left;"> return positions of tied values </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code>orderkey</code> </td><td style="text-align: right;"> <code>sortorderkey</code> </td><td style="text-align: right;">  </td><td style="text-align: left;"> positions of values in vector of unique values (match in dimensiontable) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>sorttab</code> </td><td style="text-align: right;"> <code>ordertab</code> </td><td style="text-align: right;"> <code>sortordertab</code> </td><td style="text-align: right;"> <code><a href="../../bit64/help/table.integer64.html">table()</a></code> </td><td style="text-align: left;"> tabulate frequency of values </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td><td style="text-align: right;"> <code>orderrnk</code> </td><td style="text-align: right;"> <code>sortorderrnk</code> </td><td style="text-align: right;">  </td><td style="text-align: left;"> rank averaging ties </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+   <code>sortqtl</code> </td><td style="text-align: right;"> <code>orderqtl</code> </td><td style="text-align: right;">  </td><td style="text-align: right;">  </td><td style="text-align: left;"> return quantiles given probabilities 
+</td>
+</tr>
+
+</table>
+
+<p>The functions <code>sortfin</code>, <code>orderfin</code>, <code>orderpos</code> and <code>sortorderpos</code> each
+offer three algorithms for finding <code>x</code> in <code>table</code>.
+</p>
+<p>With <code>method=1L</code> each value of <code>x</code> is searched independently using
+<em>binary search</em>, this is fastest for small <code>table</code>s.
+</p>
+<p>With <code>method=2L</code> the values of <code>x</code> are first sorted and then searched using
+<em>doubly exponential search</em>, this is the best allround method.
+</p>
+<p>With <code>method=3L</code> the values of <code>x</code> are first sorted and then searched using
+simple merging, this is the fastest method if <code>table</code> is huge and <code>x</code> has
+similar size and distribution of values.
+</p>
+<p>With <code>method=NULL</code> the functions use a heuristic to determine the fastest
+algorithm.
+</p>
+<p>The functions <code>orderdup</code> and <code>sortorderdup</code> each offer two algorithms for
+setting the truth values in the return vector.
+</p>
+<p>With <code>method=1L</code> the return values are set directly which causes random
+write access on a possibly large return vector.
+</p>
+<p>With <code>method=2L</code> the return values are first set in a smaller bit-vector &ndash;
+random access limited to a smaller memory region &ndash; and finally written
+sequentially to the logical output  vector.
+</p>
+<p>With <code>method=NULL</code> the functions use a heuristic to determine the fastest
+algorithm.
+</p>
+
+
+<h3>Value</h3>
+
+<p>see details
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/match.integer64.html">match()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'> message("check the code of 'optimizer64' for examples:")
+ print(optimizer64)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html><html><head><title>R: Symmetric set complement</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>symdiff {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Symmetric set complement</h2>
+
+<h3>Description</h3>
+
+<p>Symmetric set complement
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>symdiff(x, y)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>a vector</p>
+</td></tr>
+<tr><td><code id="y">y</code></td>
+<td>
+<p>a vector</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>union(setdiff(x, y), setdiff(y, x))</code>
+</p>
+
+
+<h3>Note</h3>
+
+<p>that <code>symdiff(x, y)</code> is not <code><a href="../../base/html/identical.html">identical()</a></code>
+as <code>symdiff(y, x)</code> without applying <code><a href="../../base/html/sort.html">sort()</a></code> to the result
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/merge_symdiff.html">merge_symdiff()</a></code> and <code><a href="../../bit/help/xor.html">xor()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>symdiff(c(1L, 2L, 2L), c(2L, 3L))
+symdiff(c(2L, 3L), c(1L, 2L, 2L))
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html><html><head><title>R: 64-bit integer matching</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>match.integer64 {bit64}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>64-bit integer matching</h2>
+
+<h3>Description</h3>
+
+<p><code>match</code> returns a vector of the positions of (first) matches of its first
+argument in its second.
+<code>%in%</code> is a more intuitive interface as a binary operator, which returns a
+logical vector indicating if there is a match or not for its left operand.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S3 method for class 'integer64'
+match(x, table, nomatch = NA_integer_, nunique = NULL, method = NULL, ...)
+
+## S3 method for class 'integer64'
+x %in% table, ...
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="x">x</code></td>
+<td>
+<p>integer64 vector: the values to be matched, optionally carrying a
+cache created with <code><a href="../../bit64/help/hashcache.html">hashcache()</a></code></p>
+</td></tr>
+<tr><td><code id="table">table</code></td>
+<td>
+<p>integer64 vector: the values to be matched against, optionally
+carrying a cache created with <code><a href="../../bit64/help/hashcache.html">hashcache()</a></code> or <code><a href="../../bit64/help/sortordercache.html">sortordercache()</a></code></p>
+</td></tr>
+<tr><td><code id="nomatch">nomatch</code></td>
+<td>
+<p>the value to be returned in the case when no match is found.
+Note that it is coerced to integer.</p>
+</td></tr>
+<tr><td><code id="nunique">nunique</code></td>
+<td>
+<p>NULL or the number of unique values of table (including NA).
+Providing <code>nunique</code> can speed-up matching when <code>table</code> has no cache. Note
+that a wrong nunique can cause undefined behaviour up to a crash.</p>
+</td></tr>
+<tr><td><code id="method">method</code></td>
+<td>
+<p>NULL for automatic method selection or a suitable low-level
+method, see details</p>
+</td></tr>
+<tr><td><code id="...">...</code></td>
+<td>
+<p>ignored</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions automatically choose from several low-level functions
+considering the size of <code>x</code> and <code>table</code> and the availability of caches.
+</p>
+<p>Suitable methods for <code style="white-space: pre;">&#8288;%in%.integer64&#8288;</code> are
+</p>
+
+<ul>
+<li> <p><code><a href="../../bit64/help/hashpos.html">hashpos</a></code> (hash table lookup)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/hashrev.html">hashrev</a></code> (reverse lookup)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/sortorderpos.html">sortorderpos</a></code> (fast ordering)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/orderpos.html">orderpos</a></code> (memory saving ordering).
+</p>
+</li></ul>
+
+<p>Suitable methods for <code>match.integer64</code> are
+</p>
+
+<ul>
+<li> <p><code><a href="../../bit64/help/hashfin.html">hashfin</a></code> (hash table lookup)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/hashrin.html">hashrin</a></code> (reverse lookup)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/sortfin.html">sortfin</a></code> (fast sorting)
+</p>
+</li>
+<li> <p><code><a href="../../bit64/help/orderfin.html">orderfin</a></code> (memory saving ordering).
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>A vector of the same length as <code>x</code>.
+</p>
+<p><code>match</code>: An integer vector giving the position in <code>table</code> of
+the first match if there is a match, otherwise <code>nomatch</code>.
+</p>
+<p>If <code>x[i]</code> is found to equal <code>table[j]</code> then the value
+returned in the <code>i</code>-th position of the return value is <code>j</code>,
+for the smallest possible <code>j</code>.  If no match is found, the value
+is <code>nomatch</code>.
+</p>
+<p><code>%in%</code>: A logical vector, indicating if a match was located for
+each element of <code>x</code>: thus the values are <code>TRUE</code> or
+<code>FALSE</code> and never <code>NA</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit64/help/match.html">match()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>x &lt;- as.integer64(c(NA, 0:9), 32)
+table &lt;- as.integer64(c(1:9, NA))
+match.integer64(x, table)
+"%in%.integer64"(x, table)
+
+x &lt;- as.integer64(sample(c(rep(NA, 9), 0:9), 32, TRUE))
+table &lt;- as.integer64(sample(c(rep(NA, 9), 1:9), 32, TRUE))
+stopifnot(identical(match.integer64(x, table), match(as.integer(x), as.integer(table))))
+stopifnot(identical("%in%.integer64"(x, table), as.integer(x) %in% as.integer(table)))
+
+## Not run: 
+    message("check when reverse hash-lookup beats standard hash-lookup")
+    e &lt;- 4:24
+    timx &lt;- timy &lt;- matrix(NA, length(e), length(e), dimnames=list(e,e))
+    for (iy in seq_along(e))
+    for (ix in 1:iy){
+        nx &lt;- 2^e[ix]
+        ny &lt;- 2^e[iy]
+        x &lt;- as.integer64(sample(ny, nx, FALSE))
+        y &lt;- as.integer64(sample(ny, ny, FALSE))
+        #hashfun(x, bits=as.integer(5))
+        timx[ix,iy] &lt;- repeat.time({
+        hx &lt;- hashmap(x)
+        py &lt;- hashrev(hx, y)
+        })[3]
+        timy[ix,iy] &lt;- repeat.time({
+        hy &lt;- hashmap(y)
+        px &lt;- hashpos(hy, x)
+        })[3]
+        #identical(px, py)
+        print(round(timx[1:iy,1:iy]/timy[1:iy,1:iy], 2), na.print="")
+    }
+
+    message("explore best low-level method given size of x and table")
+    B1 &lt;- 1:27
+    B2 &lt;- 1:27
+    tim &lt;- array(NA, dim=c(length(B1), length(B2), 5)
+ , dimnames=list(B1, B2, c("hashpos","hashrev","sortpos1","sortpos2","sortpos3")))
+    for (i1 in B1)
+    for (i2 in B2)
+    {
+      b1 &lt;- B1[i1]
+      b2 &lt;- B1[i2]
+      n1 &lt;- 2^b1
+      n2 &lt;- 2^b2
+      x1 &lt;- as.integer64(c(sample(n2, n1-1, TRUE), NA))
+      x2 &lt;- as.integer64(c(sample(n2, n2-1, TRUE), NA))
+      tim[i1,i2,1] &lt;- repeat.time({h &lt;- hashmap(x2);hashpos(h, x1);rm(h)})[3]
+      tim[i1,i2,2] &lt;- repeat.time({h &lt;- hashmap(x1);hashrev(h, x2);rm(h)})[3]
+      s &lt;- clone(x2); o &lt;- seq_along(s); ramsortorder(s, o)
+      tim[i1,i2,3] &lt;- repeat.time(sortorderpos(s, o, x1, method=1))[3]
+      tim[i1,i2,4] &lt;- repeat.time(sortorderpos(s, o, x1, method=2))[3]
+      tim[i1,i2,5] &lt;- repeat.time(sortorderpos(s, o, x1, method=3))[3]
+      rm(s,o)
+      print(apply(tim, 1:2, function(ti)if(any(is.na(ti)))NA else which.min(ti)))
+    }
+
+## End(Not run)
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit64</em> version 4.6.0-1 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

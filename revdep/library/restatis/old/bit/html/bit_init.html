@@ -1,0 +1,75 @@
+<!DOCTYPE html><html><head><title>R: Initializing bit masks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script>
+const macros = { "\\R": "\\textsf{R}", "\\mbox": "\\text", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>.BITS {bit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Initializing bit masks</h2>
+
+<h3>Description</h3>
+
+<p>Functions to allocate (and de-allocate) bit masks
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>.BITS
+
+bit_init()
+
+bit_done()
+</code></pre>
+
+
+<h3>Format</h3>
+
+<p>An object of class <code>integer</code> of length 1.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The C-code operates with bit masks.  The memory for these is allocated
+dynamically.  <code>bit_init</code> is called by <code><a href="../../base/html/base-defunct.html">.First.lib()</a></code> and
+<code>bit_done</code> is called by <code><a href="../../base/html/ns-hooks.html">.Last.lib()</a></code>.  You don't need to
+care about these under normal circumstances.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jens Oehlschlägel
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../bit/help/bit.html">bit()</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+  bit_done()
+  bit_init()
+
+</code></pre>
+
+<hr><div style="text-align: center;">[Package <em>bit</em> version 4.6.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>
