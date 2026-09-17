@@ -289,6 +289,6 @@ For more detailed information on additional API parameters available for filteri
 
 ## Further Resources
 
-- GENESIS API documentation: https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf
-- `{restatis}` package documentation: https://correlaid.github.io/restatis/
-- German Federal Statistical Office: https://www.destatis.de/
+- [GENESIS API documentation](https://www-genesis.destatis.de/datenbank/online/docs/GENESIS-Webservices_Einfuehrung.pdf)
+- [`{restatis}` package documentation](https://correlaid.github.io/restatis/)
+- [German Federal Statistical Office](https://www.destatis.de/)
