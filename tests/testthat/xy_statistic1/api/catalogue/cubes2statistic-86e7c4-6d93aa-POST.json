@@ -110,56 +110,56 @@
             "Code": "61111BM001",
             "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Monate, Jahr",
             "State": "vollständig mit Werten",
-            "Time": "Januar 1991-Januar 2026",
-            "LatestUpdate": "13.02.2026 18:00:05h",
+            "Time": "Januar 1991-April 2026",
+            "LatestUpdate": "11.05.2026 18:01:11h",
             "Information": "false"
         },
         {
             "Code": "61111BM002",
             "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 2-Steller, Monate, Jahr",
             "State": "vollständig mit Werten",
-            "Time": "Januar 1991-Januar 2026",
-            "LatestUpdate": "13.02.2026 18:00:27h",
+            "Time": "Januar 1991-April 2026",
+            "LatestUpdate": "11.05.2026 18:00:45h",
             "Information": "false"
         },
         {
             "Code": "61111BM003",
             "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 3-Steller, Monate, Jahr",
             "State": "vollständig mit Werten",
-            "Time": "Januar 1991-Januar 2026",
-            "LatestUpdate": "13.02.2026 18:00:30h",
+            "Time": "Januar 1991-April 2026",
+            "LatestUpdate": "11.05.2026 18:00:49h",
             "Information": "false"
         },
         {
             "Code": "61111BM004",
             "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 4-Steller, Monate, Jahr",
             "State": "vollständig mit Werten",
-            "Time": "Januar 1991-Januar 2026",
-            "LatestUpdate": "13.02.2026 18:00:13h",
+            "Time": "Januar 1991-April 2026",
+            "LatestUpdate": "11.05.2026 18:01:04h",
             "Information": "false"
         },
         {
             "Code": "61111BM005",
             "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums, 5-Steller, Monate, Jahr",
             "State": "vollständig mit Werten",
-            "Time": "Januar 1991-Januar 2026",
-            "LatestUpdate": "13.02.2026 18:00:09h",
+            "Time": "Januar 1991-April 2026",
+            "LatestUpdate": "11.05.2026 18:00:57h",
             "Information": "false"
         },
         {
             "Code": "61111BM006",
             "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszw.d.Individualkonsums,Sonderpositionen, Monate, Jahr",
             "State": "vollständig mit Werten",
-            "Time": "Januar 1991-Januar 2026",
-            "LatestUpdate": "13.02.2026 18:00:23h",
+            "Time": "Januar 1991-April 2026",
+            "LatestUpdate": "11.05.2026 18:01:01h",
             "Information": "false"
         },
         {
             "Code": "61111BM007",
             "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Deutschland insgesamt, Verwendungszwecke des Individualkonsums,10-Steller, Monate, Jahr",
             "State": "vollständig mit Werten",
-            "Time": "Januar 2020-Januar 2026",
-            "LatestUpdate": "13.02.2026 18:00:17h",
+            "Time": "Januar 2020-April 2026",
+            "LatestUpdate": "11.05.2026 18:00:53h",
             "Information": "false"
         },
         {
@@ -182,16 +182,16 @@
             "Code": "61111LM001",
             "Content": "Verbraucherpreisindex für Deutschland, Verbraucherpreisindex, Bundesländer, Monate, Jahr",
             "State": "vollständig mit Werten",
-            "Time": "Januar 1995-Januar 2026",
-            "LatestUpdate": "13.02.2026 18:00:02h",
+            "Time": "Januar 1995-April 2026",
+            "LatestUpdate": "11.05.2026 18:01:08h",
             "Information": "false"
         },
         {
             "Code": "61111LM100",
             "Content": "Verbraucherpreisindex für Deutschland, Index der Nettokaltmieten, Bundesländer, Monate, Jahr",
             "State": "vollständig mit Werten",
-            "Time": "Januar 2005-Januar 2026",
-            "LatestUpdate": "13.02.2026 18:00:20h",
+            "Time": "Januar 2005-April 2026",
+            "LatestUpdate": "11.05.2026 18:00:42h",
             "Information": "false"
         }
     ],

@@ -23,7 +23,7 @@
   # Set the default URL for the GENESIS database
   if (!nzchar(Sys.getenv("RESTATIS_GENESIS_URL"))) {
 
-    Sys.setenv(RESTATIS_GENESIS_URL = "https://www-genesis.destatis.de/genesisWS/rest/2020")
+    Sys.setenv(RESTATIS_GENESIS_URL = "https://genesis.destatis.de/genesisWS/rest/2020")
 
   }
 

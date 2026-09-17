@@ -7,7 +7,7 @@
 to the main databases of German official statistics:
 
 - The [**GENESIS database** of the Federal Statistical Office of Germany
-  (Destatis)](https://www-genesis.destatis.de/genesis/online)
+  (Destatis)](https://genesis.destatis.de/datenbank/online/)
 - [**regionalstatistik.de**, which is the database of the German Länder
   (Regionaldatenbank)](https://www.regionalstatistik.de/genesis/online/)
 - The [database of the **German 2022 Census** (Zensus
@@ -52,6 +52,12 @@ abbreviation strings are the following:
   cause warnings stemming from `{vroom}`. These can be ignored, but
   users have to carefully check the resulting `data.frames`. Use
   `vroom::problems()` to check the data objects for more information.
+- At the moment, using `gen_cube()` and the latest version of `{vroom}`,
+  there is a deprecation warning popping up that stems from our use of
+  `{readr}` to use literal lines of CSVs. This does not affect the
+  functionality of the function, so for now you can safely ignore it. We
+  monitor whether there will be a change on `{readr}`’s side or will
+  implement a fix with upcoming updates.
 
 ## Installation
 
@@ -141,10 +147,7 @@ does not (currently) support the use of API tokens.*
 ### Main features
 
 `{restatis}` provides functions (prefixed with `gen_`) for finding,
-exploring, and retrieving data from the three supported APIs. See the
-[“Basic restatis workflow”
-vignette](https://correlaid.github.io/restatis/articles/restatis.html)
-for an overview of the main features of the package.
+exploring, and retrieving data from the three supported APIs.
 
 In short, there are functions divided in two main parts, searching for
 (meta)data and retrieving data:

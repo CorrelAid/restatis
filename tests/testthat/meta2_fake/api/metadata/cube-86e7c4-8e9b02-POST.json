@@ -16,59 +16,48 @@
         "language": "de"
     },
     "Object": {
-        "Code": "12631BJ003",
-        "Content": "Statistik rechtskräftiger Urteile in Ehesachen, Ehescheidungen, Ehedauer, Gemeinsame minderjährige Kinder, Deutschland insgesamt, Jahr",
+        "Code": "11111BJ001",
+        "Content": "Feststellung des Gebietsstands, Gebietsfläche, Deutschland insgesamt, Stichtag",
         "State": "undefiniert",
         "Timeslices": [
-            "1997",
-            "1998",
-            "1999",
-            "2000",
-            "2001",
-            "2002",
-            "2003",
-            "2004",
-            "2005",
-            "2006",
-            "2007",
-            "2008",
-            "2009",
-            "2010",
-            "2011",
-            "2012",
-            "2013",
-            "2014",
-            "2015",
-            "2016",
-            "2017",
-            "2018",
-            "2019",
-            "2020",
-            "2021",
-            "2022",
-            "2023",
-            "2024"
+            "31.12.1995",
+            "31.12.1996",
+            "31.12.1997",
+            "31.12.1998",
+            "31.12.1999",
+            "31.12.2000",
+            "31.12.2001",
+            "31.12.2002",
+            "31.12.2003",
+            "31.12.2004",
+            "31.12.2005",
+            "31.12.2006",
+            "31.12.2007",
+            "31.12.2008",
+            "31.12.2009",
+            "31.12.2010",
+            "31.12.2011",
+            "31.12.2012",
+            "31.12.2013",
+            "31.12.2014",
+            "31.12.2015",
+            "31.12.2016",
+            "31.12.2017",
+            "31.12.2018",
+            "31.12.2019",
+            "31.12.2020",
+            "31.12.2021",
+            "31.12.2022",
+            "31.12.2023"
         ],
         "Values": "0",
         "Statistic": {
-            "Code": "12631",
-            "Content": "Statistik rechtskräftiger Urteile in Ehesachen",
-            "Updated": "01.12.2025 13:21:16h"
+            "Code": "11111",
+            "Content": "Feststellung des Gebietsstands",
+            "Updated": "01.12.2025 13:21:28h"
         },
         "Structure": {
             "Axis": [
-                {
-                    "Code": "BEVED1",
-                    "Content": "Ehedauer",
-                    "Type": "klassifizierend",
-                    "Updated": "19.02.2019 16:40:34h"
-                },
-                {
-                    "Code": "BEVMK1",
-                    "Content": "Gemeinsame minderjährige Kinder",
-                    "Type": "klassifizierend",
-                    "Updated": "25.01.2016 13:54:27h"
-                },
                 {
                     "Code": "DINSG",
                     "Content": "Deutschland insgesamt",
@@ -76,25 +65,25 @@
                     "Updated": "25.01.2016 13:54:17h"
                 },
                 {
-                    "Code": "JAHR",
-                    "Content": "Jahr",
+                    "Code": "STAG",
+                    "Content": "Stichtag",
                     "Type": "zeitidentifizierend",
-                    "Updated": "28.12.2022 09:37:21h"
+                    "Updated": "28.12.2022 09:31:04h"
                 }
             ],
             "Contents": [
                 {
-                    "Code": "BEV004",
-                    "Content": "Ehescheidungen",
-                    "Type": "Ganzzahl",
-                    "Unit": "Anzahl",
+                    "Code": "FLC006",
+                    "Content": "Gebietsfläche",
+                    "Type": "Festkommazahl",
+                    "Unit": "qkm",
                     "Values": "",
                     "Timeslices": null,
-                    "Updated": "04.08.2016 11:00:13h"
+                    "Updated": "12.04.2019 16:54:24h"
                 }
             ]
         },
-        "Updated": "25.06.2025 18:00:47h"
+        "Updated": "16.06.2025 13:06:35h"
     },
     "Copyright": "© Statistisches Bundesamt (Destatis), 2026"
 }

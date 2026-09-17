@@ -29,7 +29,7 @@
         {
             "Code": "12211",
             "Content": "Mikrozensus",
-            "Cubes": "575",
+            "Cubes": "618",
             "Information": "true"
         },
         {
@@ -71,7 +71,7 @@
         {
             "Code": "12611",
             "Content": "Statistik der Eheschließungen",
-            "Cubes": "7",
+            "Cubes": "8",
             "Information": "true"
         },
         {
@@ -184,7 +184,7 @@
         },
         {
             "Code": "21311",
-            "Content": "Statistik der Studenten",
+            "Content": "Statistik der Studierenden",
             "Cubes": "48",
             "Information": "true"
         },
@@ -767,7 +767,7 @@
         {
             "Code": "41313",
             "Content": "Viehbestandserhebung Schweine",
-            "Cubes": "10",
+            "Cubes": "12",
             "Information": "true"
         },
         {

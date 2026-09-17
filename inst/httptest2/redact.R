@@ -10,7 +10,7 @@ set_redactor(function(request) {
   final_string <- paste0(first_part,
                          paste0("username=ABCDEF&password=1234abcd&username=ABCDEF&password=1234abcd"),
                          paste0(string, collapse = "&"))
-  final_string <- gsub("https://www-genesis.destatis.de/genesisWS/rest/2020", "/api", final_string)
+  final_string <- gsub("https://genesis.destatis.de/genesisWS/rest/2020", "/api", final_string)
 
   request$url <- final_string
 

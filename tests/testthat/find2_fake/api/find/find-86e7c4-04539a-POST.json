@@ -106,72 +106,8 @@
             "Information": "false"
         },
         {
-            "Code": "51000BJ160",
-            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Jahr",
-            "State": "vollständig mit Werten",
-            "Time": "2008-2024",
-            "LatestUpdate": "01.10.2025 15:02:15h",
-            "Information": "false"
-        },
-        {
-            "Code": "51000BJ161",
-            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Jahr",
-            "State": "vollständig mit Werten",
-            "Time": "2008-2024",
-            "LatestUpdate": "01.10.2025 15:25:26h",
-            "Information": "false"
-        },
-        {
-            "Code": "51000BJ180",
-            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Jahr",
-            "State": "vollständig mit Werten",
-            "Time": "2006-2024",
-            "LatestUpdate": "01.10.2025 15:01:46h",
-            "Information": "false"
-        },
-        {
-            "Code": "51000BJ181",
-            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Jahr",
-            "State": "vollständig mit Werten",
-            "Time": "2006-2024",
-            "LatestUpdate": "01.10.2025 15:26:44h",
-            "Information": "false"
-        },
-        {
-            "Code": "51000BM160",
-            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Monate, Jahr",
-            "State": "vollständig mit Werten",
-            "Time": "Januar 2008-November 2025",
-            "LatestUpdate": "19.01.2026 15:04:44h",
-            "Information": "false"
-        },
-        {
-            "Code": "51000BM161",
-            "Content": "Außenhandel, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (6-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Monate, Jahr",
-            "State": "vollständig mit Werten",
-            "Time": "Januar 2008-November 2025",
-            "LatestUpdate": "19.01.2026 18:09:55h",
-            "Information": "false"
-        },
-        {
-            "Code": "51000BM180",
-            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Monate, Jahr",
-            "State": "vollständig mit Werten",
-            "Time": "Januar 2006-November 2025",
-            "LatestUpdate": "19.01.2026 15:05:32h",
-            "Information": "false"
-        },
-        {
-            "Code": "51000BM181",
-            "Content": "Außenhandel, Ausfuhr: Besondere Maßeinheit, Ausfuhr: Gewicht, Ausfuhr: Wert, Ausfuhr: Wert (US-Dollar), Einfuhr: Besondere Maßeinheit, Einfuhr: Gewicht, Einfuhr: Wert, Einfuhr: Wert (US-Dollar), Warenverzeichnis Außenhandelsstatistik (8-Steller), Deutschland insgesamt, Länderverzeichnis für die Außenhandelsstatistik, Monate, Jahr",
-            "State": "vollständig mit Werten",
-            "Time": "Januar 2006-November 2025",
-            "LatestUpdate": "19.01.2026 20:45:56h",
-            "Information": "false"
-        },
-        {
             "Code": "62361BJ010",
-            "Content": "Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonatsverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Berufsgattungen (KB2010), 5-Steller, Stichmonat",
+            "Content": "Verdiensterhebung, Durchschn. Bruttomonatsverdienste ohne Sonderz., Durchschn. Bruttostundenverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Berufsgattungen (KB2010), 5-Steller, Stichmonat",
             "State": "vollständig mit Werten",
             "Time": "04/2022-04/2025",
             "LatestUpdate": "04.12.2025 19:46:30h",
@@ -179,7 +115,7 @@
         },
         {
             "Code": "62361BJ013",
-            "Content": "Verdiensterhebung, Durchschn. Bruttostundenverdienste ohne Sonderz., Durchschn. Bruttomonatsverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Geschlecht, Berufsgattungen (KB2010), 5-Steller, Stichmonat",
+            "Content": "Verdiensterhebung, Durchschn. Bruttomonatsverdienste ohne Sonderz., Durchschn. Bruttostundenverdienste ohne Sonderz., Mittlere Bruttostundenverdienste ohne Sonderz., Mittlere Bruttomonatsverdienste ohne Sonderz., Deutschland insgesamt, Geschlecht, Berufsgattungen (KB2010), 5-Steller, Stichmonat",
             "State": "vollständig mit Werten",
             "Time": "04/2022-04/2025",
             "LatestUpdate": "04.12.2025 19:45:49h",
@@ -189,16 +125,16 @@
             "Code": "62361BJ016",
             "Content": "Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. Sonderz., Mittlere Bruttojahresverdienste inkl. Sonderz., Deutschland insgesamt, Berufsgattungen (KB2010), 5-Steller, Jahr",
             "State": "vollständig mit Werten",
-            "Time": "2022-2024",
-            "LatestUpdate": "27.03.2025 08:05:31h",
+            "Time": "2022-2025",
+            "LatestUpdate": "19.03.2026 14:26:10h",
             "Information": "false"
         },
         {
             "Code": "62361BJ019",
             "Content": "Verdiensterhebung, Durchschn. Bruttojahresverdienste inkl. Sonderz., Mittlere Bruttojahresverdienste inkl. Sonderz., Deutschland insgesamt, Geschlecht, Berufsgattungen (KB2010), 5-Steller, Jahr",
             "State": "vollständig mit Werten",
-            "Time": "2022-2024",
-            "LatestUpdate": "27.03.2025 08:05:41h",
+            "Time": "2022-2025",
+            "LatestUpdate": "19.03.2026 14:26:01h",
             "Information": "false"
         }
     ],
@@ -216,12 +152,6 @@
             "Information": "true"
         },
         {
-            "Code": "51000",
-            "Content": "Außenhandel",
-            "Cubes": "79",
-            "Information": "true"
-        },
-        {
             "Code": "62361",
             "Content": "Verdiensterhebung",
             "Cubes": "152",
@@ -232,87 +162,32 @@
         {
             "Code": "12251-0005",
             "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Deutschland, Jahre, Geschlecht, Stellung im Beruf, Benutztes Verkehrsmittel für den Hinweg zur Arbeitsstätte",
-            "Time": ""
+            "Time": "",
+            "Valid": "true"
         },
         {
             "Code": "12251-0105",
             "Content": "Erwerbstätige aus Hauptwohnsitzhaushalten: Bundesländer, Jahre, Geschlecht, Stellung im Beruf, Benutztes Verkehrsmittel für den Hinweg zur Arbeitsstätte",
-            "Time": ""
+            "Time": "",
+            "Valid": "true"
         },
         {
             "Code": "45413-0004",
             "Content": "Reisen: Deutschland, Jahre,\nReisedauer/Reisegründe/Unterkünfte/Verkehrsmittel",
-            "Time": ""
-        },
-        {
-            "Code": "51000-0005",
-            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWarensystematik",
-            "Time": ""
-        },
-        {
-            "Code": "51000-0006",
-            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWarensystematik",
-            "Time": ""
-        },
-        {
-            "Code": "51000-0009",
-            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre, Land,\nWarenverzeichnis (4-/6-Steller)",
-            "Time": ""
-        },
-        {
-            "Code": "51000-0010",
-            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWare (4-/6-Steller), Länder",
-            "Time": ""
-        },
-        {
-            "Code": "51000-0011",
-            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate, Land,\nWarenverzeichnis (4-/6-Steller)",
-            "Time": ""
-        },
-        {
-            "Code": "51000-0012",
-            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWare (4-/6-Steller), Länder",
-            "Time": ""
-        },
-        {
-            "Code": "51000-0013",
-            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWarenverzeichnis (8-Steller)",
-            "Time": ""
-        },
-        {
-            "Code": "51000-0014",
-            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWarenverzeichnis (8-Steller)",
-            "Time": ""
-        },
-        {
-            "Code": "51000-0015",
-            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre, Land,\nWarenverzeichnis (8-Steller)",
-            "Time": ""
-        },
-        {
-            "Code": "51000-0016",
-            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Jahre,\nWare (8-Steller), Länder",
-            "Time": ""
-        },
-        {
-            "Code": "51000-0017",
-            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate, Land,\nWarenverzeichnis (8-Steller)",
-            "Time": ""
-        },
-        {
-            "Code": "51000-0018",
-            "Content": "Aus- und Einfuhr (Außenhandel): Deutschland, Monate,\nWare (8-Steller), Länder",
-            "Time": ""
+            "Time": "",
+            "Valid": "true"
         },
         {
             "Code": "62361-0030",
             "Content": "Bruttostundenverdienste, Bruttomonatsverdienste: Deutschland, Stichmonat, Geschlecht, Berufe",
-            "Time": ""
+            "Time": "",
+            "Valid": "true"
         },
         {
             "Code": "62361-0034",
             "Content": "Bruttojahresverdienste: Deutschland, Jahre, Geschlecht, Berufe",
-            "Time": ""
+            "Time": "",
+            "Valid": "true"
         }
     ],
     "Timeseries": null,
@@ -337,20 +212,6 @@
             "Type": "sachlich",
             "Values": "6",
             "Information": "false"
-        },
-        {
-            "Code": "WAM6",
-            "Content": "Warenverzeichnis Außenhandelsstatistik (6-Steller)",
-            "Type": "sachlich",
-            "Values": "6438",
-            "Information": "true"
-        },
-        {
-            "Code": "WAM8",
-            "Content": "Warenverzeichnis Außenhandelsstatistik (8-Steller)",
-            "Type": "sachlich",
-            "Values": "14319",
-            "Information": "true"
         }
     ],
     "Copyright": "© Statistisches Bundesamt (Destatis), 2026"

@@ -1330,6 +1330,20 @@
             "Information": "false"
         },
         {
+            "Code": "ALTEG1",
+            "Content": "Alter des Ehegatten 1",
+            "Type": "sachlich",
+            "Values": "13",
+            "Information": "true"
+        },
+        {
+            "Code": "ALTEG2",
+            "Content": "Alter des Ehegatten 2",
+            "Type": "sachlich",
+            "Values": "13",
+            "Information": "true"
+        },
+        {
             "Code": "ALTEM4",
             "Content": "Alter des Ehemannes",
             "Type": "sachlich",
@@ -1911,13 +1925,6 @@
             "Information": "false"
         },
         {
-            "Code": "ASG001",
-            "Content": "Ausgaben",
-            "Type": "Wert",
-            "Values": "-1",
-            "Information": "false"
-        },
-        {
             "Code": "ASG002",
             "Content": "Ausgaben für den Umweltschutz",
             "Type": "Wert",
@@ -1955,13 +1962,6 @@
         {
             "Code": "ASG007",
             "Content": "Laufende Ausgaben für den Umweltschutz",
-            "Type": "Wert",
-            "Values": "-1",
-            "Information": "false"
-        },
-        {
-            "Code": "ASG008",
-            "Content": "Sonstige Ausgaben",
             "Type": "Wert",
             "Values": "-1",
             "Information": "false"
@@ -2420,13 +2420,6 @@
             "Type": "Wert",
             "Values": "-1",
             "Information": "true"
-        },
-        {
-            "Code": "AUFW06",
-            "Content": "Aufwendungen für Leistungen",
-            "Type": "Wert",
-            "Values": "-1",
-            "Information": "false"
         },
         {
             "Code": "AUFW07",
@@ -3140,6 +3133,13 @@
             "Content": "Beschäftigungsbereich",
             "Type": "sachlich",
             "Values": "2",
+            "Information": "false"
+        },
+        {
+            "Code": "BESG11",
+            "Content": "Beschäftigtengrößenklassen",
+            "Type": "sachlich",
+            "Values": "5",
             "Information": "false"
         },
         {
