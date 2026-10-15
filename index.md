@@ -52,6 +52,14 @@ respective abbreviation strings are the following:
   users have to carefully check the resulting `data.frames`. Use
   [`vroom::problems()`](https://vroom.tidyverse.org/reference/problems.html)
   to check the data objects for more information.
+- API requests (such as
+  [`gen_catalogue()`](https://correlaid.github.io/restatis/reference/gen_catalogue.md))
+  can sometimes fail when using the default pagelength
+  (`pagelength = 500`). This seems to be a server-side performance
+  limit: some endpoints (like catalogue/tables) take longer to respond
+  when generating large outputs. Because this stems from the external
+  API server, lowering the pagelength parameter (e.g., to 20) is
+  recommended if you encounter such errors.
 
 ## Installation
 

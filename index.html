@@ -112,6 +112,7 @@
 <ul>
 <li>It is unclear whether the databases of Sachsen-Anhalt (<code>st</code>), Bayern (<code>bayern</code>), Nordrhein-Westfalen (<code>nrw</code>) and Kommunales Bildungsmonitoring (<code>bildung</code>) support the creation of jobs. This is because it is sometimes hard to create large enough tables on a test basis. The package supports their creation and download for all databases mentioned, but there might be issues because of lack of tests.</li>
 <li>The CSV files currently returned by the <code>bayern</code> database (this affects <code><a href="reference/gen_table.html">gen_table()</a></code>) appear to be slightly corrupted. This might cause warnings stemming from <a href="https://vroom.tidyverse.org" class="external-link">vroom</a>. These can be ignored, but users have to carefully check the resulting <code>data.frames</code>. Use <code><a href="https://vroom.tidyverse.org/reference/problems.html" class="external-link">vroom::problems()</a></code> to check the data objects for more information.</li>
+<li>API requests (such as <code><a href="reference/gen_catalogue.html">gen_catalogue()</a></code>) can sometimes fail when using the default pagelength (<code>pagelength = 500</code>). This seems to be a server-side performance limit: some endpoints (like catalogue/tables) take longer to respond when generating large outputs. Because this stems from the external API server, lowering the pagelength parameter (e.g., to 20) is recommended if you encounter such errors.</li>
 </ul>
 </div>
 <div class="section level2">
