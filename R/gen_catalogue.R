@@ -342,7 +342,9 @@ gen_catalogue <- function(code = NULL,
 
       }} else {
 
-        list_resp <- list(list_of_cubes, list_of_stats, list_of_tabs)
+        list_resp <- list("Cubes" = list_of_cubes,
+                          "Statistics" = list_of_stats,
+                          "Tables" = list_of_tabs)
       }
 
     return(list_resp)

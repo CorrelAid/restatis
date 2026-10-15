@@ -97,43 +97,43 @@ gen_objects2stat <- function(code = NULL,
       # Debug Return
       if(isTRUE(debug)){
 
-        return(results_json)
+        list_of_tables <- results_json
 
-      }
+      } else {
 
-      empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
+        empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
 
-      if (isTRUE(empty_object)) {
+        if (isTRUE(empty_object)) {
 
-        df_tables <- "No 'tables' object found for your request."
+          df_tables <- "No 'tables' object found for your request."
 
-      } else if (isFALSE(empty_object)) {
+        } else if (isFALSE(empty_object)) {
 
-        df_tables <- results_json$Status$Content
+          df_tables <- results_json$Status$Content
 
-      } else if (empty_object == "DONE") {
+        } else if (empty_object == "DONE") {
 
-        if (isTRUE(detailed)) {
+          if (isTRUE(detailed)) {
 
-          df_tables <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content",
-                                                          "Time"))
+            df_tables <- binding_lapply(results_json$List,
+                                        characteristics = c("Code",
+                                                            "Content",
+                                                            "Time"))
 
-        } else {
+          } else {
 
-          df_tables <- binding_lapply(results_json$List,
-                                      characteristics = c("Code",
-                                                          "Content"))
+            df_tables <- binding_lapply(results_json$List,
+                                        characteristics = c("Code",
+                                                            "Content"))
+
+          }
+
+          df_tables$Object_Type <- "Table"
+
+          df_tables <- tibble::as_tibble(df_tables)
 
         }
-
-        df_tables$Object_Type <- "Table"
-
-        df_tables <- tibble::as_tibble(df_tables)
-
       }
-
     }
 
     #---------------------------------------------------------------------------
@@ -154,45 +154,45 @@ gen_objects2stat <- function(code = NULL,
       # Debug Return
       if(isTRUE(debug)){
 
-        return(results_json)
+        list_of_variables <- results_json
 
-      }
+      } else {
 
-      empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
+        empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
 
-      if (isTRUE(empty_object)) {
+        if (isTRUE(empty_object)) {
 
-        df_variables <- "No 'variables' object found for your request."
+          df_variables <- "No 'variables' object found for your request."
 
-      } else if (isFALSE(empty_object)) {
+        } else if (isFALSE(empty_object)) {
 
-        df_variables <- results_json$Status$Content
+          df_variables <- results_json$Status$Content
 
-      } else if (empty_object == "DONE") {
+        } else if (empty_object == "DONE") {
 
-        if (detailed == TRUE) {
+          if (detailed == TRUE) {
 
-          df_variables <- binding_lapply(results_json$List,
-                                         characteristics = c("Code",
-                                                             "Content",
-                                                             "Type",
-                                                             "Values",
-                                                             "Information"))
+            df_variables <- binding_lapply(results_json$List,
+                                           characteristics = c("Code",
+                                                               "Content",
+                                                               "Type",
+                                                               "Values",
+                                                               "Information"))
 
-        } else {
+          } else {
 
-          df_variables <- binding_lapply(results_json$List,
-                                         characteristics = c("Code",
-                                                             "Content"))
+            df_variables <- binding_lapply(results_json$List,
+                                           characteristics = c("Code",
+                                                               "Content"))
+
+          }
+
+          df_variables$Object_Type <- "Variable"
+
+          df_variables <- tibble::as_tibble(df_variables)
 
         }
-
-        df_variables$Object_Type <- "Variable"
-
-        df_variables <- tibble::as_tibble(df_variables)
-
       }
-
     }
 
     #---------------------------------------------------------------------------
@@ -217,77 +217,86 @@ gen_objects2stat <- function(code = NULL,
       # Debug Return
       if(isTRUE(debug)){
 
-        return(results_json)
+        df_cubes <- results_json
 
-      }
+      } else {
 
-      empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
+        empty_object <- test_if_error(results_json, para = error.ignore, verbose = verbose)
 
-      if (isTRUE(empty_object)) {
+        if (isTRUE(empty_object)) {
 
-        df_cubes <- "No 'cubes' object found for your request."
+          df_cubes <- "No 'cubes' object found for your request."
 
-      } else if (isFALSE(empty_object)) {
+        } else if (isFALSE(empty_object)) {
 
-        df_cubes <- results_json$Status$Content
+          df_cubes <- results_json$Status$Content
 
-      } else if (empty_object == "DONE") {
+        } else if (empty_object == "DONE") {
 
-        if (isTRUE(detailed)) {
+          if (isTRUE(detailed)) {
 
-          df_cubes <- binding_lapply(results_json$List,
-                                     characteristics = c("Code",
-                                                         "Content",
-                                                         "Time",
-                                                         "State",
-                                                         "LatestUpdate",
-                                                         "Information"))
+            df_cubes <- binding_lapply(results_json$List,
+                                       characteristics = c("Code",
+                                                           "Content",
+                                                           "Time",
+                                                           "State",
+                                                           "LatestUpdate",
+                                                           "Information"))
 
-        } else {
+          } else {
 
-          df_cubes <- binding_lapply(results_json$List,
-                                     characteristics = c("Code",
-                                                         "Content"))
+            df_cubes <- binding_lapply(results_json$List,
+                                       characteristics = c("Code",
+                                                           "Content"))
+
+          }
+
+          df_cubes$Object_Type <- "Cube"
+
+          df_cubes <- tibble::as_tibble(df_cubes)
 
         }
-
-        df_cubes$Object_Type <- "Cube"
-
-        df_cubes <- tibble::as_tibble(df_cubes)
-
       }
-
     }
 
     #---------------------------------------------------------------------------
 
     # Summary #
 
-    if (all(c("tables", "variables", "cubes") %in% category)) {
+    if(isFALSE(debug)){
 
-      list_resp <- list("Tables" = df_tables,
-                        "Variables" = df_variables,
+      if (all(c("tables", "variables", "cubes") %in% category)) {
+
+        list_resp <- list("Tables" = df_tables,
+                          "Variables" = df_variables,
+                          "Cubes" = df_cubes)
+
+      } else if (category == "tables") {
+
+        list_resp <- df_tables
+
+      } else if (category == "variables") {
+
+        list_resp <- df_variables
+
+      } else if (category == "cubes") {
+
+        list_resp <- df_cubes
+      }
+
+      attr(list_resp, "Code") <- results_json$Parameter$term
+      attr(list_resp, "Database") <- db
+      attr(list_resp, "Category") <- category
+      attr(list_resp, "Language") <- results_json$Parameter$language
+      attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
+      attr(list_resp, "Copyright") <- results_json$Copyright
+
+    } else {
+
+      list_resp <- list("Tables" = list_of_tables,
+                        "Variables" = list_of_variables,
                         "Cubes" = df_cubes)
-
-    } else if (category == "tables") {
-
-      list_resp <- df_tables
-
-    } else if (category == "variables") {
-
-      list_resp <- df_variables
-
-    } else if (category == "cubes") {
-
-      list_resp <- df_cubes
     }
-
-    attr(list_resp, "Code") <- results_json$Parameter$term
-    attr(list_resp, "Database") <- db
-    attr(list_resp, "Category") <- category
-    attr(list_resp, "Language") <- results_json$Parameter$language
-    attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
-    attr(list_resp, "Copyright") <- results_json$Copyright
 
     return(list_resp)
 
