@@ -1,6 +1,6 @@
 #' Search For Tables, Statistics and Cubes
 #'
-#' @description Function to search for tables, statistics and cubes from the respective database. Additionally, it structures the output based on the internal tree structure based on the EVAS numbers. Time-series are represented as cubes with a specified time span. Important note: To be useful in searching for objects it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
+#' @description Function to search for tables, statistics and cubes from the respective database. Time-series are represented as cubes with a specified time span. Important note: To be useful in searching for objects it is highly recommended to work with "*" placeholders (see examples). The placeholder can be placed before and/or after the search term.
 #'
 #' @param code String with a maximum length of 15 characters. Only one code per iteration. "*" notations are possible.
 #' @param database Character string. Indicator if the GENESIS ('genesis'), Zensus 2022 ('zensus'), regionalstatistik.de ('regio'), statistikdaten.bayern.de ('bayern'), landesdatenbank.nrw.de ('nrw'), bildungsmonitoring.de ('bildung') or genesis.sachsen-anhalt.de ('st') database is called. If all databases should be checked, use 'all'. Default option is 'all'.

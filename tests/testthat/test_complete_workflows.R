@@ -53,7 +53,7 @@ test_that("authentication and data access workflow", {
                                category = "tables")
 
     expect_type(object = catalogue, type = "list")
-    expect_true(nrow(catalogue[["Tables"]][[1]][[1]][[1]][[1]]) > 0)
+    expect_true(nrow(catalogue[["Tables"]]) > 0)
 
   }
 
@@ -206,12 +206,12 @@ test_that("detailed vs. non-detailed queries are consistent", {
                             detailed = TRUE)
 
   # Detailed should have more columns
-  expect_true(ncol(detailed[["Tables"]][[1]][[1]][[1]][[1]]) >=
-              ncol(basic[["Tables"]][[1]][[1]][[1]][[1]]))
+  expect_true(ncol(detailed[["Tables"]]) >=
+              ncol(basic[["Tables"]]))
 
   # Should have same number of rows
-  expect_equal(nrow(basic[["Tables"]][[1]][[1]][[1]][[1]]),
-               nrow(detailed[["Tables"]][[1]][[1]][[1]][[1]]))
+  expect_equal(nrow(basic[["Tables"]]),
+               nrow(detailed[["Tables"]]))
 
 })
 
