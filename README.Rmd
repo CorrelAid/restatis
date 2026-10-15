@@ -64,6 +64,12 @@ abbreviation strings are the following:
   cause warnings stemming from `{vroom}`. These can be ignored, but users
   have to carefully check the resulting `data.frames`. Use
   `vroom::problems()` to check the data objects for more information.
+- API requests (such as `gen_catalogue()`) can sometimes fail when using 
+  the default pagelength (`pagelength = 500`). This seems to be a 
+  server-side performance limit: some endpoints (like catalogue/tables) 
+  take longer to respond when generating large outputs. Because this 
+  stems from the external API server, lowering the pagelength 
+  parameter (e.g., to 20) is recommended if you encounter such errors.
 
 ## Installation
 
