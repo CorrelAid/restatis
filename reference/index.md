@@ -12,12 +12,8 @@
   : check_results
 - [`.gen_api_core()`](https://correlaid.github.io/restatis/reference/dot-gen_api_core.md)
   : Basic API request function
-- [`evas_list`](https://correlaid.github.io/restatis/reference/evas_list.md)
-  : List of EVAS Codes
 - [`find_token()`](https://correlaid.github.io/restatis/reference/find_token.md)
   : find_token
-- [`forming_evas()`](https://correlaid.github.io/restatis/reference/forming_evas.md)
-  : forming_evas
 - [`gen_alternative_terms()`](https://correlaid.github.io/restatis/reference/gen_alternative_terms.md)
   : Find Similar Search Terms
 - [`gen_auth_ask()`](https://correlaid.github.io/restatis/reference/gen_auth_ask.md)
@@ -64,8 +60,6 @@
   : List Currently Used Special Signs
 - [`gen_table()`](https://correlaid.github.io/restatis/reference/gen_table.md)
   : Download Table As Data.Frame
-- [`gen_update_evas()`](https://correlaid.github.io/restatis/reference/gen_update_evas.md)
-  : Update EVAS Database
 - [`gen_val2var()`](https://correlaid.github.io/restatis/reference/gen_val2var.md)
   : Extract Values From Variable
 - [`gen_val2var2stat()`](https://correlaid.github.io/restatis/reference/gen_val2var2stat.md)

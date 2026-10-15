@@ -1,12 +1,10 @@
 # Search For Tables, Statistics and Cubes
 
 Function to search for tables, statistics and cubes from the respective
-database. Additionally, it structures the output based on the internal
-tree structure based on the EVAS numbers. Time-series are represented as
-cubes with a specified time span. Important note: To be useful in
-searching for objects it is highly recommended to work with "\*"
-placeholders (see examples). The placeholder can be placed before and/or
-after the search term.
+database. Time-series are represented as cubes with a specified time
+span. Important note: To be useful in searching for objects it is highly
+recommended to work with "\*" placeholders (see examples). The
+placeholder can be placed before and/or after the search term.
 
 ## Usage
 
@@ -79,6 +77,9 @@ gen_catalogue(
 
   Integer. Maximum length of results or objects (e.g., number of
   tables). Defaults to 500. Maximum of the databases is 25,000 objects.
+  API performance, practical output limits, and speeds vary across
+  supported databases. Adjust this parameter to optimize output
+  performance for your target database.
 
 - error.ignore:
 

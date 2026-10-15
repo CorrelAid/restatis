@@ -13,9 +13,7 @@
 <url><loc>https://correlaid.github.io/restatis/reference/check_function_input.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/check_results.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/dot-gen_api_core.html</loc></url>
-<url><loc>https://correlaid.github.io/restatis/reference/evas_list.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/find_token.html</loc></url>
-<url><loc>https://correlaid.github.io/restatis/reference/forming_evas.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_alternative_terms.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_auth_ask.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_auth_get.html</loc></url>
@@ -39,7 +37,6 @@
 <url><loc>https://correlaid.github.io/restatis/reference/gen_search_vars.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_signs.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_table.html</loc></url>
-<url><loc>https://correlaid.github.io/restatis/reference/gen_update_evas.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_val2var.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_val2var2stat.html</loc></url>
 <url><loc>https://correlaid.github.io/restatis/reference/gen_var2stat.html</loc></url>
