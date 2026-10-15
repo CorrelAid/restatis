@@ -261,25 +261,27 @@ gen_objects2var <- function(code = NULL,
     #---------------------------------------------------------------------------
     # Summary #
 
+    list_resp <- list()
+
     if(isFALSE(debug)){
 
-      if (all(c("tables", "statistics", "cubes") %in% category)) {
+      if("cubes" %in% category){
 
-        list_resp <- list("Tables" = df_tables,
-                          "Statistics" = df_statistics,
-                          "Cubes" = df_cubes)
+        list_resp[["Cubes"]] <- df_cubes
 
-      } else if (category == "tables") {
+      }
 
-        list_resp <- df_tables
+      #---------------------------------------------------------------------------
+      if ("statistics" %in% category) {
 
-      } else if (category == "statistics") {
+        list_resp[["Statistics"]] <- df_variables
 
-        list_resp <- df_statistics
+      }
 
-      } else if (category == "cubes") {
+      #---------------------------------------------------------------------------
+      if ("tables" %in% category) {
 
-        list_resp <- df_cubes
+        list_resp[["Tables"]] <- df_tables
 
       }
 
@@ -292,9 +294,26 @@ gen_objects2var <- function(code = NULL,
 
     } else {
 
-      list_resp <- list("Tables" = df_tables,
-                        "Statistics" = df_statistics,
-                        "Cubes" = df_cubes)
+      if ("cubes" %in% category) {
+
+        list_resp[["Cubes"]] <- df_cubes
+
+      }
+
+      #---------------------------------------------------------------------------
+      if ("statistics" %in% category) {
+
+        list_resp[["Statistics"]] <- df_variables
+
+      }
+
+      #---------------------------------------------------------------------------
+      if ("tables" %in% category) {
+
+        list_resp[["Tables"]] <- df_tables
+
+      }
+
     }
 
     return(list_resp)

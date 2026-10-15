@@ -269,55 +269,53 @@ gen_catalogue <- function(code = NULL,
     #---------------------------------------------------------------------------
     # Summary
 
+    list_resp <- list()
+
     if(isFALSE(debug)){
-      if (all(c("tables", "statistics", "cubes") %in% category)) {
 
-        list_resp <- list("Cubes" = if (length(list_of_cubes) == 1) {tibble::as_tibble(list_of_cubes)} else {list_of_cubes},
-                          "Statistics" = if (length(list_of_stats) == 1) {tibble::as_tibble(list_of_stats)} else {list_of_stats},
-                          "Tables" = if (length(list_of_tabs) == 1) {tibble::as_tibble(list_of_tabs)} else {list_of_tabs})
-
-
-        #---------------------------------------------------------------------------
-      } else if ("cubes" %in% category) {
+      if("cubes" %in% category){
 
         if (length(list_of_cubes) == 1 && db == "zensus") {
 
-          list_resp <- list_of_cubes
+          list_resp[["Cubes"]] <- list_of_cubes
 
         } else if (length(list_of_cubes) == 1) {
 
-          list_resp <- list("Cubes" = tibble::as_tibble(list_of_cubes))
+          list_resp[["Cubes"]] <- tibble::as_tibble(list_of_cubes)
 
         } else {
 
-          list_resp <- list("Cubes" = list_of_cubes)
+          list_resp[["Cubes"]] <- list_of_cubes
 
         }
 
-        #---------------------------------------------------------------------------
-      } else if ("statistics" %in% category) {
+      }
+
+      #---------------------------------------------------------------------------
+      if ("statistics" %in% category) {
 
         if (length(list_of_stats) == 1) {
 
-          list_resp <- list("Statistics" = tibble::as_tibble(list_of_stats))
+          list_resp[["Statistics"]] <- tibble::as_tibble(list_of_stats)
 
         } else {
 
-          list_resp <- list("Statistics" = list_of_stats)
+          list_resp[["Statistics"]] <- list_of_stats
 
         }
 
+      }
 
-        #---------------------------------------------------------------------------
-      } else if ("tables" %in% category) {
+      #---------------------------------------------------------------------------
+      if ("tables" %in% category) {
 
         if (length(list_of_tabs) == 1) {
 
-          list_resp <- list("Tables" = tibble::as_tibble(list_of_tabs))
+          list_resp[["Tables"]] <- tibble::as_tibble(list_of_tabs)
 
         } else {
 
-          list_resp <- list("Tables" = list_of_tabs)
+          list_resp[["Tables"]] <- list_of_tabs
 
         }
 
@@ -340,12 +338,31 @@ gen_catalogue <- function(code = NULL,
         attr(list_resp, "Pagelength") <- results_json$Parameter$pagelength
         attr(list_resp, "Copyright") <- results_json$Copyright
 
-      }} else {
-
-        list_resp <- list("Cubes" = list_of_cubes,
-                          "Statistics" = list_of_stats,
-                          "Tables" = list_of_tabs)
       }
+
+    } else {
+
+       if ("cubes" %in% category) {
+
+        list_resp[["Cubes"]] <- list_of_cubes
+
+       }
+
+      #---------------------------------------------------------------------------
+      if ("statistics" %in% category) {
+
+        list_resp[["Statistics"]] <- list_of_stats
+
+      }
+
+      #---------------------------------------------------------------------------
+      if ("tables" %in% category) {
+
+        list_resp[["Tables"]] <- list_of_tabs
+
+      }
+
+    }
 
     return(list_resp)
 

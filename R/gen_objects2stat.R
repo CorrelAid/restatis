@@ -97,7 +97,7 @@ gen_objects2stat <- function(code = NULL,
       # Debug Return
       if(isTRUE(debug)){
 
-        list_of_tables <- results_json
+        df_tables <- results_json
 
       } else {
 
@@ -154,7 +154,7 @@ gen_objects2stat <- function(code = NULL,
       # Debug Return
       if(isTRUE(debug)){
 
-        list_of_variables <- results_json
+        df_variables <- results_json
 
       } else {
 
@@ -262,26 +262,28 @@ gen_objects2stat <- function(code = NULL,
     #---------------------------------------------------------------------------
 
     # Summary #
+    list_resp <- list()
 
     if(isFALSE(debug)){
 
-      if (all(c("tables", "variables", "cubes") %in% category)) {
+      if("cubes" %in% category){
 
-        list_resp <- list("Tables" = df_tables,
-                          "Variables" = df_variables,
-                          "Cubes" = df_cubes)
+          list_resp[["Cubes"]] <- df_cubes
 
-      } else if (category == "tables") {
+      }
 
-        list_resp <- df_tables
+      #---------------------------------------------------------------------------
+      if ("variables" %in% category) {
 
-      } else if (category == "variables") {
+          list_resp[["Variables"]] <- df_variables
 
-        list_resp <- df_variables
+      }
 
-      } else if (category == "cubes") {
+      #---------------------------------------------------------------------------
+      if ("tables" %in% category) {
 
-        list_resp <- df_cubes
+          list_resp[["Tables"]] <- df_tables
+
       }
 
       attr(list_resp, "Code") <- results_json$Parameter$term
@@ -293,9 +295,26 @@ gen_objects2stat <- function(code = NULL,
 
     } else {
 
-      list_resp <- list("Tables" = list_of_tables,
-                        "Variables" = list_of_variables,
-                        "Cubes" = df_cubes)
+      if ("cubes" %in% category) {
+
+        list_resp[["Cubes"]] <- df_cubes
+
+      }
+
+      #---------------------------------------------------------------------------
+      if ("variables" %in% category) {
+
+        list_resp[["Variables"]] <- df_variables
+
+      }
+
+      #---------------------------------------------------------------------------
+      if ("tables" %in% category) {
+
+        list_resp[["Tables"]] <- df_tables
+
+      }
+
     }
 
     return(list_resp)
